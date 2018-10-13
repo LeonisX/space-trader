@@ -114,7 +114,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // boxAlert
         //
-        this.boxAlert.Controls.addAll((new WinformControl[]{
+        this.boxAlert.controls.addAll((new WinformControl[]{
                 this.btnTestAlert,
                 this.txtValue3,
                 this.txtValue2,
@@ -206,7 +206,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // groupBox1
         //
-        this.groupBox1.Controls.addAll((new WinformControl[]{
+        this.groupBox1.controls.addAll((new WinformControl[]{
                 this.btnTestSpecialEvent,
                 this.selSpecialEvent,
                 this.lblSpecialEvent}));

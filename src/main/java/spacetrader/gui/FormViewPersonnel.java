@@ -111,8 +111,8 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // boxCurrentCrew
         //
-        this.boxCurrentCrew.Controls.add(this.lblCrewNoQuarters);
-        this.boxCurrentCrew.Controls.add(this.lstCrew);
+        this.boxCurrentCrew.controls.add(this.lblCrewNoQuarters);
+        this.boxCurrentCrew.controls.add(this.lstCrew);
         this.boxCurrentCrew.setLocation(new java.awt.Point(8, 8));
         this.boxCurrentCrew.setName("boxCurrentCrew");
         this.boxCurrentCrew.setSize(new jwinforms.Size(144, 114));
@@ -140,8 +140,8 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // boxForHire
         //
-        this.boxForHire.Controls.add(this.lblForHireNone);
-        this.boxForHire.Controls.add(this.lstForHire);
+        this.boxForHire.controls.add(this.lblForHireNone);
+        this.boxForHire.controls.add(this.lstForHire);
         this.boxForHire.setLocation(new java.awt.Point(160, 8));
         this.boxForHire.setName("boxForHire");
         this.boxForHire.setSize(new jwinforms.Size(144, 114));
@@ -169,17 +169,17 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // boxInfo
         //
-        this.boxInfo.Controls.add(this.btnHireFire);
-        this.boxInfo.Controls.add(this.lblRate);
-        this.boxInfo.Controls.add(this.lblName);
-        this.boxInfo.Controls.add(this.lblEngineer);
-        this.boxInfo.Controls.add(this.lblTrader);
-        this.boxInfo.Controls.add(this.lblFighter);
-        this.boxInfo.Controls.add(this.lblPilot);
-        this.boxInfo.Controls.add(this.lblEngineerLabel);
-        this.boxInfo.Controls.add(this.lblTraderLabel);
-        this.boxInfo.Controls.add(this.lblFighterLabel);
-        this.boxInfo.Controls.add(this.lblPilotLabel);
+        this.boxInfo.controls.add(this.btnHireFire);
+        this.boxInfo.controls.add(this.lblRate);
+        this.boxInfo.controls.add(this.lblName);
+        this.boxInfo.controls.add(this.lblEngineer);
+        this.boxInfo.controls.add(this.lblTrader);
+        this.boxInfo.controls.add(this.lblFighter);
+        this.boxInfo.controls.add(this.lblPilot);
+        this.boxInfo.controls.add(this.lblEngineerLabel);
+        this.boxInfo.controls.add(this.lblTraderLabel);
+        this.boxInfo.controls.add(this.lblFighterLabel);
+        this.boxInfo.controls.add(this.lblPilotLabel);
         this.boxInfo.setLocation(new java.awt.Point(312, 8));
         this.boxInfo.setName("boxInfo");
         this.boxInfo.setSize(new jwinforms.Size(168, 114));

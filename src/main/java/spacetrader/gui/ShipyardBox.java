@@ -41,13 +41,13 @@ public class ShipyardBox extends jwinforms.GroupBox {
 
         suspendLayout();
 
-        Controls.add(btnDesign);
-        Controls.add(btnPod);
-        Controls.add(lblEscapePod);
-        Controls.add(btnEquip);
-        Controls.add(btnBuyShip);
-        Controls.add(lblEquipForSale);
-        Controls.add(lblShipsForSale);
+        controls.add(btnDesign);
+        controls.add(btnPod);
+        controls.add(lblEscapePod);
+        controls.add(btnEquip);
+        controls.add(btnBuyShip);
+        controls.add(lblEquipForSale);
+        controls.add(lblShipsForSale);
         setName("boxShipYard");
         setSize(new jwinforms.Size(168, 168));
         setTabIndex(4);

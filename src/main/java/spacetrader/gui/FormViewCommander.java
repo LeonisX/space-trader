@@ -229,7 +229,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //
         // boxSkills
         //
-        this.boxSkills.Controls.addAll((new WinformControl[]{this.lblEngineer, this.lblTrader, this.lblFighter,
+        this.boxSkills.controls.addAll((new WinformControl[]{this.lblEngineer, this.lblTrader, this.lblFighter,
                 this.lblPilot, this.lblEngineerLabel, this.lblTraderLabel, this.lblFighterLabel, this.lblPilotLabel}));
         this.boxSkills.setLocation(new java.awt.Point(8, 64));
         this.boxSkills.setName("boxSkills");
@@ -312,7 +312,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //
         // boxFinances
         //
-        this.boxFinances.Controls.addAll(this.lblCash, this.lblDebt, this.lblNetWorth, this.lblNetWorthLabel,
+        this.boxFinances.controls.addAll(this.lblCash, this.lblDebt, this.lblNetWorth, this.lblNetWorthLabel,
                 this.lblCashLabel, this.lblDebtLabel);
         this.boxFinances.setLocation(new java.awt.Point(8, 128));
         this.boxFinances.setName("boxFinances");
@@ -350,7 +350,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //
         // boxNotoriety
         //
-        this.boxNotoriety.Controls.addAll((new WinformControl[]{this.lblBountyLabel, this.lblBounty,
+        this.boxNotoriety.controls.addAll((new WinformControl[]{this.lblBountyLabel, this.lblBounty,
                 this.lblPoliceLabel, this.lblReputationLabel, this.lblKillsLabel, this.lblKills, this.lblReputation,
                 this.lblRecord}));
         this.boxNotoriety.setLocation(new java.awt.Point(8, 208));

@@ -58,8 +58,8 @@ public class ShortRangeChart extends jwinforms.GroupBox {
             }
         });
 
-        Anchor = (((jwinforms.AnchorStyles.Top_Right)));
-        Controls.add(picShortRangeChart);
+        anchor = (((jwinforms.AnchorStyles.Top_Right)));
+        controls.add(picShortRangeChart);
         setName("boxShortRangeChart");
         setSize(new jwinforms.Size(176, 168));
         setTabIndex(6);

@@ -27,8 +27,20 @@ public class MenuItem {
         return swingVersion;
     }
 
+    public String getText() {
+        return asJMenuItem().getText();
+    }
+
     public void setText(String text) {
         asJMenuItem().setText(text);
+    }
+
+    public String getName() {
+        return asJMenuItem().getName();
+    }
+
+    public void setName(String name) {
+        asJMenuItem().setName(name);
     }
 
     public void setClick(final EventHandler<Object, EventArgs> eventHandler) {

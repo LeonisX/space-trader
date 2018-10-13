@@ -230,7 +230,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxWelcome
         //
-        boxWelcome.Controls.addAll((new WinformControl[]{lblSkillDescription, lblSkill, lblSizeSpecialty,
+        boxWelcome.controls.addAll((new WinformControl[]{lblSkillDescription, lblSkill, lblSizeSpecialty,
                 lblSkillLabel, lblSizeSpecialtyLabel, lblWarning, picLogo, lblWelcome}));
         boxWelcome.setLocation(new java.awt.Point(8, 0));
         boxWelcome.setName("boxWelcome");
@@ -313,7 +313,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxInfo
         //
-        boxInfo.Controls.addAll((new WinformControl[]{btnSave, btnLoad, picInfoLine, btnPrevImage, btnNextImage,
+        boxInfo.controls.addAll((new WinformControl[]{btnSave, btnLoad, picInfoLine, btnPrevImage, btnNextImage,
                 lblImage, lblImageLabel, selTemplate, lblTemplate, selSize, lblSize, btnSetCustomImage, picShip,
                 txtName, lblName}));
         boxInfo.setLocation(new java.awt.Point(8, 208));
@@ -530,7 +530,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxCosts
         //
-        boxCosts.Controls.addAll((new WinformControl[]{lblTradeIn, lblTradeInLabel, picCostsLine, lblPenalty,
+        boxCosts.controls.addAll((new WinformControl[]{lblTradeIn, lblTradeInLabel, picCostsLine, lblPenalty,
                 lblPenaltyLabel, lblShipCost, lblTotalCost, lblTotalCostLabel, lblShipCostLabel, lblDesignFee,
                 lblDesignFeeLabel}));
         boxCosts.setLocation(new java.awt.Point(286, 230));
@@ -679,7 +679,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxAllocation
         //
-        boxAllocation.Controls.addAll((new WinformControl[]{lblPct, lblPctLabel, numHullStrength,
+        boxAllocation.controls.addAll((new WinformControl[]{lblPct, lblPctLabel, numHullStrength,
                 lblHullStrenghLabel, numCargoBays, numCrewQuarters, numFuelTanks, numShieldSlots, numGadgetSlots,
                 numWeaponSlots, lblCargoBays, lblFuelTanks, lblCrewQuarters, lblShieldSlots, lblGadgetSlots,
                 lblWeaponsSlots, lblUnitsUsedLabel, lblUnitsUsed}));

@@ -11,7 +11,7 @@ import java.util.Map;
 public class WinformJPanel extends JPanel {
 
     private final WinformPane form;
-    Image BackgroundImage = null;
+    Image backgroundImage = null;
     private Map<Component, Integer> tabOrderMap = new HashMap<>();
 
     WinformJPanel(WinformPane form) {
@@ -29,21 +29,23 @@ public class WinformJPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (BackgroundImage != null) {
-            g.drawImage(BackgroundImage.asSwingImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage.asSwingImage(), 0, 0, this.getWidth(), this.getHeight(), null);
         }
     }
 
     private void setFocusOrder(Component component, int order) {
-        if (order == -1)
+        if (order == -1) {
             tabOrderMap.remove(component);
-        else
+        } else {
             tabOrderMap.put(component, order);
+        }
     }
 
     public void add(final WinformControl wccont) {
-        if (wccont instanceof Button)
+        if (wccont instanceof Button) {
             handleDialogResult((Button) wccont);
+        }
         Component ob = wccont.asSwingObject();
         add(ob);
         setFocusOrder(ob, wccont.getTabIndex());
@@ -51,17 +53,19 @@ public class WinformJPanel extends JPanel {
     }
 
     public void addAll(Collection<? extends WinformControl> coll) {
-        for (WinformControl winformControl : coll)
+        for (WinformControl winformControl : coll) {
             this.add(winformControl);
+        }
     }
 
     public void addAll(WinformControl... coll) {
-        for (WinformControl winformControl : coll)
+        for (WinformControl winformControl : coll) {
             this.add(winformControl);
+        }
     }
 
     private void handleDialogResult(final Button button) {
-        if (button.DialogResult != null)
+        if (button.DialogResult != null) {
             button.setClick(new ChainedEventHandler<Object, EventArgs>(button.click) {
                 @Override
                 public void instanceHandle(Object sender, EventArgs e) {
@@ -69,5 +73,6 @@ public class WinformJPanel extends JPanel {
                     form.dispose();
                 }
             });
+        }
     }
 }

@@ -13,9 +13,9 @@ public class MainMenu extends WinformControl {
     }
 
     public void addAll(MenuItem... items) {
-        for (MenuItem item : items)
+        for (MenuItem item : items) {
             this.add(item);
-
+        }
     }
 
     private JMenuBar asJMenuBar() {

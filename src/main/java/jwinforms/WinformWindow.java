@@ -7,19 +7,19 @@ import java.awt.event.WindowEvent;
 
 public class WinformWindow extends WinformPane {
 
-    protected final WinformJPanel Controls;
+    protected final WinformJPanel controls;
     private final JFrame frame;
     private final WinformJPanel panel;
-    protected Integer Left, Top;
-    protected FormWindowState WindowState;
+    protected Integer left, top;
+    protected FormWindowState windowState;
     DialogResult result;
     private EventHandler<Object, CancelEventArgs> onClosing;
     private EventHandler<Object, EventArgs> onClosed;
-    private FormBorderStyle FormBorderStyle;
-    private boolean ControlBox;
-    private boolean MinimizeBox;
-    private boolean MaximizeBox;
-    private String Title;
+    private FormBorderStyle formBorderStyle;
+    private boolean controlBox;
+    private boolean minimizeBox;
+    private boolean maximizeBox;
+    private String title;
 
     protected WinformWindow() {
         super(new JFrame());
@@ -28,7 +28,7 @@ public class WinformWindow extends WinformPane {
 
         panel = new WinformJPanel(this);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
-        Controls = panel;
+        controls = panel;
         frame.setResizable(false);
         //TODO
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -57,11 +57,11 @@ public class WinformWindow extends WinformPane {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public void setStartPosition(FormStartPosition startPosition) {
@@ -73,27 +73,27 @@ public class WinformWindow extends WinformPane {
     }
 
     public boolean getControlBox() {
-        return ControlBox;
+        return controlBox;
     }
 
     public void setControlBox(boolean controlBox) {
-        ControlBox = controlBox;
+        this.controlBox = controlBox;
     }
 
     public boolean getMinimizeBox() {
-        return MinimizeBox;
+        return minimizeBox;
     }
 
     public void setMinimizeBox(boolean minimizeBox) {
-        MinimizeBox = minimizeBox;
+        this.minimizeBox = minimizeBox;
     }
 
     public boolean getMaximizeBox() {
-        return MaximizeBox;
+        return maximizeBox;
     }
 
     public void setMaximizeBox(boolean maximizeBox) {
-        MaximizeBox = maximizeBox;
+        this.maximizeBox = maximizeBox;
     }
 
     protected void setIcon(Icon icon) {
@@ -101,11 +101,11 @@ public class WinformWindow extends WinformPane {
     }
 
     public FormBorderStyle getFormBorderStyle() {
-        return FormBorderStyle;
+        return formBorderStyle;
     }
 
     public void setFormBorderStyle(FormBorderStyle formBorderStyle) {
-        FormBorderStyle = formBorderStyle;
+        this.formBorderStyle = formBorderStyle;
     }
 
     public void setClientSize(Dimension clientSize) {
@@ -123,6 +123,10 @@ public class WinformWindow extends WinformPane {
 
     protected void setStatusBar(StatusBar statusBar) {
         frame.getContentPane().add(statusBar.asSwingObject(), BorderLayout.PAGE_END);
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
     @Override

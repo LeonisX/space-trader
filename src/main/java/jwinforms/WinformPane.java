@@ -9,14 +9,14 @@ import java.awt.*;
  */
 public abstract class WinformPane extends WinformControl {
 
-    private EventHandler<Object, EventArgs> Load;
+    private EventHandler<Object, EventArgs> load;
 
     WinformPane(Window swingVersion) {
         super(swingVersion);
     }
 
     protected void show() {
-        EventHandler<Object, EventArgs> loadHandler = Load;
+        EventHandler<Object, EventArgs> loadHandler = load;
         raise(loadHandler, this, null);
         swingVersion.setVisible(true);
     }
@@ -27,7 +27,7 @@ public abstract class WinformPane extends WinformControl {
     }
 
     protected void setLoad(EventHandler<Object, EventArgs> load) {
-        Load = load;
+        this.load = load;
     }
 
     public abstract void setResult(DialogResult dialogResult);

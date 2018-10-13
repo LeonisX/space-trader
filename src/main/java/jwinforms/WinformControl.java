@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Locale;
 
 public class WinformControl implements ISupportInitialize {
 
@@ -15,10 +14,10 @@ public class WinformControl implements ISupportInitialize {
     protected final Component swingVersion;
     EventHandler<Object, EventArgs> click;
     EventHandler<Object, EventArgs> doubleClick;
-    private String Name;
-    private Color ForeColor;
+    private String name;
+    private Color foreColor;
     private int tabIndex;
-    private Color BackColor;
+    private Color backColor;
     private EventHandler<Object, EventArgs> mouseEnter, mouseLeave;
     private MouseListener mouseListener;
 
@@ -29,7 +28,7 @@ public class WinformControl implements ISupportInitialize {
 
     public WinformControl(Component swingVersion) {
         this.swingVersion = swingVersion;
-        swingVersion.setFont(DEFAULT_FONT);
+        this.swingVersion.setFont(DEFAULT_FONT);
     }
 
     public void setDoubleClick(EventHandler<Object, EventArgs> doubleClick) {
@@ -53,11 +52,11 @@ public class WinformControl implements ISupportInitialize {
     }
 
     public Color getBackColor() {
-        return BackColor;
+        return backColor;
     }
 
     public void setBackColor(Color backColor) {
-        BackColor = backColor;
+        this.backColor = backColor;
         asSwingObject().setBackground(backColor);
     }
 
@@ -71,12 +70,12 @@ public class WinformControl implements ISupportInitialize {
     }
 
     public Color getForeColor() {
-        return ForeColor;
+        return foreColor;
     }
 
     public void setForeColor(Color foreColor) {
         // todo  Under winforms, this also appears to change the border color.
-        ForeColor = foreColor;
+        this.foreColor = foreColor;
         swingVersion.setForeground(foreColor);
     }
 
@@ -101,16 +100,12 @@ public class WinformControl implements ISupportInitialize {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    /**
-     * I think this is nothing.
-     *
-     * @param name control name
-     */
     public void setName(String name) {
-        Name = name;
+        this.name = name;
+        this.swingVersion.setName(name);
     }
 
     public int getTop() {
@@ -146,10 +141,10 @@ public class WinformControl implements ISupportInitialize {
     }
 
     public void setBorderStyle(BorderStyle borderStyle) {
-        if (!(swingVersion instanceof JComponent))
+        if (!(swingVersion instanceof JComponent)) {
             throw new UnsupportedOperationException("Can't set border for this control: I don't know how. Control is "
                     + getClass());
-
+        }
         ((JComponent) swingVersion).setBorder(borderStyle.getBorder());
     }
 
@@ -183,8 +178,9 @@ public class WinformControl implements ISupportInitialize {
     }
 
     private void CreateMouseListener() {
-        if (mouseListener != null)
+        if (mouseListener != null) {
             return;
+        }
         mouseListener = new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {

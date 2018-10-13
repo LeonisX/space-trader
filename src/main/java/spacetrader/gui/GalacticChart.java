@@ -44,6 +44,7 @@ public class GalacticChart extends jwinforms.GroupBox {
     private jwinforms.Button btnJump;
     private jwinforms.Button btnFind;
     private jwinforms.PictureBox picGalacticChart;
+
     public GalacticChart(SpaceTrader mainWindow, jwinforms.ImageList images) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
@@ -85,13 +86,13 @@ public class GalacticChart extends jwinforms.GroupBox {
         //
         // boxGalacticChart
         //
-        Anchor = (((jwinforms.AnchorStyles.Top_Right)));
+        anchor = (((jwinforms.AnchorStyles.Top_Right)));
         setBackColor(jwinforms.SystemColors.Control);
-        Controls.add(lblWormhole);
-        Controls.add(lblWormholeLabel);
-        Controls.add(btnJump);
-        Controls.add(btnFind);
-        Controls.add(picGalacticChart);
+        controls.add(lblWormhole);
+        controls.add(lblWormholeLabel);
+        controls.add(btnJump);
+        controls.add(btnFind);
+        controls.add(picGalacticChart);
         setName("boxGalacticChart");
         setSize(new jwinforms.Size(176, 168));
         setTabIndex(5);

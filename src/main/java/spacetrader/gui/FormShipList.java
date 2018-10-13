@@ -720,7 +720,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         // boxShipInfo
         //
-        boxShipInfo.Controls.addAll((new WinformControl[]{
+        boxShipInfo.controls.addAll((new WinformControl[]{
                 lblCrew,
                 lblGadget,
                 lblShield,

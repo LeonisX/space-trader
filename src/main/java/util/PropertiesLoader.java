@@ -1,5 +1,6 @@
 package util;
 
+import spacetrader.util.StringsMap;
 import spacetrader.util.ValuesMap;
 
 import java.io.IOException;
@@ -8,16 +9,12 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PropertiesLoader {
 
-    //TODO optimize
     public static ValuesMap getValuesMap(String name) {
         ValuesMap valuesMap = new ValuesMap();
         getResourceAsFilteredStream(name).forEach(s -> {
@@ -27,14 +24,13 @@ public class PropertiesLoader {
         return valuesMap;
     }
 
-    //TODO optimize
-    public static Map<String, String> getStringsMap(String name) {
-        Map<String, String> result = new HashMap<>();
+    public static StringsMap getStringsMap(String name) {
+        StringsMap result = new StringsMap();
         getResourceAsFilteredStream(name).forEach(s -> {
             String[] pair = s.split("=", 2);
             result.put(pair[0], pair[1]);
         });
-        return new LinkedHashMap<>(result);
+        return result;
     }
 
     public static List<String> getResourceAsFilteredList(String name) {

@@ -8,7 +8,8 @@ public class ToolTip {
     public ToolTip() {
     }
 
-    public void SetToolTip(Button item, String text) {
+    public void setToolTip(Button item, String text) {
         item.asJButton().setToolTipText(text);
     }
+
 }

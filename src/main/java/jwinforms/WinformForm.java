@@ -188,10 +188,10 @@ public class WinformForm extends WinformPane {
     }
 
     protected Image getBackgroundImage() {
-        return panel.BackgroundImage;
+        return panel.backgroundImage;
     }
 
     protected void setBackgroundImage(Image backgroundImage) {
-        panel.BackgroundImage = backgroundImage;
+        panel.backgroundImage = backgroundImage;
     }
 }

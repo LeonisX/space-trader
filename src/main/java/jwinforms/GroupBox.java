@@ -5,13 +5,13 @@ import javax.swing.border.TitledBorder;
 
 public class GroupBox extends WinformControl {
 
-    public final WinformJPanel Controls;
+    public final WinformJPanel controls;
     private final TitledBorder border;
-    protected AnchorStyles Anchor;
+    protected AnchorStyles anchor;
 
     public GroupBox() {
         super(new WinformJPanel(null));
-        Controls = (WinformJPanel) swingVersion;
+        controls = (WinformJPanel) swingVersion;
         border = BorderFactory.createTitledBorder("");
         asJPanel().setBorder(border);
     }
@@ -30,6 +30,6 @@ public class GroupBox extends WinformControl {
     }
 
     private WinformJPanel asJPanel() {
-        return Controls;
+        return controls;
     }
 }

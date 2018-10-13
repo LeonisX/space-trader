@@ -162,15 +162,15 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // boxSell
         //
-        this.boxSell.Controls.add(this.lblSellGadgetNoSlots);
-        this.boxSell.Controls.add(this.lblSellShieldNoSlots);
-        this.boxSell.Controls.add(this.lblSellWeaponNoSlots);
-        this.boxSell.Controls.add(this.lblSellGadgets);
-        this.boxSell.Controls.add(this.lblSellShields);
-        this.boxSell.Controls.add(this.lblSellWeapons);
-        this.boxSell.Controls.add(this.lstSellGadget);
-        this.boxSell.Controls.add(this.lstSellShield);
-        this.boxSell.Controls.add(this.lstSellWeapon);
+        this.boxSell.controls.add(this.lblSellGadgetNoSlots);
+        this.boxSell.controls.add(this.lblSellShieldNoSlots);
+        this.boxSell.controls.add(this.lblSellWeaponNoSlots);
+        this.boxSell.controls.add(this.lblSellGadgets);
+        this.boxSell.controls.add(this.lblSellShields);
+        this.boxSell.controls.add(this.lblSellWeapons);
+        this.boxSell.controls.add(this.lstSellGadget);
+        this.boxSell.controls.add(this.lstSellShield);
+        this.boxSell.controls.add(this.lstSellWeapon);
         this.boxSell.setLocation(new java.awt.Point(4, 2));
         this.boxSell.setName("boxSell");
         this.boxSell.setSize(new jwinforms.Size(144, 304));
@@ -288,15 +288,15 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // boxBuy
         //
-        this.boxBuy.Controls.add(this.lblBuyGadgetNone);
-        this.boxBuy.Controls.add(this.lblBuyShieldNone);
-        this.boxBuy.Controls.add(this.lblBuyWeaponNone);
-        this.boxBuy.Controls.add(this.lblBuyGadgets);
-        this.boxBuy.Controls.add(this.lblBuyShields);
-        this.boxBuy.Controls.add(this.lblBuyWeapons);
-        this.boxBuy.Controls.add(this.lstBuyGadget);
-        this.boxBuy.Controls.add(this.lstBuyShield);
-        this.boxBuy.Controls.add(this.lstBuyWeapon);
+        this.boxBuy.controls.add(this.lblBuyGadgetNone);
+        this.boxBuy.controls.add(this.lblBuyShieldNone);
+        this.boxBuy.controls.add(this.lblBuyWeaponNone);
+        this.boxBuy.controls.add(this.lblBuyGadgets);
+        this.boxBuy.controls.add(this.lblBuyShields);
+        this.boxBuy.controls.add(this.lblBuyWeapons);
+        this.boxBuy.controls.add(this.lstBuyGadget);
+        this.boxBuy.controls.add(this.lstBuyShield);
+        this.boxBuy.controls.add(this.lstBuyWeapon);
         this.boxBuy.setLocation(new java.awt.Point(156, 2));
         this.boxBuy.setName("boxBuy");
         this.boxBuy.setSize(new jwinforms.Size(144, 304));
@@ -414,22 +414,22 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // boxShipInfo
         //
-        this.boxShipInfo.Controls.add(this.lblCharge);
-        this.boxShipInfo.Controls.add(this.lblPower);
-        this.boxShipInfo.Controls.add(this.lblChargeLabel);
-        this.boxShipInfo.Controls.add(this.lblPowerLabel);
-        this.boxShipInfo.Controls.add(this.lblType);
-        this.boxShipInfo.Controls.add(this.lblTypeLabel);
-        this.boxShipInfo.Controls.add(this.lblNameLabel);
-        this.boxShipInfo.Controls.add(this.btnSell);
-        this.boxShipInfo.Controls.add(this.btnBuy);
-        this.boxShipInfo.Controls.add(this.lblBuyPriceLabel);
-        this.boxShipInfo.Controls.add(this.lblBuyPrice);
-        this.boxShipInfo.Controls.add(this.lblSellPriceLabel);
-        this.boxShipInfo.Controls.add(this.picEquipment);
-        this.boxShipInfo.Controls.add(this.lblSellPrice);
-        this.boxShipInfo.Controls.add(this.lblName);
-        this.boxShipInfo.Controls.add(this.lblDescription);
+        this.boxShipInfo.controls.add(this.lblCharge);
+        this.boxShipInfo.controls.add(this.lblPower);
+        this.boxShipInfo.controls.add(this.lblChargeLabel);
+        this.boxShipInfo.controls.add(this.lblPowerLabel);
+        this.boxShipInfo.controls.add(this.lblType);
+        this.boxShipInfo.controls.add(this.lblTypeLabel);
+        this.boxShipInfo.controls.add(this.lblNameLabel);
+        this.boxShipInfo.controls.add(this.btnSell);
+        this.boxShipInfo.controls.add(this.btnBuy);
+        this.boxShipInfo.controls.add(this.lblBuyPriceLabel);
+        this.boxShipInfo.controls.add(this.lblBuyPrice);
+        this.boxShipInfo.controls.add(this.lblSellPriceLabel);
+        this.boxShipInfo.controls.add(this.picEquipment);
+        this.boxShipInfo.controls.add(this.lblSellPrice);
+        this.boxShipInfo.controls.add(this.lblName);
+        this.boxShipInfo.controls.add(this.lblDescription);
         this.boxShipInfo.setLocation(new java.awt.Point(308, 2));
         this.boxShipInfo.setName("boxShipInfo");
         this.boxShipInfo.setSize(new jwinforms.Size(208, 304));

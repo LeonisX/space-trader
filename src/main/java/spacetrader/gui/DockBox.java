@@ -35,12 +35,12 @@ public class DockBox extends jwinforms.GroupBox {
         lblHullStatus = new jwinforms.Label();
         lblRepairCost = new jwinforms.Label();
 
-        Controls.add(btnRepair);
-        Controls.add(btnFuel);
-        Controls.add(lblFuelStatus);
-        Controls.add(lblFuelCost);
-        Controls.add(lblHullStatus);
-        Controls.add(lblRepairCost);
+        controls.add(btnRepair);
+        controls.add(btnFuel);
+        controls.add(lblFuelStatus);
+        controls.add(lblFuelCost);
+        controls.add(lblHullStatus);
+        controls.add(lblRepairCost);
         setName("boxDock");
         setSize(new jwinforms.Size(240, 90));
         setTabIndex(2);

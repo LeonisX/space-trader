@@ -8,6 +8,7 @@ import spacetrader.Game;
  * @author Aviv
  */
 public interface MainWindow extends GuiWindow {
+
     void updateAll();
 
     void updateStatusBar();
@@ -15,4 +16,5 @@ public interface MainWindow extends GuiWindow {
     void SetInGameControlsEnabled(boolean enabled);
 
     void setGame(Game game);
+
 }
