@@ -108,7 +108,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         updateAll();
 
-        //ddd(getFrame(), this.getName());
+        ddd(getFrame(), this.getName());
 
         System.out.println("===================");
 
@@ -184,50 +184,54 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         component.getSize();
         component.getLocation();
 
-        String name = component.getName() == null ? component.getClass().getSimpleName() : component.getName();
-
-        System.out.println(prefix + "." + name + ".x=" + component.getX());
-        System.out.println(prefix + "." + name + ".y=" + component.getY());
-        System.out.println(prefix + "." + name + ".width=" + component.getWidth());
-        System.out.println(prefix + "." + name + ".height=" + component.getHeight());
+        System.out.println(fff(prefix) + ".x=" + component.getX());
+        System.out.println(fff(prefix) + ".y=" + component.getY());
+        System.out.println(fff(prefix) + ".width=" + component.getWidth());
+        System.out.println(fff(prefix) + ".height=" + component.getHeight());
 
         if (component instanceof java.awt.Container) {
             for (Component child: ((java.awt.Container) component).getComponents()) {
-                name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
                 ddd(child, prefix + "." + name);
             }
         }
+    }
+
+    String fff(String prefix) {
+        return prefix.replace(".JRootPane", "")
+                .replace(".null.glassPane", "")
+                .replace(".null.layeredPane", "")
+                .replace(".null.contentPane", "")
+                .replace(".WinformJPanel", "");
     }
 
     void ddd2(Component component, String prefix) {
         component.getSize();
         component.getLocation();
 
-        String name = component.getName() == null ? component.getClass().getSimpleName() : component.getName();
-
         if (component instanceof AbstractButton) {
-            System.out.println(prefix + "." + name + ".text=" + ((AbstractButton) component).getText());
+            System.out.println(fff(prefix) + ".text=" + ((AbstractButton) component).getText());
         }
-        /*if (component instanceof JLabel) {
-            System.out.println(prefix + "." + name + ".text=" + ((JLabel) component).getText());
+        if (component instanceof JLabel) {
+            System.out.println(fff(prefix) + ".text=" + ((JLabel) component).getText());
         }
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            System.out.println(prefix + "." + name + ".title=" + ((TitledBorder)((JPanel) component).getBorder()).getTitle());
+            System.out.println(fff(prefix) + ".title=" + ((TitledBorder)((JPanel) component).getBorder()).getTitle());
         }
         if (component instanceof JFrame) {
-            System.out.println(prefix + "." + name + ".title=" + ((JFrame) component).getTitle());
-        }*/
+            System.out.println(fff(prefix) + ".title=" + ((JFrame) component).getTitle());
+        }
 
         if (component instanceof JMenu) {
             for (Component child: ((JMenu) component).getMenuComponents()) {
-                name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
                 ddd2(child, prefix + "." + name);
             }
         }
 
         if (component instanceof java.awt.Container) {
             for (Component child: ((java.awt.Container) component).getComponents()) {
-                name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
                 ddd2(child, prefix + "." + name);
             }
         }
