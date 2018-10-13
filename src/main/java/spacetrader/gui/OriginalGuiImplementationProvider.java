@@ -9,7 +9,7 @@ import spacetrader.guifacade.GuiEngine.ImplementationProvider;
 public class OriginalGuiImplementationProvider implements ImplementationProvider {
     private final SpaceTrader spaceTrader;
 
-    OriginalGuiImplementationProvider(SpaceTrader spaceTrader) {
+    public OriginalGuiImplementationProvider(SpaceTrader spaceTrader) {
         super();
         this.spaceTrader = spaceTrader;
     }

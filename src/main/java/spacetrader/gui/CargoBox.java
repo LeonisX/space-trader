@@ -27,6 +27,7 @@ import jwinforms.Label;
 import spacetrader.*;
 
 import java.awt.*;
+import java.util.Map;
 
 class CargoBox extends jwinforms.GroupBox {
 
@@ -197,7 +198,7 @@ class CargoBox extends jwinforms.GroupBox {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    void initializeComponent(ResourceManager strings) {
+    void initializeComponent(Map<String, String> strings) {
         components = new jwinforms.Container();
         jwinforms.ResourceManager resources = new jwinforms.ResourceManager(SpaceTrader.class);
         picCargoLine3 = new jwinforms.PictureBox();
@@ -433,7 +434,7 @@ class CargoBox extends jwinforms.GroupBox {
         setSize(new jwinforms.Size(512, 300));
         setTabIndex(8);
         setTabStop(false);
-        setText(strings.getString("group.box.cargo.title"));
+        setText(strings.get("group.box.cargo.title"));
         //
         // picCargoLine3
         //
@@ -505,7 +506,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax9.setName("btnBuyMax9");
         btnBuyMax9.setSize(new jwinforms.Size(36, 22));
         btnBuyMax9.setTabIndex(51);
-        btnBuyMax9.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax9.setText(strings.get("group.box.cargo.max"));
         btnBuyMax9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -535,7 +536,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblBuyPrice9.setName("lblBuyPrice9");
         lblBuyPrice9.setSize(new jwinforms.Size(48, 13));
         lblBuyPrice9.setTabIndex(122);
-        lblBuyPrice9.setText(strings.getString("group.box.cargo.not.sold"));
+        lblBuyPrice9.setText(strings.get("group.box.cargo.not.sold"));
         lblBuyPrice9.TextAlign = ContentAlignment.TopRight;
         //
         // btnSellAll9
@@ -545,7 +546,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll9.setName("btnSellAll9");
         btnSellAll9.setSize(new jwinforms.Size(44, 22));
         btnSellAll9.setTabIndex(49);
-        btnSellAll9.setText(strings.getString("group.box.cargo.dump"));
+        btnSellAll9.setText(strings.get("group.box.cargo.dump"));
         btnSellAll9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -574,7 +575,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblSellPrice9.setName("lblSellPrice9");
         lblSellPrice9.setSize(new jwinforms.Size(48, 13));
         lblSellPrice9.setTabIndex(119);
-        lblSellPrice9.setText(strings.getString("group.box.cargo.no.trade"));
+        lblSellPrice9.setText(strings.get("group.box.cargo.no.trade"));
         lblSellPrice9.TextAlign = ContentAlignment.TopRight;
         //
         // lblTargetPct8
@@ -611,7 +612,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax8.setName("btnBuyMax8");
         btnBuyMax8.setSize(new jwinforms.Size(36, 22));
         btnBuyMax8.setTabIndex(47);
-        btnBuyMax8.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax8.setText(strings.get("group.box.cargo.max"));
         btnBuyMax8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -650,7 +651,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll8.setName("btnSellAll8");
         btnSellAll8.setSize(new jwinforms.Size(44, 22));
         btnSellAll8.setTabIndex(45);
-        btnSellAll8.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll8.setText(strings.get("group.box.cargo.all"));
         btnSellAll8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -717,7 +718,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax7.setName("btnBuyMax7");
         btnBuyMax7.setSize(new jwinforms.Size(36, 22));
         btnBuyMax7.setTabIndex(43);
-        btnBuyMax7.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax7.setText(strings.get("group.box.cargo.max"));
         btnBuyMax7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -756,7 +757,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll7.setName("btnSellAll7");
         btnSellAll7.setSize(new jwinforms.Size(44, 22));
         btnSellAll7.setTabIndex(41);
-        btnSellAll7.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll7.setText(strings.get("group.box.cargo.all"));
         btnSellAll7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -822,7 +823,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax6.setName("btnBuyMax6");
         btnBuyMax6.setSize(new jwinforms.Size(36, 22));
         btnBuyMax6.setTabIndex(39);
-        btnBuyMax6.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax6.setText(strings.get("group.box.cargo.max"));
         btnBuyMax6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -861,7 +862,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll6.setName("btnSellAll6");
         btnSellAll6.setSize(new jwinforms.Size(44, 22));
         btnSellAll6.setTabIndex(37);
-        btnSellAll6.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll6.setText(strings.get("group.box.cargo.all"));
         btnSellAll6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -927,7 +928,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax5.setName("btnBuyMax5");
         btnBuyMax5.setSize(new jwinforms.Size(36, 22));
         btnBuyMax5.setTabIndex(35);
-        btnBuyMax5.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax5.setText(strings.get("group.box.cargo.max"));
         btnBuyMax5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -966,7 +967,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll5.setName("btnSellAll5");
         btnSellAll5.setSize(new jwinforms.Size(44, 22));
         btnSellAll5.setTabIndex(33);
-        btnSellAll5.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll5.setText(strings.get("group.box.cargo.all"));
         btnSellAll5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1032,7 +1033,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax4.setName("btnBuyMax4");
         btnBuyMax4.setSize(new jwinforms.Size(36, 22));
         btnBuyMax4.setTabIndex(31);
-        btnBuyMax4.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax4.setText(strings.get("group.box.cargo.max"));
         btnBuyMax4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1071,7 +1072,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll4.setName("btnSellAll4");
         btnSellAll4.setSize(new jwinforms.Size(44, 22));
         btnSellAll4.setTabIndex(29);
-        btnSellAll4.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll4.setText(strings.get("group.box.cargo.all"));
         btnSellAll4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1137,7 +1138,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax3.setName("btnBuyMax3");
         btnBuyMax3.setSize(new jwinforms.Size(36, 22));
         btnBuyMax3.setTabIndex(27);
-        btnBuyMax3.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax3.setText(strings.get("group.box.cargo.max"));
         btnBuyMax3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1176,7 +1177,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll3.setName("btnSellAll3");
         btnSellAll3.setSize(new jwinforms.Size(44, 22));
         btnSellAll3.setTabIndex(25);
-        btnSellAll3.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll3.setText(strings.get("group.box.cargo.all"));
         btnSellAll3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1242,7 +1243,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax2.setName("btnBuyMax2");
         btnBuyMax2.setSize(new jwinforms.Size(36, 22));
         btnBuyMax2.setTabIndex(23);
-        btnBuyMax2.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax2.setText(strings.get("group.box.cargo.max"));
         btnBuyMax2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1281,7 +1282,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll2.setName("btnSellAll2");
         btnSellAll2.setSize(new jwinforms.Size(44, 22));
         btnSellAll2.setTabIndex(21);
-        btnSellAll2.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll2.setText(strings.get("group.box.cargo.all"));
         btnSellAll2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1347,7 +1348,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax1.setName("btnBuyMax1");
         btnBuyMax1.setSize(new jwinforms.Size(36, 22));
         btnBuyMax1.setTabIndex(19);
-        btnBuyMax1.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax1.setText(strings.get("group.box.cargo.max"));
         btnBuyMax1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1404,7 +1405,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTargetPriceLabel.setName("lblTargetPriceLabel");
         lblTargetPriceLabel.setSize(new jwinforms.Size(30, 16));
         lblTargetPriceLabel.setTabIndex(47);
-        lblTargetPriceLabel.setText(strings.getString("group.box.cargo.price"));
+        lblTargetPriceLabel.setText(strings.get("group.box.cargo.price"));
         //
         // lblTargetPct0
         //
@@ -1440,7 +1441,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnBuyMax0.setName("btnBuyMax0");
         btnBuyMax0.setSize(new jwinforms.Size(36, 22));
         btnBuyMax0.setTabIndex(15);
-        btnBuyMax0.setText(strings.getString("group.box.cargo.max"));
+        btnBuyMax0.setText(strings.get("group.box.cargo.max"));
         btnBuyMax0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1479,7 +1480,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll1.setName("btnSellAll1");
         btnSellAll1.setSize(new jwinforms.Size(44, 22));
         btnSellAll1.setTabIndex(17);
-        btnSellAll1.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll1.setText(strings.get("group.box.cargo.all"));
         btnSellAll1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1518,7 +1519,7 @@ class CargoBox extends jwinforms.GroupBox {
         btnSellAll0.setName("btnSellAll0");
         btnSellAll0.setSize(new jwinforms.Size(44, 22));
         btnSellAll0.setTabIndex(13);
-        btnSellAll0.setText(strings.getString("group.box.cargo.all"));
+        btnSellAll0.setText(strings.get("group.box.cargo.all"));
         btnSellAll0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -1557,7 +1558,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeTarget.setName("lblTradeTarget");
         lblTradeTarget.setSize(new jwinforms.Size(78, 16));
         lblTradeTarget.setTabIndex(28);
-        lblTradeTarget.setText(strings.getString("group.box.cargo.target.system"));
+        lblTradeTarget.setText(strings.get("group.box.cargo.target.system"));
         //
         // lblBuy
         //
@@ -1566,7 +1567,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblBuy.setName("lblBuy");
         lblBuy.setSize(new jwinforms.Size(24, 16));
         lblBuy.setTabIndex(27);
-        lblBuy.setText(strings.getString("group.box.cargo.buy"));
+        lblBuy.setText(strings.get("group.box.cargo.buy"));
         //
         // lblSell
         //
@@ -1576,7 +1577,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblSell.setName("lblSell");
         lblSell.setSize(new jwinforms.Size(23, 16));
         lblSell.setTabIndex(26);
-        lblSell.setText(strings.getString("group.box.cargo.sell"));
+        lblSell.setText(strings.get("group.box.cargo.sell"));
         //
         // lblTradeCmdty9
         //
@@ -1585,7 +1586,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty9.setName("lblTradeCmdty9");
         lblTradeCmdty9.setSize(new jwinforms.Size(40, 16));
         lblTradeCmdty9.setTabIndex(25);
-        lblTradeCmdty9.setText(strings.getString("group.box.cargo.robots"));
+        lblTradeCmdty9.setText(strings.get("group.box.cargo.robots"));
         //
         // lblTradeCmdty8
         //
@@ -1594,7 +1595,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty8.setName("lblTradeCmdty8");
         lblTradeCmdty8.setSize(new jwinforms.Size(51, 16));
         lblTradeCmdty8.setTabIndex(24);
-        lblTradeCmdty8.setText(strings.getString("group.box.cargo.narcotics"));
+        lblTradeCmdty8.setText(strings.get("group.box.cargo.narcotics"));
         //
         // lblTradeCmdty2
         //
@@ -1603,7 +1604,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty2.setName("lblTradeCmdty2");
         lblTradeCmdty2.setSize(new jwinforms.Size(30, 16));
         lblTradeCmdty2.setTabIndex(23);
-        lblTradeCmdty2.setText(strings.getString("group.box.cargo.food"));
+        lblTradeCmdty2.setText(strings.get("group.box.cargo.food"));
         //
         // lblTradeCmdty0
         //
@@ -1612,7 +1613,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty0.setName("lblTradeCmdty0");
         lblTradeCmdty0.setSize(new jwinforms.Size(34, 16));
         lblTradeCmdty0.setTabIndex(22);
-        lblTradeCmdty0.setText(strings.getString("group.box.cargo.water"));
+        lblTradeCmdty0.setText(strings.get("group.box.cargo.water"));
         //
         // lblTradeCmdty1
         //
@@ -1621,7 +1622,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty1.setName("lblTradeCmdty1");
         lblTradeCmdty1.setSize(new jwinforms.Size(27, 16));
         lblTradeCmdty1.setTabIndex(21);
-        lblTradeCmdty1.setText(strings.getString("group.box.cargo.furs"));
+        lblTradeCmdty1.setText(strings.get("group.box.cargo.furs"));
         //
         // lblTradeCmdty6
         //
@@ -1630,7 +1631,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty6.setName("lblTradeCmdty6");
         lblTradeCmdty6.setSize(new jwinforms.Size(50, 16));
         lblTradeCmdty6.setTabIndex(20);
-        lblTradeCmdty6.setText(strings.getString("group.box.cargo.medicine"));
+        lblTradeCmdty6.setText(strings.get("group.box.cargo.medicine"));
         //
         // lblTradeCmdty5
         //
@@ -1639,7 +1640,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty5.setName("lblTradeCmdty5");
         lblTradeCmdty5.setSize(new jwinforms.Size(49, 16));
         lblTradeCmdty5.setTabIndex(19);
-        lblTradeCmdty5.setText(strings.getString("group.box.cargo.firearms"));
+        lblTradeCmdty5.setText(strings.get("group.box.cargo.firearms"));
         //
         // lblTradeCmdty4
         //
@@ -1648,7 +1649,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty4.setName("lblTradeCmdty4");
         lblTradeCmdty4.setSize(new jwinforms.Size(41, 16));
         lblTradeCmdty4.setTabIndex(18);
-        lblTradeCmdty4.setText(strings.getString("group.box.cargo.games"));
+        lblTradeCmdty4.setText(strings.get("group.box.cargo.games"));
         //
         // lblTradeCmdty3
         //
@@ -1657,7 +1658,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty3.setName("lblTradeCmdty3");
         lblTradeCmdty3.setSize(new jwinforms.Size(23, 16));
         lblTradeCmdty3.setTabIndex(17);
-        lblTradeCmdty3.setText(strings.getString("group.box.cargo.ore"));
+        lblTradeCmdty3.setText(strings.get("group.box.cargo.ore"));
         //
         // lblTradeCmdty7
         //
@@ -1666,7 +1667,7 @@ class CargoBox extends jwinforms.GroupBox {
         lblTradeCmdty7.setName("lblTradeCmdty7");
         lblTradeCmdty7.setSize(new jwinforms.Size(53, 16));
         lblTradeCmdty7.setTabIndex(16);
-        lblTradeCmdty7.setText(strings.getString("group.box.cargo.machines"));
+        lblTradeCmdty7.setText(strings.get("group.box.cargo.machines"));
         //
         // ilChartImages
         //
@@ -1697,7 +1698,7 @@ class CargoBox extends jwinforms.GroupBox {
         finishInit();
     }
 
-    void update(ResourceManager strings) {
+    void update(Map<String, String> strings) {
         int i;
 
         if (game == null || game.Commander().getCurrentSystem() == null) {
@@ -1723,17 +1724,17 @@ class CargoBox extends jwinforms.GroupBox {
             int price = warpSys == null ? 0 : Consts.TradeItems[i].StandardPrice(warpSys);
 
             lblSellPrice[i].setText(sell[i] > 0
-                    ? Functions.formatMoney(sell[i], strings.getString("group.box.cargo.credit"))
+                    ? Functions.formatMoney(sell[i], strings.get("group.box.cargo.credit"))
                     : Strings.CargoSellNA);
             btnSellQty[i].setText("" + cmdr.getShip().Cargo()[i]);
             btnSellQty[i].setVisible(true);
             btnSellAll[i].setText(sell[i] > 0
-                    ? strings.getString("group.box.cargo.all")
-                    : strings.getString("group.box.cargo.dump")
+                    ? strings.get("group.box.cargo.all")
+                    : strings.get("group.box.cargo.dump")
             );
             btnSellAll[i].setVisible(true);
             lblBuyPrice[i].setText(buy[i] > 0
-                    ? Functions.formatMoney(buy[i], strings.getString("group.box.cargo.credit"))
+                    ? Functions.formatMoney(buy[i], strings.get("group.box.cargo.credit"))
                     : Strings.CargoBuyNA);
             btnBuyQty[i].setText("" + cmdr.getCurrentSystem().TradeItems()[i]);
             btnBuyQty[i].setVisible(buy[i] > 0);
@@ -1745,14 +1746,14 @@ class CargoBox extends jwinforms.GroupBox {
                 lblSellPrice[i].setFont(lblSell.getFont());
 
             if (warpSys != null && warpSys.DestOk() && price > 0)
-                lblTargetPrice[i].setText(Functions.formatMoney(price, strings.getString("group.box.cargo.credit")));
+                lblTargetPrice[i].setText(Functions.formatMoney(price, strings.get("group.box.cargo.credit")));
             else
                 lblTargetPrice[i].setText("-----------");
 
             if (warpSys != null && warpSys.DestOk() && price > 0 && buy[i] > 0) {
                 int diff = price - buy[i];
                 lblTargetDiff[i].setText((diff > 0 ? "+" : "")
-                        + Functions.formatMoney(diff, strings.getString("group.box.cargo.credit")));
+                        + Functions.formatMoney(diff, strings.get("group.box.cargo.credit")));
                 lblTargetPct[i].setText((diff > 0 ? "+" : "") + Functions.formatNumber(100 * diff / buy[i]) + "%");
                 lblBuyPrice[i].setFont((diff > 0 && cmdr.getCurrentSystem().TradeItems()[i] > 0) ? BOLD_FONT : lblBuy
                         .getFont());

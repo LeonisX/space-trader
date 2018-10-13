@@ -27,14 +27,14 @@ import spacetrader.*;
 import spacetrader.enums.AlertType;
 import spacetrader.enums.GameEndType;
 import spacetrader.enums.ShipType;
-import spacetrader.guifacade.GuiEngine;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
 import spacetrader.stub.RegistryKey;
+import util.PropertiesLoader;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
     // #region Control Declarations
@@ -48,7 +48,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
     private ShipyardBox shipyard;
     private SpaceTraderStatusBar statusBar;
 
-    private jwinforms.ResourceManager strings;
+    private Map<String, String> strings;
 
     private jwinforms.ImageList ilChartImages;
     private jwinforms.ImageList ilDirectionImages;
@@ -97,18 +97,6 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         updateAll();
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            UIManager.put("swing.boldMetal", Boolean.FALSE);
-        } catch (Exception e) {
-            // TODO: We get here if there's no windows UI; I think no special treatment is needed.
-        }
-        SpaceTrader spaceTrader = new SpaceTrader(args.length > 0 ? args[0] : null);
-        GuiEngine.installImplementation(new OriginalGuiImplementationProvider(spaceTrader));
-        spaceTrader.showWindow();
-    }
-
     // #region Windows Form Designer generated code
     // / <summary>
     // / Required method for Designer support - do not modify
@@ -118,7 +106,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         components = new jwinforms.Container();
         jwinforms.ResourceManager resources = new jwinforms.ResourceManager(SpaceTrader.class);
 
-        strings = new jwinforms.ResourceManager("strings");
+        strings = PropertiesLoader.getStringsMap("strings/ru.properties");
 
         mnuMain = new jwinforms.MainMenu();
         mnuGame = new jwinforms.SubMenu();
@@ -177,12 +165,12 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuGame.Index = 0;
         mnuGame.addAll(mnuGameNew, mnuGameLoad, mnuGameSave, mnuGameSaveAs, mnuGameLine1, mnuRetire, mnuGameLine2,
                 mnuGameExit);
-        mnuGame.setText(strings.getString("menu.game"));
+        mnuGame.setText(strings.get("menu.game"));
         //
         // mnuGameNew
         //
         mnuGameNew.Index = 0;
-        mnuGameNew.setText(strings.getString("menu.game.new"));
+        mnuGameNew.setText(strings.get("menu.game.new"));
         mnuGameNew.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -194,7 +182,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         //
         mnuGameLoad.Index = 1;
         mnuGameLoad.Shortcut = jwinforms.Shortcut.CtrlL;
-        mnuGameLoad.setText(strings.getString("menu.game.load"));
+        mnuGameLoad.setText(strings.get("menu.game.load"));
         mnuGameLoad.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -207,7 +195,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuGameSave.setEnabled(false);
         mnuGameSave.Index = 2;
         mnuGameSave.Shortcut = jwinforms.Shortcut.CtrlS;
-        mnuGameSave.setText(strings.getString("menu.game.save"));
+        mnuGameSave.setText(strings.get("menu.game.save"));
         mnuGameSave.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -220,7 +208,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuGameSaveAs.setEnabled(false);
         mnuGameSaveAs.Index = 3;
         mnuGameSaveAs.Shortcut = jwinforms.Shortcut.CtrlA;
-        mnuGameSaveAs.setText(strings.getString("menu.game.save.as"));
+        mnuGameSaveAs.setText(strings.get("menu.game.save.as"));
         mnuGameSaveAs.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -237,7 +225,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         //
         mnuRetire.setEnabled(false);
         mnuRetire.Index = 5;
-        mnuRetire.setText(strings.getString("menu.game.retire"));
+        mnuRetire.setText(strings.get("menu.game.retire"));
         mnuRetire.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -253,7 +241,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         // mnuGameExit
         //
         mnuGameExit.Index = 7;
-        mnuGameExit.setText(strings.getString("menu.game.exit"));
+        mnuGameExit.setText(strings.get("menu.game.exit"));
         mnuGameExit.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -266,14 +254,14 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuView.Index = 1;
         mnuView.addAll(mnuViewCommander, mnuViewShip, mnuViewPersonnel, mnuViewQuests, mnuViewBank, mnuViewLine1,
                 mnuHighScores, mnuViewLine2, mnuOptions);
-        mnuView.setText(strings.getString("menu.view"));
+        mnuView.setText(strings.get("menu.view"));
         //
         // mnuViewCommander
         //
         mnuViewCommander.setEnabled(false);
         mnuViewCommander.Index = 0;
         mnuViewCommander.Shortcut = jwinforms.Shortcut.CtrlC;
-        mnuViewCommander.setText(strings.getString("menu.view.commander.status"));
+        mnuViewCommander.setText(strings.get("menu.view.commander.status"));
         mnuViewCommander.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -286,7 +274,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuViewShip.setEnabled(false);
         mnuViewShip.Index = 1;
         mnuViewShip.Shortcut = jwinforms.Shortcut.CtrlH;
-        mnuViewShip.setText(strings.getString("menu.view.ship"));
+        mnuViewShip.setText(strings.get("menu.view.ship"));
         mnuViewShip.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -299,7 +287,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuViewPersonnel.setEnabled(false);
         mnuViewPersonnel.Index = 2;
         mnuViewPersonnel.Shortcut = jwinforms.Shortcut.CtrlP;
-        mnuViewPersonnel.setText(strings.getString("menu.view.personnel"));
+        mnuViewPersonnel.setText(strings.get("menu.view.personnel"));
         mnuViewPersonnel.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -312,7 +300,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuViewQuests.setEnabled(false);
         mnuViewQuests.Index = 3;
         mnuViewQuests.Shortcut = jwinforms.Shortcut.CtrlQ;
-        mnuViewQuests.setText(strings.getString("menu.view.quests"));
+        mnuViewQuests.setText(strings.get("menu.view.quests"));
         mnuViewQuests.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -325,7 +313,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         mnuViewBank.setEnabled(false);
         mnuViewBank.Index = 4;
         mnuViewBank.Shortcut = jwinforms.Shortcut.CtrlB;
-        mnuViewBank.setText(strings.getString("menu.view.bank"));
+        mnuViewBank.setText(strings.get("menu.view.bank"));
         mnuViewBank.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -341,7 +329,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         // mnuHighScores
         //
         mnuHighScores.Index = 6;
-        mnuHighScores.setText(strings.getString("menu.view.high.scores"));
+        mnuHighScores.setText(strings.get("menu.view.high.scores"));
         mnuHighScores.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -357,7 +345,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         // mnuOptions
         //
         mnuOptions.Index = 8;
-        mnuOptions.setText(strings.getString("menu.view.options"));
+        mnuOptions.setText(strings.get("menu.view.options"));
         mnuOptions.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -369,12 +357,12 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         //
         mnuHelp.Index = 2;
         mnuHelp.add(mnuHelpAbout);
-        mnuHelp.setText(strings.getString("menu.help"));
+        mnuHelp.setText(strings.get("menu.help"));
         //
         // mnuHelpAbout
         //
         mnuHelpAbout.Index = 0;
-        mnuHelpAbout.setText(strings.getString("menu.help.about"));
+        mnuHelpAbout.setText(strings.get("menu.help.about"));
         mnuHelpAbout.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, jwinforms.EventArgs e) {
@@ -441,14 +429,14 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         //
         // dlgOpen
         //
-        dlgOpen.setFilter(strings.getString("dialog.open.save.filter"));
+        dlgOpen.setFilter(strings.get("dialog.open.save.filter"));
         //
         // dlgSave
         //
         dlgSave.setFileName("SpaceTrader.sav");
-        dlgSave.setFilter(strings.getString("dialog.open.save.filter"));
-        dlgSave.setTitle(strings.getString("dialog.save.title"));
-        dlgSave.setButtonText(strings.getString("dialog.save.button.text"));
+        dlgSave.setFilter(strings.get("dialog.open.save.filter"));
+        dlgSave.setTitle(strings.get("dialog.save.title"));
+        dlgSave.setButtonText(strings.get("dialog.save.button.text"));
         //
         // ilChartImages
         //
@@ -497,7 +485,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         //TODO delete
         //this.setName("SpaceTrader");
         this.setStartPosition(FormStartPosition.Manual);
-        this.setText(strings.getString("main.title"));
+        this.setText(strings.get("main.title"));
         this.setClosing(new jwinforms.EventHandler<Object, CancelEventArgs>() {
             @Override
             public void handle(Object sender, CancelEventArgs e) {

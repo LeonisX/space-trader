@@ -15,8 +15,9 @@
 
 ### Minor tasks
 
-* Custom strings reader
+
 * All strings to file
+* Find all languages in resources
 
 ## Known bugs:
 
@@ -28,3 +29,4 @@
 * Gradle
 * Full refactor, code clean-up
 * --Bug fixes
+* Custom strings reader
