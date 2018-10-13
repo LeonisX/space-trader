@@ -6,12 +6,17 @@ import java.awt.event.ActionListener;
 
 public class MenuItem {
 
-    public int Index;
-    public Shortcut Shortcut;
+    public Shortcut shortcut;
     protected JMenuItem swingVersion;
 
     public MenuItem() {
         this(new JMenuItem());
+    }
+
+    public static MenuItem separator() {
+        MenuItem menuItem = new MenuItem();
+        menuItem.setEnabled(false);
+        return menuItem;
     }
 
     MenuItem(JMenuItem swingVersion) {
