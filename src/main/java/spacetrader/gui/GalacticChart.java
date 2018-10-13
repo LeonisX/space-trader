@@ -66,7 +66,7 @@ public class GalacticChart extends jwinforms.GroupBox {
         picGalacticChart.setBackColor(Color.white);
         picGalacticChart.setLocation(new Point(8, 16));
         picGalacticChart.setName("picGalacticChart");
-        picGalacticChart.setSize(new jwinforms.Size(160, 116));
+        picGalacticChart.setSize(new Size(160, 116));
         picGalacticChart.setTabIndex(0);
         picGalacticChart.setTabStop(false);
         picGalacticChart.setPaint(new jwinforms.EventHandler<Object, PaintEventArgs>() {

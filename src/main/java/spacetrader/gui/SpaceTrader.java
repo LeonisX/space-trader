@@ -21,8 +21,9 @@
 package spacetrader.gui;
 
 import jwinforms.*;
-import jwinforms.Icon;
+import jwinforms.Container;
 import jwinforms.Image;
+import jwinforms.MenuItem;
 import spacetrader.*;
 import spacetrader.enums.AlertType;
 import spacetrader.enums.GameEndType;
@@ -31,65 +32,70 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
 import spacetrader.stub.RegistryKey;
+import spacetrader.util.ValuesMap;
 import util.PropertiesLoader;
 
 import java.awt.*;
 import java.util.Map;
 
 public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
-    // #region Control Declarations
 
+    // #region Control Declarations
     private DockBox dockBox;
     private CargoBox cargoBox;
     private TargetSystemBox targetSystemBox;
     private GalacticChart galacticChart;
     private ShortRangeChart shortRangeChart;
-    private SystemBox system;
-    private ShipyardBox shipyard;
+    private SystemBox systemBox;
+    private ShipyardBox shipyardBox;
     private SpaceTraderStatusBar statusBar;
 
-    private Map<String, String> strings;
+    private ImageList ilChartImages;
+    private ImageList ilDirectionImages;
+    private ImageList ilEquipmentImages;
+    private ImageList ilShipImages;
 
-    private jwinforms.ImageList ilChartImages;
-    private jwinforms.ImageList ilDirectionImages;
-    private jwinforms.ImageList ilEquipmentImages;
-    private jwinforms.ImageList ilShipImages;
-    private jwinforms.MainMenu mnuMain;
-    private jwinforms.SubMenu mnuGame;
-    private jwinforms.MenuItem mnuGameExit;
-    private jwinforms.MenuItem mnuGameLine1;
-    private jwinforms.MenuItem mnuGameLine2;
-    private jwinforms.MenuItem mnuGameLoad;
-    private jwinforms.MenuItem mnuGameNew;
-    private jwinforms.MenuItem mnuGameSave;
-    private jwinforms.MenuItem mnuGameSaveAs;
-    private jwinforms.SubMenu mnuHelp;
-    private jwinforms.MenuItem mnuHelpAbout;
-    private jwinforms.MenuItem mnuHighScores;
-    private jwinforms.MenuItem mnuOptions;
-    private jwinforms.MenuItem mnuRetire;
-    private jwinforms.SubMenu mnuView;
-    private jwinforms.MenuItem mnuViewBank;
-    private jwinforms.MenuItem mnuViewCommander;
-    private jwinforms.MenuItem mnuViewLine1;
-    private jwinforms.MenuItem mnuViewLine2;
-    private jwinforms.MenuItem mnuViewPersonnel;
-    private jwinforms.MenuItem mnuViewQuests;
-    private jwinforms.MenuItem mnuViewShip;
-    private jwinforms.OpenFileDialog dlgOpen;
-    private jwinforms.PictureBox picLine;
-    private jwinforms.SaveFileDialog dlgSave;
+    private MainMenu mnuMain;
+    private SubMenu mnuGame;
+    private MenuItem mnuGameExit;
+    private MenuItem mnuGameLine1;
+    private MenuItem mnuGameLine2;
+    private MenuItem mnuGameLoad;
+    private MenuItem mnuGameNew;
+    private MenuItem mnuGameSave;
+    private MenuItem mnuGameSaveAs;
+    private SubMenu mnuHelp;
+    private MenuItem mnuHelpAbout;
+    private MenuItem mnuHighScores;
+    private MenuItem mnuOptions;
+    private MenuItem mnuRetire;
+    private SubMenu mnuView;
+    private MenuItem mnuViewBank;
+    private MenuItem mnuViewCommander;
+    private MenuItem mnuViewLine1;
+    private MenuItem mnuViewLine2;
+    private MenuItem mnuViewPersonnel;
+    private MenuItem mnuViewQuests;
+    private MenuItem mnuViewShip;
 
-    private jwinforms.IContainer components;
+    private OpenFileDialog dlgOpen;
+    private SaveFileDialog dlgSave;
+
+    private PictureBox picLine;
+
+    private IContainer components;
 
     private Game game;
     private GameController controller;
     private Commander commander;
 
+    private Map<String, String> strings;
+    private ValuesMap dimensions;
+
     public SpaceTrader(String loadFileName) {
         initializeComponent();
 
-        InitFileStructure();
+        initFileStructure();
 
         if (loadFileName != null)
             controller.loadGame(loadFileName);
@@ -103,387 +109,43 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        components = new jwinforms.Container();
-        jwinforms.ResourceManager resources = new jwinforms.ResourceManager(SpaceTrader.class);
+        ResourceManager resources = new ResourceManager(SpaceTrader.class);
 
         strings = PropertiesLoader.getStringsMap("strings/ru.properties");
+        dimensions = PropertiesLoader.getValuesMap("dimensions/0768.properties");
 
-        mnuMain = new jwinforms.MainMenu();
-        mnuGame = new jwinforms.SubMenu();
-        mnuGameNew = new jwinforms.MenuItem();
-        mnuGameLoad = new jwinforms.MenuItem();
-        mnuGameSave = new jwinforms.MenuItem();
-        mnuGameSaveAs = new jwinforms.MenuItem();
-        mnuGameLine1 = new jwinforms.MenuItem();
-        mnuRetire = new jwinforms.MenuItem();
-        mnuGameLine2 = new jwinforms.MenuItem();
-        mnuGameExit = new jwinforms.MenuItem();
-        mnuView = new jwinforms.SubMenu();
-        mnuViewCommander = new jwinforms.MenuItem();
-        mnuViewShip = new jwinforms.MenuItem();
-        mnuViewPersonnel = new jwinforms.MenuItem();
-        mnuViewQuests = new jwinforms.MenuItem();
-        mnuViewBank = new jwinforms.MenuItem();
-        mnuViewLine1 = new jwinforms.MenuItem();
-        mnuHighScores = new jwinforms.MenuItem();
-        mnuViewLine2 = new jwinforms.MenuItem();
-        mnuOptions = new jwinforms.MenuItem();
-        mnuHelp = new jwinforms.SubMenu();
-        mnuHelpAbout = new jwinforms.MenuItem();
-        statusBar = new SpaceTraderStatusBar(this);
-        cargoBox = new CargoBox();
-        system = new SystemBox(this);
-        shipyard = new ShipyardBox(this);
-        dockBox = new DockBox(this);
-        picLine = new jwinforms.PictureBox();
-        dlgOpen = new jwinforms.OpenFileDialog();
-        dlgSave = new jwinforms.SaveFileDialog();
-        ilChartImages = new jwinforms.ImageList(components);
-        ilShipImages = new jwinforms.ImageList(components);
-        ilDirectionImages = new jwinforms.ImageList(components);
-        ilEquipmentImages = new jwinforms.ImageList(components);
-        statusBar.beginInit();
-        shortRangeChart = new ShortRangeChart(this, ilChartImages);
-        galacticChart = new GalacticChart(this, ilChartImages);
-        targetSystemBox = new TargetSystemBox(this);
+        initializeComponents();
+        initializeMenu();
+        initializeStatusBar();
 
-        shortRangeChart.SuspendLayout();
-        galacticChart.SuspendLayout();
-        targetSystemBox.SuspendLayout();
-        cargoBox.SuspendLayout();
-        system.SuspendLayout();
-        shipyard.SuspendLayout();
-        dockBox.SuspendLayout();
-        this.SuspendLayout();
-        //
-        // mnuMain
-        //
-        mnuMain.addAll(mnuGame, mnuView, mnuHelp);
-        //
-        // mnuGame
-        //
-        mnuGame.Index = 0;
-        mnuGame.addAll(mnuGameNew, mnuGameLoad, mnuGameSave, mnuGameSaveAs, mnuGameLine1, mnuRetire, mnuGameLine2,
-                mnuGameExit);
-        mnuGame.setText(strings.get("menu.game"));
-        //
-        // mnuGameNew
-        //
-        mnuGameNew.Index = 0;
-        mnuGameNew.setText(strings.get("menu.game.new"));
-        mnuGameNew.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuGameNew_Click(sender, e);
-            }
-        });
-        //
-        // mnuGameLoad
-        //
-        mnuGameLoad.Index = 1;
-        mnuGameLoad.Shortcut = jwinforms.Shortcut.CtrlL;
-        mnuGameLoad.setText(strings.get("menu.game.load"));
-        mnuGameLoad.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuGameLoad_Click(sender, e);
-            }
-        });
-        //
-        // mnuGameSave
-        //
-        mnuGameSave.setEnabled(false);
-        mnuGameSave.Index = 2;
-        mnuGameSave.Shortcut = jwinforms.Shortcut.CtrlS;
-        mnuGameSave.setText(strings.get("menu.game.save"));
-        mnuGameSave.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuGameSave_Click(sender, e);
-            }
-        });
-        //
-        // mnuGameSaveAs
-        //
-        mnuGameSaveAs.setEnabled(false);
-        mnuGameSaveAs.Index = 3;
-        mnuGameSaveAs.Shortcut = jwinforms.Shortcut.CtrlA;
-        mnuGameSaveAs.setText(strings.get("menu.game.save.as"));
-        mnuGameSaveAs.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuGameSaveAs_Click(sender, e);
-            }
-        });
-        //
-        // mnuGameLine1
-        //
-        mnuGameLine1.Index = 4;
-        mnuGameLine1.setText("-");
-        //
-        // mnuRetire
-        //
-        mnuRetire.setEnabled(false);
-        mnuRetire.Index = 5;
-        mnuRetire.setText(strings.get("menu.game.retire"));
-        mnuRetire.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuRetire_Click(sender, e);
-            }
-        });
-        //
-        // mnuGameLine2
-        //
-        mnuGameLine2.Index = 6;
-        mnuGameLine2.setText("-");
-        //
-        // mnuGameExit
-        //
-        mnuGameExit.Index = 7;
-        mnuGameExit.setText(strings.get("menu.game.exit"));
-        mnuGameExit.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuGameExit_Click(sender, e);
-            }
-        });
-        //
-        // mnuView
-        //
-        mnuView.Index = 1;
-        mnuView.addAll(mnuViewCommander, mnuViewShip, mnuViewPersonnel, mnuViewQuests, mnuViewBank, mnuViewLine1,
-                mnuHighScores, mnuViewLine2, mnuOptions);
-        mnuView.setText(strings.get("menu.view"));
-        //
-        // mnuViewCommander
-        //
-        mnuViewCommander.setEnabled(false);
-        mnuViewCommander.Index = 0;
-        mnuViewCommander.Shortcut = jwinforms.Shortcut.CtrlC;
-        mnuViewCommander.setText(strings.get("menu.view.commander.status"));
-        mnuViewCommander.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuViewCommander_Click(sender, e);
-            }
-        });
-        //
-        // mnuViewShip
-        //
-        mnuViewShip.setEnabled(false);
-        mnuViewShip.Index = 1;
-        mnuViewShip.Shortcut = jwinforms.Shortcut.CtrlH;
-        mnuViewShip.setText(strings.get("menu.view.ship"));
-        mnuViewShip.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuViewShip_Click(sender, e);
-            }
-        });
-        //
-        // mnuViewPersonnel
-        //
-        mnuViewPersonnel.setEnabled(false);
-        mnuViewPersonnel.Index = 2;
-        mnuViewPersonnel.Shortcut = jwinforms.Shortcut.CtrlP;
-        mnuViewPersonnel.setText(strings.get("menu.view.personnel"));
-        mnuViewPersonnel.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuViewPersonnel_Click(sender, e);
-            }
-        });
-        //
-        // mnuViewQuests
-        //
-        mnuViewQuests.setEnabled(false);
-        mnuViewQuests.Index = 3;
-        mnuViewQuests.Shortcut = jwinforms.Shortcut.CtrlQ;
-        mnuViewQuests.setText(strings.get("menu.view.quests"));
-        mnuViewQuests.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuViewQuests_Click(sender, e);
-            }
-        });
-        //
-        // mnuViewBank
-        //
-        mnuViewBank.setEnabled(false);
-        mnuViewBank.Index = 4;
-        mnuViewBank.Shortcut = jwinforms.Shortcut.CtrlB;
-        mnuViewBank.setText(strings.get("menu.view.bank"));
-        mnuViewBank.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuViewBank_Click(sender, e);
-            }
-        });
-        //
-        // mnuViewLine1
-        //
-        mnuViewLine1.Index = 5;
-        mnuViewLine1.setText("-");
-        //
-        // mnuHighScores
-        //
-        mnuHighScores.Index = 6;
-        mnuHighScores.setText(strings.get("menu.view.high.scores"));
-        mnuHighScores.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuHighScores_Click(sender, e);
-            }
-        });
-        //
-        // mnuViewLine2
-        //
-        mnuViewLine2.Index = 7;
-        mnuViewLine2.setText("-");
-        //
-        // mnuOptions
-        //
-        mnuOptions.Index = 8;
-        mnuOptions.setText(strings.get("menu.view.options"));
-        mnuOptions.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuOptions_Click(sender, e);
-            }
-        });
-        //
-        // mnuHelp
-        //
-        mnuHelp.Index = 2;
-        mnuHelp.add(mnuHelpAbout);
-        mnuHelp.setText(strings.get("menu.help"));
-        //
-        // mnuHelpAbout
-        //
-        mnuHelpAbout.Index = 0;
-        mnuHelpAbout.setText(strings.get("menu.help.about"));
-        mnuHelpAbout.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
-                mnuHelpAbout_Click(sender, e);
-            }
-        });
-        //
-        // picGalacticChart
-        //
-        galacticChart.InitializeComponent();
-        galacticChart.setLocation(new Point(180, 306));
+        initializeDialogs();
 
-        //
-        // statusBar
-        //
-        statusBar.setLocation(new Point(0, 481));
-        statusBar.InitializeComponent();
+        initializePicLine();
 
-        //
-        // boxShortRangeChart
-        //
-        shortRangeChart.InitializeComponent();
-        shortRangeChart.setLocation(new Point(364, 306));
+        //this.SuspendLayout();
 
-        //
-        // boxTargetSystem
-        //
-        targetSystemBox.InitializeComponent();
-        targetSystemBox.setLocation(new Point(548, 306));
-
-        //
-        // boxCargo
-        //
-        cargoBox.initializeComponent(strings);
-        cargoBox.setLocation(new Point(252, 2));
-
-        //
-        // boxSystem
-        //
-        system.InitializeComponent();
-        system.setLocation(new Point(4, 2));
-
-        //
-        // boxShipYard
-        //
-        shipyard.InitializeComponent();
-        shipyard.setLocation(new Point(4, 306));
-
-        //
-        // boxDock
-        //
-        dockBox.InitializeComponent();
-        dockBox.setLocation(new Point(4, 212));
-
-        //
-        // picLine
-        //
-        picLine.setBackColor(Color.darkGray);
-        picLine.setLocation(new Point(0, 0));
-        picLine.setName("picLine");
-        picLine.setSize(new jwinforms.Size(770, 1));
-        picLine.setTabIndex(132);
-        picLine.setTabStop(false);
-        //
-        // dlgOpen
-        //
-        dlgOpen.setFilter(strings.get("dialog.open.save.filter"));
-        //
-        // dlgSave
-        //
-        dlgSave.setFileName("SpaceTrader.sav");
-        dlgSave.setFilter(strings.get("dialog.open.save.filter"));
-        dlgSave.setTitle(strings.get("dialog.save.title"));
-        dlgSave.setButtonText(strings.get("dialog.save.button.text"));
-        //
-        // ilChartImages
-        //
-        ilChartImages.setImageSize(new jwinforms.Size(7, 7));
-        ilChartImages.setImageStream(((jwinforms.ImageListStreamer) (resources.getObject("ilChartImages.ImageStream"))));
-        ilChartImages.setTransparentColor(Color.white);
-        //
-        // ilShipImages
-        //
-        ilShipImages.setImageSize(new jwinforms.Size(64, 52));
-        ilShipImages.setImageStream(((jwinforms.ImageListStreamer) (resources.getObject("ilShipImages.ImageStream"))));
-        ilShipImages.setTransparentColor(Color.white);
-        //
-        // ilDirectionImages
-        //
-        ilDirectionImages.setImageSize(new jwinforms.Size(13, 13));
-        ilDirectionImages.setImageStream(((jwinforms.ImageListStreamer) (resources
-                .getObject("ilDirectionImages.ImageStream"))));
-        ilDirectionImages.setTransparentColor(Color.white);
-        //
-        // ilEquipmentImages
-        //
-        ilEquipmentImages.setImageSize(new jwinforms.Size(64, 52));
-        ilEquipmentImages.setImageStream(((jwinforms.ImageListStreamer) (resources
-                .getObject("ilEquipmentImages.ImageStream"))));
-        ilEquipmentImages.setTransparentColor(Color.white);
+        initializeImages(resources);
 
         //
         // SpaceTrader
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
-        this.setClientSize(new jwinforms.Size(768, 505));
+        this.setClientSize(dimensions.getSize("main"));
         Controls.add(picLine);
         Controls.add(dockBox);
         Controls.add(cargoBox);
         Controls.add(targetSystemBox);
         Controls.add(galacticChart);
         Controls.add(shortRangeChart);
+
+        Controls.add(systemBox);
+        Controls.add(shipyardBox);
+
         setStatusBar(statusBar);
-        Controls.add(system);
-        Controls.add(shipyard);
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedSingle);
+        this.setMenu(mnuMain);
+
+        this.setFormBorderStyle(FormBorderStyle.FixedSingle);
         this.setIcon(((Icon) (resources.getObject("$this.Icon"))));
         this.setMaximizeBox(false);
-        this.setMenu(mnuMain);
-        //TODO delete
-        //this.setName("SpaceTrader");
         this.setStartPosition(FormStartPosition.Manual);
         this.setText(strings.get("main.title"));
         this.setClosing(new jwinforms.EventHandler<Object, CancelEventArgs>() {
@@ -507,7 +169,298 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         });
     }
 
-    // #endregion
+    private void initializeMenu() {
+
+        mnuMain = new MainMenu();
+        mnuGame = new SubMenu();
+        mnuGameNew = new MenuItem();
+        mnuGameLoad = new MenuItem();
+        mnuGameSave = new MenuItem();
+        mnuGameSaveAs = new MenuItem();
+        mnuGameLine1 = new MenuItem();
+        mnuRetire = new MenuItem();
+        mnuGameLine2 = new MenuItem();
+        mnuGameExit = new MenuItem();
+        mnuView = new SubMenu();
+        mnuViewCommander = new MenuItem();
+        mnuViewShip = new MenuItem();
+        mnuViewPersonnel = new MenuItem();
+        mnuViewQuests = new MenuItem();
+        mnuViewBank = new MenuItem();
+        mnuViewLine1 = new MenuItem();
+        mnuHighScores = new MenuItem();
+        mnuViewLine2 = new MenuItem();
+        mnuOptions = new MenuItem();
+        mnuHelp = new SubMenu();
+        mnuHelpAbout = new MenuItem();
+
+        mnuMain.addAll(mnuGame, mnuView, mnuHelp);
+
+        mnuGame.Index = 0;
+        mnuGame.addAll(mnuGameNew, mnuGameLoad, mnuGameSave, mnuGameSaveAs, mnuGameLine1, mnuRetire, mnuGameLine2,
+                mnuGameExit);
+        mnuGame.setText(strings.get("menu.game"));
+
+        mnuGameNew.Index = 0;
+        mnuGameNew.setText(strings.get("menu.game.new"));
+        mnuGameNew.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuGameNew_Click(sender, e);
+            }
+        });
+
+        mnuGameLoad.Index = 1;
+        mnuGameLoad.Shortcut = Shortcut.CtrlL;
+        mnuGameLoad.setText(strings.get("menu.game.load"));
+        mnuGameLoad.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuGameLoad_Click(sender, e);
+            }
+        });
+
+        mnuGameSave.setEnabled(false);
+        mnuGameSave.Index = 2;
+        mnuGameSave.Shortcut = Shortcut.CtrlS;
+        mnuGameSave.setText(strings.get("menu.game.save"));
+        mnuGameSave.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuGameSave_Click(sender, e);
+            }
+        });
+
+        mnuGameSaveAs.setEnabled(false);
+        mnuGameSaveAs.Index = 3;
+        mnuGameSaveAs.Shortcut = Shortcut.CtrlA;
+        mnuGameSaveAs.setText(strings.get("menu.game.save.as"));
+        mnuGameSaveAs.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuGameSaveAs_Click(sender, e);
+            }
+        });
+
+        mnuGameLine1.Index = 4;
+        mnuGameLine1.setText("-");
+
+        mnuRetire.setEnabled(false);
+        mnuRetire.Index = 5;
+        mnuRetire.setText(strings.get("menu.game.retire"));
+        mnuRetire.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuRetire_Click(sender, e);
+            }
+        });
+
+        mnuGameLine2.Index = 6;
+        mnuGameLine2.setText("-");
+
+        mnuGameExit.Index = 7;
+        mnuGameExit.setText(strings.get("menu.game.exit"));
+        mnuGameExit.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuGameExit_Click(sender, e);
+            }
+        });
+
+        mnuView.Index = 1;
+        mnuView.addAll(mnuViewCommander, mnuViewShip, mnuViewPersonnel, mnuViewQuests, mnuViewBank, mnuViewLine1,
+                mnuHighScores, mnuViewLine2, mnuOptions);
+        mnuView.setText(strings.get("menu.view"));
+
+        mnuViewCommander.setEnabled(false);
+        mnuViewCommander.Index = 0;
+        mnuViewCommander.Shortcut = Shortcut.CtrlC;
+        mnuViewCommander.setText(strings.get("menu.view.commander.status"));
+        mnuViewCommander.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuViewCommander_Click(sender, e);
+            }
+        });
+
+        mnuViewShip.setEnabled(false);
+        mnuViewShip.Index = 1;
+        mnuViewShip.Shortcut = Shortcut.CtrlH;
+        mnuViewShip.setText(strings.get("menu.view.ship"));
+        mnuViewShip.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuViewShip_Click(sender, e);
+            }
+        });
+
+        mnuViewPersonnel.setEnabled(false);
+        mnuViewPersonnel.Index = 2;
+        mnuViewPersonnel.Shortcut = Shortcut.CtrlP;
+        mnuViewPersonnel.setText(strings.get("menu.view.personnel"));
+        mnuViewPersonnel.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuViewPersonnel_Click(sender, e);
+            }
+        });
+
+        mnuViewQuests.setEnabled(false);
+        mnuViewQuests.Index = 3;
+        mnuViewQuests.Shortcut = Shortcut.CtrlQ;
+        mnuViewQuests.setText(strings.get("menu.view.quests"));
+        mnuViewQuests.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuViewQuests_Click(sender, e);
+            }
+        });
+
+        mnuViewBank.setEnabled(false);
+        mnuViewBank.Index = 4;
+        mnuViewBank.Shortcut = Shortcut.CtrlB;
+        mnuViewBank.setText(strings.get("menu.view.bank"));
+        mnuViewBank.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuViewBank_Click(sender, e);
+            }
+        });
+
+        mnuViewLine1.Index = 5;
+        mnuViewLine1.setText("-");
+
+        mnuHighScores.Index = 6;
+        mnuHighScores.setText(strings.get("menu.view.high.scores"));
+        mnuHighScores.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuHighScores_Click(sender, e);
+            }
+        });
+
+        mnuViewLine2.Index = 7;
+        mnuViewLine2.setText("-");
+
+        mnuOptions.Index = 8;
+        mnuOptions.setText(strings.get("menu.view.options"));
+        mnuOptions.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuOptions_Click(sender, e);
+            }
+        });
+
+        mnuHelp.Index = 2;
+        mnuHelp.add(mnuHelpAbout);
+        mnuHelp.setText(strings.get("menu.help"));
+
+        mnuHelpAbout.Index = 0;
+        mnuHelpAbout.setText(strings.get("menu.help.about"));
+        mnuHelpAbout.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                mnuHelpAbout_Click(sender, e);
+            }
+        });
+    }
+
+    private void initializeStatusBar() {
+        statusBar = new SpaceTraderStatusBar(this);
+        statusBar.beginInit();
+        statusBar.InitializeComponent();
+    }
+
+    private void initializeComponents() {
+        components = new Container();
+
+        cargoBox = new CargoBox();
+        systemBox = new SystemBox(this);
+        shipyardBox = new ShipyardBox(this);
+        dockBox = new DockBox(this);
+
+        shortRangeChart = new ShortRangeChart(this, ilChartImages);
+        galacticChart = new GalacticChart(this, ilChartImages);
+        targetSystemBox = new TargetSystemBox(this);
+
+        shortRangeChart.SuspendLayout();
+        galacticChart.SuspendLayout();
+        targetSystemBox.SuspendLayout();
+        cargoBox.SuspendLayout();
+        systemBox.SuspendLayout();
+        shipyardBox.SuspendLayout();
+        dockBox.SuspendLayout();
+
+        galacticChart.InitializeComponent();
+        galacticChart.setLocation(new Point(180, 306));
+
+        shortRangeChart.InitializeComponent();
+        shortRangeChart.setLocation(new Point(364, 306));
+
+        targetSystemBox.InitializeComponent();
+        targetSystemBox.setLocation(new Point(548, 306));
+
+        cargoBox.initializeComponent(strings);
+        cargoBox.setLocation(new Point(252, 2));
+
+        systemBox.InitializeComponent();
+        systemBox.setLocation(new Point(4, 2));
+
+        shipyardBox.InitializeComponent();
+        shipyardBox.setLocation(new Point(4, 306));
+
+        dockBox.InitializeComponent();
+        dockBox.setLocation(new Point(4, 212));
+    }
+
+    private void initializePicLine() {
+        picLine = new PictureBox();
+        picLine.setBackColor(Color.darkGray);
+        picLine.setLocation(new Point(0, 0));
+        picLine.setName("picLine");
+        picLine.setSize(new Size(770, 1));
+        picLine.setTabIndex(132);
+        picLine.setTabStop(false);
+    }
+
+    private void initializeDialogs() {
+        dlgOpen = new OpenFileDialog();
+        dlgSave = new SaveFileDialog();
+
+        dlgOpen.setFilter(strings.get("dialog.open.save.filter"));
+
+        dlgSave.setFileName("SpaceTrader.sav");
+        dlgSave.setFilter(strings.get("dialog.open.save.filter"));
+        dlgSave.setTitle(strings.get("dialog.save.title"));
+        dlgSave.setButtonText(strings.get("dialog.save.button.text"));
+    }
+
+
+    private void initializeImages(ResourceManager resources) {
+        ilChartImages = new ImageList(components);
+        ilShipImages = new ImageList(components);
+        ilDirectionImages = new ImageList(components);
+        ilEquipmentImages = new ImageList(components);
+
+        ilChartImages.setImageSize(new Size(7, 7));
+        ilChartImages.setImageStream(((ImageListStreamer) (resources.getObject("ilChartImages.ImageStream"))));
+        ilChartImages.setTransparentColor(Color.white);
+
+        ilShipImages.setImageSize(new Size(64, 52));
+        ilShipImages.setImageStream(((ImageListStreamer) (resources.getObject("ilShipImages.ImageStream"))));
+        ilShipImages.setTransparentColor(Color.white);
+
+        ilDirectionImages.setImageSize(new Size(13, 13));
+        ilDirectionImages.setImageStream(((ImageListStreamer) (resources
+                .getObject("ilDirectionImages.ImageStream"))));
+        ilDirectionImages.setTransparentColor(Color.white);
+
+        ilEquipmentImages.setImageSize(new Size(64, 52));
+        ilEquipmentImages.setImageStream(((ImageListStreamer) (resources
+                .getObject("ilEquipmentImages.ImageStream"))));
+        ilEquipmentImages.setTransparentColor(Color.white);
+    }
+
 
     private String GetRegistrySetting(String settingName, String defaultValue) {
         String settingValue = defaultValue;
@@ -526,7 +479,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
     }
 
     // Make sure all directories exists.
-    private void InitFileStructure() {
+    private void initFileStructure() {
         String[] paths = new String[]{Consts.CustomDirectory, Consts.CustomImagesDirectory,
                 Consts.CustomTemplatesDirectory, Consts.DataDirectory, Consts.SaveDirectory};
 
@@ -563,9 +516,9 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
     public void updateAll() {
         dockBox.Update();
         cargoBox.update(strings);
-        shipyard.Update();
+        shipyardBox.Update();
         statusBar.Update();
-        system.Update();
+        systemBox.Update();
         targetSystemBox.Update();
         galacticChart.Refresh();
         shortRangeChart.Refresh();
@@ -742,8 +695,8 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         targetSystemBox.setGame(game, controller, commander);
         galacticChart.setGame(game, controller, commander);
         shortRangeChart.setGame(game, commander);
-        system.setGame(game, controller, commander);
-        shipyard.setGame(commander);
+        systemBox.setGame(game, controller, commander);
+        shipyardBox.setGame(commander);
         statusBar.setGame(commander);
     }
 

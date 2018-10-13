@@ -15,8 +15,6 @@ public class WinformWindow extends WinformPane {
     DialogResult result;
     private EventHandler<Object, CancelEventArgs> onClosing;
     private EventHandler<Object, EventArgs> onClosed;
-    // Must encapsulate most of these.
-    private Size AutoScaleBaseSize;
     private FormBorderStyle FormBorderStyle;
     private boolean ControlBox;
     private boolean MinimizeBox;
@@ -56,14 +54,6 @@ public class WinformWindow extends WinformPane {
     protected void close() {
         WindowEvent wev = new WindowEvent((Window) swingVersion, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
-    }
-
-    public Size getAutoScaleBaseSize() {
-        return AutoScaleBaseSize;
-    }
-
-    public void setAutoScaleBaseSize(Size autoScaleBaseSize) {
-        AutoScaleBaseSize = autoScaleBaseSize;
     }
 
     public String getTitle() {

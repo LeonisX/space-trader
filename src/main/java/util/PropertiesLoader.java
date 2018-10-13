@@ -1,5 +1,7 @@
 package util;
 
+import spacetrader.util.ValuesMap;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -14,6 +16,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PropertiesLoader {
+
+    //TODO optimize
+    public static ValuesMap getValuesMap(String name) {
+        ValuesMap valuesMap = new ValuesMap();
+        getResourceAsFilteredStream(name).forEach(s -> {
+            String[] pair = s.split("=", 2);
+            valuesMap.put(pair[0], pair[1]);
+        });
+        return valuesMap;
+    }
 
     //TODO optimize
     public static Map<String, String> getStringsMap(String name) {
