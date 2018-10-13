@@ -13,8 +13,18 @@
 * Advanced properties reader
 * Full refactor
 
+### Minor tasks
+
+* Custom strings reader
+* All strings to file
+
 ## Known bugs:
 
 * Load game from scratch
 * High Score
 * Launcher
+
+* Multilanguage support
+* Gradle
+* Full refactor, code clean-up
+* --Bug fixes
