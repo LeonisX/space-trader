@@ -1,22 +1,19 @@
 package spacetrader.gui;
 
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import jwinforms.DialogResult;
+import jwinforms.WinformForm;
 
-import jwinforms.*;
+import javax.swing.*;
 
 
-public class Launcher
-{
+public class Launcher {
 
-	public static void runForm(WinformForm form) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
-			UnsupportedLookAndFeelException
-	{
-		UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		SwingUtilities.updateComponentTreeUI(form.asSwingObject());
-		DialogResult res = form.ShowDialog(null);
-		System.out.println("Dialog result: "+res);
-	}
+    public static void runForm(WinformForm form) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+            UnsupportedLookAndFeelException {
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        SwingUtilities.updateComponentTreeUI(form.asSwingObject());
+        DialogResult res = form.showDialog(null);
+        System.out.println("Dialog result: " + res);
+    }
 
 }

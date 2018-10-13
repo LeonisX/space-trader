@@ -1,50 +1,40 @@
 package jwinforms;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
+public class MenuItem {
 
-public class MenuItem
-{
-	protected JMenuItem swingVersion;
+    public int Index;
+    public Shortcut Shortcut;
+    protected JMenuItem swingVersion;
 
-	public MenuItem()
-	{
-		this(new JMenuItem());
-	}
+    public MenuItem() {
+        this(new JMenuItem());
+    }
 
-	protected MenuItem(JMenuItem swingVersion)
-	{
-		this.swingVersion = swingVersion;
-	}
+    MenuItem(JMenuItem swingVersion) {
+        this.swingVersion = swingVersion;
+    }
 
-	public JMenuItem asJMenuItem()
-	{
-		return swingVersion;
-	}
+    JMenuItem asJMenuItem() {
+        return swingVersion;
+    }
 
-	public void setText(String text)
-	{
-		asJMenuItem().setText(text);
-	}
+    public void setText(String text) {
+        asJMenuItem().setText(text);
+    }
 
-	public int Index;
-	public Shortcut Shortcut;
+    public void setClick(final EventHandler<Object, EventArgs> eventHandler) {
+        asJMenuItem().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                eventHandler.handle(this, null);
+            }
+        });
+    }
 
-	public void setClick(final EventHandler<Object, EventArgs> eventHandler)
-	{
-		asJMenuItem().addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				eventHandler.handle(this, null);
-			}
-		});
-	}
-
-	public void setEnabled(boolean enabled)
-	{
-		asJMenuItem().setEnabled(enabled);
-	}
+    public void setEnabled(boolean enabled) {
+        asJMenuItem().setEnabled(enabled);
+    }
 }

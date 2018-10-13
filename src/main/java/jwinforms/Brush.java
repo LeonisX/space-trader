@@ -1,12 +1,11 @@
 package jwinforms;
 
-import java.awt.Color;
+import java.awt.*;
 
-public abstract class Brush extends Pen
-{
+public abstract class Brush extends Pen {
 
-	public Brush(Color color)
-	{
-		super(color);
-	}
+    Brush(Color color) {
+        super(color);
+    }
+
 }

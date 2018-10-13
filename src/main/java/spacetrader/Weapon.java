@@ -33,103 +33,89 @@ import spacetrader.util.EquipmentSubType;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Log;
 
-public class Weapon extends Equipment
-{
-	// #region Member Declarations
+public class Weapon extends Equipment {
+    // #region Member Declarations
 
-	private WeaponType _type;
-	private int _power;
-	private boolean _disabling;
+    private WeaponType _type;
+    private int _power;
+    private boolean _disabling;
 
-	// #endregion
+    // #endregion
 
-	// #region Methods
+    // #region Methods
 
-	public Weapon(WeaponType type, int power, boolean disabling, int price,
-			TechLevel minTechLevel, int chance)
-	{
-		super(spacetrader.enums.EquipmentType.Weapon, price, minTechLevel, chance);
-		_type = type;
-		_power = power;
-		_disabling = disabling;
-	}
+    public Weapon(WeaponType type, int power, boolean disabling, int price,
+                  TechLevel minTechLevel, int chance) {
+        super(spacetrader.enums.EquipmentType.Weapon, price, minTechLevel, chance);
+        _type = type;
+        _power = power;
+        _disabling = disabling;
+    }
 
-	public Weapon(Hashtable hash)
-	{
-		super(hash);
-		_type = WeaponType.FromInt(GetValueFromHash(hash, "_type", Integer.class));
-		_power = GetValueFromHash(hash, "_power", Integer.class);
-		_disabling = GetValueFromHash(hash, "_disabling", false);
-	}
+    public Weapon(Hashtable hash) {
+        super(hash);
+        _type = WeaponType.fromInt(GetValueFromHash(hash, "_type", Integer.class));
+        _power = GetValueFromHash(hash, "_power", Integer.class);
+        _disabling = GetValueFromHash(hash, "_disabling", false);
+    }
 
-	public @Override
-	Equipment Clone()
-	{
-		return new Weapon(_type, _power, _disabling, _price, _minTech, _chance);
-	}
+    public @Override
+    Equipment Clone() {
+        return new Weapon(_type, _power, _disabling, _price, _minTech, _chance);
+    }
 
-	public @Override
-	Hashtable Serialize()
-	{
-		Hashtable hash = super.Serialize();
+    public @Override
+    Hashtable Serialize() {
+        Hashtable hash = super.Serialize();
 
-		hash.add("_type", _type.CastToInt());
-		hash.add("_power", _power);
-		hash.add("_disabling", _disabling);
+        hash.add("_type", _type.castToInt());
+        hash.add("_power", _power);
+        hash.add("_disabling", _disabling);
 
-		return hash;
-	}
+        return hash;
+    }
 
-	public @Override
-	boolean TypeEquals(Object type)
-	{
-		boolean equal = false;
+    public @Override
+    boolean TypeEquals(Object type) {
+        boolean equal = false;
 
-		try
-		{
-			if (Type() == (WeaponType) type)
-				equal = true;
-		} catch (Exception e)
-		{
-			Log.write("Ignored exeption " + e);
-		}
+        try {
+            if (Type() == (WeaponType) type)
+                equal = true;
+        } catch (Exception e) {
+            Log.write("Ignored exeption " + e);
+        }
 
-		return equal;
-	}
+        return equal;
+    }
 
-	// #endregion
+    // #endregion
 
-	// #region Properties
+    // #region Properties
 
-	public boolean Disabling()
-	{
-		return _disabling;
+    public boolean Disabling() {
+        return _disabling;
 
-	}
+    }
 
-	public @Override
-	String Name()
-	{
-		return Strings.WeaponNames[_type.CastToInt()];
-	}
+    public @Override
+    String Name() {
+        return Strings.WeaponNames[_type.castToInt()];
+    }
 
-	public int Power()
-	{
-		return _power;
-	}
+    public int Power() {
+        return _power;
+    }
 
-	public @Override
-	EquipmentSubType SubType()
-	{
-		return Type();
-	}
+    public @Override
+    EquipmentSubType SubType() {
+        return Type();
+    }
 
-	
 
-	public WeaponType Type()
-	{
-		return _type;
-	}
+    public WeaponType Type() {
+        return _type;
+    }
 
-	// #endregion
+    // #endregion
 }

@@ -1,7 +1,7 @@
 package jwinforms;
 
-public enum PictureBoxSizeMode
-{
-	StretchImage
+public enum PictureBoxSizeMode {
+
+    StretchImage
 
 }

@@ -7,10 +7,12 @@ import spacetrader.Game;
  *
  * @author Aviv
  */
-public interface MainWindow extends GuiWindow
-{
-	void UpdateAll();
-	void UpdateStatusBar();
-	void SetInGameControlsEnabled(boolean enabled);
-	void setGame(Game game);
+public interface MainWindow extends GuiWindow {
+    void updateAll();
+
+    void updateStatusBar();
+
+    void SetInGameControlsEnabled(boolean enabled);
+
+    void setGame(Game game);
 }

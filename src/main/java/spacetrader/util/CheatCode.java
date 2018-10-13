@@ -12,7 +12,6 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Documented
-public @interface CheatCode
-{
-	// Todo: Create a annotation tool to ansure @CheatCode is not called from "real" code.
+public @interface CheatCode {
+    // Todo: Create a annotation tool to ansure @CheatCode is not called from "real" code.
 }

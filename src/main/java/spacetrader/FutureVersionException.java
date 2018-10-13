@@ -1,6 +1,5 @@
 package spacetrader;
 
-public class FutureVersionException extends RuntimeException
-{
+class FutureVersionException extends RuntimeException {
 
 }

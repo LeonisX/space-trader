@@ -2,23 +2,21 @@ package spacetrader.enums;
 
 import spacetrader.util.EquipmentSubType;
 
-public enum GadgetType implements EquipmentSubType, SpaceTraderEnum
-{
-	ExtraCargoBays, // = 0,
-	AutoRepairSystem, // = 1,
-	NavigatingSystem, // = 2,
-	TargetingSystem, // = 3,
-	CloakingDevice, // = 4,
-	FuelCompactor, // = 5,
-	HiddenCargoBays;// = 6
+public enum GadgetType implements EquipmentSubType, SpaceTraderEnum {
 
-	public int CastToInt()
-	{
-		return ordinal();
-	}
+    ExtraCargoBays, // = 0,
+    AutoRepairSystem, // = 1,
+    NavigatingSystem, // = 2,
+    TargetingSystem, // = 3,
+    CloakingDevice, // = 4,
+    FuelCompactor, // = 5,
+    HiddenCargoBays;// = 6
 
-	public static GadgetType FromInt(int i)
-	{
-return values()[i];
-	}
+    public static GadgetType fromInt(int i) {
+        return values()[i];
+    }
+
+    public int castToInt() {
+        return ordinal();
+    }
 }

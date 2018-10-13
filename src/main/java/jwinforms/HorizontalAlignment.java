@@ -1,6 +1,7 @@
 package jwinforms;
 
-public enum HorizontalAlignment
-{
-Center, Right, Left
+public enum HorizontalAlignment {
+
+    Center, Right, Left
+
 }

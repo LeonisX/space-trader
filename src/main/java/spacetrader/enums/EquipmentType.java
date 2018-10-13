@@ -2,14 +2,13 @@ package spacetrader.enums;
 
 public enum EquipmentType implements SpaceTraderEnum// : int
 {
-	Weapon, Shield, Gadget;
-	public int CastToInt()
-	{
-		return ordinal();
-	}
+    Weapon, Shield, Gadget;
 
-	public static EquipmentType FromInt(int i)
-	{
-		return values()[i];
-	}
+    public static EquipmentType fromInt(int i) {
+        return values()[i];
+    }
+
+    public int castToInt() {
+        return ordinal();
+    }
 }

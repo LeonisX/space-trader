@@ -1,6 +1,5 @@
 package jwinforms;
 
-public class EventArgs
-{
+public class EventArgs {
 
 }

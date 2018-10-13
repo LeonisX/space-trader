@@ -1,20 +1,18 @@
 package jwinforms;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
-public class Panel extends WinformControl
-{
-	public Panel()
-	{
-		super(new JPanel());
-	}
+public class Panel extends WinformControl {
 
-	public boolean AutoScroll;
-	public Panel Controls = this;
+    public boolean AutoScroll;
+    public Panel Controls = this;
 
-	public void add(WinformControl control)
-	{
-		((JPanel)swingVersion).add(control.swingVersion);
-	}
+    public Panel() {
+        super(new JPanel());
+    }
+
+    public void add(WinformControl control) {
+        ((JPanel) swingVersion).add(control.swingVersion);
+    }
 
 }

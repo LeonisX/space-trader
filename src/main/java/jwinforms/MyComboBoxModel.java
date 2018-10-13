@@ -1,37 +1,31 @@
 package jwinforms;
 
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.*;
 
-public class MyComboBoxModel extends DefaultComboBoxModel
-{
-	// TODO inline methods, use super-class.
-	public void add(Object obj)
-	{
-		this.addElement(obj);
-	}
+public class MyComboBoxModel extends DefaultComboBoxModel {
 
-	public void AddRange(Object... objects)
-	{
-		for (Object obj : objects)
-		{
-			add(obj);
-		}
-	}
+    // TODO inline methods, use super-class.
+    public void add(Object obj) {
+        this.addElement(obj);
+    }
 
-	public Object get(int index)
-	{
-		return getElementAt(index);
-	}
+    public void AddRange(Object... objects) {
+        for (Object obj : objects) {
+            add(obj);
+        }
+    }
 
-	public void remove(int index)
-	{
-	removeElementAt(index);
-	}
+    public Object get(int index) {
+        return getElementAt(index);
+    }
 
-	public void Insert(int index, Object obj)
-	{
-		insertElementAt(obj, index);
-	}
-	
+    public void remove(int index) {
+        removeElementAt(index);
+    }
+
+    public void Insert(int index, Object obj) {
+        insertElementAt(obj, index);
+    }
+
 
 }

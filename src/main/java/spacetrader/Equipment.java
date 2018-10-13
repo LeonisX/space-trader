@@ -20,128 +20,116 @@
 package spacetrader;
 
 import jwinforms.Image;
-import spacetrader.util.*;
-import spacetrader.enums.*;
+import spacetrader.enums.EquipmentType;
+import spacetrader.enums.TechLevel;
 import spacetrader.guifacade.GuiEngine;
+import spacetrader.util.EquipmentSubType;
+import spacetrader.util.Hashtable;
 
-public abstract class Equipment extends STSerializableObject implements Cloneable
-{
-	protected EquipmentType _equipType;
-	protected int _price;
-	protected TechLevel _minTech;
-	protected int _chance;
+public abstract class Equipment extends STSerializableObject implements Cloneable {
 
-	public Equipment(EquipmentType type, int price, TechLevel minTechLevel, int chance)
-	{
-		_equipType = type;
-		_price = price;
-		_minTech = minTechLevel;
-		_chance = chance;
-	}
+    protected EquipmentType _equipType;
+    protected int _price;
+    protected TechLevel _minTech;
+    protected int _chance;
 
-	public Equipment(Hashtable hash)// : base(hash)
-	{
-		super(hash);
-		_equipType = EquipmentType.FromInt(GetValueFromHash(hash, "_equipType", Integer.class));
-		_price = GetValueFromHash(hash, "_price", Integer.class);
-		_minTech = TechLevel.FromInt(GetValueFromHash(hash, "_minTech", Integer.class));
-		_chance = GetValueFromHash(hash, "_chance", Integer.class);
-	}
+    public Equipment(EquipmentType type, int price, TechLevel minTechLevel, int chance) {
+        _equipType = type;
+        _price = price;
+        _minTech = minTechLevel;
+        _chance = chance;
+    }
 
-	public abstract Equipment Clone();
+    public Equipment(Hashtable hash)// : base(hash)
+    {
+        super();
+        _equipType = EquipmentType.fromInt(GetValueFromHash(hash, "_equipType", Integer.class));
+        _price = GetValueFromHash(hash, "_price", Integer.class);
+        _minTech = TechLevel.fromInt(GetValueFromHash(hash, "_minTech", Integer.class));
+        _chance = GetValueFromHash(hash, "_chance", Integer.class);
+    }
 
-	@Override
-	public Hashtable Serialize()
-	{
-		Hashtable hash = super.Serialize();
+    public abstract Equipment Clone();
 
-		hash.put("_equipType", _equipType.CastToInt());
-		hash.put("_price", _price);
-		hash.put("_minTech", _minTech.CastToInt());
-		hash.put("_chance", _chance);
+    @Override
+    public Hashtable Serialize() {
+        Hashtable hash = super.Serialize();
 
-		return hash;
-	}
+        hash.put("_equipType", _equipType.castToInt());
+        hash.put("_price", _price);
+        hash.put("_minTech", _minTech.castToInt());
+        hash.put("_chance", _chance);
 
-	@Override
-	public String toString()
-	{
-		return Name();
-	}
+        return hash;
+    }
 
-	public abstract boolean TypeEquals(Object type);
+    @Override
+    public String toString() {
+        return Name();
+    }
 
-	final protected int BaseImageIndex()
-	{
-		int baseImageIndex = 0;
+    public abstract boolean TypeEquals(Object type);
 
-		switch (EquipmentType())
-		{
-		case Gadget:
-			baseImageIndex = Strings.WeaponNames.length + Strings.ShieldNames.length;
-			break;
-		case Shield:
-			baseImageIndex = Strings.WeaponNames.length;
-			break;
-		case Weapon:
-			// baseImageIndex should be 0
-			break;
-		}
+    private int BaseImageIndex() {
+        int baseImageIndex = 0;
 
-		return baseImageIndex;
-	}
+        switch (EquipmentType()) {
+            case Gadget:
+                baseImageIndex = Strings.WeaponNames.length + Strings.ShieldNames.length;
+                break;
+            case Shield:
+                baseImageIndex = Strings.WeaponNames.length;
+                break;
+            case Weapon:
+                // baseImageIndex should be 0
+                break;
+        }
 
-	public int Chance()
-	{
-		return _chance;
-	}
+        return baseImageIndex;
+    }
 
-	public EquipmentType EquipmentType()
-	{
-		return _equipType;
-	}
+    int Chance() {
+        return _chance;
+    }
 
-	final public Image Image()
-	{
-		return GuiEngine.imageProvider.getEquipmentImages().getImages()[BaseImageIndex()
-				+ SubType().CastToInt()];
-	}
+    public EquipmentType EquipmentType() {
+        return _equipType;
+    }
 
-	public TechLevel MinimumTechLevel()
-	{
-		return _minTech;
-	}
+    final public Image Image() {
+        return GuiEngine.imageProvider.getEquipmentImages().getImages()[BaseImageIndex()
+                + SubType().castToInt()];
+    }
 
-	public String Name()
-	{
-		return "Name not defined";
-	}
+    private TechLevel MinimumTechLevel() {
+        return _minTech;
+    }
 
-	public int Price()
-	{
-		Commander cmdr = Game.CurrentGame().Commander();
-		int price = 0;
+    public String Name() {
+        return "Name not defined";
+    }
 
-		if (cmdr != null && cmdr.getCurrentSystem().TechLevel().CastToInt() >= MinimumTechLevel().CastToInt())
-			price = (_price * (100 - cmdr.getShip().Trader())) / 100;
+    public int Price() {
+        Commander cmdr = Game.CurrentGame().Commander();
+        int price = 0;
 
-		return price;
-	}
+        if (cmdr != null && cmdr.getCurrentSystem().TechLevel().castToInt() >= MinimumTechLevel().castToInt())
+            price = (_price * (100 - cmdr.getShip().Trader())) / 100;
 
-	public int SellPrice()
-	{
-		return _price * 3 / 4;
-	}
+        return price;
+    }
 
-	public EquipmentSubType SubType()
-	{
-		return null;
-	}
+    public int SellPrice() {
+        return _price * 3 / 4;
+    }
 
-	public int TransferPrice()
-	{
-		// The cost to transfer is 10% of the item worth. This is changed
-		// from actually PAYING the buyer about 8% to transfer items. - JAF
-		return SellPrice() * 110 / 90;
-	}
+    public EquipmentSubType SubType() {
+        return null;
+    }
+
+    int TransferPrice() {
+        // The cost to transfer is 10% of the item worth. This is changed
+        // from actually PAYING the buyer about 8% to transfer items. - JAF
+        return SellPrice() * 110 / 90;
+    }
 }

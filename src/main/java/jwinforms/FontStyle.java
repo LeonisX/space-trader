@@ -2,14 +2,14 @@ package jwinforms;
 
 import java.awt.Font;
 
-public enum FontStyle
-{
-	Bold(Font.BOLD), Italics(Font.ITALIC), Regular(Font.PLAIN);
+public enum FontStyle {
 
-	public final int awtFontstyle;
+    Bold(Font.BOLD), Italics(Font.ITALIC), Regular(Font.PLAIN);
 
-	private FontStyle(int awtFontstyle)
-	{
-		this.awtFontstyle = awtFontstyle;
-	}
+    public final int awtFontStyle;
+
+    FontStyle(int awtFontStyle) {
+        this.awtFontStyle = awtFontStyle;
+    }
+
 }

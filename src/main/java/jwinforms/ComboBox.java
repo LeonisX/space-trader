@@ -1,51 +1,41 @@
 package jwinforms;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComboBox;
+public class ComboBox extends WinformControl {
 
-public class ComboBox extends WinformControl
-{
-	public ComboBox()
-	{
-		super(new JComboBox());
-		asJComboBox().setModel(Items);
-	}
+    public final MyComboBoxModel Items = new MyComboBoxModel();
+    // probably don't care.
+    public ComboBoxStyle DropDownStyle;
 
-	public JComboBox asJComboBox()
-	{
-		return (JComboBox)swingVersion;
-	}
+    public ComboBox() {
+        super(new JComboBox());
+        asJComboBox().setModel(Items);
+    }
 
-	public int getSelectedIndex()
-	{
-		return asJComboBox().getSelectedIndex();
-	}
+    private JComboBox asJComboBox() {
+        return (JComboBox) swingVersion;
+    }
 
-	public void setSelectedIndex(int index)
-	{
-		asJComboBox().setSelectedIndex(index);
-	}
+    public int getSelectedIndex() {
+        return asJComboBox().getSelectedIndex();
+    }
 
-	public void setSelectedIndexChanged(final EventHandler<Object, EventArgs> handler)
-	{
-		asJComboBox().addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				handler.handle(ComboBox.this, null);
-			}
-		});
-	}
+    public void setSelectedIndex(int index) {
+        asJComboBox().setSelectedIndex(index);
+    }
 
-	public Object getSelectedItem()
-	{
-		return asJComboBox().getSelectedItem();
-	}
+    public void setSelectedIndexChanged(final EventHandler<Object, EventArgs> handler) {
+        asJComboBox().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                handler.handle(ComboBox.this, null);
+            }
+        });
+    }
 
-	public final MyComboBoxModel Items = new MyComboBoxModel();
-
-	// probably don't care.
-	public ComboBoxStyle DropDownStyle;
+    public Object getSelectedItem() {
+        return asJComboBox().getSelectedItem();
+    }
 }

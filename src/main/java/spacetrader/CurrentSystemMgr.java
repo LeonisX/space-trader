@@ -1,10 +1,9 @@
 package spacetrader;
 
-public interface CurrentSystemMgr
-{
+public interface CurrentSystemMgr {
 
-	void HandleSpecialEvent();
+    void HandleSpecialEvent();
 
-	void ShowNewspaper();
+    void ShowNewspaper();
 
 }

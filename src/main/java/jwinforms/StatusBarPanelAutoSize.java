@@ -1,6 +1,7 @@
 package jwinforms;
 
-public enum StatusBarPanelAutoSize
-{
-	Spring, None
+public enum StatusBarPanelAutoSize {
+
+    Spring, None
+
 }

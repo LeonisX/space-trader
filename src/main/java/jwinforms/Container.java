@@ -1,6 +1,5 @@
 package jwinforms;
 
-public class Container implements IContainer
-{
+public class Container implements IContainer {
 
 }

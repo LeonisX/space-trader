@@ -1,79 +1,64 @@
 package jwinforms;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+public class Button extends WinformControl {
 
-public class Button extends WinformControl
-{
-	public Button()
-	{
-		super(new JButton());
-	}
+    DialogResult DialogResult;
+    private Action userAction;
 
-	DialogResult DialogResult;
-	Action userAction;
+    public Button() {
+        super(new JButton());
+    }
 
-	public void setText(String text)
-	{
-		asJButtton().setText(text);
-	}
+    public String getText() {
+        return asJButton().getText();
+    }
 
-	public String getText()
-	{
-		return asJButtton().getText();
-	}
+    public void setText(String text) {
+        asJButton().setText(text);
+    }
 
-	@Override
-	public void setSize(Dimension size)
-	{
-		// width should be bigger because font is bigger(?).
-		super.setSize(new Dimension(size.width, size.height));
-	}
+    @Override
+    public void setSize(Dimension size) {
+        // width should be bigger because font is bigger(?).
+        super.setSize(new Dimension(size.width, size.height));
+    }
 
-	public JButton asJButtton()
-	{
-		return (JButton)swingVersion;
-	}
+    JButton asJButton() {
+        return (JButton) swingVersion;
+    }
 
-	public void setDialogResult(DialogResult dialogResult)
-	{
-		DialogResult = dialogResult;
-	}
+    public void setDialogResult(DialogResult dialogResult) {
+        DialogResult = dialogResult;
+    }
 
-//	@SuppressWarnings("serial")
-	@Override
-	public void setClick(final EventHandler<Object, EventArgs> click)
-	{
-		userAction = new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				click.handle(Button.this, null);
-			}
-		};
-		userAction.putValue(AbstractAction.NAME, getText());
-		asJButtton().setAction(userAction);
-		super.setClick(click);
-	}
+    //	@SuppressWarnings("serial")
+    @Override
+    public void setClick(final EventHandler<Object, EventArgs> click) {
+        userAction = new AbstractAction() {
+            public void actionPerformed(ActionEvent arg0) {
+                click.handle(Button.this, null);
+            }
+        };
+        userAction.putValue(AbstractAction.NAME, getText());
+        asJButton().setAction(userAction);
+        super.setClick(click);
+    }
 
-		public void setFlatStyle(FlatStyle flatStyle)
-	{
-		switch (flatStyle)
-		{
-		case Flat:
-			asJButtton().setBorder(BorderFactory.createLineBorder(Color.black));
-			return;
+    public void setFlatStyle(FlatStyle flatStyle) {
+        // In Ubuntu buttons are ugly. Disabled flat
+        /*switch (flatStyle) {
+            case Flat:
+                asJButton().setBorder(BorderFactory.createLineBorder(Color.black));
+                return;
 
-		default:
-			throw new Error("Unknown FlatStyle");
-		}
-		// I think this is default.
-		//asJButtton().setBorder(BorderFactory.createRaisedBevelBorder());
-	}
+            default:
+                throw new Error("Unknown FlatStyle");
+        }*/
+        // I think this is default.
+        //asJButton().setBorder(BorderFactory.createRaisedBevelBorder());
+    }
 }

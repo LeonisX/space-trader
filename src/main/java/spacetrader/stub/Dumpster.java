@@ -1,6 +1,5 @@
 package spacetrader.stub;
 
-public class Dumpster
-{
+public class Dumpster {
 
 }

@@ -22,56 +22,47 @@ package spacetrader;
 
 import spacetrader.enums.PoliceRecordType;
 
-public class PoliceRecord
-{
-	// #region Member Declarations
+public class PoliceRecord {
+    // #region Member Declarations
 
-	private final PoliceRecordType _type;
-	private final int _minScore;
+    private final PoliceRecordType _type;
+    private final int _minScore;
 
-	// #endregion
+    // #endregion
 
-	// #region Methods
+    // #region Methods
 
-	public PoliceRecord(PoliceRecordType type, int minScore)
-	{
-		_type = type;
-		_minScore = minScore;
-	}
+    public PoliceRecord(PoliceRecordType type, int minScore) {
+        _type = type;
+        _minScore = minScore;
+    }
 
-	public static PoliceRecord GetPoliceRecordFromScore(int PoliceRecordScore)
-	{
-		int i;
-		for (i = 0; i < Consts.PoliceRecords.length
-				&& Game.CurrentGame().Commander().getPoliceRecordScore() >= Consts.PoliceRecords[i].MinScore(); i++)
-			;
-		return Consts.PoliceRecords[Math.max(0, i - 1)];
-	}
+    public static PoliceRecord GetPoliceRecordFromScore(int PoliceRecordScore) {
+        int i;
+        for (i = 0; i < Consts.PoliceRecords.length
+                && Game.CurrentGame().Commander().getPoliceRecordScore() >= Consts.PoliceRecords[i].MinScore(); i++)
+            ;
+        return Consts.PoliceRecords[Math.max(0, i - 1)];
+    }
 
-	// #endregion
+    // #endregion
 
-	// #region Properties
+    // #region Properties
 
 
-
-	public int MinScore()
-	{
-		return _minScore;
-	}
+    public int MinScore() {
+        return _minScore;
+    }
 
 
-
-	public String Name()
-	{
-		return _type.getName();
-	}
+    public String Name() {
+        return _type.getName();
+    }
 
 
+    public PoliceRecordType Type() {
+        return _type;
+    }
 
-	public PoliceRecordType Type()
-	{
-		return _type;
-	}
-
-	// #endregion
+    // #endregion
 }

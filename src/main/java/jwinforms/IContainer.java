@@ -1,6 +1,5 @@
 package jwinforms;
 
-public interface IContainer
-{
+public interface IContainer {
 
 }

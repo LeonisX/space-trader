@@ -1,75 +1,72 @@
 package jwinforms;
 
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Properties;
 
-public class ResourceManager
-{
-	protected final Properties properties = new Properties();
-	private final String path;
-	private static final ClassLoader classLoader = ResourceManager.class.getClassLoader();
+public class ResourceManager {
 
-	protected ResourceManager(URL resource, String path)
-	{
-		try
-		{
-			properties.load(resource.openStream());
-			this.path = path;
-		} catch (Exception e)
-		{
-			throw new Error(e.getMessage()+ ": trying to load url \"" + resource+"\"", e);
-		}
-	}
+    private static final ClassLoader classLoader = ResourceManager.class.getClassLoader();
+    protected final Properties properties = new Properties();
+    private final String path;
 
-	public ResourceManager(Class<?> className)
-	{
-		this(classLoader.getResource(classToPath(className) + className.getSimpleName() + ".properties"),
-				classToPath(className));
-	}
+    ResourceManager(URL resource, String path) {
+        try {
+            properties.load(new InputStreamReader(resource.openStream(), Charset.forName("utf-8")));
+            this.path = path;
+        } catch (Exception e) {
+            throw new Error(e.getMessage() + ": trying to load url \"" + resource + "\"", e);
+        }
+    }
 
-	private static String classToPath(Class<?> className)
-	{
-		String path = className.getCanonicalName().replace('.', '/');
-		path = path.substring(0, path.lastIndexOf('/') + 1);
+    public ResourceManager(Class<?> className) {
+        this(classLoader.getResource(classToPath(className) + className.getSimpleName() + ".properties"),
+                classToPath(className));
+    }
+
+    //TODO language
+    public ResourceManager(String stringBankName) {
+        this(classLoader.getResource(stringBankName + ".properties"), stringBankName);
+    }
+
+    private static String classToPath(Class<?> className) {
+        String path = className.getCanonicalName().replace('.', '/');
+        path = path.substring(0, path.lastIndexOf('/') + 1);
 //		System.out.println("classToPath " + path);
-		return path;
-	}
+        return path;
+    }
 
-	public Object GetObject(String key)
-	{
-		String objectType = properties.getProperty(key + ".type", null);
+    public Object getObject(String key) {
+        String objectType = properties.getProperty(key + ".type", null);
 
-		if (objectType == null)
-			throw new Error("No object type for: " + key);
+        if (objectType == null)
+            throw new Error("No object type for: " + key);
 
-		if (objectType.equals("ImageListStreamer"))
-		{
-			// value is name of properties file with image names in it
-			String streamFilename = properties.getProperty(key);
+        switch (objectType) {
+            case "ImageListStreamer":
+                // value is name of properties file with image names in it
+                String streamFilename = properties.getProperty(key);
 //			System.out.println(path + streamFilename);
-			try
-			{
-				return new ImageStreamResourceManager(classLoader.getResource(path + streamFilename), path).getStream();
-				//			return new ImageStreamResourceManager(classLoader.getResource(streamFilename)).getStream();
-			} catch (NullPointerException e)
-			{
-				throw new Error("NPE while seeking for " + streamFilename );
-			}
-		} else if (objectType.equals("Image"))
-		{
-			String imageName = properties.getProperty(key);
-			return getImage(imageName);
-		} else
-			throw new Error("Uknown object type " + objectType);
-	}
+                try {
+                    return new ImageStreamResourceManager(classLoader.getResource(path + streamFilename), path).getStream();
+                    //			return new ImageStreamResourceManager(classLoader.getResource(streamFilename)).getStream();
+                } catch (NullPointerException e) {
+                    throw new Error("NPE while seeking for " + streamFilename);
+                }
+            case "Image":
+                String imageName = properties.getProperty(key);
+                return getImage(imageName);
+            default:
+                throw new Error("Unknown object type " + objectType);
+        }
+    }
 
-	Object getImage(String imageName)
-	{
-		return new Bitmap(classLoader.getResource(imageName.trim()));
-	}
+    Object getImage(String imageName) {
+        return new Bitmap(classLoader.getResource(imageName.trim()));
+    }
 
-	public String GetString(String key)
-	{
-		return properties.getProperty(key);
-	}
+    public String getString(String key) {
+        return properties.getProperty(key);
+    }
 }

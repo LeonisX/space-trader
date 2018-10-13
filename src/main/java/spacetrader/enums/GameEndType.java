@@ -1,20 +1,18 @@
 package spacetrader.enums;
 
-public enum GameEndType implements SpaceTraderEnum// : int
-{
-	NA, // = -1,
-	Killed, // = 0,
-	Retired, // = 1,
-	BoughtMoon, // = 2,
-	BoughtMoonGirl; // = 3
+public enum GameEndType implements SpaceTraderEnum {
 
-	public int CastToInt()
-	{
-		return ordinal() - 1;
-	}
-	
-	public static GameEndType FromInt(int i)
-	{
-		return values()[i+1];
-	}
+    NA, // = -1,
+    Killed, // = 0,
+    Retired, // = 1,
+    BoughtMoon, // = 2,
+    BoughtMoonGirl; // = 3
+
+    public static GameEndType fromInt(int i) {
+        return values()[i + 1];
+    }
+
+    public int castToInt() {
+        return ordinal() - 1;
+    }
 }

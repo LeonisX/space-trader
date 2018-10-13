@@ -1,14 +1,13 @@
 package jwinforms;
 
-public class LinkArea
-{
-int x,y;
+public class LinkArea {
 
-public LinkArea(int x, int y)
-{
-	super();
-	this.x = x;
-	this.y = y;
-}
+    private int x, y;
+
+    public LinkArea(int x, int y) {
+        super();
+        this.x = x;
+        this.y = y;
+    }
 
 }

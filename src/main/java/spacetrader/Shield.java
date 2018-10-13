@@ -27,97 +27,83 @@
 package spacetrader;
 
 
-import spacetrader.enums.*;
-import spacetrader.util.*;
+import spacetrader.enums.ShieldType;
+import spacetrader.enums.TechLevel;
+import spacetrader.util.EquipmentSubType;
+import spacetrader.util.Hashtable;
+import spacetrader.util.Log;
 
-public class Shield extends Equipment
-{
-	private ShieldType _type;
-	private int _power;
-	private int _charge;
+public class Shield extends Equipment {
+    private ShieldType _type;
+    private int _power;
+    private int _charge;
+    private int Charge;
 
-	public Shield(ShieldType type, int power, int price,
-			TechLevel minTechLevel, int chance)
-	{
-		super(EquipmentType.Shield, price, minTechLevel, chance);
-		_type = type;
-		_power = power;
+    public Shield(ShieldType type, int power, int price,
+                  TechLevel minTechLevel, int chance) {
+        super(spacetrader.enums.EquipmentType.Shield, price, minTechLevel, chance);
+        _type = type;
+        _power = power;
 
-		_charge = _power;
-	}
+        _charge = _power;
+    }
 
-	public Shield(Hashtable hash)
-	{
-		super(hash);
-		_type = ShieldType.FromInt(GetValueFromHash(hash, "_type", Integer.class));
-		_power = GetValueFromHash(hash, "_power", Integer.class);
-		_charge = GetValueFromHash(hash, "_charge", Integer.class);
-	}
+    public Shield(Hashtable hash) {
+        super(hash);
+        _type = ShieldType.fromInt(GetValueFromHash(hash, "_type", Integer.class));
+        _power = GetValueFromHash(hash, "_power", Integer.class);
+        _charge = GetValueFromHash(hash, "_charge", Integer.class);
+    }
 
-	public Equipment Clone()
-	{
-		Shield shield = new Shield(_type, _power, _price, _minTech, _chance);
-		shield.setCharge(Charge);
-		return shield;
-	}
+    public Equipment Clone() {
+        Shield shield = new Shield(_type, _power, _price, _minTech, _chance);
+        shield.setCharge(Charge);
+        return shield;
+    }
 
-	public Hashtable Serialize()
-	{
-		Hashtable hash = super.Serialize();
+    public Hashtable Serialize() {
+        Hashtable hash = super.Serialize();
 
-		hash.put("_type", _type);
-		hash.put("_power", _power);
-		hash.put("_charge", _charge);
+        hash.put("_type", _type);
+        hash.put("_power", _power);
+        hash.put("_charge", _charge);
 
-		return hash;
-	}
+        return hash;
+    }
 
-	public boolean TypeEquals(Object type)
-	{
-		try
-		{
-			return (Type() == (ShieldType) type);
-		} catch (Exception e)
-		{
-			Log.write("Ignored exception: " + e);
-			return false;
-		}
-	}
+    public boolean TypeEquals(Object type) {
+        try {
+            return (Type() == (ShieldType) type);
+        } catch (Exception e) {
+            Log.write("Ignored exception: " + e);
+            return false;
+        }
+    }
 
-	private int Charge;
+    public String Name() {
+        return Strings.ShieldNames[_type.castToInt()];
+    }
 
-	public String Name()
-	{
-		return Strings.ShieldNames[_type.CastToInt()];
-	}
-
-	public int Power()
-	{
-		return _power;
-	}
+    public int Power() {
+        return _power;
+    }
 
 
+    public ShieldType Type() {
+        return _type;
+    }
 
-	public ShieldType Type()
-	{
-		return _type;
-	}
+    public EquipmentSubType SubType() {
+        return Type();
+    }
 
-	public EquipmentSubType SubType()
-	{
-		return Type();
-	}
+    public int getCharge() {
+        return Charge;
+    }
 
-	public void setCharge(int charge)
-	{
-		Charge = charge;
-	}
+    public void setCharge(int charge) {
+        Charge = charge;
+    }
 
-	public int getCharge()
-	{
-		return Charge;
-	}
-
-	
 
 }

@@ -33,89 +33,77 @@ import spacetrader.util.EquipmentSubType;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Log;
 
-public class Gadget extends Equipment
-{
-	// #region Member Declarations
+public class Gadget extends Equipment {
+    // #region Member Declarations
 
-	private GadgetType _type;
-	private SkillType _skillBonus;
+    private GadgetType _type;
+    private SkillType _skillBonus;
 
-	// #endregion
+    // #endregion
 
-	// #region Methods
+    // #region Methods
 
-	public Gadget(GadgetType type, SkillType skillBonus, int price, TechLevel minTechLevel, int chance)
-	{
-		super(spacetrader.enums.EquipmentType.Gadget, price, minTechLevel, chance);
-		_type = type;
-		_skillBonus = skillBonus;
-	}
+    public Gadget(GadgetType type, SkillType skillBonus, int price, TechLevel minTechLevel, int chance) {
+        super(spacetrader.enums.EquipmentType.Gadget, price, minTechLevel, chance);
+        _type = type;
+        _skillBonus = skillBonus;
+    }
 
-	public Gadget(Hashtable hash)
-	{
-		super(hash);
-		_type = GadgetType.FromInt(GetValueFromHash(hash, "_type", Integer.class));
-		_skillBonus = ( GetValueFromHash(hash, "_skillBonus", SkillType.NA,SkillType.class));
-	}
+    public Gadget(Hashtable hash) {
+        super(hash);
+        _type = GadgetType.fromInt(GetValueFromHash(hash, "_type", Integer.class));
+        _skillBonus = (GetValueFromHash(hash, "_skillBonus", SkillType.NA, SkillType.class));
+    }
 
-	public @Override
-	Equipment Clone()
-	{
-		return new Gadget(_type, _skillBonus, _price, _minTech, _chance);
-	}
+    public @Override
+    Equipment Clone() {
+        return new Gadget(_type, _skillBonus, _price, _minTech, _chance);
+    }
 
-	public @Override
-	Hashtable Serialize()
-	{
-		Hashtable hash = super.Serialize();
+    public @Override
+    Hashtable Serialize() {
+        Hashtable hash = super.Serialize();
 
-		hash.add("_type", _type.CastToInt());
-		hash.add("_skillBonus", _skillBonus.CastToInt());
+        hash.add("_type", _type.castToInt());
+        hash.add("_skillBonus", _skillBonus.castToInt());
 
-		return hash;
-	}
+        return hash;
+    }
 
-	public @Override
-	boolean TypeEquals(Object type)
-	{
-		boolean equal = false;
+    public @Override
+    boolean TypeEquals(Object type) {
+        boolean equal = false;
 
-		try
-		{
-			if (Type() == (GadgetType) type)
-				equal = true;
-		} catch (Exception e)
-		{
-			Log.write("Ignored Exception " + e);
-		}
+        try {
+            if (Type() == (GadgetType) type)
+                equal = true;
+        } catch (Exception e) {
+            Log.write("Ignored Exception " + e);
+        }
 
-		return equal;
-	}
+        return equal;
+    }
 
-	// #endregion
+    // #endregion
 
-	// #region Properties
-	@Override
-	public String Name()
-	{
-		return Strings.GadgetNames[_type.CastToInt()];
-	}
+    // #region Properties
+    @Override
+    public String Name() {
+        return Strings.GadgetNames[_type.castToInt()];
+    }
 
-	@Override
-	public EquipmentSubType SubType()
-	{
-		return Type();
-	}
+    @Override
+    public EquipmentSubType SubType() {
+        return Type();
+    }
 
-	public GadgetType Type()
-	{
-		return _type;
-	}
+    public GadgetType Type() {
+        return _type;
+    }
 
-	public SkillType SkillBonus()
-	{
-		return _skillBonus;
-	}
+    public SkillType SkillBonus() {
+        return _skillBonus;
+    }
 
-	// #endregion
+    // #endregion
 }

@@ -1,15 +1,12 @@
 package jwinforms;
 
-import java.awt.Color;
+import java.awt.*;
 
-public class SolidBrush extends Brush
-{
+public class SolidBrush extends Brush {
 
-	public SolidBrush(Color color)
-	{
-		super(color);
-		// TODO Auto-generated constructor stub
-	}
-
+    public SolidBrush(Color color) {
+        super(color);
+        // TODO Auto-generated constructor stub
+    }
 
 }

@@ -6,61 +6,48 @@ import spacetrader.guifacade.GuiEngine.CheatGui;
 import spacetrader.guifacade.GuiEngine.ImageProvider;
 import spacetrader.guifacade.GuiEngine.ImplementationProvider;
 
-public class OriginalGuiImplementationProvider implements ImplementationProvider
-{
-	private final SpaceTrader spaceTrader;
+public class OriginalGuiImplementationProvider implements ImplementationProvider {
+    private final SpaceTrader spaceTrader;
 
-	public OriginalGuiImplementationProvider(SpaceTrader spaceTrader)
-	{
-		super();
-		this.spaceTrader = spaceTrader;
-	}
+    OriginalGuiImplementationProvider(SpaceTrader spaceTrader) {
+        super();
+        this.spaceTrader = spaceTrader;
+    }
 
-	public ImageProvider getImageProvider()
-	{
-		return new ImageProvider()
-		{
-			public ImageList getEquipmentImages()
-			{
-				return spaceTrader.EquipmentImages();
-			}
+    public ImageProvider getImageProvider() {
+        return new ImageProvider() {
+            public ImageList getEquipmentImages() {
+                return spaceTrader.equipmentImages();
+            }
 
-			public ImageList getShipImages()
-			{
-				return spaceTrader.ShipImages();
-			}
+            public ImageList getShipImages() {
+                return spaceTrader.shipImages();
+            }
 
-			public Image[] getCustomShipImages()
-			{
-				return spaceTrader.CustomShipImages();
-			}
+            public Image[] getCustomShipImages() {
+                return spaceTrader.customShipImages();
+            }
 
-			public void setCustomShipImages(Image[] value)
-			{
-				spaceTrader.setCustomShipImages(value);
-			}
+            public void setCustomShipImages(Image[] value) {
+                spaceTrader.setCustomShipImages(value);
+            }
 
-			public Image[] getDirectionImages()
-			{
-				return spaceTrader.DirectionImages().getImages();
-			}
-		};
-	}
+            public Image[] getDirectionImages() {
+                return spaceTrader.directionImages().getImages();
+            }
+        };
+    }
 
-	public CheatGui getCheatGuiProvider()
-	{
-		return new CheatGui()
-		{
-			public void showMonsterForm()
-			{
-				(new FormMonster()).Show();
-			}
+    public CheatGui getCheatGuiProvider() {
+        return new CheatGui() {
+            public void showMonsterForm() {
+                (new FormMonster()).Show();
+            }
 
-			public void showTestForm()
-			{
-				(new FormTest()).Show();
-			}
-		};
-	}
+            public void showTestForm() {
+                (new FormTest()).Show();
+            }
+        };
+    }
 
 }

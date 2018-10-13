@@ -1,23 +1,20 @@
 package jwinforms;
 
-import java.awt.Color;
-
-import javax.swing.BorderFactory;
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
-public enum BorderStyle
-{
-	FixedSingle(BorderFactory.createLineBorder(Color.black, 1));
+public enum BorderStyle {
 
-	private Border border;
+    FixedSingle(BorderFactory.createLineBorder(Color.black, 1));
 
-	BorderStyle(Border border)
-	{
-		this.border = border;
-	}
+    private Border border;
 
-	public Border getBorder()
-	{
-		return border;
-	}
+    BorderStyle(Border border) {
+        this.border = border;
+    }
+
+    public Border getBorder() {
+        return border;
+    }
 }

@@ -1,13 +1,12 @@
 package jwinforms;
 
-import java.awt.Color;
+import java.awt.*;
 
-public class Pen
-{
-	public final Color color;
+public class Pen {
 
-	public Pen(Color color)
-	{
-		this.color = color;
-	}
+    public final Color color;
+
+    public Pen(Color color) {
+        this.color = color;
+    }
 }

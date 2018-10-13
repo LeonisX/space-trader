@@ -1,8 +1,7 @@
 package spacetrader.util;
 
-public class Environment
-{
+public class Environment {
 
-	//TODO get work dir
-	public static final String CurrentDirectory = System.getProperty("user.dir");
+    //TODO get work dir
+    public static final String CurrentDirectory = System.getProperty("user.dir");
 }

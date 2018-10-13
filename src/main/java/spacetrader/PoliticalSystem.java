@@ -27,142 +27,126 @@ package spacetrader;
 
 import spacetrader.enums.*;
 
-public class PoliticalSystem
-{
-	// #region Member Declarations
+public class PoliticalSystem {
+    // #region Member Declarations
 
-	private final PoliticalSystemType _type;
-	private final int _reactionIllegal; // Reaction level of illegal goods 0 = total
-	// acceptance (determines how police reacts
-	// if they find you carry them)
-	private final Activity _activityPolice; // Activity level of police force 0 = no
-	// police (determines occurrence rate)
-	private final Activity _activityPirates; // Activity level of pirates 0 = no
-	// pirates
-	private final Activity _activityTraders; // Activity level of traders 0 = no
-	// traders
-	private final TechLevel _minTech; // Mininum tech level needed
-	private final TechLevel _maxTech; // Maximum tech level where this is found
-	private final int _bribeLevel; // Indicates how easily someone can be bribed 0 =
-	// unbribeable/high bribe costs
-	private final boolean _drugsOk; // Drugs can be traded (if not, people aren't
-	// interested or the governemnt is too strict)
-	private final boolean _firearmsOk; // Firearms can be traded (if not, people
-	// aren't interested or the governemnt is
-	// too strict)
-	private final TradeItemType _wanted; // Tradeitem requested in particular in this
+    private final PoliticalSystemType _type;
+    private final int _reactionIllegal; // Reaction level of illegal goods 0 = total
+    // acceptance (determines how police reacts
+    // if they find you carry them)
+    private final Activity _activityPolice; // Activity level of police force 0 = no
+    // police (determines occurrence rate)
+    private final Activity _activityPirates; // Activity level of pirates 0 = no
+    // pirates
+    private final Activity _activityTraders; // Activity level of traders 0 = no
+    // traders
+    private final TechLevel _minTech; // Mininum tech level needed
+    private final TechLevel _maxTech; // Maximum tech level where this is found
+    private final int _bribeLevel; // Indicates how easily someone can be bribed 0 =
+    // unbribeable/high bribe costs
+    private final boolean _drugsOk; // Drugs can be traded (if not, people aren't
+    // interested or the governemnt is too strict)
+    private final boolean _firearmsOk; // Firearms can be traded (if not, people
+    // aren't interested or the governemnt is
+    // too strict)
+    private final TradeItemType _wanted; // Tradeitem requested in particular in this
 
-	// type of government
+    // type of government
 
-	// #endregion
+    // #endregion
 
-	// #region Methods
+    // #region Methods
 
-	public PoliticalSystem(PoliticalSystemType type, int reactionIllegal, Activity activityPolice,
-			Activity activityPirates, Activity activityTraders, TechLevel minTechLevel, TechLevel maxTechLevel,
-			int bribeLevel, boolean drugsOk, boolean firearmsOk, TradeItemType wanted)
-	{
-		_type = type;
-		_reactionIllegal = reactionIllegal;
-		_activityPolice = activityPolice;
-		_activityPirates = activityPirates;
-		_activityTraders = activityTraders;
-		_minTech = minTechLevel;
-		_maxTech = maxTechLevel;
-		_bribeLevel = bribeLevel;
-		_drugsOk = drugsOk;
-		_firearmsOk = firearmsOk;
-		_wanted = wanted;
-	}
+    public PoliticalSystem(PoliticalSystemType type, int reactionIllegal, Activity activityPolice,
+                           Activity activityPirates, Activity activityTraders, TechLevel minTechLevel, TechLevel maxTechLevel,
+                           int bribeLevel, boolean drugsOk, boolean firearmsOk, TradeItemType wanted) {
+        _type = type;
+        _reactionIllegal = reactionIllegal;
+        _activityPolice = activityPolice;
+        _activityPirates = activityPirates;
+        _activityTraders = activityTraders;
+        _minTech = minTechLevel;
+        _maxTech = maxTechLevel;
+        _bribeLevel = bribeLevel;
+        _drugsOk = drugsOk;
+        _firearmsOk = firearmsOk;
+        _wanted = wanted;
+    }
 
-	public boolean ShipTypeLikely(ShipType shipType, OpponentType oppType)
-	{
-		boolean likely = false;
-		int diffMod = Math
-				.max(0, Game.CurrentGame().Difficulty().CastToInt() - Difficulty.Normal.CastToInt());
+    public boolean ShipTypeLikely(ShipType shipType, OpponentType oppType) {
+        boolean likely = false;
+        int diffMod = Math
+                .max(0, Game.CurrentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
 
-		switch (oppType)
-		{
-		case Pirate:
-			likely = ActivityPirates().CastToInt() + diffMod >= Consts.ShipSpecs[shipType.CastToInt()]
-					.Pirates().CastToInt();
-			break;
-		case Police:
-			likely = ActivityPolice().CastToInt() + diffMod >= Consts.ShipSpecs[shipType.CastToInt()]
-					.Police().CastToInt();
-			break;
-		case Trader:
-			likely = ActivityTraders().CastToInt() + diffMod >= Consts.ShipSpecs[shipType.CastToInt()]
-					.Traders().CastToInt();
-			break;
-		}
+        switch (oppType) {
+            case Pirate:
+                likely = ActivityPirates().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                        .Pirates().castToInt();
+                break;
+            case Police:
+                likely = ActivityPolice().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                        .Police().castToInt();
+                break;
+            case Trader:
+                likely = ActivityTraders().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                        .Traders().castToInt();
+                break;
+        }
 
-		return likely;
-	}
+        return likely;
+    }
 
-	// #endregion
+    // #endregion
 
-	// #region Properties
+    // #region Properties
 
-	public Activity ActivityPirates()
-	{
-		return _activityPirates;
-	}
+    public Activity ActivityPirates() {
+        return _activityPirates;
+    }
 
-	public Activity ActivityPolice()
-	{
-		return _activityPolice;
-	}
+    public Activity ActivityPolice() {
+        return _activityPolice;
+    }
 
-	public Activity ActivityTraders()
-	{
-		return _activityTraders;
-	}
+    public Activity ActivityTraders() {
+        return _activityTraders;
+    }
 
-	public int BribeLevel()
-	{
-		return _bribeLevel;
-	}
+    public int BribeLevel() {
+        return _bribeLevel;
+    }
 
-	public boolean DrugsOk()
-	{
-		return _drugsOk;
-	}
+    public boolean DrugsOk() {
+        return _drugsOk;
+    }
 
-	public boolean FirearmsOk()
-	{
-		return _firearmsOk;
-	}
+    public boolean FirearmsOk() {
+        return _firearmsOk;
+    }
 
-	public TechLevel MaximumTechLevel()
-	{
-		return _maxTech;
-	}
+    public TechLevel MaximumTechLevel() {
+        return _maxTech;
+    }
 
-	public TechLevel MinimumTechLevel()
-	{
-		return _minTech;
-	}
+    public TechLevel MinimumTechLevel() {
+        return _minTech;
+    }
 
-	public String Name()
-	{
-		return _type.getName();
-	}
+    public String Name() {
+        return _type.getName();
+    }
 
-	public int ReactionIllegal()
-	{
-		return _reactionIllegal;
-	}
+    public int ReactionIllegal() {
+        return _reactionIllegal;
+    }
 
-	public PoliticalSystemType Type()
-	{
-		return _type;
-	}
+    public PoliticalSystemType Type() {
+        return _type;
+    }
 
-	public TradeItemType Wanted()
-	{
-		return _wanted;
-	}
+    public TradeItemType Wanted() {
+        return _wanted;
+    }
 
-	// #endregion
+    // #endregion
 }

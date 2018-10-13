@@ -8,43 +8,39 @@ import jwinforms.ImageList;
  *
  * @author Aviv
  */
-public class GuiEngine
-{
-	// todo assert only called once by the user?
-	static public void installImplementation(ImplementationProvider impl)
-	{
-		imageProvider = impl.getImageProvider();
-		cheat = impl.getCheatGuiProvider();
-	}
+public class GuiEngine {
 
-	public static ImageProvider imageProvider;
-	public static CheatGui cheat;
+    public static ImageProvider imageProvider;
+    static CheatGui cheat;
 
-	// note - internal interfaces are implicitlystatic. see section 8.5.2 in the spec.
-	public interface ImageProvider
-	{
-		ImageList getEquipmentImages();
+    // todo assert only called once by the user?
+    static public void installImplementation(ImplementationProvider impl) {
+        imageProvider = impl.getImageProvider();
+        cheat = impl.getCheatGuiProvider();
+    }
 
-		ImageList getShipImages();
+    // note - internal interfaces are implicitlystatic. see section 8.5.2 in the spec.
+    public interface ImageProvider {
+        ImageList getEquipmentImages();
 
-		void setCustomShipImages(Image[] value);
+        ImageList getShipImages();
 
-		Image[] getCustomShipImages();
+        Image[] getCustomShipImages();
 
-		Image[] getDirectionImages();
-	}
+        void setCustomShipImages(Image[] value);
 
-	public interface CheatGui
-	{
-		void showMonsterForm();
+        Image[] getDirectionImages();
+    }
 
-		void showTestForm();
-	}
+    public interface CheatGui {
+        void showMonsterForm();
 
-	public interface ImplementationProvider
-	{
-		ImageProvider getImageProvider();
+        void showTestForm();
+    }
 
-		CheatGui getCheatGuiProvider();
-	}
+    public interface ImplementationProvider {
+        ImageProvider getImageProvider();
+
+        CheatGui getCheatGuiProvider();
+    }
 }

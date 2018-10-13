@@ -23,56 +23,47 @@ package spacetrader;
 
 import spacetrader.enums.ReputationType;
 
-public class Reputation
-{
-	//#region Member Declarations
+public class Reputation {
+    //#region Member Declarations
 
-	private final ReputationType _type;
-	private final int _minScore;
+    private final ReputationType _type;
+    private final int _minScore;
 
-	//#endregion
+    //#endregion
 
-	//#region Methods
+    //#region Methods
 
-	public Reputation(ReputationType type, int minScore)
-	{
-		_type = type;
-		_minScore = minScore;
-	}
+    public Reputation(ReputationType type, int minScore) {
+        _type = type;
+        _minScore = minScore;
+    }
 
-	public static Reputation GetReputationFromScore(int ReputationScore)
-	{
-		int i;
-		for (i = 0; i < Consts.Reputations.length
-				&& Game.CurrentGame().Commander().getReputationScore() >= Consts.Reputations[i].MinScore(); i++)
-			;
-		return Consts.Reputations[Math.max(0, i - 1)];
-	}
+    public static Reputation GetReputationFromScore(int ReputationScore) {
+        int i;
+        for (i = 0; i < Consts.Reputations.length
+                && Game.CurrentGame().Commander().getReputationScore() >= Consts.Reputations[i].MinScore(); i++)
+            ;
+        return Consts.Reputations[Math.max(0, i - 1)];
+    }
 
-	//#endregion
+    //#endregion
 
-	//#region Properties
+    //#region Properties
 
 
-
-	public int MinScore()
-	{
-		return _minScore;
-	}
+    public int MinScore() {
+        return _minScore;
+    }
 
 
-
-	public String Name()
-	{
-		return _type.getName();
-	}
+    public String Name() {
+        return _type.getName();
+    }
 
 
+    public ReputationType Type() {
+        return _type;
+    }
 
-	public ReputationType Type()
-	{
-		return _type;
-	}
-
-	//#endregion
+    //#endregion
 }

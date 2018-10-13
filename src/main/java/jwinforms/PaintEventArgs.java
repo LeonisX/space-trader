@@ -2,17 +2,15 @@ package jwinforms;
 
 import java.awt.Graphics;
 
-public class PaintEventArgs extends EventArgs
-{
-	public final jwinforms.Graphics Graphics;
+public class PaintEventArgs extends EventArgs {
 
-	public PaintEventArgs(jwinforms.Graphics graphics)
-	{
-		Graphics = graphics;
-	}
+    public final jwinforms.Graphics Graphics;
 
-	public PaintEventArgs(Graphics awtGraphics)
-	{
-		this(new jwinforms.Graphics(awtGraphics));
-	}
+    private PaintEventArgs(jwinforms.Graphics graphics) {
+        Graphics = graphics;
+    }
+
+    PaintEventArgs(Graphics awtGraphics) {
+        this(new jwinforms.Graphics(awtGraphics));
+    }
 }

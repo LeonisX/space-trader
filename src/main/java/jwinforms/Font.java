@@ -1,79 +1,64 @@
 package jwinforms;
 
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashSet;
 
-public class Font extends java.awt.Font
-{
-	public Font(String name, float size)
-	{
-		this(name, FontStyle.Regular, size, GraphicsUnit.Point);
-	}
+public class Font extends java.awt.Font {
 
-	public Font(String name, float size, FontStyle style, GraphicsUnit unit, int b)
-	{
-		this(name, style, size, unit);
-	}
+    public static final String WINDOWS_DEFAULT_FONT_FAMILY;
+    public static final String WINDOWS_DEFAULT_FONT_FAMILY_BOLD;
 
-	private Font(String name, FontStyle style, float size, GraphicsUnit unit)
-	{
-		super(name, style.awtFontstyle, (int)unit.toPixels(size));
-		Name = getName();
-		FontFamily = getFamily();
-	}
+    static {
+        String preferredFonts = "Microsoft Sans Serif";
 
-	Font(java.awt.Font source)
-	{
-		super(source);
-		Name = getName();
-		FontFamily = getFamily();
-	}
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        HashSet<String> names = new HashSet<>();
+        Collections.addAll(names, ge.getAvailableFontFamilyNames());
 
-	public final String FontFamily;
-	public final String Name;
+        if (names.contains(preferredFonts)) {
+            WINDOWS_DEFAULT_FONT_FAMILY = preferredFonts;
+            WINDOWS_DEFAULT_FONT_FAMILY_BOLD = preferredFonts;
+        } else {
+            try {
+                java.awt.Font def = makeAndRegisterFont("jwinforms/tahoma.ttf");
+                WINDOWS_DEFAULT_FONT_FAMILY = def.getFamily();
+                java.awt.Font bold = makeAndRegisterFont("jwinforms/tahomabd.ttf");
+                WINDOWS_DEFAULT_FONT_FAMILY_BOLD = bold.getFamily();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
-	public static final String WINDOWS_DEFAULT_FONT_FAMILY;
-	public static final String WINDOWS_DEFAULT_FONT_FAMILY_BOLD;
+    public final String FontFamily;
+    public final String Name;
 
-	static
-	{
-		String preferedFonts = "Microsoft Sans Serif";
+    public Font(String name, float size) {
+        this(name, size, FontStyle.Regular, GraphicsUnit.Point);
+    }
 
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		HashSet<String> names = new HashSet<String>();
-		for (String family : ge.getAvailableFontFamilyNames())
-			names.add(family);
+    public Font(String name, float size, FontStyle style, GraphicsUnit unit) {
+        super(name, style.awtFontStyle, (int) unit.toPixels(size));
+        Name = getName();
+        FontFamily = getFamily();
+    }
 
-		if (names.contains(preferedFonts))
-		{
-			WINDOWS_DEFAULT_FONT_FAMILY = preferedFonts;
-			WINDOWS_DEFAULT_FONT_FAMILY_BOLD = preferedFonts;
-		} else
-		{
-			try
-			{
-				java.awt.Font def = makeAndRegisterFont("jwinforms/tahoma.ttf");
-				WINDOWS_DEFAULT_FONT_FAMILY = def.getFamily();
-				java.awt.Font bold = makeAndRegisterFont("jwinforms/tahomabd.ttf");
-				WINDOWS_DEFAULT_FONT_FAMILY_BOLD = bold.getFamily();
-			} catch (Exception e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-	}
+    Font(java.awt.Font source) {
+        super(source);
+        Name = getName();
+        FontFamily = getFamily();
+    }
 
-	private static java.awt.Font makeAndRegisterFont(String name) throws FontFormatException, IOException
-	{
-		InputStream stream = Font.class.getClassLoader().getResourceAsStream(name);
-		if (stream == null)
-			throw new IOException("Resource not found: " + name);
+    private static java.awt.Font makeAndRegisterFont(String name) throws FontFormatException, IOException {
+        InputStream stream = Font.class.getClassLoader().getResourceAsStream(name);
+        if (stream == null)
+            throw new IOException("Resource not found: " + name);
 
-		java.awt.Font font = java.awt.Font.createFont(Font.TRUETYPE_FONT, stream);
-		GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
-		return font;
-	}
+        java.awt.Font font = java.awt.Font.createFont(Font.TRUETYPE_FONT, stream);
+        GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
+        return font;
+    }
 }

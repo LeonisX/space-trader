@@ -1,14 +1,14 @@
 package jwinforms;
 
-public class ToolTip
-{
-	public ToolTip(IContainer components)
-	{}
-	public ToolTip()
-	{}
+public class ToolTip {
 
-	public void SetToolTip(Button item, String text)
-	{
-		item.asJButtton().setToolTipText(text);
-	}
+    public ToolTip(IContainer components) {
+    }
+
+    public ToolTip() {
+    }
+
+    public void SetToolTip(Button item, String text) {
+        item.asJButton().setToolTipText(text);
+    }
 }

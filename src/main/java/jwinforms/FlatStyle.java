@@ -1,6 +1,7 @@
 package jwinforms;
 
-public enum FlatStyle
-{
-Flat
+public enum FlatStyle {
+
+    Flat
+
 }

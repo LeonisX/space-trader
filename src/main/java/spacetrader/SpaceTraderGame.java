@@ -5,13 +5,13 @@ package spacetrader;
  *
  * @author Aviv
  */
-public interface SpaceTraderGame
-{
+public interface SpaceTraderGame {
 
-	Commander Commander();
+    Commander Commander();
 
-	public int[] PriceCargoBuy();
+    int[] PriceCargoBuy();
 
-	public int[] PriceCargoSell();
-	public StarSystem WarpSystem();
+    int[] PriceCargoSell();
+
+    StarSystem WarpSystem();
 }

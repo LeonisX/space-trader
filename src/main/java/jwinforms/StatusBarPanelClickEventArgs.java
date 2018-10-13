@@ -1,13 +1,12 @@
 package jwinforms;
 
-public class StatusBarPanelClickEventArgs extends EventArgs
-{
-	public final StatusBarPanel StatusBarPanel;
+public class StatusBarPanelClickEventArgs extends EventArgs {
 
-	public StatusBarPanelClickEventArgs(StatusBarPanel statusBarPanel)
-	{
-		super();
-		StatusBarPanel = statusBarPanel;
-	}
+    public final StatusBarPanel StatusBarPanel;
+
+    StatusBarPanelClickEventArgs(StatusBarPanel statusBarPanel) {
+        super();
+        StatusBarPanel = statusBarPanel;
+    }
 
 }

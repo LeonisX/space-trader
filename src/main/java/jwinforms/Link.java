@@ -1,8 +1,7 @@
 package jwinforms;
 
-public class Link
-{
+public class Link {
 
-	public Object LinkData;
+    public Object LinkData;
 
 }
