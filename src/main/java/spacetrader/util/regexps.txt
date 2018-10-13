@@ -1,0 +1,20 @@
+
+  Get/Set public property:
+public (\w++)\s(\w++)\s*\{\s*get\s*(\{\s*[^\}]*})\s*set\s*(\{\s*[^\}]*})\s*}
+@MyInlineMarker public \1 \2;\R  public \1 \2()\3\R public void \2(\1 value)\4\R
+
+  Get public property:
+public (\w++)\s(\w++)\s*\{\s*get\s*(\{\s*[^\}]*})\s*\}
+@MyInlineMarker public \1 \2;\R  public \1 \2()\3\R
+
+\[\(int\)\s*(\w++)\]
+[(int)\1.CastToInt()]
+
+package spacetrader;
+import spacetrader.stub.*;import spacetrader.util.*;
+import spacetrader.enums.*;
+
+
+\+\= new spacetrader\.winforms\.LinkLabelLinkClickedEventHandler\(this\.(FormAlert_Click)\)\;
+
+ = new LinkLabelLinkClickedEventHandler()\R{\Rpublic void handle(Object sender, spacetrader.winforms.LinkLabelLinkClickedEventArgs e)\R	{\R\1(sender, e);}};
