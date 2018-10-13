@@ -58,7 +58,7 @@ public class FormCargoSell extends SpaceTraderForm {
     // #region Methods
 
     public FormCargoSell(int item, int maxAmount, CargoSellOp op, int price) {
-        InitializeComponent();
+        initializeComponent();
 
         Commander cmdr = game.Commander();
         int cost = cmdr.PriceCargo()[item] / cmdr.getShip().Cargo()[item];
@@ -114,7 +114,7 @@ public class FormCargoSell extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         lblQuestion = new jwinforms.Label();
         lblStatement = new jwinforms.Label();
         numAmount = new jwinforms.NumericUpDown();
@@ -124,7 +124,7 @@ public class FormCargoSell extends SpaceTraderForm {
         lblPaid = new jwinforms.Label();
         lblProfit = new jwinforms.Label();
         ((ISupportInitialize) (numAmount)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblQuestion
         //

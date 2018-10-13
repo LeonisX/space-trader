@@ -74,7 +74,7 @@ public class FormViewBank extends SpaceTraderForm {
     //#region Methods
 
     public FormViewBank() {
-        InitializeComponent();
+        initializeComponent();
 
         UpdateAll();
     }
@@ -85,7 +85,7 @@ public class FormViewBank extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         lblLoan = new jwinforms.Label();
         lblCurrentDebtLabel = new jwinforms.Label();
         lblMaxLoanLabel = new jwinforms.Label();
@@ -103,7 +103,7 @@ public class FormViewBank extends SpaceTraderForm {
         btnPayBack = new jwinforms.Button();
         btnClose = new jwinforms.Button();
         lblMaxNoClaim = new jwinforms.Label();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblLoan
         //

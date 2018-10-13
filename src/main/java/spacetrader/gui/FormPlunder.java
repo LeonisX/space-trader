@@ -85,7 +85,7 @@ public class FormPlunder extends SpaceTraderForm {
     //#region Methods
 
     public FormPlunder() {
-        InitializeComponent();
+        initializeComponent();
 
         //#region Arrays of Cargo controls
         btnPlunderQty = new Button[]{btnPlunderQty0, btnPlunderQty1, btnPlunderQty2, btnPlunderQty3, btnPlunderQty4,
@@ -103,7 +103,7 @@ public class FormPlunder extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         btnPlunderAll9 = new jwinforms.Button();
         btnPlunderQty9 = new jwinforms.Button();
         btnPlunderAll8 = new jwinforms.Button();
@@ -138,7 +138,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblBays = new jwinforms.Label();
         btnDone = new jwinforms.Button();
         btnJettison = new jwinforms.Button();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // btnPlunderAll9
         //

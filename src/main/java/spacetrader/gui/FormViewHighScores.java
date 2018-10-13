@@ -60,7 +60,7 @@ public class FormViewHighScores extends SpaceTraderForm {
     //#region Methods
 
     public FormViewHighScores() {
-        InitializeComponent();
+        initializeComponent();
 
         Label[] lblName = new Label[]{lblName0, lblName1, lblName2};
         Label[] lblScore = new Label[]{lblScore0, lblScore1, lblScore2};
@@ -89,7 +89,7 @@ public class FormViewHighScores extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         btnClose = new jwinforms.Button();
         lblRank0 = new jwinforms.Label();
         lblRank2 = new jwinforms.Label();
@@ -103,7 +103,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblStatus0 = new jwinforms.Label();
         lblStatus1 = new jwinforms.Label();
         lblStatus2 = new jwinforms.Label();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

@@ -145,7 +145,7 @@ public class FormEncounter extends SpaceTraderForm {
     // #region Methods
 
     public FormEncounter() {
-        InitializeComponent();
+        initializeComponent();
 
         // Set up the Game encounter variables.
         game.EncounterBegin();
@@ -176,7 +176,7 @@ public class FormEncounter extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         components = new Container();
         ResourceManager resources = new ResourceManager(FormEncounter.class);
         lblEncounter = new jwinforms.Label();
@@ -247,7 +247,7 @@ public class FormEncounter extends SpaceTraderForm {
         picTrib54 = new jwinforms.PictureBox();
         picTrib55 = new jwinforms.PictureBox();
         tmrTick = new jwinforms.Timer(components);
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblEncounter
         //

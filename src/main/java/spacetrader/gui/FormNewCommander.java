@@ -60,7 +60,7 @@ public class FormNewCommander extends SpaceTraderForm {
     // #region Methods
 
     public FormNewCommander() {
-        InitializeComponent();
+        initializeComponent();
 
         selDifficulty.setSelectedIndex(2);
     }
@@ -70,7 +70,7 @@ public class FormNewCommander extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.lblName = new jwinforms.Label();
         this.txtName = new jwinforms.TextBox();
         this.btnClose = new jwinforms.Button();
@@ -92,7 +92,7 @@ public class FormNewCommander extends SpaceTraderForm {
         ((ISupportInitialize) (this.numFighter)).beginInit();
         ((ISupportInitialize) (this.numTrader)).beginInit();
         ((ISupportInitialize) (this.numEngineer)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblName
         //

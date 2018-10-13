@@ -123,7 +123,7 @@ public class FormShipyard extends SpaceTraderForm {
     //#region Methods
 
     public FormShipyard() {
-        InitializeComponent();
+        initializeComponent();
 
         this.setText(Functions.StringVars(Strings.ShipyardTitle, shipyard.Name()));
         picLogo.setImage(ilShipyardLogos.getImages()[shipyard.Id().castToInt()]);
@@ -149,7 +149,7 @@ public class FormShipyard extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         components = new Container();
         ResourceManager resources = new ResourceManager(FormShipyard.class);
         boxWelcome = new jwinforms.GroupBox();
@@ -215,10 +215,10 @@ public class FormShipyard extends SpaceTraderForm {
         lblDisabledPct = new jwinforms.Label();
         dlgSave = new jwinforms.SaveFileDialog();
         lblDisabledName = new jwinforms.Label();
-        boxWelcome.SuspendLayout();
-        boxInfo.SuspendLayout();
-        boxCosts.SuspendLayout();
-        boxAllocation.SuspendLayout();
+        boxWelcome.suspendLayout();
+        boxInfo.suspendLayout();
+        boxCosts.suspendLayout();
+        boxAllocation.suspendLayout();
         ((ISupportInitialize) (numHullStrength)).beginInit();
         ((ISupportInitialize) (numCargoBays)).beginInit();
         ((ISupportInitialize) (numCrewQuarters)).beginInit();
@@ -226,7 +226,7 @@ public class FormShipyard extends SpaceTraderForm {
         ((ISupportInitialize) (numShieldSlots)).beginInit();
         ((ISupportInitialize) (numGadgetSlots)).beginInit();
         ((ISupportInitialize) (numWeaponSlots)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // boxWelcome
         //

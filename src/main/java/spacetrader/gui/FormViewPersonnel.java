@@ -64,7 +64,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     //#region Methods
 
     public FormViewPersonnel() {
-        InitializeComponent();
+        initializeComponent();
 
         UpdateAll();
     }
@@ -74,7 +74,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.btnClose = new jwinforms.Button();
         this.boxCurrentCrew = new jwinforms.GroupBox();
         this.lstCrew = new jwinforms.ListBox();
@@ -94,10 +94,10 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.lblPilotLabel = new jwinforms.Label();
         this.lblCrewNoQuarters = new jwinforms.Label();
         this.lblForHireNone = new jwinforms.Label();
-        this.boxCurrentCrew.SuspendLayout();
-        this.boxForHire.SuspendLayout();
-        this.boxInfo.SuspendLayout();
-        this.SuspendLayout();
+        this.boxCurrentCrew.suspendLayout();
+        this.boxForHire.suspendLayout();
+        this.boxInfo.suspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

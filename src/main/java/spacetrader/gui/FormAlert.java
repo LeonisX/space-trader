@@ -41,7 +41,7 @@ public class FormAlert extends SpaceTraderForm {
     private IContainer components;
 
     private FormAlert() {
-        InitializeComponent();
+        initializeComponent();
     }
 
     public FormAlert(String title, String text, String button1Text, DialogResult button1Result, String button2Text,
@@ -878,7 +878,7 @@ public class FormAlert extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         components = new Container();
         ResourceManager resources = new ResourceManager(FormAlert.class);
         lblText = new jwinforms.Label();
@@ -886,7 +886,7 @@ public class FormAlert extends SpaceTraderForm {
         btn2 = new jwinforms.Button();
         ilImages = new jwinforms.ImageList(components);
         tmrTick = new jwinforms.Timer(components);
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblText
         //

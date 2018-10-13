@@ -27,7 +27,7 @@ public class DockBox extends jwinforms.GroupBox {
         this.commander = commander;
     }
 
-    void InitializeComponent() {
+    void initializeComponent() {
         btnRepair = new jwinforms.Button();
         btnFuel = new jwinforms.Button();
         lblFuelStatus = new jwinforms.Label();

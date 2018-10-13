@@ -30,7 +30,7 @@ public class ShipyardBox extends jwinforms.GroupBox {
         this.commander = commander;
     }
 
-    void InitializeComponent() {
+    void initializeComponent() {
         btnDesign = new jwinforms.Button();
         btnPod = new jwinforms.Button();
         lblEscapePod = new jwinforms.Label();
@@ -39,7 +39,7 @@ public class ShipyardBox extends jwinforms.GroupBox {
         lblEquipForSale = new jwinforms.Label();
         lblShipsForSale = new jwinforms.Label();
 
-        SuspendLayout();
+        suspendLayout();
 
         Controls.add(btnDesign);
         Controls.add(btnPod);

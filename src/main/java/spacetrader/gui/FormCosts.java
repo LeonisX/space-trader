@@ -64,7 +64,7 @@ public class FormCosts extends SpaceTraderForm {
     // #region Methods
 
     public FormCosts() {
-        InitializeComponent();
+        initializeComponent();
 
         lblMerc.setText(Functions.formatMoney(game.MercenaryCosts()));
         lblIns.setText(Functions.formatMoney(game.InsuranceCosts()));
@@ -78,7 +78,7 @@ public class FormCosts extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.btnClose = new jwinforms.Button();
         this.lblMerc = new jwinforms.Label();
         this.lblIns = new jwinforms.Label();
@@ -91,7 +91,7 @@ public class FormCosts extends SpaceTraderForm {
         this.lblMercLabel = new jwinforms.Label();
         this.lblInsLabel = new jwinforms.Label();
         this.picLine = new jwinforms.PictureBox();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

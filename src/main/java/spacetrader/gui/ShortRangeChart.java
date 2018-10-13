@@ -32,7 +32,7 @@ public class ShortRangeChart extends jwinforms.GroupBox {
         this.commander = commander;
     }
 
-    void InitializeComponent() {
+    void initializeComponent() {
         picShortRangeChart = new jwinforms.PictureBox();
 
         //

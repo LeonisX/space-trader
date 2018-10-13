@@ -45,7 +45,7 @@ public class SystemBox extends jwinforms.GroupBox {
         this.commander = commander;
     }
 
-    void InitializeComponent() {
+    void initializeComponent() {
         btnMerc = new jwinforms.Button();
         btnSpecial = new jwinforms.Button();
         btnNews = new jwinforms.Button();

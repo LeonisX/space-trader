@@ -67,7 +67,7 @@ public class FormAbout extends jwinforms.WinformForm {
         this.lblAbout = new jwinforms.Label();
         this.picLogo = new jwinforms.PictureBox();
         ((ISupportInitialize) (this.picLogo)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

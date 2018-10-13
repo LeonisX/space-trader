@@ -315,7 +315,7 @@ class CargoBox extends jwinforms.GroupBox {
         ilShipImages = new jwinforms.ImageList(components);
         ilDirectionImages = new jwinforms.ImageList(components);
         ilEquipmentImages = new jwinforms.ImageList(components);
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // boxCargo
         //

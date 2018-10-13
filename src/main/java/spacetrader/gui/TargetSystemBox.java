@@ -47,7 +47,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         mainWindow.updateAll();
     }
 
-    void InitializeComponent() {
+    void initializeComponent() {
         btnTrack = new jwinforms.Button();
         btnNextSystem = new jwinforms.Button();
         btnPrevSystem = new jwinforms.Button();

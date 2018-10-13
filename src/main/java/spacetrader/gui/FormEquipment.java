@@ -85,7 +85,7 @@ public class FormEquipment extends SpaceTraderForm {
     private boolean sellSideSelected = false;
     private boolean handlingSelect = false;
     public FormEquipment() {
-        InitializeComponent();
+        initializeComponent();
 
         UpdateBuy();
         UpdateSell();
@@ -106,7 +106,7 @@ public class FormEquipment extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.btnClose = new jwinforms.Button();
         this.boxSell = new jwinforms.GroupBox();
         this.lblSellGadgetNoSlots = new jwinforms.Label();
@@ -145,10 +145,10 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblSellPrice = new jwinforms.Label();
         this.lblDescription = new jwinforms.Label();
         this.lblName = new jwinforms.Label();
-        this.boxSell.SuspendLayout();
-        this.boxBuy.SuspendLayout();
-        this.boxShipInfo.SuspendLayout();
-        this.SuspendLayout();
+        this.boxSell.suspendLayout();
+        this.boxBuy.suspendLayout();
+        this.boxShipInfo.suspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

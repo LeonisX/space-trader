@@ -76,7 +76,7 @@ public class FormViewCommander extends SpaceTraderForm {
     // #region Member Declarations
 
     public FormViewCommander() {
-        InitializeComponent();
+        initializeComponent();
 
         InitializeScreen();
     }
@@ -95,7 +95,7 @@ public class FormViewCommander extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.lblNameLabel = new jwinforms.Label();
         this.lblName = new jwinforms.Label();
         this.lblDifficulty = new jwinforms.Label();
@@ -128,10 +128,10 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblRecord = new jwinforms.Label();
         this.lblBountyLabel = new jwinforms.Label();
         this.lblBounty = new jwinforms.Label();
-        this.boxSkills.SuspendLayout();
-        this.boxFinances.SuspendLayout();
-        this.boxNotoriety.SuspendLayout();
-        this.SuspendLayout();
+        this.boxSkills.suspendLayout();
+        this.boxFinances.suspendLayout();
+        this.boxNotoriety.suspendLayout();
+        this.suspendLayout();
         //
         // lblNameLabel
         //

@@ -49,7 +49,7 @@ public class FormCargoBuy extends SpaceTraderForm {
 
     @Facaded
     public FormCargoBuy(int item, int maxAmount, CargoBuyOp op) {
-        InitializeComponent();
+        initializeComponent();
 
         Commander cmdr = game.Commander();
         numAmount.setMaximum(maxAmount);
@@ -103,7 +103,7 @@ public class FormCargoBuy extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         lblQuestion = new jwinforms.Label();
         lblStatement = new jwinforms.Label();
         numAmount = new jwinforms.NumericUpDown();
@@ -113,7 +113,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         lblAvailable = new jwinforms.Label();
         lblAfford = new jwinforms.Label();
         ((ISupportInitialize) (numAmount)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblQuestion
         //

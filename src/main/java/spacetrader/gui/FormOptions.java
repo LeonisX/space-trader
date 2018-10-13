@@ -79,7 +79,7 @@ public class FormOptions extends SpaceTraderForm {
     // #region Methods
 
     public FormOptions() {
-        InitializeComponent();
+        initializeComponent();
 
         if (game != null)
             Options().CopyValues(game.Options());
@@ -97,7 +97,7 @@ public class FormOptions extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.btnOk = new Button();
         this.btnCancel = new Button();
         this.lblEmpty = new Label();
@@ -121,7 +121,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkNewspaperShow = new CheckBox();
         this.chkDisable = new CheckBox();
         ((ISupportInitialize) (this.numEmpty)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // btnOk
         //

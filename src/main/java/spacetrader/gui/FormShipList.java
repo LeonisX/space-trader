@@ -116,7 +116,7 @@ public class FormShipList extends SpaceTraderForm {
     //#region Methods
 
     public FormShipList() {
-        InitializeComponent();
+        initializeComponent();
 
         //#region Array of controls
         lblPrice = new Label[]
@@ -163,7 +163,7 @@ public class FormShipList extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         btnClose = new jwinforms.Button();
         btnBuy0 = new jwinforms.Button();
         lblName0 = new jwinforms.Label();
@@ -225,8 +225,8 @@ public class FormShipList extends SpaceTraderForm {
         lblBaysLabel = new jwinforms.Label();
         lblNameLabel = new jwinforms.Label();
         lblSizeLabel = new jwinforms.Label();
-        boxShipInfo.SuspendLayout();
-        this.SuspendLayout();
+        boxShipInfo.suspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

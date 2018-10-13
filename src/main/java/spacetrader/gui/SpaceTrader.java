@@ -122,7 +122,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
 
         initializePicLine();
 
-        //this.SuspendLayout();
+        //this.suspendLayout();
 
         initializeImages(resources);
 
@@ -170,7 +170,6 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
     }
 
     private void initializeMenu() {
-
         mnuMain = new MainMenu();
         mnuGame = new SubMenu();
         mnuGameNew = new MenuItem();
@@ -368,7 +367,7 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
     private void initializeStatusBar() {
         statusBar = new SpaceTraderStatusBar(this);
         statusBar.beginInit();
-        statusBar.InitializeComponent();
+        statusBar.initializeComponent();
     }
 
     private void initializeComponents() {
@@ -383,34 +382,41 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         galacticChart = new GalacticChart(this, ilChartImages);
         targetSystemBox = new TargetSystemBox(this);
 
-        shortRangeChart.SuspendLayout();
-        galacticChart.SuspendLayout();
-        targetSystemBox.SuspendLayout();
-        cargoBox.SuspendLayout();
-        systemBox.SuspendLayout();
-        shipyardBox.SuspendLayout();
-        dockBox.SuspendLayout();
+        shortRangeChart.suspendLayout();
+        galacticChart.suspendLayout();
+        targetSystemBox.suspendLayout();
+        cargoBox.suspendLayout();
+        systemBox.suspendLayout();
+        shipyardBox.suspendLayout();
+        dockBox.suspendLayout();
 
-        galacticChart.InitializeComponent();
-        galacticChart.setLocation(new Point(180, 306));
+        // system   cargocargocargocargocargoc
+        // system   cargocargocargocargocargoc
+        // dock     cargocargocargocargocargoc
 
-        shortRangeChart.InitializeComponent();
-        shortRangeChart.setLocation(new Point(364, 306));
+        // shipyard galactic shortRange target
+        // shipyard galactic shortRange target
 
-        targetSystemBox.InitializeComponent();
-        targetSystemBox.setLocation(new Point(548, 306));
+        systemBox.initializeComponent();
+        systemBox.setLocation(new Point(4, 2));
 
         cargoBox.initializeComponent(strings);
         cargoBox.setLocation(new Point(252, 2));
 
-        systemBox.InitializeComponent();
-        systemBox.setLocation(new Point(4, 2));
+        dockBox.initializeComponent();
+        dockBox.setLocation(new Point(4, 212));
 
-        shipyardBox.InitializeComponent();
+        shipyardBox.initializeComponent();
         shipyardBox.setLocation(new Point(4, 306));
 
-        dockBox.InitializeComponent();
-        dockBox.setLocation(new Point(4, 212));
+        galacticChart.initializeComponent();
+        galacticChart.setLocation(new Point(180, 306));
+
+        shortRangeChart.initializeComponent();
+        shortRangeChart.setLocation(new Point(364, 306));
+
+        targetSystemBox.initializeComponent();
+        targetSystemBox.setLocation(new Point(548, 306));
     }
 
     private void initializePicLine() {
@@ -419,7 +425,6 @@ public class SpaceTrader extends jwinforms.WinformWindow implements MainWindow {
         picLine.setLocation(new Point(0, 0));
         picLine.setName("picLine");
         picLine.setSize(new Size(770, 1));
-        picLine.setTabIndex(132);
         picLine.setTabStop(false);
     }
 

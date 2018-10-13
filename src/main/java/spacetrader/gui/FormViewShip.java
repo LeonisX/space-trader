@@ -58,7 +58,7 @@ public class FormViewShip extends SpaceTraderForm {
     //#region Methods
 
     public FormViewShip() {
-        InitializeComponent();
+        initializeComponent();
 
         lblType.setText(ship.Name());
         lblEquipLabel.setText("");
@@ -73,7 +73,7 @@ public class FormViewShip extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.lblTypeLabel = new jwinforms.Label();
         this.lblType = new jwinforms.Label();
         this.btnClose = new jwinforms.Button();
@@ -81,8 +81,8 @@ public class FormViewShip extends SpaceTraderForm {
         this.lblEquip = new jwinforms.Label();
         this.boxSpecialCargo = new jwinforms.GroupBox();
         this.lblSpecialCargo = new jwinforms.Label();
-        this.boxSpecialCargo.SuspendLayout();
-        this.SuspendLayout();
+        this.boxSpecialCargo.suspendLayout();
+        this.suspendLayout();
         //
         // lblTypeLabel
         //

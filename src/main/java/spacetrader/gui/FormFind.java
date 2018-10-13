@@ -46,7 +46,7 @@ public class FormFind extends SpaceTraderForm {
     // #region Methods
 
     public FormFind() {
-        InitializeComponent();
+        initializeComponent();
 
         txtSystem.setText("");
         chkTrack.setChecked(false);
@@ -57,13 +57,13 @@ public class FormFind extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         lblText = new jwinforms.Label();
         btnOk = new jwinforms.Button();
         btnCancel = new jwinforms.Button();
         txtSystem = new jwinforms.TextBox();
         chkTrack = new jwinforms.CheckBox();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblText
         //

@@ -17,7 +17,7 @@ public class GroupBox extends WinformControl {
     }
 
     @Override
-    public void SuspendLayout() {
+    public void suspendLayout() {
         // TODO Auto-generated method stub
     }
 

@@ -89,7 +89,7 @@ public class FormMonster extends SpaceTraderForm {
     // #region Methods
 
     public FormMonster() {
-        InitializeComponent();
+        initializeComponent();
 
         PopulateIdArrays();
 
@@ -103,7 +103,7 @@ public class FormMonster extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         btnClose = new jwinforms.Button();
         picLine1 = new jwinforms.PictureBox();
         picLine0 = new jwinforms.PictureBox();
@@ -137,10 +137,10 @@ public class FormMonster extends SpaceTraderForm {
         lblShipyards = new jwinforms.Label();
         lblShipyardSystems = new jwinforms.LinkLabel();
         picLine2 = new jwinforms.PictureBox();
-        pnlMercs.SuspendLayout();
-        pnlQuests.SuspendLayout();
-        pnlShipyards.SuspendLayout();
-        this.SuspendLayout();
+        pnlMercs.suspendLayout();
+        pnlQuests.suspendLayout();
+        pnlShipyards.suspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

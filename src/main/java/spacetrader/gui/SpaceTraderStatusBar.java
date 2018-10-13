@@ -23,7 +23,7 @@ class SpaceTraderStatusBar extends StatusBar {
         this.commander = commander;
     }
 
-    public void InitializeComponent() {
+    public void initializeComponent() {
         this.setName("statusBar");
         Panels.addAll(Arrays.asList(new jwinforms.StatusBarPanel[]{statusBarPanelCash, statusBarPanelBays,
                 statusBarPanelCosts, statusBarPanelExtra}));

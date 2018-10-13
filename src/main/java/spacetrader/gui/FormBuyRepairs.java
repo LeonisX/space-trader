@@ -57,7 +57,7 @@ public class FormBuyRepairs extends jwinforms.WinformForm {
     // #region Methods
 
     public FormBuyRepairs() {
-        InitializeComponent();
+        initializeComponent();
 
         Commander cmdr = game.Commander();
         numAmount.setMaximum(Math.min(cmdr.getCash(), (cmdr.getShip().HullStrength() - cmdr.getShip().getHull())
@@ -82,14 +82,14 @@ public class FormBuyRepairs extends jwinforms.WinformForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.lblQuestion = new jwinforms.Label();
         this.numAmount = new jwinforms.NumericUpDown();
         this.btnOk = new jwinforms.Button();
         this.btnMax = new jwinforms.Button();
         this.btnNothing = new jwinforms.Button();
         ((ISupportInitialize) (this.numAmount)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblQuestion
         //

@@ -86,7 +86,7 @@ public class FormJettison extends SpaceTraderForm {
     //#region Methods
 
     public FormJettison() {
-        InitializeComponent();
+        initializeComponent();
 
         //#region Arrays of Cargo controls
         btnJettisonQty = new Button[]{btnJettisonQty0, btnJettisonQty1, btnJettisonQty2, btnJettisonQty3,
@@ -104,7 +104,7 @@ public class FormJettison extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         btnJettisonAll9 = new jwinforms.Button();
         btnJettisonQty9 = new jwinforms.Button();
         btnJettisonAll8 = new jwinforms.Button();
@@ -138,7 +138,7 @@ public class FormJettison extends SpaceTraderForm {
         lblBaysLabel = new jwinforms.Label();
         lblBays = new jwinforms.Label();
         btnDone = new jwinforms.Button();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // btnJettisonAll9
         //

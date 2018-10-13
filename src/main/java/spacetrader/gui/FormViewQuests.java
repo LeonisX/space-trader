@@ -51,7 +51,7 @@ public class FormViewQuests extends SpaceTraderForm {
     // #region Methods
 
     public FormViewQuests() {
-        InitializeComponent();
+        initializeComponent();
 
         UpdateAll();
     }
@@ -61,10 +61,10 @@ public class FormViewQuests extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.btnClose = new jwinforms.Button();
         this.lblQuests = new jwinforms.LinkLabel();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // btnClose
         //

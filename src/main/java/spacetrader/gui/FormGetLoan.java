@@ -46,7 +46,7 @@ public class FormGetLoan extends SpaceTraderForm {
     private jwinforms.Label lblStatement;
 
     public FormGetLoan(int max) {
-        InitializeComponent();
+        initializeComponent();
 
         numAmount.setMaximum(max);
         numAmount.setValue(numAmount.getMinimum());
@@ -59,7 +59,7 @@ public class FormGetLoan extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.lblQuestion = new jwinforms.Label();
         this.numAmount = new jwinforms.NumericUpDown();
         this.btnOk = new jwinforms.Button();
@@ -67,7 +67,7 @@ public class FormGetLoan extends SpaceTraderForm {
         this.btnNothing = new jwinforms.Button();
         this.lblStatement = new jwinforms.Label();
         ((ISupportInitialize) (this.numAmount)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblQuestion
         //

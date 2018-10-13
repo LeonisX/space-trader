@@ -56,7 +56,7 @@ public class GalacticChart extends jwinforms.GroupBox {
         cheats = game == null ? null : game.Cheats();
     }
 
-    void InitializeComponent() {
+    void initializeComponent() {
         picGalacticChart = new jwinforms.PictureBox();
         lblWormhole = new jwinforms.Label();
         lblWormholeLabel = new jwinforms.Label();

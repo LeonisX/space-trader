@@ -63,7 +63,7 @@ public class FormTest extends SpaceTraderForm {
     //#region Methods
 
     public FormTest() {
-        InitializeComponent();
+        initializeComponent();
 
         AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.WildWontStayAboardReactor.ordinal());
 //			for (AlertType type = AlertType.Alert; type.castToInt() <= AlertType.WildWontStayAboardReactor.castToInt(); type++)
@@ -84,7 +84,7 @@ public class FormTest extends SpaceTraderForm {
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         this.lblAlertType = new jwinforms.Label();
         this.boxAlert = new jwinforms.GroupBox();
         this.btnTestAlert = new jwinforms.Button();
@@ -99,9 +99,9 @@ public class FormTest extends SpaceTraderForm {
         this.btnTestSpecialEvent = new jwinforms.Button();
         this.selSpecialEvent = new jwinforms.ComboBox();
         this.lblSpecialEvent = new jwinforms.Label();
-        this.boxAlert.SuspendLayout();
-        this.groupBox1.SuspendLayout();
-        this.SuspendLayout();
+        this.boxAlert.suspendLayout();
+        this.groupBox1.suspendLayout();
+        this.suspendLayout();
         //
         // lblAlertType
         //

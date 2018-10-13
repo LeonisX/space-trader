@@ -40,7 +40,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
     private jwinforms.Label lblStatement;
 
     public FormPayBackLoan() {
-        InitializeComponent();
+        initializeComponent();
 
         Commander cmdr = Game.CurrentGame().Commander();
         int max = Math.min(cmdr.getDebt(), cmdr.getCash());
@@ -61,7 +61,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
     // / Required method for Designer support - do not modify
     // / the contents of this method with the code editor.
     // / </summary>
-    private void InitializeComponent() {
+    private void initializeComponent() {
         lblQuestion = new jwinforms.Label();
         numAmount = new jwinforms.NumericUpDown();
         btnOk = new jwinforms.Button();
@@ -69,7 +69,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         btnNothing = new jwinforms.Button();
         lblStatement = new jwinforms.Label();
         ((ISupportInitialize) (numAmount)).beginInit();
-        this.SuspendLayout();
+        this.suspendLayout();
         //
         // lblQuestion
         //

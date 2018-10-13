@@ -212,7 +212,7 @@ public class WinformControl implements ISupportInitialize {
         swingVersion.setFocusable(tabStop);
     }
 
-    public void SuspendLayout() {
+    public void suspendLayout() {
         // TODO Auto-generated method stub
     }
 
