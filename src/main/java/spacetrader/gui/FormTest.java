@@ -43,7 +43,7 @@ public class FormTest extends SpaceTraderForm {
     //#region Control Declarations
 
     private spacetrader.controls.Label lblAlertType;
-    private spacetrader.controls.GroupBox boxAlert;
+    private Panel boxAlert;
     private spacetrader.controls.Label lblValue2;
     private spacetrader.controls.Label lblValue1;
     private spacetrader.controls.Label lblValue3;
@@ -51,7 +51,7 @@ public class FormTest extends SpaceTraderForm {
     private spacetrader.controls.TextBox txtValue1;
     private spacetrader.controls.TextBox txtValue2;
     private spacetrader.controls.TextBox txtValue3;
-    private spacetrader.controls.GroupBox groupBox1;
+    private Panel panel1;
     private spacetrader.controls.Button btnTestAlert;
     private spacetrader.controls.Button btnTestSpecialEvent;
     private spacetrader.controls.ComboBox selSpecialEvent;
@@ -86,7 +86,7 @@ public class FormTest extends SpaceTraderForm {
     /// </summary>
     private void initializeComponent() {
         this.lblAlertType = new spacetrader.controls.Label();
-        this.boxAlert = new spacetrader.controls.GroupBox();
+        this.boxAlert = new Panel(name);
         this.btnTestAlert = new spacetrader.controls.Button();
         this.txtValue3 = new spacetrader.controls.TextBox();
         this.txtValue2 = new spacetrader.controls.TextBox();
@@ -95,12 +95,12 @@ public class FormTest extends SpaceTraderForm {
         this.lblValue3 = new spacetrader.controls.Label();
         this.lblValue1 = new spacetrader.controls.Label();
         this.lblValue2 = new spacetrader.controls.Label();
-        this.groupBox1 = new spacetrader.controls.GroupBox();
+        this.panel1 = new Panel(name);
         this.btnTestSpecialEvent = new spacetrader.controls.Button();
         this.selSpecialEvent = new spacetrader.controls.ComboBox();
         this.lblSpecialEvent = new spacetrader.controls.Label();
         this.boxAlert.suspendLayout();
-        this.groupBox1.suspendLayout();
+        this.panel1.suspendLayout();
         this.suspendLayout();
         //
         // lblAlertType
@@ -204,18 +204,18 @@ public class FormTest extends SpaceTraderForm {
         this.lblValue2.setTabIndex(1);
         this.lblValue2.setText("Value 2");
         //
-        // groupBox1
+        // panel1
         //
-        this.groupBox1.controls.addAll((new BaseComponent[]{
+        this.panel1.controls.addAll((new BaseComponent[]{
                 this.btnTestSpecialEvent,
                 this.selSpecialEvent,
                 this.lblSpecialEvent}));
-        this.groupBox1.setLocation(new java.awt.Point(8, 168));
-        this.groupBox1.setName("groupBox1");
-        this.groupBox1.setSize(new spacetrader.controls.Size(200, 80));
-        this.groupBox1.setTabIndex(2);
-        this.groupBox1.setTabStop(false);
-        this.groupBox1.setText("Test Special Alert");
+        this.panel1.setLocation(new java.awt.Point(8, 168));
+        this.panel1.setName("panel1");
+        this.panel1.setSize(new spacetrader.controls.Size(200, 80));
+        this.panel1.setTabIndex(2);
+        this.panel1.setTabStop(false);
+        this.panel1.setText("Test Special Alert");
         //
         // btnTestSpecialEvent
         //
@@ -253,7 +253,7 @@ public class FormTest extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setClientSize(new spacetrader.controls.Size(370, 255));
         this.Controls.addAll(Arrays.asList(
-                this.groupBox1,
+                this.panel1,
                 this.boxAlert));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);

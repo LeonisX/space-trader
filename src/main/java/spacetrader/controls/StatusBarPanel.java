@@ -10,7 +10,7 @@ public class StatusBarPanel implements ISupportInitialize {
     private final JStatusBarSection jpanel = new JStatusBarSection(" ");
 
     public StatusBarPanel() {
-        this(StatusBarPanelAutoSize.None);
+        this(StatusBarPanelAutoSize.NONE);
     }
 
     public StatusBarPanel(StatusBarPanelAutoSize autoSize) {

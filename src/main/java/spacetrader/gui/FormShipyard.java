@@ -23,6 +23,7 @@ import spacetrader.controls.*;
 import spacetrader.controls.BaseComponent;
 import spacetrader.controls.Container;
 import spacetrader.controls.Image;
+import spacetrader.controls.Panel;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.ShipType;
 import spacetrader.game.enums.Size;
@@ -55,8 +56,8 @@ public class FormShipyard extends SpaceTraderForm {
     private spacetrader.controls.Button btnConstruct;
     private spacetrader.controls.Button btnCancel;
     private spacetrader.controls.PictureBox picLogo;
-    private spacetrader.controls.GroupBox boxCosts;
-    private spacetrader.controls.GroupBox boxAllocation;
+    private Panel boxCosts;
+    private Panel boxAllocation;
     private spacetrader.controls.NumericUpDown numHullStrength;
     private spacetrader.controls.Label lblHullStrenghLabel;
     private spacetrader.controls.NumericUpDown numCargoBays;
@@ -76,8 +77,8 @@ public class FormShipyard extends SpaceTraderForm {
     private spacetrader.controls.Label lblTotalCostLabel;
     private spacetrader.controls.Label lblShipCostLabel;
     private spacetrader.controls.Label lblDesignFeeLabel;
-    private spacetrader.controls.GroupBox boxWelcome;
-    private spacetrader.controls.GroupBox boxInfo;
+    private Panel boxWelcome;
+    private Panel boxInfo;
     private spacetrader.controls.Label lblSize;
     private spacetrader.controls.ComboBox selSize;
     private spacetrader.controls.Label lblTemplate;
@@ -153,7 +154,7 @@ public class FormShipyard extends SpaceTraderForm {
     private void initializeComponent() {
         components = new Container();
         ResourceManager resources = new ResourceManager(FormShipyard.class);
-        boxWelcome = new spacetrader.controls.GroupBox();
+        boxWelcome = new Panel(name);
         lblSkillDescription = new spacetrader.controls.Label();
         lblSkill = new spacetrader.controls.Label();
         lblSizeSpecialty = new spacetrader.controls.Label();
@@ -162,7 +163,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblWelcome = new spacetrader.controls.Label();
         lblWarning = new spacetrader.controls.Label();
         picLogo = new spacetrader.controls.PictureBox();
-        boxInfo = new spacetrader.controls.GroupBox();
+        boxInfo = new Panel(name);
         btnSave = new spacetrader.controls.Button();
         btnLoad = new spacetrader.controls.Button();
         picInfoLine = new spacetrader.controls.PictureBox();
@@ -180,7 +181,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblName = new spacetrader.controls.Label();
         lblUnitsUsed = new spacetrader.controls.Label();
         lblUnitsUsedLabel = new spacetrader.controls.Label();
-        boxCosts = new spacetrader.controls.GroupBox();
+        boxCosts = new Panel(name);
         lblTradeIn = new spacetrader.controls.Label();
         lblTradeInLabel = new spacetrader.controls.Label();
         picCostsLine = new spacetrader.controls.PictureBox();
@@ -194,7 +195,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblDesignFeeLabel = new spacetrader.controls.Label();
         btnConstruct = new spacetrader.controls.Button();
         btnCancel = new spacetrader.controls.Button();
-        boxAllocation = new spacetrader.controls.GroupBox();
+        boxAllocation = new Panel(name);
         lblPct = new spacetrader.controls.Label();
         lblPctLabel = new spacetrader.controls.Label();
         numHullStrength = new spacetrader.controls.NumericUpDown();
@@ -934,7 +935,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // ilShipyardLogos
         //
-        ilShipyardLogos.ColorDepth = spacetrader.controls.ColorDepth.Depth24Bit;
+        ilShipyardLogos.colorDepth = spacetrader.controls.ColorDepth.Depth24Bit;
         ilShipyardLogos.setImageSize(new spacetrader.controls.Size(80, 80));
         ilShipyardLogos.setImageStream(((spacetrader.controls.ImageListStreamer) (resources
                 .getObject("ilShipyardLogos.ImageStream"))));

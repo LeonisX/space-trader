@@ -2,6 +2,7 @@ package spacetrader.gui;
 
 import spacetrader.controls.*;
 import spacetrader.controls.Image;
+import spacetrader.controls.Panel;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
@@ -19,7 +20,7 @@ import java.awt.*;
  *
  * - replaced Game with SystemTracker where possible.
  */
-public class GalacticChart extends spacetrader.controls.GroupBox {
+public class GalacticChart extends Panel {
     private final SpaceTrader mainWindow;
     private final spacetrader.controls.ImageList ilChartImages;
     private final int OFF_X = ChartsGraphicsConsts.OFF_X;
@@ -45,9 +46,10 @@ public class GalacticChart extends spacetrader.controls.GroupBox {
     private spacetrader.controls.Button btnFind;
     private spacetrader.controls.PictureBox picGalacticChart;
 
-    public GalacticChart(SpaceTrader mainWindow, spacetrader.controls.ImageList images) {
+    GalacticChart(SpaceTrader mainWindow, ImageList images, String name) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
+        setName(name);
     }
 
     void setGame(Game game, GameController controller, Commander commander) {
@@ -211,10 +213,10 @@ public class GalacticChart extends spacetrader.controls.GroupBox {
                             universe[i].X() + image.getWidth() - 1, universe[i].Y());
                 }
 
-                ilChartImages.Draw(e.Graphics, universe[i].X(), universe[i].Y(), imageIndex);
+                ilChartImages.draw(e.Graphics, universe[i].X(), universe[i].Y(), imageIndex);
 
                 if (Functions.WormholeExists(i, -1))
-                    ilChartImages.Draw(e.Graphics, universe[i].X() + OFF_X_WORM, universe[i].Y(), IMG_S_W);
+                    ilChartImages.draw(e.Graphics, universe[i].X() + OFF_X_WORM, universe[i].Y(), IMG_S_W);
             }
         } else
             e.Graphics.FillRectangle(DEFAULT_BRUSH, 0, 0, picGalacticChart.getWidth(), picGalacticChart.getHeight());

@@ -5,7 +5,8 @@ import java.awt.image.ColorModel;
 import java.util.ArrayList;
 
 public class ImageList {
-    public Object ColorDepth;
+
+    public Object colorDepth;
     private Image[] images;
     private Size size;
 
@@ -13,7 +14,7 @@ public class ImageList {
         // TODO Auto-generated constructor stub
     }
 
-    public void Draw(spacetrader.controls.Graphics graphics, int x, int y, int imageIndex) {
+    public void draw(Graphics graphics, int x, int y, int imageIndex) {
         graphics.DrawImage(images[imageIndex], x, y, new Rectangle(0, 0, size.width, size.height), GraphicsUnit.Pixel);
     }
 
@@ -22,7 +23,7 @@ public class ImageList {
     }
 
     public void setImageStream(ImageListStreamer imageStream) {
-        ArrayList<Image> al = new ArrayList<Image>();
+        ArrayList<Image> al = new ArrayList<>();
         for (Image image : imageStream.images) {
             al.add(image);
         }
@@ -30,8 +31,9 @@ public class ImageList {
     }
 
     public void setTransparentColor(Color transparentColor) {
-        for (Image image : images)
+        for (Image image : images) {
             image.setTransparentColor(transparentColor);
+        }
     }
 
     public void setImageSize(Size imageSize) {
@@ -40,6 +42,7 @@ public class ImageList {
 }
 
 class ColorTranslate {
+
     private final static int[] transparent = new int[]{0, 0, 0, 0};
     private ColorModel model;
     private int reference;
@@ -50,9 +53,10 @@ class ColorTranslate {
     }
 
     int[] translate(int pixel) {
-        if (pixel == reference)
+        if (pixel == reference) {
             return transparent;
-        else
+        } else {
             return new int[]{model.getRed(pixel), model.getGreen(pixel), model.getBlue(pixel), 255};
+        }
     }
 }

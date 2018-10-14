@@ -29,10 +29,7 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import spacetrader.controls.ContentAlignment;
-import spacetrader.controls.DialogResult;
-import spacetrader.controls.FormStartPosition;
-import spacetrader.controls.BaseComponent;
+import spacetrader.controls.*;
 import spacetrader.game.*;
 
 import java.util.Arrays;
@@ -48,7 +45,7 @@ public class FormViewCommander extends SpaceTraderForm {
     private spacetrader.controls.Label lblNetWorthLabel;
     private spacetrader.controls.Label lblDifficultyLabel;
     private spacetrader.controls.Label lblTime;
-    private spacetrader.controls.GroupBox boxSkills;
+    private Panel boxSkills;
     private spacetrader.controls.Label lblEngineer;
     private spacetrader.controls.Label lblTrader;
     private spacetrader.controls.Label lblFighter;
@@ -57,7 +54,7 @@ public class FormViewCommander extends SpaceTraderForm {
     private spacetrader.controls.Label lblTraderLabel;
     private spacetrader.controls.Label lblFighterLabel;
     private spacetrader.controls.Label lblPilotLabel;
-    private spacetrader.controls.GroupBox boxFinances;
+    private Panel boxFinances;
     private spacetrader.controls.Label lblNetWorth;
     private spacetrader.controls.Label lblDebt;
     private spacetrader.controls.Label lblCash;
@@ -67,7 +64,7 @@ public class FormViewCommander extends SpaceTraderForm {
     private spacetrader.controls.Label lblPoliceLabel;
     private spacetrader.controls.Label lblReputationLabel;
     private spacetrader.controls.Label lblKillsLabel;
-    private spacetrader.controls.GroupBox boxNotoriety;
+    private Panel boxNotoriety;
     private spacetrader.controls.Label lblBountyLabel;
     private spacetrader.controls.Label lblBounty;
     private Game game = Game.CurrentGame();
@@ -106,7 +103,7 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblNetWorthLabel = new spacetrader.controls.Label();
         this.lblDifficultyLabel = new spacetrader.controls.Label();
         this.lblTime = new spacetrader.controls.Label();
-        this.boxSkills = new spacetrader.controls.GroupBox();
+        this.boxSkills = new Panel(name);
         this.lblEngineer = new spacetrader.controls.Label();
         this.lblTrader = new spacetrader.controls.Label();
         this.lblFighter = new spacetrader.controls.Label();
@@ -115,11 +112,11 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblTraderLabel = new spacetrader.controls.Label();
         this.lblFighterLabel = new spacetrader.controls.Label();
         this.lblPilotLabel = new spacetrader.controls.Label();
-        this.boxFinances = new spacetrader.controls.GroupBox();
+        this.boxFinances = new Panel(name);
         this.lblCash = new spacetrader.controls.Label();
         this.lblDebt = new spacetrader.controls.Label();
         this.lblNetWorth = new spacetrader.controls.Label();
-        this.boxNotoriety = new spacetrader.controls.GroupBox();
+        this.boxNotoriety = new Panel(name);
         this.lblPoliceLabel = new spacetrader.controls.Label();
         this.lblReputationLabel = new spacetrader.controls.Label();
         this.lblKillsLabel = new spacetrader.controls.Label();

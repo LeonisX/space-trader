@@ -37,9 +37,9 @@ public class FormViewPersonnel extends SpaceTraderForm {
     //#region Control Declarations
 
     private spacetrader.controls.Button btnClose;
-    private spacetrader.controls.GroupBox boxForHire;
-    private spacetrader.controls.GroupBox boxInfo;
-    private spacetrader.controls.GroupBox boxCurrentCrew;
+    private Panel boxForHire;
+    private Panel boxInfo;
+    private Panel boxCurrentCrew;
     private spacetrader.controls.Button btnHireFire;
     private spacetrader.controls.Label lblRate;
     private spacetrader.controls.Label lblName;
@@ -76,11 +76,11 @@ public class FormViewPersonnel extends SpaceTraderForm {
     /// </summary>
     private void initializeComponent() {
         this.btnClose = new spacetrader.controls.Button();
-        this.boxCurrentCrew = new spacetrader.controls.GroupBox();
+        this.boxCurrentCrew = new Panel(name);
         this.lstCrew = new spacetrader.controls.ListBox();
-        this.boxForHire = new spacetrader.controls.GroupBox();
+        this.boxForHire = new Panel(name);
         this.lstForHire = new spacetrader.controls.ListBox();
-        this.boxInfo = new spacetrader.controls.GroupBox();
+        this.boxInfo = new Panel(name);
         this.btnHireFire = new spacetrader.controls.Button();
         this.lblRate = new spacetrader.controls.Label();
         this.lblName = new spacetrader.controls.Label();

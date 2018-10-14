@@ -45,14 +45,14 @@ import static spacetrader.controls.MenuItem.separator;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
 
-    // #region Control Declarations
-    private DockBox dockBox;
-    private CargoBox cargoBox;
-    private TargetSystemBox targetSystemBox;
-    private GalacticChart galacticChart;
-    private ShortRangeChart shortRangeChart;
-    private SystemBox systemBox;
-    private ShipyardBox shipyardBox;
+    private SystemPanel systemPanel;
+    private DockPanel dockPanel;
+    private CargoPanel cargoPanel;
+    private ShipyardPanel shipyardPanel;
+    private GalacticChart galacticChartPanel;
+    private ShortRangeChart shortRangeChartPanel;
+    private TargetSystemPanel targetSystemPanel;
+
     private SpaceTraderStatusBar statusBar;
 
     private ImageList ilChartImages;
@@ -60,7 +60,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private ImageList ilEquipmentImages;
     private ImageList ilShipImages;
 
-    private MainMenu mnuMain;
+    private MainMenu mainMenu;
     private SubMenu mnuGame;
     private MenuItem mnuGameExit;
     private MenuItem mnuGameLoad;
@@ -136,17 +136,17 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         this.setClientSize(dimensions.getSize(this.getName()));
         controls.add(picLine);
-        controls.add(dockBox);
-        controls.add(cargoBox);
-        controls.add(targetSystemBox);
-        controls.add(galacticChart);
-        controls.add(shortRangeChart);
+        controls.add(dockPanel);
+        controls.add(cargoPanel);
+        controls.add(targetSystemPanel);
+        controls.add(galacticChartPanel);
+        controls.add(shortRangeChartPanel);
 
-        controls.add(systemBox);
-        controls.add(shipyardBox);
+        controls.add(systemPanel);
+        controls.add(shipyardPanel);
 
         setStatusBar(statusBar);
-        this.setMenu(mnuMain);
+        this.setMenu(mainMenu);
 
         this.setFormBorderStyle(FormBorderStyle.FixedSingle);
         this.setIcon(((Icon) (resources.getObject("$this.Icon"))));
@@ -298,7 +298,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializeMenu() {
-        mnuMain = new MainMenu();
+        mainMenu = new MainMenu();
         mnuGame = new SubMenu();
         mnuGameNew = new MenuItem();
         mnuGameLoad = new MenuItem();
@@ -317,8 +317,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         mnuHelp = new SubMenu();
         mnuHelpAbout = new MenuItem();
 
-        mnuMain.addAll(mnuGame, mnuView, mnuHelp);
-        mnuMain.setName("mainMenu");
+        mainMenu.addAll(mnuGame, mnuView, mnuHelp);
+        mainMenu.setName("mainMenu");
 
         mnuGame.addAll(mnuGameNew, mnuGameLoad, mnuGameSave, mnuGameSaveAs, separator(), mnuRetire, separator(),
                 mnuGameExit);
@@ -464,7 +464,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializeStatusBar() {
-        statusBar = new SpaceTraderStatusBar(this);
+        statusBar = new SpaceTraderStatusBar(this, "statusBar");
         statusBar.beginInit();
         statusBar.initializeComponent();
     }
@@ -472,22 +472,21 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private void initializeComponents() {
         components = new Container();
 
-        cargoBox = new CargoBox();
-        systemBox = new SystemBox(this);
-        shipyardBox = new ShipyardBox(this);
-        dockBox = new DockBox(this);
+        systemPanel = new SystemPanel(this, "systemPanel");
+        dockPanel = new DockPanel(this, "dockPanel");
+        cargoPanel = new CargoPanel("cargoPanel");
+        shipyardPanel = new ShipyardPanel(this, "shipyardPanel");
+        galacticChartPanel = new GalacticChart(this, ilChartImages, "galacticChartPanel");
+        shortRangeChartPanel = new ShortRangeChart(this, ilChartImages, "shortRangeChartPanel");
+        targetSystemPanel = new TargetSystemPanel(this, "targetSystemPanel");
 
-        shortRangeChart = new ShortRangeChart(this, ilChartImages);
-        galacticChart = new GalacticChart(this, ilChartImages);
-        targetSystemBox = new TargetSystemBox(this);
-
-        shortRangeChart.suspendLayout();
-        galacticChart.suspendLayout();
-        targetSystemBox.suspendLayout();
-        cargoBox.suspendLayout();
-        systemBox.suspendLayout();
-        shipyardBox.suspendLayout();
-        dockBox.suspendLayout();
+        systemPanel.suspendLayout();
+        dockPanel.suspendLayout();
+        cargoPanel.suspendLayout();
+        shipyardPanel.suspendLayout();
+        galacticChartPanel.suspendLayout();
+        shortRangeChartPanel.suspendLayout();
+        targetSystemPanel.suspendLayout();
 
         // system   cargocargocargocargocargoc
         // system   cargocargocargocargocargoc
@@ -496,26 +495,26 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         // shipyard galactic shortRange target
         // shipyard galactic shortRange target
 
-        systemBox.initializeComponent();
-        systemBox.setLocation(new Point(4, 2));
+        systemPanel.initializeComponent();
+        systemPanel.setLocation(new Point(4, 2));
 
-        cargoBox.initializeComponent(strings);
-        cargoBox.setLocation(new Point(252, 2));
+        cargoPanel.initializeComponent(strings);
+        cargoPanel.setLocation(new Point(252, 2));
 
-        dockBox.initializeComponent();
-        dockBox.setLocation(new Point(4, 212));
+        dockPanel.initializeComponent();
+        dockPanel.setLocation(new Point(4, 212));
 
-        shipyardBox.initializeComponent();
-        shipyardBox.setLocation(new Point(4, 306));
+        shipyardPanel.initializeComponent();
+        shipyardPanel.setLocation(new Point(4, 306));
 
-        galacticChart.initializeComponent();
-        galacticChart.setLocation(new Point(180, 306));
+        galacticChartPanel.initializeComponent();
+        galacticChartPanel.setLocation(new Point(180, 306));
 
-        shortRangeChart.initializeComponent();
-        shortRangeChart.setLocation(new Point(364, 306));
+        shortRangeChartPanel.initializeComponent();
+        shortRangeChartPanel.setLocation(new Point(364, 306));
 
-        targetSystemBox.initializeComponent();
-        targetSystemBox.setLocation(new Point(548, 306));
+        targetSystemPanel.initializeComponent();
+        targetSystemPanel.setLocation(new Point(548, 306));
     }
 
     private void initializePicLine() {
@@ -620,14 +619,14 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     public void updateAll() {
-        dockBox.Update();
-        cargoBox.update(strings);
-        shipyardBox.Update();
-        statusBar.Update();
-        systemBox.Update();
-        targetSystemBox.Update();
-        galacticChart.Refresh();
-        shortRangeChart.Refresh();
+        dockPanel.Update();
+        cargoPanel.update(strings);
+        shipyardPanel.Update();
+        statusBar.update();
+        systemPanel.Update();
+        targetSystemPanel.Update();
+        galacticChartPanel.Refresh();
+        shortRangeChartPanel.Refresh();
     }
 
     private void SpaceTrader_Closing(spacetrader.controls.CancelEventArgs e) {
@@ -803,13 +802,13 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         controller = new GameController(game, this);
         commander = game == null ? null : game.Commander();
 
-        dockBox.setGame(commander);
-        cargoBox.setGame(game, controller);
-        targetSystemBox.setGame(game, controller, commander);
-        galacticChart.setGame(game, controller, commander);
-        shortRangeChart.setGame(game, commander);
-        systemBox.setGame(game, controller, commander);
-        shipyardBox.setGame(commander);
+        dockPanel.setGame(commander);
+        cargoPanel.setGame(game, controller);
+        targetSystemPanel.setGame(game, controller, commander);
+        galacticChartPanel.setGame(game, controller, commander);
+        shortRangeChartPanel.setGame(game, commander);
+        systemPanel.setGame(game, controller, commander);
+        shipyardPanel.setGame(commander);
         statusBar.setGame(commander);
     }
 
@@ -817,6 +816,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
      * TODO remove?
      */
     public void updateStatusBar() {
-        statusBar.Update();
+        statusBar.update();
     }
 }

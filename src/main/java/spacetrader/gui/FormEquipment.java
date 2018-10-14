@@ -38,15 +38,15 @@ import spacetrader.guifacade.GuiFacade;
 
 public class FormEquipment extends SpaceTraderForm {
     private spacetrader.controls.Button btnClose;
-    private spacetrader.controls.GroupBox boxSell;
-    private spacetrader.controls.GroupBox boxBuy;
+    private Panel boxSell;
+    private Panel boxBuy;
     private spacetrader.controls.ListBox lstSellWeapon;
     private spacetrader.controls.ListBox lstSellShield;
     private spacetrader.controls.ListBox lstSellGadget;
     private spacetrader.controls.ListBox lstBuyGadget;
     private spacetrader.controls.ListBox lstBuyShield;
     private spacetrader.controls.ListBox lstBuyWeapon;
-    private spacetrader.controls.GroupBox boxShipInfo;
+    private Panel boxShipInfo;
     private spacetrader.controls.Label lblName;
     private spacetrader.controls.Label lblDescription;
     private spacetrader.controls.PictureBox picEquipment;
@@ -108,7 +108,7 @@ public class FormEquipment extends SpaceTraderForm {
     // / </summary>
     private void initializeComponent() {
         this.btnClose = new spacetrader.controls.Button();
-        this.boxSell = new spacetrader.controls.GroupBox();
+        this.boxSell = new Panel(name);
         this.lblSellGadgetNoSlots = new spacetrader.controls.Label();
         this.lblSellShieldNoSlots = new spacetrader.controls.Label();
         this.lblSellWeaponNoSlots = new spacetrader.controls.Label();
@@ -118,7 +118,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lstSellGadget = new spacetrader.controls.ListBox();
         this.lstSellShield = new spacetrader.controls.ListBox();
         this.lstSellWeapon = new spacetrader.controls.ListBox();
-        this.boxBuy = new spacetrader.controls.GroupBox();
+        this.boxBuy = new Panel(name);
         this.lblBuyGadgetNone = new spacetrader.controls.Label();
         this.lblBuyShieldNone = new spacetrader.controls.Label();
         this.lblBuyWeaponNone = new spacetrader.controls.Label();
@@ -128,7 +128,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lstBuyGadget = new spacetrader.controls.ListBox();
         this.lstBuyShield = new spacetrader.controls.ListBox();
         this.lstBuyWeapon = new spacetrader.controls.ListBox();
-        this.boxShipInfo = new spacetrader.controls.GroupBox();
+        this.boxShipInfo = new Panel(name);
         this.lblCharge = new spacetrader.controls.Label();
         this.lblPower = new spacetrader.controls.Label();
         this.lblChargeLabel = new spacetrader.controls.Label();
@@ -607,9 +607,9 @@ public class FormEquipment extends SpaceTraderForm {
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CenterParent);
         this.setText("Buy/Sell Equipment");
-        GroupBox r = this.boxSell;
-        GroupBox r1 = this.boxBuy;
-        GroupBox r2 = this.boxShipInfo;
+        Panel r = this.boxSell;
+        Panel r1 = this.boxBuy;
+        Panel r2 = this.boxShipInfo;
 
     }
 

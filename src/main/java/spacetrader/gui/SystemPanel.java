@@ -3,13 +3,14 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
+import spacetrader.controls.Panel;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
 
-class SystemBox extends GroupBox {
+class SystemPanel extends Panel {
 
     private final SpaceTrader mainWindow;
     private CurrentSystemMgr game = null;
@@ -37,8 +38,9 @@ class SystemBox extends GroupBox {
     private ToolTip tipSpecial;
     private ToolTip tipMerc;
 
-    SystemBox(SpaceTrader mainWindow) {
+    SystemPanel(SpaceTrader mainWindow, String name) {
         this.mainWindow = mainWindow;
+        setName(name);
     }
 
     void setGame(CurrentSystemMgr game, GameController controller, Commander commander) {

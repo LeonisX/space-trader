@@ -40,7 +40,7 @@ public class FormViewShip extends SpaceTraderForm {
     private spacetrader.controls.Button btnClose;
     private spacetrader.controls.Label lblTypeLabel;
     private spacetrader.controls.Label lblType;
-    private spacetrader.controls.GroupBox boxSpecialCargo;
+    private Panel boxSpecialCargo;
     private spacetrader.controls.Label lblSpecialCargo;
     private spacetrader.controls.Label lblEquipLabel;
     private spacetrader.controls.Label lblEquip;
@@ -79,7 +79,7 @@ public class FormViewShip extends SpaceTraderForm {
         this.btnClose = new spacetrader.controls.Button();
         this.lblEquipLabel = new spacetrader.controls.Label();
         this.lblEquip = new spacetrader.controls.Label();
-        this.boxSpecialCargo = new spacetrader.controls.GroupBox();
+        this.boxSpecialCargo = new Panel(name);
         this.lblSpecialCargo = new spacetrader.controls.Label();
         this.boxSpecialCargo.suspendLayout();
         this.suspendLayout();

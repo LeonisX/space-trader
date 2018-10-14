@@ -2,12 +2,13 @@ package spacetrader.gui;
 
 import spacetrader.controls.*;
 import spacetrader.controls.Font;
+import spacetrader.controls.Panel;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
 
 import java.awt.*;
 
-public class ShortRangeChart extends spacetrader.controls.GroupBox {
+public class ShortRangeChart extends Panel {
     private final SpaceTrader mainWindow;
     private final spacetrader.controls.ImageList ilChartImages;
     private final int OFF_X = ChartsGraphicsConsts.OFF_X;
@@ -22,9 +23,11 @@ public class ShortRangeChart extends spacetrader.controls.GroupBox {
     private spacetrader.controls.PictureBox picShortRangeChart;
     private Font font;
     private Font smallFont;
-    public ShortRangeChart(SpaceTrader mainWindow, spacetrader.controls.ImageList images) {
+
+    ShortRangeChart(SpaceTrader mainWindow, ImageList images, String name) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
+        setName(name);
     }
 
     void setGame(SystemTracker game, Commander commander) {
@@ -171,7 +174,7 @@ public class ShortRangeChart extends spacetrader.controls.GroupBox {
                                 e.Graphics.DrawLine(DEFAULT_PEN, x - 5, y + 5, x + 5, y - 5);
                             }
 
-                            ilChartImages.Draw(e.Graphics, x - OFF_X, y - OFF_Y, universe[i].Visited() ? IMG_G_V
+                            ilChartImages.draw(e.Graphics, x - OFF_X, y - OFF_Y, universe[i].Visited() ? IMG_G_V
                                     : IMG_G_N);
 
                             if (Functions.WormholeExists(i, -1)) {
@@ -180,7 +183,7 @@ public class ShortRangeChart extends spacetrader.controls.GroupBox {
                                     e.Graphics.DrawLine(DEFAULT_PEN, xW - 6, y, xW + 6, y);
                                     e.Graphics.DrawLine(DEFAULT_PEN, xW, y - 6, xW, y + 6);
                                 }
-                                ilChartImages.Draw(e.Graphics, xW - OFF_X, y - OFF_Y, IMG_G_W);
+                                ilChartImages.draw(e.Graphics, xW - OFF_X, y - OFF_Y, IMG_G_W);
                             }
                         } else {
                             SizeF size = e.Graphics.MeasureString(universe[i].Name(), getFont());

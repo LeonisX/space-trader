@@ -11,7 +11,7 @@ import spacetrader.controls.ImageList;
 public class GuiEngine {
 
     public static ImageProvider imageProvider;
-    static CheatGui cheat;
+    public static CheatGui cheat;
 
     // todo assert only called once by the user?
     static public void installImplementation(ImplementationProvider impl) {

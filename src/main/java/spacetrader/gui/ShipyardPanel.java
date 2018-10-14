@@ -4,6 +4,7 @@ import spacetrader.controls.DialogResult;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
 import spacetrader.controls.FlatStyle;
+import spacetrader.controls.Panel;
 import spacetrader.game.Commander;
 import spacetrader.game.Consts;
 import spacetrader.game.Strings;
@@ -13,7 +14,7 @@ import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
 
-public class ShipyardBox extends spacetrader.controls.GroupBox {
+public class ShipyardPanel extends Panel {
     private final SpaceTrader mainWindow;
     private Commander commander;
     private spacetrader.controls.Button btnDesign;
@@ -23,8 +24,10 @@ public class ShipyardBox extends spacetrader.controls.GroupBox {
     private spacetrader.controls.Button btnEquip;
     private spacetrader.controls.Button btnBuyShip;
     private spacetrader.controls.Label lblShipsForSale;
-    public ShipyardBox(SpaceTrader mainWindow) {
+
+    public ShipyardPanel(SpaceTrader mainWindow, String name) {
         this.mainWindow = mainWindow;
+        setName(name);
     }
 
     void setGame(Commander commander) {

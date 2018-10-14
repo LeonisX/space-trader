@@ -1,22 +1,23 @@
 package spacetrader.gui;
 
-import spacetrader.controls.StatusBar;
-import spacetrader.controls.StatusBarPanelClickEventArgs;
+import spacetrader.controls.*;
 import spacetrader.game.Commander;
 import spacetrader.game.Functions;
 
 import java.util.Arrays;
 
 class SpaceTraderStatusBar extends StatusBar {
+
     private final SpaceTrader mainWindow;
-    private spacetrader.controls.StatusBarPanel statusBarPanelBays;
-    private spacetrader.controls.StatusBarPanel statusBarPanelCash;
-    private spacetrader.controls.StatusBarPanel statusBarPanelCosts;
-    private spacetrader.controls.StatusBarPanel statusBarPanelExtra;
+    private StatusBarPanel statusBarPanelBays;
+    private StatusBarPanel statusBarPanelCash;
+    private StatusBarPanel statusBarPanelCosts;
+    private StatusBarPanel statusBarPanelExtra;
     private Commander commander;
 
-    public SpaceTraderStatusBar(SpaceTrader mainWindow) {
+    SpaceTraderStatusBar(SpaceTrader mainWindow, String name) {
         this.mainWindow = mainWindow;
+        setName(name);
     }
 
     void setGame(Commander commander) {
@@ -24,17 +25,15 @@ class SpaceTraderStatusBar extends StatusBar {
     }
 
     public void initializeComponent() {
-        this.setName("statusBar");
-        Panels.addAll(Arrays.asList(new spacetrader.controls.StatusBarPanel[]{statusBarPanelCash, statusBarPanelBays,
-                statusBarPanelCosts, statusBarPanelExtra}));
-        ShowPanels = true;
-        this.setSize(new spacetrader.controls.Size(768, 24));
-        SizingGrip = false;
-        this.setTabIndex(2);
-        PanelClick = new spacetrader.controls.EventHandler<Object, StatusBarPanelClickEventArgs>() {
+        panels.addAll(Arrays.asList(statusBarPanelCash, statusBarPanelBays, statusBarPanelCosts, statusBarPanelExtra));
+        showPanels = true;
+        setSize(new spacetrader.controls.Size(768, 24));
+        sizingGrip = false;
+        setTabIndex(2);
+        panelClick = new spacetrader.controls.EventHandler<Object, StatusBarPanelClickEventArgs>() {
             @Override
             public void handle(Object sender, StatusBarPanelClickEventArgs e) {
-                statusBar_PanelClick(sender, e);
+                statusBar_PanelClick(e);
             }
         };
         //
@@ -61,15 +60,15 @@ class SpaceTraderStatusBar extends StatusBar {
 
     @Override
     public void beginInit() {
-        statusBarPanelCash = new spacetrader.controls.StatusBarPanel();
-        statusBarPanelBays = new spacetrader.controls.StatusBarPanel();
-        statusBarPanelCosts = new spacetrader.controls.StatusBarPanel();
-        statusBarPanelExtra = new spacetrader.controls.StatusBarPanel(spacetrader.controls.StatusBarPanelAutoSize.Spring);
+        statusBarPanelCash = new StatusBarPanel();
+        statusBarPanelBays = new StatusBarPanel();
+        statusBarPanelCosts = new StatusBarPanel();
+        statusBarPanelExtra = new StatusBarPanel(StatusBarPanelAutoSize.SPRING);
 
-        ((spacetrader.controls.ISupportInitialize) (statusBarPanelCash)).beginInit();
-        ((spacetrader.controls.ISupportInitialize) (statusBarPanelBays)).beginInit();
-        ((spacetrader.controls.ISupportInitialize) (statusBarPanelCosts)).beginInit();
-        ((spacetrader.controls.ISupportInitialize) (statusBarPanelExtra)).beginInit();
+        ((ISupportInitialize) (statusBarPanelCash)).beginInit();
+        ((ISupportInitialize) (statusBarPanelBays)).beginInit();
+        ((ISupportInitialize) (statusBarPanelCosts)).beginInit();
+        ((ISupportInitialize) (statusBarPanelExtra)).beginInit();
     }
 
     @Override
@@ -81,7 +80,7 @@ class SpaceTraderStatusBar extends StatusBar {
         statusBarPanelExtra.endInit();
     }
 
-    public void Update() {
+    void update() {
         if (commander == null) {
             statusBarPanelCash.setText("");
             statusBarPanelBays.setText("");
@@ -96,12 +95,13 @@ class SpaceTraderStatusBar extends StatusBar {
         }
     }
 
-    private void statusBar_PanelClick(Object sender, spacetrader.controls.StatusBarPanelClickEventArgs e) {
+    private void statusBar_PanelClick(spacetrader.controls.StatusBarPanelClickEventArgs e) {
         if (commander != null) {
-            if (e.StatusBarPanel == statusBarPanelCash)
+            if (e.StatusBarPanel == statusBarPanelCash) {
                 mainWindow.showBank();
-            else if (e.StatusBarPanel == statusBarPanelCosts)
+            } else if (e.StatusBarPanel == statusBarPanelCosts) {
                 (new FormCosts()).showDialog(mainWindow);
+            }
         }
     }
 }

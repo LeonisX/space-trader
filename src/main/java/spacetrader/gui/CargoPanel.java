@@ -24,12 +24,13 @@ import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Font;
 import spacetrader.controls.Label;
+import spacetrader.controls.Panel;
 import spacetrader.game.*;
 
 import java.awt.*;
 import java.util.Map;
 
-class CargoBox extends spacetrader.controls.GroupBox {
+class CargoPanel extends Panel {
 
     private static final Font BOLD_FONT = FontCollection.bold825;
 
@@ -159,6 +160,10 @@ class CargoBox extends spacetrader.controls.GroupBox {
     private Button[] btnSellAll;
     private Button[] btnBuyQty;
     private Button[] btnBuyMax;
+
+    CargoPanel(String name) {
+        setName(name);
+    }
 
     void setGame(SpaceTraderGame game, GameController controller) {
         this.game = game;

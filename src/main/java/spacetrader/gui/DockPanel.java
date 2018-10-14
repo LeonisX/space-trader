@@ -3,6 +3,7 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
+import spacetrader.controls.Panel;
 import spacetrader.game.Commander;
 import spacetrader.game.Functions;
 import spacetrader.game.Ship;
@@ -11,7 +12,7 @@ import spacetrader.game.Strings;
 import java.awt.*;
 
 
-class DockBox extends GroupBox {
+class DockPanel extends Panel {
     private final SpaceTrader mainWindow;
     private Commander commander;
     private Button btnFuel;
@@ -21,8 +22,9 @@ class DockBox extends GroupBox {
     private Label lblHullStatus;
     private Label lblRepairCost;
 
-    DockBox(SpaceTrader mainWindow) {
+    DockPanel(SpaceTrader mainWindow, String name) {
         this.mainWindow = mainWindow;
+        setName(name);
     }
 
     void setGame(Commander commander) {

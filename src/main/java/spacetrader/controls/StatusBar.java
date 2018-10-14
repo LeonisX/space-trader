@@ -7,22 +7,25 @@ import java.awt.event.MouseEvent;
 
 public class StatusBar extends BaseComponent {
 
-    protected StatusBar Panels = this;
-    protected EventHandler<Object, StatusBarPanelClickEventArgs> PanelClick;
-    protected boolean ShowPanels;
-    protected boolean SizingGrip;
+    protected StatusBar panels = this;
+
+    protected boolean showPanels;
+    protected boolean sizingGrip;
+
+    protected EventHandler<Object, StatusBarPanelClickEventArgs> panelClick;
 
     protected StatusBar() {
         super(new JStatusBar());
     }
 
     public void addAll(Iterable<StatusBarPanel> asList) {
-        for (StatusBarPanel panel : asList)
+        for (StatusBarPanel panel : asList) {
             add(panel);
+        }
     }
 
     private void add(StatusBarPanel panel) {
-        asJStatusBar().addSection(panel.asJStatusBarSection(), panel.AutoSize == StatusBarPanelAutoSize.Spring);
+        asJStatusBar().addSection(panel.asJStatusBarSection(), panel.AutoSize == StatusBarPanelAutoSize.SPRING);
         panel.asJStatusBarSection().addMouseListener(new MouseAdapterExtension(panel));
     }
 
@@ -40,8 +43,8 @@ public class StatusBar extends BaseComponent {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (PanelClick != null)
-                PanelClick.handle(source, new StatusBarPanelClickEventArgs(source));
+            if (panelClick != null)
+                panelClick.handle(source, new StatusBarPanelClickEventArgs(source));
         }
     }
 }

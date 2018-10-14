@@ -86,7 +86,7 @@ public class FormShipList extends SpaceTraderForm {
     private spacetrader.controls.Button btnInfo9;
     private spacetrader.controls.Label lblName9;
     private spacetrader.controls.Button btnBuy9;
-    private spacetrader.controls.GroupBox boxShipInfo;
+    private Panel boxShipInfo;
     private spacetrader.controls.Label lblSizeLabel;
     private spacetrader.controls.Label lblNameLabel;
     private spacetrader.controls.Label lblBaysLabel;
@@ -205,7 +205,7 @@ public class FormShipList extends SpaceTraderForm {
         btnInfo9 = new spacetrader.controls.Button();
         lblName9 = new spacetrader.controls.Label();
         btnBuy9 = new spacetrader.controls.Button();
-        boxShipInfo = new spacetrader.controls.GroupBox();
+        boxShipInfo = new Panel(name);
         lblCrew = new spacetrader.controls.Label();
         lblGadget = new spacetrader.controls.Label();
         lblShield = new spacetrader.controls.Label();

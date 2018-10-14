@@ -4,11 +4,12 @@ import spacetrader.controls.AnchorStyles;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
 import spacetrader.controls.FlatStyle;
+import spacetrader.controls.Panel;
 import spacetrader.game.*;
 
 import java.awt.*;
 
-public class TargetSystemBox extends spacetrader.controls.GroupBox {
+public class TargetSystemPanel extends Panel {
     private final SpaceTrader mainWindow;
     private SystemTracker game = null;
     private GameController controller = null;
@@ -34,8 +35,10 @@ public class TargetSystemBox extends spacetrader.controls.GroupBox {
     private spacetrader.controls.Label lblTargetTech;
     private spacetrader.controls.Label lblTargetTechLabel;
     private spacetrader.controls.Label lblTargetSizeLabel;
-    public TargetSystemBox(SpaceTrader mainWindow) {
+
+    TargetSystemPanel(SpaceTrader mainWindow, String name) {
         this.mainWindow = mainWindow;
+        setName(name);
     }
 
     void setGame(SystemTracker game, GameController controller, Commander commander) {

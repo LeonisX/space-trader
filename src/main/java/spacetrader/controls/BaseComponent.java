@@ -25,11 +25,6 @@ public class BaseComponent implements ISupportInitialize {
 
     private MouseListener mouseListener;
 
-    @Deprecated
-    public BaseComponent() {
-        this(null);
-    }
-
     public BaseComponent(Component swingComponent) {
         this.swingComponent = swingComponent;
         this.swingComponent.setFont(DEFAULT_FONT);
