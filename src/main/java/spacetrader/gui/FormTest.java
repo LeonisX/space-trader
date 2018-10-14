@@ -68,13 +68,13 @@ public class FormTest extends SpaceTraderForm {
         AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.WildWontStayAboardReactor.ordinal());
 //			for (AlertType type = AlertType.Alert; type.castToInt() <= AlertType.WildWontStayAboardReactor.castToInt(); type++)
         for (AlertType type : alerts)
-            selAlertType.Items.add(type);
+            selAlertType.items.add(type);
         selAlertType.setSelectedIndex(0);
 
         SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.Artifact.ordinal(), SpecialEventType.WildGetsOut.ordinal());
 //			for (SpecialEventType type = SpecialEventType.Artifact; type < SpecialEventType.WildGetsOut; type++)
         for (SpecialEventType type : events)
-            selSpecialEvent.Items.add(type);
+            selSpecialEvent.items.add(type);
         selSpecialEvent.setSelectedIndex(0);
     }
 
@@ -86,7 +86,7 @@ public class FormTest extends SpaceTraderForm {
     /// </summary>
     private void initializeComponent() {
         this.lblAlertType = new spacetrader.controls.Label();
-        this.boxAlert = new Panel(name);
+        this.boxAlert = new Panel();
         this.btnTestAlert = new spacetrader.controls.Button();
         this.txtValue3 = new spacetrader.controls.TextBox();
         this.txtValue2 = new spacetrader.controls.TextBox();
@@ -95,7 +95,7 @@ public class FormTest extends SpaceTraderForm {
         this.lblValue3 = new spacetrader.controls.Label();
         this.lblValue1 = new spacetrader.controls.Label();
         this.lblValue2 = new spacetrader.controls.Label();
-        this.panel1 = new Panel(name);
+        this.panel1 = new Panel();
         this.btnTestSpecialEvent = new spacetrader.controls.Button();
         this.selSpecialEvent = new spacetrader.controls.ComboBox();
         this.lblSpecialEvent = new spacetrader.controls.Label();
@@ -171,7 +171,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // selAlertType
         //
-        this.selAlertType.DropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        this.selAlertType.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
         this.selAlertType.setLocation(new java.awt.Point(72, 16));
         this.selAlertType.setName("selAlertType");
         this.selAlertType.setSize(new spacetrader.controls.Size(120, 21));
@@ -233,7 +233,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // selSpecialEvent
         //
-        this.selSpecialEvent.DropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        this.selSpecialEvent.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
         this.selSpecialEvent.setLocation(new java.awt.Point(88, 16));
         this.selSpecialEvent.setName("selSpecialEvent");
         this.selSpecialEvent.setSize(new spacetrader.controls.Size(104, 21));
@@ -283,12 +283,12 @@ public class FormTest extends SpaceTraderForm {
             btn1 = "Ok";
             btn2 = null;
             res1 = DialogResult.OK;
-            res2 = DialogResult.None;
+            res2 = DialogResult.NONE;
         } else {
             btn1 = "Yes";
             btn2 = "No";
-            res1 = DialogResult.Yes;
-            res2 = DialogResult.No;
+            res1 = DialogResult.YES;
+            res2 = DialogResult.NO;
         }
 
         (new FormAlert(specEvent.Title(), specEvent.String(), btn1, res1, btn2, res2, null)).showDialog(this);

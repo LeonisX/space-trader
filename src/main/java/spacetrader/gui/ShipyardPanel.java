@@ -14,7 +14,7 @@ import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
 
-public class ShipyardPanel extends Panel {
+class ShipyardPanel extends Panel {
     private final SpaceTrader mainWindow;
     private Commander commander;
     private spacetrader.controls.Button btnDesign;
@@ -25,7 +25,7 @@ public class ShipyardPanel extends Panel {
     private spacetrader.controls.Button btnBuyShip;
     private spacetrader.controls.Label lblShipsForSale;
 
-    public ShipyardPanel(SpaceTrader mainWindow, String name) {
+    ShipyardPanel(SpaceTrader mainWindow, String name) {
         this.mainWindow = mainWindow;
         setName(name);
     }
@@ -52,7 +52,6 @@ public class ShipyardPanel extends Panel {
         controls.add(btnBuyShip);
         controls.add(lblEquipForSale);
         controls.add(lblShipsForSale);
-        setName("boxShipYard");
         setSize(new spacetrader.controls.Size(168, 168));
         setTabIndex(4);
         setTabStop(false);
@@ -193,7 +192,7 @@ public class ShipyardPanel extends Panel {
     }
 
     private void btnPod_Click(Object sender, spacetrader.controls.EventArgs e) {
-        if (GuiFacade.alert(AlertType.EquipmentEscapePod) == DialogResult.Yes) {
+        if (GuiFacade.alert(AlertType.EquipmentEscapePod) == DialogResult.YES) {
             commander.setCash(commander.getCash() - 2000);
             commander.getShip().setEscapePod(true);
             mainWindow.updateAll();

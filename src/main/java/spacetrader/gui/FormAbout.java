@@ -65,13 +65,13 @@ public class FormAbout extends spacetrader.controls.WinformForm {
         this.btnClose = new spacetrader.controls.Button();
         this.lblTitle = new spacetrader.controls.Label();
         this.lblAbout = new spacetrader.controls.Label();
-        this.picLogo = new spacetrader.controls.PictureBox();
+        this.picLogo = new spacetrader.controls.PictureBox("linePictureBox");
         ((ISupportInitialize) (this.picLogo)).beginInit();
         this.suspendLayout();
         //
         // btnClose
         //
-        this.btnClose.setDialogResult(DialogResult.Cancel);
+        this.btnClose.setDialogResult(DialogResult.CANCEL);
         this.btnClose.setLocation(new Point(-32, -32));
         this.btnClose.setName("btnClose");
         this.btnClose.setSize(new Size(32, 32));

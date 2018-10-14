@@ -549,7 +549,7 @@ public class FormJettison extends SpaceTraderForm {
         //
         // btnDone
         //
-        btnDone.setDialogResult(DialogResult.Cancel);
+        btnDone.setDialogResult(DialogResult.CANCEL);
         btnDone.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnDone.setLocation(new java.awt.Point(87, 252));
         btnDone.setName("btnDone");

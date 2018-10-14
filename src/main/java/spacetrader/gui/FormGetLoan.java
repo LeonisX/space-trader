@@ -116,7 +116,7 @@ public class FormGetLoan extends SpaceTraderForm {
         //
         // btnNothing
         //
-        this.btnNothing.setDialogResult(DialogResult.Cancel);
+        this.btnNothing.setDialogResult(DialogResult.CANCEL);
         this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnNothing.setLocation(new java.awt.Point(148, 48));
         this.btnNothing.setName("btnNothing");

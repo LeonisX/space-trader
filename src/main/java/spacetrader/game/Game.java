@@ -1028,7 +1028,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         else {
             if (op != CargoSellOp.Jettison || getLitterWarning()
                     || Commander().getPoliceRecordScore() <= Consts.PoliceRecordScoreDubious
-                    || GuiFacade.alert(AlertType.EncounterDumpWarning) == DialogResult.Yes) {
+                    || GuiFacade.alert(AlertType.EncounterDumpWarning) == DialogResult.YES) {
                 int unitCost = 0;
                 int maxAmount = (op == CargoSellOp.SellTrader) ? Math.min(qtyInHand, getOpponent().FreeCargoBays())
                         : qtyInHand;
@@ -1459,7 +1459,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public void EncounterDrink() {
-        if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.Yes) {
+        if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
             if (getEncounterType() == spacetrader.game.enums.EncounterType.BottleGood) {
                 // two points if you're on beginner-normal, one otherwise
                 Commander().IncreaseRandomSkill();
@@ -1757,7 +1757,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
         }
 
-        if (GuiFacade.alert(initialAlert) == DialogResult.Yes) {
+        if (GuiFacade.alert(initialAlert) == DialogResult.YES) {
             // Remove the equipment we're trading.
             Commander().getShip().RemoveEquipment(equipType, equipSubType);
 
@@ -1808,11 +1808,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             for (int sum = 0; sum <= index; sum += getOpponent().Cargo()[++tradeItem])
                 ;
 
-            if (GuiFacade.alert(AlertType.EncounterScoop, Consts.TradeItems[tradeItem].Name()) == DialogResult.Yes) {
+            if (GuiFacade.alert(AlertType.EncounterScoop, Consts.TradeItems[tradeItem].Name()) == DialogResult.YES) {
                 boolean jettisoned = false;
 
                 if (Commander().getShip().FreeCargoBays() == 0
-                        && GuiFacade.alert(AlertType.EncounterScoopNoRoom) == DialogResult.Yes) {
+                        && GuiFacade.alert(AlertType.EncounterScoopNoRoom) == DialogResult.YES) {
                     GuiFacade.performJettison();
                     jettisoned = true;
                 }
@@ -1932,7 +1932,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     break;
                 case PoliceInspect:
                     if (!Commander().getShip().DetectableIllegalCargoOrPassengers()
-                            && GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) != DialogResult.Yes)
+                            && GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) != DialogResult.YES)
                         attack = false;
 
                     // Fall through...
@@ -1945,7 +1945,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 case PoliceIgnore:
                 case PoliceSurrender:
                     if (Commander().getPoliceRecordScore() <= Consts.PoliceRecordScoreCriminal
-                            || GuiFacade.alert(AlertType.EncounterAttackPolice) == DialogResult.Yes) {
+                            || GuiFacade.alert(AlertType.EncounterAttackPolice) == DialogResult.YES) {
                         if (Commander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal)
                             Commander().setPoliceRecordScore(Consts.PoliceRecordScoreCriminal);
 
@@ -1962,7 +1962,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 case TraderSell:
                     if (Commander().getPoliceRecordScore() < Consts.PoliceRecordScoreClean)
                         Commander().setPoliceRecordScore(Commander().getPoliceRecordScore() + Consts.ScoreAttackTrader);
-                    else if (GuiFacade.alert(AlertType.EncounterAttackTrader) == DialogResult.Yes)
+                    else if (GuiFacade.alert(AlertType.EncounterAttackTrader) == DialogResult.YES)
                         Commander().setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
                     else
                         attack = false;
@@ -1985,7 +1985,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 case CaptainAhab:
                 case CaptainConrad:
                 case CaptainHuie:
-                    if (GuiFacade.alert(AlertType.EncounterAttackCaptain) == DialogResult.Yes) {
+                    if (GuiFacade.alert(AlertType.EncounterAttackCaptain) == DialogResult.YES) {
                         if (Commander().getPoliceRecordScore() > Consts.PoliceRecordScoreVillain)
                             Commander().setPoliceRecordScore(Consts.PoliceRecordScoreVillain);
 
@@ -2021,7 +2021,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public boolean EncounterVerifyBoard() {
         boolean board = false;
 
-        if (GuiFacade.alert(AlertType.EncounterMarieCeleste) == DialogResult.Yes) {
+        if (GuiFacade.alert(AlertType.EncounterMarieCeleste) == DialogResult.YES) {
             board = true;
 
             int narcs = Commander().getShip().Cargo()[TradeItemType.Narcotics.castToInt()];
@@ -2043,7 +2043,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         else if (WarpSystem().PoliticalSystem().BribeLevel() <= 0)
             GuiFacade.alert(AlertType.EncounterPoliceBribeCant);
         else if (Commander().getShip().DetectableIllegalCargoOrPassengers()
-                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.Yes) {
+                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
             // Bribe depends on how easy it is to bribe the police and
             // commander's current worth
             int diffMod = 10 + 5 * (spacetrader.game.enums.Difficulty.Impossible.castToInt() - Difficulty().castToInt());
@@ -2055,7 +2055,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     / WarpSystem().PoliticalSystem().BribeLevel() / diffMod / 100)
                     * 100 * passMod));
 
-            if (GuiFacade.alert(AlertType.EncounterPoliceBribe, Functions.Multiples(bribe, Strings.MoneyUnit)) == DialogResult.Yes) {
+            if (GuiFacade.alert(AlertType.EncounterPoliceBribe, Functions.Multiples(bribe, Strings.MoneyUnit)) == DialogResult.YES) {
                 if (Commander().getCash() >= bribe) {
                     Commander().setCash(Commander().getCash() - bribe);
                     bribed = true;
@@ -2072,11 +2072,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (getEncounterType() != spacetrader.game.enums.EncounterType.PoliceInspect
                 || Commander().getShip().DetectableIllegalCargoOrPassengers()
-                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.Yes) {
+                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
             setEncounterCmdrFleeing(true);
 
             if (getEncounterType() == spacetrader.game.enums.EncounterType.MarieCelestePolice
-                    && GuiFacade.alert(AlertType.EncounterPostMarieFlee) == DialogResult.No) {
+                    && GuiFacade.alert(AlertType.EncounterPostMarieFlee) == DialogResult.NO) {
                 setEncounterCmdrFleeing(false);
             } else if (getEncounterType() == spacetrader.game.enums.EncounterType.PoliceInspect
                     || getEncounterType() == spacetrader.game.enums.EncounterType.MarieCelestePolice) {
@@ -2101,7 +2101,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             String str1 = Commander().getShip().IllegalSpecialCargoDescription("", true, true);
             String str2 = Commander().getShip().IllegalSpecialCargo() ? Strings.EncounterPoliceSubmitArrested : "";
 
-            if (GuiFacade.alert(AlertType.EncounterPoliceSubmit, str1, str2) == DialogResult.Yes) {
+            if (GuiFacade.alert(AlertType.EncounterPoliceSubmit, str1, str2) == DialogResult.YES) {
                 submit = true;
 
                 // If you carry illegal goods, they are impounded and you are
@@ -2140,7 +2140,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (getOpponent().Type() == ShipType.Mantis) {
             if (Commander().getShip().ArtifactOnBoard()) {
-                if (GuiFacade.alert(AlertType.EncounterAliensSurrender) == DialogResult.Yes) {
+                if (GuiFacade.alert(AlertType.EncounterAliensSurrender) == DialogResult.YES) {
                     GuiFacade.alert(AlertType.ArtifactRelinquished);
                     setQuestStatusArtifact(SpecialEvent.StatusArtifactNotStarted);
 
@@ -2154,7 +2154,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 GuiFacade.alert(AlertType.EncounterSurrenderRefused);
             else if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
                     Commander().getShip().IllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            false), Commander().getShip().IllegalSpecialCargoActions()})) == DialogResult.Yes)
+                            false), Commander().getShip().IllegalSpecialCargoActions()})) == DialogResult.YES)
                 result = EncounterResult.Arrested;
         } else if (Commander().getShip().PrincessOnBoard()
                 && !Commander().getShip().HasGadget(GadgetType.HiddenCargoBays)) {
@@ -2227,12 +2227,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (Commander().getShip().IllegalSpecialCargo()) {
             if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
                     Commander().getShip().IllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            true), Commander().getShip().IllegalSpecialCargoActions()})) == DialogResult.Yes)
+                            true), Commander().getShip().IllegalSpecialCargoActions()})) == DialogResult.YES)
                 result = EncounterResult.Arrested;
         } else {
             String str1 = Commander().getShip().IllegalSpecialCargoDescription("", false, true);
 
-            if (GuiFacade.alert(AlertType.EncounterPoliceSubmit, str1, "") == DialogResult.Yes) {
+            if (GuiFacade.alert(AlertType.EncounterPoliceSubmit, str1, "") == DialogResult.YES) {
                 // Police Record becomes dubious, if it wasn't already.
                 if (Commander().getPoliceRecordScore() > Consts.PoliceRecordScoreDubious)
                     Commander().setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
@@ -3237,7 +3237,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             if (Commander().getCash() < cost)
                 GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.Multiples(cost, "credit"));
             else if (Options().getNewsAutoPay()
-                    || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.Multiples(cost, "credit")) == DialogResult.Yes) {
+                    || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.Multiples(cost, "credit")) == DialogResult.YES) {
                 Commander().setCash(Commander().getCash() - cost);
                 setPaidForNewspaper(true);
                 getParentWindow().updateAll();
@@ -3368,7 +3368,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             // if Wild is aboard, make sure ship is armed!
             if (Commander().getShip().WildOnBoard() && !Commander().getShip().HasWeapon(WeaponType.BeamLaser, false)) {
-                if (GuiFacade.alert(AlertType.WildWontStayAboardLaser, Commander().getCurrentSystem().Name()) == DialogResult.Cancel)
+                if (GuiFacade.alert(AlertType.WildWontStayAboardLaser, Commander().getCurrentSystem().Name()) == DialogResult.CANCEL)
                     wildOk = false;
                 else {
                     GuiFacade.alert(AlertType.WildLeavesShip, Commander().getCurrentSystem().Name());

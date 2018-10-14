@@ -154,7 +154,7 @@ public class FormShipyard extends SpaceTraderForm {
     private void initializeComponent() {
         components = new Container();
         ResourceManager resources = new ResourceManager(FormShipyard.class);
-        boxWelcome = new Panel(name);
+        boxWelcome = new Panel();
         lblSkillDescription = new spacetrader.controls.Label();
         lblSkill = new spacetrader.controls.Label();
         lblSizeSpecialty = new spacetrader.controls.Label();
@@ -162,11 +162,11 @@ public class FormShipyard extends SpaceTraderForm {
         lblSizeSpecialtyLabel = new spacetrader.controls.Label();
         lblWelcome = new spacetrader.controls.Label();
         lblWarning = new spacetrader.controls.Label();
-        picLogo = new spacetrader.controls.PictureBox();
-        boxInfo = new Panel(name);
+        picLogo = new spacetrader.controls.PictureBox("linePictureBox");
+        boxInfo = new Panel();
         btnSave = new spacetrader.controls.Button();
         btnLoad = new spacetrader.controls.Button();
-        picInfoLine = new spacetrader.controls.PictureBox();
+        picInfoLine = new spacetrader.controls.PictureBox("linePictureBox");
         btnPrevImage = new spacetrader.controls.Button();
         btnNextImage = new spacetrader.controls.Button();
         lblImage = new spacetrader.controls.Label();
@@ -176,15 +176,15 @@ public class FormShipyard extends SpaceTraderForm {
         selSize = new spacetrader.controls.ComboBox();
         lblSize = new spacetrader.controls.Label();
         btnSetCustomImage = new spacetrader.controls.Button();
-        picShip = new spacetrader.controls.PictureBox();
+        picShip = new spacetrader.controls.PictureBox("linePictureBox");
         txtName = new spacetrader.controls.TextBox();
         lblName = new spacetrader.controls.Label();
         lblUnitsUsed = new spacetrader.controls.Label();
         lblUnitsUsedLabel = new spacetrader.controls.Label();
-        boxCosts = new Panel(name);
+        boxCosts = new Panel();
         lblTradeIn = new spacetrader.controls.Label();
         lblTradeInLabel = new spacetrader.controls.Label();
-        picCostsLine = new spacetrader.controls.PictureBox();
+        picCostsLine = new spacetrader.controls.PictureBox("linePictureBox");
         lblPenalty = new spacetrader.controls.Label();
         lblPenaltyLabel = new spacetrader.controls.Label();
         lblShipCost = new spacetrader.controls.Label();
@@ -195,7 +195,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblDesignFeeLabel = new spacetrader.controls.Label();
         btnConstruct = new spacetrader.controls.Button();
         btnCancel = new spacetrader.controls.Button();
-        boxAllocation = new Panel(name);
+        boxAllocation = new Panel();
         lblPct = new spacetrader.controls.Label();
         lblPctLabel = new spacetrader.controls.Label();
         numHullStrength = new spacetrader.controls.NumericUpDown();
@@ -309,7 +309,7 @@ public class FormShipyard extends SpaceTraderForm {
         picLogo.setLocation(new java.awt.Point(8, 12));
         picLogo.setName("picLogo");
         picLogo.setSize(new spacetrader.controls.Size(80, 80));
-        picLogo.SizeMode = spacetrader.controls.PictureBoxSizeMode.StretchImage;
+        picLogo.sizeMode = spacetrader.controls.PictureBoxSizeMode.StretchImage;
         picLogo.setTabIndex(22);
         picLogo.setTabStop(false);
         //
@@ -426,7 +426,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // selTemplate
         //
-        selTemplate.DropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        selTemplate.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
         selTemplate.setLocation(new java.awt.Point(80, 16));
         selTemplate.setName("selTemplate");
         selTemplate.setSize(new spacetrader.controls.Size(132, 21));
@@ -443,7 +443,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // selSize
         //
-        selSize.DropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        selSize.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
         selSize.setLocation(new java.awt.Point(80, 63));
         selSize.setName("selSize");
         selSize.setSize(new spacetrader.controls.Size(180, 21));
@@ -671,7 +671,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // btnCancel
         //
-        btnCancel.setDialogResult(DialogResult.Cancel);
+        btnCancel.setDialogResult(DialogResult.CANCEL);
         btnCancel.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnCancel.setLocation(new java.awt.Point(286, 344));
         btnCancel.setName("btnCancel");
@@ -1054,8 +1054,8 @@ public class FormShipyard extends SpaceTraderForm {
             UpdateShip();
             UpdateCalculatedFigures();
 
-            if (selTemplate.Items.get(0).toString() == Strings.ShipNameModified)
-                selTemplate.Items.remove(0);
+            if (selTemplate.items.get(0).toString() == Strings.ShipNameModified)
+                selTemplate.items.remove(0);
 
             loading = false;
         }
@@ -1067,31 +1067,31 @@ public class FormShipyard extends SpaceTraderForm {
 //			foreach (Size size in shipyard.AvailableSizes)
         for (Size size : shipyard.AvailableSizes()) {
             sizes.add(size);
-            selSize.Items.add(Functions.StringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()], Functions
+            selSize.items.add(Functions.StringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()], Functions
                     .Multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
         }
     }
 
     private void LoadTemplateList() {
         ShipTemplate currentShip = new ShipTemplate(game.Commander().getShip(), Strings.ShipNameCurrentShip);
-        selTemplate.Items.add(currentShip);
+        selTemplate.items.add(currentShip);
 
-        selTemplate.Items.add(Consts.ShipTemplateSeparator);
+        selTemplate.items.add(Consts.ShipTemplateSeparator);
 
         // Add the minimal sizes templates.
         for (Size size : sizes)
-            selTemplate.Items.add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
+            selTemplate.items.add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
                     + Strings.ShipNameTemplateSuffixMinimum));
 
-        selTemplate.Items.add(Consts.ShipTemplateSeparator);
+        selTemplate.items.add(Consts.ShipTemplateSeparator);
 
         // Add the buyable ship spec templates.
         for (ShipSpec spec : Consts.ShipSpecs) {
             if (sizes.contains(spec.getSize()) && spec.Type().castToInt() <= Consts.MaxShip)
-                selTemplate.Items.add(new ShipTemplate(spec, spec.Name() + Strings.ShipNameTemplateSuffixDefault));
+                selTemplate.items.add(new ShipTemplate(spec, spec.Name() + Strings.ShipNameTemplateSuffixDefault));
         }
 
-        selTemplate.Items.add(Consts.ShipTemplateSeparator);
+        selTemplate.items.add(Consts.ShipTemplateSeparator);
 
         // Add the user-created templates.
         ArrayList userTemplates = new ArrayList();
@@ -1101,7 +1101,7 @@ public class FormShipyard extends SpaceTraderForm {
                 userTemplates.add(template);
         }
         userTemplates.Sort();
-        selTemplate.Items.AddRange(userTemplates.toArray(new ShipTemplate[0]));
+        selTemplate.items.AddRange(userTemplates.toArray(new ShipTemplate[0]));
 
         selTemplate.setSelectedIndex(0);
     }
@@ -1111,9 +1111,9 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void SetTemplateModified() {
-        if (!loading && selTemplate.Items.getSize() > 0) {
-            if (selTemplate.Items.get(0).toString() != Strings.ShipNameModified)
-                selTemplate.Items.Insert(0, Strings.ShipNameModified);
+        if (!loading && selTemplate.items.getSize() > 0) {
+            if (selTemplate.items.get(0).toString() != Strings.ShipNameModified)
+                selTemplate.items.Insert(0, Strings.ShipNameModified);
 
             selTemplate.setSelectedIndex(0);
         }
@@ -1254,7 +1254,7 @@ public class FormShipyard extends SpaceTraderForm {
 
     private void btnSave_Click(Object sender, EventArgs e) {
         if (SaveButtonEnabled()) {
-            if (dlgSave.ShowDialog(this) == DialogResult.OK) {
+            if (dlgSave.showDialog(this) == DialogResult.OK) {
                 ShipTemplate template = new ShipTemplate(shipyard.ShipSpec(), txtName.getText());
 
                 if (imgIndex > Consts.MaxShip) {
@@ -1279,9 +1279,9 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void btnSetCustomImage_Click(Object sender, EventArgs e) {
-        if (dlgOpen.ShowDialog(this) == DialogResult.OK) {
-            String baseFileName = Path.RemoveExtension(dlgOpen.getFileName());
-            String ext = Path.GetExtension(dlgOpen.getFileName());
+        if (dlgOpen.showDialog(this) == DialogResult.OK) {
+            String baseFileName = Path.removeExtension(dlgOpen.getFileName());
+            String ext = Path.getExtension(dlgOpen.getFileName());
 
             Bitmap image = GetImageFile(baseFileName + ext);
             Bitmap imageDamaged = GetImageFile(baseFileName + "d" + ext);

@@ -172,7 +172,7 @@ public class Commander extends CrewMember {
                     if (netPrice + extraCost + special[i].TransferPrice() > CashToSpend())
                         GuiFacade.alert(AlertType.ShipBuyNoTransfer, special[i].Name());
                     else if (GuiFacade.alert(AlertType.ShipBuyTransfer, special[i].Name(), special[i].Name()
-                            .toLowerCase(), Functions.formatNumber(special[i].TransferPrice())) == DialogResult.Yes)
+                            .toLowerCase(), Functions.formatNumber(special[i].TransferPrice())) == DialogResult.YES)
                         extraCost += special[i].TransferPrice();
                     else
                         add[i] = false;
@@ -182,14 +182,14 @@ public class Commander extends CrewMember {
             if (addPod) {
                 if (netPrice + extraCost + Consts.PodTransferCost > CashToSpend())
                     GuiFacade.alert(AlertType.ShipBuyNoTransfer, Strings.ShipInfoEscapePod);
-                else if (GuiFacade.alert(AlertType.ShipBuyTransfer, Strings.ShipInfoEscapePod, Strings.ShipInfoEscapePod.toLowerCase(), Functions.formatNumber(Consts.PodTransferCost)) == DialogResult.Yes)
+                else if (GuiFacade.alert(AlertType.ShipBuyTransfer, Strings.ShipInfoEscapePod, Strings.ShipInfoEscapePod.toLowerCase(), Functions.formatNumber(Consts.PodTransferCost)) == DialogResult.YES)
                     extraCost += Consts.PodTransferCost;
                 else
                     addPod = false;
             }
 
             if (GuiFacade.alert(AlertType.ShipBuyConfirm, getShip().Name(), newShipName, (add[0] || add[1]
-                    || add[2] || addPod ? Strings.ShipBuyTransfer : "")) == DialogResult.Yes) {
+                    || add[2] || addPod ? Strings.ShipBuyTransfer : "")) == DialogResult.YES) {
                 CrewMember[] oldCrew = getShip().Crew();
 
                 setShip(new Ship(specToBuy.Type()));

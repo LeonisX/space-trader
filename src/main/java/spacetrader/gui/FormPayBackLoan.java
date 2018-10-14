@@ -119,7 +119,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         //
         // btnNothing
         //
-        btnNothing.setDialogResult(DialogResult.Cancel);
+        btnNothing.setDialogResult(DialogResult.CANCEL);
         btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnNothing.setLocation(new java.awt.Point(154, 48));
         btnNothing.setName("btnNothing");

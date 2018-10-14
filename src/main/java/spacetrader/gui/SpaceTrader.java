@@ -49,8 +49,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private DockPanel dockPanel;
     private CargoPanel cargoPanel;
     private ShipyardPanel shipyardPanel;
-    private GalacticChart galacticChartPanel;
-    private ShortRangeChart shortRangeChartPanel;
+    private GalacticChartPanel galacticChartPanel;
+    private ShortRangeChartPanel shortRangeChartPanel;
     private TargetSystemPanel targetSystemPanel;
 
     private SpaceTraderStatusBar statusBar;
@@ -61,29 +61,33 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private ImageList ilShipImages;
 
     private MainMenu mainMenu;
-    private SubMenu mnuGame;
-    private MenuItem mnuGameExit;
-    private MenuItem mnuGameLoad;
-    private MenuItem mnuGameNew;
-    private MenuItem mnuGameSave;
-    private MenuItem mnuGameSaveAs;
-    private SubMenu mnuHelp;
-    private MenuItem mnuHelpAbout;
-    private MenuItem mnuHighScores;
-    private MenuItem mnuOptions;
-    private MenuItem mnuRetire;
-    private SubMenu mnuView;
-    private MenuItem mnuViewBank;
-    private MenuItem mnuViewCommander;
-    private MenuItem mnuViewPersonnel;
-    private MenuItem mnuViewQuests;
-    private MenuItem mnuViewShip;
 
-    private OpenFileDialog dlgOpen;
-    private SaveFileDialog dlgSave;
+    private SubMenu gameSubMenu;
+    private MenuItem newGameMenuItem;
+    private MenuItem loadGameMenuItem;
+    private MenuItem saveGameMenuItem;
+    private MenuItem saveGameAsMenuItem;
+    private MenuItem retireGameMenuItem;
+    private MenuItem exitGameMenuItem;
 
-    private PictureBox picLine;
+    private SubMenu viewSubMenu;
+    private MenuItem commanderMenuItem;
+    private MenuItem shipMenuItem;
+    private MenuItem personnelMenuItem;
+    private MenuItem questsMenuItem;
+    private MenuItem bankMenuItem;
+    private MenuItem highScoresMenuItem;
+    private MenuItem optionsMenuItem;
 
+    private SubMenu helpSubMenu;
+    private MenuItem aboutMenuItem;
+
+    private OpenFileDialog openFileDialog;
+    private SaveFileDialog saveFileDialog;
+
+    private PictureBox linePictureBox;
+
+    //TODO need???
     private IContainer components;
 
     private Game game;
@@ -104,14 +108,14 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         updateAll();
 
-        ddd(getFrame(), this.getName());
+        dumpDimensions(getFrame(), this.getName());
 
         System.out.println("===================");
 
-        ddd2(getFrame(), this.getName());
+        dumpStrings(getFrame(), this.getName());
 
-        //ddd3(getFrame(), this.getName());
-        //ddd4(getFrame(), this.getName());
+        //loadDimensions(getFrame(), this.getName());
+        //loadStrings(getFrame(), this.getName());
     }
 
     private void initializeComponent() {
@@ -130,12 +134,12 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         initializeDialogs();
 
-        initializePicLine();
+        initializePictureBox();
 
         //this.suspendLayout();
 
         this.setClientSize(dimensions.getSize(this.getName()));
-        controls.add(picLine);
+        controls.add(linePictureBox);
         controls.add(dockPanel);
         controls.add(cargoPanel);
         controls.add(targetSystemPanel);
@@ -175,24 +179,24 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     }
 
-    void ddd(Component component, String prefix) {
+    private void dumpDimensions(Component component, String prefix) {
         component.getSize();
         component.getLocation();
 
-        System.out.println(fff(prefix) + ".x=" + component.getX());
-        System.out.println(fff(prefix) + ".y=" + component.getY());
-        System.out.println(fff(prefix) + ".width=" + component.getWidth());
-        System.out.println(fff(prefix) + ".height=" + component.getHeight());
+        System.out.println(formatPropertyName(prefix) + ".x=" + component.getX());
+        System.out.println(formatPropertyName(prefix) + ".y=" + component.getY());
+        System.out.println(formatPropertyName(prefix) + ".width=" + component.getWidth());
+        System.out.println(formatPropertyName(prefix) + ".height=" + component.getHeight());
 
         if (component instanceof java.awt.Container) {
             for (Component child: ((java.awt.Container) component).getComponents()) {
                 String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
-                ddd(child, prefix + "." + name);
+                dumpDimensions(child, prefix + "." + name);
             }
         }
     }
 
-    String fff(String prefix) {
+    private String formatPropertyName(String prefix) {
         return prefix.replace(".JRootPane", "")
                 .replace(".null.glassPane", "")
                 .replace(".null.layeredPane", "")
@@ -200,55 +204,55 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 .replace(".WinformJPanel", "");
     }
 
-    void ddd2(Component component, String prefix) {
+    private void dumpStrings(Component component, String prefix) {
         component.getSize();
         component.getLocation();
 
         if (component instanceof AbstractButton) {
-            sout(fff(prefix) + ".text", ((AbstractButton) component).getText());
+            print(formatPropertyName(prefix) + ".text", ((AbstractButton) component).getText());
         }
         if (component instanceof JLabel) {
-            sout(fff(prefix) + ".text", ((JLabel) component).getText());
+            print(formatPropertyName(prefix) + ".text", ((JLabel) component).getText());
         }
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            sout(fff(prefix) + ".title", ((TitledBorder)((JPanel) component).getBorder()).getTitle());
+            print(formatPropertyName(prefix) + ".title", ((TitledBorder)((JPanel) component).getBorder()).getTitle());
         }
         if (component instanceof JFrame) {
-            sout(fff(prefix) + ".title", ((JFrame) component).getTitle());
+            print(formatPropertyName(prefix) + ".title", ((JFrame) component).getTitle());
         }
 
         if (component instanceof JMenu) {
             for (Component child: ((JMenu) component).getMenuComponents()) {
                 String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
-                ddd2(child, prefix + "." + name);
+                dumpStrings(child, prefix + "." + name);
             }
         }
 
         if (component instanceof java.awt.Container) {
             for (Component child: ((java.awt.Container) component).getComponents()) {
                 String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
-                ddd2(child, prefix + "." + name);
+                dumpStrings(child, prefix + "." + name);
             }
         }
     }
 
-    private void sout(String key, String value) {
+    private void print(String key, String value) {
         //TODO button names
         if (!value.isEmpty() && !key.contains("btnBuyQty") && !key.contains("btnSellQty")) {
             System.out.println(key + "=" + value);
         }
     }
 
-    void ddd3(Component component, String prefix) {
+    void loadDimensions(Component component, String prefix) {
         if (component.getName() != null && !component.getName().startsWith("null.")) {
             double scale = 1.5;
             //TODO delete
-            if (dimensions.get(fff(prefix) + ".width") != null) {
-                Dimension dimension = dimensions.getSize(fff(prefix));
+            if (dimensions.get(formatPropertyName(prefix) + ".width") != null) {
+                Dimension dimension = dimensions.getSize(formatPropertyName(prefix));
                 dimension.setSize(dimension.getWidth() * scale, dimension.getHeight() * scale);
                 component.setSize(dimension);
                 if (!(component instanceof JFrame)) {
-                    Point point = dimensions.getLocation(fff(prefix));
+                    Point point = dimensions.getLocation(formatPropertyName(prefix));
                     point.setLocation(point.getX() * scale, point.getY() * scale);
                     component.setLocation(point);
                 }
@@ -259,203 +263,205 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         if (component instanceof java.awt.Container) {
             for (Component child: ((java.awt.Container) component).getComponents()) {
                 String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
-                ddd3(child, prefix + "." + name);
+                loadDimensions(child, prefix + "." + name);
             }
         }
     }
 
 
-    void ddd4(Component component, String prefix) {
+    void loadStrings(Component component, String prefix) {
         if (component instanceof JFrame) {
-            ((JFrame) component).setTitle(strings.getTitle(fff(prefix)));
+            ((JFrame) component).setTitle(strings.getTitle(formatPropertyName(prefix)));
         }
 
         if (component instanceof AbstractButton) {
-            ((AbstractButton) component).setText(strings.getText(fff(prefix)));
+            ((AbstractButton) component).setText(strings.getText(formatPropertyName(prefix)));
         }
 
         if (component instanceof JLabel) {
-            ((JLabel) component).setText(strings.getText(fff(prefix)));
+            ((JLabel) component).setText(strings.getText(formatPropertyName(prefix)));
         }
 
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            ((TitledBorder)((JPanel) component).getBorder()).setTitle(strings.getTitle(fff(prefix)));
+            ((TitledBorder)((JPanel) component).getBorder()).setTitle(strings.getTitle(formatPropertyName(prefix)));
         }
 
         if (component instanceof JMenu) {
             for (Component child: ((JMenu) component).getMenuComponents()) {
                 String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
-                ddd4(child, prefix + "." + name);
+                loadStrings(child, prefix + "." + name);
             }
         }
 
         if (component instanceof java.awt.Container) {
             for (Component child: ((java.awt.Container) component).getComponents()) {
                 String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
-                ddd4(child, prefix + "." + name);
+                loadStrings(child, prefix + "." + name);
             }
         }
     }
 
     private void initializeMenu() {
-        mainMenu = new MainMenu();
-        mnuGame = new SubMenu();
-        mnuGameNew = new MenuItem();
-        mnuGameLoad = new MenuItem();
-        mnuGameSave = new MenuItem();
-        mnuGameSaveAs = new MenuItem();
-        mnuRetire = new MenuItem();
-        mnuGameExit = new MenuItem();
-        mnuView = new SubMenu();
-        mnuViewCommander = new MenuItem();
-        mnuViewShip = new MenuItem();
-        mnuViewPersonnel = new MenuItem();
-        mnuViewQuests = new MenuItem();
-        mnuViewBank = new MenuItem();
-        mnuHighScores = new MenuItem();
-        mnuOptions = new MenuItem();
-        mnuHelp = new SubMenu();
-        mnuHelpAbout = new MenuItem();
+        mainMenu = new MainMenu("mainMenu");
 
-        mainMenu.addAll(mnuGame, mnuView, mnuHelp);
-        mainMenu.setName("mainMenu");
+        gameSubMenu = new SubMenu("gameSubMenu");
+        newGameMenuItem = new MenuItem("newGameMenuItem");
+        loadGameMenuItem = new MenuItem("loadGameMenuItem");
+        saveGameMenuItem = new MenuItem("saveGameMenuItem");
+        saveGameAsMenuItem = new MenuItem("saveGameAsMenuItem");
+        retireGameMenuItem = new MenuItem("retireGameMenuItem");
+        exitGameMenuItem = new MenuItem("exitGameMenuItem");
 
-        mnuGame.addAll(mnuGameNew, mnuGameLoad, mnuGameSave, mnuGameSaveAs, separator(), mnuRetire, separator(),
-                mnuGameExit);
-        mnuGame.setName("gameMenu");
-        //TODO
-        mnuGame.setText(strings.get("menu.game"));
+        viewSubMenu = new SubMenu("viewSubMenu");
+        commanderMenuItem = new MenuItem("commanderMenuItem");
+        shipMenuItem = new MenuItem("shipMenuItem");
+        personnelMenuItem = new MenuItem("personnelMenuItem");
+        questsMenuItem = new MenuItem("questsMenuItem");
+        bankMenuItem = new MenuItem("bankMenuItem");
+        highScoresMenuItem = new MenuItem("highScoresMenuItem");
+        optionsMenuItem = new MenuItem("optionsMenuItem");
 
-        mnuGameNew.setName("newGameMenuItem");
-        mnuGameNew.setText(strings.get("menu.game.new"));
-        mnuGameNew.setClick(new EventHandler<Object, EventArgs>() {
+        helpSubMenu = new SubMenu("helpSubMenu");
+        aboutMenuItem = new MenuItem("aboutMenuItem");
+
+        mainMenu.addAll(gameSubMenu, viewSubMenu, helpSubMenu);
+
+        gameSubMenu.addAll(newGameMenuItem, loadGameMenuItem, saveGameMenuItem, saveGameAsMenuItem, separator(), retireGameMenuItem, separator(),
+                exitGameMenuItem);
+
+        //TODO remove all setText after dump all strings
+        gameSubMenu.setText("&Game");
+
+        newGameMenuItem.setText("&New...");
+        newGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuGameNew_Click();
             }
         });
 
-        mnuGameLoad.shortcut = Shortcut.CtrlL;
-        mnuGameLoad.setText(strings.get("menu.game.load"));
-        mnuGameLoad.setClick(new EventHandler<Object, EventArgs>() {
+        loadGameMenuItem.shortcut = Shortcut.CtrlL;
+        loadGameMenuItem.setText("&Load...");
+        loadGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuGameLoad_Click();
             }
         });
 
-        mnuGameSave.setEnabled(false);
-        mnuGameSave.shortcut = Shortcut.CtrlS;
-        mnuGameSave.setText(strings.get("menu.game.save"));
-        mnuGameSave.setClick(new EventHandler<Object, EventArgs>() {
+        saveGameMenuItem.setEnabled(false);
+        saveGameMenuItem.shortcut = Shortcut.CtrlS;
+        saveGameMenuItem.setText("&Save");
+        saveGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuGameSave_Click();
             }
         });
 
-        mnuGameSaveAs.setEnabled(false);
-        mnuGameSaveAs.shortcut = Shortcut.CtrlA;
-        mnuGameSaveAs.setText(strings.get("menu.game.save.as"));
-        mnuGameSaveAs.setClick(new EventHandler<Object, EventArgs>() {
+        saveGameAsMenuItem.setEnabled(false);
+        saveGameAsMenuItem.shortcut = Shortcut.CtrlA;
+        saveGameAsMenuItem.setText("Save &As...");
+        saveGameAsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuGameSaveAs_Click();
             }
         });
 
-        mnuRetire.setEnabled(false);
-        mnuRetire.setText(strings.get("menu.game.retire"));
-        mnuRetire.setClick(new EventHandler<Object, EventArgs>() {
+        retireGameMenuItem.setEnabled(false);
+        retireGameMenuItem.setText("&Retire");
+        retireGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuRetire_Click();
             }
         });
 
-        mnuGameExit.setText(strings.get("menu.game.exit"));
-        mnuGameExit.setClick(new EventHandler<Object, EventArgs>() {
+        exitGameMenuItem.setText("E&xit");
+        exitGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuGameExit_Click();
             }
         });
 
-        mnuView.addAll(mnuViewCommander, mnuViewShip, mnuViewPersonnel, mnuViewQuests, mnuViewBank, separator(),
-                mnuHighScores, separator(), mnuOptions);
-        mnuView.setText(strings.get("menu.view"));
+        viewSubMenu.addAll(commanderMenuItem, shipMenuItem, personnelMenuItem, questsMenuItem, bankMenuItem, separator(),
+                highScoresMenuItem, separator(), optionsMenuItem);
 
-        mnuViewCommander.setEnabled(false);
-        mnuViewCommander.shortcut = Shortcut.CtrlC;
-        mnuViewCommander.setText(strings.get("menu.view.commander.status"));
-        mnuViewCommander.setClick(new EventHandler<Object, EventArgs>() {
+        viewSubMenu.setText("&View");
+
+        commanderMenuItem.setEnabled(false);
+        commanderMenuItem.shortcut = Shortcut.CtrlC;
+        commanderMenuItem.setText("&Commander Status");
+        commanderMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuViewCommander_Click();
             }
         });
 
-        mnuViewShip.setEnabled(false);
-        mnuViewShip.shortcut = Shortcut.CtrlH;
-        mnuViewShip.setText(strings.get("menu.view.ship"));
-        mnuViewShip.setClick(new EventHandler<Object, EventArgs>() {
+        shipMenuItem.setEnabled(false);
+        shipMenuItem.shortcut = Shortcut.CtrlH;
+        shipMenuItem.setText("&Ship");
+        shipMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuViewShip_Click();
             }
         });
 
-        mnuViewPersonnel.setEnabled(false);
-        mnuViewPersonnel.shortcut = Shortcut.CtrlP;
-        mnuViewPersonnel.setText(strings.get("menu.view.personnel"));
-        mnuViewPersonnel.setClick(new EventHandler<Object, EventArgs>() {
+        personnelMenuItem.setEnabled(false);
+        personnelMenuItem.shortcut = Shortcut.CtrlP;
+        personnelMenuItem.setText("&Personnel");
+        personnelMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuViewPersonnel_Click();
             }
         });
 
-        mnuViewQuests.setEnabled(false);
-        mnuViewQuests.shortcut = Shortcut.CtrlQ;
-        mnuViewQuests.setText(strings.get("menu.view.quests"));
-        mnuViewQuests.setClick(new EventHandler<Object, EventArgs>() {
+        questsMenuItem.setEnabled(false);
+        questsMenuItem.shortcut = Shortcut.CtrlQ;
+        questsMenuItem.setText("&Quests");
+        questsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuViewQuests_Click();
             }
         });
 
-        mnuViewBank.setEnabled(false);
-        mnuViewBank.shortcut = Shortcut.CtrlB;
-        mnuViewBank.setText(strings.get("menu.view.bank"));
-        mnuViewBank.setClick(new EventHandler<Object, EventArgs>() {
+        bankMenuItem.setEnabled(false);
+        bankMenuItem.shortcut = Shortcut.CtrlB;
+        bankMenuItem.setText("&Bank");
+        bankMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuViewBank_Click();
             }
         });
 
-        mnuHighScores.setText(strings.get("menu.view.high.scores"));
-        mnuHighScores.setClick(new EventHandler<Object, EventArgs>() {
+        highScoresMenuItem.setText("&High Scores");
+        highScoresMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuHighScores_Click();
             }
         });
 
-        mnuOptions.setText(strings.get("menu.view.options"));
-        mnuOptions.setClick(new EventHandler<Object, EventArgs>() {
+        optionsMenuItem.setText("Options");
+        optionsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuOptions_Click();
             }
         });
 
-        mnuHelp.add(mnuHelpAbout);
-        mnuHelp.setText(strings.get("menu.help"));
+        helpSubMenu.add(aboutMenuItem);
+        helpSubMenu.setText("&Help");
 
-        mnuHelpAbout.setText(strings.get("menu.help.about"));
-        mnuHelpAbout.setClick(new EventHandler<Object, EventArgs>() {
+        aboutMenuItem.setText("&About Space Trader");
+        aboutMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 mnuHelpAbout_Click();
@@ -476,8 +482,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         dockPanel = new DockPanel(this, "dockPanel");
         cargoPanel = new CargoPanel("cargoPanel");
         shipyardPanel = new ShipyardPanel(this, "shipyardPanel");
-        galacticChartPanel = new GalacticChart(this, ilChartImages, "galacticChartPanel");
-        shortRangeChartPanel = new ShortRangeChart(this, ilChartImages, "shortRangeChartPanel");
+        galacticChartPanel = new GalacticChartPanel(this, ilChartImages, "galacticChartPanel");
+        shortRangeChartPanel = new ShortRangeChartPanel(this, ilChartImages, "shortRangeChartPanel");
         targetSystemPanel = new TargetSystemPanel(this, "targetSystemPanel");
 
         systemPanel.suspendLayout();
@@ -517,27 +523,27 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         targetSystemPanel.setLocation(new Point(548, 306));
     }
 
-    private void initializePicLine() {
-        picLine = new PictureBox();
-        picLine.setBackground(Color.darkGray);
-        picLine.setLocation(new Point(0, 0));
-        picLine.setName("picLine");
-        picLine.setSize(new Size(770, 1));
-        picLine.setTabStop(false);
+    private void initializePictureBox() {
+        linePictureBox = new PictureBox("linePictureBox");
+        linePictureBox.setBackground(Color.DARK_GRAY);
+        linePictureBox.setLocation(new Point(0, 0));
+        linePictureBox.setSize(new Size(770, 1));
+        linePictureBox.setTabStop(false);
     }
 
     private void initializeDialogs() {
-        dlgOpen = new OpenFileDialog();
-        dlgSave = new SaveFileDialog();
+        openFileDialog = new OpenFileDialog();
+        saveFileDialog = new SaveFileDialog();
 
-        dlgOpen.setFilter(strings.get("dialog.open.save.filter"));
+        openFileDialog.setFilter(strings.get("mainWindow.fileDialogs.filter"));
+        openFileDialog.setTitle(strings.getTitle("mainWindow.openFileDialog"));
+        openFileDialog.setApproveButtonText(strings.getText("mainWindow.openFileDialog.approveButton"));
 
-        dlgSave.setFileName("SpaceTrader.sav");
-        dlgSave.setFilter(strings.get("dialog.open.save.filter"));
-        dlgSave.setTitle(strings.get("dialog.save.title"));
-        dlgSave.setButtonText(strings.get("dialog.save.button.text"));
+        saveFileDialog.setFileName(strings.get("mainWindow.saveFileDialog.fileName"));
+        saveFileDialog.setFilter(strings.get("mainWindow.fileDialogs.filter"));
+        saveFileDialog.setTitle(strings.getTitle("mainWindow.saveFileDialog"));
+        saveFileDialog.setApproveButtonText(strings.getText("mainWindow.saveFileDialog.approveButton"));
     }
-
 
     private void initializeImages(ResourceManager resources) {
         ilChartImages = new ImageList(components);
@@ -593,19 +599,19 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         }
 
-        dlgOpen.setInitialDirectory(Consts.SaveDirectory);
-        dlgSave.setInitialDirectory(Consts.SaveDirectory);
+        openFileDialog.setInitialDirectory(Consts.SaveDirectory);
+        saveFileDialog.setInitialDirectory(Consts.SaveDirectory);
     }
 
     public void SetInGameControlsEnabled(boolean enabled) {
-        mnuGameSave.setEnabled(enabled);
-        mnuGameSaveAs.setEnabled(enabled);
-        mnuRetire.setEnabled(enabled);
-        mnuViewCommander.setEnabled(enabled);
-        mnuViewShip.setEnabled(enabled);
-        mnuViewPersonnel.setEnabled(enabled);
-        mnuViewQuests.setEnabled(enabled);
-        mnuViewBank.setEnabled(enabled);
+        saveGameMenuItem.setEnabled(enabled);
+        saveGameAsMenuItem.setEnabled(enabled);
+        retireGameMenuItem.setEnabled(enabled);
+        commanderMenuItem.setEnabled(enabled);
+        shipMenuItem.setEnabled(enabled);
+        personnelMenuItem.setEnabled(enabled);
+        questsMenuItem.setEnabled(enabled);
+        bankMenuItem.setEnabled(enabled);
     }
 
     private void SetRegistrySetting(String settingName, String settingValue) {
@@ -631,7 +637,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void SpaceTrader_Closing(spacetrader.controls.CancelEventArgs e) {
         if (game == null || commander.getDays() == controller.SaveGameDays
-                || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.Yes) {
+                || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES) {
             if (windowState == FormWindowState.Normal) {
                 SetRegistrySetting("X", left.toString());
                 SetRegistrySetting("Y", top.toString());
@@ -660,7 +666,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void mnuGameNew_Click() {
         FormNewCommander form = new FormNewCommander();
-        if ((game == null || commander.getDays() == controller.SaveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.Yes)
+        if ((game == null || commander.getDays() == controller.SaveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
                 && form.showDialog(this) == DialogResult.OK) {
             setGame(new Game(form.CommanderName(), form.Difficulty(), form.Pilot(), form.Fighter(), form.Trader(), form
                     .Engineer(), this));
@@ -677,9 +683,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void mnuGameLoad_Click() {
-        if ((game == null || commander.getDays() == controller.SaveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.Yes)
-                && dlgOpen.ShowDialog(this) == DialogResult.OK) {
-            controller.loadGame(dlgOpen.getFileName());
+        if ((game == null || commander.getDays() == controller.SaveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
+                && openFileDialog.showDialog(this) == DialogResult.OK) {
+            controller.loadGame(openFileDialog.getFileName());
         }
     }
 
@@ -694,8 +700,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void mnuGameSaveAs_Click() {
-        if (Game.CurrentGame() != null && dlgSave.ShowDialog(this) == DialogResult.OK) {
-            controller.saveGame(dlgSave.getFileName(), true);
+        if (Game.CurrentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
+            controller.saveGame(saveFileDialog.getFileName(), true);
         }
     }
 
@@ -716,7 +722,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void mnuRetire_Click() {
-        if (GuiFacade.alert(AlertType.GameRetire) == DialogResult.Yes) {
+        if (GuiFacade.alert(AlertType.GameRetire) == DialogResult.YES) {
             game.setEndStatus(GameEndType.Retired);
             controller.gameEnd();
             updateAll();
@@ -746,10 +752,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private void mnuViewShip_Click() {
         (new FormViewShip()).showDialog(this);
     }
-
-    // #endregion
-
-    // #region Properties
 
     Image[] customShipImages() {
         Image[] images = new Image[Consts.ImagesPerShip];
@@ -795,8 +797,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-    // #endregion
-
     public void setGame(Game game) {
         this.game = game;
         controller = new GameController(game, this);
@@ -812,9 +812,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         statusBar.setGame(commander);
     }
 
-    /**
-     * TODO remove?
-     */
+    // TODO remove?
     public void updateStatusBar() {
         statusBar.update();
     }

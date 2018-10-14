@@ -13,6 +13,7 @@ import java.awt.*;
 
 
 class DockPanel extends Panel {
+
     private final SpaceTrader mainWindow;
     private Commander commander;
     private Button btnFuel;
@@ -44,8 +45,7 @@ class DockPanel extends Panel {
         controls.add(lblFuelStatus);
         controls.add(lblFuelCost);
         controls.add(lblHullStatus);
-        controls.add(lblRepairCost);
-        setName("boxDock");
+        controls.add(lblRepairCost);;
         setSize(new spacetrader.controls.Size(240, 90));
         setTabIndex(2);
         setTabStop(false);

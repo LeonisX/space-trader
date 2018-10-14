@@ -76,11 +76,11 @@ public class FormViewPersonnel extends SpaceTraderForm {
     /// </summary>
     private void initializeComponent() {
         this.btnClose = new spacetrader.controls.Button();
-        this.boxCurrentCrew = new Panel(name);
+        this.boxCurrentCrew = new Panel();
         this.lstCrew = new spacetrader.controls.ListBox();
-        this.boxForHire = new Panel(name);
+        this.boxForHire = new Panel();
         this.lstForHire = new spacetrader.controls.ListBox();
-        this.boxInfo = new Panel(name);
+        this.boxInfo = new Panel();
         this.btnHireFire = new spacetrader.controls.Button();
         this.lblRate = new spacetrader.controls.Label();
         this.lblName = new spacetrader.controls.Label();
@@ -101,7 +101,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // btnClose
         //
-        this.btnClose.setDialogResult(DialogResult.Cancel);
+        this.btnClose.setDialogResult(DialogResult.CANCEL);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
         this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
@@ -422,7 +422,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     private void HireFire(Object sender, EventArgs e) {
         if (selectedCrewMember != null && btnHireFire.getVisible()) {
             if (game.Commander().getShip().HasCrew(selectedCrewMember.Id())) {
-                if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.Name()) == DialogResult.Yes) {
+                if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.Name()) == DialogResult.YES) {
                     game.Commander().getShip().Fire(selectedCrewMember.Id());
 
                     UpdateAll();

@@ -133,7 +133,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
         //
         // btnNothing
         //
-        this.btnNothing.setDialogResult(DialogResult.Cancel);
+        this.btnNothing.setDialogResult(DialogResult.CANCEL);
         this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnNothing.setLocation(new Point(165, 32));
         this.btnNothing.setName("btnNothing");
@@ -148,8 +148,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
         this.setCancelButton(this.btnNothing);
         this.setClientSize(new Size(286, 63));
         this.setControlBox(false);
-        this.Controls.addAll(Arrays.asList(new BaseComponent[]{this.btnNothing, this.btnMax, this.btnOk,
-                this.numAmount, this.lblQuestion}));
+        this.Controls.addAll(Arrays.asList(this.btnNothing, this.btnMax, this.btnOk, this.numAmount, this.lblQuestion));
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormBuyRepairs");
         this.setShowInTaskbar(false);

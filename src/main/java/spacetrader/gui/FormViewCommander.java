@@ -103,7 +103,7 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblNetWorthLabel = new spacetrader.controls.Label();
         this.lblDifficultyLabel = new spacetrader.controls.Label();
         this.lblTime = new spacetrader.controls.Label();
-        this.boxSkills = new Panel(name);
+        this.boxSkills = new Panel();
         this.lblEngineer = new spacetrader.controls.Label();
         this.lblTrader = new spacetrader.controls.Label();
         this.lblFighter = new spacetrader.controls.Label();
@@ -112,11 +112,11 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblTraderLabel = new spacetrader.controls.Label();
         this.lblFighterLabel = new spacetrader.controls.Label();
         this.lblPilotLabel = new spacetrader.controls.Label();
-        this.boxFinances = new Panel(name);
+        this.boxFinances = new Panel();
         this.lblCash = new spacetrader.controls.Label();
         this.lblDebt = new spacetrader.controls.Label();
         this.lblNetWorth = new spacetrader.controls.Label();
-        this.boxNotoriety = new Panel(name);
+        this.boxNotoriety = new Panel();
         this.lblPoliceLabel = new spacetrader.controls.Label();
         this.lblReputationLabel = new spacetrader.controls.Label();
         this.lblKillsLabel = new spacetrader.controls.Label();
@@ -158,7 +158,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //
         // btnClose
         //
-        this.btnClose.setDialogResult(DialogResult.Cancel);
+        this.btnClose.setDialogResult(DialogResult.CANCEL);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
         this.btnClose.setSize(new spacetrader.controls.Size(26, 27));

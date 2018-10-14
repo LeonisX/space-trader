@@ -8,11 +8,11 @@ public class Path {
         return baseDirectory + File.separator + subdir;
     }
 
-    public static String DefaultExtension(String filename, String extension) {
-        return GetExtension(filename) == null ? filename + extension : filename;
+    public static String defaultExtension(String filename, String extension) {
+        return getExtension(filename) == null ? filename + extension : filename;
     }
 
-    public static String RemoveExtension(String filename) {
+    public static String removeExtension(String filename) {
         int sep = filename.lastIndexOf(File.separatorChar);
         int dot = filename.lastIndexOf('.');
         if (dot <= sep)
@@ -21,7 +21,7 @@ public class Path {
             return filename.substring(0, dot);
     }
 
-    public static String GetExtension(String filename) {
+    public static String getExtension(String filename) {
         int sep = filename.lastIndexOf(File.separatorChar);
         int dot = filename.lastIndexOf('.');
         if (dot <= sep)

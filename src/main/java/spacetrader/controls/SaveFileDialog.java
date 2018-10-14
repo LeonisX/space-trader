@@ -2,6 +2,7 @@ package spacetrader.controls;
 
 import spacetrader.util.Path;
 
+//TODO may be remove this class
 public class SaveFileDialog extends FileDialog {
 
     public SaveFileDialog() {
@@ -13,12 +14,12 @@ public class SaveFileDialog extends FileDialog {
     }
 
     @Override
-    public void setButtonText(String text) {
-        super.setButtonText(text);
+    public void setApproveButtonText(String text) {
+        super.setApproveButtonText(text);
     }
 
     @Override
     public String getFileName() {
-        return Path.DefaultExtension(super.getFileName(), ".sav");
+        return Path.defaultExtension(super.getFileName(), ".sav");
     }
 }

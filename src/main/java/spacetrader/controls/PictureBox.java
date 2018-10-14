@@ -8,13 +8,14 @@ import java.awt.event.MouseEvent;
 
 public class PictureBox extends BaseComponent implements ISupportInitialize {
 
-    public PictureBoxSizeMode SizeMode;
+    public PictureBoxSizeMode sizeMode;
     private ImageMouseListener mouseListener;
 
-    public PictureBox() {
+    public PictureBox(String name) {
         super(new SpecialImageJLabel());
         asJLabel().pictureBox = this;
         asJLabel().addMouseListener(mouseListener = new ImageMouseListener(this));
+        setName(name);
     }
 
     public void setMouseDown(EventHandler<Object, MouseEventArgs> mouseDown) {
@@ -26,18 +27,20 @@ public class PictureBox extends BaseComponent implements ISupportInitialize {
         asJLabel().background = background;
     }
 
-    public void Refresh() {
+    public void refresh() {
         asJLabel().repaint();
     }
 
     public void setImage(Image image) {
-        if (image != null)
+        if (image != null) {
             asJLabel().setIcon(new ImageIcon(image.asSwingImage()));
+        }
     }
 
     public void setPaint(EventHandler<Object, PaintEventArgs> paint) {
-        if (asJLabel().paintEventHandler != null)
+        if (asJLabel().paintEventHandler != null) {
             throw new Error("2 handlers same event");
+        }
         asJLabel().paintEventHandler = paint;
     }
 
@@ -71,16 +74,17 @@ class SpecialImageJLabel extends JLabel {
     }
 
     private void tryBackground(Color background, Graphics graphics) {
-        if (background == null)
+        if (background == null) {
             return;
-
+        }
         graphics.setColor(background);
         graphics.fillRect(0, 0, getWidth(), getHeight());
     }
 
     private void tryEventHandler(EventHandler<Object, PaintEventArgs> handler, Graphics graphics) {
-        if (handler != null)
+        if (handler != null) {
             handler.handle(pictureBox, new PaintEventArgs(graphics));
+        }
     }
 }
 
@@ -99,7 +103,8 @@ class ImageMouseListener extends MouseAdapter {
     }
 
     private void tryEvent(EventHandler<Object, MouseEventArgs> handler, MouseEventArgs e) {
-        if (handler != null)
+        if (handler != null) {
             handler.handle(pictureBox, e);
+        }
     }
 }

@@ -206,10 +206,11 @@ class CargoPanel extends Panel {
     void initializeComponent(Map<String, String> strings) {
         components = new spacetrader.controls.Container();
         spacetrader.controls.ResourceManager resources = new spacetrader.controls.ResourceManager(SpaceTrader.class);
-        picCargoLine3 = new spacetrader.controls.PictureBox();
-        picCargoLine2 = new spacetrader.controls.PictureBox();
-        picCargoLine0 = new spacetrader.controls.PictureBox();
-        picCargoLine1 = new spacetrader.controls.PictureBox();
+        //TODO names
+        picCargoLine3 = new spacetrader.controls.PictureBox("picCargoLine3");
+        picCargoLine2 = new spacetrader.controls.PictureBox("picCargoLine2");
+        picCargoLine0 = new spacetrader.controls.PictureBox("picCargoLine0");
+        picCargoLine1 = new spacetrader.controls.PictureBox("picCargoLine1");
         lblTargetPct9 = new spacetrader.controls.Label();
         lblTargetDiff9 = new spacetrader.controls.Label();
         lblTargetPrice9 = new spacetrader.controls.Label();
@@ -435,17 +436,15 @@ class CargoPanel extends Panel {
         controls.add(lblTradeCmdty4);
         controls.add(lblTradeCmdty3);
         controls.add(lblTradeCmdty7);
-        setName("boxCargo");
         setSize(new spacetrader.controls.Size(512, 300));
         setTabIndex(8);
         setTabStop(false);
-        setText(strings.get("group.box.cargo.title"));
+        setText("Cargo");
         //
         // picCargoLine3
         //
         picCargoLine3.setBackground(Color.darkGray);
         picCargoLine3.setLocation(new Point(8, 52));
-        picCargoLine3.setName("picCargoLine3");
         picCargoLine3.setSize(new spacetrader.controls.Size(496, 1));
         picCargoLine3.setTabIndex(131);
         picCargoLine3.setTabStop(false);
@@ -454,7 +453,6 @@ class CargoPanel extends Panel {
         //
         picCargoLine2.setBackground(Color.darkGray);
         picCargoLine2.setLocation(new Point(352, 32));
-        picCargoLine2.setName("picCargoLine2");
         picCargoLine2.setSize(new spacetrader.controls.Size(1, 262));
         picCargoLine2.setTabIndex(130);
         picCargoLine2.setTabStop(false);
@@ -463,7 +461,6 @@ class CargoPanel extends Panel {
         //
         picCargoLine0.setBackground(Color.darkGray);
         picCargoLine0.setLocation(new Point(71, 32));
-        picCargoLine0.setName("picCargoLine0");
         picCargoLine0.setSize(new spacetrader.controls.Size(1, 262));
         picCargoLine0.setTabIndex(129);
         picCargoLine0.setTabStop(false);
@@ -472,7 +469,6 @@ class CargoPanel extends Panel {
         //
         picCargoLine1.setBackground(Color.darkGray);
         picCargoLine1.setLocation(new Point(218, 32));
-        picCargoLine1.setName("picCargoLine1");
         picCargoLine1.setSize(new spacetrader.controls.Size(1, 262));
         picCargoLine1.setTabIndex(128);
         picCargoLine1.setTabStop(false);
@@ -511,7 +507,7 @@ class CargoPanel extends Panel {
         btnBuyMax9.setName("btnBuyMax9");
         btnBuyMax9.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax9.setTabIndex(51);
-        btnBuyMax9.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax9.setText("Max");
         btnBuyMax9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -541,7 +537,7 @@ class CargoPanel extends Panel {
         lblBuyPrice9.setName("lblBuyPrice9");
         lblBuyPrice9.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice9.setTabIndex(122);
-        lblBuyPrice9.setText(strings.get("group.box.cargo.not.sold"));
+        lblBuyPrice9.setText("not sold");
         lblBuyPrice9.TextAlign = ContentAlignment.TopRight;
         //
         // btnSellAll9
@@ -551,7 +547,7 @@ class CargoPanel extends Panel {
         btnSellAll9.setName("btnSellAll9");
         btnSellAll9.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll9.setTabIndex(49);
-        btnSellAll9.setText(strings.get("group.box.cargo.dump"));
+        btnSellAll9.setText("Dump");
         btnSellAll9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -580,7 +576,7 @@ class CargoPanel extends Panel {
         lblSellPrice9.setName("lblSellPrice9");
         lblSellPrice9.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice9.setTabIndex(119);
-        lblSellPrice9.setText(strings.get("group.box.cargo.no.trade"));
+        lblSellPrice9.setText("no trade");
         lblSellPrice9.TextAlign = ContentAlignment.TopRight;
         //
         // lblTargetPct8
@@ -617,7 +613,7 @@ class CargoPanel extends Panel {
         btnBuyMax8.setName("btnBuyMax8");
         btnBuyMax8.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax8.setTabIndex(47);
-        btnBuyMax8.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax8.setText("Max");
         btnBuyMax8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -656,7 +652,7 @@ class CargoPanel extends Panel {
         btnSellAll8.setName("btnSellAll8");
         btnSellAll8.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll8.setTabIndex(45);
-        btnSellAll8.setText(strings.get("group.box.cargo.all"));
+        btnSellAll8.setText("All");
         btnSellAll8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -723,7 +719,7 @@ class CargoPanel extends Panel {
         btnBuyMax7.setName("btnBuyMax7");
         btnBuyMax7.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax7.setTabIndex(43);
-        btnBuyMax7.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax7.setText("Max");
         btnBuyMax7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -762,7 +758,7 @@ class CargoPanel extends Panel {
         btnSellAll7.setName("btnSellAll7");
         btnSellAll7.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll7.setTabIndex(41);
-        btnSellAll7.setText(strings.get("group.box.cargo.all"));
+        btnSellAll7.setText("All");
         btnSellAll7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -828,7 +824,7 @@ class CargoPanel extends Panel {
         btnBuyMax6.setName("btnBuyMax6");
         btnBuyMax6.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax6.setTabIndex(39);
-        btnBuyMax6.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax6.setText("Max");
         btnBuyMax6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -867,7 +863,7 @@ class CargoPanel extends Panel {
         btnSellAll6.setName("btnSellAll6");
         btnSellAll6.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll6.setTabIndex(37);
-        btnSellAll6.setText(strings.get("group.box.cargo.all"));
+        btnSellAll6.setText("All");
         btnSellAll6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -933,7 +929,7 @@ class CargoPanel extends Panel {
         btnBuyMax5.setName("btnBuyMax5");
         btnBuyMax5.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax5.setTabIndex(35);
-        btnBuyMax5.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax5.setText("Max");
         btnBuyMax5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -972,7 +968,7 @@ class CargoPanel extends Panel {
         btnSellAll5.setName("btnSellAll5");
         btnSellAll5.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll5.setTabIndex(33);
-        btnSellAll5.setText(strings.get("group.box.cargo.all"));
+        btnSellAll5.setText("All");
         btnSellAll5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1038,7 +1034,7 @@ class CargoPanel extends Panel {
         btnBuyMax4.setName("btnBuyMax4");
         btnBuyMax4.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax4.setTabIndex(31);
-        btnBuyMax4.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax4.setText("Max");
         btnBuyMax4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1077,7 +1073,7 @@ class CargoPanel extends Panel {
         btnSellAll4.setName("btnSellAll4");
         btnSellAll4.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll4.setTabIndex(29);
-        btnSellAll4.setText(strings.get("group.box.cargo.all"));
+        btnSellAll4.setText("All");
         btnSellAll4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1143,7 +1139,7 @@ class CargoPanel extends Panel {
         btnBuyMax3.setName("btnBuyMax3");
         btnBuyMax3.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax3.setTabIndex(27);
-        btnBuyMax3.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax3.setText("Max");
         btnBuyMax3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1182,7 +1178,7 @@ class CargoPanel extends Panel {
         btnSellAll3.setName("btnSellAll3");
         btnSellAll3.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll3.setTabIndex(25);
-        btnSellAll3.setText(strings.get("group.box.cargo.all"));
+        btnSellAll3.setText("All");
         btnSellAll3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1248,7 +1244,7 @@ class CargoPanel extends Panel {
         btnBuyMax2.setName("btnBuyMax2");
         btnBuyMax2.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax2.setTabIndex(23);
-        btnBuyMax2.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax2.setText("Max");
         btnBuyMax2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1287,7 +1283,7 @@ class CargoPanel extends Panel {
         btnSellAll2.setName("btnSellAll2");
         btnSellAll2.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll2.setTabIndex(21);
-        btnSellAll2.setText(strings.get("group.box.cargo.all"));
+        btnSellAll2.setText("All");
         btnSellAll2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1353,7 +1349,7 @@ class CargoPanel extends Panel {
         btnBuyMax1.setName("btnBuyMax1");
         btnBuyMax1.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax1.setTabIndex(19);
-        btnBuyMax1.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax1.setText("Max");
         btnBuyMax1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1410,7 +1406,7 @@ class CargoPanel extends Panel {
         lblTargetPriceLabel.setName("lblTargetPriceLabel");
         lblTargetPriceLabel.setSize(new spacetrader.controls.Size(30, 16));
         lblTargetPriceLabel.setTabIndex(47);
-        lblTargetPriceLabel.setText(strings.get("group.box.cargo.price"));
+        lblTargetPriceLabel.setText("Price");
         //
         // lblTargetPct0
         //
@@ -1446,7 +1442,7 @@ class CargoPanel extends Panel {
         btnBuyMax0.setName("btnBuyMax0");
         btnBuyMax0.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax0.setTabIndex(15);
-        btnBuyMax0.setText(strings.get("group.box.cargo.max"));
+        btnBuyMax0.setText("Max");
         btnBuyMax0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1485,7 +1481,7 @@ class CargoPanel extends Panel {
         btnSellAll1.setName("btnSellAll1");
         btnSellAll1.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll1.setTabIndex(17);
-        btnSellAll1.setText(strings.get("group.box.cargo.all"));
+        btnSellAll1.setText("All");
         btnSellAll1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1524,7 +1520,7 @@ class CargoPanel extends Panel {
         btnSellAll0.setName("btnSellAll0");
         btnSellAll0.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll0.setTabIndex(13);
-        btnSellAll0.setText(strings.get("group.box.cargo.all"));
+        btnSellAll0.setText("All");
         btnSellAll0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1563,7 +1559,7 @@ class CargoPanel extends Panel {
         lblTradeTarget.setName("lblTradeTarget");
         lblTradeTarget.setSize(new spacetrader.controls.Size(78, 16));
         lblTradeTarget.setTabIndex(28);
-        lblTradeTarget.setText(strings.get("group.box.cargo.target.system"));
+        lblTradeTarget.setText("Target System");
         //
         // lblBuy
         //
@@ -1572,7 +1568,7 @@ class CargoPanel extends Panel {
         lblBuy.setName("lblBuy");
         lblBuy.setSize(new spacetrader.controls.Size(24, 16));
         lblBuy.setTabIndex(27);
-        lblBuy.setText(strings.get("group.box.cargo.buy"));
+        lblBuy.setText("Buy");
         //
         // lblSell
         //
@@ -1582,7 +1578,7 @@ class CargoPanel extends Panel {
         lblSell.setName("lblSell");
         lblSell.setSize(new spacetrader.controls.Size(23, 16));
         lblSell.setTabIndex(26);
-        lblSell.setText(strings.get("group.box.cargo.sell"));
+        lblSell.setText("Sell");
         //
         // lblTradeCmdty9
         //
@@ -1591,7 +1587,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty9.setName("lblTradeCmdty9");
         lblTradeCmdty9.setSize(new spacetrader.controls.Size(40, 16));
         lblTradeCmdty9.setTabIndex(25);
-        lblTradeCmdty9.setText(strings.get("group.box.cargo.robots"));
+        lblTradeCmdty9.setText("Robots");
         //
         // lblTradeCmdty8
         //
@@ -1600,7 +1596,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty8.setName("lblTradeCmdty8");
         lblTradeCmdty8.setSize(new spacetrader.controls.Size(51, 16));
         lblTradeCmdty8.setTabIndex(24);
-        lblTradeCmdty8.setText(strings.get("group.box.cargo.narcotics"));
+        lblTradeCmdty8.setText("Narcotics");
         //
         // lblTradeCmdty2
         //
@@ -1609,7 +1605,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty2.setName("lblTradeCmdty2");
         lblTradeCmdty2.setSize(new spacetrader.controls.Size(30, 16));
         lblTradeCmdty2.setTabIndex(23);
-        lblTradeCmdty2.setText(strings.get("group.box.cargo.food"));
+        lblTradeCmdty2.setText("Food");
         //
         // lblTradeCmdty0
         //
@@ -1618,7 +1614,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty0.setName("lblTradeCmdty0");
         lblTradeCmdty0.setSize(new spacetrader.controls.Size(34, 16));
         lblTradeCmdty0.setTabIndex(22);
-        lblTradeCmdty0.setText(strings.get("group.box.cargo.water"));
+        lblTradeCmdty0.setText("Water");
         //
         // lblTradeCmdty1
         //
@@ -1627,7 +1623,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty1.setName("lblTradeCmdty1");
         lblTradeCmdty1.setSize(new spacetrader.controls.Size(27, 16));
         lblTradeCmdty1.setTabIndex(21);
-        lblTradeCmdty1.setText(strings.get("group.box.cargo.furs"));
+        lblTradeCmdty1.setText("Furs");
         //
         // lblTradeCmdty6
         //
@@ -1636,7 +1632,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty6.setName("lblTradeCmdty6");
         lblTradeCmdty6.setSize(new spacetrader.controls.Size(50, 16));
         lblTradeCmdty6.setTabIndex(20);
-        lblTradeCmdty6.setText(strings.get("group.box.cargo.medicine"));
+        lblTradeCmdty6.setText("Medicine");
         //
         // lblTradeCmdty5
         //
@@ -1645,7 +1641,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty5.setName("lblTradeCmdty5");
         lblTradeCmdty5.setSize(new spacetrader.controls.Size(49, 16));
         lblTradeCmdty5.setTabIndex(19);
-        lblTradeCmdty5.setText(strings.get("group.box.cargo.firearms"));
+        lblTradeCmdty5.setText("Firearms");
         //
         // lblTradeCmdty4
         //
@@ -1654,7 +1650,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty4.setName("lblTradeCmdty4");
         lblTradeCmdty4.setSize(new spacetrader.controls.Size(41, 16));
         lblTradeCmdty4.setTabIndex(18);
-        lblTradeCmdty4.setText(strings.get("group.box.cargo.games"));
+        lblTradeCmdty4.setText("Games");
         //
         // lblTradeCmdty3
         //
@@ -1663,7 +1659,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty3.setName("lblTradeCmdty3");
         lblTradeCmdty3.setSize(new spacetrader.controls.Size(23, 16));
         lblTradeCmdty3.setTabIndex(17);
-        lblTradeCmdty3.setText(strings.get("group.box.cargo.ore"));
+        lblTradeCmdty3.setText("Ore");
         //
         // lblTradeCmdty7
         //
@@ -1672,7 +1668,7 @@ class CargoPanel extends Panel {
         lblTradeCmdty7.setName("lblTradeCmdty7");
         lblTradeCmdty7.setSize(new spacetrader.controls.Size(53, 16));
         lblTradeCmdty7.setTabIndex(16);
-        lblTradeCmdty7.setText(strings.get("group.box.cargo.machines"));
+        lblTradeCmdty7.setText("Machines");
         //
         // ilChartImages
         //
@@ -1729,17 +1725,14 @@ class CargoPanel extends Panel {
             int price = warpSys == null ? 0 : Consts.TradeItems[i].StandardPrice(warpSys);
 
             lblSellPrice[i].setText(sell[i] > 0
-                    ? Functions.formatMoney(sell[i], strings.get("group.box.cargo.credit"))
+                    ? Functions.formatMoney(sell[i], strings.get("cargoPanel.credit"))
                     : Strings.CargoSellNA);
             btnSellQty[i].setText("" + cmdr.getShip().Cargo()[i]);
             btnSellQty[i].setVisible(true);
-            btnSellAll[i].setText(sell[i] > 0
-                    ? strings.get("group.box.cargo.all")
-                    : strings.get("group.box.cargo.dump")
-            );
+            btnSellAll[i].setText(sell[i] > 0 ? "All" : "Dump");
             btnSellAll[i].setVisible(true);
             lblBuyPrice[i].setText(buy[i] > 0
-                    ? Functions.formatMoney(buy[i], strings.get("group.box.cargo.credit"))
+                    ? Functions.formatMoney(buy[i], strings.get("cargoPanel.credit"))
                     : Strings.CargoBuyNA);
             btnBuyQty[i].setText("" + cmdr.getCurrentSystem().TradeItems()[i]);
             btnBuyQty[i].setVisible(buy[i] > 0);
@@ -1751,14 +1744,14 @@ class CargoPanel extends Panel {
                 lblSellPrice[i].setFont(lblSell.getFont());
 
             if (warpSys != null && warpSys.DestOk() && price > 0)
-                lblTargetPrice[i].setText(Functions.formatMoney(price, strings.get("group.box.cargo.credit")));
+                lblTargetPrice[i].setText(Functions.formatMoney(price, strings.get("cargoPanel.credit")));
             else
                 lblTargetPrice[i].setText("-----------");
 
             if (warpSys != null && warpSys.DestOk() && price > 0 && buy[i] > 0) {
                 int diff = price - buy[i];
                 lblTargetDiff[i].setText((diff > 0 ? "+" : "")
-                        + Functions.formatMoney(diff, strings.get("group.box.cargo.credit")));
+                        + Functions.formatMoney(diff, strings.get("cargoPanel.credit")));
                 lblTargetPct[i].setText((diff > 0 ? "+" : "") + Functions.formatNumber(100 * diff / buy[i]) + "%");
                 lblBuyPrice[i].setFont((diff > 0 && cmdr.getCurrentSystem().TradeItems()[i] > 0) ? BOLD_FONT : lblBuy
                         .getFont());

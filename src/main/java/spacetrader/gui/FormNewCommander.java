@@ -118,7 +118,7 @@ public class FormNewCommander extends SpaceTraderForm {
         //
         // btnClose
         //
-        this.btnClose.setDialogResult(DialogResult.Cancel);
+        this.btnClose.setDialogResult(DialogResult.CANCEL);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
         this.btnClose.setSize(new spacetrader.controls.Size(30, 31));
@@ -182,8 +182,8 @@ public class FormNewCommander extends SpaceTraderForm {
         //
         // selDifficulty
         //
-        this.selDifficulty.DropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
-        this.selDifficulty.Items.AddRange(new Object[]{"Beginner", "Easy", "Normal", "Hard", "Impossible"});
+        this.selDifficulty.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        this.selDifficulty.items.AddRange(new Object[]{"Beginner", "Easy", "Normal", "Hard", "Impossible"});
         this.selDifficulty.setLocation(new java.awt.Point(72, 37));
         this.selDifficulty.setName("selDifficulty");
         this.selDifficulty.setSize(new spacetrader.controls.Size(120, 21));

@@ -4,8 +4,9 @@ import javax.swing.*;
 
 public class SubMenu extends MenuItem {
 
-    public SubMenu() {
+    public SubMenu(String name) {
         super(new JMenu());
+        setName(name);
     }
 
     public void add(MenuItem item) {

@@ -7,14 +7,15 @@ import java.awt.event.ActionListener;
 public class MenuItem {
 
     public Shortcut shortcut;
-    protected JMenuItem swingVersion;
+    JMenuItem swingVersion;
 
-    public MenuItem() {
+    public MenuItem(String name) {
         this(new JMenuItem());
+        setName(name);
     }
 
     public static MenuItem separator() {
-        MenuItem menuItem = new MenuItem();
+        MenuItem menuItem = new MenuItem("");
         menuItem.setEnabled(false);
         return menuItem;
     }

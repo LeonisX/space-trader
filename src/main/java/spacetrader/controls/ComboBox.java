@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 
 public class ComboBox extends BaseComponent {
 
-    public final MyComboBoxModel Items = new MyComboBoxModel();
+    public final MyComboBoxModel items = new MyComboBoxModel();
     // probably don't care.
-    public ComboBoxStyle DropDownStyle;
+    public ComboBoxStyle dropDownStyle;
 
     public ComboBox() {
         super(new JComboBox());
-        asJComboBox().setModel(Items);
+        asJComboBox().setModel(items);
     }
 
     private JComboBox asJComboBox() {
@@ -28,11 +28,7 @@ public class ComboBox extends BaseComponent {
     }
 
     public void setSelectedIndexChanged(final EventHandler<Object, EventArgs> handler) {
-        asJComboBox().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                handler.handle(ComboBox.this, null);
-            }
-        });
+        asJComboBox().addActionListener(e -> handler.handle(ComboBox.this, null));
     }
 
     public Object getSelectedItem() {

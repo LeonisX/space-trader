@@ -79,7 +79,7 @@ public class FormViewShip extends SpaceTraderForm {
         this.btnClose = new spacetrader.controls.Button();
         this.lblEquipLabel = new spacetrader.controls.Label();
         this.lblEquip = new spacetrader.controls.Label();
-        this.boxSpecialCargo = new Panel(name);
+        this.boxSpecialCargo = new Panel();
         this.lblSpecialCargo = new spacetrader.controls.Label();
         this.boxSpecialCargo.suspendLayout();
         this.suspendLayout();
@@ -104,7 +104,7 @@ public class FormViewShip extends SpaceTraderForm {
         //
         // btnClose
         //
-        this.btnClose.setDialogResult(DialogResult.Cancel);
+        this.btnClose.setDialogResult(DialogResult.CANCEL);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
         this.btnClose.setSize(new spacetrader.controls.Size(32, 32));

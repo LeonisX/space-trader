@@ -179,7 +179,7 @@ public class FormCargoSell extends SpaceTraderForm {
         //
         // btnNone
         //
-        btnNone.setDialogResult(DialogResult.Cancel);
+        btnNone.setDialogResult(DialogResult.CANCEL);
         btnNone.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnNone.setLocation(new java.awt.Point(179, 74));
         btnNone.setName("btnNone");

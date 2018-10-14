@@ -205,7 +205,7 @@ public class FormShipList extends SpaceTraderForm {
         btnInfo9 = new spacetrader.controls.Button();
         lblName9 = new spacetrader.controls.Label();
         btnBuy9 = new spacetrader.controls.Button();
-        boxShipInfo = new Panel(name);
+        boxShipInfo = new Panel();
         lblCrew = new spacetrader.controls.Label();
         lblGadget = new spacetrader.controls.Label();
         lblShield = new spacetrader.controls.Label();
@@ -215,7 +215,7 @@ public class FormShipList extends SpaceTraderForm {
         lblBays = new spacetrader.controls.Label();
         lblSize = new spacetrader.controls.Label();
         lblName = new spacetrader.controls.Label();
-        picShip = new spacetrader.controls.PictureBox();
+        picShip = new spacetrader.controls.PictureBox("linePictureBox");
         lblGadgetLabel = new spacetrader.controls.Label();
         lblCrewLabel = new spacetrader.controls.Label();
         lblShieldLabel = new spacetrader.controls.Label();
@@ -230,7 +230,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         // btnClose
         //
-        btnClose.setDialogResult(DialogResult.Cancel);
+        btnClose.setDialogResult(DialogResult.CANCEL);
         btnClose.setLocation(new java.awt.Point(-32, -32));
         btnClose.setName("btnClose");
         btnClose.setSize(new spacetrader.controls.Size(32, 32));

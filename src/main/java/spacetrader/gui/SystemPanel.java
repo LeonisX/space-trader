@@ -90,7 +90,6 @@ class SystemPanel extends Panel {
         controls.add(lblSystemName);
         controls.add(lblSystemNameLabel);
 
-        setName("boxSystem");
         setSize(new spacetrader.controls.Size(240, 206));
         setTabIndex(1);
         setTabStop(false);
@@ -348,16 +347,16 @@ class SystemPanel extends Panel {
             btn1 = "Ok";
             btn2 = null;
             res1 = DialogResult.OK;
-            res2 = DialogResult.None;
+            res2 = DialogResult.NONE;
         } else {
             btn1 = "Yes";
             btn2 = "No";
-            res1 = DialogResult.Yes;
-            res2 = DialogResult.No;
+            res1 = DialogResult.YES;
+            res2 = DialogResult.NO;
         }
 
         FormAlert alert = new FormAlert(specEvent.Title(), specEvent.String(), btn1, res1, btn2, res2, null);
-        if (alert.showDialog() != DialogResult.No) {
+        if (alert.showDialog() != DialogResult.NO) {
             if (commander.CashToSpend() < specEvent.Price())
                 GuiFacade.alert(AlertType.SpecialIF);
             else {

@@ -267,7 +267,7 @@ public class FormViewBank extends SpaceTraderForm {
         //
         // btnClose
         //
-        btnClose.setDialogResult(DialogResult.Cancel);
+        btnClose.setDialogResult(DialogResult.CANCEL);
         btnClose.setLocation(new java.awt.Point(-32, -32));
         btnClose.setName("btnClose");
         btnClose.setSize(new spacetrader.controls.Size(26, 27));
@@ -370,7 +370,7 @@ public class FormViewBank extends SpaceTraderForm {
 
     private void btnBuyInsurance_Click(Object sender, EventArgs e) {
         if (cmdr.getInsurance()) {
-            if (GuiFacade.alert(AlertType.InsuranceStop) == DialogResult.Yes) {
+            if (GuiFacade.alert(AlertType.InsuranceStop) == DialogResult.YES) {
                 cmdr.setInsurance(false);
                 cmdr.NoClaim(0);
             }

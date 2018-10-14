@@ -105,8 +105,8 @@ public class FormMonster extends SpaceTraderForm {
     // / </summary>
     private void initializeComponent() {
         btnClose = new Button();
-        picLine1 = new PictureBox();
-        picLine0 = new PictureBox();
+        picLine1 = new PictureBox("linePictureBox");
+        picLine0 = new PictureBox("linePictureBox");
         lblQuestsLabel = new Label();
         lblMercLabel = new Label();
         lblMercSkillLabelPilot = new LinkLabel();
@@ -136,7 +136,7 @@ public class FormMonster extends SpaceTraderForm {
         pnlShipyards = new CheatPanel();
         lblShipyards = new Label();
         lblShipyardSystems = new LinkLabel();
-        picLine2 = new PictureBox();
+        picLine2 = new PictureBox("linePictureBox");
         pnlMercs.suspendLayout();
         pnlQuests.suspendLayout();
         pnlShipyards.suspendLayout();
@@ -144,7 +144,7 @@ public class FormMonster extends SpaceTraderForm {
         //
         // btnClose
         //
-        btnClose.setDialogResult(DialogResult.Cancel);
+        btnClose.setDialogResult(DialogResult.CANCEL);
         btnClose.setLocation(new java.awt.Point(-32, -32));
         btnClose.setName("btnClose");
         btnClose.setSize(new Size(32, 32));

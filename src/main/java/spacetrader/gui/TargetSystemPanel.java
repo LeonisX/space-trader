@@ -10,6 +10,7 @@ import spacetrader.game.*;
 import java.awt.*;
 
 public class TargetSystemPanel extends Panel {
+
     private final SpaceTrader mainWindow;
     private SystemTracker game = null;
     private GameController controller = null;
@@ -47,7 +48,7 @@ public class TargetSystemPanel extends Panel {
         this.commander = commander;
     }
 
-    private void UpdateAll() {
+    private void updateAll() {
         // todo inline when done
         mainWindow.updateAll();
     }
@@ -97,7 +98,6 @@ public class TargetSystemPanel extends Panel {
         controls.add(lblTargetSizeLabel);
         controls.add(lblTargetName);
         controls.add(lblTargetNameLabel);
-        setName("boxTargetSystem");
         setSize(new spacetrader.controls.Size(216, 168));
         setTabIndex(7);
         setTabStop(false);
@@ -320,7 +320,7 @@ public class TargetSystemPanel extends Panel {
 
     private void btnTrack_Click(Object sender, spacetrader.controls.EventArgs e) {
         game.setTrackedSystemId(game.SelectedSystemId());
-        UpdateAll();
+        updateAll();
     }
 
     private void btnWarp_Click(Object sender, spacetrader.controls.EventArgs e) {
@@ -333,7 +333,7 @@ public class TargetSystemPanel extends Panel {
         } catch (GameEndException ex) {
             controller.gameEnd();
         }
-        UpdateAll();
+        updateAll();
     }
 
     void Update() {
@@ -373,11 +373,11 @@ public class TargetSystemPanel extends Panel {
 
     private void btnNextSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
         game.SelectNextSystemWithinRange(true);
-        UpdateAll();
+        updateAll();
     }
 
     private void btnPrevSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
         game.SelectNextSystemWithinRange(false);
-        UpdateAll();
+        updateAll();
     }
 }

@@ -20,6 +20,7 @@
 * Automatic update main window
 * Find all languages in resources
 * How to know variable name runtime?
+* Show in Cargo planet names (target)
 
 ## Known bugs:
 

@@ -108,7 +108,7 @@ public class FormEquipment extends SpaceTraderForm {
     // / </summary>
     private void initializeComponent() {
         this.btnClose = new spacetrader.controls.Button();
-        this.boxSell = new Panel(name);
+        this.boxSell = new Panel();
         this.lblSellGadgetNoSlots = new spacetrader.controls.Label();
         this.lblSellShieldNoSlots = new spacetrader.controls.Label();
         this.lblSellWeaponNoSlots = new spacetrader.controls.Label();
@@ -118,7 +118,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lstSellGadget = new spacetrader.controls.ListBox();
         this.lstSellShield = new spacetrader.controls.ListBox();
         this.lstSellWeapon = new spacetrader.controls.ListBox();
-        this.boxBuy = new Panel(name);
+        this.boxBuy = new Panel();
         this.lblBuyGadgetNone = new spacetrader.controls.Label();
         this.lblBuyShieldNone = new spacetrader.controls.Label();
         this.lblBuyWeaponNone = new spacetrader.controls.Label();
@@ -128,7 +128,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lstBuyGadget = new spacetrader.controls.ListBox();
         this.lstBuyShield = new spacetrader.controls.ListBox();
         this.lstBuyWeapon = new spacetrader.controls.ListBox();
-        this.boxShipInfo = new Panel(name);
+        this.boxShipInfo = new Panel();
         this.lblCharge = new spacetrader.controls.Label();
         this.lblPower = new spacetrader.controls.Label();
         this.lblChargeLabel = new spacetrader.controls.Label();
@@ -141,7 +141,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblBuyPriceLabel = new spacetrader.controls.Label();
         this.lblBuyPrice = new spacetrader.controls.Label();
         this.lblSellPriceLabel = new spacetrader.controls.Label();
-        this.picEquipment = new spacetrader.controls.PictureBox();
+        this.picEquipment = new spacetrader.controls.PictureBox("linePictureBox");
         this.lblSellPrice = new spacetrader.controls.Label();
         this.lblDescription = new spacetrader.controls.Label();
         this.lblName = new spacetrader.controls.Label();
@@ -152,7 +152,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // btnClose
         //
-        this.btnClose.setDialogResult(DialogResult.Cancel);
+        this.btnClose.setDialogResult(DialogResult.CANCEL);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
         this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
@@ -632,7 +632,7 @@ public class FormEquipment extends SpaceTraderForm {
                     || (baseType == EquipmentType.Gadget && cmdr.getShip().FreeSlotsGadget() == 0))
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             else if (GuiFacade.alert(AlertType.EquipmentBuy, selectedEquipment.Name(), Functions
-                    .formatNumber(selectedEquipment.Price())) == DialogResult.Yes) {
+                    .formatNumber(selectedEquipment.Price())) == DialogResult.YES) {
                 cmdr.getShip().AddEquipment(selectedEquipment);
                 cmdr.setCash(cmdr.getCash() - selectedEquipment.Price());
 
@@ -654,7 +654,7 @@ public class FormEquipment extends SpaceTraderForm {
 
     private void Sell() {
         if (selectedEquipment != null && sellSideSelected) {
-            if (GuiFacade.alert(AlertType.EquipmentSell) == DialogResult.Yes) {
+            if (GuiFacade.alert(AlertType.EquipmentSell) == DialogResult.YES) {
                 // The slot is the selected index. Two of the three list boxes
                 // will have selected indices of -1, so adding
                 // 2 to the total cancels those out.
@@ -677,17 +677,17 @@ public class FormEquipment extends SpaceTraderForm {
     }
 
     private void UpdateBuy() {
-        for (int i = 0; i < equipBuy.length; i++) {
-            if (equipBuy[i].Price() > 0) {
-                switch (equipBuy[i].EquipmentType()) {
+        for (Equipment anEquipBuy : equipBuy) {
+            if (anEquipBuy.Price() > 0) {
+                switch (anEquipBuy.EquipmentType()) {
                     case Weapon:
-                        lstBuyWeapon.Items.add(equipBuy[i]);
+                        lstBuyWeapon.Items.add(anEquipBuy);
                         break;
                     case Shield:
-                        lstBuyShield.Items.add(equipBuy[i]);
+                        lstBuyShield.Items.add(anEquipBuy);
                         break;
                     case Gadget:
-                        lstBuyGadget.Items.add(equipBuy[i]);
+                        lstBuyGadget.Items.add(anEquipBuy);
                         break;
                 }
             }

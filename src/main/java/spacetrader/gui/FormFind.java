@@ -86,7 +86,7 @@ public class FormFind extends SpaceTraderForm {
         //
         // btnCancel
         //
-        btnCancel.setDialogResult(DialogResult.Cancel);
+        btnCancel.setDialogResult(DialogResult.CANCEL);
         btnCancel.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnCancel.setLocation(new java.awt.Point(91, 68));
         btnCancel.setName("btnCancel");

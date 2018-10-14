@@ -20,7 +20,8 @@ import java.awt.*;
  *
  * - replaced Game with SystemTracker where possible.
  */
-public class GalacticChart extends Panel {
+public class GalacticChartPanel extends Panel {
+
     private final SpaceTrader mainWindow;
     private final spacetrader.controls.ImageList ilChartImages;
     private final int OFF_X = ChartsGraphicsConsts.OFF_X;
@@ -46,7 +47,7 @@ public class GalacticChart extends Panel {
     private spacetrader.controls.Button btnFind;
     private spacetrader.controls.PictureBox picGalacticChart;
 
-    GalacticChart(SpaceTrader mainWindow, ImageList images, String name) {
+    GalacticChartPanel(SpaceTrader mainWindow, ImageList images, String name) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
         setName(name);
@@ -60,7 +61,7 @@ public class GalacticChart extends Panel {
     }
 
     void initializeComponent() {
-        picGalacticChart = new spacetrader.controls.PictureBox();
+        picGalacticChart = new spacetrader.controls.PictureBox("linePictureBox");
         lblWormhole = new spacetrader.controls.Label();
         lblWormholeLabel = new spacetrader.controls.Label();
         btnJump = new spacetrader.controls.Button();
@@ -95,7 +96,6 @@ public class GalacticChart extends Panel {
         controls.add(btnJump);
         controls.add(btnFind);
         controls.add(picGalacticChart);
-        setName("boxGalacticChart");
         setSize(new spacetrader.controls.Size(176, 168));
         setTabIndex(5);
         setTabStop(false);
@@ -227,7 +227,7 @@ public class GalacticChart extends Panel {
             GuiFacade.alert(AlertType.ChartJumpNoSystemSelected);
         else if (game.WarpSystem() == commander.getCurrentSystem())
             GuiFacade.alert(AlertType.ChartJumpCurrent);
-        else if (GuiFacade.alert(AlertType.ChartJump, game.WarpSystem().Name()) == DialogResult.Yes) {
+        else if (GuiFacade.alert(AlertType.ChartJump, game.WarpSystem().Name()) == DialogResult.YES) {
             game.setCanSuperWarp(false);
             try {
                 controller.autoSave_depart();
@@ -263,7 +263,7 @@ public class GalacticChart extends Panel {
     }
 
     void Refresh() {
-        picGalacticChart.Refresh();
+        picGalacticChart.refresh();
         if (game == null) {
             lblWormholeLabel.setVisible(false);
             lblWormhole.setVisible(false);

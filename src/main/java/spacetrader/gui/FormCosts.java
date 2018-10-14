@@ -90,12 +90,12 @@ public class FormCosts extends SpaceTraderForm {
         this.lblIntLabel = new spacetrader.controls.Label();
         this.lblMercLabel = new spacetrader.controls.Label();
         this.lblInsLabel = new spacetrader.controls.Label();
-        this.picLine = new spacetrader.controls.PictureBox();
+        this.picLine = new spacetrader.controls.PictureBox("linePictureBox");
         this.suspendLayout();
         //
         // btnClose
         //
-        this.btnClose.setDialogResult(DialogResult.Cancel);
+        this.btnClose.setDialogResult(DialogResult.CANCEL);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
         this.btnClose.setSize(new spacetrader.controls.Size(32, 32));

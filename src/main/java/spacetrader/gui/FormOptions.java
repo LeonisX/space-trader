@@ -135,7 +135,7 @@ public class FormOptions extends SpaceTraderForm {
         //
         // btnCancel
         //
-        this.btnCancel.setDialogResult(DialogResult.Cancel);
+        this.btnCancel.setDialogResult(DialogResult.CANCEL);
         this.btnCancel.setFlatStyle(FlatStyle.FLAT);
         this.btnCancel.setLocation(new Point(62, 240));
         this.btnCancel.setName("btnCancel");

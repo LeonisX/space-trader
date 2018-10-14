@@ -5,13 +5,13 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-public class FileDialog { //extends WinformForm
+public class FileDialog {
 
     private final JFileChooser chooser = new JFileChooser();
 
-    private String buttonText;
-    private String Filter;
-    private String DefaultExt;
+    private String approveButtonText;
+    private String string;
+    private String defaultExt;
 
     private String title;
 
@@ -19,17 +19,17 @@ public class FileDialog { //extends WinformForm
         this.title = title;
     }
 
-    void setButtonText(String text) {
-        buttonText = text;
+    void setApproveButtonText(String approveButtonText) {
+        this.approveButtonText = approveButtonText;
     }
 
-    public DialogResult ShowDialog(WinformPane owner) {
-        int returnVal = chooser.showDialog(owner.asSwingObject(), buttonText);
+    public DialogResult showDialog(WinformPane owner) {
+        int returnVal = chooser.showDialog(owner.asSwingObject(), approveButtonText);
 
         switch (returnVal) {
             case JFileChooser.CANCEL_OPTION:
             case JFileChooser.ERROR_OPTION:
-                return DialogResult.Cancel;
+                return DialogResult.CANCEL;
             case JFileChooser.APPROVE_OPTION:
                 return DialogResult.OK;
             default:
@@ -58,7 +58,7 @@ public class FileDialog { //extends WinformForm
     }
 
     public void setDefaultExt(String defaultExt) {
-        DefaultExt = defaultExt;
+        this.defaultExt = defaultExt;
     }
 
     public String getFileName() {

@@ -107,7 +107,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         // btnClose
         //
-        btnClose.setDialogResult(DialogResult.Cancel);
+        btnClose.setDialogResult(DialogResult.CANCEL);
         btnClose.setLocation(new java.awt.Point(-32, -32));
         btnClose.setName("btnClose");
         btnClose.setSize(new spacetrader.controls.Size(32, 32));

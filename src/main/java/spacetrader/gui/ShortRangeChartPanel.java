@@ -8,7 +8,8 @@ import spacetrader.game.*;
 
 import java.awt.*;
 
-public class ShortRangeChart extends Panel {
+public class ShortRangeChartPanel extends Panel {
+
     private final SpaceTrader mainWindow;
     private final spacetrader.controls.ImageList ilChartImages;
     private final int OFF_X = ChartsGraphicsConsts.OFF_X;
@@ -24,7 +25,7 @@ public class ShortRangeChart extends Panel {
     private Font font;
     private Font smallFont;
 
-    ShortRangeChart(SpaceTrader mainWindow, ImageList images, String name) {
+    ShortRangeChartPanel(SpaceTrader mainWindow, ImageList images, String name) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
         setName(name);
@@ -36,7 +37,7 @@ public class ShortRangeChart extends Panel {
     }
 
     void initializeComponent() {
-        picShortRangeChart = new spacetrader.controls.PictureBox();
+        picShortRangeChart = new spacetrader.controls.PictureBox("linePictureBox");
 
         //
         // picShortRangeChart
@@ -63,7 +64,6 @@ public class ShortRangeChart extends Panel {
 
         anchor = (((AnchorStyles.Top_Right)));
         controls.add(picShortRangeChart);
-        setName("boxShortRangeChart");
         setSize(new spacetrader.controls.Size(176, 168));
         setTabIndex(6);
         setTabStop(false);
@@ -200,7 +200,7 @@ public class ShortRangeChart extends Panel {
     }
 
     public void Refresh() {
-        picShortRangeChart.Refresh();
+        picShortRangeChart.refresh();
     }
 
     @Override
