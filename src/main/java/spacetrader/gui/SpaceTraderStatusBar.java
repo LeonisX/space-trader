@@ -1,18 +1,18 @@
 package spacetrader.gui;
 
-import jwinforms.StatusBar;
-import jwinforms.StatusBarPanelClickEventArgs;
-import spacetrader.Commander;
-import spacetrader.Functions;
+import spacetrader.controls.StatusBar;
+import spacetrader.controls.StatusBarPanelClickEventArgs;
+import spacetrader.game.Commander;
+import spacetrader.game.Functions;
 
 import java.util.Arrays;
 
 class SpaceTraderStatusBar extends StatusBar {
     private final SpaceTrader mainWindow;
-    private jwinforms.StatusBarPanel statusBarPanelBays;
-    private jwinforms.StatusBarPanel statusBarPanelCash;
-    private jwinforms.StatusBarPanel statusBarPanelCosts;
-    private jwinforms.StatusBarPanel statusBarPanelExtra;
+    private spacetrader.controls.StatusBarPanel statusBarPanelBays;
+    private spacetrader.controls.StatusBarPanel statusBarPanelCash;
+    private spacetrader.controls.StatusBarPanel statusBarPanelCosts;
+    private spacetrader.controls.StatusBarPanel statusBarPanelExtra;
     private Commander commander;
 
     public SpaceTraderStatusBar(SpaceTrader mainWindow) {
@@ -25,13 +25,13 @@ class SpaceTraderStatusBar extends StatusBar {
 
     public void initializeComponent() {
         this.setName("statusBar");
-        Panels.addAll(Arrays.asList(new jwinforms.StatusBarPanel[]{statusBarPanelCash, statusBarPanelBays,
+        Panels.addAll(Arrays.asList(new spacetrader.controls.StatusBarPanel[]{statusBarPanelCash, statusBarPanelBays,
                 statusBarPanelCosts, statusBarPanelExtra}));
         ShowPanels = true;
-        this.setSize(new jwinforms.Size(768, 24));
+        this.setSize(new spacetrader.controls.Size(768, 24));
         SizingGrip = false;
         this.setTabIndex(2);
-        PanelClick = new jwinforms.EventHandler<Object, StatusBarPanelClickEventArgs>() {
+        PanelClick = new spacetrader.controls.EventHandler<Object, StatusBarPanelClickEventArgs>() {
             @Override
             public void handle(Object sender, StatusBarPanelClickEventArgs e) {
                 statusBar_PanelClick(sender, e);
@@ -61,15 +61,15 @@ class SpaceTraderStatusBar extends StatusBar {
 
     @Override
     public void beginInit() {
-        statusBarPanelCash = new jwinforms.StatusBarPanel();
-        statusBarPanelBays = new jwinforms.StatusBarPanel();
-        statusBarPanelCosts = new jwinforms.StatusBarPanel();
-        statusBarPanelExtra = new jwinforms.StatusBarPanel(jwinforms.StatusBarPanelAutoSize.Spring);
+        statusBarPanelCash = new spacetrader.controls.StatusBarPanel();
+        statusBarPanelBays = new spacetrader.controls.StatusBarPanel();
+        statusBarPanelCosts = new spacetrader.controls.StatusBarPanel();
+        statusBarPanelExtra = new spacetrader.controls.StatusBarPanel(spacetrader.controls.StatusBarPanelAutoSize.Spring);
 
-        ((jwinforms.ISupportInitialize) (statusBarPanelCash)).beginInit();
-        ((jwinforms.ISupportInitialize) (statusBarPanelBays)).beginInit();
-        ((jwinforms.ISupportInitialize) (statusBarPanelCosts)).beginInit();
-        ((jwinforms.ISupportInitialize) (statusBarPanelExtra)).beginInit();
+        ((spacetrader.controls.ISupportInitialize) (statusBarPanelCash)).beginInit();
+        ((spacetrader.controls.ISupportInitialize) (statusBarPanelBays)).beginInit();
+        ((spacetrader.controls.ISupportInitialize) (statusBarPanelCosts)).beginInit();
+        ((spacetrader.controls.ISupportInitialize) (statusBarPanelExtra)).beginInit();
     }
 
     @Override
@@ -96,7 +96,7 @@ class SpaceTraderStatusBar extends StatusBar {
         }
     }
 
-    private void statusBar_PanelClick(Object sender, jwinforms.StatusBarPanelClickEventArgs e) {
+    private void statusBar_PanelClick(Object sender, spacetrader.controls.StatusBarPanelClickEventArgs e) {
         if (commander != null) {
             if (e.StatusBarPanel == statusBarPanelCash)
                 mainWindow.showBank();

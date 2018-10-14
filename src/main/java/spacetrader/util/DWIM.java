@@ -1,6 +1,6 @@
 package spacetrader.util;
 
-import spacetrader.enums.SpaceTraderEnum;
+import spacetrader.game.enums.SpaceTraderEnum;
 
 import java.lang.reflect.Method;
 

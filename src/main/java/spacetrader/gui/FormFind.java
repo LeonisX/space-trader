@@ -29,17 +29,17 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.DialogResult;
-import jwinforms.FormStartPosition;
+import spacetrader.controls.DialogResult;
+import spacetrader.controls.FormStartPosition;
 
 public class FormFind extends SpaceTraderForm {
     // #region Control Declarations
 
-    private jwinforms.Label lblText;
-    private jwinforms.Button btnOk;
-    private jwinforms.Button btnCancel;
-    private jwinforms.TextBox txtSystem;
-    private jwinforms.CheckBox chkTrack;
+    private spacetrader.controls.Label lblText;
+    private spacetrader.controls.Button btnOk;
+    private spacetrader.controls.Button btnCancel;
+    private spacetrader.controls.TextBox txtSystem;
+    private spacetrader.controls.CheckBox chkTrack;
 
     // #endregion
 
@@ -58,11 +58,11 @@ public class FormFind extends SpaceTraderForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        lblText = new jwinforms.Label();
-        btnOk = new jwinforms.Button();
-        btnCancel = new jwinforms.Button();
-        txtSystem = new jwinforms.TextBox();
-        chkTrack = new jwinforms.CheckBox();
+        lblText = new spacetrader.controls.Label();
+        btnOk = new spacetrader.controls.Button();
+        btnCancel = new spacetrader.controls.Button();
+        txtSystem = new spacetrader.controls.TextBox();
+        chkTrack = new spacetrader.controls.CheckBox();
         this.suspendLayout();
         //
         // lblText
@@ -70,27 +70,27 @@ public class FormFind extends SpaceTraderForm {
         lblText.setAutoSize(true);
         lblText.setLocation(new java.awt.Point(8, 8));
         lblText.setName("lblText");
-        lblText.setSize(new jwinforms.Size(177, 13));
+        lblText.setSize(new spacetrader.controls.Size(177, 13));
         lblText.setTabIndex(3);
         lblText.setText("Which system are you looking for?");
         //
         // btnOk
         //
         btnOk.setDialogResult(DialogResult.OK);
-        btnOk.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnOk.setLocation(new java.awt.Point(43, 68));
         btnOk.setName("btnOk");
-        btnOk.setSize(new jwinforms.Size(40, 22));
+        btnOk.setSize(new spacetrader.controls.Size(40, 22));
         btnOk.setTabIndex(3);
         btnOk.setText("Ok");
         //
         // btnCancel
         //
         btnCancel.setDialogResult(DialogResult.Cancel);
-        btnCancel.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnCancel.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnCancel.setLocation(new java.awt.Point(91, 68));
         btnCancel.setName("btnCancel");
-        btnCancel.setSize(new jwinforms.Size(50, 22));
+        btnCancel.setSize(new spacetrader.controls.Size(50, 22));
         btnCancel.setTabIndex(4);
         btnCancel.setText("Cancel");
         //
@@ -98,7 +98,7 @@ public class FormFind extends SpaceTraderForm {
         //
         txtSystem.setLocation(new java.awt.Point(8, 24));
         txtSystem.setName("txtSystem");
-        txtSystem.setSize(new jwinforms.Size(168, 20));
+        txtSystem.setSize(new spacetrader.controls.Size(168, 20));
         txtSystem.setTabIndex(1);
         txtSystem.setText("");
         //
@@ -106,20 +106,20 @@ public class FormFind extends SpaceTraderForm {
         //
         chkTrack.setLocation(new java.awt.Point(8, 48));
         chkTrack.setName("chkTrack");
-        chkTrack.setSize(new jwinforms.Size(112, 16));
+        chkTrack.setSize(new spacetrader.controls.Size(112, 16));
         chkTrack.setTabIndex(2);
         chkTrack.setText("Track this system");
         //
         // FormFind
         //
         this.setAcceptButton(btnOk);
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnCancel);
-        this.setClientSize(new jwinforms.Size(184, 97));
+        this.setClientSize(new spacetrader.controls.Size(184, 97));
         this.setControlBox(false);
         Controls.addAll(chkTrack, txtSystem,
                 btnCancel, btnOk, lblText);
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormFind");
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CenterParent);

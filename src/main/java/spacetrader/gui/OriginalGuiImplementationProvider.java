@@ -1,7 +1,7 @@
 package spacetrader.gui;
 
-import jwinforms.Image;
-import jwinforms.ImageList;
+import spacetrader.controls.Image;
+import spacetrader.controls.ImageList;
 import spacetrader.guifacade.GuiEngine.CheatGui;
 import spacetrader.guifacade.GuiEngine.ImageProvider;
 import spacetrader.guifacade.GuiEngine.ImplementationProvider;

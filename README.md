@@ -16,8 +16,10 @@
 ### Minor tasks
 
 
-* All strings to file
+* All main window strings and sizes to file
+* Automatic update main window
 * Find all languages in resources
+* How to know variable name runtime?
 
 ## Known bugs:
 

@@ -28,9 +28,9 @@
 // using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.Game;
-import spacetrader.Ship;
+import spacetrader.controls.*;
+import spacetrader.game.Game;
+import spacetrader.game.Ship;
 import spacetrader.guifacade.Facaded;
 
 @Facaded
@@ -41,44 +41,44 @@ public class FormPlunder extends SpaceTraderForm {
     private final Button[] btnPlunderQty;
     private final Button[] btnPlunderAll;
     private final Game game = Game.CurrentGame();
-    private jwinforms.Button btnPlunderAll9;
-    private jwinforms.Button btnPlunderQty9;
-    private jwinforms.Button btnPlunderAll8;
-    private jwinforms.Button btnPlunderQty8;
-    private jwinforms.Button btnPlunderAll7;
-    private jwinforms.Button btnPlunderQty7;
-    private jwinforms.Button btnPlunderAll6;
-    private jwinforms.Button btnPlunderQty6;
-    private jwinforms.Button btnPlunderAll5;
-    private jwinforms.Button btnPlunderQty5;
-    private jwinforms.Button btnPlunderAll4;
-    private jwinforms.Button btnPlunderQty4;
-    private jwinforms.Button btnPlunderAll3;
-    private jwinforms.Button btnPlunderQty3;
-    private jwinforms.Button btnPlunderAll2;
-    private jwinforms.Button btnPlunderQty2;
-    private jwinforms.Button btnPlunderAll1;
-    private jwinforms.Button btnPlunderQty1;
-    private jwinforms.Button btnPlunderAll0;
-    private jwinforms.Button btnPlunderQty0;
-    private jwinforms.Label lblTradeCmdty9;
-    private jwinforms.Label lblTradeCmdty8;
-    private jwinforms.Label lblTradeCmdty2;
-    private jwinforms.Label lblTradeCmdty0;
-    private jwinforms.Label lblTradeCmdty1;
-    private jwinforms.Label lblTradeCmdty6;
-    private jwinforms.Label lblTradeCmdty5;
-    private jwinforms.Label lblTradeCmdty4;
-    private jwinforms.Label lblTradeCmdty3;
-    private jwinforms.Label lblTradeCmdty7;
-    private jwinforms.Label lblBaysLabel;
-    private jwinforms.Label lblBays;
-    private jwinforms.Button btnDone;
+    private spacetrader.controls.Button btnPlunderAll9;
+    private spacetrader.controls.Button btnPlunderQty9;
+    private spacetrader.controls.Button btnPlunderAll8;
+    private spacetrader.controls.Button btnPlunderQty8;
+    private spacetrader.controls.Button btnPlunderAll7;
+    private spacetrader.controls.Button btnPlunderQty7;
+    private spacetrader.controls.Button btnPlunderAll6;
+    private spacetrader.controls.Button btnPlunderQty6;
+    private spacetrader.controls.Button btnPlunderAll5;
+    private spacetrader.controls.Button btnPlunderQty5;
+    private spacetrader.controls.Button btnPlunderAll4;
+    private spacetrader.controls.Button btnPlunderQty4;
+    private spacetrader.controls.Button btnPlunderAll3;
+    private spacetrader.controls.Button btnPlunderQty3;
+    private spacetrader.controls.Button btnPlunderAll2;
+    private spacetrader.controls.Button btnPlunderQty2;
+    private spacetrader.controls.Button btnPlunderAll1;
+    private spacetrader.controls.Button btnPlunderQty1;
+    private spacetrader.controls.Button btnPlunderAll0;
+    private spacetrader.controls.Button btnPlunderQty0;
+    private spacetrader.controls.Label lblTradeCmdty9;
+    private spacetrader.controls.Label lblTradeCmdty8;
+    private spacetrader.controls.Label lblTradeCmdty2;
+    private spacetrader.controls.Label lblTradeCmdty0;
+    private spacetrader.controls.Label lblTradeCmdty1;
+    private spacetrader.controls.Label lblTradeCmdty6;
+    private spacetrader.controls.Label lblTradeCmdty5;
+    private spacetrader.controls.Label lblTradeCmdty4;
+    private spacetrader.controls.Label lblTradeCmdty3;
+    private spacetrader.controls.Label lblTradeCmdty7;
+    private spacetrader.controls.Label lblBaysLabel;
+    private spacetrader.controls.Label lblBays;
+    private spacetrader.controls.Button btnDone;
 
     //#endregion
 
     //#region Member Declarations
-    private jwinforms.Button btnJettison;
+    private spacetrader.controls.Button btnJettison;
 
     //#endregion
 
@@ -87,7 +87,7 @@ public class FormPlunder extends SpaceTraderForm {
     public FormPlunder() {
         initializeComponent();
 
-        //#region Arrays of Cargo controls
+        //#region Arrays of Cargo spacetrader.controls
         btnPlunderQty = new Button[]{btnPlunderQty0, btnPlunderQty1, btnPlunderQty2, btnPlunderQty3, btnPlunderQty4,
                 btnPlunderQty5, btnPlunderQty6, btnPlunderQty7, btnPlunderQty8, btnPlunderQty9};
 
@@ -104,338 +104,338 @@ public class FormPlunder extends SpaceTraderForm {
     /// the contents of this method with the code editor.
     /// </summary>
     private void initializeComponent() {
-        btnPlunderAll9 = new jwinforms.Button();
-        btnPlunderQty9 = new jwinforms.Button();
-        btnPlunderAll8 = new jwinforms.Button();
-        btnPlunderQty8 = new jwinforms.Button();
-        btnPlunderAll7 = new jwinforms.Button();
-        btnPlunderQty7 = new jwinforms.Button();
-        btnPlunderAll6 = new jwinforms.Button();
-        btnPlunderQty6 = new jwinforms.Button();
-        btnPlunderAll5 = new jwinforms.Button();
-        btnPlunderQty5 = new jwinforms.Button();
-        btnPlunderAll4 = new jwinforms.Button();
-        btnPlunderQty4 = new jwinforms.Button();
-        btnPlunderAll3 = new jwinforms.Button();
-        btnPlunderQty3 = new jwinforms.Button();
-        btnPlunderAll2 = new jwinforms.Button();
-        btnPlunderQty2 = new jwinforms.Button();
-        btnPlunderAll1 = new jwinforms.Button();
-        btnPlunderQty1 = new jwinforms.Button();
-        btnPlunderAll0 = new jwinforms.Button();
-        btnPlunderQty0 = new jwinforms.Button();
-        lblTradeCmdty9 = new jwinforms.Label();
-        lblTradeCmdty8 = new jwinforms.Label();
-        lblTradeCmdty2 = new jwinforms.Label();
-        lblTradeCmdty0 = new jwinforms.Label();
-        lblTradeCmdty1 = new jwinforms.Label();
-        lblTradeCmdty6 = new jwinforms.Label();
-        lblTradeCmdty5 = new jwinforms.Label();
-        lblTradeCmdty4 = new jwinforms.Label();
-        lblTradeCmdty3 = new jwinforms.Label();
-        lblTradeCmdty7 = new jwinforms.Label();
-        lblBaysLabel = new jwinforms.Label();
-        lblBays = new jwinforms.Label();
-        btnDone = new jwinforms.Button();
-        btnJettison = new jwinforms.Button();
+        btnPlunderAll9 = new spacetrader.controls.Button();
+        btnPlunderQty9 = new spacetrader.controls.Button();
+        btnPlunderAll8 = new spacetrader.controls.Button();
+        btnPlunderQty8 = new spacetrader.controls.Button();
+        btnPlunderAll7 = new spacetrader.controls.Button();
+        btnPlunderQty7 = new spacetrader.controls.Button();
+        btnPlunderAll6 = new spacetrader.controls.Button();
+        btnPlunderQty6 = new spacetrader.controls.Button();
+        btnPlunderAll5 = new spacetrader.controls.Button();
+        btnPlunderQty5 = new spacetrader.controls.Button();
+        btnPlunderAll4 = new spacetrader.controls.Button();
+        btnPlunderQty4 = new spacetrader.controls.Button();
+        btnPlunderAll3 = new spacetrader.controls.Button();
+        btnPlunderQty3 = new spacetrader.controls.Button();
+        btnPlunderAll2 = new spacetrader.controls.Button();
+        btnPlunderQty2 = new spacetrader.controls.Button();
+        btnPlunderAll1 = new spacetrader.controls.Button();
+        btnPlunderQty1 = new spacetrader.controls.Button();
+        btnPlunderAll0 = new spacetrader.controls.Button();
+        btnPlunderQty0 = new spacetrader.controls.Button();
+        lblTradeCmdty9 = new spacetrader.controls.Label();
+        lblTradeCmdty8 = new spacetrader.controls.Label();
+        lblTradeCmdty2 = new spacetrader.controls.Label();
+        lblTradeCmdty0 = new spacetrader.controls.Label();
+        lblTradeCmdty1 = new spacetrader.controls.Label();
+        lblTradeCmdty6 = new spacetrader.controls.Label();
+        lblTradeCmdty5 = new spacetrader.controls.Label();
+        lblTradeCmdty4 = new spacetrader.controls.Label();
+        lblTradeCmdty3 = new spacetrader.controls.Label();
+        lblTradeCmdty7 = new spacetrader.controls.Label();
+        lblBaysLabel = new spacetrader.controls.Label();
+        lblBays = new spacetrader.controls.Label();
+        btnDone = new spacetrader.controls.Button();
+        btnJettison = new spacetrader.controls.Button();
         this.suspendLayout();
         //
         // btnPlunderAll9
         //
-        btnPlunderAll9.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll9.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll9.setLocation(new java.awt.Point(100, 220));
         btnPlunderAll9.setName("btnPlunderAll9");
-        btnPlunderAll9.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll9.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll9.setTabIndex(141);
         btnPlunderAll9.setText("All");
         btnPlunderAll9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty9
         //
-        btnPlunderQty9.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty9.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty9.setLocation(new java.awt.Point(68, 220));
         btnPlunderQty9.setName("btnPlunderQty9");
-        btnPlunderQty9.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty9.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty9.setTabIndex(140);
         btnPlunderQty9.setText("88");
         btnPlunderQty9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll8
         //
-        btnPlunderAll8.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll8.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll8.setLocation(new java.awt.Point(100, 196));
         btnPlunderAll8.setName("btnPlunderAll8");
-        btnPlunderAll8.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll8.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll8.setTabIndex(139);
         btnPlunderAll8.setText("All");
         btnPlunderAll8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty8
         //
-        btnPlunderQty8.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty8.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty8.setLocation(new java.awt.Point(68, 196));
         btnPlunderQty8.setName("btnPlunderQty8");
-        btnPlunderQty8.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty8.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty8.setTabIndex(138);
         btnPlunderQty8.setText("88");
         btnPlunderQty8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll7
         //
-        btnPlunderAll7.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll7.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll7.setLocation(new java.awt.Point(100, 172));
         btnPlunderAll7.setName("btnPlunderAll7");
-        btnPlunderAll7.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll7.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll7.setTabIndex(137);
         btnPlunderAll7.setText("All");
         btnPlunderAll7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty7
         //
-        btnPlunderQty7.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty7.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty7.setLocation(new java.awt.Point(68, 172));
         btnPlunderQty7.setName("btnPlunderQty7");
-        btnPlunderQty7.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty7.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty7.setTabIndex(136);
         btnPlunderQty7.setText("88");
         btnPlunderQty7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll6
         //
-        btnPlunderAll6.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll6.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll6.setLocation(new java.awt.Point(100, 148));
         btnPlunderAll6.setName("btnPlunderAll6");
-        btnPlunderAll6.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll6.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll6.setTabIndex(135);
         btnPlunderAll6.setText("All");
         btnPlunderAll6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty6
         //
-        btnPlunderQty6.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty6.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty6.setLocation(new java.awt.Point(68, 148));
         btnPlunderQty6.setName("btnPlunderQty6");
-        btnPlunderQty6.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty6.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty6.setTabIndex(134);
         btnPlunderQty6.setText("88");
         btnPlunderQty6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll5
         //
-        btnPlunderAll5.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll5.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll5.setLocation(new java.awt.Point(100, 124));
         btnPlunderAll5.setName("btnPlunderAll5");
-        btnPlunderAll5.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll5.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll5.setTabIndex(133);
         btnPlunderAll5.setText("All");
         btnPlunderAll5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty5
         //
-        btnPlunderQty5.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty5.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty5.setLocation(new java.awt.Point(68, 124));
         btnPlunderQty5.setName("btnPlunderQty5");
-        btnPlunderQty5.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty5.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty5.setTabIndex(132);
         btnPlunderQty5.setText("88");
         btnPlunderQty5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll4
         //
-        btnPlunderAll4.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll4.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll4.setLocation(new java.awt.Point(100, 100));
         btnPlunderAll4.setName("btnPlunderAll4");
-        btnPlunderAll4.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll4.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll4.setTabIndex(131);
         btnPlunderAll4.setText("All");
         btnPlunderAll4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty4
         //
-        btnPlunderQty4.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty4.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty4.setLocation(new java.awt.Point(68, 100));
         btnPlunderQty4.setName("btnPlunderQty4");
-        btnPlunderQty4.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty4.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty4.setTabIndex(130);
         btnPlunderQty4.setText("88");
         btnPlunderQty4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll3
         //
-        btnPlunderAll3.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll3.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll3.setLocation(new java.awt.Point(100, 76));
         btnPlunderAll3.setName("btnPlunderAll3");
-        btnPlunderAll3.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll3.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll3.setTabIndex(129);
         btnPlunderAll3.setText("All");
         btnPlunderAll3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty3
         //
-        btnPlunderQty3.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty3.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty3.setLocation(new java.awt.Point(68, 76));
         btnPlunderQty3.setName("btnPlunderQty3");
-        btnPlunderQty3.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty3.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty3.setTabIndex(128);
         btnPlunderQty3.setText("88");
         btnPlunderQty3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll2
         //
-        btnPlunderAll2.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll2.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll2.setLocation(new java.awt.Point(100, 52));
         btnPlunderAll2.setName("btnPlunderAll2");
-        btnPlunderAll2.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll2.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll2.setTabIndex(127);
         btnPlunderAll2.setText("All");
         btnPlunderAll2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty2
         //
-        btnPlunderQty2.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty2.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty2.setLocation(new java.awt.Point(68, 52));
         btnPlunderQty2.setName("btnPlunderQty2");
-        btnPlunderQty2.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty2.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty2.setTabIndex(126);
         btnPlunderQty2.setText("88");
         btnPlunderQty2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll1
         //
-        btnPlunderAll1.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll1.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll1.setLocation(new java.awt.Point(100, 28));
         btnPlunderAll1.setName("btnPlunderAll1");
-        btnPlunderAll1.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll1.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll1.setTabIndex(125);
         btnPlunderAll1.setText("All");
         btnPlunderAll1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty1
         //
-        btnPlunderQty1.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty1.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty1.setLocation(new java.awt.Point(68, 28));
         btnPlunderQty1.setName("btnPlunderQty1");
-        btnPlunderQty1.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty1.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty1.setTabIndex(124);
         btnPlunderQty1.setText("88");
         btnPlunderQty1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderAll0
         //
-        btnPlunderAll0.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderAll0.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderAll0.setLocation(new java.awt.Point(100, 4));
         btnPlunderAll0.setName("btnPlunderAll0");
-        btnPlunderAll0.setSize(new jwinforms.Size(32, 22));
+        btnPlunderAll0.setSize(new spacetrader.controls.Size(32, 22));
         btnPlunderAll0.setTabIndex(123);
         btnPlunderAll0.setText("All");
         btnPlunderAll0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
         //
         // btnPlunderQty0
         //
-        btnPlunderQty0.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPlunderQty0.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnPlunderQty0.setLocation(new java.awt.Point(68, 4));
         btnPlunderQty0.setName("btnPlunderQty0");
-        btnPlunderQty0.setSize(new jwinforms.Size(28, 22));
+        btnPlunderQty0.setSize(new spacetrader.controls.Size(28, 22));
         btnPlunderQty0.setTabIndex(122);
         btnPlunderQty0.setText("88");
         btnPlunderQty0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPlunder_Click(sender, e);
             }
         });
@@ -445,7 +445,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty9.setAutoSize(true);
         lblTradeCmdty9.setLocation(new java.awt.Point(8, 224));
         lblTradeCmdty9.setName("lblTradeCmdty9");
-        lblTradeCmdty9.setSize(new jwinforms.Size(41, 13));
+        lblTradeCmdty9.setSize(new spacetrader.controls.Size(41, 13));
         lblTradeCmdty9.setTabIndex(151);
         lblTradeCmdty9.setText("Robots");
         //
@@ -454,7 +454,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty8.setAutoSize(true);
         lblTradeCmdty8.setLocation(new java.awt.Point(8, 200));
         lblTradeCmdty8.setName("lblTradeCmdty8");
-        lblTradeCmdty8.setSize(new jwinforms.Size(52, 13));
+        lblTradeCmdty8.setSize(new spacetrader.controls.Size(52, 13));
         lblTradeCmdty8.setTabIndex(150);
         lblTradeCmdty8.setText("Narcotics");
         //
@@ -463,7 +463,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty2.setAutoSize(true);
         lblTradeCmdty2.setLocation(new java.awt.Point(8, 56));
         lblTradeCmdty2.setName("lblTradeCmdty2");
-        lblTradeCmdty2.setSize(new jwinforms.Size(31, 13));
+        lblTradeCmdty2.setSize(new spacetrader.controls.Size(31, 13));
         lblTradeCmdty2.setTabIndex(149);
         lblTradeCmdty2.setText("Food");
         //
@@ -472,7 +472,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty0.setAutoSize(true);
         lblTradeCmdty0.setLocation(new java.awt.Point(8, 8));
         lblTradeCmdty0.setName("lblTradeCmdty0");
-        lblTradeCmdty0.setSize(new jwinforms.Size(36, 13));
+        lblTradeCmdty0.setSize(new spacetrader.controls.Size(36, 13));
         lblTradeCmdty0.setTabIndex(148);
         lblTradeCmdty0.setText("Water");
         //
@@ -481,7 +481,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty1.setAutoSize(true);
         lblTradeCmdty1.setLocation(new java.awt.Point(8, 32));
         lblTradeCmdty1.setName("lblTradeCmdty1");
-        lblTradeCmdty1.setSize(new jwinforms.Size(27, 13));
+        lblTradeCmdty1.setSize(new spacetrader.controls.Size(27, 13));
         lblTradeCmdty1.setTabIndex(147);
         lblTradeCmdty1.setText("Furs");
         //
@@ -490,7 +490,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty6.setAutoSize(true);
         lblTradeCmdty6.setLocation(new java.awt.Point(8, 152));
         lblTradeCmdty6.setName("lblTradeCmdty6");
-        lblTradeCmdty6.setSize(new jwinforms.Size(50, 13));
+        lblTradeCmdty6.setSize(new spacetrader.controls.Size(50, 13));
         lblTradeCmdty6.setTabIndex(146);
         lblTradeCmdty6.setText("Medicine");
         //
@@ -499,7 +499,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty5.setAutoSize(true);
         lblTradeCmdty5.setLocation(new java.awt.Point(8, 128));
         lblTradeCmdty5.setName("lblTradeCmdty5");
-        lblTradeCmdty5.setSize(new jwinforms.Size(46, 13));
+        lblTradeCmdty5.setSize(new spacetrader.controls.Size(46, 13));
         lblTradeCmdty5.setTabIndex(145);
         lblTradeCmdty5.setText("Firearms");
         //
@@ -508,7 +508,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty4.setAutoSize(true);
         lblTradeCmdty4.setLocation(new java.awt.Point(8, 104));
         lblTradeCmdty4.setName("lblTradeCmdty4");
-        lblTradeCmdty4.setSize(new jwinforms.Size(40, 13));
+        lblTradeCmdty4.setSize(new spacetrader.controls.Size(40, 13));
         lblTradeCmdty4.setTabIndex(144);
         lblTradeCmdty4.setText("Games");
         //
@@ -517,7 +517,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty3.setAutoSize(true);
         lblTradeCmdty3.setLocation(new java.awt.Point(8, 80));
         lblTradeCmdty3.setName("lblTradeCmdty3");
-        lblTradeCmdty3.setSize(new jwinforms.Size(24, 13));
+        lblTradeCmdty3.setSize(new spacetrader.controls.Size(24, 13));
         lblTradeCmdty3.setTabIndex(143);
         lblTradeCmdty3.setText("Ore");
         //
@@ -526,7 +526,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblTradeCmdty7.setAutoSize(true);
         lblTradeCmdty7.setLocation(new java.awt.Point(8, 176));
         lblTradeCmdty7.setName("lblTradeCmdty7");
-        lblTradeCmdty7.setSize(new jwinforms.Size(53, 13));
+        lblTradeCmdty7.setSize(new spacetrader.controls.Size(53, 13));
         lblTradeCmdty7.setTabIndex(142);
         lblTradeCmdty7.setText("Machines");
         //
@@ -535,7 +535,7 @@ public class FormPlunder extends SpaceTraderForm {
         lblBaysLabel.setAutoSize(true);
         lblBaysLabel.setLocation(new java.awt.Point(144, 8));
         lblBaysLabel.setName("lblBaysLabel");
-        lblBaysLabel.setSize(new jwinforms.Size(33, 13));
+        lblBaysLabel.setSize(new spacetrader.controls.Size(33, 13));
         lblBaysLabel.setTabIndex(152);
         lblBaysLabel.setText("Bays:");
         //
@@ -543,31 +543,31 @@ public class FormPlunder extends SpaceTraderForm {
         //
         lblBays.setLocation(new java.awt.Point(176, 8));
         lblBays.setName("lblBays");
-        lblBays.setSize(new jwinforms.Size(48, 13));
+        lblBays.setSize(new spacetrader.controls.Size(48, 13));
         lblBays.setTabIndex(153);
         lblBays.setText("888/888");
         //
         // btnDone
         //
         btnDone.setDialogResult(DialogResult.Cancel);
-        btnDone.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnDone.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnDone.setLocation(new java.awt.Point(87, 252));
         btnDone.setName("btnDone");
-        btnDone.setSize(new jwinforms.Size(44, 22));
+        btnDone.setSize(new spacetrader.controls.Size(44, 22));
         btnDone.setTabIndex(154);
         btnDone.setText("Done");
         //
         // btnJettison
         //
-        btnJettison.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnJettison.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnJettison.setLocation(new java.awt.Point(150, 24));
         btnJettison.setName("btnJettison");
-        btnJettison.setSize(new jwinforms.Size(53, 22));
+        btnJettison.setSize(new spacetrader.controls.Size(53, 22));
         btnJettison.setTabIndex(155);
         btnJettison.setText("Jettison");
         btnJettison.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnJettison_Click(sender, e);
             }
         });
@@ -575,9 +575,9 @@ public class FormPlunder extends SpaceTraderForm {
         // FormPlunder
         //
         this.setAcceptButton(btnDone);
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnDone);
-        this.setClientSize(new jwinforms.Size(230, 283));
+        this.setClientSize(new spacetrader.controls.Size(230, 283));
         Controls.add(btnJettison);
         Controls.add(btnDone);
         Controls.add(lblBays);

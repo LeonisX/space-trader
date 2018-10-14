@@ -12,7 +12,7 @@ public (\w++)\s(\w++)\s*\{\s*get\s*(\{\s*[^\}]*})\s*\}
 
 package spacetrader;
 import spacetrader.stub.*;import spacetrader.util.*;
-import spacetrader.enums.*;
+import spacetrader.game.enums.*;
 
 
 \+\= new spacetrader\.winforms\.LinkLabelLinkClickedEventHandler\(this\.(FormAlert_Click)\)\;

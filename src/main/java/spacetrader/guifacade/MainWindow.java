@@ -1,6 +1,6 @@
 package spacetrader.guifacade;
 
-import spacetrader.Game;
+import spacetrader.game.Game;
 
 /**
  * Marks the abilities of the game's main window.

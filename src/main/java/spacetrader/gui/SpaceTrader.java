@@ -20,32 +20,28 @@
 
 package spacetrader.gui;
 
-import jwinforms.*;
-import jwinforms.Container;
-import jwinforms.Icon;
-import jwinforms.Image;
-import jwinforms.MenuItem;
-import spacetrader.*;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.GameEndType;
-import spacetrader.enums.ShipType;
+import spacetrader.controls.*;
+import spacetrader.controls.Container;
+import spacetrader.controls.Icon;
+import spacetrader.controls.Image;
+import spacetrader.controls.MenuItem;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.GameEndType;
+import spacetrader.game.enums.ShipType;
+import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
 import spacetrader.stub.RegistryKey;
-import spacetrader.util.StringsMap;
-import spacetrader.util.ValuesMap;
-import util.PropertiesLoader;
+import spacetrader.stub.StringsMap;
+import spacetrader.stub.ValuesMap;
+import spacetrader.stub.PropertiesLoader;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.Label;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
-import static jwinforms.MenuItem.separator;
+import static spacetrader.controls.MenuItem.separator;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
 
@@ -113,6 +109,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         System.out.println("===================");
 
         ddd2(getFrame(), this.getName());
+
+        //ddd3(getFrame(), this.getName());
+        //ddd4(getFrame(), this.getName());
     }
 
     private void initializeComponent() {
@@ -135,10 +134,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         //this.suspendLayout();
 
-
-        //
-        // SpaceTrader
-        //
         this.setClientSize(dimensions.getSize(this.getName()));
         controls.add(picLine);
         controls.add(dockBox);
@@ -158,13 +153,13 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         this.setMaximizeBox(false);
         this.setStartPosition(FormStartPosition.Manual);
         this.setText(strings.get(this.getName() + ".title"));
-        this.setClosing(new jwinforms.EventHandler<Object, CancelEventArgs>() {
+        this.setClosing(new spacetrader.controls.EventHandler<Object, CancelEventArgs>() {
             @Override
             public void handle(Object sender, CancelEventArgs e) {
                 SpaceTrader_Closing(e);
             }
         });
-        this.setClosed(new jwinforms.EventHandler<Object, EventArgs>() {
+        this.setClosed(new spacetrader.controls.EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 SpaceTrader_Closed();
@@ -210,16 +205,16 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         component.getLocation();
 
         if (component instanceof AbstractButton) {
-            System.out.println(fff(prefix) + ".text=" + ((AbstractButton) component).getText());
+            sout(fff(prefix) + ".text", ((AbstractButton) component).getText());
         }
         if (component instanceof JLabel) {
-            System.out.println(fff(prefix) + ".text=" + ((JLabel) component).getText());
+            sout(fff(prefix) + ".text", ((JLabel) component).getText());
         }
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            System.out.println(fff(prefix) + ".title=" + ((TitledBorder)((JPanel) component).getBorder()).getTitle());
+            sout(fff(prefix) + ".title", ((TitledBorder)((JPanel) component).getBorder()).getTitle());
         }
         if (component instanceof JFrame) {
-            System.out.println(fff(prefix) + ".title=" + ((JFrame) component).getTitle());
+            sout(fff(prefix) + ".title", ((JFrame) component).getTitle());
         }
 
         if (component instanceof JMenu) {
@@ -235,19 +230,71 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 ddd2(child, prefix + "." + name);
             }
         }
+    }
 
-        //component.setSize(dimensions.getSize(component.getName()));
-        //if (!(component instanceof WinformWindow)) {
-        //component.setLocation(dimensions.getLocation(component.getName()));
-        //}
+    private void sout(String key, String value) {
+        //TODO button names
+        if (!value.isEmpty() && !key.contains("btnBuyQty") && !key.contains("btnSellQty")) {
+            System.out.println(key + "=" + value);
+        }
+    }
 
-        /*if (component instanceof WinformWindow) {
-            ((WinformWindow) component).setTitle(strings.getTitle(component.getName()));
-        }*/
+    void ddd3(Component component, String prefix) {
+        if (component.getName() != null && !component.getName().startsWith("null.")) {
+            double scale = 1.5;
+            //TODO delete
+            if (dimensions.get(fff(prefix) + ".width") != null) {
+                Dimension dimension = dimensions.getSize(fff(prefix));
+                dimension.setSize(dimension.getWidth() * scale, dimension.getHeight() * scale);
+                component.setSize(dimension);
+                if (!(component instanceof JFrame)) {
+                    Point point = dimensions.getLocation(fff(prefix));
+                    point.setLocation(point.getX() * scale, point.getY() * scale);
+                    component.setLocation(point);
+                }
+            } else {
+                System.out.println("!!!" + prefix);
+            }
+        }
+        if (component instanceof java.awt.Container) {
+            for (Component child: ((java.awt.Container) component).getComponents()) {
+                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+                ddd3(child, prefix + "." + name);
+            }
+        }
+    }
 
-        /*if (component instanceof AbstractButton) {
-            ((AbstractButton) component).setText(strings.getText(component.getName()));
-        }*/
+
+    void ddd4(Component component, String prefix) {
+        if (component instanceof JFrame) {
+            ((JFrame) component).setTitle(strings.getTitle(fff(prefix)));
+        }
+
+        if (component instanceof AbstractButton) {
+            ((AbstractButton) component).setText(strings.getText(fff(prefix)));
+        }
+
+        if (component instanceof JLabel) {
+            ((JLabel) component).setText(strings.getText(fff(prefix)));
+        }
+
+        if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
+            ((TitledBorder)((JPanel) component).getBorder()).setTitle(strings.getTitle(fff(prefix)));
+        }
+
+        if (component instanceof JMenu) {
+            for (Component child: ((JMenu) component).getMenuComponents()) {
+                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+                ddd4(child, prefix + "." + name);
+            }
+        }
+
+        if (component instanceof java.awt.Container) {
+            for (Component child: ((java.awt.Container) component).getComponents()) {
+                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+                ddd4(child, prefix + "." + name);
+            }
+        }
     }
 
     private void initializeMenu() {
@@ -473,7 +520,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void initializePicLine() {
         picLine = new PictureBox();
-        picLine.setBackColor(Color.darkGray);
+        picLine.setBackground(Color.darkGray);
         picLine.setLocation(new Point(0, 0));
         picLine.setName("picLine");
         picLine.setSize(new Size(770, 1));
@@ -583,7 +630,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         shortRangeChart.Refresh();
     }
 
-    private void SpaceTrader_Closing(jwinforms.CancelEventArgs e) {
+    private void SpaceTrader_Closing(spacetrader.controls.CancelEventArgs e) {
         if (game == null || commander.getDays() == controller.SaveGameDays
                 || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.Yes) {
             if (windowState == FormWindowState.Normal) {

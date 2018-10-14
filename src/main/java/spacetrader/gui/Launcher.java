@@ -1,7 +1,7 @@
 package spacetrader.gui;
 
-import jwinforms.DialogResult;
-import jwinforms.WinformForm;
+import spacetrader.controls.DialogResult;
+import spacetrader.controls.WinformForm;
 
 import javax.swing.*;
 

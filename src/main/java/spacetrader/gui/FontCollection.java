@@ -1,8 +1,8 @@
 package spacetrader.gui;
 
-import jwinforms.Font;
-import jwinforms.FontStyle;
-import jwinforms.GraphicsUnit;
+import spacetrader.controls.Font;
+import spacetrader.controls.FontStyle;
+import spacetrader.controls.GraphicsUnit;
 
 /**
  * @author Aviv

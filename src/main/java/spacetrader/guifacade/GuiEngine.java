@@ -1,7 +1,7 @@
 package spacetrader.guifacade;
 
-import jwinforms.Image;
-import jwinforms.ImageList;
+import spacetrader.controls.Image;
+import spacetrader.controls.ImageList;
 
 /**
  * Install your GUI implementation here. At run-time. todo install default implementation

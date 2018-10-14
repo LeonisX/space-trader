@@ -30,11 +30,11 @@
 
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.Consts;
-import spacetrader.SpecialEvent;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.SpecialEventType;
+import spacetrader.controls.*;
+import spacetrader.game.Consts;
+import spacetrader.game.SpecialEvent;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.SpecialEventType;
 import spacetrader.guifacade.GuiFacade;
 
 import java.util.Arrays;
@@ -42,20 +42,20 @@ import java.util.Arrays;
 public class FormTest extends SpaceTraderForm {
     //#region Control Declarations
 
-    private jwinforms.Label lblAlertType;
-    private jwinforms.GroupBox boxAlert;
-    private jwinforms.Label lblValue2;
-    private jwinforms.Label lblValue1;
-    private jwinforms.Label lblValue3;
-    private jwinforms.ComboBox selAlertType;
-    private jwinforms.TextBox txtValue1;
-    private jwinforms.TextBox txtValue2;
-    private jwinforms.TextBox txtValue3;
-    private jwinforms.GroupBox groupBox1;
-    private jwinforms.Button btnTestAlert;
-    private jwinforms.Button btnTestSpecialEvent;
-    private jwinforms.ComboBox selSpecialEvent;
-    private jwinforms.Label lblSpecialEvent;
+    private spacetrader.controls.Label lblAlertType;
+    private spacetrader.controls.GroupBox boxAlert;
+    private spacetrader.controls.Label lblValue2;
+    private spacetrader.controls.Label lblValue1;
+    private spacetrader.controls.Label lblValue3;
+    private spacetrader.controls.ComboBox selAlertType;
+    private spacetrader.controls.TextBox txtValue1;
+    private spacetrader.controls.TextBox txtValue2;
+    private spacetrader.controls.TextBox txtValue3;
+    private spacetrader.controls.GroupBox groupBox1;
+    private spacetrader.controls.Button btnTestAlert;
+    private spacetrader.controls.Button btnTestSpecialEvent;
+    private spacetrader.controls.ComboBox selSpecialEvent;
+    private spacetrader.controls.Label lblSpecialEvent;
     private Container components = null;
 
     //#endregion
@@ -85,20 +85,20 @@ public class FormTest extends SpaceTraderForm {
     /// the contents of this method with the code editor.
     /// </summary>
     private void initializeComponent() {
-        this.lblAlertType = new jwinforms.Label();
-        this.boxAlert = new jwinforms.GroupBox();
-        this.btnTestAlert = new jwinforms.Button();
-        this.txtValue3 = new jwinforms.TextBox();
-        this.txtValue2 = new jwinforms.TextBox();
-        this.txtValue1 = new jwinforms.TextBox();
-        this.selAlertType = new jwinforms.ComboBox();
-        this.lblValue3 = new jwinforms.Label();
-        this.lblValue1 = new jwinforms.Label();
-        this.lblValue2 = new jwinforms.Label();
-        this.groupBox1 = new jwinforms.GroupBox();
-        this.btnTestSpecialEvent = new jwinforms.Button();
-        this.selSpecialEvent = new jwinforms.ComboBox();
-        this.lblSpecialEvent = new jwinforms.Label();
+        this.lblAlertType = new spacetrader.controls.Label();
+        this.boxAlert = new spacetrader.controls.GroupBox();
+        this.btnTestAlert = new spacetrader.controls.Button();
+        this.txtValue3 = new spacetrader.controls.TextBox();
+        this.txtValue2 = new spacetrader.controls.TextBox();
+        this.txtValue1 = new spacetrader.controls.TextBox();
+        this.selAlertType = new spacetrader.controls.ComboBox();
+        this.lblValue3 = new spacetrader.controls.Label();
+        this.lblValue1 = new spacetrader.controls.Label();
+        this.lblValue2 = new spacetrader.controls.Label();
+        this.groupBox1 = new spacetrader.controls.GroupBox();
+        this.btnTestSpecialEvent = new spacetrader.controls.Button();
+        this.selSpecialEvent = new spacetrader.controls.ComboBox();
+        this.lblSpecialEvent = new spacetrader.controls.Label();
         this.boxAlert.suspendLayout();
         this.groupBox1.suspendLayout();
         this.suspendLayout();
@@ -108,13 +108,13 @@ public class FormTest extends SpaceTraderForm {
         this.lblAlertType.setAutoSize(true);
         this.lblAlertType.setLocation(new java.awt.Point(8, 19));
         this.lblAlertType.setName("lblAlertType");
-        this.lblAlertType.setSize(new jwinforms.Size(56, 13));
+        this.lblAlertType.setSize(new spacetrader.controls.Size(56, 13));
         this.lblAlertType.setTabIndex(0);
         this.lblAlertType.setText("Alert Type");
         //
         // boxAlert
         //
-        this.boxAlert.controls.addAll((new WinformControl[]{
+        this.boxAlert.controls.addAll((new BaseComponent[]{
                 this.btnTestAlert,
                 this.txtValue3,
                 this.txtValue2,
@@ -126,21 +126,21 @@ public class FormTest extends SpaceTraderForm {
                 this.lblAlertType}));
         this.boxAlert.setLocation(new java.awt.Point(8, 8));
         this.boxAlert.setName("boxAlert");
-        this.boxAlert.setSize(new jwinforms.Size(200, 152));
+        this.boxAlert.setSize(new spacetrader.controls.Size(200, 152));
         this.boxAlert.setTabIndex(1);
         this.boxAlert.setTabStop(false);
         this.boxAlert.setText("Test Alert");
         //
         // btnTestAlert
         //
-        this.btnTestAlert.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnTestAlert.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnTestAlert.setLocation(new java.awt.Point(80, 120));
         this.btnTestAlert.setName("btnTestAlert");
-        this.btnTestAlert.setSize(new jwinforms.Size(41, 22));
+        this.btnTestAlert.setSize(new spacetrader.controls.Size(41, 22));
         this.btnTestAlert.setTabIndex(8);
         this.btnTestAlert.setText("Test");
         this.btnTestAlert.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnTestAlert_Click(sender, e);
             }
         });
@@ -149,7 +149,7 @@ public class FormTest extends SpaceTraderForm {
         //
         this.txtValue3.setLocation(new java.awt.Point(72, 88));
         this.txtValue3.setName("txtValue3");
-        this.txtValue3.setSize(new jwinforms.Size(120, 20));
+        this.txtValue3.setSize(new spacetrader.controls.Size(120, 20));
         this.txtValue3.setTabIndex(7);
         this.txtValue3.setText("");
         //
@@ -157,7 +157,7 @@ public class FormTest extends SpaceTraderForm {
         //
         this.txtValue2.setLocation(new java.awt.Point(72, 64));
         this.txtValue2.setName("txtValue2");
-        this.txtValue2.setSize(new jwinforms.Size(120, 20));
+        this.txtValue2.setSize(new spacetrader.controls.Size(120, 20));
         this.txtValue2.setTabIndex(6);
         this.txtValue2.setText("");
         //
@@ -165,16 +165,16 @@ public class FormTest extends SpaceTraderForm {
         //
         this.txtValue1.setLocation(new java.awt.Point(72, 40));
         this.txtValue1.setName("txtValue1");
-        this.txtValue1.setSize(new jwinforms.Size(120, 20));
+        this.txtValue1.setSize(new spacetrader.controls.Size(120, 20));
         this.txtValue1.setTabIndex(5);
         this.txtValue1.setText("");
         //
         // selAlertType
         //
-        this.selAlertType.DropDownStyle = jwinforms.ComboBoxStyle.DropDownList;
+        this.selAlertType.DropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
         this.selAlertType.setLocation(new java.awt.Point(72, 16));
         this.selAlertType.setName("selAlertType");
-        this.selAlertType.setSize(new jwinforms.Size(120, 21));
+        this.selAlertType.setSize(new spacetrader.controls.Size(120, 21));
         this.selAlertType.setTabIndex(4);
         //
         // lblValue3
@@ -182,7 +182,7 @@ public class FormTest extends SpaceTraderForm {
         this.lblValue3.setAutoSize(true);
         this.lblValue3.setLocation(new java.awt.Point(8, 91));
         this.lblValue3.setName("lblValue3");
-        this.lblValue3.setSize(new jwinforms.Size(43, 13));
+        this.lblValue3.setSize(new spacetrader.controls.Size(43, 13));
         this.lblValue3.setTabIndex(3);
         this.lblValue3.setText("Value 3");
         //
@@ -191,7 +191,7 @@ public class FormTest extends SpaceTraderForm {
         this.lblValue1.setAutoSize(true);
         this.lblValue1.setLocation(new java.awt.Point(8, 43));
         this.lblValue1.setName("lblValue1");
-        this.lblValue1.setSize(new jwinforms.Size(43, 13));
+        this.lblValue1.setSize(new spacetrader.controls.Size(43, 13));
         this.lblValue1.setTabIndex(2);
         this.lblValue1.setText("Value 1");
         //
@@ -200,43 +200,43 @@ public class FormTest extends SpaceTraderForm {
         this.lblValue2.setAutoSize(true);
         this.lblValue2.setLocation(new java.awt.Point(8, 67));
         this.lblValue2.setName("lblValue2");
-        this.lblValue2.setSize(new jwinforms.Size(43, 13));
+        this.lblValue2.setSize(new spacetrader.controls.Size(43, 13));
         this.lblValue2.setTabIndex(1);
         this.lblValue2.setText("Value 2");
         //
         // groupBox1
         //
-        this.groupBox1.controls.addAll((new WinformControl[]{
+        this.groupBox1.controls.addAll((new BaseComponent[]{
                 this.btnTestSpecialEvent,
                 this.selSpecialEvent,
                 this.lblSpecialEvent}));
         this.groupBox1.setLocation(new java.awt.Point(8, 168));
         this.groupBox1.setName("groupBox1");
-        this.groupBox1.setSize(new jwinforms.Size(200, 80));
+        this.groupBox1.setSize(new spacetrader.controls.Size(200, 80));
         this.groupBox1.setTabIndex(2);
         this.groupBox1.setTabStop(false);
         this.groupBox1.setText("Test Special Alert");
         //
         // btnTestSpecialEvent
         //
-        this.btnTestSpecialEvent.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnTestSpecialEvent.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnTestSpecialEvent.setLocation(new java.awt.Point(80, 48));
         this.btnTestSpecialEvent.setName("btnTestSpecialEvent");
-        this.btnTestSpecialEvent.setSize(new jwinforms.Size(41, 22));
+        this.btnTestSpecialEvent.setSize(new spacetrader.controls.Size(41, 22));
         this.btnTestSpecialEvent.setTabIndex(8);
         this.btnTestSpecialEvent.setText("Test");
         this.btnTestSpecialEvent.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnTestSpecialEvent_Click(sender, e);
             }
         });
         //
         // selSpecialEvent
         //
-        this.selSpecialEvent.DropDownStyle = jwinforms.ComboBoxStyle.DropDownList;
+        this.selSpecialEvent.DropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
         this.selSpecialEvent.setLocation(new java.awt.Point(88, 16));
         this.selSpecialEvent.setName("selSpecialEvent");
-        this.selSpecialEvent.setSize(new jwinforms.Size(104, 21));
+        this.selSpecialEvent.setSize(new spacetrader.controls.Size(104, 21));
         this.selSpecialEvent.setTabIndex(4);
         //
         // lblSpecialEvent
@@ -244,14 +244,14 @@ public class FormTest extends SpaceTraderForm {
         this.lblSpecialEvent.setAutoSize(true);
         this.lblSpecialEvent.setLocation(new java.awt.Point(8, 19));
         this.lblSpecialEvent.setName("lblSpecialEvent");
-        this.lblSpecialEvent.setSize(new jwinforms.Size(73, 13));
+        this.lblSpecialEvent.setSize(new spacetrader.controls.Size(73, 13));
         this.lblSpecialEvent.setTabIndex(0);
         this.lblSpecialEvent.setText("Special Event");
         //
         // FormTest
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
-        this.setClientSize(new jwinforms.Size(370, 255));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
+        this.setClientSize(new spacetrader.controls.Size(370, 255));
         this.Controls.addAll(Arrays.asList(
                 this.groupBox1,
                 this.boxAlert));

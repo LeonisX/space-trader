@@ -1,10 +1,10 @@
 package spacetrader.gui;
 
-import jwinforms.*;
-import jwinforms.Button;
-import jwinforms.Label;
-import spacetrader.*;
-import spacetrader.enums.AlertType;
+import spacetrader.controls.*;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
@@ -89,30 +89,30 @@ class SystemBox extends GroupBox {
         controls.add(lblSystemNameLabel);
 
         setName("boxSystem");
-        setSize(new jwinforms.Size(240, 206));
+        setSize(new spacetrader.controls.Size(240, 206));
         setTabIndex(1);
         setTabStop(false);
         setText("System Info");
         //
         // btnMerc
         //
-        btnMerc.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnMerc.setFlatStyle(FlatStyle.FLAT);
         btnMerc.setLocation(new Point(118, 174));
         btnMerc.setName("btnMerc");
-        btnMerc.setSize(new jwinforms.Size(112, 22));
+        btnMerc.setSize(new spacetrader.controls.Size(112, 22));
         btnMerc.setTabIndex(3);
         btnMerc.setText("Mercenary For Hire");
         btnMerc.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnMerc_Click();
             }
         });
         //
         // btnSpecial
         //
-        btnSpecial.setBackColor(new Color(255, 255, 128));
-        btnSpecial.setFlatStyle(FlatStyle.Flat);
+        btnSpecial.setBackground(new Color(255, 255, 128));
+        btnSpecial.setFlatStyle(FlatStyle.FLAT);
         btnSpecial.setLocation(new Point(58, 174));
         btnSpecial.setName("btnSpecial");
         btnSpecial.setSize(new Size(52, 22));
@@ -127,7 +127,7 @@ class SystemBox extends GroupBox {
         //
         // btnNews
         //
-        btnNews.setFlatStyle(FlatStyle.Flat);
+        btnNews.setFlatStyle(FlatStyle.FLAT);
         btnNews.setLocation(new Point(8, 174));
         btnNews.setName("btnNews");
         btnNews.setSize(new Size(42, 22));

@@ -30,9 +30,9 @@
 
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.*;
-import spacetrader.enums.AlertType;
+import spacetrader.controls.*;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 
 import java.util.Arrays;
@@ -45,71 +45,71 @@ public class FormShipList extends SpaceTraderForm {
     private final Button[] btnBuy;
     private final Game game = Game.CurrentGame();
     private final int[] prices = new int[Consts.ShipSpecs.length];
-    private jwinforms.Button btnClose;
-    private jwinforms.Button btnBuy0;
-    private jwinforms.Label lblName0;
-    private jwinforms.Button btnInfo0;
-    private jwinforms.Label lblPrice0;
-    private jwinforms.Label lblPrice1;
-    private jwinforms.Button btnInfo1;
-    private jwinforms.Label lblName1;
-    private jwinforms.Button btnBuy1;
-    private jwinforms.Label lblPrice2;
-    private jwinforms.Button btnInfo2;
-    private jwinforms.Label lblName2;
-    private jwinforms.Button btnBuy2;
-    private jwinforms.Label lblPrice3;
-    private jwinforms.Button btnInfo3;
-    private jwinforms.Label lblName3;
-    private jwinforms.Button btnBuy3;
-    private jwinforms.Label lblPrice4;
-    private jwinforms.Button btnInfo4;
-    private jwinforms.Label lblName4;
-    private jwinforms.Button btnBuy4;
-    private jwinforms.Label lblPrice5;
-    private jwinforms.Button btnInfo5;
-    private jwinforms.Label lblName5;
-    private jwinforms.Button btnBuy5;
-    private jwinforms.Label lblPrice6;
-    private jwinforms.Button btnInfo6;
-    private jwinforms.Label lblName6;
-    private jwinforms.Button btnBuy6;
-    private jwinforms.Label lblPrice7;
-    private jwinforms.Button btnInfo7;
-    private jwinforms.Label lblName7;
-    private jwinforms.Button btnBuy7;
-    private jwinforms.Label lblPrice8;
-    private jwinforms.Button btnInfo8;
-    private jwinforms.Label lblName8;
-    private jwinforms.Button btnBuy8;
-    private jwinforms.Label lblPrice9;
-    private jwinforms.Button btnInfo9;
-    private jwinforms.Label lblName9;
-    private jwinforms.Button btnBuy9;
-    private jwinforms.GroupBox boxShipInfo;
-    private jwinforms.Label lblSizeLabel;
-    private jwinforms.Label lblNameLabel;
-    private jwinforms.Label lblBaysLabel;
-    private jwinforms.Label lblRangeLabel;
-    private jwinforms.Label lblHullLabel;
-    private jwinforms.Label lblWeaponLabel;
-    private jwinforms.Label lblShieldLabel;
-    private jwinforms.Label lblCrewLabel;
-    private jwinforms.Label lblGadgetLabel;
-    private jwinforms.PictureBox picShip;
-    private jwinforms.Label lblName;
-    private jwinforms.Label lblSize;
-    private jwinforms.Label lblBays;
-    private jwinforms.Label lblRange;
-    private jwinforms.Label lblHull;
-    private jwinforms.Label lblWeapon;
-    private jwinforms.Label lblShield;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.Button btnBuy0;
+    private spacetrader.controls.Label lblName0;
+    private spacetrader.controls.Button btnInfo0;
+    private spacetrader.controls.Label lblPrice0;
+    private spacetrader.controls.Label lblPrice1;
+    private spacetrader.controls.Button btnInfo1;
+    private spacetrader.controls.Label lblName1;
+    private spacetrader.controls.Button btnBuy1;
+    private spacetrader.controls.Label lblPrice2;
+    private spacetrader.controls.Button btnInfo2;
+    private spacetrader.controls.Label lblName2;
+    private spacetrader.controls.Button btnBuy2;
+    private spacetrader.controls.Label lblPrice3;
+    private spacetrader.controls.Button btnInfo3;
+    private spacetrader.controls.Label lblName3;
+    private spacetrader.controls.Button btnBuy3;
+    private spacetrader.controls.Label lblPrice4;
+    private spacetrader.controls.Button btnInfo4;
+    private spacetrader.controls.Label lblName4;
+    private spacetrader.controls.Button btnBuy4;
+    private spacetrader.controls.Label lblPrice5;
+    private spacetrader.controls.Button btnInfo5;
+    private spacetrader.controls.Label lblName5;
+    private spacetrader.controls.Button btnBuy5;
+    private spacetrader.controls.Label lblPrice6;
+    private spacetrader.controls.Button btnInfo6;
+    private spacetrader.controls.Label lblName6;
+    private spacetrader.controls.Button btnBuy6;
+    private spacetrader.controls.Label lblPrice7;
+    private spacetrader.controls.Button btnInfo7;
+    private spacetrader.controls.Label lblName7;
+    private spacetrader.controls.Button btnBuy7;
+    private spacetrader.controls.Label lblPrice8;
+    private spacetrader.controls.Button btnInfo8;
+    private spacetrader.controls.Label lblName8;
+    private spacetrader.controls.Button btnBuy8;
+    private spacetrader.controls.Label lblPrice9;
+    private spacetrader.controls.Button btnInfo9;
+    private spacetrader.controls.Label lblName9;
+    private spacetrader.controls.Button btnBuy9;
+    private spacetrader.controls.GroupBox boxShipInfo;
+    private spacetrader.controls.Label lblSizeLabel;
+    private spacetrader.controls.Label lblNameLabel;
+    private spacetrader.controls.Label lblBaysLabel;
+    private spacetrader.controls.Label lblRangeLabel;
+    private spacetrader.controls.Label lblHullLabel;
+    private spacetrader.controls.Label lblWeaponLabel;
+    private spacetrader.controls.Label lblShieldLabel;
+    private spacetrader.controls.Label lblCrewLabel;
+    private spacetrader.controls.Label lblGadgetLabel;
+    private spacetrader.controls.PictureBox picShip;
+    private spacetrader.controls.Label lblName;
+    private spacetrader.controls.Label lblSize;
+    private spacetrader.controls.Label lblBays;
+    private spacetrader.controls.Label lblRange;
+    private spacetrader.controls.Label lblHull;
+    private spacetrader.controls.Label lblWeapon;
+    private spacetrader.controls.Label lblShield;
 
     //#endregion
 
     //#region Member Declarations
-    private jwinforms.Label lblGadget;
-    private jwinforms.Label lblCrew;
+    private spacetrader.controls.Label lblGadget;
+    private spacetrader.controls.Label lblCrew;
 
     //#endregion
 
@@ -118,7 +118,7 @@ public class FormShipList extends SpaceTraderForm {
     public FormShipList() {
         initializeComponent();
 
-        //#region Array of controls
+        //#region Array of spacetrader.controls
         lblPrice = new Label[]
                 {
                         lblPrice0,
@@ -164,67 +164,67 @@ public class FormShipList extends SpaceTraderForm {
     /// the contents of this method with the code editor.
     /// </summary>
     private void initializeComponent() {
-        btnClose = new jwinforms.Button();
-        btnBuy0 = new jwinforms.Button();
-        lblName0 = new jwinforms.Label();
-        btnInfo0 = new jwinforms.Button();
-        lblPrice0 = new jwinforms.Label();
-        lblPrice1 = new jwinforms.Label();
-        btnInfo1 = new jwinforms.Button();
-        lblName1 = new jwinforms.Label();
-        btnBuy1 = new jwinforms.Button();
-        lblPrice2 = new jwinforms.Label();
-        btnInfo2 = new jwinforms.Button();
-        lblName2 = new jwinforms.Label();
-        btnBuy2 = new jwinforms.Button();
-        lblPrice3 = new jwinforms.Label();
-        btnInfo3 = new jwinforms.Button();
-        lblName3 = new jwinforms.Label();
-        btnBuy3 = new jwinforms.Button();
-        lblPrice4 = new jwinforms.Label();
-        btnInfo4 = new jwinforms.Button();
-        lblName4 = new jwinforms.Label();
-        btnBuy4 = new jwinforms.Button();
-        lblPrice5 = new jwinforms.Label();
-        btnInfo5 = new jwinforms.Button();
-        lblName5 = new jwinforms.Label();
-        btnBuy5 = new jwinforms.Button();
-        lblPrice6 = new jwinforms.Label();
-        btnInfo6 = new jwinforms.Button();
-        lblName6 = new jwinforms.Label();
-        btnBuy6 = new jwinforms.Button();
-        lblPrice7 = new jwinforms.Label();
-        btnInfo7 = new jwinforms.Button();
-        lblName7 = new jwinforms.Label();
-        btnBuy7 = new jwinforms.Button();
-        lblPrice8 = new jwinforms.Label();
-        btnInfo8 = new jwinforms.Button();
-        lblName8 = new jwinforms.Label();
-        btnBuy8 = new jwinforms.Button();
-        lblPrice9 = new jwinforms.Label();
-        btnInfo9 = new jwinforms.Button();
-        lblName9 = new jwinforms.Label();
-        btnBuy9 = new jwinforms.Button();
-        boxShipInfo = new jwinforms.GroupBox();
-        lblCrew = new jwinforms.Label();
-        lblGadget = new jwinforms.Label();
-        lblShield = new jwinforms.Label();
-        lblWeapon = new jwinforms.Label();
-        lblHull = new jwinforms.Label();
-        lblRange = new jwinforms.Label();
-        lblBays = new jwinforms.Label();
-        lblSize = new jwinforms.Label();
-        lblName = new jwinforms.Label();
-        picShip = new jwinforms.PictureBox();
-        lblGadgetLabel = new jwinforms.Label();
-        lblCrewLabel = new jwinforms.Label();
-        lblShieldLabel = new jwinforms.Label();
-        lblWeaponLabel = new jwinforms.Label();
-        lblHullLabel = new jwinforms.Label();
-        lblRangeLabel = new jwinforms.Label();
-        lblBaysLabel = new jwinforms.Label();
-        lblNameLabel = new jwinforms.Label();
-        lblSizeLabel = new jwinforms.Label();
+        btnClose = new spacetrader.controls.Button();
+        btnBuy0 = new spacetrader.controls.Button();
+        lblName0 = new spacetrader.controls.Label();
+        btnInfo0 = new spacetrader.controls.Button();
+        lblPrice0 = new spacetrader.controls.Label();
+        lblPrice1 = new spacetrader.controls.Label();
+        btnInfo1 = new spacetrader.controls.Button();
+        lblName1 = new spacetrader.controls.Label();
+        btnBuy1 = new spacetrader.controls.Button();
+        lblPrice2 = new spacetrader.controls.Label();
+        btnInfo2 = new spacetrader.controls.Button();
+        lblName2 = new spacetrader.controls.Label();
+        btnBuy2 = new spacetrader.controls.Button();
+        lblPrice3 = new spacetrader.controls.Label();
+        btnInfo3 = new spacetrader.controls.Button();
+        lblName3 = new spacetrader.controls.Label();
+        btnBuy3 = new spacetrader.controls.Button();
+        lblPrice4 = new spacetrader.controls.Label();
+        btnInfo4 = new spacetrader.controls.Button();
+        lblName4 = new spacetrader.controls.Label();
+        btnBuy4 = new spacetrader.controls.Button();
+        lblPrice5 = new spacetrader.controls.Label();
+        btnInfo5 = new spacetrader.controls.Button();
+        lblName5 = new spacetrader.controls.Label();
+        btnBuy5 = new spacetrader.controls.Button();
+        lblPrice6 = new spacetrader.controls.Label();
+        btnInfo6 = new spacetrader.controls.Button();
+        lblName6 = new spacetrader.controls.Label();
+        btnBuy6 = new spacetrader.controls.Button();
+        lblPrice7 = new spacetrader.controls.Label();
+        btnInfo7 = new spacetrader.controls.Button();
+        lblName7 = new spacetrader.controls.Label();
+        btnBuy7 = new spacetrader.controls.Button();
+        lblPrice8 = new spacetrader.controls.Label();
+        btnInfo8 = new spacetrader.controls.Button();
+        lblName8 = new spacetrader.controls.Label();
+        btnBuy8 = new spacetrader.controls.Button();
+        lblPrice9 = new spacetrader.controls.Label();
+        btnInfo9 = new spacetrader.controls.Button();
+        lblName9 = new spacetrader.controls.Label();
+        btnBuy9 = new spacetrader.controls.Button();
+        boxShipInfo = new spacetrader.controls.GroupBox();
+        lblCrew = new spacetrader.controls.Label();
+        lblGadget = new spacetrader.controls.Label();
+        lblShield = new spacetrader.controls.Label();
+        lblWeapon = new spacetrader.controls.Label();
+        lblHull = new spacetrader.controls.Label();
+        lblRange = new spacetrader.controls.Label();
+        lblBays = new spacetrader.controls.Label();
+        lblSize = new spacetrader.controls.Label();
+        lblName = new spacetrader.controls.Label();
+        picShip = new spacetrader.controls.PictureBox();
+        lblGadgetLabel = new spacetrader.controls.Label();
+        lblCrewLabel = new spacetrader.controls.Label();
+        lblShieldLabel = new spacetrader.controls.Label();
+        lblWeaponLabel = new spacetrader.controls.Label();
+        lblHullLabel = new spacetrader.controls.Label();
+        lblRangeLabel = new spacetrader.controls.Label();
+        lblBaysLabel = new spacetrader.controls.Label();
+        lblNameLabel = new spacetrader.controls.Label();
+        lblSizeLabel = new spacetrader.controls.Label();
         boxShipInfo.suspendLayout();
         this.suspendLayout();
         //
@@ -233,23 +233,23 @@ public class FormShipList extends SpaceTraderForm {
         btnClose.setDialogResult(DialogResult.Cancel);
         btnClose.setLocation(new java.awt.Point(-32, -32));
         btnClose.setName("btnClose");
-        btnClose.setSize(new jwinforms.Size(32, 32));
+        btnClose.setSize(new spacetrader.controls.Size(32, 32));
         btnClose.setTabIndex(32);
         btnClose.setTabStop(false);
         btnClose.setText("X");
         //
         // btnBuy0
         //
-        btnBuy0.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy0.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy0.setLocation(new java.awt.Point(8, 8));
         btnBuy0.setName("btnBuy0");
-        btnBuy0.setSize(new jwinforms.Size(35, 22));
+        btnBuy0.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy0.setTabIndex(1);
         btnBuy0.setText("Buy");
         btnBuy0.setVisible(false);
         btnBuy0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -258,21 +258,21 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName0.setLocation(new java.awt.Point(48, 12));
         lblName0.setName("lblName0");
-        lblName0.setSize(new jwinforms.Size(70, 13));
+        lblName0.setSize(new spacetrader.controls.Size(70, 13));
         lblName0.setTabIndex(34);
         lblName0.setText("Flea");
         //
         // btnInfo0
         //
-        btnInfo0.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo0.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo0.setLocation(new java.awt.Point(120, 8));
         btnInfo0.setName("btnInfo0");
-        btnInfo0.setSize(new jwinforms.Size(34, 22));
+        btnInfo0.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo0.setTabIndex(11);
         btnInfo0.setText("Info");
         btnInfo0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -281,7 +281,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice0.setLocation(new java.awt.Point(160, 12));
         lblPrice0.setName("lblPrice0");
-        lblPrice0.setSize(new jwinforms.Size(64, 13));
+        lblPrice0.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice0.setTabIndex(36);
         lblPrice0.setText("-888,888 cr.");
         lblPrice0.TextAlign = ContentAlignment.TopRight;
@@ -290,22 +290,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice1.setLocation(new java.awt.Point(160, 36));
         lblPrice1.setName("lblPrice1");
-        lblPrice1.setSize(new jwinforms.Size(64, 13));
+        lblPrice1.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice1.setTabIndex(40);
         lblPrice1.setText("-888,888 cr.");
         lblPrice1.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo1
         //
-        btnInfo1.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo1.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo1.setLocation(new java.awt.Point(120, 32));
         btnInfo1.setName("btnInfo1");
-        btnInfo1.setSize(new jwinforms.Size(34, 22));
+        btnInfo1.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo1.setTabIndex(12);
         btnInfo1.setText("Info");
         btnInfo1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -314,22 +314,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName1.setLocation(new java.awt.Point(48, 36));
         lblName1.setName("lblName1");
-        lblName1.setSize(new jwinforms.Size(70, 13));
+        lblName1.setSize(new spacetrader.controls.Size(70, 13));
         lblName1.setTabIndex(38);
         lblName1.setText("Gnat");
         //
         // btnBuy1
         //
-        btnBuy1.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy1.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy1.setLocation(new java.awt.Point(8, 32));
         btnBuy1.setName("btnBuy1");
-        btnBuy1.setSize(new jwinforms.Size(35, 22));
+        btnBuy1.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy1.setTabIndex(2);
         btnBuy1.setText("Buy");
         btnBuy1.setVisible(false);
         btnBuy1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -338,22 +338,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice2.setLocation(new java.awt.Point(160, 60));
         lblPrice2.setName("lblPrice2");
-        lblPrice2.setSize(new jwinforms.Size(64, 13));
+        lblPrice2.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice2.setTabIndex(44);
         lblPrice2.setText("-888,888 cr.");
         lblPrice2.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo2
         //
-        btnInfo2.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo2.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo2.setLocation(new java.awt.Point(120, 56));
         btnInfo2.setName("btnInfo2");
-        btnInfo2.setSize(new jwinforms.Size(34, 22));
+        btnInfo2.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo2.setTabIndex(13);
         btnInfo2.setText("Info");
         btnInfo2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -362,22 +362,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName2.setLocation(new java.awt.Point(48, 60));
         lblName2.setName("lblName2");
-        lblName2.setSize(new jwinforms.Size(70, 13));
+        lblName2.setSize(new spacetrader.controls.Size(70, 13));
         lblName2.setTabIndex(42);
         lblName2.setText("Firefly");
         //
         // btnBuy2
         //
-        btnBuy2.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy2.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy2.setLocation(new java.awt.Point(8, 56));
         btnBuy2.setName("btnBuy2");
-        btnBuy2.setSize(new jwinforms.Size(35, 22));
+        btnBuy2.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy2.setTabIndex(3);
         btnBuy2.setText("Buy");
         btnBuy2.setVisible(false);
         btnBuy2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -386,22 +386,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice3.setLocation(new java.awt.Point(160, 84));
         lblPrice3.setName("lblPrice3");
-        lblPrice3.setSize(new jwinforms.Size(64, 13));
+        lblPrice3.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice3.setTabIndex(48);
         lblPrice3.setText("-888,888 cr.");
         lblPrice3.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo3
         //
-        btnInfo3.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo3.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo3.setLocation(new java.awt.Point(120, 80));
         btnInfo3.setName("btnInfo3");
-        btnInfo3.setSize(new jwinforms.Size(34, 22));
+        btnInfo3.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo3.setTabIndex(14);
         btnInfo3.setText("Info");
         btnInfo3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -410,22 +410,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName3.setLocation(new java.awt.Point(48, 84));
         lblName3.setName("lblName3");
-        lblName3.setSize(new jwinforms.Size(70, 13));
+        lblName3.setSize(new spacetrader.controls.Size(70, 13));
         lblName3.setTabIndex(46);
         lblName3.setText("Mosquito");
         //
         // btnBuy3
         //
-        btnBuy3.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy3.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy3.setLocation(new java.awt.Point(8, 80));
         btnBuy3.setName("btnBuy3");
-        btnBuy3.setSize(new jwinforms.Size(35, 22));
+        btnBuy3.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy3.setTabIndex(4);
         btnBuy3.setText("Buy");
         btnBuy3.setVisible(false);
         btnBuy3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -434,22 +434,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice4.setLocation(new java.awt.Point(160, 108));
         lblPrice4.setName("lblPrice4");
-        lblPrice4.setSize(new jwinforms.Size(64, 13));
+        lblPrice4.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice4.setTabIndex(52);
         lblPrice4.setText("-888,888 cr.");
         lblPrice4.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo4
         //
-        btnInfo4.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo4.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo4.setLocation(new java.awt.Point(120, 104));
         btnInfo4.setName("btnInfo4");
-        btnInfo4.setSize(new jwinforms.Size(34, 22));
+        btnInfo4.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo4.setTabIndex(15);
         btnInfo4.setText("Info");
         btnInfo4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -458,22 +458,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName4.setLocation(new java.awt.Point(48, 108));
         lblName4.setName("lblName4");
-        lblName4.setSize(new jwinforms.Size(70, 13));
+        lblName4.setSize(new spacetrader.controls.Size(70, 13));
         lblName4.setTabIndex(50);
         lblName4.setText("Bumblebee");
         //
         // btnBuy4
         //
-        btnBuy4.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy4.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy4.setLocation(new java.awt.Point(8, 104));
         btnBuy4.setName("btnBuy4");
-        btnBuy4.setSize(new jwinforms.Size(35, 22));
+        btnBuy4.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy4.setTabIndex(5);
         btnBuy4.setText("Buy");
         btnBuy4.setVisible(false);
         btnBuy4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -482,22 +482,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice5.setLocation(new java.awt.Point(160, 132));
         lblPrice5.setName("lblPrice5");
-        lblPrice5.setSize(new jwinforms.Size(64, 13));
+        lblPrice5.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice5.setTabIndex(56);
         lblPrice5.setText("got one");
         lblPrice5.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo5
         //
-        btnInfo5.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo5.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo5.setLocation(new java.awt.Point(120, 128));
         btnInfo5.setName("btnInfo5");
-        btnInfo5.setSize(new jwinforms.Size(34, 22));
+        btnInfo5.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo5.setTabIndex(16);
         btnInfo5.setText("Info");
         btnInfo5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -506,22 +506,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName5.setLocation(new java.awt.Point(48, 132));
         lblName5.setName("lblName5");
-        lblName5.setSize(new jwinforms.Size(70, 13));
+        lblName5.setSize(new spacetrader.controls.Size(70, 13));
         lblName5.setTabIndex(54);
         lblName5.setText("Beetle");
         //
         // btnBuy5
         //
-        btnBuy5.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy5.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy5.setLocation(new java.awt.Point(8, 128));
         btnBuy5.setName("btnBuy5");
-        btnBuy5.setSize(new jwinforms.Size(35, 22));
+        btnBuy5.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy5.setTabIndex(6);
         btnBuy5.setText("Buy");
         btnBuy5.setVisible(false);
         btnBuy5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -530,22 +530,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice6.setLocation(new java.awt.Point(160, 156));
         lblPrice6.setName("lblPrice6");
-        lblPrice6.setSize(new jwinforms.Size(64, 13));
+        lblPrice6.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice6.setTabIndex(60);
         lblPrice6.setText("-888,888 cr.");
         lblPrice6.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo6
         //
-        btnInfo6.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo6.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo6.setLocation(new java.awt.Point(120, 152));
         btnInfo6.setName("btnInfo6");
-        btnInfo6.setSize(new jwinforms.Size(34, 22));
+        btnInfo6.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo6.setTabIndex(17);
         btnInfo6.setText("Info");
         btnInfo6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -554,22 +554,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName6.setLocation(new java.awt.Point(48, 156));
         lblName6.setName("lblName6");
-        lblName6.setSize(new jwinforms.Size(70, 13));
+        lblName6.setSize(new spacetrader.controls.Size(70, 13));
         lblName6.setTabIndex(58);
         lblName6.setText("Hornet");
         //
         // btnBuy6
         //
-        btnBuy6.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy6.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy6.setLocation(new java.awt.Point(8, 152));
         btnBuy6.setName("btnBuy6");
-        btnBuy6.setSize(new jwinforms.Size(35, 22));
+        btnBuy6.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy6.setTabIndex(7);
         btnBuy6.setText("Buy");
         btnBuy6.setVisible(false);
         btnBuy6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -578,22 +578,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice7.setLocation(new java.awt.Point(160, 180));
         lblPrice7.setName("lblPrice7");
-        lblPrice7.setSize(new jwinforms.Size(64, 13));
+        lblPrice7.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice7.setTabIndex(64);
         lblPrice7.setText("-888,888 cr.");
         lblPrice7.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo7
         //
-        btnInfo7.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo7.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo7.setLocation(new java.awt.Point(120, 176));
         btnInfo7.setName("btnInfo7");
-        btnInfo7.setSize(new jwinforms.Size(34, 22));
+        btnInfo7.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo7.setTabIndex(18);
         btnInfo7.setText("Info");
         btnInfo7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -602,22 +602,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName7.setLocation(new java.awt.Point(48, 180));
         lblName7.setName("lblName7");
-        lblName7.setSize(new jwinforms.Size(70, 13));
+        lblName7.setSize(new spacetrader.controls.Size(70, 13));
         lblName7.setTabIndex(62);
         lblName7.setText("Grasshopper");
         //
         // btnBuy7
         //
-        btnBuy7.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy7.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy7.setLocation(new java.awt.Point(8, 176));
         btnBuy7.setName("btnBuy7");
-        btnBuy7.setSize(new jwinforms.Size(35, 22));
+        btnBuy7.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy7.setTabIndex(8);
         btnBuy7.setText("Buy");
         btnBuy7.setVisible(false);
         btnBuy7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -626,22 +626,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice8.setLocation(new java.awt.Point(160, 204));
         lblPrice8.setName("lblPrice8");
-        lblPrice8.setSize(new jwinforms.Size(64, 13));
+        lblPrice8.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice8.setTabIndex(68);
         lblPrice8.setText("-888,888 cr.");
         lblPrice8.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo8
         //
-        btnInfo8.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo8.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo8.setLocation(new java.awt.Point(120, 200));
         btnInfo8.setName("btnInfo8");
-        btnInfo8.setSize(new jwinforms.Size(34, 22));
+        btnInfo8.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo8.setTabIndex(19);
         btnInfo8.setText("Info");
         btnInfo8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -650,22 +650,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName8.setLocation(new java.awt.Point(48, 204));
         lblName8.setName("lblName8");
-        lblName8.setSize(new jwinforms.Size(70, 13));
+        lblName8.setSize(new spacetrader.controls.Size(70, 13));
         lblName8.setTabIndex(66);
         lblName8.setText("Termite");
         //
         // btnBuy8
         //
-        btnBuy8.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy8.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy8.setLocation(new java.awt.Point(8, 200));
         btnBuy8.setName("btnBuy8");
-        btnBuy8.setSize(new jwinforms.Size(35, 22));
+        btnBuy8.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy8.setTabIndex(9);
         btnBuy8.setText("Buy");
         btnBuy8.setVisible(false);
         btnBuy8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -674,22 +674,22 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblPrice9.setLocation(new java.awt.Point(160, 228));
         lblPrice9.setName("lblPrice9");
-        lblPrice9.setSize(new jwinforms.Size(64, 13));
+        lblPrice9.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice9.setTabIndex(72);
         lblPrice9.setText("not sold");
         lblPrice9.TextAlign = ContentAlignment.TopRight;
         //
         // btnInfo9
         //
-        btnInfo9.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnInfo9.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnInfo9.setLocation(new java.awt.Point(120, 224));
         btnInfo9.setName("btnInfo9");
-        btnInfo9.setSize(new jwinforms.Size(34, 22));
+        btnInfo9.setSize(new spacetrader.controls.Size(34, 22));
         btnInfo9.setTabIndex(20);
         btnInfo9.setText("Info");
         btnInfo9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
@@ -698,29 +698,29 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName9.setLocation(new java.awt.Point(48, 228));
         lblName9.setName("lblName9");
-        lblName9.setSize(new jwinforms.Size(70, 13));
+        lblName9.setSize(new spacetrader.controls.Size(70, 13));
         lblName9.setTabIndex(70);
         lblName9.setText("Wasp");
         //
         // btnBuy9
         //
-        btnBuy9.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuy9.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnBuy9.setLocation(new java.awt.Point(8, 224));
         btnBuy9.setName("btnBuy9");
-        btnBuy9.setSize(new jwinforms.Size(35, 22));
+        btnBuy9.setSize(new spacetrader.controls.Size(35, 22));
         btnBuy9.setTabIndex(10);
         btnBuy9.setText("Buy");
         btnBuy9.setVisible(false);
         btnBuy9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyInfo_Click(sender, e);
             }
         });
         //
         // boxShipInfo
         //
-        boxShipInfo.controls.addAll((new WinformControl[]{
+        boxShipInfo.controls.addAll((new BaseComponent[]{
                 lblCrew,
                 lblGadget,
                 lblShield,
@@ -742,7 +742,7 @@ public class FormShipList extends SpaceTraderForm {
                 lblSizeLabel}));
         boxShipInfo.setLocation(new java.awt.Point(232, 0));
         boxShipInfo.setName("boxShipInfo");
-        boxShipInfo.setSize(new jwinforms.Size(200, 248));
+        boxShipInfo.setSize(new spacetrader.controls.Size(200, 248));
         boxShipInfo.setTabIndex(73);
         boxShipInfo.setTabStop(false);
         boxShipInfo.setText("Ship Information");
@@ -751,7 +751,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblCrew.setLocation(new java.awt.Point(96, 224));
         lblCrew.setName("lblCrew");
-        lblCrew.setSize(new jwinforms.Size(10, 13));
+        lblCrew.setSize(new spacetrader.controls.Size(10, 13));
         lblCrew.setTabIndex(43);
         lblCrew.setText("8");
         //
@@ -759,7 +759,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblGadget.setLocation(new java.awt.Point(96, 208));
         lblGadget.setName("lblGadget");
-        lblGadget.setSize(new jwinforms.Size(10, 13));
+        lblGadget.setSize(new spacetrader.controls.Size(10, 13));
         lblGadget.setTabIndex(42);
         lblGadget.setText("8");
         //
@@ -767,7 +767,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblShield.setLocation(new java.awt.Point(96, 192));
         lblShield.setName("lblShield");
-        lblShield.setSize(new jwinforms.Size(10, 13));
+        lblShield.setSize(new spacetrader.controls.Size(10, 13));
         lblShield.setTabIndex(41);
         lblShield.setText("8");
         //
@@ -775,7 +775,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblWeapon.setLocation(new java.awt.Point(96, 176));
         lblWeapon.setName("lblWeapon");
-        lblWeapon.setSize(new jwinforms.Size(10, 13));
+        lblWeapon.setSize(new spacetrader.controls.Size(10, 13));
         lblWeapon.setTabIndex(40);
         lblWeapon.setText("8");
         //
@@ -783,7 +783,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblHull.setLocation(new java.awt.Point(96, 160));
         lblHull.setName("lblHull");
-        lblHull.setSize(new jwinforms.Size(23, 13));
+        lblHull.setSize(new spacetrader.controls.Size(23, 13));
         lblHull.setTabIndex(39);
         lblHull.setText("888");
         //
@@ -791,7 +791,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblRange.setLocation(new java.awt.Point(96, 144));
         lblRange.setName("lblRange");
-        lblRange.setSize(new jwinforms.Size(59, 13));
+        lblRange.setSize(new spacetrader.controls.Size(59, 13));
         lblRange.setTabIndex(38);
         lblRange.setText("88 parsecs");
         //
@@ -799,7 +799,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblBays.setLocation(new java.awt.Point(96, 128));
         lblBays.setName("lblBays");
-        lblBays.setSize(new jwinforms.Size(17, 13));
+        lblBays.setSize(new spacetrader.controls.Size(17, 13));
         lblBays.setTabIndex(37);
         lblBays.setText("88");
         //
@@ -807,7 +807,7 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblSize.setLocation(new java.awt.Point(96, 112));
         lblSize.setName("lblSize");
-        lblSize.setSize(new jwinforms.Size(45, 13));
+        lblSize.setSize(new spacetrader.controls.Size(45, 13));
         lblSize.setTabIndex(36);
         lblSize.setText("Medium");
         //
@@ -815,17 +815,17 @@ public class FormShipList extends SpaceTraderForm {
         //
         lblName.setLocation(new java.awt.Point(96, 96));
         lblName.setName("lblName");
-        lblName.setSize(new jwinforms.Size(100, 13));
+        lblName.setSize(new spacetrader.controls.Size(100, 13));
         lblName.setTabIndex(35);
         lblName.setText("Grasshopper");
         //
         // picShip
         //
-        picShip.setBackColor(java.awt.Color.white);
-        picShip.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        picShip.setBackground(java.awt.Color.white);
+        picShip.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         picShip.setLocation(new java.awt.Point(67, 25));
         picShip.setName("picShip");
-        picShip.setSize(new jwinforms.Size(66, 54));
+        picShip.setSize(new spacetrader.controls.Size(66, 54));
         picShip.setTabIndex(12);
         picShip.setTabStop(false);
         //
@@ -835,7 +835,7 @@ public class FormShipList extends SpaceTraderForm {
         lblGadgetLabel.setFont(FontCollection.bold825);
         lblGadgetLabel.setLocation(new java.awt.Point(8, 208));
         lblGadgetLabel.setName("lblGadgetLabel");
-        lblGadgetLabel.setSize(new jwinforms.Size(76, 13));
+        lblGadgetLabel.setSize(new spacetrader.controls.Size(76, 13));
         lblGadgetLabel.setTabIndex(11);
         lblGadgetLabel.setText("Gadget Slots:");
         //
@@ -845,7 +845,7 @@ public class FormShipList extends SpaceTraderForm {
         lblCrewLabel.setFont(FontCollection.bold825);
         lblCrewLabel.setLocation(new java.awt.Point(8, 224));
         lblCrewLabel.setName("lblCrewLabel");
-        lblCrewLabel.setSize(new jwinforms.Size(84, 13));
+        lblCrewLabel.setSize(new spacetrader.controls.Size(84, 13));
         lblCrewLabel.setTabIndex(10);
         lblCrewLabel.setText("Crew Quarters:");
         //
@@ -855,7 +855,7 @@ public class FormShipList extends SpaceTraderForm {
         lblShieldLabel.setFont(FontCollection.bold825);
         lblShieldLabel.setLocation(new java.awt.Point(8, 192));
         lblShieldLabel.setName("lblShieldLabel");
-        lblShieldLabel.setSize(new jwinforms.Size(70, 13));
+        lblShieldLabel.setSize(new spacetrader.controls.Size(70, 13));
         lblShieldLabel.setTabIndex(9);
         lblShieldLabel.setText("Shield Slots:");
         //
@@ -865,7 +865,7 @@ public class FormShipList extends SpaceTraderForm {
         lblWeaponLabel.setFont(FontCollection.bold825);
         lblWeaponLabel.setLocation(new java.awt.Point(8, 176));
         lblWeaponLabel.setName("lblWeaponLabel");
-        lblWeaponLabel.setSize(new jwinforms.Size(81, 13));
+        lblWeaponLabel.setSize(new spacetrader.controls.Size(81, 13));
         lblWeaponLabel.setTabIndex(8);
         lblWeaponLabel.setText("Weapon Slots:");
         //
@@ -875,7 +875,7 @@ public class FormShipList extends SpaceTraderForm {
         lblHullLabel.setFont(FontCollection.bold825);
         lblHullLabel.setLocation(new java.awt.Point(8, 160));
         lblHullLabel.setName("lblHullLabel");
-        lblHullLabel.setSize(new jwinforms.Size(73, 13));
+        lblHullLabel.setSize(new spacetrader.controls.Size(73, 13));
         lblHullLabel.setTabIndex(7);
         lblHullLabel.setText("Hull Strength");
         //
@@ -885,7 +885,7 @@ public class FormShipList extends SpaceTraderForm {
         lblRangeLabel.setFont(FontCollection.bold825);
         lblRangeLabel.setLocation(new java.awt.Point(8, 144));
         lblRangeLabel.setName("lblRangeLabel");
-        lblRangeLabel.setSize(new jwinforms.Size(42, 13));
+        lblRangeLabel.setSize(new spacetrader.controls.Size(42, 13));
         lblRangeLabel.setTabIndex(6);
         lblRangeLabel.setText("Range:");
         //
@@ -895,7 +895,7 @@ public class FormShipList extends SpaceTraderForm {
         lblBaysLabel.setFont(FontCollection.bold825);
         lblBaysLabel.setLocation(new java.awt.Point(8, 128));
         lblBaysLabel.setName("lblBaysLabel");
-        lblBaysLabel.setSize(new jwinforms.Size(69, 13));
+        lblBaysLabel.setSize(new spacetrader.controls.Size(69, 13));
         lblBaysLabel.setTabIndex(5);
         lblBaysLabel.setText("Cargo Bays:");
         //
@@ -905,7 +905,7 @@ public class FormShipList extends SpaceTraderForm {
         lblNameLabel.setFont(FontCollection.bold825);
         lblNameLabel.setLocation(new java.awt.Point(8, 96));
         lblNameLabel.setName("lblNameLabel");
-        lblNameLabel.setSize(new jwinforms.Size(39, 13));
+        lblNameLabel.setSize(new spacetrader.controls.Size(39, 13));
         lblNameLabel.setTabIndex(4);
         lblNameLabel.setText("Name:");
         //
@@ -915,15 +915,15 @@ public class FormShipList extends SpaceTraderForm {
         lblSizeLabel.setFont(FontCollection.bold825);
         lblSizeLabel.setLocation(new java.awt.Point(8, 112));
         lblSizeLabel.setName("lblSizeLabel");
-        lblSizeLabel.setSize(new jwinforms.Size(31, 13));
+        lblSizeLabel.setSize(new spacetrader.controls.Size(31, 13));
         lblSizeLabel.setTabIndex(3);
         lblSizeLabel.setText("Size:");
         //
         // FormShipList
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnClose);
-        this.setClientSize(new jwinforms.Size(438, 255));
+        this.setClientSize(new spacetrader.controls.Size(438, 255));
         Controls.addAll(Arrays.asList(
                 boxShipInfo,
                 lblPrice9,

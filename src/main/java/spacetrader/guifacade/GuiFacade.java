@@ -1,11 +1,11 @@
 package spacetrader.guifacade;
 
-import jwinforms.DialogResult;
-import jwinforms.WinformPane;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.CargoBuyOp;
-import spacetrader.enums.CargoSellOp;
-import spacetrader.enums.EncounterResult;
+import spacetrader.controls.DialogResult;
+import spacetrader.controls.WinformPane;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.CargoBuyOp;
+import spacetrader.game.enums.CargoSellOp;
+import spacetrader.game.enums.EncounterResult;
 import spacetrader.gui.*;
 
 /**

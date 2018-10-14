@@ -1,37 +1,39 @@
 package spacetrader.gui;
 
-import jwinforms.EventArgs;
-import jwinforms.EventHandler;
-import spacetrader.*;
+import spacetrader.controls.AnchorStyles;
+import spacetrader.controls.EventArgs;
+import spacetrader.controls.EventHandler;
+import spacetrader.controls.FlatStyle;
+import spacetrader.game.*;
 
 import java.awt.*;
 
-public class TargetSystemBox extends jwinforms.GroupBox {
+public class TargetSystemBox extends spacetrader.controls.GroupBox {
     private final SpaceTrader mainWindow;
     private SystemTracker game = null;
     private GameController controller = null;
     private Commander commander;
-    private jwinforms.Button btnTrack;
-    private jwinforms.Button btnWarp;
-    private jwinforms.Button btnPrevSystem;
-    private jwinforms.Button btnNextSystem;
-    private jwinforms.Label lblTargetDistance;
-    private jwinforms.Label lblTargetDistanceLabel;
-    private jwinforms.Label lblTargetGovtLabel;
-    private jwinforms.Label lblTargetName;
-    private jwinforms.Label lblTargetNameLabel;
-    private jwinforms.Label lblTargetOutOfRange;
-    private jwinforms.Label lblTargetPirates;
-    private jwinforms.Label lblTargetPiratesLabel;
-    private jwinforms.Label lblTargetPolice;
-    private jwinforms.Label lblTargetPoliceLabel;
-    private jwinforms.Label lblTargetPolSys;
-    private jwinforms.Label lblTargetResource;
-    private jwinforms.Label lblTargetResourceLabel;
-    private jwinforms.Label lblTargetSize;
-    private jwinforms.Label lblTargetTech;
-    private jwinforms.Label lblTargetTechLabel;
-    private jwinforms.Label lblTargetSizeLabel;
+    private spacetrader.controls.Button btnTrack;
+    private spacetrader.controls.Button btnWarp;
+    private spacetrader.controls.Button btnPrevSystem;
+    private spacetrader.controls.Button btnNextSystem;
+    private spacetrader.controls.Label lblTargetDistance;
+    private spacetrader.controls.Label lblTargetDistanceLabel;
+    private spacetrader.controls.Label lblTargetGovtLabel;
+    private spacetrader.controls.Label lblTargetName;
+    private spacetrader.controls.Label lblTargetNameLabel;
+    private spacetrader.controls.Label lblTargetOutOfRange;
+    private spacetrader.controls.Label lblTargetPirates;
+    private spacetrader.controls.Label lblTargetPiratesLabel;
+    private spacetrader.controls.Label lblTargetPolice;
+    private spacetrader.controls.Label lblTargetPoliceLabel;
+    private spacetrader.controls.Label lblTargetPolSys;
+    private spacetrader.controls.Label lblTargetResource;
+    private spacetrader.controls.Label lblTargetResourceLabel;
+    private spacetrader.controls.Label lblTargetSize;
+    private spacetrader.controls.Label lblTargetTech;
+    private spacetrader.controls.Label lblTargetTechLabel;
+    private spacetrader.controls.Label lblTargetSizeLabel;
     public TargetSystemBox(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
     }
@@ -48,29 +50,29 @@ public class TargetSystemBox extends jwinforms.GroupBox {
     }
 
     void initializeComponent() {
-        btnTrack = new jwinforms.Button();
-        btnNextSystem = new jwinforms.Button();
-        btnPrevSystem = new jwinforms.Button();
-        lblTargetOutOfRange = new jwinforms.Label();
-        btnWarp = new jwinforms.Button();
-        lblTargetPolSys = new jwinforms.Label();
-        lblTargetSize = new jwinforms.Label();
-        lblTargetTech = new jwinforms.Label();
-        lblTargetDistance = new jwinforms.Label();
-        lblTargetPirates = new jwinforms.Label();
-        lblTargetPolice = new jwinforms.Label();
-        lblTargetResource = new jwinforms.Label();
-        lblTargetDistanceLabel = new jwinforms.Label();
-        lblTargetPiratesLabel = new jwinforms.Label();
-        lblTargetPoliceLabel = new jwinforms.Label();
-        lblTargetResourceLabel = new jwinforms.Label();
-        lblTargetGovtLabel = new jwinforms.Label();
-        lblTargetTechLabel = new jwinforms.Label();
-        lblTargetSizeLabel = new jwinforms.Label();
-        lblTargetName = new jwinforms.Label();
-        lblTargetNameLabel = new jwinforms.Label();
+        btnTrack = new spacetrader.controls.Button();
+        btnNextSystem = new spacetrader.controls.Button();
+        btnPrevSystem = new spacetrader.controls.Button();
+        lblTargetOutOfRange = new spacetrader.controls.Label();
+        btnWarp = new spacetrader.controls.Button();
+        lblTargetPolSys = new spacetrader.controls.Label();
+        lblTargetSize = new spacetrader.controls.Label();
+        lblTargetTech = new spacetrader.controls.Label();
+        lblTargetDistance = new spacetrader.controls.Label();
+        lblTargetPirates = new spacetrader.controls.Label();
+        lblTargetPolice = new spacetrader.controls.Label();
+        lblTargetResource = new spacetrader.controls.Label();
+        lblTargetDistanceLabel = new spacetrader.controls.Label();
+        lblTargetPiratesLabel = new spacetrader.controls.Label();
+        lblTargetPoliceLabel = new spacetrader.controls.Label();
+        lblTargetResourceLabel = new spacetrader.controls.Label();
+        lblTargetGovtLabel = new spacetrader.controls.Label();
+        lblTargetTechLabel = new spacetrader.controls.Label();
+        lblTargetSizeLabel = new spacetrader.controls.Label();
+        lblTargetName = new spacetrader.controls.Label();
+        lblTargetNameLabel = new spacetrader.controls.Label();
 
-        anchor = (((jwinforms.AnchorStyles.Top_Right)));
+        anchor = (((AnchorStyles.Top_Right)));
         controls.add(btnTrack);
         controls.add(btnNextSystem);
         controls.add(btnPrevSystem);
@@ -93,53 +95,53 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         controls.add(lblTargetName);
         controls.add(lblTargetNameLabel);
         setName("boxTargetSystem");
-        setSize(new jwinforms.Size(216, 168));
+        setSize(new spacetrader.controls.Size(216, 168));
         setTabIndex(7);
         setTabStop(false);
         setText("Target System");
         //
         // btnTrack
         //
-        btnTrack.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnTrack.setFlatStyle(FlatStyle.FLAT);
         btnTrack.setLocation(new Point(160, 140));
         btnTrack.setName("btnTrack");
-        btnTrack.setSize(new jwinforms.Size(44, 22));
+        btnTrack.setSize(new spacetrader.controls.Size(44, 22));
         btnTrack.setTabIndex(60);
         btnTrack.setText("Track");
         btnTrack.setVisible(false);
         btnTrack.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnTrack_Click(sender, e);
             }
         });
         //
         // btnNextSystem
         //
-        btnNextSystem.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnNextSystem.setFlatStyle(FlatStyle.FLAT);
         btnNextSystem.setLocation(new Point(186, 16));
         btnNextSystem.setName("btnNextSystem");
-        btnNextSystem.setSize(new jwinforms.Size(18, 18));
+        btnNextSystem.setSize(new spacetrader.controls.Size(18, 18));
         btnNextSystem.setTabIndex(58);
         btnNextSystem.setText(">");
         btnNextSystem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnNextSystem_Click(sender, e);
             }
         });
         //
         // btnPrevSystem
         //
-        btnPrevSystem.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPrevSystem.setFlatStyle(FlatStyle.FLAT);
         btnPrevSystem.setLocation(new Point(160, 16));
         btnPrevSystem.setName("btnPrevSystem");
-        btnPrevSystem.setSize(new jwinforms.Size(18, 18));
+        btnPrevSystem.setSize(new spacetrader.controls.Size(18, 18));
         btnPrevSystem.setTabIndex(57);
         btnPrevSystem.setText("<");
         btnPrevSystem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPrevSystem_Click(sender, e);
             }
         });
@@ -148,21 +150,21 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetOutOfRange.setLocation(new Point(8, 144));
         lblTargetOutOfRange.setName("lblTargetOutOfRange");
-        lblTargetOutOfRange.setSize(new jwinforms.Size(144, 13));
+        lblTargetOutOfRange.setSize(new spacetrader.controls.Size(144, 13));
         lblTargetOutOfRange.setTabIndex(17);
         lblTargetOutOfRange.setText("This system is out of range.");
         //
         // btnWarp
         //
-        btnWarp.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnWarp.setFlatStyle(FlatStyle.FLAT);
         btnWarp.setLocation(new Point(160, 98));
         btnWarp.setName("btnWarp");
-        btnWarp.setSize(new jwinforms.Size(44, 44));
+        btnWarp.setSize(new spacetrader.controls.Size(44, 44));
         btnWarp.setTabIndex(59);
         btnWarp.setText("Warp");
         btnWarp.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnWarp_Click(sender, e);
             }
         });
@@ -171,7 +173,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetPolSys.setLocation(new Point(88, 64));
         lblTargetPolSys.setName("lblTargetPolSys");
-        lblTargetPolSys.setSize(new jwinforms.Size(91, 13));
+        lblTargetPolSys.setSize(new spacetrader.controls.Size(91, 13));
         lblTargetPolSys.setTabIndex(15);
         lblTargetPolSys.setText("Communist State");
         //
@@ -179,7 +181,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetSize.setLocation(new Point(88, 32));
         lblTargetSize.setName("lblTargetSize");
-        lblTargetSize.setSize(new jwinforms.Size(45, 13));
+        lblTargetSize.setSize(new spacetrader.controls.Size(45, 13));
         lblTargetSize.setTabIndex(14);
         lblTargetSize.setText("Medium");
         //
@@ -187,7 +189,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetTech.setLocation(new Point(88, 48));
         lblTargetTech.setName("lblTargetTech");
-        lblTargetTech.setSize(new jwinforms.Size(82, 13));
+        lblTargetTech.setSize(new spacetrader.controls.Size(82, 13));
         lblTargetTech.setTabIndex(13);
         lblTargetTech.setText("Pre-Agricultural");
         //
@@ -195,7 +197,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetDistance.setLocation(new Point(88, 128));
         lblTargetDistance.setName("lblTargetDistance");
-        lblTargetDistance.setSize(new jwinforms.Size(66, 13));
+        lblTargetDistance.setSize(new spacetrader.controls.Size(66, 13));
         lblTargetDistance.setTabIndex(12);
         lblTargetDistance.setText("888 parsecs");
         //
@@ -203,7 +205,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetPirates.setLocation(new Point(88, 112));
         lblTargetPirates.setName("lblTargetPirates");
-        lblTargetPirates.setSize(new jwinforms.Size(53, 13));
+        lblTargetPirates.setSize(new spacetrader.controls.Size(53, 13));
         lblTargetPirates.setTabIndex(11);
         lblTargetPirates.setText("Abundant");
         //
@@ -211,7 +213,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetPolice.setLocation(new Point(88, 96));
         lblTargetPolice.setName("lblTargetPolice");
-        lblTargetPolice.setSize(new jwinforms.Size(53, 13));
+        lblTargetPolice.setSize(new spacetrader.controls.Size(53, 13));
         lblTargetPolice.setTabIndex(10);
         lblTargetPolice.setText("Abundant");
         //
@@ -219,7 +221,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetResource.setLocation(new Point(88, 80));
         lblTargetResource.setName("lblTargetResource");
-        lblTargetResource.setSize(new jwinforms.Size(105, 13));
+        lblTargetResource.setSize(new spacetrader.controls.Size(105, 13));
         lblTargetResource.setTabIndex(9);
         lblTargetResource.setText("Sweetwater Oceans");
         //
@@ -229,7 +231,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetDistanceLabel.setFont(FontCollection.bold825);
         lblTargetDistanceLabel.setLocation(new Point(8, 128));
         lblTargetDistanceLabel.setName("lblTargetDistanceLabel");
-        lblTargetDistanceLabel.setSize(new jwinforms.Size(53, 16));
+        lblTargetDistanceLabel.setSize(new spacetrader.controls.Size(53, 16));
         lblTargetDistanceLabel.setTabIndex(8);
         lblTargetDistanceLabel.setText("Distance:");
         //
@@ -239,7 +241,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetPiratesLabel.setFont(FontCollection.bold825);
         lblTargetPiratesLabel.setLocation(new Point(8, 112));
         lblTargetPiratesLabel.setName("lblTargetPiratesLabel");
-        lblTargetPiratesLabel.setSize(new jwinforms.Size(44, 16));
+        lblTargetPiratesLabel.setSize(new spacetrader.controls.Size(44, 16));
         lblTargetPiratesLabel.setTabIndex(7);
         lblTargetPiratesLabel.setText("Pirates:");
         //
@@ -249,7 +251,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetPoliceLabel.setFont(FontCollection.bold825);
         lblTargetPoliceLabel.setLocation(new Point(8, 96));
         lblTargetPoliceLabel.setName("lblTargetPoliceLabel");
-        lblTargetPoliceLabel.setSize(new jwinforms.Size(40, 16));
+        lblTargetPoliceLabel.setSize(new spacetrader.controls.Size(40, 16));
         lblTargetPoliceLabel.setTabIndex(6);
         lblTargetPoliceLabel.setText("Police:");
         //
@@ -259,7 +261,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetResourceLabel.setFont(FontCollection.bold825);
         lblTargetResourceLabel.setLocation(new Point(8, 80));
         lblTargetResourceLabel.setName("lblTargetResourceLabel");
-        lblTargetResourceLabel.setSize(new jwinforms.Size(58, 16));
+        lblTargetResourceLabel.setSize(new spacetrader.controls.Size(58, 16));
         lblTargetResourceLabel.setTabIndex(5);
         lblTargetResourceLabel.setText("Resource:");
         //
@@ -269,7 +271,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetGovtLabel.setFont(FontCollection.bold825);
         lblTargetGovtLabel.setLocation(new Point(8, 64));
         lblTargetGovtLabel.setName("lblTargetGovtLabel");
-        lblTargetGovtLabel.setSize(new jwinforms.Size(72, 16));
+        lblTargetGovtLabel.setSize(new spacetrader.controls.Size(72, 16));
         lblTargetGovtLabel.setTabIndex(4);
         lblTargetGovtLabel.setText("Government:");
         //
@@ -279,7 +281,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetTechLabel.setFont(FontCollection.bold825);
         lblTargetTechLabel.setLocation(new Point(8, 48));
         lblTargetTechLabel.setName("lblTargetTechLabel");
-        lblTargetTechLabel.setSize(new jwinforms.Size(65, 16));
+        lblTargetTechLabel.setSize(new spacetrader.controls.Size(65, 16));
         lblTargetTechLabel.setTabIndex(3);
         lblTargetTechLabel.setText("Tech Level:");
         //
@@ -289,7 +291,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetSizeLabel.setFont(FontCollection.bold825);
         lblTargetSizeLabel.setLocation(new Point(8, 32));
         lblTargetSizeLabel.setName("lblTargetSizeLabel");
-        lblTargetSizeLabel.setSize(new jwinforms.Size(31, 16));
+        lblTargetSizeLabel.setSize(new spacetrader.controls.Size(31, 16));
         lblTargetSizeLabel.setTabIndex(2);
         lblTargetSizeLabel.setText("Size:");
         //
@@ -297,7 +299,7 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         //
         lblTargetName.setLocation(new Point(88, 16));
         lblTargetName.setName("lblTargetName");
-        lblTargetName.setSize(new jwinforms.Size(65, 13));
+        lblTargetName.setSize(new spacetrader.controls.Size(65, 13));
         lblTargetName.setTabIndex(1);
         lblTargetName.setText("Tarchannen");
         //
@@ -307,18 +309,18 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         lblTargetNameLabel.setFont(FontCollection.bold825);
         lblTargetNameLabel.setLocation(new Point(8, 16));
         lblTargetNameLabel.setName("lblTargetNameLabel");
-        lblTargetNameLabel.setSize(new jwinforms.Size(39, 16));
+        lblTargetNameLabel.setSize(new spacetrader.controls.Size(39, 16));
         lblTargetNameLabel.setTabIndex(0);
         lblTargetNameLabel.setText("Name:");
 
     }
 
-    private void btnTrack_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnTrack_Click(Object sender, spacetrader.controls.EventArgs e) {
         game.setTrackedSystemId(game.SelectedSystemId());
         UpdateAll();
     }
 
-    private void btnWarp_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnWarp_Click(Object sender, spacetrader.controls.EventArgs e) {
         try {
             controller.autoSave_depart();
 
@@ -366,12 +368,12 @@ public class TargetSystemBox extends jwinforms.GroupBox {
         }
     }
 
-    private void btnNextSystem_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnNextSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
         game.SelectNextSystemWithinRange(true);
         UpdateAll();
     }
 
-    private void btnPrevSystem_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnPrevSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
         game.SelectNextSystemWithinRange(false);
         UpdateAll();
     }

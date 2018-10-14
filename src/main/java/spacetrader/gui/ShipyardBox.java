@@ -1,27 +1,28 @@
 package spacetrader.gui;
 
-import jwinforms.DialogResult;
-import jwinforms.EventArgs;
-import jwinforms.EventHandler;
-import spacetrader.Commander;
-import spacetrader.Consts;
-import spacetrader.Strings;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.ShipType;
+import spacetrader.controls.DialogResult;
+import spacetrader.controls.EventArgs;
+import spacetrader.controls.EventHandler;
+import spacetrader.controls.FlatStyle;
+import spacetrader.game.Commander;
+import spacetrader.game.Consts;
+import spacetrader.game.Strings;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.ShipType;
 import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
 
-public class ShipyardBox extends jwinforms.GroupBox {
+public class ShipyardBox extends spacetrader.controls.GroupBox {
     private final SpaceTrader mainWindow;
     private Commander commander;
-    private jwinforms.Button btnDesign;
-    private jwinforms.Button btnPod;
-    private jwinforms.Label lblEquipForSale;
-    private jwinforms.Label lblEscapePod;
-    private jwinforms.Button btnEquip;
-    private jwinforms.Button btnBuyShip;
-    private jwinforms.Label lblShipsForSale;
+    private spacetrader.controls.Button btnDesign;
+    private spacetrader.controls.Button btnPod;
+    private spacetrader.controls.Label lblEquipForSale;
+    private spacetrader.controls.Label lblEscapePod;
+    private spacetrader.controls.Button btnEquip;
+    private spacetrader.controls.Button btnBuyShip;
+    private spacetrader.controls.Label lblShipsForSale;
     public ShipyardBox(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
     }
@@ -31,13 +32,13 @@ public class ShipyardBox extends jwinforms.GroupBox {
     }
 
     void initializeComponent() {
-        btnDesign = new jwinforms.Button();
-        btnPod = new jwinforms.Button();
-        lblEscapePod = new jwinforms.Label();
-        btnEquip = new jwinforms.Button();
-        btnBuyShip = new jwinforms.Button();
-        lblEquipForSale = new jwinforms.Label();
-        lblShipsForSale = new jwinforms.Label();
+        btnDesign = new spacetrader.controls.Button();
+        btnPod = new spacetrader.controls.Button();
+        lblEscapePod = new spacetrader.controls.Label();
+        btnEquip = new spacetrader.controls.Button();
+        btnBuyShip = new spacetrader.controls.Button();
+        lblEquipForSale = new spacetrader.controls.Label();
+        lblShipsForSale = new spacetrader.controls.Label();
 
         suspendLayout();
 
@@ -49,37 +50,37 @@ public class ShipyardBox extends jwinforms.GroupBox {
         controls.add(lblEquipForSale);
         controls.add(lblShipsForSale);
         setName("boxShipYard");
-        setSize(new jwinforms.Size(168, 168));
+        setSize(new spacetrader.controls.Size(168, 168));
         setTabIndex(4);
         setTabStop(false);
         setText("Shipyard");
         //
         // btnDesign
         //
-        btnDesign.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnDesign.setFlatStyle(FlatStyle.FLAT);
         btnDesign.setLocation(new Point(8, 32));
         btnDesign.setName("btnDesign");
-        btnDesign.setSize(new jwinforms.Size(54, 22));
+        btnDesign.setSize(new spacetrader.controls.Size(54, 22));
         btnDesign.setTabIndex(55);
         btnDesign.setText("Design");
         btnDesign.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnDesign_Click(sender, e);
             }
         });
         //
         // btnPod
         //
-        btnPod.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnPod.setFlatStyle(FlatStyle.FLAT);
         btnPod.setLocation(new Point(98, 138));
         btnPod.setName("btnPod");
-        btnPod.setSize(new jwinforms.Size(58, 22));
+        btnPod.setSize(new spacetrader.controls.Size(58, 22));
         btnPod.setTabIndex(54);
         btnPod.setText("Buy Pod");
         btnPod.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnPod_Click(sender, e);
             }
         });
@@ -88,36 +89,36 @@ public class ShipyardBox extends jwinforms.GroupBox {
         //
         lblEscapePod.setLocation(new Point(8, 122));
         lblEscapePod.setName("lblEscapePod");
-        lblEscapePod.setSize(new jwinforms.Size(152, 26));
+        lblEscapePod.setSize(new spacetrader.controls.Size(152, 26));
         lblEscapePod.setTabIndex(27);
         lblEscapePod.setText("You can buy an escape pod for  2,000 cr.");
         //
         // btnEquip
         //
-        btnEquip.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnEquip.setFlatStyle(FlatStyle.FLAT);
         btnEquip.setLocation(new Point(43, 85));
         btnEquip.setName("btnEquip");
-        btnEquip.setSize(new jwinforms.Size(113, 22));
+        btnEquip.setSize(new spacetrader.controls.Size(113, 22));
         btnEquip.setTabIndex(53);
         btnEquip.setText("Buy/Sell Equipment");
         btnEquip.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnEquip_Click(sender, e);
             }
         });
         //
         // btnBuyShip
         //
-        btnBuyShip.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnBuyShip.setFlatStyle(FlatStyle.FLAT);
         btnBuyShip.setLocation(new Point(70, 32));
         btnBuyShip.setName("btnBuyShip");
-        btnBuyShip.setSize(new jwinforms.Size(86, 22));
+        btnBuyShip.setSize(new spacetrader.controls.Size(86, 22));
         btnBuyShip.setTabIndex(52);
         btnBuyShip.setText("View Ship Info");
         btnBuyShip.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnBuyShip_Click(sender, e);
             }
         });
@@ -126,7 +127,7 @@ public class ShipyardBox extends jwinforms.GroupBox {
         //
         lblEquipForSale.setLocation(new Point(8, 69));
         lblEquipForSale.setName("lblEquipForSale");
-        lblEquipForSale.setSize(new jwinforms.Size(152, 13));
+        lblEquipForSale.setSize(new spacetrader.controls.Size(152, 13));
         lblEquipForSale.setTabIndex(21);
         lblEquipForSale.setText("There is equipment for sale.");
         //
@@ -134,7 +135,7 @@ public class ShipyardBox extends jwinforms.GroupBox {
         //
         lblShipsForSale.setLocation(new Point(8, 16));
         lblShipsForSale.setName("lblShipsForSale");
-        lblShipsForSale.setSize(new jwinforms.Size(152, 13));
+        lblShipsForSale.setSize(new spacetrader.controls.Size(152, 13));
         lblShipsForSale.setTabIndex(20);
         lblShipsForSale.setText("There are new ships for sale.");
     }
@@ -173,22 +174,22 @@ public class ShipyardBox extends jwinforms.GroupBox {
         }
     }
 
-    private void btnBuyShip_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnBuyShip_Click(Object sender, spacetrader.controls.EventArgs e) {
         new FormShipList().showDialog(mainWindow);
         mainWindow.updateAll();
     }
 
-    private void btnDesign_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnDesign_Click(Object sender, spacetrader.controls.EventArgs e) {
         new FormShipyard().showDialog(mainWindow);
         mainWindow.updateAll();
     }
 
-    private void btnEquip_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnEquip_Click(Object sender, spacetrader.controls.EventArgs e) {
         new FormEquipment().showDialog(mainWindow);
         mainWindow.updateAll();
     }
 
-    private void btnPod_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnPod_Click(Object sender, spacetrader.controls.EventArgs e) {
         if (GuiFacade.alert(AlertType.EquipmentEscapePod) == DialogResult.Yes) {
             commander.setCash(commander.getCash() - 2000);
             commander.getShip().setEscapePod(true);

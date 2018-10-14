@@ -1,8 +1,8 @@
 package spacetrader.gui;
 
-import jwinforms.DialogResult;
-import jwinforms.WinformForm;
-import jwinforms.WinformPane;
+import spacetrader.controls.DialogResult;
+import spacetrader.controls.WinformForm;
+import spacetrader.controls.WinformPane;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -11,7 +11,7 @@ import java.util.Stack;
 
 abstract class SpaceTraderForm extends WinformForm {
     protected SpaceTraderForm() {
-        ((Window) swingVersion).addWindowListener(new MyListener());
+        ((Window) swingComponent).addWindowListener(new MyListener());
     }
 
     public DialogResult Show() {
@@ -23,7 +23,7 @@ abstract class SpaceTraderForm extends WinformForm {
         public void windowClosed(WindowEvent e) {
             // make sure this won't be called more than once.
             // (sync not needed, because this runs on the swing's thread).
-            ((Window) swingVersion).removeWindowListener(this);
+            ((Window) swingComponent).removeWindowListener(this);
             FormsOwnerTree.pop(SpaceTraderForm.this);
         }
 

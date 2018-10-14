@@ -1,9 +1,8 @@
 package spacetrader.stub;
 
-import util.Lisp;
+import spacetrader.util.Lisp;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.List;
 
 public class Directory {

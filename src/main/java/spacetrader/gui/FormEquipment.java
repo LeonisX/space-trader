@@ -29,52 +29,52 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.*;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.EquipmentType;
-import spacetrader.enums.GadgetType;
+import spacetrader.controls.*;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.EquipmentType;
+import spacetrader.game.enums.GadgetType;
+import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 
 public class FormEquipment extends SpaceTraderForm {
-    private jwinforms.Button btnClose;
-    private jwinforms.GroupBox boxSell;
-    private jwinforms.GroupBox boxBuy;
-    private jwinforms.ListBox lstSellWeapon;
-    private jwinforms.ListBox lstSellShield;
-    private jwinforms.ListBox lstSellGadget;
-    private jwinforms.ListBox lstBuyGadget;
-    private jwinforms.ListBox lstBuyShield;
-    private jwinforms.ListBox lstBuyWeapon;
-    private jwinforms.GroupBox boxShipInfo;
-    private jwinforms.Label lblName;
-    private jwinforms.Label lblDescription;
-    private jwinforms.PictureBox picEquipment;
-    private jwinforms.Label lblSellPrice;
-    private jwinforms.Label lblBuyPrice;
-    private jwinforms.Label lblSellGadgets;
-    private jwinforms.Label lblSellShields;
-    private jwinforms.Label lblSellWeapons;
-    private jwinforms.Label lblBuyGadgets;
-    private jwinforms.Label lblBuyShields;
-    private jwinforms.Label lblBuyWeapons;
-    private jwinforms.Button btnBuy;
-    private jwinforms.Button btnSell;
-    private jwinforms.Label lblBuyPriceLabel;
-    private jwinforms.Label lblSellPriceLabel;
-    private jwinforms.Label lblNameLabel;
-    private jwinforms.Label lblTypeLabel;
-    private jwinforms.Label lblType;
-    private jwinforms.Label lblPowerLabel;
-    private jwinforms.Label lblChargeLabel;
-    private jwinforms.Label lblPower;
-    private jwinforms.Label lblCharge;
-    private jwinforms.Label lblSellWeaponNoSlots;
-    private jwinforms.Label lblSellShieldNoSlots;
-    private jwinforms.Label lblSellGadgetNoSlots;
-    private jwinforms.Label lblBuyWeaponNone;
-    private jwinforms.Label lblBuyShieldNone;
-    private jwinforms.Label lblBuyGadgetNone;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.GroupBox boxSell;
+    private spacetrader.controls.GroupBox boxBuy;
+    private spacetrader.controls.ListBox lstSellWeapon;
+    private spacetrader.controls.ListBox lstSellShield;
+    private spacetrader.controls.ListBox lstSellGadget;
+    private spacetrader.controls.ListBox lstBuyGadget;
+    private spacetrader.controls.ListBox lstBuyShield;
+    private spacetrader.controls.ListBox lstBuyWeapon;
+    private spacetrader.controls.GroupBox boxShipInfo;
+    private spacetrader.controls.Label lblName;
+    private spacetrader.controls.Label lblDescription;
+    private spacetrader.controls.PictureBox picEquipment;
+    private spacetrader.controls.Label lblSellPrice;
+    private spacetrader.controls.Label lblBuyPrice;
+    private spacetrader.controls.Label lblSellGadgets;
+    private spacetrader.controls.Label lblSellShields;
+    private spacetrader.controls.Label lblSellWeapons;
+    private spacetrader.controls.Label lblBuyGadgets;
+    private spacetrader.controls.Label lblBuyShields;
+    private spacetrader.controls.Label lblBuyWeapons;
+    private spacetrader.controls.Button btnBuy;
+    private spacetrader.controls.Button btnSell;
+    private spacetrader.controls.Label lblBuyPriceLabel;
+    private spacetrader.controls.Label lblSellPriceLabel;
+    private spacetrader.controls.Label lblNameLabel;
+    private spacetrader.controls.Label lblTypeLabel;
+    private spacetrader.controls.Label lblType;
+    private spacetrader.controls.Label lblPowerLabel;
+    private spacetrader.controls.Label lblChargeLabel;
+    private spacetrader.controls.Label lblPower;
+    private spacetrader.controls.Label lblCharge;
+    private spacetrader.controls.Label lblSellWeaponNoSlots;
+    private spacetrader.controls.Label lblSellShieldNoSlots;
+    private spacetrader.controls.Label lblSellGadgetNoSlots;
+    private spacetrader.controls.Label lblBuyWeaponNone;
+    private spacetrader.controls.Label lblBuyShieldNone;
+    private spacetrader.controls.Label lblBuyGadgetNone;
     private Game game = Game.CurrentGame();
 
     // #endregion
@@ -107,44 +107,44 @@ public class FormEquipment extends SpaceTraderForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        this.btnClose = new jwinforms.Button();
-        this.boxSell = new jwinforms.GroupBox();
-        this.lblSellGadgetNoSlots = new jwinforms.Label();
-        this.lblSellShieldNoSlots = new jwinforms.Label();
-        this.lblSellWeaponNoSlots = new jwinforms.Label();
-        this.lblSellGadgets = new jwinforms.Label();
-        this.lblSellShields = new jwinforms.Label();
-        this.lblSellWeapons = new jwinforms.Label();
-        this.lstSellGadget = new jwinforms.ListBox();
-        this.lstSellShield = new jwinforms.ListBox();
-        this.lstSellWeapon = new jwinforms.ListBox();
-        this.boxBuy = new jwinforms.GroupBox();
-        this.lblBuyGadgetNone = new jwinforms.Label();
-        this.lblBuyShieldNone = new jwinforms.Label();
-        this.lblBuyWeaponNone = new jwinforms.Label();
-        this.lblBuyGadgets = new jwinforms.Label();
-        this.lblBuyShields = new jwinforms.Label();
-        this.lblBuyWeapons = new jwinforms.Label();
-        this.lstBuyGadget = new jwinforms.ListBox();
-        this.lstBuyShield = new jwinforms.ListBox();
-        this.lstBuyWeapon = new jwinforms.ListBox();
-        this.boxShipInfo = new jwinforms.GroupBox();
-        this.lblCharge = new jwinforms.Label();
-        this.lblPower = new jwinforms.Label();
-        this.lblChargeLabel = new jwinforms.Label();
-        this.lblPowerLabel = new jwinforms.Label();
-        this.lblType = new jwinforms.Label();
-        this.lblTypeLabel = new jwinforms.Label();
-        this.lblNameLabel = new jwinforms.Label();
-        this.btnSell = new jwinforms.Button();
-        this.btnBuy = new jwinforms.Button();
-        this.lblBuyPriceLabel = new jwinforms.Label();
-        this.lblBuyPrice = new jwinforms.Label();
-        this.lblSellPriceLabel = new jwinforms.Label();
-        this.picEquipment = new jwinforms.PictureBox();
-        this.lblSellPrice = new jwinforms.Label();
-        this.lblDescription = new jwinforms.Label();
-        this.lblName = new jwinforms.Label();
+        this.btnClose = new spacetrader.controls.Button();
+        this.boxSell = new spacetrader.controls.GroupBox();
+        this.lblSellGadgetNoSlots = new spacetrader.controls.Label();
+        this.lblSellShieldNoSlots = new spacetrader.controls.Label();
+        this.lblSellWeaponNoSlots = new spacetrader.controls.Label();
+        this.lblSellGadgets = new spacetrader.controls.Label();
+        this.lblSellShields = new spacetrader.controls.Label();
+        this.lblSellWeapons = new spacetrader.controls.Label();
+        this.lstSellGadget = new spacetrader.controls.ListBox();
+        this.lstSellShield = new spacetrader.controls.ListBox();
+        this.lstSellWeapon = new spacetrader.controls.ListBox();
+        this.boxBuy = new spacetrader.controls.GroupBox();
+        this.lblBuyGadgetNone = new spacetrader.controls.Label();
+        this.lblBuyShieldNone = new spacetrader.controls.Label();
+        this.lblBuyWeaponNone = new spacetrader.controls.Label();
+        this.lblBuyGadgets = new spacetrader.controls.Label();
+        this.lblBuyShields = new spacetrader.controls.Label();
+        this.lblBuyWeapons = new spacetrader.controls.Label();
+        this.lstBuyGadget = new spacetrader.controls.ListBox();
+        this.lstBuyShield = new spacetrader.controls.ListBox();
+        this.lstBuyWeapon = new spacetrader.controls.ListBox();
+        this.boxShipInfo = new spacetrader.controls.GroupBox();
+        this.lblCharge = new spacetrader.controls.Label();
+        this.lblPower = new spacetrader.controls.Label();
+        this.lblChargeLabel = new spacetrader.controls.Label();
+        this.lblPowerLabel = new spacetrader.controls.Label();
+        this.lblType = new spacetrader.controls.Label();
+        this.lblTypeLabel = new spacetrader.controls.Label();
+        this.lblNameLabel = new spacetrader.controls.Label();
+        this.btnSell = new spacetrader.controls.Button();
+        this.btnBuy = new spacetrader.controls.Button();
+        this.lblBuyPriceLabel = new spacetrader.controls.Label();
+        this.lblBuyPrice = new spacetrader.controls.Label();
+        this.lblSellPriceLabel = new spacetrader.controls.Label();
+        this.picEquipment = new spacetrader.controls.PictureBox();
+        this.lblSellPrice = new spacetrader.controls.Label();
+        this.lblDescription = new spacetrader.controls.Label();
+        this.lblName = new spacetrader.controls.Label();
         this.boxSell.suspendLayout();
         this.boxBuy.suspendLayout();
         this.boxShipInfo.suspendLayout();
@@ -155,7 +155,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.btnClose.setDialogResult(DialogResult.Cancel);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
-        this.btnClose.setSize(new jwinforms.Size(32, 32));
+        this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
         this.btnClose.setTabIndex(32);
         this.btnClose.setTabStop(false);
         this.btnClose.setText("X");
@@ -173,7 +173,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.boxSell.controls.add(this.lstSellWeapon);
         this.boxSell.setLocation(new java.awt.Point(4, 2));
         this.boxSell.setName("boxSell");
-        this.boxSell.setSize(new jwinforms.Size(144, 304));
+        this.boxSell.setSize(new spacetrader.controls.Size(144, 304));
         this.boxSell.setTabIndex(1);
         this.boxSell.setTabStop(false);
         this.boxSell.setText("Current Inventory");
@@ -182,7 +182,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblSellGadgetNoSlots.setLocation(new java.awt.Point(24, 228));
         this.lblSellGadgetNoSlots.setName("lblSellGadgetNoSlots");
-        this.lblSellGadgetNoSlots.setSize(new jwinforms.Size(104, 16));
+        this.lblSellGadgetNoSlots.setSize(new spacetrader.controls.Size(104, 16));
         this.lblSellGadgetNoSlots.setTabIndex(149);
         this.lblSellGadgetNoSlots.setText("No slots");
         this.lblSellGadgetNoSlots.setVisible(false);
@@ -191,7 +191,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblSellShieldNoSlots.setLocation(new java.awt.Point(24, 132));
         this.lblSellShieldNoSlots.setName("lblSellShieldNoSlots");
-        this.lblSellShieldNoSlots.setSize(new jwinforms.Size(104, 16));
+        this.lblSellShieldNoSlots.setSize(new spacetrader.controls.Size(104, 16));
         this.lblSellShieldNoSlots.setTabIndex(148);
         this.lblSellShieldNoSlots.setText("No slots");
         this.lblSellShieldNoSlots.setVisible(false);
@@ -200,7 +200,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblSellWeaponNoSlots.setLocation(new java.awt.Point(24, 36));
         this.lblSellWeaponNoSlots.setName("lblSellWeaponNoSlots");
-        this.lblSellWeaponNoSlots.setSize(new jwinforms.Size(104, 16));
+        this.lblSellWeaponNoSlots.setSize(new spacetrader.controls.Size(104, 16));
         this.lblSellWeaponNoSlots.setTabIndex(147);
         this.lblSellWeaponNoSlots.setText("No slots");
         this.lblSellWeaponNoSlots.setVisible(false);
@@ -210,7 +210,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblSellGadgets.setAutoSize(true);
         this.lblSellGadgets.setLocation(new java.awt.Point(8, 212));
         this.lblSellGadgets.setName("lblSellGadgets");
-        this.lblSellGadgets.setSize(new jwinforms.Size(47, 16));
+        this.lblSellGadgets.setSize(new spacetrader.controls.Size(47, 16));
         this.lblSellGadgets.setTabIndex(146);
         this.lblSellGadgets.setText("Gadgets");
         //
@@ -219,7 +219,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblSellShields.setAutoSize(true);
         this.lblSellShields.setLocation(new java.awt.Point(8, 116));
         this.lblSellShields.setName("lblSellShields");
-        this.lblSellShields.setSize(new jwinforms.Size(41, 16));
+        this.lblSellShields.setSize(new spacetrader.controls.Size(41, 16));
         this.lblSellShields.setTabIndex(145);
         this.lblSellShields.setText("Shields");
         //
@@ -228,60 +228,60 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblSellWeapons.setAutoSize(true);
         this.lblSellWeapons.setLocation(new java.awt.Point(8, 20));
         this.lblSellWeapons.setName("lblSellWeapons");
-        this.lblSellWeapons.setSize(new jwinforms.Size(52, 16));
+        this.lblSellWeapons.setSize(new spacetrader.controls.Size(52, 16));
         this.lblSellWeapons.setTabIndex(144);
         this.lblSellWeapons.setText("Weapons");
         //
         // lstSellGadget
         //
-        this.lstSellGadget.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstSellGadget.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstSellGadget.setLocation(new java.awt.Point(8, 228));
         this.lstSellGadget.setName("lstSellGadget");
-        this.lstSellGadget.setSize(new jwinforms.Size(128, 67));
+        this.lstSellGadget.setSize(new spacetrader.controls.Size(128, 67));
         this.lstSellGadget.setTabIndex(3);
         this.lstSellGadget.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SellClick(sender, e);
             }
         });
         this.lstSellGadget.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
         //
         // lstSellShield
         //
-        this.lstSellShield.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstSellShield.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstSellShield.setLocation(new java.awt.Point(8, 132));
         this.lstSellShield.setName("lstSellShield");
-        this.lstSellShield.setSize(new jwinforms.Size(128, 67));
+        this.lstSellShield.setSize(new spacetrader.controls.Size(128, 67));
         this.lstSellShield.setTabIndex(2);
         this.lstSellShield.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SellClick(sender, e);
             }
         });
         this.lstSellShield.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
         //
         // lstSellWeapon
         //
-        this.lstSellWeapon.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstSellWeapon.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstSellWeapon.setLocation(new java.awt.Point(8, 36));
         this.lstSellWeapon.setName("lstSellWeapon");
-        this.lstSellWeapon.setSize(new jwinforms.Size(128, 67));
+        this.lstSellWeapon.setSize(new spacetrader.controls.Size(128, 67));
         this.lstSellWeapon.setTabIndex(1);
         this.lstSellWeapon.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SellClick(sender, e);
             }
         });
         this.lstSellWeapon.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
@@ -299,7 +299,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.boxBuy.controls.add(this.lstBuyWeapon);
         this.boxBuy.setLocation(new java.awt.Point(156, 2));
         this.boxBuy.setName("boxBuy");
-        this.boxBuy.setSize(new jwinforms.Size(144, 304));
+        this.boxBuy.setSize(new spacetrader.controls.Size(144, 304));
         this.boxBuy.setTabIndex(2);
         this.boxBuy.setTabStop(false);
         this.boxBuy.setText("Equipment For Sale");
@@ -308,7 +308,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblBuyGadgetNone.setLocation(new java.awt.Point(24, 228));
         this.lblBuyGadgetNone.setName("lblBuyGadgetNone");
-        this.lblBuyGadgetNone.setSize(new jwinforms.Size(104, 16));
+        this.lblBuyGadgetNone.setSize(new spacetrader.controls.Size(104, 16));
         this.lblBuyGadgetNone.setTabIndex(150);
         this.lblBuyGadgetNone.setText("None for sale");
         this.lblBuyGadgetNone.setVisible(false);
@@ -317,7 +317,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblBuyShieldNone.setLocation(new java.awt.Point(24, 132));
         this.lblBuyShieldNone.setName("lblBuyShieldNone");
-        this.lblBuyShieldNone.setSize(new jwinforms.Size(104, 16));
+        this.lblBuyShieldNone.setSize(new spacetrader.controls.Size(104, 16));
         this.lblBuyShieldNone.setTabIndex(149);
         this.lblBuyShieldNone.setText("None for sale");
         this.lblBuyShieldNone.setVisible(false);
@@ -326,7 +326,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblBuyWeaponNone.setLocation(new java.awt.Point(24, 36));
         this.lblBuyWeaponNone.setName("lblBuyWeaponNone");
-        this.lblBuyWeaponNone.setSize(new jwinforms.Size(104, 16));
+        this.lblBuyWeaponNone.setSize(new spacetrader.controls.Size(104, 16));
         this.lblBuyWeaponNone.setTabIndex(148);
         this.lblBuyWeaponNone.setText("None for sale");
         this.lblBuyWeaponNone.setVisible(false);
@@ -336,7 +336,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblBuyGadgets.setAutoSize(true);
         this.lblBuyGadgets.setLocation(new java.awt.Point(8, 212));
         this.lblBuyGadgets.setName("lblBuyGadgets");
-        this.lblBuyGadgets.setSize(new jwinforms.Size(47, 16));
+        this.lblBuyGadgets.setSize(new spacetrader.controls.Size(47, 16));
         this.lblBuyGadgets.setTabIndex(143);
         this.lblBuyGadgets.setText("Gadgets");
         //
@@ -345,7 +345,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblBuyShields.setAutoSize(true);
         this.lblBuyShields.setLocation(new java.awt.Point(8, 116));
         this.lblBuyShields.setName("lblBuyShields");
-        this.lblBuyShields.setSize(new jwinforms.Size(41, 16));
+        this.lblBuyShields.setSize(new spacetrader.controls.Size(41, 16));
         this.lblBuyShields.setTabIndex(142);
         this.lblBuyShields.setText("Shields");
         //
@@ -354,60 +354,60 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblBuyWeapons.setAutoSize(true);
         this.lblBuyWeapons.setLocation(new java.awt.Point(8, 20));
         this.lblBuyWeapons.setName("lblBuyWeapons");
-        this.lblBuyWeapons.setSize(new jwinforms.Size(52, 16));
+        this.lblBuyWeapons.setSize(new spacetrader.controls.Size(52, 16));
         this.lblBuyWeapons.setTabIndex(141);
         this.lblBuyWeapons.setText("Weapons");
         //
         // lstBuyGadget
         //
-        this.lstBuyGadget.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstBuyGadget.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstBuyGadget.setLocation(new java.awt.Point(8, 228));
         this.lstBuyGadget.setName("lstBuyGadget");
-        this.lstBuyGadget.setSize(new jwinforms.Size(128, 67));
+        this.lstBuyGadget.setSize(new spacetrader.controls.Size(128, 67));
         this.lstBuyGadget.setTabIndex(6);
         this.lstBuyGadget.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 BuyClick(sender, e);
             }
         });
         this.lstBuyGadget.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
         //
         // lstBuyShield
         //
-        this.lstBuyShield.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstBuyShield.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstBuyShield.setLocation(new java.awt.Point(8, 132));
         this.lstBuyShield.setName("lstBuyShield");
-        this.lstBuyShield.setSize(new jwinforms.Size(128, 67));
+        this.lstBuyShield.setSize(new spacetrader.controls.Size(128, 67));
         this.lstBuyShield.setTabIndex(5);
         this.lstBuyShield.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 BuyClick(sender, e);
             }
         });
         this.lstBuyShield.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
         //
         // lstBuyWeapon
         //
-        this.lstBuyWeapon.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstBuyWeapon.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstBuyWeapon.setLocation(new java.awt.Point(8, 36));
         this.lstBuyWeapon.setName("lstBuyWeapon");
-        this.lstBuyWeapon.setSize(new jwinforms.Size(128, 67));
+        this.lstBuyWeapon.setSize(new spacetrader.controls.Size(128, 67));
         this.lstBuyWeapon.setTabIndex(4);
         this.lstBuyWeapon.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 BuyClick(sender, e);
             }
         });
         this.lstBuyWeapon.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
@@ -432,7 +432,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.boxShipInfo.controls.add(this.lblDescription);
         this.boxShipInfo.setLocation(new java.awt.Point(308, 2));
         this.boxShipInfo.setName("boxShipInfo");
-        this.boxShipInfo.setSize(new jwinforms.Size(208, 304));
+        this.boxShipInfo.setSize(new spacetrader.controls.Size(208, 304));
         this.boxShipInfo.setTabIndex(3);
         this.boxShipInfo.setTabStop(false);
         this.boxShipInfo.setText("Equipment Information");
@@ -441,7 +441,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblCharge.setLocation(new java.awt.Point(80, 164));
         this.lblCharge.setName("lblCharge");
-        this.lblCharge.setSize(new jwinforms.Size(116, 16));
+        this.lblCharge.setSize(new spacetrader.controls.Size(116, 16));
         this.lblCharge.setTabIndex(67);
         this.lblCharge.setText("888");
         //
@@ -449,7 +449,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblPower.setLocation(new java.awt.Point(80, 148));
         this.lblPower.setName("lblPower");
-        this.lblPower.setSize(new jwinforms.Size(116, 16));
+        this.lblPower.setSize(new spacetrader.controls.Size(116, 16));
         this.lblPower.setTabIndex(66);
         this.lblPower.setText("888");
         //
@@ -459,7 +459,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblChargeLabel.setFont(FontCollection.bold825);
         this.lblChargeLabel.setLocation(new java.awt.Point(8, 164));
         this.lblChargeLabel.setName("lblChargeLabel");
-        this.lblChargeLabel.setSize(new jwinforms.Size(46, 16));
+        this.lblChargeLabel.setSize(new spacetrader.controls.Size(46, 16));
         this.lblChargeLabel.setTabIndex(65);
         this.lblChargeLabel.setText("Charge:");
         //
@@ -469,7 +469,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblPowerLabel.setFont(FontCollection.bold825);
         this.lblPowerLabel.setLocation(new java.awt.Point(8, 148));
         this.lblPowerLabel.setName("lblPowerLabel");
-        this.lblPowerLabel.setSize(new jwinforms.Size(41, 16));
+        this.lblPowerLabel.setSize(new spacetrader.controls.Size(41, 16));
         this.lblPowerLabel.setTabIndex(64);
         this.lblPowerLabel.setText("Power:");
         //
@@ -477,7 +477,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblType.setLocation(new java.awt.Point(80, 100));
         this.lblType.setName("lblType");
-        this.lblType.setSize(new jwinforms.Size(116, 16));
+        this.lblType.setSize(new spacetrader.controls.Size(116, 16));
         this.lblType.setTabIndex(63);
         this.lblType.setText("Weapon");
         //
@@ -487,7 +487,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblTypeLabel.setFont(FontCollection.bold825);
         this.lblTypeLabel.setLocation(new java.awt.Point(8, 100));
         this.lblTypeLabel.setName("lblTypeLabel");
-        this.lblTypeLabel.setSize(new jwinforms.Size(34, 16));
+        this.lblTypeLabel.setSize(new spacetrader.controls.Size(34, 16));
         this.lblTypeLabel.setTabIndex(62);
         this.lblTypeLabel.setText("Type:");
         //
@@ -497,34 +497,34 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblNameLabel.setFont(FontCollection.bold825);
         this.lblNameLabel.setLocation(new java.awt.Point(8, 84));
         this.lblNameLabel.setName("lblNameLabel");
-        this.lblNameLabel.setSize(new jwinforms.Size(39, 16));
+        this.lblNameLabel.setSize(new spacetrader.controls.Size(39, 16));
         this.lblNameLabel.setTabIndex(61);
         this.lblNameLabel.setText("Name:");
         //
         // btnSell
         //
-        this.btnSell.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnSell.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnSell.setLocation(new java.awt.Point(103, 272));
         this.btnSell.setName("btnSell");
-        this.btnSell.setSize(new jwinforms.Size(58, 22));
+        this.btnSell.setSize(new spacetrader.controls.Size(58, 22));
         this.btnSell.setTabIndex(8);
         this.btnSell.setText("Sell");
         this.btnSell.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SellClick(sender, e);
             }
         });
         //
         // btnBuy
         //
-        this.btnBuy.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnBuy.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnBuy.setLocation(new java.awt.Point(31, 272));
         this.btnBuy.setName("btnBuy");
-        this.btnBuy.setSize(new jwinforms.Size(58, 22));
+        this.btnBuy.setSize(new spacetrader.controls.Size(58, 22));
         this.btnBuy.setTabIndex(7);
         this.btnBuy.setText("Buy");
         this.btnBuy.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 BuyClick(sender, e);
             }
         });
@@ -535,7 +535,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblBuyPriceLabel.setFont(FontCollection.bold825);
         this.lblBuyPriceLabel.setLocation(new java.awt.Point(8, 116));
         this.lblBuyPriceLabel.setName("lblBuyPriceLabel");
-        this.lblBuyPriceLabel.setSize(new jwinforms.Size(58, 16));
+        this.lblBuyPriceLabel.setSize(new spacetrader.controls.Size(58, 16));
         this.lblBuyPriceLabel.setTabIndex(57);
         this.lblBuyPriceLabel.setText("Buy Price:");
         //
@@ -543,7 +543,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblBuyPrice.setLocation(new java.awt.Point(80, 116));
         this.lblBuyPrice.setName("lblBuyPrice");
-        this.lblBuyPrice.setSize(new jwinforms.Size(116, 16));
+        this.lblBuyPrice.setSize(new spacetrader.controls.Size(116, 16));
         this.lblBuyPrice.setTabIndex(56);
         this.lblBuyPrice.setText("888,888 cr.");
         //
@@ -553,17 +553,17 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblSellPriceLabel.setFont(FontCollection.bold825);
         this.lblSellPriceLabel.setLocation(new java.awt.Point(8, 132));
         this.lblSellPriceLabel.setName("lblSellPriceLabel");
-        this.lblSellPriceLabel.setSize(new jwinforms.Size(58, 16));
+        this.lblSellPriceLabel.setSize(new spacetrader.controls.Size(58, 16));
         this.lblSellPriceLabel.setTabIndex(55);
         this.lblSellPriceLabel.setText("Sell Price:");
         //
         // picEquipment
         //
-        this.picEquipment.setBackColor(java.awt.Color.white);
-        this.picEquipment.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.picEquipment.setBackground(java.awt.Color.white);
+        this.picEquipment.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.picEquipment.setLocation(new java.awt.Point(71, 20));
         this.picEquipment.setName("picEquipment");
-        this.picEquipment.setSize(new jwinforms.Size(66, 54));
+        this.picEquipment.setSize(new spacetrader.controls.Size(66, 54));
         this.picEquipment.setTabIndex(54);
         this.picEquipment.setTabStop(false);
         this.picEquipment.setVisible(false);
@@ -572,7 +572,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblSellPrice.setLocation(new java.awt.Point(80, 132));
         this.lblSellPrice.setName("lblSellPrice");
-        this.lblSellPrice.setSize(new jwinforms.Size(116, 16));
+        this.lblSellPrice.setSize(new spacetrader.controls.Size(116, 16));
         this.lblSellPrice.setTabIndex(52);
         this.lblSellPrice.setText("888,888 cr.");
         //
@@ -580,27 +580,27 @@ public class FormEquipment extends SpaceTraderForm {
         //
         this.lblDescription.setLocation(new java.awt.Point(8, 188));
         this.lblDescription.setName("lblDescription");
-        this.lblDescription.setSize(new jwinforms.Size(196, 75));
+        this.lblDescription.setSize(new spacetrader.controls.Size(196, 75));
         this.lblDescription.setTabIndex(47);
         //
         // lblName
         //
         this.lblName.setLocation(new java.awt.Point(80, 84));
         this.lblName.setName("lblName");
-        this.lblName.setSize(new jwinforms.Size(116, 16));
+        this.lblName.setSize(new spacetrader.controls.Size(116, 16));
         this.lblName.setTabIndex(35);
         this.lblName.setText("Auto-Repair System");
         //
         // FormEquipment
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
-        this.setClientSize(new jwinforms.Size(522, 311));
+        this.setClientSize(new spacetrader.controls.Size(522, 311));
         this.Controls.add(this.boxShipInfo);
         this.Controls.add(this.boxBuy);
         this.Controls.add(this.boxSell);
         this.Controls.add(this.btnClose);
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormEquipment");

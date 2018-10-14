@@ -29,10 +29,10 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.*;
-import spacetrader.enums.CrewMemberId;
-import spacetrader.enums.SpecialEventType;
+import spacetrader.controls.*;
+import spacetrader.game.enums.CrewMemberId;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.*;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Util;
 
@@ -42,8 +42,8 @@ import java.util.Arrays;
 public class FormViewQuests extends SpaceTraderForm {
     // #region Control Declarations
 
-    private jwinforms.Button btnClose;
-    private jwinforms.LinkLabel lblQuests;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.LinkLabel lblQuests;
     private Container components = null;
 
     // #endregion
@@ -62,8 +62,8 @@ public class FormViewQuests extends SpaceTraderForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        this.btnClose = new jwinforms.Button();
-        this.lblQuests = new jwinforms.LinkLabel();
+        this.btnClose = new spacetrader.controls.Button();
+        this.lblQuests = new spacetrader.controls.LinkLabel();
         this.suspendLayout();
         //
         // btnClose
@@ -71,17 +71,17 @@ public class FormViewQuests extends SpaceTraderForm {
         this.btnClose.setDialogResult(DialogResult.Cancel);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
-        this.btnClose.setSize(new jwinforms.Size(32, 32));
+        this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
         this.btnClose.setTabIndex(32);
         this.btnClose.setTabStop(false);
         this.btnClose.setText("X");
         //
         // lblQuests
         //
-        this.lblQuests.LinkArea = new jwinforms.LinkArea(0, 0);
+        this.lblQuests.LinkArea = new spacetrader.controls.LinkArea(0, 0);
         this.lblQuests.setLocation(new java.awt.Point(8, 8));
         this.lblQuests.setName("lblQuests");
-        this.lblQuests.setSize(new jwinforms.Size(368, 312));
+        this.lblQuests.setSize(new spacetrader.controls.Size(368, 312));
         this.lblQuests.setTabIndex(44);
         this.lblQuests.setText("Kill the space monster at Acamar."
                 + "\n\n"
@@ -106,16 +106,16 @@ public class FormViewQuests extends SpaceTraderForm {
                 + "Claim your moon at Utopia.");
         this.lblQuests.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             public void handle(Object sender,
-                               jwinforms.LinkLabelLinkClickedEventArgs e) {
+                               spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 lblQuests_LinkClicked(sender, e);
             }
         };
         //
         // FormViewQuests
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
-        this.setClientSize(new jwinforms.Size(378, 325));
+        this.setClientSize(new spacetrader.controls.Size(378, 325));
         this.Controls.addAll(Arrays.asList(this.btnClose, this.lblQuests));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
@@ -294,7 +294,7 @@ public class FormViewQuests extends SpaceTraderForm {
     // #region Event Handlers
 
     private void lblQuests_LinkClicked(Object sender,
-                                       jwinforms.LinkLabelLinkClickedEventArgs e) {
+                                       spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
         Game.CurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
         Game.CurrentGame().getParentWindow().updateAll();
         Close();

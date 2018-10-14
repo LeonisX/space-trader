@@ -29,12 +29,12 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.Button;
-import jwinforms.*;
-import jwinforms.Label;
-import spacetrader.Game;
-import spacetrader.GameOptions;
-import spacetrader.enums.AlertType;
+import spacetrader.controls.Button;
+import spacetrader.controls.*;
+import spacetrader.controls.Label;
+import spacetrader.game.Game;
+import spacetrader.game.GameOptions;
+import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
@@ -126,7 +126,7 @@ public class FormOptions extends SpaceTraderForm {
         // btnOk
         //
         this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(FlatStyle.Flat);
+        this.btnOk.setFlatStyle(FlatStyle.FLAT);
         this.btnOk.setLocation(new Point(14, 240));
         this.btnOk.setName("btnOk");
         this.btnOk.setSize(new Size(40, 22));
@@ -136,7 +136,7 @@ public class FormOptions extends SpaceTraderForm {
         // btnCancel
         //
         this.btnCancel.setDialogResult(DialogResult.Cancel);
-        this.btnCancel.setFlatStyle(FlatStyle.Flat);
+        this.btnCancel.setFlatStyle(FlatStyle.FLAT);
         this.btnCancel.setLocation(new Point(62, 240));
         this.btnCancel.setName("btnCancel");
         this.btnCancel.setSize(new Size(49, 22));
@@ -160,7 +160,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkFuel.setTabIndex(1);
         this.chkFuel.setText("Get full fuel tanks on arrival");
         this.chkFuel.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -173,7 +173,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkContinuousAttack.setTabIndex(13);
         this.chkContinuousAttack.setText("Continuous attack and flight");
         this.chkContinuousAttack.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -186,7 +186,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkAttackFleeing.setTabIndex(14);
         this.chkAttackFleeing.setText("Continue attacking fleeing ship");
         this.chkAttackFleeing.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -199,7 +199,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkNewspaper.setTabIndex(3);
         this.chkNewspaper.setText("Always pay for newspaper");
         this.chkNewspaper.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -212,7 +212,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkRange.setTabIndex(5);
         this.chkRange.setText("Show range to tracked system");
         this.chkRange.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -225,7 +225,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkStopTracking.setTabIndex(6);
         this.chkStopTracking.setText("Stop tracking on arrival");
         this.chkStopTracking.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -238,7 +238,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkLoan.setTabIndex(4);
         this.chkLoan.setText("Remind about loans");
         this.chkLoan.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -251,7 +251,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkIgnoreTradersDealing.setTabIndex(12);
         this.chkIgnoreTradersDealing.setText("Ignore dealing traders");
         this.chkIgnoreTradersDealing.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -264,7 +264,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkReserveMoney.setTabIndex(7);
         this.chkReserveMoney.setText("Reserve money for warp costs");
         this.chkReserveMoney.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -277,7 +277,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkIgnoreTraders.setTabIndex(11);
         this.chkIgnoreTraders.setText("Traders");
         this.chkIgnoreTraders.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -290,7 +290,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkIgnorePirates.setTabIndex(9);
         this.chkIgnorePirates.setText("Pirates");
         this.chkIgnorePirates.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -303,7 +303,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkIgnorePolice.setTabIndex(10);
         this.chkIgnorePolice.setText("Police");
         this.chkIgnorePolice.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -316,7 +316,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkRepair.setTabIndex(2);
         this.chkRepair.setText("Get full hull repairs on arrival");
         this.chkRepair.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -339,35 +339,35 @@ public class FormOptions extends SpaceTraderForm {
         this.numEmpty.setTabIndex(8);
         this.numEmpty.setValue(88);
         this.numEmpty.setValueChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
         //
         // btnSave
         //
-        this.btnSave.setFlatStyle(FlatStyle.Flat);
+        this.btnSave.setFlatStyle(FlatStyle.FLAT);
         this.btnSave.setLocation(new Point(119, 240));
         this.btnSave.setName("btnSave");
         this.btnSave.setSize(new Size(107, 22));
         this.btnSave.setTabIndex(17);
         this.btnSave.setText("Save As Defaults");
         this.btnSave.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnSave_Click(sender, e);
             }
         });
         //
         // btnLoad
         //
-        this.btnLoad.setFlatStyle(FlatStyle.Flat);
+        this.btnLoad.setFlatStyle(FlatStyle.FLAT);
         this.btnLoad.setLocation(new Point(234, 240));
         this.btnLoad.setName("btnLoad");
         this.btnLoad.setSize(new Size(114, 22));
         this.btnLoad.setTabIndex(18);
         this.btnLoad.setText("Load from Defaults");
         this.btnLoad.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnLoad_Click(sender, e);
             }
         });
@@ -380,7 +380,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkNewspaperShow.setTabIndex(53);
         this.chkNewspaperShow.setText("Show newspaper on arrival");
         this.chkNewspaperShow.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -393,7 +393,7 @@ public class FormOptions extends SpaceTraderForm {
         this.chkDisable.setTabIndex(54);
         this.chkDisable.setText("Attempt to disable opponents when possible");
         this.chkDisable.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 controlChanged(sender, e);
             }
         });
@@ -426,7 +426,7 @@ public class FormOptions extends SpaceTraderForm {
         this.Controls.add(this.chkFuel);
         this.Controls.add(this.btnCancel);
         this.Controls.add(this.btnOk);
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormOptions");

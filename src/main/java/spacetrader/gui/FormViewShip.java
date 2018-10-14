@@ -24,9 +24,9 @@
 // using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.*;
-import spacetrader.enums.GadgetType;
+import spacetrader.controls.*;
+import spacetrader.game.enums.GadgetType;
+import spacetrader.game.*;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Util;
 
@@ -37,13 +37,13 @@ import java.util.Arrays;
 public class FormViewShip extends SpaceTraderForm {
     //#region Control Declarations
 
-    private jwinforms.Button btnClose;
-    private jwinforms.Label lblTypeLabel;
-    private jwinforms.Label lblType;
-    private jwinforms.GroupBox boxSpecialCargo;
-    private jwinforms.Label lblSpecialCargo;
-    private jwinforms.Label lblEquipLabel;
-    private jwinforms.Label lblEquip;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.Label lblTypeLabel;
+    private spacetrader.controls.Label lblType;
+    private spacetrader.controls.GroupBox boxSpecialCargo;
+    private spacetrader.controls.Label lblSpecialCargo;
+    private spacetrader.controls.Label lblEquipLabel;
+    private spacetrader.controls.Label lblEquip;
     private Container components = null;
 
     //#endregion
@@ -74,13 +74,13 @@ public class FormViewShip extends SpaceTraderForm {
     /// the contents of this method with the code editor.
     /// </summary>
     private void initializeComponent() {
-        this.lblTypeLabel = new jwinforms.Label();
-        this.lblType = new jwinforms.Label();
-        this.btnClose = new jwinforms.Button();
-        this.lblEquipLabel = new jwinforms.Label();
-        this.lblEquip = new jwinforms.Label();
-        this.boxSpecialCargo = new jwinforms.GroupBox();
-        this.lblSpecialCargo = new jwinforms.Label();
+        this.lblTypeLabel = new spacetrader.controls.Label();
+        this.lblType = new spacetrader.controls.Label();
+        this.btnClose = new spacetrader.controls.Button();
+        this.lblEquipLabel = new spacetrader.controls.Label();
+        this.lblEquip = new spacetrader.controls.Label();
+        this.boxSpecialCargo = new spacetrader.controls.GroupBox();
+        this.lblSpecialCargo = new spacetrader.controls.Label();
         this.boxSpecialCargo.suspendLayout();
         this.suspendLayout();
         //
@@ -90,7 +90,7 @@ public class FormViewShip extends SpaceTraderForm {
         this.lblTypeLabel.setFont(FontCollection.bold825);
         this.lblTypeLabel.setLocation(new java.awt.Point(8, 8));
         this.lblTypeLabel.setName("lblTypeLabel");
-        this.lblTypeLabel.setSize(new jwinforms.Size(34, 13));
+        this.lblTypeLabel.setSize(new spacetrader.controls.Size(34, 13));
         this.lblTypeLabel.setTabIndex(2);
         this.lblTypeLabel.setText("Type:");
         //
@@ -98,7 +98,7 @@ public class FormViewShip extends SpaceTraderForm {
         //
         this.lblType.setLocation(new java.awt.Point(80, 8));
         this.lblType.setName("lblType");
-        this.lblType.setSize(new jwinforms.Size(100, 13));
+        this.lblType.setSize(new spacetrader.controls.Size(100, 13));
         this.lblType.setTabIndex(4);
         this.lblType.setText("Grasshopper");
         //
@@ -107,7 +107,7 @@ public class FormViewShip extends SpaceTraderForm {
         this.btnClose.setDialogResult(DialogResult.Cancel);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
-        this.btnClose.setSize(new jwinforms.Size(32, 32));
+        this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
         this.btnClose.setTabIndex(32);
         this.btnClose.setTabStop(false);
         this.btnClose.setText("X");
@@ -117,7 +117,7 @@ public class FormViewShip extends SpaceTraderForm {
         this.lblEquipLabel.setFont(FontCollection.bold825);
         this.lblEquipLabel.setLocation(new java.awt.Point(8, 34));
         this.lblEquipLabel.setName("lblEquipLabel");
-        this.lblEquipLabel.setSize(new jwinforms.Size(64, 176));
+        this.lblEquipLabel.setSize(new spacetrader.controls.Size(64, 176));
         this.lblEquipLabel.setTabIndex(43);
         this.lblEquipLabel.setText("Hull:\r\n\r\nEquipment:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nUnfilled:");
         //
@@ -125,7 +125,7 @@ public class FormViewShip extends SpaceTraderForm {
         //
         this.lblEquip.setLocation(new java.awt.Point(80, 34));
         this.lblEquip.setName("lblEquip");
-        this.lblEquip.setSize(new jwinforms.Size(120, 176));
+        this.lblEquip.setSize(new spacetrader.controls.Size(120, 176));
         this.lblEquip.setTabIndex(44);
         this.lblEquip
                 .setText("Hardened\r\n\r\n1 Military Laser\r\n1 Morgan\'s Laser\r\n1 Energy Shield\r\n1 Reflective Shi"
@@ -134,10 +134,10 @@ public class FormViewShip extends SpaceTraderForm {
         //
         // boxSpecialCargo
         //
-        this.boxSpecialCargo.controls.addAll((new WinformControl[]{this.lblSpecialCargo}));
+        this.boxSpecialCargo.controls.addAll((new BaseComponent[]{this.lblSpecialCargo}));
         this.boxSpecialCargo.setLocation(new java.awt.Point(192, 8));
         this.boxSpecialCargo.setName("boxSpecialCargo");
-        this.boxSpecialCargo.setSize(new jwinforms.Size(200, 204));
+        this.boxSpecialCargo.setSize(new spacetrader.controls.Size(200, 204));
         this.boxSpecialCargo.setTabIndex(64);
         this.boxSpecialCargo.setTabStop(false);
         this.boxSpecialCargo.setText("Special Cargo");
@@ -146,15 +146,15 @@ public class FormViewShip extends SpaceTraderForm {
         //
         this.lblSpecialCargo.setLocation(new java.awt.Point(8, 16));
         this.lblSpecialCargo.setName("lblSpecialCargo");
-        this.lblSpecialCargo.setSize(new jwinforms.Size(190, 176));
+        this.lblSpecialCargo.setSize(new spacetrader.controls.Size(190, 176));
         this.lblSpecialCargo.setTabIndex(0);
         this.lblSpecialCargo.setText("No special items.");
         //
         // FormViewShip
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
-        this.setClientSize(new jwinforms.Size(402, 219));
+        this.setClientSize(new spacetrader.controls.Size(402, 219));
         this.Controls.addAll(Arrays.asList(this.boxSpecialCargo, this.lblEquip, this.lblEquipLabel, this.btnClose,
                 this.lblTypeLabel, this.lblType));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);

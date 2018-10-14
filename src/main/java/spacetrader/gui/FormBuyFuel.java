@@ -29,20 +29,20 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.Commander;
-import spacetrader.Game;
+import spacetrader.controls.*;
+import spacetrader.game.Commander;
+import spacetrader.game.Game;
 
 import java.util.Arrays;
 
 public class FormBuyFuel extends SpaceTraderForm {
     // #region Control Declarations
 
-    private jwinforms.Button btnOk;
-    private jwinforms.Label lblQuestion;
-    private jwinforms.Button btnMax;
-    private jwinforms.Button btnNothing;
-    private jwinforms.NumericUpDown numAmount;
+    private spacetrader.controls.Button btnOk;
+    private spacetrader.controls.Label lblQuestion;
+    private spacetrader.controls.Button btnMax;
+    private spacetrader.controls.Button btnNothing;
+    private spacetrader.controls.NumericUpDown numAmount;
 
     // #endregion
 
@@ -69,11 +69,11 @@ public class FormBuyFuel extends SpaceTraderForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        this.lblQuestion = new jwinforms.Label();
-        this.numAmount = new jwinforms.NumericUpDown();
-        this.btnOk = new jwinforms.Button();
-        this.btnMax = new jwinforms.Button();
-        this.btnNothing = new jwinforms.Button();
+        this.lblQuestion = new spacetrader.controls.Label();
+        this.numAmount = new spacetrader.controls.NumericUpDown();
+        this.btnOk = new spacetrader.controls.Button();
+        this.btnMax = new spacetrader.controls.Button();
+        this.btnNothing = new spacetrader.controls.Button();
         ((ISupportInitialize) (this.numAmount)).beginInit();
         this.suspendLayout();
         //
@@ -82,7 +82,7 @@ public class FormBuyFuel extends SpaceTraderForm {
         this.lblQuestion.setAutoSize(true);
         this.lblQuestion.setLocation(new java.awt.Point(8, 8));
         this.lblQuestion.setName("lblQuestion");
-        this.lblQuestion.setSize(new jwinforms.Size(211, 13));
+        this.lblQuestion.setSize(new spacetrader.controls.Size(211, 13));
         this.lblQuestion.setTabIndex(3);
         this.lblQuestion.setText("How much do you want to spend on fuel?");
         //
@@ -92,31 +92,31 @@ public class FormBuyFuel extends SpaceTraderForm {
         this.numAmount.setMaximum(999);
         this.numAmount.setMinimum(1);
         this.numAmount.setName("numAmount");
-        this.numAmount.setSize(new jwinforms.Size(44, 20));
+        this.numAmount.setSize(new spacetrader.controls.Size(44, 20));
         this.numAmount.setTabIndex(1);
         this.numAmount.setValue(888);
         //
         // btnOk
         //
         this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnOk.setLocation(new java.awt.Point(61, 32));
         this.btnOk.setName("btnOk");
-        this.btnOk.setSize(new jwinforms.Size(41, 22));
+        this.btnOk.setSize(new spacetrader.controls.Size(41, 22));
         this.btnOk.setTabIndex(2);
         this.btnOk.setText("Ok");
         //
         // btnMax
         //
         this.btnMax.setDialogResult(DialogResult.OK);
-        this.btnMax.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnMax.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnMax.setLocation(new java.awt.Point(109, 32));
         this.btnMax.setName("btnMax");
-        this.btnMax.setSize(new jwinforms.Size(41, 22));
+        this.btnMax.setSize(new spacetrader.controls.Size(41, 22));
         this.btnMax.setTabIndex(3);
         this.btnMax.setText("Max");
         this.btnMax.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnMax_Click(sender, e);
             }
         });
@@ -124,22 +124,22 @@ public class FormBuyFuel extends SpaceTraderForm {
         // btnNothing
         //
         this.btnNothing.setDialogResult(DialogResult.Cancel);
-        this.btnNothing.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnNothing.setLocation(new java.awt.Point(157, 32));
         this.btnNothing.setName("btnNothing");
-        this.btnNothing.setSize(new jwinforms.Size(53, 22));
+        this.btnNothing.setSize(new spacetrader.controls.Size(53, 22));
         this.btnNothing.setTabIndex(4);
         this.btnNothing.setText("Nothing");
         //
         // FormBuyFuel
         //
         this.setAcceptButton(this.btnOk);
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnNothing);
-        this.setClientSize(new jwinforms.Size(270, 63));
+        this.setClientSize(new spacetrader.controls.Size(270, 63));
         this.setControlBox(false);
         this.Controls.addAll(Arrays.asList(this.btnNothing, this.btnMax, this.btnOk, this.numAmount, this.lblQuestion));
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormBuyFuel");
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CenterParent);

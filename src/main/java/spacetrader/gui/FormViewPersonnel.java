@@ -24,37 +24,37 @@
 // using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.CrewMember;
-import spacetrader.Functions;
-import spacetrader.Game;
-import spacetrader.Strings;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.CrewMemberId;
+import spacetrader.controls.*;
+import spacetrader.game.CrewMember;
+import spacetrader.game.Functions;
+import spacetrader.game.Game;
+import spacetrader.game.Strings;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.CrewMemberId;
 import spacetrader.guifacade.GuiFacade;
 
 public class FormViewPersonnel extends SpaceTraderForm {
     //#region Control Declarations
 
-    private jwinforms.Button btnClose;
-    private jwinforms.GroupBox boxForHire;
-    private jwinforms.GroupBox boxInfo;
-    private jwinforms.GroupBox boxCurrentCrew;
-    private jwinforms.Button btnHireFire;
-    private jwinforms.Label lblRate;
-    private jwinforms.Label lblName;
-    private jwinforms.Label lblEngineer;
-    private jwinforms.Label lblTrader;
-    private jwinforms.Label lblFighter;
-    private jwinforms.Label lblPilot;
-    private jwinforms.Label lblEngineerLabel;
-    private jwinforms.Label lblTraderLabel;
-    private jwinforms.Label lblFighterLabel;
-    private jwinforms.Label lblPilotLabel;
-    private jwinforms.ListBox lstForHire;
-    private jwinforms.ListBox lstCrew;
-    private jwinforms.Label lblCrewNoQuarters;
-    private jwinforms.Label lblForHireNone;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.GroupBox boxForHire;
+    private spacetrader.controls.GroupBox boxInfo;
+    private spacetrader.controls.GroupBox boxCurrentCrew;
+    private spacetrader.controls.Button btnHireFire;
+    private spacetrader.controls.Label lblRate;
+    private spacetrader.controls.Label lblName;
+    private spacetrader.controls.Label lblEngineer;
+    private spacetrader.controls.Label lblTrader;
+    private spacetrader.controls.Label lblFighter;
+    private spacetrader.controls.Label lblPilot;
+    private spacetrader.controls.Label lblEngineerLabel;
+    private spacetrader.controls.Label lblTraderLabel;
+    private spacetrader.controls.Label lblFighterLabel;
+    private spacetrader.controls.Label lblPilotLabel;
+    private spacetrader.controls.ListBox lstForHire;
+    private spacetrader.controls.ListBox lstCrew;
+    private spacetrader.controls.Label lblCrewNoQuarters;
+    private spacetrader.controls.Label lblForHireNone;
     private Game game = Game.CurrentGame();
     private CrewMember selectedCrewMember = null;
     private boolean handlingSelect = false;
@@ -75,25 +75,25 @@ public class FormViewPersonnel extends SpaceTraderForm {
     /// the contents of this method with the code editor.
     /// </summary>
     private void initializeComponent() {
-        this.btnClose = new jwinforms.Button();
-        this.boxCurrentCrew = new jwinforms.GroupBox();
-        this.lstCrew = new jwinforms.ListBox();
-        this.boxForHire = new jwinforms.GroupBox();
-        this.lstForHire = new jwinforms.ListBox();
-        this.boxInfo = new jwinforms.GroupBox();
-        this.btnHireFire = new jwinforms.Button();
-        this.lblRate = new jwinforms.Label();
-        this.lblName = new jwinforms.Label();
-        this.lblEngineer = new jwinforms.Label();
-        this.lblTrader = new jwinforms.Label();
-        this.lblFighter = new jwinforms.Label();
-        this.lblPilot = new jwinforms.Label();
-        this.lblEngineerLabel = new jwinforms.Label();
-        this.lblTraderLabel = new jwinforms.Label();
-        this.lblFighterLabel = new jwinforms.Label();
-        this.lblPilotLabel = new jwinforms.Label();
-        this.lblCrewNoQuarters = new jwinforms.Label();
-        this.lblForHireNone = new jwinforms.Label();
+        this.btnClose = new spacetrader.controls.Button();
+        this.boxCurrentCrew = new spacetrader.controls.GroupBox();
+        this.lstCrew = new spacetrader.controls.ListBox();
+        this.boxForHire = new spacetrader.controls.GroupBox();
+        this.lstForHire = new spacetrader.controls.ListBox();
+        this.boxInfo = new spacetrader.controls.GroupBox();
+        this.btnHireFire = new spacetrader.controls.Button();
+        this.lblRate = new spacetrader.controls.Label();
+        this.lblName = new spacetrader.controls.Label();
+        this.lblEngineer = new spacetrader.controls.Label();
+        this.lblTrader = new spacetrader.controls.Label();
+        this.lblFighter = new spacetrader.controls.Label();
+        this.lblPilot = new spacetrader.controls.Label();
+        this.lblEngineerLabel = new spacetrader.controls.Label();
+        this.lblTraderLabel = new spacetrader.controls.Label();
+        this.lblFighterLabel = new spacetrader.controls.Label();
+        this.lblPilotLabel = new spacetrader.controls.Label();
+        this.lblCrewNoQuarters = new spacetrader.controls.Label();
+        this.lblForHireNone = new spacetrader.controls.Label();
         this.boxCurrentCrew.suspendLayout();
         this.boxForHire.suspendLayout();
         this.boxInfo.suspendLayout();
@@ -104,7 +104,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.btnClose.setDialogResult(DialogResult.Cancel);
         this.btnClose.setLocation(new java.awt.Point(-32, -32));
         this.btnClose.setName("btnClose");
-        this.btnClose.setSize(new jwinforms.Size(32, 32));
+        this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
         this.btnClose.setTabIndex(32);
         this.btnClose.setTabStop(false);
         this.btnClose.setText("X");
@@ -115,25 +115,25 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.boxCurrentCrew.controls.add(this.lstCrew);
         this.boxCurrentCrew.setLocation(new java.awt.Point(8, 8));
         this.boxCurrentCrew.setName("boxCurrentCrew");
-        this.boxCurrentCrew.setSize(new jwinforms.Size(144, 114));
+        this.boxCurrentCrew.setSize(new spacetrader.controls.Size(144, 114));
         this.boxCurrentCrew.setTabIndex(33);
         this.boxCurrentCrew.setTabStop(false);
         this.boxCurrentCrew.setText("Current Crew");
         //
         // lstCrew
         //
-        this.lstCrew.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstCrew.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstCrew.setLocation(new java.awt.Point(8, 24));
         this.lstCrew.setName("lstCrew");
-        this.lstCrew.setSize(new jwinforms.Size(126, 80));
+        this.lstCrew.setSize(new spacetrader.controls.Size(126, 80));
         this.lstCrew.setTabIndex(6);
         this.lstCrew.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 HireFire(sender, e);
             }
         });
         this.lstCrew.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
@@ -144,25 +144,25 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.boxForHire.controls.add(this.lstForHire);
         this.boxForHire.setLocation(new java.awt.Point(160, 8));
         this.boxForHire.setName("boxForHire");
-        this.boxForHire.setSize(new jwinforms.Size(144, 114));
+        this.boxForHire.setSize(new spacetrader.controls.Size(144, 114));
         this.boxForHire.setTabIndex(34);
         this.boxForHire.setTabStop(false);
         this.boxForHire.setText("Mercenaries For Hire");
         //
         // lstForHire
         //
-        this.lstForHire.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        this.lstForHire.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         this.lstForHire.setLocation(new java.awt.Point(8, 24));
         this.lstForHire.setName("lstForHire");
-        this.lstForHire.setSize(new jwinforms.Size(126, 80));
+        this.lstForHire.setSize(new spacetrader.controls.Size(126, 80));
         this.lstForHire.setTabIndex(5);
         this.lstForHire.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 HireFire(sender, e);
             }
         });
         this.lstForHire.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 SelectedIndexChanged(sender, e);
             }
         });
@@ -182,21 +182,21 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.boxInfo.controls.add(this.lblPilotLabel);
         this.boxInfo.setLocation(new java.awt.Point(312, 8));
         this.boxInfo.setName("boxInfo");
-        this.boxInfo.setSize(new jwinforms.Size(168, 114));
+        this.boxInfo.setSize(new spacetrader.controls.Size(168, 114));
         this.boxInfo.setTabIndex(35);
         this.boxInfo.setTabStop(false);
         this.boxInfo.setText("Mercenary Information");
         //
         // btnHireFire
         //
-        this.btnHireFire.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnHireFire.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnHireFire.setLocation(new java.awt.Point(120, 80));
         this.btnHireFire.setName("btnHireFire");
-        this.btnHireFire.setSize(new jwinforms.Size(36, 22));
+        this.btnHireFire.setSize(new spacetrader.controls.Size(36, 22));
         this.btnHireFire.setTabIndex(4);
         this.btnHireFire.setText("Hire");
         this.btnHireFire.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 HireFire(sender, e);
             }
         });
@@ -205,7 +205,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         this.lblRate.setLocation(new java.awt.Point(104, 40));
         this.lblRate.setName("lblRate");
-        this.lblRate.setSize(new jwinforms.Size(59, 13));
+        this.lblRate.setSize(new spacetrader.controls.Size(59, 13));
         this.lblRate.setTabIndex(97);
         this.lblRate.setText("88 cr. daily");
         //
@@ -214,7 +214,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.lblName.setFont(FontCollection.bold825);
         this.lblName.setLocation(new java.awt.Point(12, 18));
         this.lblName.setName("lblName");
-        this.lblName.setSize(new jwinforms.Size(72, 13));
+        this.lblName.setSize(new spacetrader.controls.Size(72, 13));
         this.lblName.setTabIndex(96);
         this.lblName.setText("Xxxxxxxxxxx");
         //
@@ -222,7 +222,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         this.lblEngineer.setLocation(new java.awt.Point(64, 88));
         this.lblEngineer.setName("lblEngineer");
-        this.lblEngineer.setSize(new jwinforms.Size(17, 13));
+        this.lblEngineer.setSize(new spacetrader.controls.Size(17, 13));
         this.lblEngineer.setTabIndex(95);
         this.lblEngineer.setText("88");
         //
@@ -230,7 +230,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         this.lblTrader.setLocation(new java.awt.Point(64, 72));
         this.lblTrader.setName("lblTrader");
-        this.lblTrader.setSize(new jwinforms.Size(17, 13));
+        this.lblTrader.setSize(new spacetrader.controls.Size(17, 13));
         this.lblTrader.setTabIndex(94);
         this.lblTrader.setText("88");
         //
@@ -238,7 +238,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         this.lblFighter.setLocation(new java.awt.Point(64, 56));
         this.lblFighter.setName("lblFighter");
-        this.lblFighter.setSize(new jwinforms.Size(17, 13));
+        this.lblFighter.setSize(new spacetrader.controls.Size(17, 13));
         this.lblFighter.setTabIndex(93);
         this.lblFighter.setText("88");
         //
@@ -246,7 +246,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         this.lblPilot.setLocation(new java.awt.Point(64, 40));
         this.lblPilot.setName("lblPilot");
-        this.lblPilot.setSize(new jwinforms.Size(17, 13));
+        this.lblPilot.setSize(new spacetrader.controls.Size(17, 13));
         this.lblPilot.setTabIndex(92);
         this.lblPilot.setText("88");
         //
@@ -255,7 +255,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.lblEngineerLabel.setAutoSize(true);
         this.lblEngineerLabel.setLocation(new java.awt.Point(12, 88));
         this.lblEngineerLabel.setName("lblEngineerLabel");
-        this.lblEngineerLabel.setSize(new jwinforms.Size(53, 16));
+        this.lblEngineerLabel.setSize(new spacetrader.controls.Size(53, 16));
         this.lblEngineerLabel.setTabIndex(91);
         this.lblEngineerLabel.setText("Engineer:");
         //
@@ -264,7 +264,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.lblTraderLabel.setAutoSize(true);
         this.lblTraderLabel.setLocation(new java.awt.Point(12, 72));
         this.lblTraderLabel.setName("lblTraderLabel");
-        this.lblTraderLabel.setSize(new jwinforms.Size(41, 16));
+        this.lblTraderLabel.setSize(new spacetrader.controls.Size(41, 16));
         this.lblTraderLabel.setTabIndex(90);
         this.lblTraderLabel.setText("Trader:");
         //
@@ -273,7 +273,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.lblFighterLabel.setAutoSize(true);
         this.lblFighterLabel.setLocation(new java.awt.Point(12, 56));
         this.lblFighterLabel.setName("lblFighterLabel");
-        this.lblFighterLabel.setSize(new jwinforms.Size(43, 16));
+        this.lblFighterLabel.setSize(new spacetrader.controls.Size(43, 16));
         this.lblFighterLabel.setTabIndex(89);
         this.lblFighterLabel.setText("Fighter:");
         //
@@ -282,7 +282,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.lblPilotLabel.setAutoSize(true);
         this.lblPilotLabel.setLocation(new java.awt.Point(12, 40));
         this.lblPilotLabel.setName("lblPilotLabel");
-        this.lblPilotLabel.setSize(new jwinforms.Size(29, 16));
+        this.lblPilotLabel.setSize(new spacetrader.controls.Size(29, 16));
         this.lblPilotLabel.setTabIndex(88);
         this.lblPilotLabel.setText("Pilot:");
         //
@@ -290,7 +290,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         this.lblCrewNoQuarters.setLocation(new java.awt.Point(16, 24));
         this.lblCrewNoQuarters.setName("lblCrewNoQuarters");
-        this.lblCrewNoQuarters.setSize(new jwinforms.Size(120, 16));
+        this.lblCrewNoQuarters.setSize(new spacetrader.controls.Size(120, 16));
         this.lblCrewNoQuarters.setTabIndex(7);
         this.lblCrewNoQuarters.setText("No quarters available");
         this.lblCrewNoQuarters.setVisible(false);
@@ -299,16 +299,16 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         this.lblForHireNone.setLocation(new java.awt.Point(16, 24));
         this.lblForHireNone.setName("lblForHireNone");
-        this.lblForHireNone.setSize(new jwinforms.Size(120, 16));
+        this.lblForHireNone.setSize(new spacetrader.controls.Size(120, 16));
         this.lblForHireNone.setTabIndex(8);
         this.lblForHireNone.setText("No one for hire");
         this.lblForHireNone.setVisible(false);
         //
         // FormViewPersonnel
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
-        this.setClientSize(new jwinforms.Size(488, 129));
+        this.setClientSize(new spacetrader.controls.Size(488, 129));
         this.Controls.add(this.boxInfo);
         this.Controls.add(this.boxForHire);
         this.Controls.add(this.boxCurrentCrew);

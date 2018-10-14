@@ -29,21 +29,21 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.Functions;
-import spacetrader.Strings;
+import spacetrader.controls.*;
+import spacetrader.game.Functions;
+import spacetrader.game.Strings;
 
 import java.util.Arrays;
 
 public class FormGetLoan extends SpaceTraderForm {
     // #region Control Declarations
 
-    private jwinforms.Button btnOk;
-    private jwinforms.Label lblQuestion;
-    private jwinforms.Button btnMax;
-    private jwinforms.Button btnNothing;
-    private jwinforms.NumericUpDown numAmount;
-    private jwinforms.Label lblStatement;
+    private spacetrader.controls.Button btnOk;
+    private spacetrader.controls.Label lblQuestion;
+    private spacetrader.controls.Button btnMax;
+    private spacetrader.controls.Button btnNothing;
+    private spacetrader.controls.NumericUpDown numAmount;
+    private spacetrader.controls.Label lblStatement;
 
     public FormGetLoan(int max) {
         initializeComponent();
@@ -60,12 +60,12 @@ public class FormGetLoan extends SpaceTraderForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        this.lblQuestion = new jwinforms.Label();
-        this.numAmount = new jwinforms.NumericUpDown();
-        this.btnOk = new jwinforms.Button();
-        this.btnMax = new jwinforms.Button();
-        this.btnNothing = new jwinforms.Button();
-        this.lblStatement = new jwinforms.Label();
+        this.lblQuestion = new spacetrader.controls.Label();
+        this.numAmount = new spacetrader.controls.NumericUpDown();
+        this.btnOk = new spacetrader.controls.Button();
+        this.btnMax = new spacetrader.controls.Button();
+        this.btnNothing = new spacetrader.controls.Button();
+        this.lblStatement = new spacetrader.controls.Label();
         ((ISupportInitialize) (this.numAmount)).beginInit();
         this.suspendLayout();
         //
@@ -74,7 +74,7 @@ public class FormGetLoan extends SpaceTraderForm {
         this.lblQuestion.setAutoSize(true);
         this.lblQuestion.setLocation(new java.awt.Point(8, 24));
         this.lblQuestion.setName("lblQuestion");
-        this.lblQuestion.setSize(new jwinforms.Size(178, 13));
+        this.lblQuestion.setSize(new spacetrader.controls.Size(178, 13));
         this.lblQuestion.setTabIndex(3);
         this.lblQuestion.setText("How much do you want to borrow?");
         //
@@ -84,7 +84,7 @@ public class FormGetLoan extends SpaceTraderForm {
         this.numAmount.setMaximum(99999);
         this.numAmount.setMinimum(1);
         this.numAmount.setName("numAmount");
-        this.numAmount.setSize(new jwinforms.Size(58, 20));
+        this.numAmount.setSize(new spacetrader.controls.Size(58, 20));
         this.numAmount.setTabIndex(1);
         this.numAmount.ThousandsSeparator = true;
         this.numAmount.setValue(88888);
@@ -92,24 +92,24 @@ public class FormGetLoan extends SpaceTraderForm {
         // btnOk
         //
         this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnOk.setLocation(new java.awt.Point(52, 48));
         this.btnOk.setName("btnOk");
-        this.btnOk.setSize(new jwinforms.Size(41, 22));
+        this.btnOk.setSize(new spacetrader.controls.Size(41, 22));
         this.btnOk.setTabIndex(2);
         this.btnOk.setText("Ok");
         //
         // btnMax
         //
         this.btnMax.setDialogResult(DialogResult.OK);
-        this.btnMax.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnMax.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnMax.setLocation(new java.awt.Point(100, 48));
         this.btnMax.setName("btnMax");
-        this.btnMax.setSize(new jwinforms.Size(41, 22));
+        this.btnMax.setSize(new spacetrader.controls.Size(41, 22));
         this.btnMax.setTabIndex(3);
         this.btnMax.setText("Max");
         this.btnMax.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnMax_Click(sender, e);
             }
         });
@@ -117,10 +117,10 @@ public class FormGetLoan extends SpaceTraderForm {
         // btnNothing
         //
         this.btnNothing.setDialogResult(DialogResult.Cancel);
-        this.btnNothing.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnNothing.setLocation(new java.awt.Point(148, 48));
         this.btnNothing.setName("btnNothing");
-        this.btnNothing.setSize(new jwinforms.Size(53, 22));
+        this.btnNothing.setSize(new spacetrader.controls.Size(53, 22));
         this.btnNothing.setTabIndex(4);
         this.btnNothing.setText("Nothing");
         //
@@ -128,20 +128,20 @@ public class FormGetLoan extends SpaceTraderForm {
         //
         this.lblStatement.setLocation(new java.awt.Point(8, 8));
         this.lblStatement.setName("lblStatement");
-        this.lblStatement.setSize(new jwinforms.Size(189, 13));
+        this.lblStatement.setSize(new spacetrader.controls.Size(189, 13));
         this.lblStatement.setTabIndex(5);
         this.lblStatement.setText("You can borrow up to 88,888 credits.");
         //
         // FormGetLoan
         //
         this.setAcceptButton(this.btnOk);
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnNothing);
-        this.setClientSize(new jwinforms.Size(252, 79));
+        this.setClientSize(new spacetrader.controls.Size(252, 79));
         this.setControlBox(false);
         this.Controls.addAll(Arrays.asList(this.lblStatement, this.btnNothing, this.btnMax, this.btnOk, this.numAmount,
                 this.lblQuestion));
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormGetLoan");
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CenterParent);

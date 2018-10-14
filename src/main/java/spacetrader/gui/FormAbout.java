@@ -25,20 +25,20 @@
 
 package spacetrader.gui;
 
-import jwinforms.*;
-import jwinforms.Image;
+import spacetrader.controls.*;
+import spacetrader.controls.Image;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class FormAbout extends jwinforms.WinformForm {
+public class FormAbout extends spacetrader.controls.WinformForm {
     // #region Control Declarations
 
-    private jwinforms.Button btnClose;
-    private jwinforms.Label lblTitle;
-    private jwinforms.Label lblAbout;
-    private jwinforms.PictureBox picLogo;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.Label lblTitle;
+    private spacetrader.controls.Label lblAbout;
+    private spacetrader.controls.PictureBox picLogo;
 
     // #endregion
 
@@ -61,11 +61,11 @@ public class FormAbout extends jwinforms.WinformForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        jwinforms.ComponentResourceManager resources = new ComponentResourceManager(FormAbout.class);
-        this.btnClose = new jwinforms.Button();
-        this.lblTitle = new jwinforms.Label();
-        this.lblAbout = new jwinforms.Label();
-        this.picLogo = new jwinforms.PictureBox();
+        spacetrader.controls.ComponentResourceManager resources = new ComponentResourceManager(FormAbout.class);
+        this.btnClose = new spacetrader.controls.Button();
+        this.lblTitle = new spacetrader.controls.Label();
+        this.lblAbout = new spacetrader.controls.Label();
+        this.picLogo = new spacetrader.controls.PictureBox();
         ((ISupportInitialize) (this.picLogo)).beginInit();
         this.suspendLayout();
         //
@@ -115,7 +115,7 @@ public class FormAbout extends jwinforms.WinformForm {
         this.Controls.add(this.lblAbout);
         this.Controls.add(this.lblTitle);
         this.Controls.add(this.btnClose);
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormAbout");

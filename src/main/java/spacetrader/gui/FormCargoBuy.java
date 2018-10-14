@@ -29,23 +29,23 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.*;
-import spacetrader.enums.CargoBuyOp;
+import spacetrader.controls.*;
+import spacetrader.game.enums.CargoBuyOp;
+import spacetrader.game.*;
 import spacetrader.guifacade.Facaded;
 
 public class FormCargoBuy extends SpaceTraderForm {
     // #region Control Declarations
 
     private final Game game = Game.CurrentGame();
-    private jwinforms.Button btnOk;
-    private jwinforms.Button btnAll;
-    private jwinforms.Button btnNone;
-    private jwinforms.Label lblQuestion;
-    private jwinforms.Label lblStatement;
-    private jwinforms.NumericUpDown numAmount;
-    private jwinforms.Label lblAvailable;
-    private jwinforms.Label lblAfford;
+    private spacetrader.controls.Button btnOk;
+    private spacetrader.controls.Button btnAll;
+    private spacetrader.controls.Button btnNone;
+    private spacetrader.controls.Label lblQuestion;
+    private spacetrader.controls.Label lblStatement;
+    private spacetrader.controls.NumericUpDown numAmount;
+    private spacetrader.controls.Label lblAvailable;
+    private spacetrader.controls.Label lblAfford;
 
     @Facaded
     public FormCargoBuy(int item, int maxAmount, CargoBuyOp op) {
@@ -104,14 +104,14 @@ public class FormCargoBuy extends SpaceTraderForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        lblQuestion = new jwinforms.Label();
-        lblStatement = new jwinforms.Label();
-        numAmount = new jwinforms.NumericUpDown();
-        btnOk = new jwinforms.Button();
-        btnAll = new jwinforms.Button();
-        btnNone = new jwinforms.Button();
-        lblAvailable = new jwinforms.Label();
-        lblAfford = new jwinforms.Label();
+        lblQuestion = new spacetrader.controls.Label();
+        lblStatement = new spacetrader.controls.Label();
+        numAmount = new spacetrader.controls.NumericUpDown();
+        btnOk = new spacetrader.controls.Button();
+        btnAll = new spacetrader.controls.Button();
+        btnNone = new spacetrader.controls.Button();
+        lblAvailable = new spacetrader.controls.Label();
+        lblAfford = new spacetrader.controls.Label();
         ((ISupportInitialize) (numAmount)).beginInit();
         this.suspendLayout();
         //
@@ -120,7 +120,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         lblQuestion.setAutoSize(true);
         lblQuestion.setLocation(new java.awt.Point(8, 24));
         lblQuestion.setName("lblQuestion");
-        lblQuestion.setSize(new jwinforms.Size(161, 16));
+        lblQuestion.setSize(new spacetrader.controls.Size(161, 16));
         lblQuestion.setTabIndex(1);
         lblQuestion.setText("How many do you want to buy?");
         //
@@ -128,7 +128,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         //
         lblStatement.setLocation(new java.awt.Point(8, 8));
         lblStatement.setName("lblStatement");
-        lblStatement.setSize(new jwinforms.Size(326, 13));
+        lblStatement.setSize(new spacetrader.controls.Size(326, 13));
         lblStatement.setTabIndex(3);
         lblStatement.setText("The trader wants to sell Machines for the price of 8,888 cr. each.");
         //
@@ -138,32 +138,32 @@ public class FormCargoBuy extends SpaceTraderForm {
         numAmount.setMaximum(999);
         numAmount.setMinimum(1);
         numAmount.setName("numAmount");
-        numAmount.setSize(new jwinforms.Size(44, 20));
+        numAmount.setSize(new spacetrader.controls.Size(44, 20));
         numAmount.setTabIndex(1);
         numAmount.setValue(1);
         //
         // btnOk
         //
         btnOk.setDialogResult(DialogResult.OK);
-        btnOk.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnOk.setLocation(new java.awt.Point(95, 48));
         btnOk.setName("btnOk");
-        btnOk.setSize(new jwinforms.Size(41, 22));
+        btnOk.setSize(new spacetrader.controls.Size(41, 22));
         btnOk.setTabIndex(2);
         btnOk.setText("Ok");
         //
         // btnAll
         //
         btnAll.setDialogResult(DialogResult.OK);
-        btnAll.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnAll.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnAll.setLocation(new java.awt.Point(143, 48));
         btnAll.setName("btnAll");
-        btnAll.setSize(new jwinforms.Size(41, 22));
+        btnAll.setSize(new spacetrader.controls.Size(41, 22));
         btnAll.setTabIndex(3);
         btnAll.setText("All");
         btnAll.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnAll_Click(sender, e);
             }
         });
@@ -171,10 +171,10 @@ public class FormCargoBuy extends SpaceTraderForm {
         // btnNone
         //
         btnNone.setDialogResult(DialogResult.Cancel);
-        btnNone.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnNone.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btnNone.setLocation(new java.awt.Point(191, 48));
         btnNone.setName("btnNone");
-        btnNone.setSize(new jwinforms.Size(41, 22));
+        btnNone.setSize(new spacetrader.controls.Size(41, 22));
         btnNone.setTabIndex(4);
         btnNone.setText("None");
         //
@@ -182,7 +182,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         //
         lblAvailable.setLocation(new java.awt.Point(8, 21));
         lblAvailable.setName("lblAvailable");
-        lblAvailable.setSize(new jwinforms.Size(163, 13));
+        lblAvailable.setSize(new spacetrader.controls.Size(163, 13));
         lblAvailable.setTabIndex(5);
         lblAvailable.setText("The trader has 88 units for sale.");
         lblAvailable.setVisible(false);
@@ -191,7 +191,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         //
         lblAfford.setLocation(new java.awt.Point(8, 34));
         lblAfford.setName("lblAfford");
-        lblAfford.setSize(new jwinforms.Size(157, 13));
+        lblAfford.setSize(new spacetrader.controls.Size(157, 13));
         lblAfford.setTabIndex(6);
         lblAfford.setText("You can afford to buy 88 units.");
         lblAfford.setVisible(false);
@@ -199,9 +199,9 @@ public class FormCargoBuy extends SpaceTraderForm {
         // FormCargoBuy
         //
         this.setAcceptButton(btnOk);
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnNone);
-        this.setClientSize(new jwinforms.Size(326, 105));
+        this.setClientSize(new spacetrader.controls.Size(326, 105));
         this.setControlBox(false);
         Controls.add(btnNone);
         Controls.add(btnAll);
@@ -211,7 +211,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         Controls.add(lblStatement);
         Controls.add(lblAfford);
         Controls.add(lblAvailable);
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormCargoBuy");
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CenterParent);

@@ -1,15 +1,15 @@
 package spacetrader.gui;
 
-import jwinforms.*;
-import jwinforms.Font;
-import spacetrader.*;
-import spacetrader.enums.StarSystemId;
+import spacetrader.controls.*;
+import spacetrader.controls.Font;
+import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.*;
 
 import java.awt.*;
 
-public class ShortRangeChart extends jwinforms.GroupBox {
+public class ShortRangeChart extends spacetrader.controls.GroupBox {
     private final SpaceTrader mainWindow;
-    private final jwinforms.ImageList ilChartImages;
+    private final spacetrader.controls.ImageList ilChartImages;
     private final int OFF_X = ChartsGraphicsConsts.OFF_X;
     private final int OFF_Y = ChartsGraphicsConsts.OFF_Y;
     private final int IMG_G_N = ChartsGraphicsConsts.IMG_G_N;
@@ -19,10 +19,10 @@ public class ShortRangeChart extends jwinforms.GroupBox {
     private final Brush DEFAULT_BRUSH = new SolidBrush(Color.white);
     private SystemTracker game = null;
     private Commander commander;
-    private jwinforms.PictureBox picShortRangeChart;
+    private spacetrader.controls.PictureBox picShortRangeChart;
     private Font font;
     private Font smallFont;
-    public ShortRangeChart(SpaceTrader mainWindow, jwinforms.ImageList images) {
+    public ShortRangeChart(SpaceTrader mainWindow, spacetrader.controls.ImageList images) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
     }
@@ -33,35 +33,35 @@ public class ShortRangeChart extends jwinforms.GroupBox {
     }
 
     void initializeComponent() {
-        picShortRangeChart = new jwinforms.PictureBox();
+        picShortRangeChart = new spacetrader.controls.PictureBox();
 
         //
         // picShortRangeChart
         //
 
-        picShortRangeChart.setBackColor(Color.white);
+        picShortRangeChart.setBackground(Color.white);
         picShortRangeChart.setLocation(new Point(8, 16));
         picShortRangeChart.setName("picShortRangeChart");
-        picShortRangeChart.setSize(new jwinforms.Size(160, 145));
+        picShortRangeChart.setSize(new spacetrader.controls.Size(160, 145));
         picShortRangeChart.setTabIndex(1);
         picShortRangeChart.setTabStop(false);
-        picShortRangeChart.setPaint(new jwinforms.EventHandler<Object, PaintEventArgs>() {
+        picShortRangeChart.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
             @Override
             public void handle(Object sender, PaintEventArgs e) {
                 picShortRangeChart_Paint(sender, e);
             }
         });
-        picShortRangeChart.setMouseDown(new jwinforms.EventHandler<Object, MouseEventArgs>() {
+        picShortRangeChart.setMouseDown(new spacetrader.controls.EventHandler<Object, MouseEventArgs>() {
             @Override
             public void handle(Object sender, MouseEventArgs e) {
                 picShortRangeChart_MouseDown(sender, e);
             }
         });
 
-        anchor = (((jwinforms.AnchorStyles.Top_Right)));
+        anchor = (((AnchorStyles.Top_Right)));
         controls.add(picShortRangeChart);
         setName("boxShortRangeChart");
-        setSize(new jwinforms.Size(176, 168));
+        setSize(new spacetrader.controls.Size(176, 168));
         setTabIndex(6);
         setTabStop(false);
         setText("Short-Range Chart");
@@ -69,7 +69,7 @@ public class ShortRangeChart extends jwinforms.GroupBox {
         fixFonts(super.getFont());
     }
 
-    private void picShortRangeChart_MouseDown(Object sender, jwinforms.MouseEventArgs e) {
+    private void picShortRangeChart_MouseDown(Object sender, spacetrader.controls.MouseEventArgs e) {
         if (e.Button == MouseButtons.Left && game != null) {
             StarSystem[] universe = game.Universe();
             StarSystem curSys = commander.getCurrentSystem();
@@ -110,7 +110,7 @@ public class ShortRangeChart extends jwinforms.GroupBox {
         mainWindow.updateAll();
     }
 
-    private void picShortRangeChart_Paint(Object sender, jwinforms.PaintEventArgs e) {
+    private void picShortRangeChart_Paint(Object sender, spacetrader.controls.PaintEventArgs e) {
         if (game != null) {
             StarSystem[] universe = game.Universe();
             int[] wormholes = game.Wormholes();

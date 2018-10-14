@@ -29,22 +29,23 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.Commander;
-import spacetrader.Game;
+import spacetrader.controls.*;
+import spacetrader.controls.BaseComponent;
+import spacetrader.game.Commander;
+import spacetrader.game.Game;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
-public class FormBuyRepairs extends jwinforms.WinformForm {
+public class FormBuyRepairs extends spacetrader.controls.WinformForm {
     // #region Control Declarations
 
-    private jwinforms.Button btnOk;
-    private jwinforms.Label lblQuestion;
-    private jwinforms.Button btnMax;
-    private jwinforms.Button btnNothing;
-    private jwinforms.NumericUpDown numAmount;
+    private spacetrader.controls.Button btnOk;
+    private spacetrader.controls.Label lblQuestion;
+    private spacetrader.controls.Button btnMax;
+    private spacetrader.controls.Button btnNothing;
+    private spacetrader.controls.NumericUpDown numAmount;
 
     // #endregion
 
@@ -83,11 +84,11 @@ public class FormBuyRepairs extends jwinforms.WinformForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        this.lblQuestion = new jwinforms.Label();
-        this.numAmount = new jwinforms.NumericUpDown();
-        this.btnOk = new jwinforms.Button();
-        this.btnMax = new jwinforms.Button();
-        this.btnNothing = new jwinforms.Button();
+        this.lblQuestion = new spacetrader.controls.Label();
+        this.numAmount = new spacetrader.controls.NumericUpDown();
+        this.btnOk = new spacetrader.controls.Button();
+        this.btnMax = new spacetrader.controls.Button();
+        this.btnNothing = new spacetrader.controls.Button();
         ((ISupportInitialize) (this.numAmount)).beginInit();
         this.suspendLayout();
         //
@@ -113,7 +114,7 @@ public class FormBuyRepairs extends jwinforms.WinformForm {
         // btnOk
         //
         this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnOk.setLocation(new Point(69, 32));
         this.btnOk.setName("btnOk");
         this.btnOk.setSize(new Size(41, 22));
@@ -123,7 +124,7 @@ public class FormBuyRepairs extends jwinforms.WinformForm {
         // btnMax
         //
         this.btnMax.setDialogResult(DialogResult.OK);
-        this.btnMax.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnMax.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnMax.setLocation(new Point(117, 32));
         this.btnMax.setName("btnMax");
         this.btnMax.setSize(new Size(41, 22));
@@ -133,7 +134,7 @@ public class FormBuyRepairs extends jwinforms.WinformForm {
         // btnNothing
         //
         this.btnNothing.setDialogResult(DialogResult.Cancel);
-        this.btnNothing.setFlatStyle(jwinforms.FlatStyle.Flat);
+        this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         this.btnNothing.setLocation(new Point(165, 32));
         this.btnNothing.setName("btnNothing");
         this.btnNothing.setSize(new Size(53, 22));
@@ -147,9 +148,9 @@ public class FormBuyRepairs extends jwinforms.WinformForm {
         this.setCancelButton(this.btnNothing);
         this.setClientSize(new Size(286, 63));
         this.setControlBox(false);
-        this.Controls.addAll(Arrays.asList(new WinformControl[]{this.btnNothing, this.btnMax, this.btnOk,
+        this.Controls.addAll(Arrays.asList(new BaseComponent[]{this.btnNothing, this.btnMax, this.btnOk,
                 this.numAmount, this.lblQuestion}));
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormBuyRepairs");
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CenterParent);

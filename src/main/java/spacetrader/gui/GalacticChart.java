@@ -1,10 +1,10 @@
 package spacetrader.gui;
 
-import jwinforms.*;
-import jwinforms.Image;
-import spacetrader.*;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.StarSystemId;
+import spacetrader.controls.*;
+import spacetrader.controls.Image;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Util;
 
@@ -19,9 +19,9 @@ import java.awt.*;
  *
  * - replaced Game with SystemTracker where possible.
  */
-public class GalacticChart extends jwinforms.GroupBox {
+public class GalacticChart extends spacetrader.controls.GroupBox {
     private final SpaceTrader mainWindow;
-    private final jwinforms.ImageList ilChartImages;
+    private final spacetrader.controls.ImageList ilChartImages;
     private final int OFF_X = ChartsGraphicsConsts.OFF_X;
     private final int OFF_Y = ChartsGraphicsConsts.OFF_Y;
     private final int OFF_X_WORM = ChartsGraphicsConsts.OFF_X_WORM;
@@ -39,13 +39,13 @@ public class GalacticChart extends jwinforms.GroupBox {
     private GameController controller = null;
     private Commander commander;
     private GameCheats cheats;
-    private jwinforms.Label lblWormhole;
-    private jwinforms.Label lblWormholeLabel;
-    private jwinforms.Button btnJump;
-    private jwinforms.Button btnFind;
-    private jwinforms.PictureBox picGalacticChart;
+    private spacetrader.controls.Label lblWormhole;
+    private spacetrader.controls.Label lblWormholeLabel;
+    private spacetrader.controls.Button btnJump;
+    private spacetrader.controls.Button btnFind;
+    private spacetrader.controls.PictureBox picGalacticChart;
 
-    public GalacticChart(SpaceTrader mainWindow, jwinforms.ImageList images) {
+    public GalacticChart(SpaceTrader mainWindow, spacetrader.controls.ImageList images) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
     }
@@ -58,25 +58,25 @@ public class GalacticChart extends jwinforms.GroupBox {
     }
 
     void initializeComponent() {
-        picGalacticChart = new jwinforms.PictureBox();
-        lblWormhole = new jwinforms.Label();
-        lblWormholeLabel = new jwinforms.Label();
-        btnJump = new jwinforms.Button();
-        btnFind = new jwinforms.Button();
+        picGalacticChart = new spacetrader.controls.PictureBox();
+        lblWormhole = new spacetrader.controls.Label();
+        lblWormholeLabel = new spacetrader.controls.Label();
+        btnJump = new spacetrader.controls.Button();
+        btnFind = new spacetrader.controls.Button();
 
-        picGalacticChart.setBackColor(Color.white);
+        picGalacticChart.setBackground(Color.white);
         picGalacticChart.setLocation(new Point(8, 16));
         picGalacticChart.setName("picGalacticChart");
         picGalacticChart.setSize(new Size(160, 116));
         picGalacticChart.setTabIndex(0);
         picGalacticChart.setTabStop(false);
-        picGalacticChart.setPaint(new jwinforms.EventHandler<Object, PaintEventArgs>() {
+        picGalacticChart.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
             @Override
             public void handle(Object sender, PaintEventArgs e) {
                 picGalacticChart_Paint(sender, e);
             }
         });
-        picGalacticChart.setMouseDown(new jwinforms.EventHandler<Object, MouseEventArgs>() {
+        picGalacticChart.setMouseDown(new spacetrader.controls.EventHandler<Object, MouseEventArgs>() {
             @Override
             public void handle(Object sender, MouseEventArgs e) {
                 picGalacticChart_MouseDown(sender, e);
@@ -86,15 +86,15 @@ public class GalacticChart extends jwinforms.GroupBox {
         //
         // boxGalacticChart
         //
-        anchor = (((jwinforms.AnchorStyles.Top_Right)));
-        setBackColor(jwinforms.SystemColors.Control);
+        anchor = (((AnchorStyles.Top_Right)));
+        setBackground(SystemColors.Control);
         controls.add(lblWormhole);
         controls.add(lblWormholeLabel);
         controls.add(btnJump);
         controls.add(btnFind);
         controls.add(picGalacticChart);
         setName("boxGalacticChart");
-        setSize(new jwinforms.Size(176, 168));
+        setSize(new spacetrader.controls.Size(176, 168));
         setTabIndex(5);
         setTabStop(false);
         setText("Galactic Chart");
@@ -103,7 +103,7 @@ public class GalacticChart extends jwinforms.GroupBox {
         //
         lblWormhole.setLocation(new Point(8, 148));
         lblWormhole.setName("lblWormhole");
-        lblWormhole.setSize(new jwinforms.Size(72, 13));
+        lblWormhole.setSize(new spacetrader.controls.Size(72, 13));
         lblWormhole.setTabIndex(29);
         lblWormhole.setText("Tarchannen");
         //
@@ -111,43 +111,43 @@ public class GalacticChart extends jwinforms.GroupBox {
         //
         lblWormholeLabel.setLocation(new Point(8, 135));
         lblWormholeLabel.setName("lblWormholeLabel");
-        lblWormholeLabel.setSize(new jwinforms.Size(72, 13));
+        lblWormholeLabel.setSize(new spacetrader.controls.Size(72, 13));
         lblWormholeLabel.setTabIndex(28);
         lblWormholeLabel.setText("Wormhole to");
         //
         // btnJump
         //
-        btnJump.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnJump.setFlatStyle(FlatStyle.FLAT);
         btnJump.setLocation(new Point(81, 138));
         btnJump.setName("btnJump");
-        btnJump.setSize(new jwinforms.Size(42, 22));
+        btnJump.setSize(new spacetrader.controls.Size(42, 22));
         btnJump.setTabIndex(55);
         btnJump.setText("Jump");
         btnJump.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnJump_Click(sender, e);
             }
         });
         //
         // btnFind
         //
-        btnFind.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btnFind.setFlatStyle(FlatStyle.FLAT);
         btnFind.setLocation(new Point(132, 138));
         btnFind.setName("btnFind");
-        btnFind.setSize(new jwinforms.Size(36, 22));
+        btnFind.setSize(new spacetrader.controls.Size(36, 22));
         btnFind.setTabIndex(56);
         btnFind.setText("Find");
         btnFind.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 btnFind_Click();
             }
         });
 
     }
 
-    private void picGalacticChart_MouseDown(Object sender, jwinforms.MouseEventArgs e) {
+    private void picGalacticChart_MouseDown(Object sender, spacetrader.controls.MouseEventArgs e) {
         if (e.Button != MouseButtons.Left || game == null)
             return;
 
@@ -178,7 +178,7 @@ public class GalacticChart extends jwinforms.GroupBox {
             mainWindow.updateAll();
     }
 
-    private void picGalacticChart_Paint(Object sender, jwinforms.PaintEventArgs e) {
+    private void picGalacticChart_Paint(Object sender, spacetrader.controls.PaintEventArgs e) {
         if (game != null) {
             StarSystem[] universe = game.Universe();
             int[] wormholes = game.Wormholes();
@@ -220,7 +220,7 @@ public class GalacticChart extends jwinforms.GroupBox {
             e.Graphics.FillRectangle(DEFAULT_BRUSH, 0, 0, picGalacticChart.getWidth(), picGalacticChart.getHeight());
     }
 
-    private void btnJump_Click(Object sender, jwinforms.EventArgs e) {
+    private void btnJump_Click(Object sender, spacetrader.controls.EventArgs e) {
         if (game.WarpSystem() == null)
             GuiFacade.alert(AlertType.ChartJumpNoSystemSelected);
         else if (game.WarpSystem() == commander.getCurrentSystem())

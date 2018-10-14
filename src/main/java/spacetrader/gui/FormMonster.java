@@ -25,9 +25,9 @@
 
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.*;
-import spacetrader.enums.ShipyardId;
+import spacetrader.controls.*;
+import spacetrader.game.enums.ShipyardId;
+import spacetrader.game.*;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.CheatCode;
 import spacetrader.util.Util;
@@ -43,43 +43,43 @@ public class FormMonster extends SpaceTraderForm {
 
     // #region Control Declarations
     private final Game game = Game.CurrentGame();
-    private jwinforms.Button btnClose;
-    private jwinforms.Panel pnlMercs;
-    private jwinforms.Panel pnlQuests;
-    private jwinforms.Panel pnlShipyards;
-    private jwinforms.PictureBox picLine1;
-    private jwinforms.PictureBox picLine0;
-    private jwinforms.PictureBox picLine2;
-    private jwinforms.Label lblMercLabel;
-    private jwinforms.Label lblQuestsLabel;
-    private jwinforms.Label lblShipyardsLabel;
-    private jwinforms.LinkLabel lblMercIDLabel;
-    private jwinforms.LinkLabel lblMercNameLabel;
-    private jwinforms.LinkLabel lblMercSkillLabelPilot;
-    private jwinforms.LinkLabel lblMercSkillLabelFighter;
-    private jwinforms.LinkLabel lblMercSkillLabelTrader;
-    private jwinforms.LinkLabel lblMercSkillLabelEngineer;
-    private jwinforms.LinkLabel lblMercSystemLabel;
-    private jwinforms.LinkLabel lblQuestSystemLabel;
-    private jwinforms.LinkLabel lblQuestDescLabel;
-    private jwinforms.LinkLabel lblShipyardsSystemLabel;
-    private jwinforms.LinkLabel lblShipyardsDescLabel;
-    private jwinforms.Label lblMercIds;
-    private jwinforms.Label lblMercNames;
-    private jwinforms.Label lblMercSkillsPilot;
-    private jwinforms.Label lblMercSkillsFighter;
-    private jwinforms.Label lblMercSkillsTrader;
-    private jwinforms.Label lblMercSkillsEngineer;
-    private jwinforms.LinkLabel lblMercSystems;
-    private jwinforms.LinkLabel lblMercSystems2;
-    private jwinforms.LinkLabel lblQuestSystems;
-    private jwinforms.Label lblQuests;
-    private jwinforms.LinkLabel lblShipyardSystems;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.Panel pnlMercs;
+    private spacetrader.controls.Panel pnlQuests;
+    private spacetrader.controls.Panel pnlShipyards;
+    private spacetrader.controls.PictureBox picLine1;
+    private spacetrader.controls.PictureBox picLine0;
+    private spacetrader.controls.PictureBox picLine2;
+    private spacetrader.controls.Label lblMercLabel;
+    private spacetrader.controls.Label lblQuestsLabel;
+    private spacetrader.controls.Label lblShipyardsLabel;
+    private spacetrader.controls.LinkLabel lblMercIDLabel;
+    private spacetrader.controls.LinkLabel lblMercNameLabel;
+    private spacetrader.controls.LinkLabel lblMercSkillLabelPilot;
+    private spacetrader.controls.LinkLabel lblMercSkillLabelFighter;
+    private spacetrader.controls.LinkLabel lblMercSkillLabelTrader;
+    private spacetrader.controls.LinkLabel lblMercSkillLabelEngineer;
+    private spacetrader.controls.LinkLabel lblMercSystemLabel;
+    private spacetrader.controls.LinkLabel lblQuestSystemLabel;
+    private spacetrader.controls.LinkLabel lblQuestDescLabel;
+    private spacetrader.controls.LinkLabel lblShipyardsSystemLabel;
+    private spacetrader.controls.LinkLabel lblShipyardsDescLabel;
+    private spacetrader.controls.Label lblMercIds;
+    private spacetrader.controls.Label lblMercNames;
+    private spacetrader.controls.Label lblMercSkillsPilot;
+    private spacetrader.controls.Label lblMercSkillsFighter;
+    private spacetrader.controls.Label lblMercSkillsTrader;
+    private spacetrader.controls.Label lblMercSkillsEngineer;
+    private spacetrader.controls.LinkLabel lblMercSystems;
+    private spacetrader.controls.LinkLabel lblMercSystems2;
+    private spacetrader.controls.LinkLabel lblQuestSystems;
+    private spacetrader.controls.Label lblQuests;
+    private spacetrader.controls.LinkLabel lblShipyardSystems;
 
     // #endregion
 
     // #region Member Declarations
-    private jwinforms.Label lblShipyards;
+    private spacetrader.controls.Label lblShipyards;
     private Integer[] mercIds;
     private Integer[] questSystemIds;
     private Integer[] shipyardSystemIds;
@@ -104,39 +104,39 @@ public class FormMonster extends SpaceTraderForm {
     // / the contents of this method with the code editor.
     // / </summary>
     private void initializeComponent() {
-        btnClose = new jwinforms.Button();
-        picLine1 = new jwinforms.PictureBox();
-        picLine0 = new jwinforms.PictureBox();
-        lblQuestsLabel = new jwinforms.Label();
-        lblMercLabel = new jwinforms.Label();
-        lblMercSkillLabelPilot = new jwinforms.LinkLabel();
-        lblMercSkillLabelFighter = new jwinforms.LinkLabel();
-        lblMercSkillLabelTrader = new jwinforms.LinkLabel();
-        lblMercSkillLabelEngineer = new jwinforms.LinkLabel();
-        lblMercSystemLabel = new jwinforms.LinkLabel();
-        lblQuestSystemLabel = new jwinforms.LinkLabel();
-        lblQuestDescLabel = new jwinforms.LinkLabel();
-        lblMercIDLabel = new jwinforms.LinkLabel();
-        lblMercNameLabel = new jwinforms.LinkLabel();
-        lblShipyardsDescLabel = new jwinforms.LinkLabel();
-        lblShipyardsSystemLabel = new jwinforms.LinkLabel();
-        lblShipyardsLabel = new jwinforms.Label();
-        pnlMercs = new jwinforms.Panel();
-        lblMercSkillsPilot = new jwinforms.Label();
-        lblMercSkillsFighter = new jwinforms.Label();
-        lblMercSkillsTrader = new jwinforms.Label();
-        lblMercSkillsEngineer = new jwinforms.Label();
-        lblMercSystems = new jwinforms.LinkLabel();
-        lblMercIds = new jwinforms.Label();
-        lblMercNames = new jwinforms.Label();
-        lblMercSystems2 = new jwinforms.LinkLabel();
-        pnlQuests = new jwinforms.Panel();
-        lblQuests = new jwinforms.Label();
-        lblQuestSystems = new jwinforms.LinkLabel();
-        pnlShipyards = new jwinforms.Panel();
-        lblShipyards = new jwinforms.Label();
-        lblShipyardSystems = new jwinforms.LinkLabel();
-        picLine2 = new jwinforms.PictureBox();
+        btnClose = new spacetrader.controls.Button();
+        picLine1 = new spacetrader.controls.PictureBox();
+        picLine0 = new spacetrader.controls.PictureBox();
+        lblQuestsLabel = new spacetrader.controls.Label();
+        lblMercLabel = new spacetrader.controls.Label();
+        lblMercSkillLabelPilot = new spacetrader.controls.LinkLabel();
+        lblMercSkillLabelFighter = new spacetrader.controls.LinkLabel();
+        lblMercSkillLabelTrader = new spacetrader.controls.LinkLabel();
+        lblMercSkillLabelEngineer = new spacetrader.controls.LinkLabel();
+        lblMercSystemLabel = new spacetrader.controls.LinkLabel();
+        lblQuestSystemLabel = new spacetrader.controls.LinkLabel();
+        lblQuestDescLabel = new spacetrader.controls.LinkLabel();
+        lblMercIDLabel = new spacetrader.controls.LinkLabel();
+        lblMercNameLabel = new spacetrader.controls.LinkLabel();
+        lblShipyardsDescLabel = new spacetrader.controls.LinkLabel();
+        lblShipyardsSystemLabel = new spacetrader.controls.LinkLabel();
+        lblShipyardsLabel = new spacetrader.controls.Label();
+        pnlMercs = new spacetrader.controls.Panel();
+        lblMercSkillsPilot = new spacetrader.controls.Label();
+        lblMercSkillsFighter = new spacetrader.controls.Label();
+        lblMercSkillsTrader = new spacetrader.controls.Label();
+        lblMercSkillsEngineer = new spacetrader.controls.Label();
+        lblMercSystems = new spacetrader.controls.LinkLabel();
+        lblMercIds = new spacetrader.controls.Label();
+        lblMercNames = new spacetrader.controls.Label();
+        lblMercSystems2 = new spacetrader.controls.LinkLabel();
+        pnlQuests = new spacetrader.controls.Panel();
+        lblQuests = new spacetrader.controls.Label();
+        lblQuestSystems = new spacetrader.controls.LinkLabel();
+        pnlShipyards = new spacetrader.controls.Panel();
+        lblShipyards = new spacetrader.controls.Label();
+        lblShipyardSystems = new spacetrader.controls.LinkLabel();
+        picLine2 = new spacetrader.controls.PictureBox();
         pnlMercs.suspendLayout();
         pnlQuests.suspendLayout();
         pnlShipyards.suspendLayout();
@@ -147,26 +147,26 @@ public class FormMonster extends SpaceTraderForm {
         btnClose.setDialogResult(DialogResult.Cancel);
         btnClose.setLocation(new java.awt.Point(-32, -32));
         btnClose.setName("btnClose");
-        btnClose.setSize(new jwinforms.Size(32, 32));
+        btnClose.setSize(new spacetrader.controls.Size(32, 32));
         btnClose.setTabIndex(32);
         btnClose.setTabStop(false);
         btnClose.setText("X");
         //
         // picLine1
         //
-        picLine1.setBackColor(java.awt.Color.darkGray);
+        picLine1.setBackground(java.awt.Color.darkGray);
         picLine1.setLocation(new java.awt.Point(4, 40));
         picLine1.setName("picLine1");
-        picLine1.setSize(new jwinforms.Size(609, 1));
+        picLine1.setSize(new spacetrader.controls.Size(609, 1));
         picLine1.setTabIndex(133);
         picLine1.setTabStop(false);
         //
         // picLine0
         //
-        picLine0.setBackColor(java.awt.Color.darkGray);
+        picLine0.setBackground(java.awt.Color.darkGray);
         picLine0.setLocation(new java.awt.Point(234, 8));
         picLine0.setName("picLine0");
-        picLine0.setSize(new jwinforms.Size(1, 347));
+        picLine0.setSize(new spacetrader.controls.Size(1, 347));
         picLine0.setTabIndex(132);
         picLine0.setTabStop(false);
         //
@@ -176,7 +176,7 @@ public class FormMonster extends SpaceTraderForm {
         lblQuestsLabel.setFont(FontCollection.bold10);
         lblQuestsLabel.setLocation(new java.awt.Point(88, 4));
         lblQuestsLabel.setName("lblQuestsLabel");
-        lblQuestsLabel.setSize(new jwinforms.Size(50, 19));
+        lblQuestsLabel.setSize(new spacetrader.controls.Size(50, 19));
         lblQuestsLabel.setTabIndex(134);
         lblQuestsLabel.setText("Quests");
         //
@@ -186,7 +186,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercLabel.setFont(FontCollection.bold10);
         lblMercLabel.setLocation(new java.awt.Point(348, 4));
         lblMercLabel.setName("lblMercLabel");
-        lblMercLabel.setSize(new jwinforms.Size(84, 19));
+        lblMercLabel.setSize(new spacetrader.controls.Size(84, 19));
         lblMercLabel.setTabIndex(141);
         lblMercLabel.setText("Mercenaries");
         //
@@ -196,14 +196,14 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelPilot.setFont(FontCollection.bold825);
         lblMercSkillLabelPilot.setLocation(new java.awt.Point(341, 24));
         lblMercSkillLabelPilot.setName("lblMercSkillLabelPilot");
-        lblMercSkillLabelPilot.setSize(new jwinforms.Size(12, 16));
+        lblMercSkillLabelPilot.setSize(new spacetrader.controls.Size(12, 16));
         lblMercSkillLabelPilot.setTabIndex(7);
         lblMercSkillLabelPilot.setTabStop(true);
         lblMercSkillLabelPilot.setText("P");
         lblMercSkillLabelPilot.TextAlign = ContentAlignment.TopRight;
         lblMercSkillLabelPilot.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -214,14 +214,14 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelFighter.setFont(FontCollection.bold825);
         lblMercSkillLabelFighter.setLocation(new java.awt.Point(362, 24));
         lblMercSkillLabelFighter.setName("lblMercSkillLabelFighter");
-        lblMercSkillLabelFighter.setSize(new jwinforms.Size(11, 16));
+        lblMercSkillLabelFighter.setSize(new spacetrader.controls.Size(11, 16));
         lblMercSkillLabelFighter.setTabIndex(8);
         lblMercSkillLabelFighter.setTabStop(true);
         lblMercSkillLabelFighter.setText("F");
         lblMercSkillLabelFighter.TextAlign = ContentAlignment.TopRight;
         lblMercSkillLabelFighter.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -232,14 +232,14 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelTrader.setFont(FontCollection.bold825);
         lblMercSkillLabelTrader.setLocation(new java.awt.Point(382, 24));
         lblMercSkillLabelTrader.setName("lblMercSkillLabelTrader");
-        lblMercSkillLabelTrader.setSize(new jwinforms.Size(11, 16));
+        lblMercSkillLabelTrader.setSize(new spacetrader.controls.Size(11, 16));
         lblMercSkillLabelTrader.setTabIndex(9);
         lblMercSkillLabelTrader.setTabStop(true);
         lblMercSkillLabelTrader.setText("T");
         lblMercSkillLabelTrader.TextAlign = ContentAlignment.TopRight;
         lblMercSkillLabelTrader.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -250,14 +250,14 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelEngineer.setFont(FontCollection.bold825);
         lblMercSkillLabelEngineer.setLocation(new java.awt.Point(401, 24));
         lblMercSkillLabelEngineer.setName("lblMercSkillLabelEngineer");
-        lblMercSkillLabelEngineer.setSize(new jwinforms.Size(12, 16));
+        lblMercSkillLabelEngineer.setSize(new spacetrader.controls.Size(12, 16));
         lblMercSkillLabelEngineer.setTabIndex(10);
         lblMercSkillLabelEngineer.setTabStop(true);
         lblMercSkillLabelEngineer.setText("E");
         lblMercSkillLabelEngineer.TextAlign = ContentAlignment.TopRight;
         lblMercSkillLabelEngineer.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -268,13 +268,13 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSystemLabel.setFont(FontCollection.bold825);
         lblMercSystemLabel.setLocation(new java.awt.Point(425, 24));
         lblMercSystemLabel.setName("lblMercSystemLabel");
-        lblMercSystemLabel.setSize(new jwinforms.Size(43, 16));
+        lblMercSystemLabel.setSize(new spacetrader.controls.Size(43, 16));
         lblMercSystemLabel.setTabIndex(11);
         lblMercSystemLabel.setTabStop(true);
         lblMercSystemLabel.setText("System");
         lblMercSystemLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -285,13 +285,13 @@ public class FormMonster extends SpaceTraderForm {
         lblQuestSystemLabel.setFont(FontCollection.bold825);
         lblQuestSystemLabel.setLocation(new java.awt.Point(13, 24));
         lblQuestSystemLabel.setName("lblQuestSystemLabel");
-        lblQuestSystemLabel.setSize(new jwinforms.Size(43, 16));
+        lblQuestSystemLabel.setSize(new spacetrader.controls.Size(43, 16));
         lblQuestSystemLabel.setTabIndex(1);
         lblQuestSystemLabel.setTabStop(true);
         lblQuestSystemLabel.setText("System");
         lblQuestSystemLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -302,13 +302,13 @@ public class FormMonster extends SpaceTraderForm {
         lblQuestDescLabel.setFont(FontCollection.bold825);
         lblQuestDescLabel.setLocation(new java.awt.Point(85, 24));
         lblQuestDescLabel.setName("lblQuestDescLabel");
-        lblQuestDescLabel.setSize(new jwinforms.Size(63, 16));
+        lblQuestDescLabel.setSize(new spacetrader.controls.Size(63, 16));
         lblQuestDescLabel.setTabIndex(2);
         lblQuestDescLabel.setTabStop(true);
         lblQuestDescLabel.setText("Description");
         lblQuestDescLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -319,14 +319,14 @@ public class FormMonster extends SpaceTraderForm {
         lblMercIDLabel.setFont(FontCollection.bold825);
         lblMercIDLabel.setLocation(new java.awt.Point(247, 24));
         lblMercIDLabel.setName("lblMercIDLabel");
-        lblMercIDLabel.setSize(new jwinforms.Size(16, 16));
+        lblMercIDLabel.setSize(new spacetrader.controls.Size(16, 16));
         lblMercIDLabel.setTabIndex(5);
         lblMercIDLabel.setTabStop(true);
         lblMercIDLabel.setText("ID");
         lblMercIDLabel.TextAlign = ContentAlignment.TopRight;
         lblMercIDLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -337,13 +337,13 @@ public class FormMonster extends SpaceTraderForm {
         lblMercNameLabel.setFont(FontCollection.bold825);
         lblMercNameLabel.setLocation(new java.awt.Point(268, 24));
         lblMercNameLabel.setName("lblMercNameLabel");
-        lblMercNameLabel.setSize(new jwinforms.Size(35, 16));
+        lblMercNameLabel.setSize(new spacetrader.controls.Size(35, 16));
         lblMercNameLabel.setTabIndex(6);
         lblMercNameLabel.setTabStop(true);
         lblMercNameLabel.setText("Name");
         lblMercNameLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -354,13 +354,13 @@ public class FormMonster extends SpaceTraderForm {
         lblShipyardsDescLabel.setFont(FontCollection.bold825);
         lblShipyardsDescLabel.setLocation(new java.awt.Point(85, 258));
         lblShipyardsDescLabel.setName("lblShipyardsDescLabel");
-        lblShipyardsDescLabel.setSize(new jwinforms.Size(63, 16));
+        lblShipyardsDescLabel.setSize(new spacetrader.controls.Size(63, 16));
         lblShipyardsDescLabel.setTabIndex(4);
         lblShipyardsDescLabel.setTabStop(true);
         lblShipyardsDescLabel.setText("Description");
         lblShipyardsDescLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -371,13 +371,13 @@ public class FormMonster extends SpaceTraderForm {
         lblShipyardsSystemLabel.setFont(FontCollection.bold825);
         lblShipyardsSystemLabel.setLocation(new java.awt.Point(13, 258));
         lblShipyardsSystemLabel.setName("lblShipyardsSystemLabel");
-        lblShipyardsSystemLabel.setSize(new jwinforms.Size(43, 16));
+        lblShipyardsSystemLabel.setSize(new spacetrader.controls.Size(43, 16));
         lblShipyardsSystemLabel.setTabIndex(3);
         lblShipyardsSystemLabel.setTabStop(true);
         lblShipyardsSystemLabel.setText("System");
         lblShipyardsSystemLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SortLinkClicked(sender, e);
             }
         };
@@ -388,14 +388,14 @@ public class FormMonster extends SpaceTraderForm {
         lblShipyardsLabel.setFont(FontCollection.bold10);
         lblShipyardsLabel.setLocation(new java.awt.Point(79, 238));
         lblShipyardsLabel.setName("lblShipyardsLabel");
-        lblShipyardsLabel.setSize(new jwinforms.Size(68, 19));
+        lblShipyardsLabel.setSize(new spacetrader.controls.Size(68, 19));
         lblShipyardsLabel.setTabIndex(155);
         lblShipyardsLabel.setText("Shipyards");
         //
         // pnlMercs
         //
         pnlMercs.AutoScroll = true;
-        pnlMercs.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        pnlMercs.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         pnlMercs.Controls.add(lblMercSkillsPilot);
         pnlMercs.Controls.add(lblMercSkillsFighter);
         pnlMercs.Controls.add(lblMercSkillsTrader);
@@ -406,14 +406,14 @@ public class FormMonster extends SpaceTraderForm {
         pnlMercs.Controls.add(lblMercSystems2);
         pnlMercs.setLocation(new java.awt.Point(239, 44));
         pnlMercs.setName("pnlMercs");
-        pnlMercs.setSize(new jwinforms.Size(371, 307));
+        pnlMercs.setSize(new spacetrader.controls.Size(371, 307));
         pnlMercs.setTabIndex(158);
         //
         // lblMercSkillsPilot
         //
         lblMercSkillsPilot.setLocation(new java.awt.Point(93, 4));
         lblMercSkillsPilot.setName("lblMercSkillsPilot");
-        lblMercSkillsPilot.setSize(new jwinforms.Size(20, 563));
+        lblMercSkillsPilot.setSize(new spacetrader.controls.Size(20, 563));
         lblMercSkillsPilot.setTabIndex(144);
         lblMercSkillsPilot.TextAlign = ContentAlignment.TopRight;
         //
@@ -421,7 +421,7 @@ public class FormMonster extends SpaceTraderForm {
         //
         lblMercSkillsFighter.setLocation(new java.awt.Point(113, 4));
         lblMercSkillsFighter.setName("lblMercSkillsFighter");
-        lblMercSkillsFighter.setSize(new jwinforms.Size(20, 563));
+        lblMercSkillsFighter.setSize(new spacetrader.controls.Size(20, 563));
         lblMercSkillsFighter.setTabIndex(145);
         lblMercSkillsFighter.TextAlign = ContentAlignment.TopRight;
         //
@@ -429,7 +429,7 @@ public class FormMonster extends SpaceTraderForm {
         //
         lblMercSkillsTrader.setLocation(new java.awt.Point(133, 4));
         lblMercSkillsTrader.setName("lblMercSkillsTrader");
-        lblMercSkillsTrader.setSize(new jwinforms.Size(20, 563));
+        lblMercSkillsTrader.setSize(new spacetrader.controls.Size(20, 563));
         lblMercSkillsTrader.setTabIndex(146);
         lblMercSkillsTrader.TextAlign = ContentAlignment.TopRight;
         //
@@ -437,20 +437,20 @@ public class FormMonster extends SpaceTraderForm {
         //
         lblMercSkillsEngineer.setLocation(new java.awt.Point(153, 4));
         lblMercSkillsEngineer.setName("lblMercSkillsEngineer");
-        lblMercSkillsEngineer.setSize(new jwinforms.Size(20, 563));
+        lblMercSkillsEngineer.setSize(new spacetrader.controls.Size(20, 563));
         lblMercSkillsEngineer.setTabIndex(147);
         lblMercSkillsEngineer.TextAlign = ContentAlignment.TopRight;
         //
         // lblMercSystems
         //
-        lblMercSystems.LinkArea = new jwinforms.LinkArea(0, 0);
+        lblMercSystems.LinkArea = new spacetrader.controls.LinkArea(0, 0);
         lblMercSystems.setLocation(new java.awt.Point(185, 4));
         lblMercSystems.setName("lblMercSystems");
-        lblMercSystems.setSize(new jwinforms.Size(160, 387));
+        lblMercSystems.setSize(new spacetrader.controls.Size(160, 387));
         lblMercSystems.setTabIndex(14);
         lblMercSystems.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SystemLinkClicked(sender, e);
             }
         };
@@ -459,7 +459,7 @@ public class FormMonster extends SpaceTraderForm {
         //
         lblMercIds.setLocation(new java.awt.Point(0, 4));
         lblMercIds.setName("lblMercIds");
-        lblMercIds.setSize(new jwinforms.Size(23, 563));
+        lblMercIds.setSize(new spacetrader.controls.Size(23, 563));
         lblMercIds.setTabIndex(142);
         lblMercIds.TextAlign = ContentAlignment.TopRight;
         //
@@ -467,19 +467,19 @@ public class FormMonster extends SpaceTraderForm {
         //
         lblMercNames.setLocation(new java.awt.Point(28, 4));
         lblMercNames.setName("lblMercNames");
-        lblMercNames.setSize(new jwinforms.Size(69, 563));
+        lblMercNames.setSize(new spacetrader.controls.Size(69, 563));
         lblMercNames.setTabIndex(141);
         //
         // lblMercSystems2
         //
-        lblMercSystems2.LinkArea = new jwinforms.LinkArea(0, 0);
+        lblMercSystems2.LinkArea = new spacetrader.controls.LinkArea(0, 0);
         lblMercSystems2.setLocation(new java.awt.Point(185, 391));
         lblMercSystems2.setName("lblMercSystems2");
-        lblMercSystems2.setSize(new jwinforms.Size(160, 175));
+        lblMercSystems2.setSize(new spacetrader.controls.Size(160, 175));
         lblMercSystems2.setTabIndex(148);
         lblMercSystems2.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SystemLinkClicked(sender, e);
             }
         };
@@ -487,80 +487,80 @@ public class FormMonster extends SpaceTraderForm {
         // pnlQuests
         //
         pnlQuests.AutoScroll = true;
-        pnlQuests.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        pnlQuests.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         pnlQuests.Controls.add(lblQuests);
         pnlQuests.Controls.add(lblQuestSystems);
         pnlQuests.setLocation(new java.awt.Point(8, 44));
         pnlQuests.setName("pnlQuests");
-        pnlQuests.setSize(new jwinforms.Size(222, 182));
+        pnlQuests.setSize(new spacetrader.controls.Size(222, 182));
         pnlQuests.setTabIndex(159);
         //
         // lblQuests
         //
         lblQuests.setLocation(new java.awt.Point(76, 4));
         lblQuests.setName("lblQuests");
-        lblQuests.setSize(new jwinforms.Size(120, 350));
+        lblQuests.setSize(new spacetrader.controls.Size(120, 350));
         lblQuests.setTabIndex(48);
         //
         // lblQuestSystems
         //
-        lblQuestSystems.LinkArea = new jwinforms.LinkArea(0, 0);
+        lblQuestSystems.LinkArea = new spacetrader.controls.LinkArea(0, 0);
         lblQuestSystems.setLocation(new java.awt.Point(4, 4));
         lblQuestSystems.setName("lblQuestSystems");
-        lblQuestSystems.setSize(new jwinforms.Size(68, 350));
+        lblQuestSystems.setSize(new spacetrader.controls.Size(68, 350));
         lblQuestSystems.setTabIndex(12);
         lblQuestSystems.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SystemLinkClicked(sender, e);
             }
         };
         //
         // pnlShipyards
         //
-        pnlShipyards.setBorderStyle(jwinforms.BorderStyle.FixedSingle);
+        pnlShipyards.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         pnlShipyards.Controls.add(lblShipyards);
         pnlShipyards.Controls.add(lblShipyardSystems);
         pnlShipyards.setLocation(new java.awt.Point(8, 278));
         pnlShipyards.setName("pnlShipyards");
-        pnlShipyards.setSize(new jwinforms.Size(222, 73));
+        pnlShipyards.setSize(new spacetrader.controls.Size(222, 73));
         pnlShipyards.setTabIndex(160);
         //
         // lblShipyards
         //
         lblShipyards.setLocation(new java.awt.Point(76, 4));
         lblShipyards.setName("lblShipyards");
-        lblShipyards.setSize(new jwinforms.Size(120, 63));
+        lblShipyards.setSize(new spacetrader.controls.Size(120, 63));
         lblShipyards.setTabIndex(158);
         //
         // lblShipyardSystems
         //
-        lblShipyardSystems.LinkArea = new jwinforms.LinkArea(0, 0);
+        lblShipyardSystems.LinkArea = new spacetrader.controls.LinkArea(0, 0);
         lblShipyardSystems.setLocation(new java.awt.Point(4, 4));
         lblShipyardSystems.setName("lblShipyardSystems");
-        lblShipyardSystems.setSize(new jwinforms.Size(68, 63));
+        lblShipyardSystems.setSize(new spacetrader.controls.Size(68, 63));
         lblShipyardSystems.setTabIndex(13);
         lblShipyardSystems.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+            public void handle(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 SystemLinkClicked(sender, e);
             }
         };
         //
         // picLine2
         //
-        picLine2.setBackColor(java.awt.Color.darkGray);
+        picLine2.setBackground(java.awt.Color.darkGray);
         picLine2.setLocation(new java.awt.Point(4, 274));
         picLine2.setName("picLine2");
-        picLine2.setSize(new jwinforms.Size(222, 1));
+        picLine2.setSize(new spacetrader.controls.Size(222, 1));
         picLine2.setTabIndex(161);
         picLine2.setTabStop(false);
         //
         // FormMonster
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnClose);
-        this.setClientSize(new jwinforms.Size(617, 358));
+        this.setClientSize(new spacetrader.controls.Size(617, 358));
         Controls.add(picLine2);
         Controls.add(pnlShipyards);
         Controls.add(pnlQuests);
@@ -861,13 +861,13 @@ public class FormMonster extends SpaceTraderForm {
 
     // #region Event Handlers
 
-    private void SystemLinkClicked(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+    private void SystemLinkClicked(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
         Game.CurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
         Game.CurrentGame().getParentWindow().updateAll();
         Close();
     }
 
-    private void SortLinkClicked(Object sender, jwinforms.LinkLabelLinkClickedEventArgs e) {
+    private void SortLinkClicked(Object sender, spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
         Sort(((LinkLabel) sender).getName().substring(3, 1), ((LinkLabel) sender).getText().substring(0, 1));
         UpdateAll();
     }

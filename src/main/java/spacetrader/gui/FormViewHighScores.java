@@ -30,10 +30,10 @@
 
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.Functions;
-import spacetrader.HighScoreRecord;
-import spacetrader.Strings;
+import spacetrader.controls.*;
+import spacetrader.game.Functions;
+import spacetrader.game.HighScoreRecord;
+import spacetrader.game.Strings;
 
 import java.util.Arrays;
 
@@ -41,19 +41,19 @@ public class FormViewHighScores extends SpaceTraderForm {
     //#region Control Declarations
 
     private final Container components = null;
-    private jwinforms.Button btnClose;
-    private jwinforms.Label lblRank0;
-    private jwinforms.Label lblRank2;
-    private jwinforms.Label lblRank1;
-    private jwinforms.Label lblScore0;
-    private jwinforms.Label lblScore1;
-    private jwinforms.Label lblScore2;
-    private jwinforms.Label lblName0;
-    private jwinforms.Label lblName1;
-    private jwinforms.Label lblName2;
-    private jwinforms.Label lblStatus0;
-    private jwinforms.Label lblStatus1;
-    private jwinforms.Label lblStatus2;
+    private spacetrader.controls.Button btnClose;
+    private spacetrader.controls.Label lblRank0;
+    private spacetrader.controls.Label lblRank2;
+    private spacetrader.controls.Label lblRank1;
+    private spacetrader.controls.Label lblScore0;
+    private spacetrader.controls.Label lblScore1;
+    private spacetrader.controls.Label lblScore2;
+    private spacetrader.controls.Label lblName0;
+    private spacetrader.controls.Label lblName1;
+    private spacetrader.controls.Label lblName2;
+    private spacetrader.controls.Label lblStatus0;
+    private spacetrader.controls.Label lblStatus1;
+    private spacetrader.controls.Label lblStatus2;
 
     //#endregion
 
@@ -90,19 +90,19 @@ public class FormViewHighScores extends SpaceTraderForm {
     /// the contents of this method with the code editor.
     /// </summary>
     private void initializeComponent() {
-        btnClose = new jwinforms.Button();
-        lblRank0 = new jwinforms.Label();
-        lblRank2 = new jwinforms.Label();
-        lblRank1 = new jwinforms.Label();
-        lblScore0 = new jwinforms.Label();
-        lblScore1 = new jwinforms.Label();
-        lblScore2 = new jwinforms.Label();
-        lblName0 = new jwinforms.Label();
-        lblName1 = new jwinforms.Label();
-        lblName2 = new jwinforms.Label();
-        lblStatus0 = new jwinforms.Label();
-        lblStatus1 = new jwinforms.Label();
-        lblStatus2 = new jwinforms.Label();
+        btnClose = new spacetrader.controls.Button();
+        lblRank0 = new spacetrader.controls.Label();
+        lblRank2 = new spacetrader.controls.Label();
+        lblRank1 = new spacetrader.controls.Label();
+        lblScore0 = new spacetrader.controls.Label();
+        lblScore1 = new spacetrader.controls.Label();
+        lblScore2 = new spacetrader.controls.Label();
+        lblName0 = new spacetrader.controls.Label();
+        lblName1 = new spacetrader.controls.Label();
+        lblName2 = new spacetrader.controls.Label();
+        lblStatus0 = new spacetrader.controls.Label();
+        lblStatus1 = new spacetrader.controls.Label();
+        lblStatus2 = new spacetrader.controls.Label();
         this.suspendLayout();
         //
         // btnClose
@@ -110,7 +110,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         btnClose.setDialogResult(DialogResult.Cancel);
         btnClose.setLocation(new java.awt.Point(-32, -32));
         btnClose.setName("btnClose");
-        btnClose.setSize(new jwinforms.Size(32, 32));
+        btnClose.setSize(new spacetrader.controls.Size(32, 32));
         btnClose.setTabIndex(32);
         btnClose.setTabStop(false);
         btnClose.setText("X");
@@ -120,7 +120,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblRank0.setAutoSize(true);
         lblRank0.setLocation(new java.awt.Point(8, 8));
         lblRank0.setName("lblRank0");
-        lblRank0.setSize(new jwinforms.Size(14, 13));
+        lblRank0.setSize(new spacetrader.controls.Size(14, 13));
         lblRank0.setTabIndex(33);
         lblRank0.setText("1.");
         lblRank0.TextAlign = ContentAlignment.TopRight;
@@ -130,7 +130,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblRank2.setAutoSize(true);
         lblRank2.setLocation(new java.awt.Point(8, 136));
         lblRank2.setName("lblRank2");
-        lblRank2.setSize(new jwinforms.Size(14, 13));
+        lblRank2.setSize(new spacetrader.controls.Size(14, 13));
         lblRank2.setTabIndex(34);
         lblRank2.setText("3.");
         lblRank2.TextAlign = ContentAlignment.TopRight;
@@ -140,7 +140,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblRank1.setAutoSize(true);
         lblRank1.setLocation(new java.awt.Point(8, 72));
         lblRank1.setName("lblRank1");
-        lblRank1.setSize(new jwinforms.Size(14, 13));
+        lblRank1.setSize(new spacetrader.controls.Size(14, 13));
         lblRank1.setTabIndex(35);
         lblRank1.setText("2.");
         lblRank1.TextAlign = ContentAlignment.TopRight;
@@ -149,7 +149,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblScore0.setLocation(new java.awt.Point(168, 8));
         lblScore0.setName("lblScore0");
-        lblScore0.setSize(new jwinforms.Size(43, 13));
+        lblScore0.setSize(new spacetrader.controls.Size(43, 13));
         lblScore0.setTabIndex(36);
         lblScore0.setText("888.8%");
         lblScore0.TextAlign = ContentAlignment.TopRight;
@@ -159,7 +159,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblScore1.setLocation(new java.awt.Point(168, 72));
         lblScore1.setName("lblScore1");
-        lblScore1.setSize(new jwinforms.Size(43, 13));
+        lblScore1.setSize(new spacetrader.controls.Size(43, 13));
         lblScore1.setTabIndex(37);
         lblScore1.setText("888.8%");
         lblScore1.TextAlign = ContentAlignment.TopRight;
@@ -169,7 +169,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblScore2.setLocation(new java.awt.Point(168, 136));
         lblScore2.setName("lblScore2");
-        lblScore2.setSize(new jwinforms.Size(43, 13));
+        lblScore2.setSize(new spacetrader.controls.Size(43, 13));
         lblScore2.setTabIndex(38);
         lblScore2.setText("888.8%");
         lblScore2.TextAlign = ContentAlignment.TopRight;
@@ -179,7 +179,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblName0.setLocation(new java.awt.Point(24, 8));
         lblName0.setName("lblName0");
-        lblName0.setSize(new jwinforms.Size(144, 13));
+        lblName0.setSize(new spacetrader.controls.Size(144, 13));
         lblName0.setTabIndex(39);
         lblName0.setText("Empty");
         //
@@ -187,7 +187,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblName1.setLocation(new java.awt.Point(24, 72));
         lblName1.setName("lblName1");
-        lblName1.setSize(new jwinforms.Size(144, 13));
+        lblName1.setSize(new spacetrader.controls.Size(144, 13));
         lblName1.setTabIndex(40);
         lblName1.setText("Empty");
         //
@@ -195,7 +195,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblName2.setLocation(new java.awt.Point(24, 136));
         lblName2.setName("lblName2");
-        lblName2.setSize(new jwinforms.Size(144, 13));
+        lblName2.setSize(new spacetrader.controls.Size(144, 13));
         lblName2.setTabIndex(41);
         lblName2.setText("Empty");
         //
@@ -203,7 +203,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblStatus0.setLocation(new java.awt.Point(24, 24));
         lblStatus0.setName("lblStatus0");
-        lblStatus0.setSize(new jwinforms.Size(200, 26));
+        lblStatus0.setSize(new spacetrader.controls.Size(200, 26));
         lblStatus0.setTabIndex(42);
         lblStatus0.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
         lblStatus0.setVisible(false);
@@ -212,7 +212,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblStatus1.setLocation(new java.awt.Point(24, 88));
         lblStatus1.setName("lblStatus1");
-        lblStatus1.setSize(new jwinforms.Size(200, 26));
+        lblStatus1.setSize(new spacetrader.controls.Size(200, 26));
         lblStatus1.setTabIndex(43);
         lblStatus1.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
         lblStatus1.setVisible(false);
@@ -221,16 +221,16 @@ public class FormViewHighScores extends SpaceTraderForm {
         //
         lblStatus2.setLocation(new java.awt.Point(24, 152));
         lblStatus2.setName("lblStatus2");
-        lblStatus2.setSize(new jwinforms.Size(200, 26));
+        lblStatus2.setSize(new spacetrader.controls.Size(200, 26));
         lblStatus2.setTabIndex(44);
         lblStatus2.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
         lblStatus2.setVisible(false);
         //
         // FormViewHighScores
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnClose);
-        this.setClientSize(new jwinforms.Size(218, 191));
+        this.setClientSize(new spacetrader.controls.Size(218, 191));
         Controls.addAll(Arrays.asList(lblStatus2, lblStatus1, lblStatus0, lblName2, lblName1, lblName0, lblScore2,
                 lblScore1, lblScore0, lblRank1, lblRank2, lblRank0, btnClose));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);

@@ -19,12 +19,12 @@
  ******************************************************************************/
 package spacetrader.gui;
 
-import jwinforms.*;
-import spacetrader.Functions;
-import spacetrader.Game;
-import spacetrader.Strings;
-import spacetrader.enums.AlertType;
-import spacetrader.enums.GameEndType;
+import spacetrader.controls.*;
+import spacetrader.game.Functions;
+import spacetrader.game.Game;
+import spacetrader.game.Strings;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.GameEndType;
 import spacetrader.guifacade.Facaded;
 
 @Facaded
@@ -33,11 +33,11 @@ public class FormAlert extends SpaceTraderForm {
 
     private static final int SPLASH_INDEX = 4;
 
-    private jwinforms.Label lblText;
-    private jwinforms.Button btn1;
-    private jwinforms.Button btn2;
-    private jwinforms.ImageList ilImages;
-    private jwinforms.Timer tmrTick;
+    private spacetrader.controls.Label lblText;
+    private spacetrader.controls.Button btn1;
+    private spacetrader.controls.Button btn2;
+    private spacetrader.controls.ImageList ilImages;
+    private spacetrader.controls.Timer tmrTick;
     private IContainer components;
 
     private FormAlert() {
@@ -78,7 +78,7 @@ public class FormAlert extends SpaceTraderForm {
         this.setWidth(Math.max(btnWidth, lblText.getWidth()) + 16);
         this.setHeight(lblText.getHeight() + 75);
 
-        // Locate the controls.
+        // Locate the spacetrader.controls.
         lblText.setLeft((this.getWidth() - lblText.getWidth()) / 2);
         btn1.setTop(lblText.getHeight() + 19);
         btn1.setLeft((this.getWidth() - btnWidth) / 2);
@@ -91,7 +91,7 @@ public class FormAlert extends SpaceTraderForm {
 
     public FormAlert(String title, int imageIndex) {
         this();
-        // Make sure the extra controls are hidden.
+        // Make sure the extra spacetrader.controls are hidden.
         lblText.setVisible(false);
         btn2.setVisible(false);
 
@@ -111,7 +111,7 @@ public class FormAlert extends SpaceTraderForm {
         // If this is the splash screen, get rid of the title bar and start the
         // timer.
         if (imageIndex == SPLASH_INDEX) {
-            this.setFormBorderStyle(jwinforms.FormBorderStyle.None);
+            this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.None);
             tmrTick.Start();
         }
     }
@@ -881,11 +881,11 @@ public class FormAlert extends SpaceTraderForm {
     private void initializeComponent() {
         components = new Container();
         ResourceManager resources = new ResourceManager(FormAlert.class);
-        lblText = new jwinforms.Label();
-        btn1 = new jwinforms.Button();
-        btn2 = new jwinforms.Button();
-        ilImages = new jwinforms.ImageList(components);
-        tmrTick = new jwinforms.Timer(components);
+        lblText = new spacetrader.controls.Label();
+        btn1 = new spacetrader.controls.Button();
+        btn2 = new spacetrader.controls.Button();
+        ilImages = new spacetrader.controls.ImageList(components);
+        tmrTick = new spacetrader.controls.Timer(components);
         this.suspendLayout();
         //
         // lblText
@@ -899,29 +899,29 @@ public class FormAlert extends SpaceTraderForm {
         // btn1
         //
         btn1.setDialogResult(DialogResult.OK);
-        btn1.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btn1.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btn1.setLocation(new java.awt.Point(115, 32));
         btn1.setName("btn1");
-        btn1.setSize(new jwinforms.Size(40, 22));
+        btn1.setSize(new spacetrader.controls.Size(40, 22));
         btn1.setTabIndex(1);
         btn1.setText("Ok");
         //
         // btn2
         //
         btn2.setDialogResult(DialogResult.No);
-        btn2.setFlatStyle(jwinforms.FlatStyle.Flat);
+        btn2.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
         btn2.setLocation(new java.awt.Point(200, 32));
         btn2.setName("btn2");
-        btn2.setSize(new jwinforms.Size(40, 22));
+        btn2.setSize(new spacetrader.controls.Size(40, 22));
         btn2.setTabIndex(2);
         btn2.setText("No");
         btn2.setVisible(false);
         //
         // ilImages
         //
-        ilImages.ColorDepth = jwinforms.ColorDepth.Depth24Bit;
-        ilImages.setImageSize(new jwinforms.Size(160, 160));
-        ilImages.setImageStream(((jwinforms.ImageListStreamer) (resources.getObject("ilImages.ImageStream"))));
+        ilImages.ColorDepth = spacetrader.controls.ColorDepth.Depth24Bit;
+        ilImages.setImageSize(new spacetrader.controls.Size(160, 160));
+        ilImages.setImageStream(((spacetrader.controls.ImageListStreamer) (resources.getObject("ilImages.ImageStream"))));
         ilImages.setTransparentColor(null);
         //
         // tmrTick
@@ -929,27 +929,27 @@ public class FormAlert extends SpaceTraderForm {
         tmrTick.setInterval(4000);
         tmrTick.Tick = new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 FormAlert.this.Close();
             }
         };
         //
         // FormAlert
         //
-        this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
-        this.setClientSize(new jwinforms.Size(270, 63));
+        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
+        this.setClientSize(new spacetrader.controls.Size(270, 63));
         this.setControlBox(false);
         Controls.add(btn2);
         Controls.add(btn1);
         Controls.add(lblText);
-        this.setFormBorderStyle(jwinforms.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormAlert");
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CenterParent);
         this.setText("Title");
         this.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, jwinforms.EventArgs e) {
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 FormAlert_Click();
             }
         });
