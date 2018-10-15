@@ -34,8 +34,10 @@ class CargoPanel extends Panel {
 
     private static final Font BOLD_FONT = FontCollection.bold825;
 
+    private SpaceTrader mainWindow;
     private SpaceTraderGame game = null;
     private GameController controller = null;
+
     private spacetrader.controls.Button btnBuyMax0;
     private spacetrader.controls.Button btnBuyQty0;
     private spacetrader.controls.Button btnSellQty0;
@@ -161,7 +163,8 @@ class CargoPanel extends Panel {
     private Button[] btnBuyQty;
     private Button[] btnBuyMax;
 
-    CargoPanel(String name) {
+    CargoPanel(SpaceTrader mainWindow, String name) {
+        this.mainWindow = mainWindow;
         setName(name);
     }
 
@@ -1699,7 +1702,7 @@ class CargoPanel extends Panel {
         finishInit();
     }
 
-    void update(Map<String, String> strings) {
+    void update() {
         int i;
 
         if (game == null || game.Commander().getCurrentSystem() == null) {
@@ -1725,14 +1728,14 @@ class CargoPanel extends Panel {
             int price = warpSys == null ? 0 : Consts.TradeItems[i].StandardPrice(warpSys);
 
             lblSellPrice[i].setText(sell[i] > 0
-                    ? Functions.formatMoney(sell[i], strings.get("cargoPanel.credit"))
+                    ? Functions.formatMoney(sell[i], mainWindow.getStrings().get("cargoPanel.credit"))
                     : Strings.CargoSellNA);
             btnSellQty[i].setText("" + cmdr.getShip().Cargo()[i]);
             btnSellQty[i].setVisible(true);
             btnSellAll[i].setText(sell[i] > 0 ? "All" : "Dump");
             btnSellAll[i].setVisible(true);
             lblBuyPrice[i].setText(buy[i] > 0
-                    ? Functions.formatMoney(buy[i], strings.get("cargoPanel.credit"))
+                    ? Functions.formatMoney(buy[i], mainWindow.getStrings().get("cargoPanel.credit"))
                     : Strings.CargoBuyNA);
             btnBuyQty[i].setText("" + cmdr.getCurrentSystem().TradeItems()[i]);
             btnBuyQty[i].setVisible(buy[i] > 0);
@@ -1744,14 +1747,14 @@ class CargoPanel extends Panel {
                 lblSellPrice[i].setFont(lblSell.getFont());
 
             if (warpSys != null && warpSys.destOk() && price > 0)
-                lblTargetPrice[i].setText(Functions.formatMoney(price, strings.get("cargoPanel.credit")));
+                lblTargetPrice[i].setText(Functions.formatMoney(price, mainWindow.getStrings().get("cargoPanel.credit")));
             else
                 lblTargetPrice[i].setText("-----------");
 
             if (warpSys != null && warpSys.destOk() && price > 0 && buy[i] > 0) {
                 int diff = price - buy[i];
                 lblTargetDiff[i].setText((diff > 0 ? "+" : "")
-                        + Functions.formatMoney(diff, strings.get("cargoPanel.credit")));
+                        + Functions.formatMoney(diff, mainWindow.getStrings().get("cargoPanel.credit")));
                 lblTargetPct[i].setText((diff > 0 ? "+" : "") + Functions.formatNumber(100 * diff / buy[i]) + "%");
                 lblBuyPrice[i].setFont((diff > 0 && cmdr.getCurrentSystem().TradeItems()[i] > 0) ? BOLD_FONT : lblBuy
                         .getFont());

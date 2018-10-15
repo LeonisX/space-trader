@@ -59,8 +59,8 @@ public class ShipTemplate extends STSerializableObject implements Comparable<Shi
         _shieldSlots = spec.getShieldSlots();
         _gadgetSlots = spec.getGadgetSlots();
         _crewQuarters = spec.getCrewQuarters();
-        _fuelTanks = spec.FuelTanks();
-        _hullStrength = spec.HullStrength();
+        _fuelTanks = spec.getFuelTanks();
+        _hullStrength = spec.getHullStrength();
 
         if (ImageIndex() == Consts.ShipImgUseDefault)
             _images = GuiEngine.imageProvider.getCustomShipImages();

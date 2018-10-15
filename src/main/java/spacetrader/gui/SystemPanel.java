@@ -16,6 +16,7 @@ class SystemPanel extends Panel {
     private CurrentSystemMgr game = null;
     private GameController controller = null;
     private Commander commander;
+
     private Button newsButton;
     private Button specialButton;
     private Button hireMercenaryButton;
@@ -201,7 +202,7 @@ class SystemPanel extends Panel {
         newsButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnNews_Click();
+                newsButtonClick();
             }
         });
 
@@ -214,7 +215,7 @@ class SystemPanel extends Panel {
         specialButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnSpecial_Click();
+                specialButtonClick();
             }
         });
 
@@ -226,7 +227,7 @@ class SystemPanel extends Panel {
         hireMercenaryButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnMerc_Click();
+                hireMercenaryButtonClick();
             }
         });
 
@@ -275,16 +276,16 @@ class SystemPanel extends Panel {
         }
     }
 
-    private void btnMerc_Click() {
+    private void hireMercenaryButtonClick() {
         (new FormViewPersonnel()).showDialog(mainWindow);
         mainWindow.updateAll();
     }
 
-    private void btnNews_Click() {
+    private void newsButtonClick() {
         game.showNewspaper();
     }
 
-    private void btnSpecial_Click() {
+    private void specialButtonClick() {
         SpecialEvent specEvent = commander.getCurrentSystem().specialEvent();
         String button1Text, button2Text;
         DialogResult button1Result, button2Result;

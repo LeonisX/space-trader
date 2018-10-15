@@ -478,7 +478,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         systemPanel = new SystemPanel(this, "systemPanel");
         dockPanel = new DockPanel(this, "dockPanel");
-        cargoPanel = new CargoPanel("cargoPanel");
+        cargoPanel = new CargoPanel(this, "cargoPanel");
         shipyardPanel = new ShipyardPanel(this, "shipyardPanel");
         galacticChartPanel = new GalacticChartPanel(this, ilChartImages, "galacticChartPanel");
         shortRangeChartPanel = new ShortRangeChartPanel(this, ilChartImages, "shortRangeChartPanel");
@@ -623,14 +623,15 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     public void updateAll() {
-        dockPanel.Update();
-        cargoPanel.update(strings);
-        shipyardPanel.Update();
-        statusBar.update();
         systemPanel.update();
-        targetSystemPanel.Update();
+        dockPanel.update();
+        cargoPanel.update();
+        shipyardPanel.Update();
         galacticChartPanel.Refresh();
         shortRangeChartPanel.Refresh();
+        targetSystemPanel.Update();
+
+        statusBar.update();
     }
 
     private void SpaceTrader_Closing(spacetrader.controls.CancelEventArgs e) {
@@ -813,5 +814,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     // TODO remove?
     public void updateStatusBar() {
         statusBar.update();
+    }
+
+    public StringsMap getStrings() {
+        return strings;
     }
 }

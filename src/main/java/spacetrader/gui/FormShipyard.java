@@ -1068,7 +1068,7 @@ public class FormShipyard extends SpaceTraderForm {
         for (Size size : shipyard.AvailableSizes()) {
             sizes.add(size);
             selSize.items.add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()], Functions
-                    .Multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
+                    .multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
         }
     }
 
@@ -1156,7 +1156,7 @@ public class FormShipyard extends SpaceTraderForm {
 
         shipyard.ShipSpec().CargoBays(numCargoBays.getValue());
         shipyard.ShipSpec().FuelTanks(numFuelTanks.getValue());
-        shipyard.ShipSpec().HullStrength(numHullStrength.getValue());
+        shipyard.ShipSpec().setHullStrength(numHullStrength.getValue());
         shipyard.ShipSpec().setWeaponSlots(numWeaponSlots.getValue());
         shipyard.ShipSpec().setShieldSlots(numShieldSlots.getValue());
         shipyard.ShipSpec().setGadgetSlots(numGadgetSlots.getValue());

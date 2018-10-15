@@ -192,14 +192,14 @@ public class Functions {
         return null;
     }
 
-    public static String Multiples(int num, String unit) {
+    public static String multiples(int num, String unit) {
         return formatNumber(num) + " " + unit + (num == 1 ? "" : "s");
     }
 
     public static void PaintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
         int x = Consts.ShipImageOffsets[ship.Type().castToInt()].X;
         int width = Consts.ShipImageOffsets[ship.Type().castToInt()].Width;
-        int startDamage = x + width - ship.getHull() * width / ship.HullStrength();
+        int startDamage = x + width - ship.getHull() * width / ship.getHullStrength();
         int startShield = x + width + 2
                 - (ship.ShieldStrength() > 0 ? ship.ShieldCharge() * (width + 4) / ship.ShieldStrength() : 0);
 

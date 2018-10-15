@@ -8,6 +8,10 @@ public class Button extends BaseComponent {
 
     DialogResult dialogResult;
 
+    /*public Button() {
+        super(new JButton());
+    }*/
+
     public Button(String name) {
         super(new JButton());
         setName(name);

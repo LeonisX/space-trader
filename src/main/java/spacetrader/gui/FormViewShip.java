@@ -186,7 +186,7 @@ public class FormViewShip extends SpaceTraderForm {
                 lblEquipLabel.setText(lblEquipLabel.getText()
                         + (equipPrinted ? Strings.newline : "Equipment:" + Strings.newline));
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.Multiples(count, Consts.Weapons[i].Name()) + Strings.newline));
+                        + (Functions.multiples(count, Consts.Weapons[i].Name()) + Strings.newline));
                 equipPrinted = true;
             }
         }
@@ -201,7 +201,7 @@ public class FormViewShip extends SpaceTraderForm {
                 lblEquipLabel.setText(lblEquipLabel.getText()
                         + (equipPrinted ? Strings.newline : "Equipment:" + Strings.newline));
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.Multiples(count, Consts.Shields[i].Name()) + Strings.newline));
+                        + (Functions.multiples(count, Consts.Shields[i].Name()) + Strings.newline));
                 equipPrinted = true;
             }
         }
@@ -223,7 +223,7 @@ public class FormViewShip extends SpaceTraderForm {
                                     + (Functions.formatNumber(count) + Consts.Gadgets[i].Name().substring(1) + Strings.newline));
                 } else
                     lblEquip.setText(lblEquip.getText()
-                            + (Functions.Multiples(count, Consts.Gadgets[i].Name()) + Strings.newline));
+                            + (Functions.multiples(count, Consts.Gadgets[i].Name()) + Strings.newline));
 
                 equipPrinted = true;
             }
@@ -242,15 +242,15 @@ public class FormViewShip extends SpaceTraderForm {
 
             if (ship.FreeSlotsWeapon() > 0)
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.Multiples(ship.FreeSlotsWeapon(), "weapon slot") + Strings.newline));
+                        + (Functions.multiples(ship.FreeSlotsWeapon(), "weapon slot") + Strings.newline));
 
             if (ship.FreeSlotsShield() > 0)
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.Multiples(ship.FreeSlotsShield(), "shield slot") + Strings.newline));
+                        + (Functions.multiples(ship.FreeSlotsShield(), "shield slot") + Strings.newline));
 
             if (ship.FreeSlotsGadget() > 0)
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.Multiples(ship.FreeSlotsGadget(), "gadget slot") + Strings.newline));
+                        + (Functions.multiples(ship.FreeSlotsGadget(), "gadget slot") + Strings.newline));
         }
     }
 
@@ -261,7 +261,7 @@ public class FormViewShip extends SpaceTraderForm {
             if (ship.getTribbles() == Consts.MaxTribbles)
                 specialCargo.add(Strings.SpecialCargoTribblesInfest);
             else
-                specialCargo.add(Functions.Multiples(ship.getTribbles(), Strings.SpecialCargoTribblesCute) + ".");
+                specialCargo.add(Functions.multiples(ship.getTribbles(), Strings.SpecialCargoTribblesCute) + ".");
         }
 
         if (game.getQuestStatusJapori() == SpecialEvent.StatusJaporiInTransit)
@@ -275,7 +275,7 @@ public class FormViewShip extends SpaceTraderForm {
 
         if (ship.ReactorOnBoard()) {
             specialCargo.add(Strings.SpecialCargoReactor);
-            specialCargo.add(Functions.Multiples(10 - ((game.getQuestStatusReactor() - 1) / 2), "bay")
+            specialCargo.add(Functions.multiples(10 - ((game.getQuestStatusReactor() - 1) / 2), "bay")
                     + Strings.SpecialCargoReactorBays);
         }
 

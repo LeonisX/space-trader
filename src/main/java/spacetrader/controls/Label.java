@@ -14,6 +14,10 @@ public class Label extends BaseComponent {
     public ContentAlignment ImageAlign;
     private boolean convertedToHtml;
 
+    /*public Label() {
+        super(new JLabel());
+    }*/
+
     public Label(String name) {
         super(new JLabel());
         setName(name);

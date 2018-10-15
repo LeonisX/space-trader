@@ -128,9 +128,9 @@ public class Ship extends ShipSpec {
                 // Trade-in value is three-fourths the original price
                 getPrice() * (getTribbles() > 0 && !forInsurance ? 1 : 3) / 4
                         // subtract repair costs
-                        - (HullStrength() - getHull()) * getRepairCost()
+                        - (getHullStrength() - getHull()) * getRepairCost()
                         // subtract costs to fill tank with fuel
-                        - (FuelTanks() - getFuel()) * getFuelCost();
+                        - (getFuelTanks() - getFuel()) * getFuelCost();
         // Add 3/4 of the price of each item of equipment
         for (i = 0; i < _weapons.length; i++)
             if (_weapons[i] != null)
@@ -409,7 +409,7 @@ public class Ship extends ShipSpec {
             setHull(0);
 
             for (int i = 0; i < 5; i++) {
-                int hull = 1 + Functions.GetRandom(HullStrength());
+                int hull = 1 + Functions.GetRandom(getHullStrength());
                 if (hull > getHull())
                     setHull(hull);
             }
@@ -645,7 +645,7 @@ public class Ship extends ShipSpec {
             // Engineer may do some repairs
             int repairs = Functions.GetRandom(Engineer());
             if (repairs > 0) {
-                int used = Math.min(repairs, HullStrength() - getHull());
+                int used = Math.min(repairs, getHullStrength() - getHull());
                 setHull(getHull() + used);
                 repairs -= used;
             }
@@ -725,8 +725,8 @@ public class Ship extends ShipSpec {
         _shields = new Shield[getShieldSlots()];
         _gadgets = new Gadget[getGadgetSlots()];
         _crew = new CrewMember[getCrewQuarters()];
-        _fuel = FuelTanks();
-        _hull = HullStrength();
+        _fuel = getFuelTanks();
+        _hull = getHullStrength();
     }
 
     public int WeaponStrength() {
@@ -919,8 +919,8 @@ public class Ship extends ShipSpec {
     }
 
     public @Override
-    int FuelTanks() {
-        return super.FuelTanks() + (HasGadget(GadgetType.FuelCompactor) ? Consts.FuelCompactorTanks : 0);
+    int getFuelTanks() {
+        return super.getFuelTanks() + (HasGadget(GadgetType.FuelCompactor) ? Consts.FuelCompactorTanks : 0);
     }
 
     public Gadget[] Gadgets() {
@@ -943,7 +943,7 @@ public class Ship extends ShipSpec {
 
     public String HullText() {
         return Functions.stringVars(Strings.EncounterHullStrength, Functions.formatNumber((int) Math.floor((double) 100
-                * getHull() / HullStrength())));
+                * getHull() / getHullStrength())));
     }
 
     public boolean IllegalSpecialCargo() {

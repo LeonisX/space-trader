@@ -73,7 +73,7 @@ public class FormCargoSell extends SpaceTraderForm {
         lblPaid.setText(Functions.stringVars(
                 op == CargoSellOp.SellTrader ? Strings.CargoSellPaidTrader
                         : Strings.CargoSellPaid, Functions.formatMoney(cost),
-                Functions.Multiples(maxAmount, Strings.CargoUnit)));
+                Functions.multiples(maxAmount, Strings.CargoUnit)));
         lblProfit.setText(Functions.stringVars(Strings.CargoSellProfit,
                 price >= cost ? "profit" : "loss", Functions
                         .formatMoney(price >= cost ? price - cost : cost

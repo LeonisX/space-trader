@@ -454,7 +454,7 @@ public class FormViewCommander extends SpaceTraderForm {
 
         lblName.setText(cmdr.Name());
         lblDifficulty.setText(Strings.DifficultyLevels[game.Difficulty().castToInt()]);
-        lblTime.setText(Functions.Multiples(cmdr.getDays(), Strings.TimeUnit));
+        lblTime.setText(Functions.multiples(cmdr.getDays(), Strings.TimeUnit));
 
         lblPilot.setText(cmdr.Pilot() + " (" + cmdr.getShip().Pilot() + ")");
         lblFighter.setText(cmdr.Fighter() + " (" + cmdr.getShip().Fighter() + ")");

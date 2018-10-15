@@ -73,8 +73,8 @@ public class FormViewHighScores extends SpaceTraderForm {
             lblStatus[2 - i].setText(Functions.stringVars(Strings.HighScoreStatus, new String[]
                     {
                             Strings.GameCompletionTypes[highScores[i].Type().castToInt()],
-                            Functions.Multiples(highScores[i].Days(), Strings.TimeUnit),
-                            Functions.Multiples(highScores[i].Worth(), Strings.MoneyUnit),
+                            Functions.multiples(highScores[i].Days(), Strings.TimeUnit),
+                            Functions.multiples(highScores[i].Worth(), Strings.MoneyUnit),
                             Strings.DifficultyLevels[highScores[i].Difficulty().castToInt()].toLowerCase()
                     }));
 

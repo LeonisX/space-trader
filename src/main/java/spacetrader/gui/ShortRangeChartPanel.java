@@ -146,7 +146,7 @@ public class ShortRangeChartPanel extends Panel {
                 }
 
                 if (game.isShowTrackedRange())
-                    e.Graphics.DrawString(Functions.stringVars(Strings.ChartDistance, Functions.Multiples(dist,
+                    e.Graphics.DrawString(Functions.stringVars(Strings.ChartDistance, Functions.multiples(dist,
                             Strings.DistanceUnit), trackSys.name()), font, new SolidBrush(Color.black), 0,
                             picShortRangeChart.getHeight() - 13);
             }

@@ -46,7 +46,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         int max = Math.min(cmdr.getDebt(), cmdr.getCash());
         numAmount.setMaximum(max);
         numAmount.setValue(numAmount.getMinimum());
-        lblStatement.setText(Functions.stringVars(Strings.BankLoanStatementDebt, Functions.Multiples(cmdr.getDebt(),
+        lblStatement.setText(Functions.stringVars(Strings.BankLoanStatementDebt, Functions.multiples(cmdr.getDebt(),
                 Strings.MoneyUnit)));
     }
 

@@ -276,9 +276,9 @@ public class Shipyard {
     public int UnitsUsed() {
         int cargoBays = ShipSpec().CargoBays();
         int crew = ShipSpec().getCrewQuarters() * UnitsCrew();
-        int fuel = (int) Math.ceil((double) (ShipSpec().FuelTanks() - BaseFuel()) / PerUnitFuel() * UnitsFuel());
+        int fuel = (int) Math.ceil((double) (ShipSpec().getFuelTanks() - BaseFuel()) / PerUnitFuel() * UnitsFuel());
         int gadgets = ShipSpec().getGadgetSlots() * UnitsGadgets();
-        int hull = (ShipSpec().HullStrength() - BaseHull()) / PerUnitHull() * UnitsHull();
+        int hull = (ShipSpec().getHullStrength() - BaseHull()) / PerUnitHull() * UnitsHull();
         int shield = ShipSpec().getShieldSlots() * UnitsShields();
         int weapons = ShipSpec().getWeaponSlots() * UnitsWeapons();
 

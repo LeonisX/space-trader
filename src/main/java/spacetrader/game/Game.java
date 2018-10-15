@@ -286,7 +286,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         GuiFacade.alert(AlertType.EncounterArrested);
 
-        GuiFacade.alert(AlertType.JailConvicted, Functions.Multiples(term, Strings.TimeUnit), Functions.Multiples(fine,
+        GuiFacade.alert(AlertType.JailConvicted, Functions.multiples(term, Strings.TimeUnit), Functions.multiples(fine,
                 Strings.MoneyUnit));
 
         if (Commander().getShip().HasGadget(GadgetType.HiddenCargoBays)) {
@@ -399,7 +399,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (Commander().getDebt() >= Consts.DebtWarning)
             GuiFacade.alert(AlertType.DebtWarning);
         else if (Commander().getDebt() > 0 && Options().getRemindLoans() && Commander().getDays() % 5 == 0)
-            GuiFacade.alert(AlertType.DebtReminder, Functions.Multiples(Commander().getDebt(), Strings.MoneyUnit));
+            GuiFacade.alert(AlertType.DebtReminder, Functions.multiples(Commander().getDebt(), Strings.MoneyUnit));
     }
 
     private void ArrivalCheckEasterEgg() {
@@ -503,16 +503,16 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     private void ArrivalPerformRepairs() {
         Ship ship = Commander().getShip();
 
-        if (ship.getHull() < ship.HullStrength())
+        if (ship.getHull() < ship.getHullStrength())
             ship.setHull(ship.getHull()
-                    + Math.min(ship.HullStrength() - ship.getHull(), Functions.GetRandom(ship.Engineer())));
+                    + Math.min(ship.getHullStrength() - ship.getHull(), Functions.GetRandom(ship.Engineer())));
 
         for (int i = 0; i < ship.Shields().length; ++i)
             if (ship.Shields()[i] != null)
                 ship.Shields()[i].setCharge(ship.Shields()[i].Power());
 
         boolean fuelOk = true;
-        int toAdd = ship.FuelTanks() - ship.getFuel();
+        int toAdd = ship.getFuelTanks() - ship.getFuel();
         if (Options().getAutoFuel() && toAdd > 0) {
             if (Commander().getCash() >= toAdd * ship.getFuelCost()) {
                 ship.setFuel(ship.getFuel() + toAdd);
@@ -522,7 +522,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         }
 
         boolean repairOk = true;
-        toAdd = ship.HullStrength() - ship.getHull();
+        toAdd = ship.getHullStrength() - ship.getHull();
         if (Options().getAutoRepair() && toAdd > 0) {
             if (Commander().getCash() >= toAdd * ship.getRepairCost()) {
                 ship.setHull(ship.getHull() + toAdd);
@@ -1690,7 +1690,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                             // (3 on Easy, 4 on Beginner, 1 on Hard or
                             // Impossible). For opponents,
                             // it is always 2.
-                            damage = Math.min(damage, defender.HullStrength()
+                            damage = Math.min(damage, defender.getHullStrength()
                                     / (defender.CommandersShip() ? Math.max(1, spacetrader.game.enums.Difficulty.Impossible
                                     .castToInt()
                                     - Difficulty().castToInt()) : 2));
@@ -1781,7 +1781,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         } else if (getOpponentDisabled()) {
             if (Commander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
                 GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDisabled, Strings.EncounterPiratesLocation, Functions
-                        .Multiples(getOpponent().Bounty(), Strings.MoneyUnit));
+                        .multiples(getOpponent().Bounty(), Strings.MoneyUnit));
 
                 Commander().setCash(Commander().getCash() + getOpponent().Bounty());
             }
@@ -2055,7 +2055,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     / WarpSystem().politicalSystem().BribeLevel() / diffMod / 100)
                     * 100 * passMod));
 
-            if (GuiFacade.alert(AlertType.EncounterPoliceBribe, Functions.Multiples(bribe, Strings.MoneyUnit)) == DialogResult.YES) {
+            if (GuiFacade.alert(AlertType.EncounterPoliceBribe, Functions.multiples(bribe, Strings.MoneyUnit)) == DialogResult.YES) {
                 if (Commander().getCash() >= bribe) {
                     Commander().setCash(Commander().getCash() - bribe);
                     bribed = true;
@@ -2118,7 +2118,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     Commander().setDebt(Commander().getDebt() + (fine - cashPayment));
                     Commander().setCash(Commander().getCash() - cashPayment);
 
-                    GuiFacade.alert(AlertType.EncounterPoliceFine, Functions.Multiples(fine, Strings.MoneyUnit));
+                    GuiFacade.alert(AlertType.EncounterPoliceFine, Functions.multiples(fine, Strings.MoneyUnit));
 
                     Commander().setPoliceRecordScore(Commander().getPoliceRecordScore() + Consts.ScoreTrafficking);
                 }
@@ -2183,7 +2183,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 Commander().setDebt(Commander().getDebt() + (blackmail - cashPayment));
                 Commander().setCash(Commander().getCash() - cashPayment);
                 GuiFacade.alert(AlertType.EncounterPiratesFindNoCargo, Functions
-                        .Multiples(blackmail, Strings.MoneyUnit));
+                        .multiples(blackmail, Strings.MoneyUnit));
             } else {
                 GuiFacade.alert(AlertType.EncounterLooting);
 
@@ -2252,7 +2252,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 && getOpponent().Type() != ShipType.Mantis
                 && Commander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious)
             GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDestroyed, "", Functions
-                    .Multiples(getOpponent().Bounty(), Strings.MoneyUnit));
+                    .multiples(getOpponent().Bounty(), Strings.MoneyUnit));
         else
             GuiFacade.alert(AlertType.EncounterYouWin);
 
@@ -2836,9 +2836,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         // The Space Monster's strength increases 5% per day until it is back to
         // full strength.
-        if (SpaceMonster().getHull() < SpaceMonster().HullStrength())
+        if (SpaceMonster().getHull() < SpaceMonster().getHullStrength())
             SpaceMonster().setHull(
-                    Math.min(SpaceMonster().HullStrength(), (int) (SpaceMonster().getHull() * Math.pow(1.05, num))));
+                    Math.min(SpaceMonster().getHullStrength(), (int) (SpaceMonster().getHull() * Math.pow(1.05, num))));
 
         if (getQuestStatusGemulon() > SpecialEvent.StatusGemulonNotStarted
                 && getQuestStatusGemulon() < SpecialEvent.StatusGemulonTooLate) {
@@ -2927,7 +2927,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 int close = 0;
                 for (int i = 0; i < Universe().length && close < 3; i++) {
                     if (i != system.Id().castToInt()
-                            && Functions.Distance(Universe()[i], system) <= commander.getShip().FuelTanks())
+                            && Functions.Distance(Universe()[i], system) <= commander.getShip().getFuelTanks())
                         close++;
                 }
 
@@ -3235,9 +3235,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             int cost = Difficulty().castToInt() + 1;
 
             if (Commander().getCash() < cost)
-                GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.Multiples(cost, "credit"));
+                GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.multiples(cost, "credit"));
             else if (Options().getNewsAutoPay()
-                    || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.Multiples(cost, "credit")) == DialogResult.YES) {
+                    || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.multiples(cost, "credit")) == DialogResult.YES) {
                 Commander().setCash(Commander().getCash() - cost);
                 setPaidForNewspaper(true);
                 getParentWindow().updateAll();
@@ -3721,7 +3721,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         }
 
         return Functions.stringVars(Strings.EncounterText, new String[]{
-                Functions.Multiples(getClicks(), Strings.DistanceSubunit), WarpSystem().name(), encounterPretext,
+                Functions.multiples(getClicks(), Strings.DistanceSubunit), WarpSystem().name(), encounterPretext,
                 getOpponent().Name().toLowerCase()});
     }
 

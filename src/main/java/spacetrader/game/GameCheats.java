@@ -100,7 +100,7 @@ public class GameCheats {
                         ship.Weapons()[num1] = (Weapon) Consts.Weapons[num2].Clone();
                     break;
                 case Juice:
-                    ship.setFuel(Math.max(0, Math.min(ship.FuelTanks(), num1)));
+                    ship.setFuel(Math.max(0, Math.min(ship.getFuelTanks(), num1)));
                     break;
                 case Knack:
                     if (num1 >= 0 && num1 < game.Mercenaries().length) {
@@ -143,7 +143,7 @@ public class GameCheats {
                     game.Commander().setCash(Math.max(0, num1));
                     break;
                 case Skin:
-                    ship.setHull(Math.max(0, Math.min(ship.HullStrength(), num1)));
+                    ship.setHull(Math.max(0, Math.min(ship.getHullStrength(), num1)));
                     break;
                 case Status: {
                     switch (SomeStringsForCheatSwitch.find(second)) {

@@ -217,7 +217,7 @@ public class ShipSpec extends STSerializableObject {
         _cargoBays = value;
     }
 
-    public int FuelTanks() {
+    public int getFuelTanks() {
         return _fuelTanks;
     }
 
@@ -297,11 +297,11 @@ public class ShipSpec extends STSerializableObject {
         _crewQuarters = crewQuarters;
     }
 
-    public int HullStrength() {
+    public int getHullStrength() {
         return _hullStrength + (getHullUpgraded() ? Consts.HullUpgrade : 0);
     }
 
-    public void HullStrength(int value) {
+    public void setHullStrength(int value) {
         _hullStrength = value;
     }
 

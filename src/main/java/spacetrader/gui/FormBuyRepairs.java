@@ -60,7 +60,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
         initializeComponent();
 
         Commander cmdr = game.Commander();
-        numAmount.setMaximum(Math.min(cmdr.getCash(), (cmdr.getShip().HullStrength() - cmdr.getShip().getHull())
+        numAmount.setMaximum(Math.min(cmdr.getCash(), (cmdr.getShip().getHullStrength() - cmdr.getShip().getHull())
                 * cmdr.getShip().getRepairCost()));
         numAmount.setValue(numAmount.getMaximum());
     }
@@ -70,7 +70,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
             IllegalAccessException, UnsupportedLookAndFeelException {
         FormBuyRepairs form = new FormBuyRepairs();
         Launcher.runForm(form);
-        System.out.println(form.Amount());
+        System.out.println(form.getAmount());
     }
 
     // #endregion
@@ -166,7 +166,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
         numAmount.setValue(numAmount.getMaximum());
     }
 
-    public int Amount() {
+    public int getAmount() {
         return numAmount.getValue();
     }
 }

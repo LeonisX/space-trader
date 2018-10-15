@@ -74,9 +74,9 @@ public class FormCargoBuy extends SpaceTraderForm {
 
                 lblStatement.setText(Functions.stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].Name(),
                         Functions.formatMoney(game.PriceCargoBuy()[item])));
-                lblAvailable.setText(Functions.stringVars(Strings.CargoBuyAvailable, Functions.Multiples(game.getOpponent()
+                lblAvailable.setText(Functions.stringVars(Strings.CargoBuyAvailable, Functions.multiples(game.getOpponent()
                         .Cargo()[item], Strings.CargoUnit)));
-                lblAfford.setText(Functions.stringVars(Strings.CargoBuyAfford, Functions.Multiples(afford,
+                lblAfford.setText(Functions.stringVars(Strings.CargoBuyAfford, Functions.multiples(afford,
                         Strings.CargoUnit)));
 
                 lblAvailable.setVisible(true);
