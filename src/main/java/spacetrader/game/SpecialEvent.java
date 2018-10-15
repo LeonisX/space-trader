@@ -138,7 +138,7 @@ public class SpecialEvent {
         return _occurrence;
     }
 
-    public int Price() {
+    public int price() {
         return _price;
     }
 

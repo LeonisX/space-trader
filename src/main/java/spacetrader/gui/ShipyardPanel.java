@@ -152,7 +152,7 @@ class ShipyardPanel extends Panel {
             btnDesign.setVisible(false);
             btnEquip.setVisible(false);
         } else {
-            boolean noTech = (commander.getCurrentSystem().TechLevel().castToInt() < Consts.ShipSpecs[ShipType.Flea
+            boolean noTech = (commander.getCurrentSystem().techLevel().castToInt() < Consts.ShipSpecs[ShipType.Flea
                     .castToInt()].MinimumTechLevel().castToInt());
 
             lblShipsForSale.setText(noTech ? Strings.ShipyardShipNoSale : Strings.ShipyardShipForSale);

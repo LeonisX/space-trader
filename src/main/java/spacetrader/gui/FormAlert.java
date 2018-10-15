@@ -892,7 +892,7 @@ public class FormAlert extends SpaceTraderForm {
         //
         lblText.setLocation(new java.awt.Point(8, 8));
         lblText.setName("lblText");
-        // this.lblText.setSize(new winforms.Size(12, 13));
+        // this.lblText.setSize(new winforms.size(12, 13));
         lblText.setTabIndex(3);
         lblText.setText("X");
         //

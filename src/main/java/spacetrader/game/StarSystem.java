@@ -31,8 +31,6 @@ import spacetrader.util.Hashtable;
 
 import java.util.ArrayList;
 
-import static spacetrader.game.enums.SpecialEventType.*;
-
 public class StarSystem extends STSerializableObject {
 
     private StarSystemId _id;
@@ -90,9 +88,9 @@ public class StarSystem extends STSerializableObject {
             if (!itemTraded(Consts.TradeItems[i])) {
                 _tradeItems[i] = 0;
             } else {
-                _tradeItems[i] = (this.Size().castToInt() + 1)
+                _tradeItems[i] = (this.size().castToInt() + 1)
                         * (Functions.GetRandom(9, 14) - Math.abs(Consts.TradeItems[i].TechTopProduction().castToInt()
-                        - this.TechLevel().castToInt()));
+                        - this.techLevel().castToInt()));
 
                 // Because of the enormous profits possible, there shouldn't be
                 // too many robots or narcotics available.
@@ -126,13 +124,13 @@ public class StarSystem extends STSerializableObject {
 
     public boolean itemTraded(TradeItem item) {
         return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && TechLevel().castToInt() >= item
+                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && techLevel().castToInt() >= item
                 .TechProduction().castToInt());
     }
 
     boolean itemUsed(TradeItem item) {
         return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && TechLevel().castToInt() >= item
+                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && techLevel().castToInt() >= item
                 .TechUsage().castToInt());
     }
 
@@ -357,7 +355,7 @@ public class StarSystem extends STSerializableObject {
         _shipyardId = value;
     }
 
-    public Size Size() {
+    public Size size() {
         return _size;
     }
 
@@ -387,11 +385,11 @@ public class StarSystem extends STSerializableObject {
         _systemPressure = value;
     }
 
-    public TechLevel TechLevel() {
+    public TechLevel techLevel() {
         return _techLevel;
     }
 
-    public void TechLevel(TechLevel value) {
+    public void techLevel(TechLevel value) {
         _techLevel = value;
     }
 

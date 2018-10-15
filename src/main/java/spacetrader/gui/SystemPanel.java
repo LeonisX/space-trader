@@ -19,22 +19,22 @@ class SystemPanel extends Panel {
     private Button newsButton;
     private Button specialButton;
     private Button hireMercenaryButton;
-    private Label lblSystemGovtLabel;
-    private Label lblSystemName;
-    private Label lblSystemNameLabel;
-    private Label lblSystemPirates;
-    private Label lblSystemPiratesLabel;
-    private Label lblSystemPolice;
-    private Label lblSystemPoliceLabel;
-    private Label lblSystemPolSys;
-    private Label lblSystemPressure;
-    private Label lblSystemPressurePre;
-    private Label lblSystemResource;
-    private Label lblSystemResourseLabel;
-    private Label lblSystemSize;
-    private Label lblSystemSizeLabel;
-    private Label lblSystemTech;
-    private Label lblSystemTechLabel;
+    private Label systemGovermentLabel;
+    private Label systemNameLabelValue;
+    private Label systemNameLabel;
+    private Label systemPiratesLabelValue;
+    private Label systemPiratesLabel;
+    private Label systemPoliceLabelValue;
+    private Label systemPoliceLabel;
+    private Label systemGovermentLabelValue;
+    private Label systemPressureLabelValue;
+    private Label systemPressureLabel;
+    private Label systemResoursesLabelValue;
+    private Label systemResoursesLabel;
+    private Label systemSizeLabelValue;
+    private Label systemSizeLabel;
+    private Label systemTechLevelLabelValue;
+    private Label systemTechLevelLabel;
     private ToolTip tipSpecial;
     private ToolTip tipMerc;
 
@@ -54,143 +54,143 @@ class SystemPanel extends Panel {
         specialButton = new Button("specialButton");
         newsButton = new Button("newsButton");
 
-        lblSystemNameLabel = new Label();
-        lblSystemName = new Label();
-        lblSystemSizeLabel = new Label();
-        lblSystemSize = new Label();
-        lblSystemTechLabel = new Label();
-        lblSystemTech = new Label();
-        lblSystemGovtLabel = new Label();
-        lblSystemPolSys = new Label();
-        lblSystemResourseLabel = new Label();
-        lblSystemResource = new Label();
-        lblSystemPoliceLabel = new Label();
-        lblSystemPolice = new Label();
-        lblSystemPiratesLabel = new Label();
-        lblSystemPirates = new Label();
-        lblSystemPressurePre = new Label();
-        lblSystemPressure = new Label();
+        systemNameLabel = new Label("systemNameLabel");
+        systemNameLabelValue = new Label("systemNameLabelValue");
+        systemSizeLabel = new Label("systemSizeLabel");
+        systemSizeLabelValue = new Label("systemSizeLabelValue");
+        systemTechLevelLabel = new Label("systemTechLevelLabel");
+        systemTechLevelLabelValue = new Label("systemTechLevelLabelValue");
+        systemGovermentLabel = new Label("systemGovermentLabel");
+        systemGovermentLabelValue = new Label("systemGovermentLabelValue");
+        systemResoursesLabel = new Label("systemResoursesLabel");
+        systemResoursesLabelValue = new Label("systemResoursesLabelValue");
+        systemPoliceLabel = new Label("systemPoliceLabel");
+        systemPoliceLabelValue = new Label("systemPoliceLabelValue");
+        systemPiratesLabel = new Label("systemPiratesLabel");
+        systemPiratesLabelValue = new Label("systemPiratesLabelValue");
+        systemPressureLabel = new Label("systemPressureLabel");
+        systemPressureLabelValue = new Label("systemPressureLabelValue");
 
         controls.add(hireMercenaryButton);
         controls.add(specialButton);
         controls.add(newsButton);
-        controls.add(lblSystemPressure);
-        controls.add(lblSystemPressurePre);
-        controls.add(lblSystemPolSys);
-        controls.add(lblSystemSize);
-        controls.add(lblSystemTech);
-        controls.add(lblSystemPirates);
-        controls.add(lblSystemPolice);
-        controls.add(lblSystemResource);
-        controls.add(lblSystemPiratesLabel);
-        controls.add(lblSystemPoliceLabel);
-        controls.add(lblSystemResourseLabel);
-        controls.add(lblSystemGovtLabel);
-        controls.add(lblSystemTechLabel);
-        controls.add(lblSystemSizeLabel);
-        controls.add(lblSystemName);
-        controls.add(lblSystemNameLabel);
+        controls.add(systemPressureLabelValue);
+        controls.add(systemPressureLabel);
+        controls.add(systemGovermentLabelValue);
+        controls.add(systemSizeLabelValue);
+        controls.add(systemTechLevelLabelValue);
+        controls.add(systemPiratesLabelValue);
+        controls.add(systemPoliceLabelValue);
+        controls.add(systemResoursesLabelValue);
+        controls.add(systemPiratesLabel);
+        controls.add(systemPoliceLabel);
+        controls.add(systemResoursesLabel);
+        controls.add(systemGovermentLabel);
+        controls.add(systemTechLevelLabel);
+        controls.add(systemSizeLabel);
+        controls.add(systemNameLabelValue);
+        controls.add(systemNameLabel);
 
         setSize(new Size(240, 206));
         setTabIndex(1);
         setTabStop(false);
         setText("System Info");
 
-        lblSystemNameLabel.setAutoSize(true);
-        lblSystemNameLabel.setFont(FontCollection.bold825);
-        lblSystemNameLabel.setLocation(new Point(8, 16));
-        lblSystemNameLabel.setSize(new Size(39, 16));
-        lblSystemNameLabel.setTabIndex(0);
-        lblSystemNameLabel.setText("Name:");
+        systemNameLabel.setAutoSize(true);
+        systemNameLabel.setFont(FontCollection.bold825);
+        systemNameLabel.setLocation(new Point(8, 16));
+        systemNameLabel.setSize(new Size(39, 16));
+        systemNameLabel.setTabIndex(0);
+        systemNameLabel.setText("Name:");
 
-        lblSystemName.setLocation(new Point(88, 16));
-        lblSystemName.setSize(new Size(65, 13));
-        lblSystemName.setTabIndex(1);
-        //lblSystemName.setText("Tarchannen");
+        systemNameLabelValue.setLocation(new Point(88, 16));
+        systemNameLabelValue.setSize(new Size(65, 13));
+        systemNameLabelValue.setTabIndex(1);
+        //systemNameLabelValue.setText("Tarchannen");
 
-        lblSystemSizeLabel.setAutoSize(true);
-        lblSystemSizeLabel.setFont(FontCollection.bold825);
-        lblSystemSizeLabel.setLocation(new Point(8, 32));
-        lblSystemSizeLabel.setSize(new Size(31, 16));
-        lblSystemSizeLabel.setTabIndex(2);
-        lblSystemSizeLabel.setText("Size:");
+        systemSizeLabel.setAutoSize(true);
+        systemSizeLabel.setFont(FontCollection.bold825);
+        systemSizeLabel.setLocation(new Point(8, 32));
+        systemSizeLabel.setSize(new Size(31, 16));
+        systemSizeLabel.setTabIndex(2);
+        systemSizeLabel.setText("Size:");
 
-        lblSystemSize.setLocation(new Point(88, 32));
-        lblSystemSize.setSize(new Size(45, 13));
-        lblSystemSize.setTabIndex(14);
-        //lblSystemSize.setText("Medium");
+        systemSizeLabelValue.setLocation(new Point(88, 32));
+        systemSizeLabelValue.setSize(new Size(45, 13));
+        systemSizeLabelValue.setTabIndex(14);
+        //systemSizeLabelValue.setText("Medium");
 
-        lblSystemTechLabel.setAutoSize(true);
-        lblSystemTechLabel.setFont(FontCollection.bold825);
-        lblSystemTechLabel.setLocation(new Point(8, 48));
-        lblSystemTechLabel.setSize(new Size(65, 16));
-        lblSystemTechLabel.setTabIndex(3);
-        lblSystemTechLabel.setText("Tech Level:");
+        systemTechLevelLabel.setAutoSize(true);
+        systemTechLevelLabel.setFont(FontCollection.bold825);
+        systemTechLevelLabel.setLocation(new Point(8, 48));
+        systemTechLevelLabel.setSize(new Size(65, 16));
+        systemTechLevelLabel.setTabIndex(3);
+        systemTechLevelLabel.setText("Tech Level:");
 
-        lblSystemTech.setLocation(new Point(88, 48));
-        lblSystemTech.setSize(new Size(82, 13));
-        lblSystemTech.setTabIndex(13);
-        //lblSystemTech.setText("Pre-Agricultural");
+        systemTechLevelLabelValue.setLocation(new Point(88, 48));
+        systemTechLevelLabelValue.setSize(new Size(82, 13));
+        systemTechLevelLabelValue.setTabIndex(13);
+        //systemTechLevelLabelValue.setText("Pre-Agricultural");
 
-        lblSystemGovtLabel.setAutoSize(true);
-        lblSystemGovtLabel.setFont(FontCollection.bold825);
-        lblSystemGovtLabel.setLocation(new Point(8, 64));
-        lblSystemGovtLabel.setSize(new Size(72, 16));
-        lblSystemGovtLabel.setTabIndex(4);
-        lblSystemGovtLabel.setText("Government:");
+        systemGovermentLabel.setAutoSize(true);
+        systemGovermentLabel.setFont(FontCollection.bold825);
+        systemGovermentLabel.setLocation(new Point(8, 64));
+        systemGovermentLabel.setSize(new Size(72, 16));
+        systemGovermentLabel.setTabIndex(4);
+        systemGovermentLabel.setText("Government:");
 
-        lblSystemPolSys.setLocation(new Point(88, 64));
-        lblSystemPolSys.setSize(new Size(91, 13));
-        lblSystemPolSys.setTabIndex(15);
-        //lblSystemPolSys.setText("Cybernetic State");
+        systemGovermentLabelValue.setLocation(new Point(88, 64));
+        systemGovermentLabelValue.setSize(new Size(91, 13));
+        systemGovermentLabelValue.setTabIndex(15);
+        //systemGovermentLabelValue.setText("Cybernetic State");
 
-        lblSystemResourseLabel.setAutoSize(true);
-        lblSystemResourseLabel.setFont(FontCollection.bold825);
-        lblSystemResourseLabel.setLocation(new Point(8, 80));
-        lblSystemResourseLabel.setSize(new Size(58, 16));
-        lblSystemResourseLabel.setTabIndex(5);
-        lblSystemResourseLabel.setText("Resource:");
+        systemResoursesLabel.setAutoSize(true);
+        systemResoursesLabel.setFont(FontCollection.bold825);
+        systemResoursesLabel.setLocation(new Point(8, 80));
+        systemResoursesLabel.setSize(new Size(58, 16));
+        systemResoursesLabel.setTabIndex(5);
+        systemResoursesLabel.setText("Resource:");
 
-        lblSystemResource.setLocation(new Point(88, 80));
-        lblSystemResource.setSize(new Size(105, 13));
-        lblSystemResource.setTabIndex(9);
-        //lblSystemResource.setText("Sweetwater Oceans");
+        systemResoursesLabelValue.setLocation(new Point(88, 80));
+        systemResoursesLabelValue.setSize(new Size(105, 13));
+        systemResoursesLabelValue.setTabIndex(9);
+        //systemResoursesLabelValue.setText("Sweetwater Oceans");
 
-        lblSystemPoliceLabel.setAutoSize(true);
-        lblSystemPoliceLabel.setFont(FontCollection.bold825);
-        lblSystemPoliceLabel.setLocation(new Point(8, 96));
-        lblSystemPoliceLabel.setSize(new Size(40, 16));
-        lblSystemPoliceLabel.setTabIndex(6);
-        lblSystemPoliceLabel.setText("Police:");
+        systemPoliceLabel.setAutoSize(true);
+        systemPoliceLabel.setFont(FontCollection.bold825);
+        systemPoliceLabel.setLocation(new Point(8, 96));
+        systemPoliceLabel.setSize(new Size(40, 16));
+        systemPoliceLabel.setTabIndex(6);
+        systemPoliceLabel.setText("Police:");
 
-        lblSystemPolice.setLocation(new Point(88, 96));
-        lblSystemPolice.setSize(new Size(53, 13));
-        lblSystemPolice.setTabIndex(10);
-        //lblSystemPolice.setText("Moderate");
+        systemPoliceLabelValue.setLocation(new Point(88, 96));
+        systemPoliceLabelValue.setSize(new Size(53, 13));
+        systemPoliceLabelValue.setTabIndex(10);
+        //systemPoliceLabelValue.setText("Moderate");
 
-        lblSystemPiratesLabel.setAutoSize(true);
-        lblSystemPiratesLabel.setFont(FontCollection.bold825);
-        lblSystemPiratesLabel.setLocation(new Point(8, 112));
-        lblSystemPiratesLabel.setSize(new Size(44, 16));
-        lblSystemPiratesLabel.setTabIndex(7);
-        lblSystemPiratesLabel.setText("Pirates:");
+        systemPiratesLabel.setAutoSize(true);
+        systemPiratesLabel.setFont(FontCollection.bold825);
+        systemPiratesLabel.setLocation(new Point(8, 112));
+        systemPiratesLabel.setSize(new Size(44, 16));
+        systemPiratesLabel.setTabIndex(7);
+        systemPiratesLabel.setText("Pirates:");
 
-        lblSystemPirates.setLocation(new Point(88, 112));
-        lblSystemPirates.setSize(new Size(53, 13));
-        lblSystemPirates.setTabIndex(11);
-        //lblSystemPirates.setText("Abundant");
+        systemPiratesLabelValue.setLocation(new Point(88, 112));
+        systemPiratesLabelValue.setSize(new Size(53, 13));
+        systemPiratesLabelValue.setTabIndex(11);
+        //systemPiratesLabelValue.setText("Abundant");
 
 
-        lblSystemPressurePre.setAutoSize(true);
-        lblSystemPressurePre.setLocation(new Point(8, 134));
-        lblSystemPressurePre.setSize(new Size(122, 16));
-        lblSystemPressurePre.setTabIndex(17);
-        //lblSystemPressurePre.setText("This system is currently");
+        systemPressureLabel.setAutoSize(true);
+        systemPressureLabel.setLocation(new Point(8, 134));
+        systemPressureLabel.setSize(new Size(122, 16));
+        systemPressureLabel.setTabIndex(17);
+        systemPressureLabel.setText("This system is currently");
 
-        lblSystemPressure.setLocation(new Point(8, 147));
-        lblSystemPressure.setSize(new Size(168, 16));
-        lblSystemPressure.setTabIndex(18);
-        //lblSystemPressure.setText("suffering from extreme bordom.");
+        systemPressureLabelValue.setLocation(new Point(8, 147));
+        systemPressureLabelValue.setSize(new Size(168, 16));
+        systemPressureLabelValue.setTabIndex(18);
+        //systemPressureLabelValue.setText("suffering from extreme bordom.");
 
 
         newsButton.setFlatStyle(FlatStyle.FLAT);
@@ -237,36 +237,36 @@ class SystemPanel extends Panel {
 
     void update() {
         if (game == null || commander.getCurrentSystem() == null) {
-            lblSystemName.setText("");
-            lblSystemSize.setText("");
-            lblSystemTech.setText("");
-            lblSystemPolSys.setText("");
-            lblSystemResource.setText("");
-            lblSystemPolice.setText("");
-            lblSystemPirates.setText("");
-            lblSystemPressure.setText("");
-            lblSystemPressurePre.setVisible(false);
+            systemNameLabelValue.setText("");
+            systemSizeLabelValue.setText("");
+            systemTechLevelLabelValue.setText("");
+            systemGovermentLabelValue.setText("");
+            systemResoursesLabelValue.setText("");
+            systemPoliceLabelValue.setText("");
+            systemPiratesLabelValue.setText("");
+            systemPressureLabelValue.setText("");
+            systemPressureLabel.setVisible(false);
             newsButton.setVisible(false);
             hireMercenaryButton.setVisible(false);
             specialButton.setVisible(false);
         } else {
             StarSystem system = commander.getCurrentSystem();
-            CrewMember[] mercs = system.mercenariesForHire();
+            CrewMember[] mercenaries = system.mercenariesForHire();
 
-            lblSystemName.setText(system.name());
-            lblSystemSize.setText(Strings.Sizes[system.Size().castToInt()]);
-            lblSystemTech.setText(Strings.TechLevelNames[system.TechLevel().castToInt()]);
-            lblSystemPolSys.setText(system.politicalSystem().name());
-            lblSystemResource.setText(Strings.SpecialResources[system.specialResource().castToInt()]);
-            lblSystemPolice.setText(Strings.ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
-            lblSystemPirates.setText(Strings.ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
-            lblSystemPressure.setText(Strings.SystemPressures[system.systemPressure().castToInt()]);
-            lblSystemPressurePre.setVisible(true);
+            systemNameLabelValue.setText(system.name());
+            systemSizeLabelValue.setText(Strings.Sizes[system.size().castToInt()]);
+            systemTechLevelLabelValue.setText(Strings.TechLevelNames[system.techLevel().castToInt()]);
+            systemGovermentLabelValue.setText(system.politicalSystem().name());
+            systemResoursesLabelValue.setText(Strings.SpecialResources[system.specialResource().castToInt()]);
+            systemPoliceLabelValue.setText(Strings.ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
+            systemPiratesLabelValue.setText(Strings.ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
+            systemPressureLabelValue.setText(Strings.SystemPressures[system.systemPressure().castToInt()]);
+            systemPressureLabel.setVisible(true);
             newsButton.setVisible(true);
-            hireMercenaryButton.setVisible(mercs.length > 0);
+            hireMercenaryButton.setVisible(mercenaries.length > 0);
             if (hireMercenaryButton.getVisible()) {
                 tipMerc.setToolTip(hireMercenaryButton, Functions.stringVars(Strings.MercenariesForHire,
-                        mercs.length == 1 ? mercs[0].Name() : mercs.length + Strings.Mercenaries));
+                        mercenaries.length == 1 ? mercenaries[0].Name() : mercenaries.length + Strings.Mercenaries));
             }
             specialButton.setVisible(system.showSpecialButton());
             if (specialButton.getVisible()) {
@@ -286,24 +286,25 @@ class SystemPanel extends Panel {
 
     private void btnSpecial_Click() {
         SpecialEvent specEvent = commander.getCurrentSystem().specialEvent();
-        String btn1, btn2;
-        DialogResult res1, res2;
+        String button1Text, button2Text;
+        DialogResult button1Result, button2Result;
 
         if (specEvent.MessageOnly()) {
-            btn1 = "Ok";
-            btn2 = null;
-            res1 = DialogResult.OK;
-            res2 = DialogResult.NONE;
+            button1Text = "Ok";
+            button2Text = null;
+            button1Result = DialogResult.OK;
+            button2Result = DialogResult.NONE;
         } else {
-            btn1 = "Yes";
-            btn2 = "No";
-            res1 = DialogResult.YES;
-            res2 = DialogResult.NO;
+            button1Text = "Yes";
+            button2Text = "No";
+            button1Result = DialogResult.YES;
+            button2Result = DialogResult.NO;
         }
 
-        FormAlert alert = new FormAlert(specEvent.title(), specEvent.string(), btn1, res1, btn2, res2, null);
+        FormAlert alert = new FormAlert(specEvent.title(), specEvent.string(), button1Text, button1Result,
+                button2Text, button2Result, null);
         if (alert.showDialog() != DialogResult.NO) {
-            if (commander.CashToSpend() < specEvent.Price())
+            if (commander.cashToSpend() < specEvent.price())
                 GuiFacade.alert(AlertType.SpecialIF);
             else {
                 try {

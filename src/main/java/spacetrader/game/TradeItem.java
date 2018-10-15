@@ -105,7 +105,7 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
 
         if (target.itemUsed(this)) {
             // Determine base price on techlevel of system
-            price = PriceLowTech() + target.TechLevel().castToInt() * PriceInc();
+            price = PriceLowTech() + target.techLevel().castToInt() * PriceInc();
 
             // If a good is highly requested, increase the price
             if (target.politicalSystem().Wanted() == Type())
@@ -117,7 +117,7 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
                     / 100;
 
             // Large system = high production decreases prices
-            price = price * (100 - target.Size().castToInt()) / 100;
+            price = price * (100 - target.size().castToInt()) / 100;
 
             // Special resources price adaptation
             if (target.specialResource() == ResourceLowPrice())

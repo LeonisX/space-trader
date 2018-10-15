@@ -124,7 +124,7 @@ public class Commander extends CrewMember {
 
         if (netPrice > 0 && getDebt() > 0)
             GuiFacade.alert(AlertType.DebtNoBuy);
-        else if (netPrice > CashToSpend())
+        else if (netPrice > cashToSpend())
             GuiFacade.alert(AlertType.ShipBuyIF);
         else if (specToBuy.getCrewQuarters() < getShip().SpecialCrew().length) {
             String passengers = getShip().SpecialCrew()[1].Name();
@@ -162,14 +162,14 @@ public class Commander extends CrewMember {
                 extraCost += Consts.PodTransferCost;
             }
 
-            if (netPrice + extraCost > CashToSpend())
+            if (netPrice + extraCost > cashToSpend())
                 GuiFacade.alert(AlertType.ShipBuyIFTransfer);
 
             extraCost = 0;
 
             for (int i = 0; i < special.length; i++) {
                 if (add[i]) {
-                    if (netPrice + extraCost + special[i].TransferPrice() > CashToSpend())
+                    if (netPrice + extraCost + special[i].TransferPrice() > cashToSpend())
                         GuiFacade.alert(AlertType.ShipBuyNoTransfer, special[i].Name());
                     else if (GuiFacade.alert(AlertType.ShipBuyTransfer, special[i].Name(), special[i].Name()
                             .toLowerCase(), Functions.formatNumber(special[i].TransferPrice())) == DialogResult.YES)
@@ -180,7 +180,7 @@ public class Commander extends CrewMember {
             }
 
             if (addPod) {
-                if (netPrice + extraCost + Consts.PodTransferCost > CashToSpend())
+                if (netPrice + extraCost + Consts.PodTransferCost > cashToSpend())
                     GuiFacade.alert(AlertType.ShipBuyNoTransfer, Strings.ShipInfoEscapePod);
                 else if (GuiFacade.alert(AlertType.ShipBuyTransfer, Strings.ShipInfoEscapePod, Strings.ShipInfoEscapePod.toLowerCase(), Functions.formatNumber(Consts.PodTransferCost)) == DialogResult.YES)
                     extraCost += Consts.PodTransferCost;
@@ -222,7 +222,7 @@ public class Commander extends CrewMember {
     // //#region Properties
 
 
-    public int CashToSpend() {
+    public int cashToSpend() {
         return _cash - (Game.currentGame().Options().getReserveMoney() ? CurrentCosts() : 0);
     }
 

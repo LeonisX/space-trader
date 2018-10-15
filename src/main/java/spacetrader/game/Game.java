@@ -931,7 +931,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 freeBays = Math.max(0, Commander().getShip().FreeCargoBays() - Options().getLeaveEmpty());
                 items = Commander().getCurrentSystem().TradeItems();
                 unitPrice = PriceCargoBuy()[tradeItem];
-                cashToSpend = Commander().CashToSpend();
+                cashToSpend = Commander().cashToSpend();
                 break;
             case BuyTrader:
                 items = getOpponent().Cargo();
@@ -959,7 +959,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             int qty = 0;
             int maxAmount = Math.min(freeBays, items[tradeItem]);
             if (op == CargoBuyOp.BuySystem)
-                maxAmount = Math.min(maxAmount, Commander().CashToSpend() / unitPrice);
+                maxAmount = Math.min(maxAmount, Commander().cashToSpend() / unitPrice);
 
             if (max)
                 qty = maxAmount;
@@ -1034,7 +1034,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         : qtyInHand;
                 if (op == CargoSellOp.Dump) {
                     unitCost = 5 * (Difficulty().castToInt() + 1);
-                    maxAmount = Math.min(maxAmount, Commander().CashToSpend() / unitCost);
+                    maxAmount = Math.min(maxAmount, Commander().cashToSpend() / unitCost);
                 }
                 int price = unitPrice > 0 ? unitPrice : -unitCost;
 
@@ -2556,7 +2556,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 GuiFacade.alert(AlertType.SpecialSealedCanisters);
                 int tradeItem = Functions.GetRandom(Consts.TradeItems.length);
                 Commander().getShip().Cargo()[tradeItem] += 3;
-                Commander().PriceCargo()[tradeItem] += Commander().getCurrentSystem().specialEvent().Price();
+                Commander().PriceCargo()[tradeItem] += Commander().getCurrentSystem().specialEvent().price();
                 break;
             case Dragonfly:
             case DragonflyBaratas:
@@ -2810,8 +2810,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
         }
 
-        if (curSys.specialEvent().Price() != 0)
-            Commander().setCash(Commander().getCash() - curSys.specialEvent().Price());
+        if (curSys.specialEvent().price() != 0)
+            Commander().setCash(Commander().getCash() - curSys.specialEvent().price());
 
         if (remove)
             curSys.SpecialEventType(SpecialEventType.NA);
@@ -2846,7 +2846,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             if (getQuestStatusGemulon() == SpecialEvent.StatusGemulonTooLate) {
                 StarSystem gemulon = Universe()[StarSystemId.Gemulon.castToInt()];
                 gemulon.SpecialEventType(SpecialEventType.GemulonInvaded);
-                gemulon.TechLevel(TechLevel.PreAgricultural);
+                gemulon.techLevel(TechLevel.PreAgricultural);
                 gemulon.PoliticalSystemType(PoliticalSystemType.Anarchy);
             }
         }
@@ -2921,8 +2921,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         while (commander.getCurrentSystem() == null) {
             StarSystem system = Universe()[Functions.GetRandom(Universe().length)];
             if (system.SpecialEventType() == SpecialEventType.NA
-                    && system.TechLevel().castToInt() > TechLevel.PreAgricultural.castToInt()
-                    && system.TechLevel().castToInt() < TechLevel.HiTech.castToInt()) {
+                    && system.techLevel().castToInt() > TechLevel.PreAgricultural.castToInt()
+                    && system.techLevel().castToInt() < TechLevel.HiTech.castToInt()) {
                 // Make sure at least three other systems can be reached
                 int close = 0;
                 for (int i = 0; i < Universe().length && close < 3; i++) {
@@ -3079,7 +3079,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         ArrayList systemIdList = new ArrayList();
         for (int system = 0; system < Universe().length; system++) {
-            if (Universe()[system].TechLevel() == TechLevel.HiTech)
+            if (Universe()[system].techLevel() == TechLevel.HiTech)
                 systemIdList.add(system);
         }
 
@@ -3129,7 +3129,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // Find a Hi-Tech system without a special event.
         if (goodUniverse) {
             for (system = 0; system < Universe().length
-                    && !(Universe()[system].SpecialEventType() == SpecialEventType.NA && Universe()[system].TechLevel() == TechLevel.HiTech); system++)
+                    && !(Universe()[system].SpecialEventType() == SpecialEventType.NA && Universe()[system].techLevel() == TechLevel.HiTech); system++)
                 ;
             if (system < Universe().length)
                 Universe()[system].SpecialEventType(SpecialEventType.ArtifactDelivery);
@@ -3790,7 +3790,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // This is then modified by adding 10% for every level of play less than
         // Impossible
         boolean realNews = false;
-        int minProbability = Consts.StoryProbability * curSys.TechLevel().castToInt() + 10
+        int minProbability = Consts.StoryProbability * curSys.techLevel().castToInt() + 10
                 * (5 - Difficulty().castToInt());
         for (int i = 0; i < Universe().length; i++) {
             if (Universe()[i].destOk() && Universe()[i] != curSys) {
@@ -3807,7 +3807,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
                 // And not-always-shown stories
                 if (Universe()[i].systemPressure() != SystemPressure.None
-                        && Functions.GetRandom2(100) <= Consts.StoryProbability * curSys.TechLevel().castToInt() + 10
+                        && Functions.GetRandom2(100) <= Consts.StoryProbability * curSys.techLevel().castToInt() + 10
                         * (5 - Difficulty().castToInt())) {
                     int index = Functions.GetRandom2(Strings.NewsPressureExternal.length);
                     String baseStr = Strings.NewsPressureExternal[index];

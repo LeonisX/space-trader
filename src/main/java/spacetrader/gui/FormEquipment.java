@@ -625,7 +625,7 @@ public class FormEquipment extends SpaceTraderForm {
                 GuiFacade.alert(AlertType.EquipmentAlreadyOwn);
             else if (cmdr.getDebt() > 0)
                 GuiFacade.alert(AlertType.DebtNoBuy);
-            else if (selectedEquipment.Price() > cmdr.CashToSpend())
+            else if (selectedEquipment.Price() > cmdr.cashToSpend())
                 GuiFacade.alert(AlertType.EquipmentIF);
             else if ((baseType == EquipmentType.Weapon && cmdr.getShip().FreeSlotsWeapon() == 0)
                     || (baseType == EquipmentType.Shield && cmdr.getShip().FreeSlotsShield() == 0)

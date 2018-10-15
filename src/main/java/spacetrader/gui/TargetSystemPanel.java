@@ -357,8 +357,8 @@ public class TargetSystemPanel extends Panel {
             int distance = Functions.Distance(commander.getCurrentSystem(), system);
 
             lblTargetName.setText(system.name());
-            lblTargetSize.setText(Strings.Sizes[system.Size().castToInt()]);
-            lblTargetTech.setText(Strings.TechLevelNames[system.TechLevel().castToInt()]);
+            lblTargetSize.setText(Strings.Sizes[system.size().castToInt()]);
+            lblTargetTech.setText(Strings.TechLevelNames[system.techLevel().castToInt()]);
             lblTargetPolSys.setText(system.politicalSystem().name());
             lblTargetResource.setText(system.Visited() ? Strings.SpecialResources[system.specialResource().castToInt()]
                     : Strings.Unknown);
