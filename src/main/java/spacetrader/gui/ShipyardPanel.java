@@ -157,7 +157,7 @@ class ShipyardPanel extends Panel {
 
             lblShipsForSale.setText(noTech ? Strings.ShipyardShipNoSale : Strings.ShipyardShipForSale);
             btnBuyShip.setVisible(true);
-            btnDesign.setVisible(commander.getCurrentSystem().Shipyard() != null);
+            btnDesign.setVisible(commander.getCurrentSystem().shipyard() != null);
 
             lblEquipForSale.setText(noTech ? Strings.ShipyardEquipNoSale : Strings.ShipyardEquipForSale);
             btnEquip.setVisible(true);

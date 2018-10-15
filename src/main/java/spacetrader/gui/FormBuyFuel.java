@@ -48,7 +48,7 @@ public class FormBuyFuel extends SpaceTraderForm {
 
     // #region Member Declarations
 
-    private Game game = Game.CurrentGame();
+    private Game game = Game.currentGame();
 
     // #endregion
 

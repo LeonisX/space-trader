@@ -77,7 +77,7 @@ public class Commander extends CrewMember {
         _ship = new Ship(GetValueFromHash(hash, "_ship"/*,_ship*/, Hashtable.class));
         _priceCargo = GetValueFromHash(hash, "_priceCargo", _priceCargo, int[].class);
 
-        Game.CurrentGame().Mercenaries()[CrewMemberId.Commander.castToInt()] = this;
+        Game.currentGame().Mercenaries()[CrewMemberId.Commander.castToInt()] = this;
         Strings.CrewMemberNames[CrewMemberId.Commander.castToInt()] = GetValueFromHash(hash, "_name",
                 Strings.CrewMemberNames[CrewMemberId.Commander.castToInt()]);
     }
@@ -95,8 +95,8 @@ public class Commander extends CrewMember {
     }
 
     @Override
-    public Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    public Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.add("_cash", _cash);
         hash.add("_debt", _debt);
@@ -108,7 +108,7 @@ public class Commander extends CrewMember {
         hash.add("_days", _days);
         hash.add("_insurance", _insurance);
         hash.add("_noclaim", _noclaim);
-        hash.add("_ship", _ship.Serialize());
+        hash.add("_ship", _ship.serialize());
         hash.add("_priceCargo", _priceCargo);
         hash.add("_name", Name());
 
@@ -223,11 +223,11 @@ public class Commander extends CrewMember {
 
 
     public int CashToSpend() {
-        return _cash - (Game.CurrentGame().Options().getReserveMoney() ? CurrentCosts() : 0);
+        return _cash - (Game.currentGame().Options().getReserveMoney() ? CurrentCosts() : 0);
     }
 
     public int CurrentCosts() {
-        return Game.CurrentGame().CurrentCosts();
+        return Game.currentGame().CurrentCosts();
     }
 
     public int NoClaim() {
@@ -244,7 +244,7 @@ public class Commander extends CrewMember {
 
     public int Worth() {
         return getShip().getPrice() + _cash - _debt
-                + (Game.CurrentGame().getQuestStatusMoon() > 0 ? SpecialEvent.MoonCost : 0);
+                + (Game.currentGame().getQuestStatusMoon() > 0 ? SpecialEvent.MoonCost : 0);
     }
 
     public Ship getShip() {

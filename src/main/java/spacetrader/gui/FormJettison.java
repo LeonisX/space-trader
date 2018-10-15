@@ -42,7 +42,7 @@ public class FormJettison extends SpaceTraderForm {
     private final Container components = null;
     private final Button[] btnJettisonQty;
     private final Button[] btnJettisonAll;
-    private final Game game = Game.CurrentGame();
+    private final Game game = Game.currentGame();
     private spacetrader.controls.Button btnJettisonAll9;
     private spacetrader.controls.Button btnJettisonQty9;
     private spacetrader.controls.Button btnJettisonAll8;

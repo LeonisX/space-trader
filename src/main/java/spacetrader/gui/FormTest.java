@@ -291,7 +291,7 @@ public class FormTest extends SpaceTraderForm {
             res2 = DialogResult.NO;
         }
 
-        (new FormAlert(specEvent.Title(), specEvent.String(), btn1, res1, btn2, res2, null)).showDialog(this);
+        (new FormAlert(specEvent.title(), specEvent.string(), btn1, res1, btn2, res2, null)).showDialog(this);
     }
 
     //#endregion

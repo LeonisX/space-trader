@@ -356,17 +356,17 @@ public class TargetSystemPanel extends Panel {
             StarSystem system = game.WarpSystem();
             int distance = Functions.Distance(commander.getCurrentSystem(), system);
 
-            lblTargetName.setText(system.Name());
+            lblTargetName.setText(system.name());
             lblTargetSize.setText(Strings.Sizes[system.Size().castToInt()]);
             lblTargetTech.setText(Strings.TechLevelNames[system.TechLevel().castToInt()]);
-            lblTargetPolSys.setText(system.PoliticalSystem().Name());
-            lblTargetResource.setText(system.Visited() ? Strings.SpecialResources[system.SpecialResource().castToInt()]
+            lblTargetPolSys.setText(system.politicalSystem().name());
+            lblTargetResource.setText(system.Visited() ? Strings.SpecialResources[system.specialResource().castToInt()]
                     : Strings.Unknown);
-            lblTargetPolice.setText(Strings.ActivityLevels[system.PoliticalSystem().ActivityPolice().castToInt()]);
-            lblTargetPirates.setText(Strings.ActivityLevels[system.PoliticalSystem().ActivityPirates().castToInt()]);
+            lblTargetPolice.setText(Strings.ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
+            lblTargetPirates.setText(Strings.ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
             lblTargetDistance.setText("" + distance);
-            lblTargetOutOfRange.setVisible(!system.DestOk() && system != commander.getCurrentSystem());
-            btnWarp.setVisible(system.DestOk());
+            lblTargetOutOfRange.setVisible(!system.destOk() && system != commander.getCurrentSystem());
+            btnWarp.setVisible(system.destOk());
             btnTrack.setVisible(lblTargetOutOfRange.getVisible() && system != game.TrackedSystem());
         }
     }

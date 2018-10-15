@@ -67,7 +67,7 @@ public class GameCheats {
                     break;
                 case Go:
                     game.setSelectedSystemByName(second);
-                    if (game.SelectedSystem().Name().toLowerCase().equals(second.toLowerCase())) {
+                    if (game.SelectedSystem().name().toLowerCase().equals(second.toLowerCase())) {
                         controller.autoSave_depart();
 
                         game.WarpDirect();

@@ -76,15 +76,15 @@ public class PoliticalSystem {
     public boolean ShipTypeLikely(ShipType shipType, OpponentType oppType) {
         boolean likely = false;
         int diffMod = Math
-                .max(0, Game.CurrentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
+                .max(0, Game.currentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
 
         switch (oppType) {
             case Pirate:
-                likely = ActivityPirates().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                likely = activityPirates().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
                         .Pirates().castToInt();
                 break;
             case Police:
-                likely = ActivityPolice().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                likely = activityPolice().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
                         .Police().castToInt();
                 break;
             case Trader:
@@ -100,11 +100,11 @@ public class PoliticalSystem {
 
     // #region Properties
 
-    public Activity ActivityPirates() {
+    public Activity activityPirates() {
         return _activityPirates;
     }
 
-    public Activity ActivityPolice() {
+    public Activity activityPolice() {
         return _activityPolice;
     }
 
@@ -132,7 +132,7 @@ public class PoliticalSystem {
         return _minTech;
     }
 
-    public String Name() {
+    public String name() {
         return _type.getName();
     }
 

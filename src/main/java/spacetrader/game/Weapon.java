@@ -65,8 +65,8 @@ public class Weapon extends Equipment {
     }
 
     public @Override
-    Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.add("_type", _type.castToInt());
         hash.add("_power", _power);

@@ -41,11 +41,11 @@ public class FormViewBank extends SpaceTraderForm {
     //#region Control Declarations
 
     private final Container components = null;
-    private final Game game = Game.CurrentGame();
-    private final Commander cmdr = Game.CurrentGame().Commander();
-    private final int MaxLoan = Game.CurrentGame().Commander().getPoliceRecordScore() >=
+    private final Game game = Game.currentGame();
+    private final Commander cmdr = Game.currentGame().Commander();
+    private final int MaxLoan = Game.currentGame().Commander().getPoliceRecordScore() >=
             Consts.PoliceRecordScoreClean ?
-            Math.min(25000, Math.max(1000, Game.CurrentGame().Commander().Worth() / 5000 * 500)) :
+            Math.min(25000, Math.max(1000, Game.currentGame().Commander().Worth() / 5000 * 500)) :
             500;
     private spacetrader.controls.Label lblLoan;
     private spacetrader.controls.Label lblCurrentDebtLabel;
@@ -328,9 +328,9 @@ public class FormViewBank extends SpaceTraderForm {
         lblShipValue.setText(Functions.formatMoney(cmdr.getShip().BaseWorth(true)));
         lblNoClaim.setText(Functions.FormatPercent(cmdr.NoClaim()));
         lblMaxNoClaim.setVisible((cmdr.NoClaim() == Consts.MaxNoClaim));
-        lblInsAmt.setText(Functions.StringVars(Strings.MoneyRateSuffix,
+        lblInsAmt.setText(Functions.stringVars(Strings.MoneyRateSuffix,
                 Functions.formatMoney(game.InsuranceCosts())));
-        btnBuyInsurance.setText(Functions.StringVars(Strings.BankInsuranceButtonText, cmdr.getInsurance() ?
+        btnBuyInsurance.setText(Functions.stringVars(Strings.BankInsuranceButtonText, cmdr.getInsurance() ?
                 Strings.BankInsuranceButtonStop : Strings.BankInsuranceButtonBuy));
     }
 

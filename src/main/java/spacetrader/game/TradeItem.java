@@ -103,26 +103,26 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
     public int StandardPrice(StarSystem target) {
         int price = 0;
 
-        if (target.ItemUsed(this)) {
+        if (target.itemUsed(this)) {
             // Determine base price on techlevel of system
             price = PriceLowTech() + target.TechLevel().castToInt() * PriceInc();
 
             // If a good is highly requested, increase the price
-            if (target.PoliticalSystem().Wanted() == Type())
+            if (target.politicalSystem().Wanted() == Type())
                 price = price * 4 / 3;
 
             // High trader activity decreases prices
             price = price
-                    * (100 - 2 * target.PoliticalSystem().ActivityTraders().castToInt())
+                    * (100 - 2 * target.politicalSystem().ActivityTraders().castToInt())
                     / 100;
 
             // Large system = high production decreases prices
             price = price * (100 - target.Size().castToInt()) / 100;
 
             // Special resources price adaptation
-            if (target.SpecialResource() == ResourceLowPrice())
+            if (target.specialResource() == ResourceLowPrice())
                 price = price * 3 / 4;
-            else if (target.SpecialResource() == ResourceHighPrice())
+            else if (target.specialResource() == ResourceHighPrice())
                 price = price * 4 / 3;
         }
 

@@ -50,7 +50,7 @@ public class FormGetLoan extends SpaceTraderForm {
 
         numAmount.setMaximum(max);
         numAmount.setValue(numAmount.getMinimum());
-        lblStatement.setText(Functions.StringVars(Strings.BankLoanStatementBorrow, Functions.Multiples(max,
+        lblStatement.setText(Functions.stringVars(Strings.BankLoanStatementBorrow, Functions.Multiples(max,
                 Strings.MoneyUnit)));
     }
 

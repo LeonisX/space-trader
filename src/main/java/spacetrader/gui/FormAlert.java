@@ -51,8 +51,8 @@ public class FormAlert extends SpaceTraderForm {
 
         // Replace any variables.
         if (args != null) {
-            title = Functions.StringVars(title, args);
-            text = Functions.StringVars(text, args);
+            title = Functions.stringVars(title, args);
+            text = Functions.stringVars(text, args);
         }
 
         lblText.setWidth(g.MeasureString((text.length() > 80 ? _80_CHARS : text), this.getFont()).width + 25);
@@ -309,7 +309,7 @@ public class FormAlert extends SpaceTraderForm {
                         "You paid ^1 credits for these items. Are you sure you want to just dump them?", "Yes",
                         DialogResult.YES, "No", DialogResult.NO, args));
             case EncounterDumpWarning:
-                Game.CurrentGame().setLitterWarning(true);
+                Game.currentGame().setLitterWarning(true);
                 return (new FormAlert(
                         "Space Littering",
                         "Dumping cargo in space is considered littering. If the police find your dumped goods and track them to you, this will influence your record. Do you really wish to dump?",

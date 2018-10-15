@@ -9,12 +9,14 @@ public class Label extends BaseComponent {
     private static final String END = "</HTML>";
     private static final String START = "<HTML>";
     private static final String NEWLINE = "<br>";
+
     public ContentAlignment TextAlign;
     public ContentAlignment ImageAlign;
     private boolean convertedToHtml;
 
-    public Label() {
+    public Label(String name) {
         super(new JLabel());
+        setName(name);
     }
 
     public String getText() {

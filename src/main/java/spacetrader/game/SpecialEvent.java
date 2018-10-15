@@ -117,9 +117,11 @@ public class SpecialEvent {
         _messageOnly = messageOnly;
     }
 
+    //TODO normal getters
+
     public StarSystem Location() {
         StarSystem location = null;
-        StarSystem[] universe = Game.CurrentGame().Universe();
+        StarSystem[] universe = Game.currentGame().Universe();
 
         for (int i = 0; i < universe.length && location == null; i++)
             if (universe[i].SpecialEventType() == Type())
@@ -140,11 +142,11 @@ public class SpecialEvent {
         return _price;
     }
 
-    public String String() {
+    public String string() {
         return Strings.SpecialEventStrings[_type.castToInt()];
     }
 
-    public String Title() {
+    public String title() {
         return Strings.SpecialEventTitles[_type.castToInt()];
     }
 

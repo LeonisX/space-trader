@@ -58,7 +58,7 @@ public class Functions {
     // #region Methods
 
     static int AdjustSkillForDifficulty(int skill) {
-        Difficulty diff = Game.CurrentGame().Difficulty();
+        Difficulty diff = Game.currentGame().Difficulty();
         skill = diff.adjustSkill(skill);
 
         return skill;
@@ -91,7 +91,7 @@ public class Functions {
     }
 
     static String FormatList(String[] listItems) {
-        return StringVars(Strings.ListStrings[listItems.length], listItems);
+        return stringVars(Strings.ListStrings[listItems.length], listItems);
     }
 
     public static String formatMoney(int num) {
@@ -273,7 +273,7 @@ public class Functions {
     }
 
     // TODO replace w/String.format?
-    public static String StringVars(String toParse, String[] vars) {
+    public static String stringVars(String toParse, String[] vars) {
         String parsed = toParse;
 
         for (int i = 0; i < vars.length; i++)
@@ -282,12 +282,12 @@ public class Functions {
         return parsed;
     }
 
-    public static String StringVars(String toParse, String var1) {
-        return StringVars(toParse, new String[]{var1});
+    public static String stringVars(String toParse, String var1) {
+        return stringVars(toParse, new String[]{var1});
     }
 
-    public static String StringVars(String toParse, String var1, String var2) {
-        return StringVars(toParse, new String[]{var1, var2});
+    public static String stringVars(String toParse, String var1, String var2) {
+        return stringVars(toParse, new String[]{var1, var2});
     }
 
     // *************************************************************************
@@ -296,7 +296,7 @@ public class Functions {
     // at all from a.
     // *************************************************************************
     public static boolean WormholeExists(int a, int b) {
-        int[] wormholes = Game.CurrentGame().Wormholes();
+        int[] wormholes = Game.currentGame().Wormholes();
         int i = Util.BruteSeek(wormholes, a);
         // int i = Array.IndexOf(wormholes, a);
 
@@ -304,8 +304,8 @@ public class Functions {
     }
 
     static boolean WormholeExists(StarSystem a, StarSystem b) {
-        StarSystem[] universe = Game.CurrentGame().Universe();
-        int[] wormholes = Game.CurrentGame().Wormholes();
+        StarSystem[] universe = Game.currentGame().Universe();
+        int[] wormholes = Game.currentGame().Wormholes();
         // int i = Array.IndexOf(wormholes, (int) a.Id);
         int i = Util.BruteSeek(wormholes, a.Id().castToInt());
 
@@ -313,11 +313,11 @@ public class Functions {
     }
 
     public static StarSystem WormholeTarget(int a) {
-        int[] wormholes = Game.CurrentGame().Wormholes();
+        int[] wormholes = Game.currentGame().Wormholes();
         // int i = Array.IndexOf(wormholes, a);
         int i = Util.BruteSeek(wormholes, a);
 
-        return (i >= 0 ? (Game.CurrentGame().Universe()[wormholes[(i + 1) % wormholes.length]]) : null);
+        return (i >= 0 ? (Game.currentGame().Universe()[wormholes[(i + 1) % wormholes.length]]) : null);
     }
 
     // #endregion

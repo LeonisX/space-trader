@@ -39,7 +39,7 @@ public class FormCargoSell extends SpaceTraderForm {
     // #region Control Declarations
 
     private final Container components = null;
-    private final Game game = Game.CurrentGame();
+    private final Game game = Game.currentGame();
     private spacetrader.controls.Button btnOk;
     private spacetrader.controls.Button btnAll;
     private spacetrader.controls.Button btnNone;
@@ -65,16 +65,16 @@ public class FormCargoSell extends SpaceTraderForm {
 
         numAmount.setMaximum(maxAmount);
         numAmount.setValue(numAmount.getMinimum());
-        this.setText(Functions.StringVars(Strings.CargoTitle,
+        this.setText(Functions.stringVars(Strings.CargoTitle,
                 Strings.CargoSellOps[op.castToInt()],
                 Consts.TradeItems[item].Name()));
-        lblQuestion.setText(Functions.StringVars(Strings.CargoSellQuestion,
+        lblQuestion.setText(Functions.stringVars(Strings.CargoSellQuestion,
                 Strings.CargoSellOps[op.castToInt()].toLowerCase()));
-        lblPaid.setText(Functions.StringVars(
+        lblPaid.setText(Functions.stringVars(
                 op == CargoSellOp.SellTrader ? Strings.CargoSellPaidTrader
                         : Strings.CargoSellPaid, Functions.formatMoney(cost),
                 Functions.Multiples(maxAmount, Strings.CargoUnit)));
-        lblProfit.setText(Functions.StringVars(Strings.CargoSellProfit,
+        lblProfit.setText(Functions.stringVars(Strings.CargoSellProfit,
                 price >= cost ? "profit" : "loss", Functions
                         .formatMoney(price >= cost ? price - cost : cost
                                 - price)));
@@ -82,27 +82,27 @@ public class FormCargoSell extends SpaceTraderForm {
         // Override defaults for some ops.
         switch (op) {
             case Dump:
-                lblStatement.setText(Functions.StringVars(
+                lblStatement.setText(Functions.stringVars(
                         Strings.CargoSellStatementDump,
                         Strings.CargoSellOps[op.castToInt()].toLowerCase(),
                         Functions.formatNumber(maxAmount)));
-                lblProfit.setText(Functions.StringVars(Strings.CargoSellDumpCost,
+                lblProfit.setText(Functions.stringVars(Strings.CargoSellDumpCost,
                         Functions.formatMoney(-price)));
                 break;
             case Jettison:
-                lblStatement.setText(Functions.StringVars(
+                lblStatement.setText(Functions.stringVars(
                         Strings.CargoSellStatementDump,
                         Strings.CargoSellOps[op.castToInt()].toLowerCase(),
                         Functions.formatNumber(maxAmount)));
                 break;
             case SellSystem:
-                lblStatement.setText(Functions.StringVars(
+                lblStatement.setText(Functions.stringVars(
                         Strings.CargoSellStatement, Functions
                                 .formatNumber(maxAmount), Functions
                                 .formatMoney(price)));
                 break;
             case SellTrader:
-                lblStatement.setText(Functions.StringVars(
+                lblStatement.setText(Functions.stringVars(
                         Strings.CargoSellStatementTrader,
                         Consts.TradeItems[item].Name(), Functions.formatMoney(price)));
                 break;

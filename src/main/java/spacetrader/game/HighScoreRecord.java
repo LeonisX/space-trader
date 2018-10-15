@@ -88,8 +88,8 @@ public class HighScoreRecord extends STSerializableObject implements Comparable<
     }
 
     public @Override
-    Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.add("_name", _name);
         hash.add("_score", _score);

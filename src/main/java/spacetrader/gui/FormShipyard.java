@@ -42,8 +42,8 @@ import java.util.Arrays;
 public class FormShipyard extends SpaceTraderForm {
     //#region Control Declarations
 
-    private final Game game = Game.CurrentGame();
-    private final Shipyard shipyard = Game.CurrentGame().Commander().getCurrentSystem().Shipyard();
+    private final Game game = Game.currentGame();
+    private final Shipyard shipyard = Game.currentGame().Commander().getCurrentSystem().shipyard();
     private final ShipType[] imgTypes = new ShipType[]{ShipType.Flea, ShipType.Gnat, ShipType.Firefly,
             ShipType.Mosquito, ShipType.Bumblebee, ShipType.Beetle, ShipType.Hornet, ShipType.Grasshopper,
             ShipType.Termite, ShipType.Wasp, ShipType.Custom};
@@ -127,13 +127,13 @@ public class FormShipyard extends SpaceTraderForm {
     public FormShipyard() {
         initializeComponent();
 
-        this.setText(Functions.StringVars(Strings.ShipyardTitle, shipyard.Name()));
+        this.setText(Functions.stringVars(Strings.ShipyardTitle, shipyard.Name()));
         picLogo.setImage(ilShipyardLogos.getImages()[shipyard.Id().castToInt()]);
-        lblWelcome.setText(Functions.StringVars(Strings.ShipyardWelcome, shipyard.Name(), shipyard.Engineer()));
+        lblWelcome.setText(Functions.stringVars(Strings.ShipyardWelcome, shipyard.Name(), shipyard.Engineer()));
         lblSizeSpecialty.setText(Strings.Sizes[shipyard.SpecialtySize().castToInt()]);
         lblSkill.setText(Strings.ShipyardSkills[shipyard.Skill().castToInt()]);
         lblSkillDescription.setText(Strings.ShipyardSkillDescriptions[shipyard.Skill().castToInt()]);
-        lblWarning.setText(Functions.StringVars(Strings.ShipyardWarning, "" + Shipyard.PENALTY_FIRST_PCT, ""
+        lblWarning.setText(Functions.stringVars(Strings.ShipyardWarning, "" + Shipyard.PENALTY_FIRST_PCT, ""
                 + Shipyard.PENALTY_SECOND_PCT));
 
         dlgOpen.setInitialDirectory(Consts.CustomImagesDirectory);
@@ -1067,7 +1067,7 @@ public class FormShipyard extends SpaceTraderForm {
 //			foreach (Size size in shipyard.AvailableSizes)
         for (Size size : shipyard.AvailableSizes()) {
             sizes.add(size);
-            selSize.items.add(Functions.StringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()], Functions
+            selSize.items.add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()], Functions
                     .Multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
         }
     }
@@ -1263,7 +1263,7 @@ public class FormShipyard extends SpaceTraderForm {
                 } else
                     template.ImageIndex(imgIndex);
 
-                Functions.saveFile(dlgSave.getFileName(), template.Serialize());
+                Functions.saveFile(dlgSave.getFileName(), template.serialize());
 
                 LoadTemplateList();
             }

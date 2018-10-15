@@ -31,9 +31,9 @@ import spacetrader.util.Hashtable;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("unchecked")
+import static spacetrader.game.enums.SpecialEventType.*;
+
 public class StarSystem extends STSerializableObject {
-    // #region Member Declarations
 
     private StarSystemId _id;
     private int _x;
@@ -43,18 +43,19 @@ public class StarSystem extends STSerializableObject {
     private PoliticalSystemType _politicalSystemType;
     private SystemPressure _systemPressure;
     private SpecialResource _specialResource;
-    private SpecialEventType _specialEventType = spacetrader.game.enums.SpecialEventType.NA;
+    private SpecialEventType _specialEventType = SpecialEventType.NA;
     private int[] _tradeItems = new int[10];
     private int _countDown = 0;
     private boolean _visited = false;
-    private ShipyardId _shipyardId = spacetrader.game.enums.ShipyardId.NA;
+    private ShipyardId _shipyardId = ShipyardId.NA;
 
     // #endregion
 
     // #region Methods
 
     public StarSystem(StarSystemId id, int x, int y, Size size, TechLevel techLevel,
-                      PoliticalSystemType politicalSystemType, SystemPressure systemPressure, SpecialResource specialResource) {
+                      PoliticalSystemType politicalSystemType, SystemPressure systemPressure,
+                      SpecialResource specialResource) {
         _id = id;
         _x = x;
         _y = y;
@@ -64,7 +65,7 @@ public class StarSystem extends STSerializableObject {
         _systemPressure = systemPressure;
         _specialResource = specialResource;
 
-        InitializeTradeItems();
+        initializeTradeItems();
     }
 
     public StarSystem(Hashtable hash) {
@@ -84,9 +85,9 @@ public class StarSystem extends STSerializableObject {
         _shipyardId = ShipyardId.fromInt(GetValueFromHash(hash, "_shipyardId", _shipyardId, Integer.class));
     }
 
-    public void InitializeTradeItems() {
+    void initializeTradeItems() {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
-            if (!ItemTraded(Consts.TradeItems[i])) {
+            if (!itemTraded(Consts.TradeItems[i])) {
                 _tradeItems[i] = 0;
             } else {
                 _tradeItems[i] = (this.Size().castToInt() + 1)
@@ -97,18 +98,18 @@ public class StarSystem extends STSerializableObject {
                 // too many robots or narcotics available.
                 if (i >= TradeItemType.Narcotics.castToInt())
                     _tradeItems[i] = ((_tradeItems[i] *
-                            (5 - Game.CurrentGame()
+                            (5 - Game.currentGame()
                                     .Difficulty()
                                     .castToInt())) /
-                            (6 - Game.CurrentGame().Difficulty().castToInt())) + 1;
+                            (6 - Game.currentGame().Difficulty().castToInt())) + 1;
 
-                if (this.SpecialResource() == Consts.TradeItems[i].ResourceLowPrice())
+                if (this.specialResource() == Consts.TradeItems[i].ResourceLowPrice())
                     _tradeItems[i] = _tradeItems[i] * 4 / 3;
 
-                if (this.SpecialResource() == Consts.TradeItems[i].ResourceHighPrice())
+                if (this.specialResource() == Consts.TradeItems[i].ResourceHighPrice())
                     _tradeItems[i] = _tradeItems[i] * 3 / 4;
 
-                if (this.SystemPressure() == Consts.TradeItems[i].PressurePriceHike())
+                if (this.systemPressure() == Consts.TradeItems[i].PressurePriceHike())
                     _tradeItems[i] = _tradeItems[i] / 5;
 
                 _tradeItems[i] = _tradeItems[i] - Functions.GetRandom(10) + Functions.GetRandom(10);
@@ -119,21 +120,25 @@ public class StarSystem extends STSerializableObject {
         }
     }
 
-    public boolean ItemTraded(TradeItem item) {
-        return ((item.Type() != TradeItemType.Narcotics || PoliticalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || PoliticalSystem().FirearmsOk()) && TechLevel().castToInt() >= item
+    public boolean itemTraded() {
+        return itemTraded();
+    }
+
+    public boolean itemTraded(TradeItem item) {
+        return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
+                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && TechLevel().castToInt() >= item
                 .TechProduction().castToInt());
     }
 
-    public boolean ItemUsed(TradeItem item) {
-        return ((item.Type() != TradeItemType.Narcotics || PoliticalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || PoliticalSystem().FirearmsOk()) && TechLevel().castToInt() >= item
+    boolean itemUsed(TradeItem item) {
+        return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
+                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && TechLevel().castToInt() >= item
                 .TechUsage().castToInt());
     }
 
     public @Override
-    Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.add("_id", _id.castToInt());
         hash.add("_x", _x);
@@ -152,8 +157,8 @@ public class StarSystem extends STSerializableObject {
         return hash;
     }
 
-    public boolean ShowSpecialButton() {
-        Game game = Game.CurrentGame();
+    public boolean showSpecialButton() {
+        Game game = Game.currentGame();
         boolean show = false;
 
         switch (SpecialEventType()) {
@@ -286,9 +291,7 @@ public class StarSystem extends STSerializableObject {
         return show;
     }
 
-    // #endregion
-
-    // #region Properties
+    //TODO create normal getters/setters
 
     public int CountDown() {
         return _countDown;
@@ -298,23 +301,23 @@ public class StarSystem extends STSerializableObject {
         _countDown = value;
     }
 
-    public boolean DestOk() {
-        Commander comm = Game.CurrentGame().Commander();
+    public boolean destOk() {
+        Commander comm = Game.currentGame().Commander();
         return this != comm.getCurrentSystem()
                 && (Distance() <= comm.getShip().getFuel() || Functions.WormholeExists(comm.getCurrentSystem(), this));
     }
 
     public int Distance() {
-        return Functions.Distance(this, Game.CurrentGame().Commander().getCurrentSystem());
+        return Functions.Distance(this, Game.currentGame().Commander().getCurrentSystem());
     }
 
     public StarSystemId Id() {
         return _id;
     }
 
-    public CrewMember[] MercenariesForHire() {
-        Commander cmdr = Game.CurrentGame().Commander();
-        CrewMember[] mercs = Game.CurrentGame().Mercenaries();
+    public CrewMember[] mercenariesForHire() {
+        Commander cmdr = Game.currentGame().Commander();
+        CrewMember[] mercs = Game.currentGame().Mercenaries();
         ArrayList forHire = new ArrayList(3);
 
         for (int i = 1; i < mercs.length; i++) {
@@ -325,11 +328,11 @@ public class StarSystem extends STSerializableObject {
         return (CrewMember[]) forHire.toArray(new CrewMember[0]);
     }
 
-    public String Name() {
+    public String name() {
         return Strings.SystemNames[_id.castToInt()];
     }
 
-    public PoliticalSystem PoliticalSystem() {
+    public PoliticalSystem politicalSystem() {
         return Consts.PoliticalSystems[_politicalSystemType.castToInt()];
     }
 
@@ -341,16 +344,16 @@ public class StarSystem extends STSerializableObject {
         _politicalSystemType = value;
     }
 
-    public Shipyard Shipyard() {
-        ShipyardId();
+    public Shipyard shipyard() {
+        shipyardId();
         return (_shipyardId == spacetrader.game.enums.ShipyardId.NA ? null : Consts.Shipyards[_shipyardId.castToInt()]);
     }
 
-    public ShipyardId ShipyardId() {
+    public ShipyardId shipyardId() {
         return _shipyardId;
     }
 
-    public void ShipyardId(ShipyardId value) {
+    public void shipyardId(ShipyardId value) {
         _shipyardId = value;
     }
 
@@ -358,9 +361,9 @@ public class StarSystem extends STSerializableObject {
         return _size;
     }
 
-    public SpecialEvent SpecialEvent() {
+    public SpecialEvent specialEvent() {
         SpecialEventType();
-        return (_specialEventType == spacetrader.game.enums.SpecialEventType.NA ? null
+        return (_specialEventType == SpecialEventType.NA ? null
                 : Consts.SpecialEvents[_specialEventType.castToInt()]);
     }
 
@@ -372,15 +375,15 @@ public class StarSystem extends STSerializableObject {
         _specialEventType = value;
     }
 
-    public SpecialResource SpecialResource() {
+    public SpecialResource specialResource() {
         return Visited() ? _specialResource : SpecialResource.Nothing;
     }
 
-    public SystemPressure SystemPressure() {
+    public SystemPressure systemPressure() {
         return _systemPressure;
     }
 
-    public void SystemPressure(SystemPressure value) {
+    public void systemPressure(SystemPressure value) {
         _systemPressure = value;
     }
 

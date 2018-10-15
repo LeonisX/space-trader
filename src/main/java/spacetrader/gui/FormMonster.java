@@ -42,7 +42,7 @@ public class FormMonster extends SpaceTraderForm {
     // #endregion
 
     // #region Control Declarations
-    private final Game game = Game.CurrentGame();
+    private final Game game = Game.currentGame();
     private Button btnClose;
     private CheatPanel pnlMercs;
     private CheatPanel pnlQuests;
@@ -657,12 +657,12 @@ public class FormMonster extends SpaceTraderForm {
 
                 switch (SomeStringsForCheatSwitch.valueOf(sortWhat)) {
                     case Q: // Quests
-                        nameA = A.SpecialEvent().Title();
-                        nameB = B.SpecialEvent().Title();
+                        nameA = A.specialEvent().title();
+                        nameB = B.specialEvent().title();
                         break;
                     case S: // Shipyards
-                        nameA = A.Shipyard().Name();
-                        nameB = B.Shipyard().Name();
+                        nameA = A.shipyard().Name();
+                        nameB = B.shipyard().Name();
                         break;
                 }
 
@@ -671,7 +671,7 @@ public class FormMonster extends SpaceTraderForm {
 
             if (compareVal == 0) // Default sort - System Name
             {
-                compareVal = A.Name().compareTo(B.Name());
+                compareVal = A.name().compareTo(B.name());
             }
         }
 
@@ -680,8 +680,8 @@ public class FormMonster extends SpaceTraderForm {
 
     private String CurrentSystemDisplay(CrewMember merc) {
         return (merc.getCurrentSystem() == null ? Strings.Unknown
-                : (game.Commander().getShip().HasCrew(merc.Id()) ? Functions.StringVars(Strings.MercOnBoard, merc
-                .getCurrentSystem().Name()) : merc.getCurrentSystem().Name()));
+                : (game.Commander().getShip().HasCrew(merc.Id()) ? Functions.stringVars(Strings.MercOnBoard, merc
+                .getCurrentSystem().name()) : merc.getCurrentSystem().name()));
     }
 
     private void PopulateIdArrays() {
@@ -697,10 +697,10 @@ public class FormMonster extends SpaceTraderForm {
         ArrayList quests = new ArrayList();
         ArrayList shipyards = new ArrayList();
         for (StarSystem system : game.Universe()) {
-            if (system.ShowSpecialButton())
+            if (system.showSpecialButton())
                 quests.add(system.Id().castToInt());
 
-            if (system.ShipyardId() != ShipyardId.NA)
+            if (system.shipyardId() != ShipyardId.NA)
                 shipyards.add(system.Id().castToInt());
         }
         questSystemIds = (Integer[]) quests.toArray(new Integer[0]);
@@ -800,12 +800,12 @@ public class FormMonster extends SpaceTraderForm {
                 int start = lblMercSystems.getText().length();
                 lblMercSystems.setText(lblMercSystems.getText() + (CurrentSystemDisplay(merc) + Strings.newline));
                 if (link)
-                    lblMercSystems.Links.add(start, merc.getCurrentSystem().Name().length(), merc.getCurrentSystem().Name());
+                    lblMercSystems.Links.add(start, merc.getCurrentSystem().name().length(), merc.getCurrentSystem().name());
             } else {
                 int start = lblMercSystems2.getText().length();
                 lblMercSystems2.setText(lblMercSystems2.getText() + (CurrentSystemDisplay(merc) + Strings.newline));
                 if (link)
-                    lblMercSystems2.Links.add(start, merc.getCurrentSystem().Name().length(), merc.getCurrentSystem().Name());
+                    lblMercSystems2.Links.add(start, merc.getCurrentSystem().name().length(), merc.getCurrentSystem().name());
             }
         }
 
@@ -828,10 +828,10 @@ public class FormMonster extends SpaceTraderForm {
             StarSystem system = game.Universe()[questSystemIds[i]];
             int start = lblQuestSystems.getText().length();
 
-            lblQuestSystems.setText(lblQuestSystems.getText() + (system.Name() + Strings.newline));
-            lblQuests.setText(lblQuests.getText() + (system.SpecialEvent().Title() + Strings.newline));
+            lblQuestSystems.setText(lblQuestSystems.getText() + (system.name() + Strings.newline));
+            lblQuests.setText(lblQuests.getText() + (system.specialEvent().title() + Strings.newline));
 
-            lblQuestSystems.Links.add(start, system.Name().length(), system.Name());
+            lblQuestSystems.Links.add(start, system.name().length(), system.name());
         }
 
         lblQuestSystems.setText(lblQuestSystems.getText().trim());
@@ -847,10 +847,10 @@ public class FormMonster extends SpaceTraderForm {
             StarSystem system = game.Universe()[shipyardSystemIds[i]];
             int start = lblShipyardSystems.getText().length();
 
-            lblShipyardSystems.setText(lblShipyardSystems.getText() + (system.Name() + Strings.newline));
-            lblShipyards.setText(lblShipyards.getText() + (system.Shipyard().Name() + Strings.newline));
+            lblShipyardSystems.setText(lblShipyardSystems.getText() + (system.name() + Strings.newline));
+            lblShipyards.setText(lblShipyards.getText() + (system.shipyard().Name() + Strings.newline));
 
-            lblShipyardSystems.Links.add(start, system.Name().length(), system.Name());
+            lblShipyardSystems.Links.add(start, system.name().length(), system.name());
         }
 
         lblShipyardSystems.setText(lblShipyardSystems.getText().trim());
@@ -862,8 +862,8 @@ public class FormMonster extends SpaceTraderForm {
     // #region Event Handlers
 
     private void SystemLinkClicked(Object sender, LinkLabelLinkClickedEventArgs e) {
-        Game.CurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
-        Game.CurrentGame().getParentWindow().updateAll();
+        Game.currentGame().setSelectedSystemByName(e.Link.LinkData.toString());
+        Game.currentGame().getParentWindow().updateAll();
         Close();
     }
 

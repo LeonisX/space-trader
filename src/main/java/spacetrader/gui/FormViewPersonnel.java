@@ -55,7 +55,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     private spacetrader.controls.ListBox lstCrew;
     private spacetrader.controls.Label lblCrewNoQuarters;
     private spacetrader.controls.Label lblForHireNone;
-    private Game game = Game.CurrentGame();
+    private Game game = Game.currentGame();
     private CrewMember selectedCrewMember = null;
     private boolean handlingSelect = false;
 
@@ -361,7 +361,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     }
 
     private void UpdateForHire() {
-        CrewMember[] mercs = game.Commander().getCurrentSystem().MercenariesForHire();
+        CrewMember[] mercs = game.Commander().getCurrentSystem().mercenariesForHire();
 
         lstForHire.Items.clear();
         for (int i = 0; i < mercs.length; i++)
@@ -390,7 +390,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
                 rateVisible = true;
 
             lblName.setText(selectedCrewMember.Name());
-            lblRate.setText(Functions.StringVars(Strings.MoneyRateSuffix, Functions.formatMoney(selectedCrewMember
+            lblRate.setText(Functions.stringVars(Strings.MoneyRateSuffix, Functions.formatMoney(selectedCrewMember
                     .Rate())));
             lblPilot.setText(selectedCrewMember.Pilot() + "");
             lblFighter.setText(selectedCrewMember.Fighter() + "");

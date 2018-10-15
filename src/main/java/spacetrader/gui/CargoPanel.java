@@ -1743,12 +1743,12 @@ class CargoPanel extends Panel {
             else
                 lblSellPrice[i].setFont(lblSell.getFont());
 
-            if (warpSys != null && warpSys.DestOk() && price > 0)
+            if (warpSys != null && warpSys.destOk() && price > 0)
                 lblTargetPrice[i].setText(Functions.formatMoney(price, strings.get("cargoPanel.credit")));
             else
                 lblTargetPrice[i].setText("-----------");
 
-            if (warpSys != null && warpSys.DestOk() && price > 0 && buy[i] > 0) {
+            if (warpSys != null && warpSys.destOk() && price > 0 && buy[i] > 0) {
                 int diff = price - buy[i];
                 lblTargetDiff[i].setText((diff > 0 ? "+" : "")
                         + Functions.formatMoney(diff, strings.get("cargoPanel.credit")));

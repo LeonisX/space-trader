@@ -75,7 +75,7 @@ public class FormEquipment extends SpaceTraderForm {
     private spacetrader.controls.Label lblBuyWeaponNone;
     private spacetrader.controls.Label lblBuyShieldNone;
     private spacetrader.controls.Label lblBuyGadgetNone;
-    private Game game = Game.CurrentGame();
+    private Game game = Game.currentGame();
 
     // #endregion
 
@@ -766,7 +766,7 @@ public class FormEquipment extends SpaceTraderForm {
         lstSellShield.Items.clear();
         lstSellGadget.Items.clear();
 
-        Ship ship = Game.CurrentGame().Commander().getShip();
+        Ship ship = Game.currentGame().Commander().getShip();
         Equipment[] equipSell;
         int index;
 

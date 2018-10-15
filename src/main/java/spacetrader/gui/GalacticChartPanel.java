@@ -227,7 +227,7 @@ public class GalacticChartPanel extends Panel {
             GuiFacade.alert(AlertType.ChartJumpNoSystemSelected);
         else if (game.WarpSystem() == commander.getCurrentSystem())
             GuiFacade.alert(AlertType.ChartJumpCurrent);
-        else if (GuiFacade.alert(AlertType.ChartJump, game.WarpSystem().Name()) == DialogResult.YES) {
+        else if (GuiFacade.alert(AlertType.ChartJump, game.WarpSystem().name()) == DialogResult.YES) {
             game.setCanSuperWarp(false);
             try {
                 controller.autoSave_depart();
@@ -253,7 +253,7 @@ public class GalacticChartPanel extends Panel {
             if (tryToFind) {
                 game.setSelectedSystemByName(form.SystemName());
                 if (form.TrackSystem()
-                        && game.SelectedSystem().Name().toLowerCase().equals(form.SystemName().toLowerCase()))
+                        && game.SelectedSystem().name().toLowerCase().equals(form.SystemName().toLowerCase()))
                     game.setTrackedSystemId(game.SelectedSystemId());
             }
 
@@ -273,7 +273,7 @@ public class GalacticChartPanel extends Panel {
             if (game.TargetWormhole()) {
                 lblWormholeLabel.setVisible(true);
                 lblWormhole.setVisible(true);
-                lblWormhole.setText(game.WarpSystem().Name());
+                lblWormhole.setText(game.WarpSystem().name());
             } else {
                 lblWormholeLabel.setVisible(false);
                 lblWormhole.setVisible(false);

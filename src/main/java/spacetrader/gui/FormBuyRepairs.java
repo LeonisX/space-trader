@@ -30,7 +30,6 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.BaseComponent;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
 
@@ -51,7 +50,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
 
     // #region Member Declarations
 
-    private Game game = Game.CurrentGame();
+    private Game game = Game.currentGame();
 
     // #endregion
 

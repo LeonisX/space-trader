@@ -27,6 +27,7 @@
 * Load game from scratch
 * High Score
 * Launcher
+* When start game: 8->9->0->1!! & start
 
 * Multilanguage support
 * Gradle

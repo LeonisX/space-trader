@@ -76,10 +76,10 @@ public class CrewMember extends STSerializableObject {
         if (skillIdList.size() > 0) {
             int skill = (Integer) skillIdList.get(Functions.GetRandom(skillIdList.size()));
 
-            int curTrader = Game.CurrentGame().Commander().getShip().Trader();
+            int curTrader = Game.currentGame().Commander().getShip().Trader();
             Skills()[skill] += amount;
-            if (Game.CurrentGame().Commander().getShip().Trader() != curTrader)
-                Game.CurrentGame().RecalculateBuyPrices(Game.CurrentGame().Commander().getCurrentSystem());
+            if (Game.currentGame().Commander().getShip().Trader() != curTrader)
+                Game.currentGame().RecalculateBuyPrices(Game.currentGame().Commander().getCurrentSystem());
         }
     }
 
@@ -113,8 +113,8 @@ public class CrewMember extends STSerializableObject {
     }
 
     public @Override
-    Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.add("_id", _id);
         hash.add("_skills", _skills);
@@ -129,7 +129,7 @@ public class CrewMember extends STSerializableObject {
     public void TonicTweakRandomSkill() {
         int[] oldSkills = Arrays.copyOf(Skills(), Skills().length);
 
-        if (Game.CurrentGame().Difficulty().castToInt() < Difficulty.Hard.castToInt()) {
+        if (Game.currentGame().Difficulty().castToInt() < Difficulty.Hard.castToInt()) {
             // add one to a random skill, subtract one from a random skill
             while (Skills()[0] == oldSkills[0] && Skills()[1] == oldSkills[1] && Skills()[2] == oldSkills[2]
                     && Skills()[3] == oldSkills[3]) {
@@ -155,7 +155,7 @@ public class CrewMember extends STSerializableObject {
     // #region Properties
 
     public StarSystem getCurrentSystem() {
-        return _curSystemId == StarSystemId.NA ? null : Game.CurrentGame().Universe()[_curSystemId.castToInt()];
+        return _curSystemId == StarSystemId.NA ? null : Game.currentGame().Universe()[_curSystemId.castToInt()];
     }
 
     public void setCurrentSystem(StarSystem value) {

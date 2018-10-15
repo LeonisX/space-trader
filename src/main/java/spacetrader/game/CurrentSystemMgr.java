@@ -2,8 +2,8 @@ package spacetrader.game;
 
 public interface CurrentSystemMgr {
 
-    void HandleSpecialEvent();
+    void handleSpecialEvent();
 
-    void ShowNewspaper();
+    void showNewspaper();
 
 }

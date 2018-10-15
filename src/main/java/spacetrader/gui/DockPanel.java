@@ -148,17 +148,17 @@ class DockPanel extends Panel {
         } else {
             Ship ship = commander.getShip();
 
-            lblFuelStatus.setText(Functions.StringVars(Strings.DockFuelStatus, Functions.Multiples(ship.getFuel(),
+            lblFuelStatus.setText(Functions.stringVars(Strings.DockFuelStatus, Functions.Multiples(ship.getFuel(),
                     "parsec")));
             int tanksEmpty = ship.FuelTanks() - ship.getFuel();
-            lblFuelCost.setText(tanksEmpty > 0 ? Functions.StringVars(Strings.DockFuelCost, Functions
+            lblFuelCost.setText(tanksEmpty > 0 ? Functions.stringVars(Strings.DockFuelCost, Functions
                     .formatMoney(tanksEmpty * ship.getFuelCost())) : Strings.DockFuelFull);
             btnFuel.setVisible(tanksEmpty > 0);
 
-            lblHullStatus.setText(Functions.StringVars(Strings.DockHullStatus, Functions.formatNumber((int) Math
+            lblHullStatus.setText(Functions.stringVars(Strings.DockHullStatus, Functions.formatNumber((int) Math
                     .floor((double) 100 * ship.getHull() / ship.HullStrength()))));
             int hullLoss = ship.HullStrength() - ship.getHull();
-            lblRepairCost.setText(hullLoss > 0 ? Functions.StringVars(Strings.DockHullCost, Functions
+            lblRepairCost.setText(hullLoss > 0 ? Functions.stringVars(Strings.DockHullCost, Functions
                     .formatMoney(hullLoss * ship.getRepairCost())) : Strings.DockHullFull);
             btnRepair.setVisible(hullLoss > 0);
         }

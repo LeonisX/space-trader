@@ -118,8 +118,8 @@ public class ShipSpec extends STSerializableObject {
     }
 
     @Override
-    public Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    public Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.put("_type", _type.castToInt());
         hash.put("_size", _size.castToInt());

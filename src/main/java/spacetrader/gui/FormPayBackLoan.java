@@ -42,11 +42,11 @@ public class FormPayBackLoan extends SpaceTraderForm {
     public FormPayBackLoan() {
         initializeComponent();
 
-        Commander cmdr = Game.CurrentGame().Commander();
+        Commander cmdr = Game.currentGame().Commander();
         int max = Math.min(cmdr.getDebt(), cmdr.getCash());
         numAmount.setMaximum(max);
         numAmount.setValue(numAmount.getMinimum());
-        lblStatement.setText(Functions.StringVars(Strings.BankLoanStatementDebt, Functions.Multiples(cmdr.getDebt(),
+        lblStatement.setText(Functions.stringVars(Strings.BankLoanStatementDebt, Functions.Multiples(cmdr.getDebt(),
                 Strings.MoneyUnit)));
     }
 

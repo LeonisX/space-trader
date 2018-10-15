@@ -70,7 +70,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         for (int i = highScores.length - 1; i >= 0 && highScores[i] != null; i--) {
             lblName[2 - i].setText(highScores[i].Name());
             lblScore[2 - i].setText(Functions.formatNumber(highScores[i].Score() / 10) + "." + highScores[i].Score() % 10);
-            lblStatus[2 - i].setText(Functions.StringVars(Strings.HighScoreStatus, new String[]
+            lblStatus[2 - i].setText(Functions.stringVars(Strings.HighScoreStatus, new String[]
                     {
                             Strings.GameCompletionTypes[highScores[i].Type().castToInt()],
                             Functions.Multiples(highScores[i].Days(), Strings.TimeUnit),

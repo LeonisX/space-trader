@@ -67,7 +67,7 @@ public class FormViewCommander extends SpaceTraderForm {
     private Panel boxNotoriety;
     private spacetrader.controls.Label lblBountyLabel;
     private spacetrader.controls.Label lblBounty;
-    private Game game = Game.CurrentGame();
+    private Game game = Game.currentGame();
     // #endregion
 
     // #region Member Declarations

@@ -88,7 +88,7 @@ public class GameController {
         } else
             GuiFacade.alert(AlertType.GameEndHighScoreMissed);
 
-        Game.CurrentGame(null);
+        Game.currentGame(null);
         mainWindow.setGame(null);
     }
 
@@ -109,7 +109,7 @@ public class GameController {
     }
 
     public void saveGame(String fileName, boolean saveFileName) {
-        if (Functions.saveFile(fileName, game.Serialize()) && saveFileName)
+        if (Functions.saveFile(fileName, game.serialize()) && saveFileName)
             SaveGameFile = fileName;
 
         SaveGameDays = game.Commander().getDays();

@@ -109,9 +109,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         updateAll();
 
         dumpDimensions(getFrame(), this.getName());
-
         System.out.println("===================");
-
         dumpStrings(getFrame(), this.getName());
 
         //loadDimensions(getFrame(), this.getName());
@@ -629,7 +627,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         cargoPanel.update(strings);
         shipyardPanel.Update();
         statusBar.update();
-        systemPanel.Update();
+        systemPanel.update();
         targetSystemPanel.Update();
         galacticChartPanel.Refresh();
         shortRangeChartPanel.Refresh();
@@ -677,7 +675,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             updateAll();
 
             if (game.Options().getNewsAutoShow()) {
-                game.ShowNewspaper();
+                game.showNewspaper();
             }
         }
     }
@@ -690,7 +688,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void mnuGameSave_Click() {
-        if (Game.CurrentGame() != null) {
+        if (Game.currentGame() != null) {
             if (controller.SaveGameFile != null) {
                 controller.saveGame(controller.SaveGameFile, false);
             } else {
@@ -700,7 +698,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void mnuGameSaveAs_Click() {
-        if (Game.CurrentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
+        if (Game.currentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
             controller.saveGame(saveFileDialog.getFileName(), true);
         }
     }

@@ -141,7 +141,7 @@ public abstract class STSerializableObject {
             list = new ArrayList<>();
 
             for (STSerializableObject obj : array)
-                list.add(obj == null ? null : obj.Serialize());
+                list.add(obj == null ? null : obj.serialize());
         }
 
         return list;
@@ -209,7 +209,7 @@ public abstract class STSerializableObject {
         return hash.containsKey(key) ? (Boolean) hash.get(key) : defaultValue;
     }
 
-    public Hashtable Serialize() {
+    public Hashtable serialize() {
         return new Hashtable();
     }
 }

@@ -152,12 +152,12 @@ public class GameOptions extends STSerializableObject {
     }
 
     public void SaveAsDefaults() {
-        Functions.saveFile(Consts.DefaultSettingsFile, Serialize());
+        Functions.saveFile(Consts.DefaultSettingsFile, serialize());
     }
 
     public @Override
-    Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.add("_alwaysIgnorePirates", _alwaysIgnorePirates);
         hash.add("_alwaysIgnorePolice", _alwaysIgnorePolice);

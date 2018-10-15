@@ -61,8 +61,8 @@ public class Shield extends Equipment {
         return shield;
     }
 
-    public Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    public Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.put("_type", _type);
         hash.put("_power", _power);

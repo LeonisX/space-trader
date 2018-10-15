@@ -52,8 +52,8 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
     public abstract Equipment Clone();
 
     @Override
-    public Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    public Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.put("_equipType", _equipType.castToInt());
         hash.put("_price", _price);
@@ -110,7 +110,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
     }
 
     public int Price() {
-        Commander cmdr = Game.CurrentGame().Commander();
+        Commander cmdr = Game.currentGame().Commander();
         int price = 0;
 
         if (cmdr != null && cmdr.getCurrentSystem().TechLevel().castToInt() >= MinimumTechLevel().castToInt())

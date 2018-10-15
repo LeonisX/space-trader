@@ -129,7 +129,7 @@ public class FormViewQuests extends SpaceTraderForm {
     // #endregion
 
     private String[] GetQuestStrings() {
-        Game game = Game.CurrentGame();
+        Game game = Game.currentGame();
         ArrayList quests = new ArrayList(12);
 
         if (game.getQuestStatusGemulon() > SpecialEvent.StatusGemulonNotStarted
@@ -137,7 +137,7 @@ public class FormViewQuests extends SpaceTraderForm {
             if (game.getQuestStatusGemulon() == SpecialEvent.StatusGemulonDate - 1)
                 quests.add(Strings.QuestGemulonInformTomorrow);
             else
-                quests.add(Functions.StringVars(Strings.QuestGemulonInformDays,
+                quests.add(Functions.stringVars(Strings.QuestGemulonInformDays,
                         Functions.Multiples(SpecialEvent.StatusGemulonDate
                                 - game.getQuestStatusGemulon(), "day")));
         } else if (game.getQuestStatusGemulon() == SpecialEvent.StatusGemulonFuel)
@@ -148,7 +148,7 @@ public class FormViewQuests extends SpaceTraderForm {
             if (game.getQuestStatusExperiment() == SpecialEvent.StatusExperimentDate - 1)
                 quests.add(Strings.QuestExperimentInformTomorrow);
             else
-                quests.add(Functions.StringVars(
+                quests.add(Functions.stringVars(
                         Strings.QuestExperimentInformDays, Functions.Multiples(
                                 SpecialEvent.StatusExperimentDate
                                         - game.getQuestStatusExperiment(), "day")));
@@ -199,17 +199,17 @@ public class FormViewQuests extends SpaceTraderForm {
             case SpecialEvent.StatusPrincessRescued:
                 if (game.Commander().getShip().PrincessOnBoard()) {
                     if (game.getQuestStatusPrincess() == SpecialEvent.StatusPrincessImpatient)
-                        quests.add(Functions.StringVars(
+                        quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturningImpatient,
                                 game.Mercenaries()[CrewMemberId.Princess
                                         .castToInt()].Name()));
                     else
-                        quests.add(Functions.StringVars(
+                        quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturning,
                                 game.Mercenaries()[CrewMemberId.Princess
                                         .castToInt()].Name()));
                 } else
-                    quests.add(Functions.StringVars(Strings.QuestPrincessReturn,
+                    quests.add(Functions.stringVars(Strings.QuestPrincessReturn,
                             game.Mercenaries()[CrewMemberId.Princess
                                     .castToInt()].Name()));
                 break;
@@ -225,17 +225,17 @@ public class FormViewQuests extends SpaceTraderForm {
                     .castToInt()].Location() == null)
                 quests
                         .add(Functions
-                                .StringVars(
+                                .stringVars(
                                         Strings.QuestScarabNotify,
                                         Consts.SpecialEvents[SpecialEventType.ScarabDestroyed
-                                                .castToInt()].Location().Name()));
+                                                .castToInt()].Location().name()));
             else
                 quests
                         .add(Functions
-                                .StringVars(
+                                .stringVars(
                                         Strings.QuestScarabHull,
                                         Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull
-                                                .castToInt()].Location().Name()));
+                                                .castToInt()].Location().name()));
         }
 
         if (game.Commander().getShip().SculptureOnBoard())
@@ -295,8 +295,8 @@ public class FormViewQuests extends SpaceTraderForm {
 
     private void lblQuests_LinkClicked(Object sender,
                                        spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
-        Game.CurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
-        Game.CurrentGame().getParentWindow().updateAll();
+        Game.currentGame().setSelectedSystemByName(e.Link.LinkData.toString());
+        Game.currentGame().getParentWindow().updateAll();
         Close();
     }
 

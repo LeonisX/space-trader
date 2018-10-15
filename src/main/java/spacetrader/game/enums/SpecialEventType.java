@@ -1,7 +1,7 @@
 package spacetrader.game.enums;
 
-public enum SpecialEventType implements SpaceTraderEnum// : int
-{
+public enum SpecialEventType implements SpaceTraderEnum {
+
     NA, // = -1,
     Artifact, // = 0,
     ArtifactDelivery, // = 1,
@@ -48,8 +48,7 @@ public enum SpecialEventType implements SpaceTraderEnum// : int
     PrincessInthara, // = 42,
     PrincessQonos, // = 43,
     PrincessQuantum, // = 44,
-    PrincessReturned, // = 45
-    ;
+    PrincessReturned; // = 45
 
     public static SpecialEventType fromInt(int i) {
         return values()[i + 1];

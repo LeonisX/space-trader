@@ -57,9 +57,9 @@ public class FormEncounter extends SpaceTraderForm {
     private final int SURRENDER = 10;
     private final int TRADE = 11;
     private final int YIELD = 12;
-    private final Game game = Game.CurrentGame();
-    private final Ship cmdrship = Game.CurrentGame().Commander().getShip();
-    private final Ship opponent = Game.CurrentGame().getOpponent();
+    private final Game game = Game.currentGame();
+    private final Ship cmdrship = Game.currentGame().Commander().getShip();
+    private final Ship opponent = Game.currentGame().getOpponent();
     private spacetrader.controls.Label lblEncounter;
     private spacetrader.controls.PictureBox picShipYou;
     private spacetrader.controls.PictureBox picShipOpponent;

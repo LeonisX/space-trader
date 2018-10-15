@@ -57,7 +57,7 @@ public class FormCosts extends SpaceTraderForm {
 
     // #region Member Declarations
 
-    private Game game = Game.CurrentGame();
+    private Game game = Game.currentGame();
 
     // #endregion
 

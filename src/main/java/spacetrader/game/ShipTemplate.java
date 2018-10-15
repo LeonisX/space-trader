@@ -88,8 +88,8 @@ public class ShipTemplate extends STSerializableObject implements Comparable<Shi
     }
 
     @Override
-    public Hashtable Serialize() {
-        Hashtable hash = super.Serialize();
+    public Hashtable serialize() {
+        Hashtable hash = super.serialize();
 
         hash.add("_name", _name);
         hash.add("_size", _size.castToInt());

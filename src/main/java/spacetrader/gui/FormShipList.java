@@ -43,7 +43,7 @@ public class FormShipList extends SpaceTraderForm {
     private final Container components = null;
     private final Label[] lblPrice;
     private final Button[] btnBuy;
-    private final Game game = Game.CurrentGame();
+    private final Game game = Game.currentGame();
     private final int[] prices = new int[Consts.ShipSpecs.length];
     private spacetrader.controls.Button btnClose;
     private spacetrader.controls.Button btnBuy0;
