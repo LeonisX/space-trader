@@ -4,9 +4,8 @@ import javax.swing.*;
 
 public class MainMenu extends BaseComponent {
 
-    public MainMenu(String name) {
+    public MainMenu() {
         super(new JMenuBar());
-        setName(name);
     }
 
     public void add(MenuItem item) {

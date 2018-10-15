@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class BaseComponent implements ISupportInitialize {
+public class BaseComponent implements ISupportInitialize, IName {
 
     static final Font DEFAULT_FONT = new Font(spacetrader.controls.Font.WINDOWS_DEFAULT_FONT_FAMILY, Font.PLAIN, 11);
 

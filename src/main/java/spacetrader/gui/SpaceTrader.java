@@ -25,21 +25,20 @@ import spacetrader.controls.Container;
 import spacetrader.controls.Icon;
 import spacetrader.controls.Image;
 import spacetrader.controls.MenuItem;
+import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.game.enums.ShipType;
-import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
-import spacetrader.stub.Directory;
-import spacetrader.stub.RegistryKey;
-import spacetrader.stub.StringsMap;
-import spacetrader.stub.ValuesMap;
-import spacetrader.stub.PropertiesLoader;
+import spacetrader.stub.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 import static spacetrader.controls.MenuItem.separator;
 
@@ -108,12 +107,44 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         updateAll();
 
+        setAllComponentNames(this);
+
         dumpDimensions(getFrame(), this.getName());
         System.out.println("===================");
         dumpStrings(getFrame(), this.getName());
 
-        //loadDimensions(getFrame(), this.getName());
-        //loadStrings(getFrame(), this.getName());
+        loadDimensions(getFrame(), this.getName());
+        loadStrings(getFrame(), this.getName());
+    }
+
+    private void setAllComponentNames(Object obj) {
+        try {
+            getFieldNamesAndValues(obj).forEach((name, object) -> {
+                if (object instanceof IName) {
+                    IName iName = (IName) object;
+                    if (null == iName.getName()) {
+                        iName.setName(name);
+                        setAllComponentNames(object);
+                    }
+                }
+            });
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Map<String, Object> getFieldNamesAndValues(final Object obj)
+            throws IllegalArgumentException, IllegalAccessException {
+        Class<?> c1 = obj.getClass();
+        Map<String, Object> map = new HashMap<>();
+        Field[] fields = c1.getDeclaredFields();
+        for (Field field : fields) {
+            String name = field.getName();
+            field.setAccessible(true);
+            Object value = field.get(obj);
+            map.put(name, value);
+        }
+        return map;
     }
 
     private void initializeComponent() {
@@ -154,7 +185,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         this.setIcon(((Icon) (resources.getObject("$this.Icon"))));
         this.setMaximizeBox(false);
         this.setStartPosition(FormStartPosition.Manual);
-        this.setText(strings.get(this.getName() + ".title"));
+        this.setText(strings.getTitle(this.getName()));
         this.setClosing(new spacetrader.controls.EventHandler<Object, CancelEventArgs>() {
             @Override
             public void handle(Object sender, CancelEventArgs e) {
@@ -187,8 +218,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         System.out.println(formatPropertyName(prefix) + ".height=" + component.getHeight());
 
         if (component instanceof java.awt.Container) {
-            for (Component child: ((java.awt.Container) component).getComponents()) {
-                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+            for (Component child : ((java.awt.Container) component).getComponents()) {
+                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
                 dumpDimensions(child, prefix + "." + name);
             }
         }
@@ -199,6 +230,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 .replace(".null.glassPane", "")
                 .replace(".null.layeredPane", "")
                 .replace(".null.contentPane", "")
+                .replace(".null", "")
                 .replace(".WinformJPanel", "");
     }
 
@@ -213,22 +245,22 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             print(formatPropertyName(prefix) + ".text", ((JLabel) component).getText());
         }
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            print(formatPropertyName(prefix) + ".title", ((TitledBorder)((JPanel) component).getBorder()).getTitle());
+            print(formatPropertyName(prefix) + ".title", ((TitledBorder) ((JPanel) component).getBorder()).getTitle());
         }
         if (component instanceof JFrame) {
             print(formatPropertyName(prefix) + ".title", ((JFrame) component).getTitle());
         }
 
         if (component instanceof JMenu) {
-            for (Component child: ((JMenu) component).getMenuComponents()) {
-                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+            for (Component child : ((JMenu) component).getMenuComponents()) {
+                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
                 dumpStrings(child, prefix + "." + name);
             }
         }
 
         if (component instanceof java.awt.Container) {
-            for (Component child: ((java.awt.Container) component).getComponents()) {
-                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+            for (Component child : ((java.awt.Container) component).getComponents()) {
+                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
                 dumpStrings(child, prefix + "." + name);
             }
         }
@@ -238,19 +270,22 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         //TODO button names
         if (!value.isEmpty() && !key.contains("btnBuyQty") && !key.contains("btnSellQty")) {
             System.out.println(key + "=" + value);
+        } else {
+            System.out.println("# " + key + "=" + value);
         }
     }
 
-    void loadDimensions(Component component, String prefix) {
+    private void loadDimensions(Component component, String prefix) {
+        prefix = formatPropertyName(prefix);
         if (component.getName() != null && !component.getName().startsWith("null.")) {
             double scale = 1.5;
             //TODO delete
-            if (dimensions.get(formatPropertyName(prefix) + ".width") != null) {
-                Dimension dimension = dimensions.getSize(formatPropertyName(prefix));
+            if (dimensions.get(prefix + ".width") != null) {
+                Dimension dimension = dimensions.getSize(prefix);
                 dimension.setSize(dimension.getWidth() * scale, dimension.getHeight() * scale);
                 component.setSize(dimension);
                 if (!(component instanceof JFrame)) {
-                    Point point = dimensions.getLocation(formatPropertyName(prefix));
+                    Point point = dimensions.getLocation(prefix);
                     point.setLocation(point.getX() * scale, point.getY() * scale);
                     component.setLocation(point);
                 }
@@ -259,68 +294,116 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         }
         if (component instanceof java.awt.Container) {
-            for (Component child: ((java.awt.Container) component).getComponents()) {
-                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+            for (Component child : ((java.awt.Container) component).getComponents()) {
+                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
                 loadDimensions(child, prefix + "." + name);
             }
         }
     }
 
-
-    void loadStrings(Component component, String prefix) {
+    private void loadStrings(Component component, String prefix) {
+        prefix = formatPropertyName(prefix);
         if (component instanceof JFrame) {
-            ((JFrame) component).setTitle(strings.getTitle(formatPropertyName(prefix)));
+            ((JFrame) component).setTitle(strings.getTitle(prefix));
         }
 
         if (component instanceof AbstractButton) {
-            ((AbstractButton) component).setText(strings.getText(formatPropertyName(prefix)));
+            ((AbstractButton) component).setText(strings.getText(prefix));
         }
 
         if (component instanceof JLabel) {
-            ((JLabel) component).setText(strings.getText(formatPropertyName(prefix)));
+            ((JLabel) component).setText(strings.getText(prefix));
         }
 
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            ((TitledBorder)((JPanel) component).getBorder()).setTitle(strings.getTitle(formatPropertyName(prefix)));
+            ((TitledBorder) ((JPanel) component).getBorder()).setTitle(strings.getTitle(prefix));
         }
 
         if (component instanceof JMenu) {
-            for (Component child: ((JMenu) component).getMenuComponents()) {
-                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+            for (Component child : ((JMenu) component).getMenuComponents()) {
+                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
                 loadStrings(child, prefix + "." + name);
             }
         }
 
         if (component instanceof java.awt.Container) {
-            for (Component child: ((java.awt.Container) component).getComponents()) {
-                String name = child.getName() == null ? child.getClass().getSimpleName() : child.getName();
+            for (Component child : ((java.awt.Container) component).getComponents()) {
+                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
                 loadStrings(child, prefix + "." + name);
             }
         }
     }
 
+    private void initializeComponents() {
+        components = new Container();
+
+        systemPanel = new SystemPanel(this);
+        dockPanel = new DockPanel(this);
+        cargoPanel = new CargoPanel(this);
+        shipyardPanel = new ShipyardPanel(this);
+        galacticChartPanel = new GalacticChartPanel(this, ilChartImages);
+        shortRangeChartPanel = new ShortRangeChartPanel(this, ilChartImages);
+        targetSystemPanel = new TargetSystemPanel(this);
+
+        systemPanel.suspendLayout();
+        dockPanel.suspendLayout();
+        cargoPanel.suspendLayout();
+        shipyardPanel.suspendLayout();
+        galacticChartPanel.suspendLayout();
+        shortRangeChartPanel.suspendLayout();
+        targetSystemPanel.suspendLayout();
+
+        // system   cargocargocargocargocargoc
+        // system   cargocargocargocargocargoc
+        // dock     cargocargocargocargocargoc
+
+        // shipyard galactic shortRange target
+        // shipyard galactic shortRange target
+
+        systemPanel.initializeComponent();
+        systemPanel.setLocation(new Point(4, 2));
+
+        cargoPanel.initializeComponent(strings);
+        cargoPanel.setLocation(new Point(252, 2));
+
+        dockPanel.initializeComponent();
+        dockPanel.setLocation(new Point(4, 212));
+
+        shipyardPanel.initializeComponent();
+        shipyardPanel.setLocation(new Point(4, 306));
+
+        galacticChartPanel.initializeComponent();
+        galacticChartPanel.setLocation(new Point(180, 306));
+
+        shortRangeChartPanel.initializeComponent();
+        shortRangeChartPanel.setLocation(new Point(364, 306));
+
+        targetSystemPanel.initializeComponent();
+        targetSystemPanel.setLocation(new Point(548, 306));
+    }
+
     private void initializeMenu() {
-        mainMenu = new MainMenu("mainMenu");
+        mainMenu = new MainMenu();
 
-        gameSubMenu = new SubMenu("gameSubMenu");
-        newGameMenuItem = new MenuItem("newGameMenuItem");
-        loadGameMenuItem = new MenuItem("loadGameMenuItem");
-        saveGameMenuItem = new MenuItem("saveGameMenuItem");
-        saveGameAsMenuItem = new MenuItem("saveGameAsMenuItem");
-        retireGameMenuItem = new MenuItem("retireGameMenuItem");
-        exitGameMenuItem = new MenuItem("exitGameMenuItem");
+        gameSubMenu = new SubMenu();
+        newGameMenuItem = new MenuItem();
+        loadGameMenuItem = new MenuItem();
+        saveGameMenuItem = new MenuItem();
+        saveGameAsMenuItem = new MenuItem();
+        retireGameMenuItem = new MenuItem();
+        exitGameMenuItem = new MenuItem();
 
-        viewSubMenu = new SubMenu("viewSubMenu");
-        commanderMenuItem = new MenuItem("commanderMenuItem");
-        shipMenuItem = new MenuItem("shipMenuItem");
-        personnelMenuItem = new MenuItem("personnelMenuItem");
-        questsMenuItem = new MenuItem("questsMenuItem");
-        bankMenuItem = new MenuItem("bankMenuItem");
-        highScoresMenuItem = new MenuItem("highScoresMenuItem");
-        optionsMenuItem = new MenuItem("optionsMenuItem");
+        viewSubMenu = new SubMenu();
+        commanderMenuItem = new MenuItem();
+        shipMenuItem = new MenuItem();
+        personnelMenuItem = new MenuItem();
+        questsMenuItem = new MenuItem();
+        bankMenuItem = new MenuItem();
+        highScoresMenuItem = new MenuItem();
+        optionsMenuItem = new MenuItem();
 
-        helpSubMenu = new SubMenu("helpSubMenu");
-        aboutMenuItem = new MenuItem("aboutMenuItem");
+        helpSubMenu = new SubMenu();
+        aboutMenuItem = new MenuItem();
 
         mainMenu.addAll(gameSubMenu, viewSubMenu, helpSubMenu);
 
@@ -468,61 +551,13 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializeStatusBar() {
-        statusBar = new SpaceTraderStatusBar(this, "statusBar");
+        statusBar = new SpaceTraderStatusBar(this);
         statusBar.beginInit();
         statusBar.initializeComponent();
     }
 
-    private void initializeComponents() {
-        components = new Container();
-
-        systemPanel = new SystemPanel(this, "systemPanel");
-        dockPanel = new DockPanel(this, "dockPanel");
-        cargoPanel = new CargoPanel(this, "cargoPanel");
-        shipyardPanel = new ShipyardPanel(this, "shipyardPanel");
-        galacticChartPanel = new GalacticChartPanel(this, ilChartImages, "galacticChartPanel");
-        shortRangeChartPanel = new ShortRangeChartPanel(this, ilChartImages, "shortRangeChartPanel");
-        targetSystemPanel = new TargetSystemPanel(this, "targetSystemPanel");
-
-        systemPanel.suspendLayout();
-        dockPanel.suspendLayout();
-        cargoPanel.suspendLayout();
-        shipyardPanel.suspendLayout();
-        galacticChartPanel.suspendLayout();
-        shortRangeChartPanel.suspendLayout();
-        targetSystemPanel.suspendLayout();
-
-        // system   cargocargocargocargocargoc
-        // system   cargocargocargocargocargoc
-        // dock     cargocargocargocargocargoc
-
-        // shipyard galactic shortRange target
-        // shipyard galactic shortRange target
-
-        systemPanel.initializeComponent();
-        systemPanel.setLocation(new Point(4, 2));
-
-        cargoPanel.initializeComponent(strings);
-        cargoPanel.setLocation(new Point(252, 2));
-
-        dockPanel.initializeComponent();
-        dockPanel.setLocation(new Point(4, 212));
-
-        shipyardPanel.initializeComponent();
-        shipyardPanel.setLocation(new Point(4, 306));
-
-        galacticChartPanel.initializeComponent();
-        galacticChartPanel.setLocation(new Point(180, 306));
-
-        shortRangeChartPanel.initializeComponent();
-        shortRangeChartPanel.setLocation(new Point(364, 306));
-
-        targetSystemPanel.initializeComponent();
-        targetSystemPanel.setLocation(new Point(548, 306));
-    }
-
     private void initializePictureBox() {
-        linePictureBox = new PictureBox("linePictureBox");
+        linePictureBox = new PictureBox();
         linePictureBox.setBackground(Color.DARK_GRAY);
         linePictureBox.setLocation(new Point(0, 0));
         linePictureBox.setSize(new Size(770, 1));
@@ -601,7 +636,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         saveFileDialog.setInitialDirectory(Consts.SaveDirectory);
     }
 
-    public void SetInGameControlsEnabled(boolean enabled) {
+    public void setInGameControlsEnabled(boolean enabled) {
         saveGameMenuItem.setEnabled(enabled);
         saveGameAsMenuItem.setEnabled(enabled);
         retireGameMenuItem.setEnabled(enabled);
@@ -626,10 +661,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         systemPanel.update();
         dockPanel.update();
         cargoPanel.update();
-        shipyardPanel.Update();
+        shipyardPanel.update();
         galacticChartPanel.Refresh();
         shortRangeChartPanel.Refresh();
-        targetSystemPanel.Update();
+        targetSystemPanel.update();
 
         statusBar.update();
     }
@@ -672,7 +707,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             controller.SaveGameFile = null;
             controller.SaveGameDays = 0;
 
-            SetInGameControlsEnabled(true);
+            setInGameControlsEnabled(true);
             updateAll();
 
             if (game.Options().getNewsAutoShow()) {

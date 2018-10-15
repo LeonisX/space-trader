@@ -13,7 +13,7 @@ public interface MainWindow extends GuiWindow {
 
     void updateStatusBar();
 
-    void SetInGameControlsEnabled(boolean enabled);
+    void setInGameControlsEnabled(boolean enabled);
 
     void setGame(Game game);
 

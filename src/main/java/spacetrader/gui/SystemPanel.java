@@ -39,9 +39,8 @@ class SystemPanel extends Panel {
     private ToolTip tipSpecial;
     private ToolTip tipMerc;
 
-    SystemPanel(SpaceTrader mainWindow, String name) {
+    SystemPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
-        setName(name);
     }
 
     void setGame(CurrentSystemMgr game, GameController controller, Commander commander) {
@@ -51,26 +50,26 @@ class SystemPanel extends Panel {
     }
 
     public void initializeComponent() {
-        hireMercenaryButton = new Button("hireMercenaryButton");
-        specialButton = new Button("specialButton");
-        newsButton = new Button("newsButton");
+        hireMercenaryButton = new Button();
+        specialButton = new Button();
+        newsButton = new Button();
 
-        systemNameLabel = new Label("systemNameLabel");
-        systemNameLabelValue = new Label("systemNameLabelValue");
-        systemSizeLabel = new Label("systemSizeLabel");
-        systemSizeLabelValue = new Label("systemSizeLabelValue");
-        systemTechLevelLabel = new Label("systemTechLevelLabel");
-        systemTechLevelLabelValue = new Label("systemTechLevelLabelValue");
-        systemGovermentLabel = new Label("systemGovermentLabel");
-        systemGovermentLabelValue = new Label("systemGovermentLabelValue");
-        systemResoursesLabel = new Label("systemResoursesLabel");
-        systemResoursesLabelValue = new Label("systemResoursesLabelValue");
-        systemPoliceLabel = new Label("systemPoliceLabel");
-        systemPoliceLabelValue = new Label("systemPoliceLabelValue");
-        systemPiratesLabel = new Label("systemPiratesLabel");
-        systemPiratesLabelValue = new Label("systemPiratesLabelValue");
-        systemPressureLabel = new Label("systemPressureLabel");
-        systemPressureLabelValue = new Label("systemPressureLabelValue");
+        systemNameLabel = new Label();
+        systemNameLabelValue = new Label();
+        systemSizeLabel = new Label();
+        systemSizeLabelValue = new Label();
+        systemTechLevelLabel = new Label();
+        systemTechLevelLabelValue = new Label();
+        systemGovermentLabel = new Label();
+        systemGovermentLabelValue = new Label();
+        systemResoursesLabel = new Label();
+        systemResoursesLabelValue = new Label();
+        systemPoliceLabel = new Label();
+        systemPoliceLabelValue = new Label();
+        systemPiratesLabel = new Label();
+        systemPiratesLabelValue = new Label();
+        systemPressureLabel = new Label();
+        systemPressureLabelValue = new Label();
 
         controls.add(hireMercenaryButton);
         controls.add(specialButton);

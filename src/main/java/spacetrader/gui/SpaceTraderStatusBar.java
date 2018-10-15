@@ -15,9 +15,8 @@ class SpaceTraderStatusBar extends StatusBar {
     private StatusBarPanel statusBarPanelExtra;
     private Commander commander;
 
-    SpaceTraderStatusBar(SpaceTrader mainWindow, String name) {
+    SpaceTraderStatusBar(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
-        setName(name);
     }
 
     void setGame(Commander commander) {

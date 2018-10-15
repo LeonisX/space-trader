@@ -25,10 +25,9 @@ public class ShortRangeChartPanel extends Panel {
     private Font font;
     private Font smallFont;
 
-    ShortRangeChartPanel(SpaceTrader mainWindow, ImageList images, String name) {
+    ShortRangeChartPanel(SpaceTrader mainWindow, ImageList images) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
-        setName(name);
     }
 
     void setGame(SystemTracker game, Commander commander) {
@@ -37,7 +36,7 @@ public class ShortRangeChartPanel extends Panel {
     }
 
     void initializeComponent() {
-        picShortRangeChart = new spacetrader.controls.PictureBox("linePictureBox");
+        picShortRangeChart = new spacetrader.controls.PictureBox();
 
         //
         // picShortRangeChart
@@ -45,7 +44,6 @@ public class ShortRangeChartPanel extends Panel {
 
         picShortRangeChart.setBackground(Color.white);
         picShortRangeChart.setLocation(new Point(8, 16));
-        picShortRangeChart.setName("picShortRangeChart");
         picShortRangeChart.setSize(new spacetrader.controls.Size(160, 145));
         picShortRangeChart.setTabIndex(1);
         picShortRangeChart.setTabStop(false);

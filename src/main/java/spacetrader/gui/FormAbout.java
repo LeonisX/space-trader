@@ -65,7 +65,7 @@ public class FormAbout extends spacetrader.controls.WinformForm {
         this.btnClose = new spacetrader.controls.Button();
         this.lblTitle = new spacetrader.controls.Label();
         this.lblAbout = new spacetrader.controls.Label();
-        this.picLogo = new spacetrader.controls.PictureBox("linePictureBox");
+        this.picLogo = new spacetrader.controls.PictureBox();
         ((ISupportInitialize) (this.picLogo)).beginInit();
         this.suspendLayout();
         //

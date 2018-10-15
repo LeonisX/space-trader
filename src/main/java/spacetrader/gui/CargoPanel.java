@@ -163,9 +163,8 @@ class CargoPanel extends Panel {
     private Button[] btnBuyQty;
     private Button[] btnBuyMax;
 
-    CargoPanel(SpaceTrader mainWindow, String name) {
+    CargoPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
-        setName(name);
     }
 
     void setGame(SpaceTraderGame game, GameController controller) {
@@ -210,10 +209,10 @@ class CargoPanel extends Panel {
         components = new spacetrader.controls.Container();
         spacetrader.controls.ResourceManager resources = new spacetrader.controls.ResourceManager(SpaceTrader.class);
         //TODO names
-        picCargoLine3 = new spacetrader.controls.PictureBox("picCargoLine3");
-        picCargoLine2 = new spacetrader.controls.PictureBox("picCargoLine2");
-        picCargoLine0 = new spacetrader.controls.PictureBox("picCargoLine0");
-        picCargoLine1 = new spacetrader.controls.PictureBox("picCargoLine1");
+        picCargoLine3 = new spacetrader.controls.PictureBox();
+        picCargoLine2 = new spacetrader.controls.PictureBox();
+        picCargoLine0 = new spacetrader.controls.PictureBox();
+        picCargoLine1 = new spacetrader.controls.PictureBox();
         lblTargetPct9 = new spacetrader.controls.Label();
         lblTargetDiff9 = new spacetrader.controls.Label();
         lblTargetPrice9 = new spacetrader.controls.Label();
@@ -479,7 +478,6 @@ class CargoPanel extends Panel {
         // lblTargetPct9
         //
         lblTargetPct9.setLocation(new Point(466, 276));
-        lblTargetPct9.setName("lblTargetPct9");
         lblTargetPct9.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct9.setTabIndex(127);
         lblTargetPct9.setText("--------");
@@ -488,7 +486,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff9
         //
         lblTargetDiff9.setLocation(new Point(410, 276));
-        lblTargetDiff9.setName("lblTargetDiff9");
         lblTargetDiff9.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff9.setTabIndex(126);
         lblTargetDiff9.setText("------------");
@@ -497,7 +494,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice9
         //
         lblTargetPrice9.setLocation(new Point(358, 276));
-        lblTargetPrice9.setName("lblTargetPrice9");
         lblTargetPrice9.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice9.setTabIndex(125);
         lblTargetPrice9.setText("-----------");
@@ -507,7 +503,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax9.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax9.setLocation(new Point(262, 272));
-        btnBuyMax9.setName("btnBuyMax9");
         btnBuyMax9.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax9.setTabIndex(51);
         btnBuyMax9.setText("Max");
@@ -523,7 +518,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty9.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty9.setLocation(new Point(227, 272));
-        btnBuyQty9.setName("btnBuyQty9");
         btnBuyQty9.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty9.setTabIndex(50);
         btnBuyQty9.setText("88");
@@ -537,7 +531,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice9
         //
         lblBuyPrice9.setLocation(new Point(302, 276));
-        lblBuyPrice9.setName("lblBuyPrice9");
         lblBuyPrice9.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice9.setTabIndex(122);
         lblBuyPrice9.setText("not sold");
@@ -547,7 +540,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll9.setFlatStyle(FlatStyle.FLAT);
         btnSellAll9.setLocation(new Point(115, 272));
-        btnSellAll9.setName("btnSellAll9");
         btnSellAll9.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll9.setTabIndex(49);
         btnSellAll9.setText("Dump");
@@ -562,7 +554,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty9.setFlatStyle(FlatStyle.FLAT);
         btnSellQty9.setLocation(new Point(80, 272));
-        btnSellQty9.setName("btnSellQty9");
         btnSellQty9.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty9.setTabIndex(48);
         btnSellQty9.setText("88");
@@ -576,7 +567,6 @@ class CargoPanel extends Panel {
         // lblSellPrice9
         //
         lblSellPrice9.setLocation(new Point(163, 276));
-        lblSellPrice9.setName("lblSellPrice9");
         lblSellPrice9.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice9.setTabIndex(119);
         lblSellPrice9.setText("no trade");
@@ -585,7 +575,6 @@ class CargoPanel extends Panel {
         // lblTargetPct8
         //
         lblTargetPct8.setLocation(new Point(466, 252));
-        lblTargetPct8.setName("lblTargetPct8");
         lblTargetPct8.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct8.setTabIndex(118);
         lblTargetPct8.setText("-888%");
@@ -594,7 +583,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff8
         //
         lblTargetDiff8.setLocation(new Point(410, 252));
-        lblTargetDiff8.setName("lblTargetDiff8");
         lblTargetDiff8.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff8.setTabIndex(117);
         lblTargetDiff8.setText("-8,888 cr.");
@@ -603,7 +591,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice8
         //
         lblTargetPrice8.setLocation(new Point(358, 252));
-        lblTargetPrice8.setName("lblTargetPrice8");
         lblTargetPrice8.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice8.setTabIndex(116);
         lblTargetPrice8.setText("8,888 cr.");
@@ -613,7 +600,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax8.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax8.setLocation(new Point(262, 248));
-        btnBuyMax8.setName("btnBuyMax8");
         btnBuyMax8.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax8.setTabIndex(47);
         btnBuyMax8.setText("Max");
@@ -628,7 +614,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty8.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty8.setLocation(new Point(227, 248));
-        btnBuyQty8.setName("btnBuyQty8");
         btnBuyQty8.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty8.setTabIndex(46);
         btnBuyQty8.setText("88");
@@ -642,7 +627,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice8
         //
         lblBuyPrice8.setLocation(new Point(302, 252));
-        lblBuyPrice8.setName("lblBuyPrice8");
         lblBuyPrice8.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice8.setTabIndex(113);
         lblBuyPrice8.setText("8,888 cr.");
@@ -652,7 +636,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll8.setFlatStyle(FlatStyle.FLAT);
         btnSellAll8.setLocation(new Point(115, 248));
-        btnSellAll8.setName("btnSellAll8");
         btnSellAll8.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll8.setTabIndex(45);
         btnSellAll8.setText("All");
@@ -667,7 +650,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty8.setFlatStyle(FlatStyle.FLAT);
         btnSellQty8.setLocation(new Point(80, 248));
-        btnSellQty8.setName("btnSellQty8");
         btnSellQty8.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty8.setTabIndex(44);
         btnSellQty8.setText("88");
@@ -681,7 +663,6 @@ class CargoPanel extends Panel {
         // lblSellPrice8
         //
         lblSellPrice8.setLocation(new Point(163, 252));
-        lblSellPrice8.setName("lblSellPrice8");
         lblSellPrice8.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice8.setTabIndex(110);
         lblSellPrice8.setText("8,888 cr.");
@@ -690,7 +671,6 @@ class CargoPanel extends Panel {
         // lblTargetPct7
         //
         lblTargetPct7.setLocation(new Point(466, 228));
-        lblTargetPct7.setName("lblTargetPct7");
         lblTargetPct7.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct7.setTabIndex(109);
         lblTargetPct7.setText("-888%");
@@ -700,7 +680,6 @@ class CargoPanel extends Panel {
         //
         lblTargetDiff7.setFont(FontCollection.regular825);
         lblTargetDiff7.setLocation(new Point(410, 228));
-        lblTargetDiff7.setName("lblTargetDiff7");
         lblTargetDiff7.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff7.setTabIndex(108);
         lblTargetDiff7.setText("-8,888 cr.");
@@ -709,7 +688,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice7
         //
         lblTargetPrice7.setLocation(new Point(358, 228));
-        lblTargetPrice7.setName("lblTargetPrice7");
         lblTargetPrice7.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice7.setTabIndex(107);
         lblTargetPrice7.setText("8,888 cr.");
@@ -719,7 +697,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax7.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax7.setLocation(new Point(262, 224));
-        btnBuyMax7.setName("btnBuyMax7");
         btnBuyMax7.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax7.setTabIndex(43);
         btnBuyMax7.setText("Max");
@@ -734,7 +711,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty7.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty7.setLocation(new Point(227, 224));
-        btnBuyQty7.setName("btnBuyQty7");
         btnBuyQty7.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty7.setTabIndex(42);
         btnBuyQty7.setText("88");
@@ -748,7 +724,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice7
         //
         lblBuyPrice7.setLocation(new Point(302, 228));
-        lblBuyPrice7.setName("lblBuyPrice7");
         lblBuyPrice7.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice7.setTabIndex(104);
         lblBuyPrice7.setText("8,888 cr.");
@@ -758,7 +733,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll7.setFlatStyle(FlatStyle.FLAT);
         btnSellAll7.setLocation(new Point(115, 224));
-        btnSellAll7.setName("btnSellAll7");
         btnSellAll7.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll7.setTabIndex(41);
         btnSellAll7.setText("All");
@@ -773,7 +747,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty7.setFlatStyle(FlatStyle.FLAT);
         btnSellQty7.setLocation(new Point(80, 224));
-        btnSellQty7.setName("btnSellQty7");
         btnSellQty7.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty7.setTabIndex(40);
         btnSellQty7.setText("88");
@@ -787,7 +760,6 @@ class CargoPanel extends Panel {
         // lblSellPrice7
         //
         lblSellPrice7.setLocation(new Point(163, 228));
-        lblSellPrice7.setName("lblSellPrice7");
         lblSellPrice7.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice7.setTabIndex(101);
         lblSellPrice7.setText("8,888 cr.");
@@ -796,7 +768,6 @@ class CargoPanel extends Panel {
         // lblTargetPct6
         //
         lblTargetPct6.setLocation(new Point(466, 204));
-        lblTargetPct6.setName("lblTargetPct6");
         lblTargetPct6.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct6.setTabIndex(100);
         lblTargetPct6.setText("-888%");
@@ -805,7 +776,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff6
         //
         lblTargetDiff6.setLocation(new Point(410, 204));
-        lblTargetDiff6.setName("lblTargetDiff6");
         lblTargetDiff6.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff6.setTabIndex(99);
         lblTargetDiff6.setText("-8,888 cr.");
@@ -814,7 +784,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice6
         //
         lblTargetPrice6.setLocation(new Point(358, 204));
-        lblTargetPrice6.setName("lblTargetPrice6");
         lblTargetPrice6.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice6.setTabIndex(98);
         lblTargetPrice6.setText("8,888 cr.");
@@ -824,7 +793,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax6.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax6.setLocation(new Point(262, 200));
-        btnBuyMax6.setName("btnBuyMax6");
         btnBuyMax6.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax6.setTabIndex(39);
         btnBuyMax6.setText("Max");
@@ -839,7 +807,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty6.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty6.setLocation(new Point(227, 200));
-        btnBuyQty6.setName("btnBuyQty6");
         btnBuyQty6.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty6.setTabIndex(38);
         btnBuyQty6.setText("88");
@@ -853,7 +820,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice6
         //
         lblBuyPrice6.setLocation(new Point(302, 204));
-        lblBuyPrice6.setName("lblBuyPrice6");
         lblBuyPrice6.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice6.setTabIndex(95);
         lblBuyPrice6.setText("8,888 cr.");
@@ -863,7 +829,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll6.setFlatStyle(FlatStyle.FLAT);
         btnSellAll6.setLocation(new Point(115, 200));
-        btnSellAll6.setName("btnSellAll6");
         btnSellAll6.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll6.setTabIndex(37);
         btnSellAll6.setText("All");
@@ -878,7 +843,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty6.setFlatStyle(FlatStyle.FLAT);
         btnSellQty6.setLocation(new Point(80, 200));
-        btnSellQty6.setName("btnSellQty6");
         btnSellQty6.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty6.setTabIndex(36);
         btnSellQty6.setText("88");
@@ -892,7 +856,6 @@ class CargoPanel extends Panel {
         // lblSellPrice6
         //
         lblSellPrice6.setLocation(new Point(163, 204));
-        lblSellPrice6.setName("lblSellPrice6");
         lblSellPrice6.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice6.setTabIndex(92);
         lblSellPrice6.setText("8,888 cr.");
@@ -901,7 +864,6 @@ class CargoPanel extends Panel {
         // lblTargetPct5
         //
         lblTargetPct5.setLocation(new Point(466, 180));
-        lblTargetPct5.setName("lblTargetPct5");
         lblTargetPct5.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct5.setTabIndex(91);
         lblTargetPct5.setText("-888%");
@@ -910,7 +872,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff5
         //
         lblTargetDiff5.setLocation(new Point(410, 180));
-        lblTargetDiff5.setName("lblTargetDiff5");
         lblTargetDiff5.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff5.setTabIndex(90);
         lblTargetDiff5.setText("-8,888 cr.");
@@ -919,7 +880,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice5
         //
         lblTargetPrice5.setLocation(new Point(358, 180));
-        lblTargetPrice5.setName("lblTargetPrice5");
         lblTargetPrice5.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice5.setTabIndex(89);
         lblTargetPrice5.setText("8,888 cr.");
@@ -929,7 +889,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax5.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax5.setLocation(new Point(262, 176));
-        btnBuyMax5.setName("btnBuyMax5");
         btnBuyMax5.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax5.setTabIndex(35);
         btnBuyMax5.setText("Max");
@@ -944,7 +903,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty5.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty5.setLocation(new Point(227, 176));
-        btnBuyQty5.setName("btnBuyQty5");
         btnBuyQty5.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty5.setTabIndex(34);
         btnBuyQty5.setText("88");
@@ -958,7 +916,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice5
         //
         lblBuyPrice5.setLocation(new Point(302, 180));
-        lblBuyPrice5.setName("lblBuyPrice5");
         lblBuyPrice5.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice5.setTabIndex(86);
         lblBuyPrice5.setText("8,888 cr.");
@@ -968,7 +925,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll5.setFlatStyle(FlatStyle.FLAT);
         btnSellAll5.setLocation(new Point(115, 176));
-        btnSellAll5.setName("btnSellAll5");
         btnSellAll5.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll5.setTabIndex(33);
         btnSellAll5.setText("All");
@@ -983,7 +939,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty5.setFlatStyle(FlatStyle.FLAT);
         btnSellQty5.setLocation(new Point(80, 176));
-        btnSellQty5.setName("btnSellQty5");
         btnSellQty5.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty5.setTabIndex(32);
         btnSellQty5.setText("88");
@@ -997,7 +952,6 @@ class CargoPanel extends Panel {
         // lblSellPrice5
         //
         lblSellPrice5.setLocation(new Point(163, 180));
-        lblSellPrice5.setName("lblSellPrice5");
         lblSellPrice5.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice5.setTabIndex(83);
         lblSellPrice5.setText("8,888 cr.");
@@ -1006,7 +960,6 @@ class CargoPanel extends Panel {
         // lblTargetPct4
         //
         lblTargetPct4.setLocation(new Point(466, 156));
-        lblTargetPct4.setName("lblTargetPct4");
         lblTargetPct4.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct4.setTabIndex(82);
         lblTargetPct4.setText("-888%");
@@ -1015,7 +968,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff4
         //
         lblTargetDiff4.setLocation(new Point(410, 156));
-        lblTargetDiff4.setName("lblTargetDiff4");
         lblTargetDiff4.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff4.setTabIndex(81);
         lblTargetDiff4.setText("-8,888 cr.");
@@ -1024,7 +976,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice4
         //
         lblTargetPrice4.setLocation(new Point(358, 156));
-        lblTargetPrice4.setName("lblTargetPrice4");
         lblTargetPrice4.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice4.setTabIndex(80);
         lblTargetPrice4.setText("8,888 cr.");
@@ -1034,7 +985,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax4.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax4.setLocation(new Point(262, 152));
-        btnBuyMax4.setName("btnBuyMax4");
         btnBuyMax4.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax4.setTabIndex(31);
         btnBuyMax4.setText("Max");
@@ -1049,7 +999,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty4.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty4.setLocation(new Point(227, 152));
-        btnBuyQty4.setName("btnBuyQty4");
         btnBuyQty4.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty4.setTabIndex(30);
         btnBuyQty4.setText("88");
@@ -1063,7 +1012,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice4
         //
         lblBuyPrice4.setLocation(new Point(302, 156));
-        lblBuyPrice4.setName("lblBuyPrice4");
         lblBuyPrice4.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice4.setTabIndex(77);
         lblBuyPrice4.setText("8,888 cr.");
@@ -1073,7 +1021,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll4.setFlatStyle(FlatStyle.FLAT);
         btnSellAll4.setLocation(new Point(115, 152));
-        btnSellAll4.setName("btnSellAll4");
         btnSellAll4.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll4.setTabIndex(29);
         btnSellAll4.setText("All");
@@ -1088,7 +1035,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty4.setFlatStyle(FlatStyle.FLAT);
         btnSellQty4.setLocation(new Point(80, 152));
-        btnSellQty4.setName("btnSellQty4");
         btnSellQty4.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty4.setTabIndex(28);
         btnSellQty4.setText("88");
@@ -1102,7 +1048,6 @@ class CargoPanel extends Panel {
         // lblSellPrice4
         //
         lblSellPrice4.setLocation(new Point(163, 156));
-        lblSellPrice4.setName("lblSellPrice4");
         lblSellPrice4.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice4.setTabIndex(74);
         lblSellPrice4.setText("8,888 cr.");
@@ -1111,7 +1056,6 @@ class CargoPanel extends Panel {
         // lblTargetPct3
         //
         lblTargetPct3.setLocation(new Point(466, 132));
-        lblTargetPct3.setName("lblTargetPct3");
         lblTargetPct3.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct3.setTabIndex(73);
         lblTargetPct3.setText("-888%");
@@ -1120,7 +1064,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff3
         //
         lblTargetDiff3.setLocation(new Point(410, 132));
-        lblTargetDiff3.setName("lblTargetDiff3");
         lblTargetDiff3.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff3.setTabIndex(72);
         lblTargetDiff3.setText("-8,888 cr.");
@@ -1129,7 +1072,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice3
         //
         lblTargetPrice3.setLocation(new Point(358, 132));
-        lblTargetPrice3.setName("lblTargetPrice3");
         lblTargetPrice3.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice3.setTabIndex(71);
         lblTargetPrice3.setText("8,888 cr.");
@@ -1139,7 +1081,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax3.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax3.setLocation(new Point(262, 128));
-        btnBuyMax3.setName("btnBuyMax3");
         btnBuyMax3.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax3.setTabIndex(27);
         btnBuyMax3.setText("Max");
@@ -1154,7 +1095,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty3.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty3.setLocation(new Point(227, 128));
-        btnBuyQty3.setName("btnBuyQty3");
         btnBuyQty3.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty3.setTabIndex(26);
         btnBuyQty3.setText("88");
@@ -1168,7 +1108,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice3
         //
         lblBuyPrice3.setLocation(new Point(302, 132));
-        lblBuyPrice3.setName("lblBuyPrice3");
         lblBuyPrice3.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice3.setTabIndex(68);
         lblBuyPrice3.setText("8,888 cr.");
@@ -1178,7 +1117,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll3.setFlatStyle(FlatStyle.FLAT);
         btnSellAll3.setLocation(new Point(115, 128));
-        btnSellAll3.setName("btnSellAll3");
         btnSellAll3.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll3.setTabIndex(25);
         btnSellAll3.setText("All");
@@ -1193,7 +1131,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty3.setFlatStyle(FlatStyle.FLAT);
         btnSellQty3.setLocation(new Point(80, 128));
-        btnSellQty3.setName("btnSellQty3");
         btnSellQty3.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty3.setTabIndex(24);
         btnSellQty3.setText("88");
@@ -1207,7 +1144,6 @@ class CargoPanel extends Panel {
         // lblSellPrice3
         //
         lblSellPrice3.setLocation(new Point(163, 132));
-        lblSellPrice3.setName("lblSellPrice3");
         lblSellPrice3.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice3.setTabIndex(65);
         lblSellPrice3.setText("8,888 cr.");
@@ -1216,7 +1152,6 @@ class CargoPanel extends Panel {
         // lblTargetPct2
         //
         lblTargetPct2.setLocation(new Point(466, 108));
-        lblTargetPct2.setName("lblTargetPct2");
         lblTargetPct2.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct2.setTabIndex(64);
         lblTargetPct2.setText("-888%");
@@ -1225,7 +1160,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff2
         //
         lblTargetDiff2.setLocation(new Point(410, 108));
-        lblTargetDiff2.setName("lblTargetDiff2");
         lblTargetDiff2.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff2.setTabIndex(63);
         lblTargetDiff2.setText("-8,888 cr.");
@@ -1234,7 +1168,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice2
         //
         lblTargetPrice2.setLocation(new Point(358, 108));
-        lblTargetPrice2.setName("lblTargetPrice2");
         lblTargetPrice2.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice2.setTabIndex(62);
         lblTargetPrice2.setText("8,888 cr.");
@@ -1244,7 +1177,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax2.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax2.setLocation(new Point(262, 104));
-        btnBuyMax2.setName("btnBuyMax2");
         btnBuyMax2.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax2.setTabIndex(23);
         btnBuyMax2.setText("Max");
@@ -1259,7 +1191,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty2.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty2.setLocation(new Point(227, 104));
-        btnBuyQty2.setName("btnBuyQty2");
         btnBuyQty2.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty2.setTabIndex(22);
         btnBuyQty2.setText("88");
@@ -1273,7 +1204,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice2
         //
         lblBuyPrice2.setLocation(new Point(302, 108));
-        lblBuyPrice2.setName("lblBuyPrice2");
         lblBuyPrice2.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice2.setTabIndex(59);
         lblBuyPrice2.setText("8,888 cr.");
@@ -1283,7 +1213,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll2.setFlatStyle(FlatStyle.FLAT);
         btnSellAll2.setLocation(new Point(115, 104));
-        btnSellAll2.setName("btnSellAll2");
         btnSellAll2.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll2.setTabIndex(21);
         btnSellAll2.setText("All");
@@ -1298,7 +1227,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty2.setFlatStyle(FlatStyle.FLAT);
         btnSellQty2.setLocation(new Point(80, 104));
-        btnSellQty2.setName("btnSellQty2");
         btnSellQty2.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty2.setTabIndex(20);
         btnSellQty2.setText("88");
@@ -1312,7 +1240,6 @@ class CargoPanel extends Panel {
         // lblSellPrice2
         //
         lblSellPrice2.setLocation(new Point(163, 108));
-        lblSellPrice2.setName("lblSellPrice2");
         lblSellPrice2.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice2.setTabIndex(56);
         lblSellPrice2.setText("8,888 cr.");
@@ -1321,7 +1248,6 @@ class CargoPanel extends Panel {
         // lblTargetPct1
         //
         lblTargetPct1.setLocation(new Point(466, 84));
-        lblTargetPct1.setName("lblTargetPct1");
         lblTargetPct1.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct1.setTabIndex(55);
         lblTargetPct1.setText("-888%");
@@ -1330,7 +1256,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff1
         //
         lblTargetDiff1.setLocation(new Point(410, 84));
-        lblTargetDiff1.setName("lblTargetDiff1");
         lblTargetDiff1.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff1.setTabIndex(54);
         lblTargetDiff1.setText("-8,888 cr.");
@@ -1339,7 +1264,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice1
         //
         lblTargetPrice1.setLocation(new Point(358, 84));
-        lblTargetPrice1.setName("lblTargetPrice1");
         lblTargetPrice1.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice1.setTabIndex(53);
         lblTargetPrice1.setText("8,888 cr.");
@@ -1349,7 +1273,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax1.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax1.setLocation(new Point(262, 80));
-        btnBuyMax1.setName("btnBuyMax1");
         btnBuyMax1.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax1.setTabIndex(19);
         btnBuyMax1.setText("Max");
@@ -1364,7 +1287,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty1.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty1.setLocation(new Point(227, 80));
-        btnBuyQty1.setName("btnBuyQty1");
         btnBuyQty1.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty1.setTabIndex(18);
         btnBuyQty1.setText("88");
@@ -1378,7 +1300,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice1
         //
         lblBuyPrice1.setLocation(new Point(302, 84));
-        lblBuyPrice1.setName("lblBuyPrice1");
         lblBuyPrice1.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice1.setTabIndex(50);
         lblBuyPrice1.setText("8,888 cr.");
@@ -1388,7 +1309,6 @@ class CargoPanel extends Panel {
         //
         lblTargetPctLabel.setAutoSize(true);
         lblTargetPctLabel.setLocation(new Point(476, 34));
-        lblTargetPctLabel.setName("lblTargetPctLabel");
         lblTargetPctLabel.setSize(new spacetrader.controls.Size(14, 16));
         lblTargetPctLabel.setTabIndex(49);
         lblTargetPctLabel.setText("%");
@@ -1397,7 +1317,6 @@ class CargoPanel extends Panel {
         //
         lblTargetDiffLabel.setAutoSize(true);
         lblTargetDiffLabel.setLocation(new Point(424, 34));
-        lblTargetDiffLabel.setName("lblTargetDiffLabel");
         lblTargetDiffLabel.setSize(new spacetrader.controls.Size(18, 16));
         lblTargetDiffLabel.setTabIndex(48);
         lblTargetDiffLabel.setText("+/-");
@@ -1406,7 +1325,6 @@ class CargoPanel extends Panel {
         //
         lblTargetPriceLabel.setAutoSize(true);
         lblTargetPriceLabel.setLocation(new Point(360, 34));
-        lblTargetPriceLabel.setName("lblTargetPriceLabel");
         lblTargetPriceLabel.setSize(new spacetrader.controls.Size(30, 16));
         lblTargetPriceLabel.setTabIndex(47);
         lblTargetPriceLabel.setText("Price");
@@ -1414,7 +1332,6 @@ class CargoPanel extends Panel {
         // lblTargetPct0
         //
         lblTargetPct0.setLocation(new Point(466, 60));
-        lblTargetPct0.setName("lblTargetPct0");
         lblTargetPct0.setSize(new spacetrader.controls.Size(37, 13));
         lblTargetPct0.setTabIndex(46);
         lblTargetPct0.setText("-888%");
@@ -1423,7 +1340,6 @@ class CargoPanel extends Panel {
         // lblTargetDiff0
         //
         lblTargetDiff0.setLocation(new Point(410, 60));
-        lblTargetDiff0.setName("lblTargetDiff0");
         lblTargetDiff0.setSize(new spacetrader.controls.Size(52, 13));
         lblTargetDiff0.setTabIndex(45);
         lblTargetDiff0.setText("-8,888 cr.");
@@ -1432,7 +1348,6 @@ class CargoPanel extends Panel {
         // lblTargetPrice0
         //
         lblTargetPrice0.setLocation(new Point(358, 60));
-        lblTargetPrice0.setName("lblTargetPrice0");
         lblTargetPrice0.setSize(new spacetrader.controls.Size(48, 13));
         lblTargetPrice0.setTabIndex(44);
         lblTargetPrice0.setText("8,888 cr.");
@@ -1442,7 +1357,6 @@ class CargoPanel extends Panel {
         //
         btnBuyMax0.setFlatStyle(FlatStyle.FLAT);
         btnBuyMax0.setLocation(new Point(262, 56));
-        btnBuyMax0.setName("btnBuyMax0");
         btnBuyMax0.setSize(new spacetrader.controls.Size(36, 22));
         btnBuyMax0.setTabIndex(15);
         btnBuyMax0.setText("Max");
@@ -1457,7 +1371,6 @@ class CargoPanel extends Panel {
         //
         btnBuyQty0.setFlatStyle(FlatStyle.FLAT);
         btnBuyQty0.setLocation(new Point(227, 56));
-        btnBuyQty0.setName("btnBuyQty0");
         btnBuyQty0.setSize(new spacetrader.controls.Size(28, 22));
         btnBuyQty0.setTabIndex(14);
         btnBuyQty0.setText("88");
@@ -1471,7 +1384,6 @@ class CargoPanel extends Panel {
         // lblBuyPrice0
         //
         lblBuyPrice0.setLocation(new Point(302, 60));
-        lblBuyPrice0.setName("lblBuyPrice0");
         lblBuyPrice0.setSize(new spacetrader.controls.Size(48, 13));
         lblBuyPrice0.setTabIndex(41);
         lblBuyPrice0.setText("8,888 cr.");
@@ -1481,7 +1393,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll1.setFlatStyle(FlatStyle.FLAT);
         btnSellAll1.setLocation(new Point(115, 80));
-        btnSellAll1.setName("btnSellAll1");
         btnSellAll1.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll1.setTabIndex(17);
         btnSellAll1.setText("All");
@@ -1496,7 +1407,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty1.setFlatStyle(FlatStyle.FLAT);
         btnSellQty1.setLocation(new Point(80, 80));
-        btnSellQty1.setName("btnSellQty1");
         btnSellQty1.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty1.setTabIndex(16);
         btnSellQty1.setText("88");
@@ -1510,7 +1420,6 @@ class CargoPanel extends Panel {
         // lblSellPrice1
         //
         lblSellPrice1.setLocation(new Point(163, 84));
-        lblSellPrice1.setName("lblSellPrice1");
         lblSellPrice1.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice1.setTabIndex(38);
         lblSellPrice1.setText("8,888 cr.");
@@ -1520,7 +1429,6 @@ class CargoPanel extends Panel {
         //
         btnSellAll0.setFlatStyle(FlatStyle.FLAT);
         btnSellAll0.setLocation(new Point(115, 56));
-        btnSellAll0.setName("btnSellAll0");
         btnSellAll0.setSize(new spacetrader.controls.Size(44, 22));
         btnSellAll0.setTabIndex(13);
         btnSellAll0.setText("All");
@@ -1535,7 +1443,6 @@ class CargoPanel extends Panel {
         //
         btnSellQty0.setFlatStyle(FlatStyle.FLAT);
         btnSellQty0.setLocation(new Point(80, 56));
-        btnSellQty0.setName("btnSellQty0");
         btnSellQty0.setSize(new spacetrader.controls.Size(28, 22));
         btnSellQty0.setTabIndex(12);
         btnSellQty0.setText("88");
@@ -1549,7 +1456,6 @@ class CargoPanel extends Panel {
         // lblSellPrice0
         //
         lblSellPrice0.setLocation(new Point(163, 60));
-        lblSellPrice0.setName("lblSellPrice0");
         lblSellPrice0.setSize(new spacetrader.controls.Size(48, 13));
         lblSellPrice0.setTabIndex(35);
         lblSellPrice0.setText("8,888 cr.");
@@ -1559,7 +1465,6 @@ class CargoPanel extends Panel {
         //
         lblTradeTarget.setAutoSize(true);
         lblTradeTarget.setLocation(new Point(391, 16));
-        lblTradeTarget.setName("lblTradeTarget");
         lblTradeTarget.setSize(new spacetrader.controls.Size(78, 16));
         lblTradeTarget.setTabIndex(28);
         lblTradeTarget.setText("Target System");
@@ -1568,7 +1473,6 @@ class CargoPanel extends Panel {
         //
         lblBuy.setAutoSize(true);
         lblBuy.setLocation(new Point(273, 34));
-        lblBuy.setName("lblBuy");
         lblBuy.setSize(new spacetrader.controls.Size(24, 16));
         lblBuy.setTabIndex(27);
         lblBuy.setText("Buy");
@@ -1578,7 +1482,6 @@ class CargoPanel extends Panel {
         lblSell.setAutoSize(true);
         lblSell.setFont(FontCollection.regular825);
         lblSell.setLocation(new Point(132, 34));
-        lblSell.setName("lblSell");
         lblSell.setSize(new spacetrader.controls.Size(23, 16));
         lblSell.setTabIndex(26);
         lblSell.setText("Sell");
@@ -1587,7 +1490,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty9.setAutoSize(true);
         lblTradeCmdty9.setLocation(new Point(8, 276));
-        lblTradeCmdty9.setName("lblTradeCmdty9");
         lblTradeCmdty9.setSize(new spacetrader.controls.Size(40, 16));
         lblTradeCmdty9.setTabIndex(25);
         lblTradeCmdty9.setText("Robots");
@@ -1596,7 +1498,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty8.setAutoSize(true);
         lblTradeCmdty8.setLocation(new Point(8, 252));
-        lblTradeCmdty8.setName("lblTradeCmdty8");
         lblTradeCmdty8.setSize(new spacetrader.controls.Size(51, 16));
         lblTradeCmdty8.setTabIndex(24);
         lblTradeCmdty8.setText("Narcotics");
@@ -1605,7 +1506,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty2.setAutoSize(true);
         lblTradeCmdty2.setLocation(new Point(8, 108));
-        lblTradeCmdty2.setName("lblTradeCmdty2");
         lblTradeCmdty2.setSize(new spacetrader.controls.Size(30, 16));
         lblTradeCmdty2.setTabIndex(23);
         lblTradeCmdty2.setText("Food");
@@ -1614,7 +1514,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty0.setAutoSize(true);
         lblTradeCmdty0.setLocation(new Point(8, 60));
-        lblTradeCmdty0.setName("lblTradeCmdty0");
         lblTradeCmdty0.setSize(new spacetrader.controls.Size(34, 16));
         lblTradeCmdty0.setTabIndex(22);
         lblTradeCmdty0.setText("Water");
@@ -1623,7 +1522,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty1.setAutoSize(true);
         lblTradeCmdty1.setLocation(new Point(8, 84));
-        lblTradeCmdty1.setName("lblTradeCmdty1");
         lblTradeCmdty1.setSize(new spacetrader.controls.Size(27, 16));
         lblTradeCmdty1.setTabIndex(21);
         lblTradeCmdty1.setText("Furs");
@@ -1632,7 +1530,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty6.setAutoSize(true);
         lblTradeCmdty6.setLocation(new Point(8, 204));
-        lblTradeCmdty6.setName("lblTradeCmdty6");
         lblTradeCmdty6.setSize(new spacetrader.controls.Size(50, 16));
         lblTradeCmdty6.setTabIndex(20);
         lblTradeCmdty6.setText("Medicine");
@@ -1641,7 +1538,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty5.setAutoSize(true);
         lblTradeCmdty5.setLocation(new Point(8, 180));
-        lblTradeCmdty5.setName("lblTradeCmdty5");
         lblTradeCmdty5.setSize(new spacetrader.controls.Size(49, 16));
         lblTradeCmdty5.setTabIndex(19);
         lblTradeCmdty5.setText("Firearms");
@@ -1650,7 +1546,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty4.setAutoSize(true);
         lblTradeCmdty4.setLocation(new Point(8, 156));
-        lblTradeCmdty4.setName("lblTradeCmdty4");
         lblTradeCmdty4.setSize(new spacetrader.controls.Size(41, 16));
         lblTradeCmdty4.setTabIndex(18);
         lblTradeCmdty4.setText("Games");
@@ -1659,7 +1554,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty3.setAutoSize(true);
         lblTradeCmdty3.setLocation(new Point(8, 132));
-        lblTradeCmdty3.setName("lblTradeCmdty3");
         lblTradeCmdty3.setSize(new spacetrader.controls.Size(23, 16));
         lblTradeCmdty3.setTabIndex(17);
         lblTradeCmdty3.setText("Ore");
@@ -1668,7 +1562,6 @@ class CargoPanel extends Panel {
         //
         lblTradeCmdty7.setAutoSize(true);
         lblTradeCmdty7.setLocation(new Point(8, 228));
-        lblTradeCmdty7.setName("lblTradeCmdty7");
         lblTradeCmdty7.setSize(new spacetrader.controls.Size(53, 16));
         lblTradeCmdty7.setTabIndex(16);
         lblTradeCmdty7.setText("Machines");

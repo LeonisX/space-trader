@@ -56,7 +56,7 @@ public class GameController {
     }
 
     public void gameEnd() {
-        mainWindow.SetInGameControlsEnabled(false);
+        mainWindow.setInGameControlsEnabled(false);
 
         AlertType alertType = AlertType.Alert;
         switch (game.getEndStatus()) {
@@ -100,7 +100,7 @@ public class GameController {
                 SaveGameFile = fileName;
                 SaveGameDays = game.Commander().getDays();
 
-                mainWindow.SetInGameControlsEnabled(true);
+                mainWindow.setInGameControlsEnabled(true);
                 mainWindow.updateAll();
             }
         } catch (FutureVersionException ex) {

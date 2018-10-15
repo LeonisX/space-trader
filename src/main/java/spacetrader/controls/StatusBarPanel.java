@@ -4,7 +4,7 @@ import spacetrader.controls.swingextra.JStatusBarSection;
 
 import java.awt.*;
 
-public class StatusBarPanel implements ISupportInitialize {
+public class StatusBarPanel implements ISupportInitialize, IName {
 
     final StatusBarPanelAutoSize AutoSize;
     private final JStatusBarSection jpanel = new JStatusBarSection(" ");
@@ -44,5 +44,15 @@ public class StatusBarPanel implements ISupportInitialize {
 
     public void endInit() {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public String getName() {
+        return jpanel.getName();
+    }
+
+    @Override
+    public void setName(String name) {
+        jpanel.setName(name);
     }
 }

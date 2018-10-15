@@ -141,7 +141,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.lblBuyPriceLabel = new spacetrader.controls.Label();
         this.lblBuyPrice = new spacetrader.controls.Label();
         this.lblSellPriceLabel = new spacetrader.controls.Label();
-        this.picEquipment = new spacetrader.controls.PictureBox("linePictureBox");
+        this.picEquipment = new spacetrader.controls.PictureBox();
         this.lblSellPrice = new spacetrader.controls.Label();
         this.lblDescription = new spacetrader.controls.Label();
         this.lblName = new spacetrader.controls.Label();

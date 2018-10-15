@@ -162,11 +162,11 @@ public class FormShipyard extends SpaceTraderForm {
         lblSizeSpecialtyLabel = new spacetrader.controls.Label();
         lblWelcome = new spacetrader.controls.Label();
         lblWarning = new spacetrader.controls.Label();
-        picLogo = new spacetrader.controls.PictureBox("linePictureBox");
+        picLogo = new spacetrader.controls.PictureBox();
         boxInfo = new Panel();
         btnSave = new spacetrader.controls.Button();
         btnLoad = new spacetrader.controls.Button();
-        picInfoLine = new spacetrader.controls.PictureBox("linePictureBox");
+        picInfoLine = new spacetrader.controls.PictureBox();
         btnPrevImage = new spacetrader.controls.Button();
         btnNextImage = new spacetrader.controls.Button();
         lblImage = new spacetrader.controls.Label();
@@ -176,7 +176,7 @@ public class FormShipyard extends SpaceTraderForm {
         selSize = new spacetrader.controls.ComboBox();
         lblSize = new spacetrader.controls.Label();
         btnSetCustomImage = new spacetrader.controls.Button();
-        picShip = new spacetrader.controls.PictureBox("linePictureBox");
+        picShip = new spacetrader.controls.PictureBox();
         txtName = new spacetrader.controls.TextBox();
         lblName = new spacetrader.controls.Label();
         lblUnitsUsed = new spacetrader.controls.Label();
@@ -184,7 +184,7 @@ public class FormShipyard extends SpaceTraderForm {
         boxCosts = new Panel();
         lblTradeIn = new spacetrader.controls.Label();
         lblTradeInLabel = new spacetrader.controls.Label();
-        picCostsLine = new spacetrader.controls.PictureBox("linePictureBox");
+        picCostsLine = new spacetrader.controls.PictureBox();
         lblPenalty = new spacetrader.controls.Label();
         lblPenaltyLabel = new spacetrader.controls.Label();
         lblShipCost = new spacetrader.controls.Label();

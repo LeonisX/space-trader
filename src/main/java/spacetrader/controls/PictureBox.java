@@ -11,11 +11,10 @@ public class PictureBox extends BaseComponent implements ISupportInitialize {
     public PictureBoxSizeMode sizeMode;
     private ImageMouseListener mouseListener;
 
-    public PictureBox(String name) {
+    public PictureBox() {
         super(new SpecialImageJLabel());
         asJLabel().pictureBox = this;
         asJLabel().addMouseListener(mouseListener = new ImageMouseListener(this));
-        setName(name);
     }
 
     public void setMouseDown(EventHandler<Object, MouseEventArgs> mouseDown) {

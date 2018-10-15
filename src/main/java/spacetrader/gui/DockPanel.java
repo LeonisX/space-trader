@@ -16,16 +16,15 @@ class DockPanel extends Panel {
     private final SpaceTrader mainWindow;
     private Commander commander;
 
-    private Button buyFuelButton;
+    private Button fuelUpButton;
     private Button repairButton;
     private Label fuelStatusLabel;
     private Label fuelCostLabel;
     private Label hullStatusLabel;
     private Label repairCostLabel;
 
-    DockPanel(SpaceTrader mainWindow, String name) {
+    DockPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
-        setName(name);
     }
 
     void setGame(Commander commander) {
@@ -33,16 +32,15 @@ class DockPanel extends Panel {
     }
 
     void initializeComponent() {
-        repairButton = new Button("repairButton");
-        //TODO best name? заправиться?
-        buyFuelButton = new Button("buyFuelButton");
-        fuelStatusLabel = new Label("fuelStatusLabel");
-        fuelCostLabel = new Label("fuelCostLabel");
-        hullStatusLabel = new Label("hullStatusLabel");
-        repairCostLabel = new Label("repairCostLabel");
+        repairButton = new Button();
+        fuelUpButton = new Button();
+        fuelStatusLabel = new Label();
+        fuelCostLabel = new Label();
+        hullStatusLabel = new Label();
+        repairCostLabel = new Label();
 
         controls.add(repairButton);
-        controls.add(buyFuelButton);
+        controls.add(fuelUpButton);
         controls.add(fuelStatusLabel);
         controls.add(fuelCostLabel);
         controls.add(hullStatusLabel);
@@ -65,15 +63,15 @@ class DockPanel extends Panel {
             }
         });
 
-        buyFuelButton.setFlatStyle(FlatStyle.FLAT);
-        buyFuelButton.setLocation(new Point(192, 18));
-        buyFuelButton.setSize(new spacetrader.controls.Size(36, 22));
-        buyFuelButton.setTabIndex(4);
-        buyFuelButton.setText("Fuel");
-        buyFuelButton.setClick(new EventHandler<Object, EventArgs>() {
+        fuelUpButton.setFlatStyle(FlatStyle.FLAT);
+        fuelUpButton.setLocation(new Point(192, 18));
+        fuelUpButton.setSize(new spacetrader.controls.Size(36, 22));
+        fuelUpButton.setTabIndex(4);
+        fuelUpButton.setText("Fuel");
+        fuelUpButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                buyFuelButtonClick();
+                fuelUpButtonClick();
             }
         });
 
@@ -98,8 +96,7 @@ class DockPanel extends Panel {
         //repairCostLabel.setText("Full repairs will cost 8,888 cr.");
     }
 
-    //TODO best name?
-    private void buyFuelButtonClick() {
+    private void fuelUpButtonClick() {
         FormBuyFuel form = new FormBuyFuel();
         if (form.showDialog(mainWindow) == DialogResult.OK) {
             int toAdd = form.getAmount() / commander.getShip().getFuelCost();
@@ -125,7 +122,7 @@ class DockPanel extends Panel {
         if (commander == null) {
             fuelStatusLabel.setText("");
             fuelCostLabel.setText("");
-            buyFuelButton.setVisible(false);
+            fuelUpButton.setVisible(false);
             hullStatusLabel.setText("");
             repairCostLabel.setText("");
             repairButton.setVisible(false);
@@ -137,7 +134,7 @@ class DockPanel extends Panel {
             int tanksEmpty = ship.getFuelTanks() - ship.getFuel();
             fuelCostLabel.setText(tanksEmpty > 0 ? Functions.stringVars(Strings.DockFuelCost, Functions
                     .formatMoney(tanksEmpty * ship.getFuelCost())) : Strings.DockFuelFull);
-            buyFuelButton.setVisible(tanksEmpty > 0);
+            fuelUpButton.setVisible(tanksEmpty > 0);
 
             hullStatusLabel.setText(Functions.stringVars(Strings.DockHullStatus, Functions.formatNumber((int) Math
                     .floor((double) 100 * ship.getHull() / ship.getHullStrength()))));

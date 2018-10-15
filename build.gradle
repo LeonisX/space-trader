@@ -1,12 +1,6 @@
 group 'md.leonis.spacetrader'
 version "1.12-SNAPSHOT"
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
@@ -14,22 +8,14 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
-
 task wrapper(type: Wrapper) {
     gradleVersion = '3.3'
 }
 
-//TODO manifest, exe file
-
-dependencies {
-    //compile 'org.springframework.boot:spring-boot-devtools'
-    //compile 'org.springframework:spring-web:4.3.13.RELEASE'
-    //compile 'org.springframework.security.oauth:spring-security-oauth2:2.1.0.RELEASE'
-
-    //testCompile group: 'com.h2database', name: 'h2', version: '1.4.194'
-
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'spacetrader.SpaceTraderApp'
+        )
+    }
 }
-

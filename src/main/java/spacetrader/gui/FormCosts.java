@@ -90,7 +90,7 @@ public class FormCosts extends SpaceTraderForm {
         this.lblIntLabel = new spacetrader.controls.Label();
         this.lblMercLabel = new spacetrader.controls.Label();
         this.lblInsLabel = new spacetrader.controls.Label();
-        this.picLine = new spacetrader.controls.PictureBox("linePictureBox");
+        this.picLine = new spacetrader.controls.PictureBox();
         this.suspendLayout();
         //
         // btnClose

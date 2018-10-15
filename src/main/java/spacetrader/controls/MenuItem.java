@@ -4,18 +4,18 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuItem {
+public class MenuItem implements IName {
 
     public Shortcut shortcut;
     JMenuItem swingVersion;
 
-    public MenuItem(String name) {
+    public MenuItem() {
         this(new JMenuItem());
-        setName(name);
     }
 
     public static MenuItem separator() {
-        MenuItem menuItem = new MenuItem("");
+        MenuItem menuItem = new MenuItem();
+        menuItem.setName("separator");
         menuItem.setEnabled(false);
         return menuItem;
     }

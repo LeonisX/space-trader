@@ -215,7 +215,7 @@ public class FormShipList extends SpaceTraderForm {
         lblBays = new spacetrader.controls.Label();
         lblSize = new spacetrader.controls.Label();
         lblName = new spacetrader.controls.Label();
-        picShip = new spacetrader.controls.PictureBox("linePictureBox");
+        picShip = new spacetrader.controls.PictureBox();
         lblGadgetLabel = new spacetrader.controls.Label();
         lblCrewLabel = new spacetrader.controls.Label();
         lblShieldLabel = new spacetrader.controls.Label();

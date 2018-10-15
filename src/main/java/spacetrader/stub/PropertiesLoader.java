@@ -1,11 +1,9 @@
 package spacetrader.stub;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -43,12 +41,19 @@ public class PropertiesLoader {
     }
 
     private static Stream<String> getResourceAsStream(String name) {
-        try {
-            URL url = PropertiesLoader.class.getClassLoader().getResource(name);
-            return Files.lines(Paths.get(url.toURI()), Charset.forName("utf-8"));
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+            List<String> lines = new ArrayList<>();
+            InputStream is = PropertiesLoader.class.getClassLoader().getResourceAsStream(name);
+            BufferedReader r = new BufferedReader(new InputStreamReader(is));
+            try {
+                String line;
+                while ((line = r.readLine()) != null) {
+                    lines.add(line);
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return lines.stream();
     }
 
 }

@@ -25,9 +25,8 @@ class ShipyardPanel extends Panel {
     private spacetrader.controls.Button btnBuyShip;
     private spacetrader.controls.Label lblShipsForSale;
 
-    ShipyardPanel(SpaceTrader mainWindow, String name) {
+    ShipyardPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
-        setName(name);
     }
 
     void setGame(Commander commander) {
@@ -61,7 +60,6 @@ class ShipyardPanel extends Panel {
         //
         btnDesign.setFlatStyle(FlatStyle.FLAT);
         btnDesign.setLocation(new Point(8, 32));
-        btnDesign.setName("btnDesign");
         btnDesign.setSize(new spacetrader.controls.Size(54, 22));
         btnDesign.setTabIndex(55);
         btnDesign.setText("Design");
@@ -76,7 +74,6 @@ class ShipyardPanel extends Panel {
         //
         btnPod.setFlatStyle(FlatStyle.FLAT);
         btnPod.setLocation(new Point(98, 138));
-        btnPod.setName("btnPod");
         btnPod.setSize(new spacetrader.controls.Size(58, 22));
         btnPod.setTabIndex(54);
         btnPod.setText("Buy Pod");
@@ -90,7 +87,6 @@ class ShipyardPanel extends Panel {
         // lblEscapePod
         //
         lblEscapePod.setLocation(new Point(8, 122));
-        lblEscapePod.setName("lblEscapePod");
         lblEscapePod.setSize(new spacetrader.controls.Size(152, 26));
         lblEscapePod.setTabIndex(27);
         lblEscapePod.setText("You can buy an escape pod for  2,000 cr.");
@@ -99,7 +95,6 @@ class ShipyardPanel extends Panel {
         //
         btnEquip.setFlatStyle(FlatStyle.FLAT);
         btnEquip.setLocation(new Point(43, 85));
-        btnEquip.setName("btnEquip");
         btnEquip.setSize(new spacetrader.controls.Size(113, 22));
         btnEquip.setTabIndex(53);
         btnEquip.setText("Buy/Sell Equipment");
@@ -114,7 +109,6 @@ class ShipyardPanel extends Panel {
         //
         btnBuyShip.setFlatStyle(FlatStyle.FLAT);
         btnBuyShip.setLocation(new Point(70, 32));
-        btnBuyShip.setName("btnBuyShip");
         btnBuyShip.setSize(new spacetrader.controls.Size(86, 22));
         btnBuyShip.setTabIndex(52);
         btnBuyShip.setText("View Ship Info");
@@ -128,7 +122,6 @@ class ShipyardPanel extends Panel {
         // lblEquipForSale
         //
         lblEquipForSale.setLocation(new Point(8, 69));
-        lblEquipForSale.setName("lblEquipForSale");
         lblEquipForSale.setSize(new spacetrader.controls.Size(152, 13));
         lblEquipForSale.setTabIndex(21);
         lblEquipForSale.setText("There is equipment for sale.");
@@ -136,13 +129,12 @@ class ShipyardPanel extends Panel {
         // lblShipsForSale
         //
         lblShipsForSale.setLocation(new Point(8, 16));
-        lblShipsForSale.setName("lblShipsForSale");
         lblShipsForSale.setSize(new spacetrader.controls.Size(152, 13));
         lblShipsForSale.setTabIndex(20);
         lblShipsForSale.setText("There are new ships for sale.");
     }
 
-    public void Update() {
+    void update() {
         if (commander == null) {
             lblShipsForSale.setText("");
             lblEquipForSale.setText("");

@@ -44,9 +44,9 @@ public class FormMonster extends SpaceTraderForm {
     // #region Control Declarations
     private final Game game = Game.currentGame();
     private Button btnClose;
-    private CheatPanel pnlMercs;
-    private CheatPanel pnlQuests;
-    private CheatPanel pnlShipyards;
+    private SimplePanel pnlMercs;
+    private SimplePanel pnlQuests;
+    private SimplePanel pnlShipyards;
     private PictureBox picLine1;
     private PictureBox picLine0;
     private PictureBox picLine2;
@@ -105,8 +105,8 @@ public class FormMonster extends SpaceTraderForm {
     // / </summary>
     private void initializeComponent() {
         btnClose = new Button();
-        picLine1 = new PictureBox("linePictureBox");
-        picLine0 = new PictureBox("linePictureBox");
+        picLine1 = new PictureBox();
+        picLine0 = new PictureBox();
         lblQuestsLabel = new Label();
         lblMercLabel = new Label();
         lblMercSkillLabelPilot = new LinkLabel();
@@ -121,7 +121,7 @@ public class FormMonster extends SpaceTraderForm {
         lblShipyardsDescLabel = new LinkLabel();
         lblShipyardsSystemLabel = new LinkLabel();
         lblShipyardsLabel = new Label();
-        pnlMercs = new CheatPanel();
+        pnlMercs = new SimplePanel();
         lblMercSkillsPilot = new Label();
         lblMercSkillsFighter = new Label();
         lblMercSkillsTrader = new Label();
@@ -130,13 +130,13 @@ public class FormMonster extends SpaceTraderForm {
         lblMercIds = new Label();
         lblMercNames = new Label();
         lblMercSystems2 = new LinkLabel();
-        pnlQuests = new CheatPanel();
+        pnlQuests = new SimplePanel();
         lblQuests = new Label();
         lblQuestSystems = new LinkLabel();
-        pnlShipyards = new CheatPanel();
+        pnlShipyards = new SimplePanel();
         lblShipyards = new Label();
         lblShipyardSystems = new LinkLabel();
-        picLine2 = new PictureBox("linePictureBox");
+        picLine2 = new PictureBox();
         pnlMercs.suspendLayout();
         pnlQuests.suspendLayout();
         pnlShipyards.suspendLayout();

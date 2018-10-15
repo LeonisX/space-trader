@@ -2,12 +2,12 @@ package spacetrader.controls;
 
 import javax.swing.*;
 
-public class CheatPanel extends BaseComponent {
+public class SimplePanel extends BaseComponent {
 
     public boolean autoScroll;
-    public CheatPanel controls = this;
+    public SimplePanel controls = this;
 
-    public CheatPanel() {
+    public SimplePanel() {
         super(new JPanel());
     }
 

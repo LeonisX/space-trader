@@ -37,9 +37,8 @@ public class TargetSystemPanel extends Panel {
     private spacetrader.controls.Label lblTargetTechLabel;
     private spacetrader.controls.Label lblTargetSizeLabel;
 
-    TargetSystemPanel(SpaceTrader mainWindow, String name) {
+    TargetSystemPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
-        setName(name);
     }
 
     void setGame(SystemTracker game, GameController controller, Commander commander) {
@@ -107,7 +106,6 @@ public class TargetSystemPanel extends Panel {
         //
         btnTrack.setFlatStyle(FlatStyle.FLAT);
         btnTrack.setLocation(new Point(160, 140));
-        btnTrack.setName("btnTrack");
         btnTrack.setSize(new spacetrader.controls.Size(44, 22));
         btnTrack.setTabIndex(60);
         btnTrack.setText("Track");
@@ -123,7 +121,6 @@ public class TargetSystemPanel extends Panel {
         //
         btnNextSystem.setFlatStyle(FlatStyle.FLAT);
         btnNextSystem.setLocation(new Point(186, 16));
-        btnNextSystem.setName("btnNextSystem");
         btnNextSystem.setSize(new spacetrader.controls.Size(18, 18));
         btnNextSystem.setTabIndex(58);
         btnNextSystem.setText(">");
@@ -138,7 +135,6 @@ public class TargetSystemPanel extends Panel {
         //
         btnPrevSystem.setFlatStyle(FlatStyle.FLAT);
         btnPrevSystem.setLocation(new Point(160, 16));
-        btnPrevSystem.setName("btnPrevSystem");
         btnPrevSystem.setSize(new spacetrader.controls.Size(18, 18));
         btnPrevSystem.setTabIndex(57);
         btnPrevSystem.setText("<");
@@ -152,7 +148,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetOutOfRange
         //
         lblTargetOutOfRange.setLocation(new Point(8, 144));
-        lblTargetOutOfRange.setName("lblTargetOutOfRange");
         lblTargetOutOfRange.setSize(new spacetrader.controls.Size(144, 13));
         lblTargetOutOfRange.setTabIndex(17);
         lblTargetOutOfRange.setText("This system is out of range.");
@@ -161,7 +156,6 @@ public class TargetSystemPanel extends Panel {
         //
         btnWarp.setFlatStyle(FlatStyle.FLAT);
         btnWarp.setLocation(new Point(160, 98));
-        btnWarp.setName("btnWarp");
         btnWarp.setSize(new spacetrader.controls.Size(44, 44));
         btnWarp.setTabIndex(59);
         btnWarp.setText("Warp");
@@ -175,7 +169,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetPolSys
         //
         lblTargetPolSys.setLocation(new Point(88, 64));
-        lblTargetPolSys.setName("lblTargetPolSys");
         lblTargetPolSys.setSize(new spacetrader.controls.Size(91, 13));
         lblTargetPolSys.setTabIndex(15);
         lblTargetPolSys.setText("Communist State");
@@ -183,7 +176,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetSize
         //
         lblTargetSize.setLocation(new Point(88, 32));
-        lblTargetSize.setName("lblTargetSize");
         lblTargetSize.setSize(new spacetrader.controls.Size(45, 13));
         lblTargetSize.setTabIndex(14);
         lblTargetSize.setText("Medium");
@@ -191,7 +183,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetTech
         //
         lblTargetTech.setLocation(new Point(88, 48));
-        lblTargetTech.setName("lblTargetTech");
         lblTargetTech.setSize(new spacetrader.controls.Size(82, 13));
         lblTargetTech.setTabIndex(13);
         lblTargetTech.setText("Pre-Agricultural");
@@ -199,7 +190,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetDistance
         //
         lblTargetDistance.setLocation(new Point(88, 128));
-        lblTargetDistance.setName("lblTargetDistance");
         lblTargetDistance.setSize(new spacetrader.controls.Size(66, 13));
         lblTargetDistance.setTabIndex(12);
         lblTargetDistance.setText("888 parsecs");
@@ -207,7 +197,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetPirates
         //
         lblTargetPirates.setLocation(new Point(88, 112));
-        lblTargetPirates.setName("lblTargetPirates");
         lblTargetPirates.setSize(new spacetrader.controls.Size(53, 13));
         lblTargetPirates.setTabIndex(11);
         lblTargetPirates.setText("Abundant");
@@ -215,7 +204,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetPolice
         //
         lblTargetPolice.setLocation(new Point(88, 96));
-        lblTargetPolice.setName("lblTargetPolice");
         lblTargetPolice.setSize(new spacetrader.controls.Size(53, 13));
         lblTargetPolice.setTabIndex(10);
         lblTargetPolice.setText("Abundant");
@@ -223,7 +211,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetResource
         //
         lblTargetResource.setLocation(new Point(88, 80));
-        lblTargetResource.setName("lblTargetResource");
         lblTargetResource.setSize(new spacetrader.controls.Size(105, 13));
         lblTargetResource.setTabIndex(9);
         lblTargetResource.setText("Sweetwater Oceans");
@@ -233,7 +220,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetDistanceLabel.setAutoSize(true);
         lblTargetDistanceLabel.setFont(FontCollection.bold825);
         lblTargetDistanceLabel.setLocation(new Point(8, 128));
-        lblTargetDistanceLabel.setName("lblTargetDistanceLabel");
         lblTargetDistanceLabel.setSize(new spacetrader.controls.Size(53, 16));
         lblTargetDistanceLabel.setTabIndex(8);
         lblTargetDistanceLabel.setText("Distance:");
@@ -243,7 +229,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetPiratesLabel.setAutoSize(true);
         lblTargetPiratesLabel.setFont(FontCollection.bold825);
         lblTargetPiratesLabel.setLocation(new Point(8, 112));
-        lblTargetPiratesLabel.setName("lblTargetPiratesLabel");
         lblTargetPiratesLabel.setSize(new spacetrader.controls.Size(44, 16));
         lblTargetPiratesLabel.setTabIndex(7);
         lblTargetPiratesLabel.setText("Pirates:");
@@ -253,7 +238,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetPoliceLabel.setAutoSize(true);
         lblTargetPoliceLabel.setFont(FontCollection.bold825);
         lblTargetPoliceLabel.setLocation(new Point(8, 96));
-        lblTargetPoliceLabel.setName("lblTargetPoliceLabel");
         lblTargetPoliceLabel.setSize(new spacetrader.controls.Size(40, 16));
         lblTargetPoliceLabel.setTabIndex(6);
         lblTargetPoliceLabel.setText("Police:");
@@ -263,7 +247,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetResourceLabel.setAutoSize(true);
         lblTargetResourceLabel.setFont(FontCollection.bold825);
         lblTargetResourceLabel.setLocation(new Point(8, 80));
-        lblTargetResourceLabel.setName("lblTargetResourceLabel");
         lblTargetResourceLabel.setSize(new spacetrader.controls.Size(58, 16));
         lblTargetResourceLabel.setTabIndex(5);
         lblTargetResourceLabel.setText("Resource:");
@@ -273,7 +256,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetGovtLabel.setAutoSize(true);
         lblTargetGovtLabel.setFont(FontCollection.bold825);
         lblTargetGovtLabel.setLocation(new Point(8, 64));
-        lblTargetGovtLabel.setName("lblTargetGovtLabel");
         lblTargetGovtLabel.setSize(new spacetrader.controls.Size(72, 16));
         lblTargetGovtLabel.setTabIndex(4);
         lblTargetGovtLabel.setText("Government:");
@@ -283,7 +265,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetTechLabel.setAutoSize(true);
         lblTargetTechLabel.setFont(FontCollection.bold825);
         lblTargetTechLabel.setLocation(new Point(8, 48));
-        lblTargetTechLabel.setName("lblTargetTechLabel");
         lblTargetTechLabel.setSize(new spacetrader.controls.Size(65, 16));
         lblTargetTechLabel.setTabIndex(3);
         lblTargetTechLabel.setText("Tech Level:");
@@ -293,7 +274,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetSizeLabel.setAutoSize(true);
         lblTargetSizeLabel.setFont(FontCollection.bold825);
         lblTargetSizeLabel.setLocation(new Point(8, 32));
-        lblTargetSizeLabel.setName("lblTargetSizeLabel");
         lblTargetSizeLabel.setSize(new spacetrader.controls.Size(31, 16));
         lblTargetSizeLabel.setTabIndex(2);
         lblTargetSizeLabel.setText("Size:");
@@ -301,7 +281,6 @@ public class TargetSystemPanel extends Panel {
         // lblTargetName
         //
         lblTargetName.setLocation(new Point(88, 16));
-        lblTargetName.setName("lblTargetName");
         lblTargetName.setSize(new spacetrader.controls.Size(65, 13));
         lblTargetName.setTabIndex(1);
         lblTargetName.setText("Tarchannen");
@@ -311,7 +290,6 @@ public class TargetSystemPanel extends Panel {
         lblTargetNameLabel.setAutoSize(true);
         lblTargetNameLabel.setFont(FontCollection.bold825);
         lblTargetNameLabel.setLocation(new Point(8, 16));
-        lblTargetNameLabel.setName("lblTargetNameLabel");
         lblTargetNameLabel.setSize(new spacetrader.controls.Size(39, 16));
         lblTargetNameLabel.setTabIndex(0);
         lblTargetNameLabel.setText("Name:");
@@ -336,7 +314,7 @@ public class TargetSystemPanel extends Panel {
         updateAll();
     }
 
-    void Update() {
+    void update() {
         btnNextSystem.setVisible(game != null);
         btnPrevSystem.setVisible(game != null);
 

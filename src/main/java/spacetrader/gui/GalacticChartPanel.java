@@ -47,10 +47,9 @@ public class GalacticChartPanel extends Panel {
     private spacetrader.controls.Button btnFind;
     private spacetrader.controls.PictureBox picGalacticChart;
 
-    GalacticChartPanel(SpaceTrader mainWindow, ImageList images, String name) {
+    GalacticChartPanel(SpaceTrader mainWindow, ImageList images) {
         this.mainWindow = mainWindow;
         ilChartImages = images;
-        setName(name);
     }
 
     void setGame(Game game, GameController controller, Commander commander) {
@@ -61,7 +60,7 @@ public class GalacticChartPanel extends Panel {
     }
 
     void initializeComponent() {
-        picGalacticChart = new spacetrader.controls.PictureBox("linePictureBox");
+        picGalacticChart = new spacetrader.controls.PictureBox();
         lblWormhole = new spacetrader.controls.Label();
         lblWormholeLabel = new spacetrader.controls.Label();
         btnJump = new spacetrader.controls.Button();
@@ -69,7 +68,6 @@ public class GalacticChartPanel extends Panel {
 
         picGalacticChart.setBackground(Color.white);
         picGalacticChart.setLocation(new Point(8, 16));
-        picGalacticChart.setName("picGalacticChart");
         picGalacticChart.setSize(new Size(160, 116));
         picGalacticChart.setTabIndex(0);
         picGalacticChart.setTabStop(false);
@@ -104,7 +102,6 @@ public class GalacticChartPanel extends Panel {
         // lblWormhole
         //
         lblWormhole.setLocation(new Point(8, 148));
-        lblWormhole.setName("lblWormhole");
         lblWormhole.setSize(new spacetrader.controls.Size(72, 13));
         lblWormhole.setTabIndex(29);
         lblWormhole.setText("Tarchannen");
@@ -112,7 +109,6 @@ public class GalacticChartPanel extends Panel {
         // lblWormholeLabel
         //
         lblWormholeLabel.setLocation(new Point(8, 135));
-        lblWormholeLabel.setName("lblWormholeLabel");
         lblWormholeLabel.setSize(new spacetrader.controls.Size(72, 13));
         lblWormholeLabel.setTabIndex(28);
         lblWormholeLabel.setText("Wormhole to");
@@ -121,7 +117,6 @@ public class GalacticChartPanel extends Panel {
         //
         btnJump.setFlatStyle(FlatStyle.FLAT);
         btnJump.setLocation(new Point(81, 138));
-        btnJump.setName("btnJump");
         btnJump.setSize(new spacetrader.controls.Size(42, 22));
         btnJump.setTabIndex(55);
         btnJump.setText("Jump");
@@ -136,7 +131,6 @@ public class GalacticChartPanel extends Panel {
         //
         btnFind.setFlatStyle(FlatStyle.FLAT);
         btnFind.setLocation(new Point(132, 138));
-        btnFind.setName("btnFind");
         btnFind.setSize(new spacetrader.controls.Size(36, 22));
         btnFind.setTabIndex(56);
         btnFind.setText("Find");
