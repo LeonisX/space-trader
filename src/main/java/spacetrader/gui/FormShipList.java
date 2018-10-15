@@ -1008,7 +1008,7 @@ public class FormShipList extends SpaceTraderForm {
         for (int i = 0; i < lblPrice.length; i++) {
             btnBuy[i].setVisible(false);
 
-            if (Consts.ShipSpecs[i].MinimumTechLevel().castToInt() > game.Commander().getCurrentSystem().techLevel().castToInt())
+            if (Consts.ShipSpecs[i].MinimumTechLevel().castToInt() > game.Commander().getCurrentSystem().getTechLevel().castToInt())
                 lblPrice[i].setText(Strings.CargoBuyNA);
             else if (Consts.ShipSpecs[i].Type() == game.Commander().getShip().Type())
                 lblPrice[i].setText(Strings.ShipBuyGotOne);

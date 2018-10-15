@@ -124,7 +124,7 @@ public class SpecialEvent {
         StarSystem[] universe = Game.currentGame().Universe();
 
         for (int i = 0; i < universe.length && location == null; i++)
-            if (universe[i].SpecialEventType() == Type())
+            if (universe[i].getSpecialEventType() == Type())
                 location = universe[i];
 
         return location;

@@ -90,7 +90,7 @@ public class StarSystem extends STSerializableObject {
             } else {
                 _tradeItems[i] = (this.size().castToInt() + 1)
                         * (Functions.GetRandom(9, 14) - Math.abs(Consts.TradeItems[i].TechTopProduction().castToInt()
-                        - this.techLevel().castToInt()));
+                        - this.getTechLevel().castToInt()));
 
                 // Because of the enormous profits possible, there shouldn't be
                 // too many robots or narcotics available.
@@ -101,13 +101,13 @@ public class StarSystem extends STSerializableObject {
                                     .castToInt())) /
                             (6 - Game.currentGame().Difficulty().castToInt())) + 1;
 
-                if (this.specialResource() == Consts.TradeItems[i].ResourceLowPrice())
+                if (this.getSpecialResource() == Consts.TradeItems[i].ResourceLowPrice())
                     _tradeItems[i] = _tradeItems[i] * 4 / 3;
 
-                if (this.specialResource() == Consts.TradeItems[i].ResourceHighPrice())
+                if (this.getSpecialResource() == Consts.TradeItems[i].ResourceHighPrice())
                     _tradeItems[i] = _tradeItems[i] * 3 / 4;
 
-                if (this.systemPressure() == Consts.TradeItems[i].PressurePriceHike())
+                if (this.getSystemPressure() == Consts.TradeItems[i].PressurePriceHike())
                     _tradeItems[i] = _tradeItems[i] / 5;
 
                 _tradeItems[i] = _tradeItems[i] - Functions.GetRandom(10) + Functions.GetRandom(10);
@@ -124,13 +124,13 @@ public class StarSystem extends STSerializableObject {
 
     public boolean itemTraded(TradeItem item) {
         return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && techLevel().castToInt() >= item
+                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
                 .TechProduction().castToInt());
     }
 
     boolean itemUsed(TradeItem item) {
         return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && techLevel().castToInt() >= item
+                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
                 .TechUsage().castToInt());
     }
 
@@ -159,7 +159,7 @@ public class StarSystem extends STSerializableObject {
         Game game = Game.currentGame();
         boolean show = false;
 
-        switch (SpecialEventType()) {
+        switch (getSpecialEventType()) {
             case Artifact:
             case Dragonfly:
             case Experiment:
@@ -343,7 +343,7 @@ public class StarSystem extends STSerializableObject {
     }
 
     public Shipyard shipyard() {
-        shipyardId();
+        //shipyardId();
         return (_shipyardId == spacetrader.game.enums.ShipyardId.NA ? null : Consts.Shipyards[_shipyardId.castToInt()]);
     }
 
@@ -360,36 +360,36 @@ public class StarSystem extends STSerializableObject {
     }
 
     public SpecialEvent specialEvent() {
-        SpecialEventType();
+        //SpecialEventType();
         return (_specialEventType == SpecialEventType.NA ? null
                 : Consts.SpecialEvents[_specialEventType.castToInt()]);
     }
 
-    public SpecialEventType SpecialEventType() {
+    public SpecialEventType getSpecialEventType() {
         return _specialEventType;
     }
 
-    public void SpecialEventType(SpecialEventType value) {
+    public void setSpecialEventType(SpecialEventType value) {
         _specialEventType = value;
     }
 
-    public SpecialResource specialResource() {
+    public SpecialResource getSpecialResource() {
         return Visited() ? _specialResource : SpecialResource.Nothing;
     }
 
-    public SystemPressure systemPressure() {
+    public SystemPressure getSystemPressure() {
         return _systemPressure;
     }
 
-    public void systemPressure(SystemPressure value) {
+    public void setSystemPressure(SystemPressure value) {
         _systemPressure = value;
     }
 
-    public TechLevel techLevel() {
+    public TechLevel getTechLevel() {
         return _techLevel;
     }
 
-    public void techLevel(TechLevel value) {
+    public void setTechLevel(TechLevel value) {
         _techLevel = value;
     }
 

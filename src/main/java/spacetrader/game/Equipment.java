@@ -113,7 +113,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
         Commander cmdr = Game.currentGame().Commander();
         int price = 0;
 
-        if (cmdr != null && cmdr.getCurrentSystem().techLevel().castToInt() >= MinimumTechLevel().castToInt())
+        if (cmdr != null && cmdr.getCurrentSystem().getTechLevel().castToInt() >= MinimumTechLevel().castToInt())
             price = (_price * (100 - cmdr.getShip().Trader())) / 100;
 
         return price;

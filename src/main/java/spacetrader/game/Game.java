@@ -192,7 +192,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         Difficulty();
         if (Difficulty().castToInt() < Difficulty.Normal.castToInt())
-            Commander().getCurrentSystem().SpecialEventType(SpecialEventType.Lottery);
+            Commander().getCurrentSystem().setSpecialEventType(SpecialEventType.Lottery);
 
         _cheats = new GameCheats(this);
         if (name.length() == 0) {
@@ -542,8 +542,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     private void ArrivalUpdatePressuresAndQuantities() {
         for (int i = 0; i < Universe().length; i++) {
             if (Functions.GetRandom(100) < 15)
-                Universe()[i].systemPressure((SystemPressure
-                        .fromInt(Universe()[i].systemPressure() == SystemPressure.None ? Functions.GetRandom(
+                Universe()[i].setSystemPressure((SystemPressure
+                        .fromInt(Universe()[i].getSystemPressure() == SystemPressure.None ? Functions.GetRandom(
                                 SystemPressure.War.castToInt(), SystemPressure.Employment.castToInt() + 1)
                                 : SystemPressure.None.castToInt())));
 
@@ -571,7 +571,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             if (price > 0) {
                 // In case of a special status, adapt price accordingly
-                if (Consts.TradeItems[i].PressurePriceHike() == system.systemPressure())
+                if (Consts.TradeItems[i].PressurePriceHike() == system.getSystemPressure())
                     price = price * 3 / 2;
 
                 // Randomize price a bit
@@ -1125,7 +1125,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             showEncounter = true;
         }
         // Encounter with the stolen Scarab
-        else if (getArrivedViaWormhole() && getClicks() == 20 && WarpSystem().SpecialEventType() != SpecialEventType.NA
+        else if (getArrivedViaWormhole() && getClicks() == 20 && WarpSystem().getSpecialEventType() != SpecialEventType.NA
                 && WarpSystem().specialEvent().Type() == SpecialEventType.ScarabDestroyed
                 && getQuestStatusScarab() == SpecialEvent.StatusScarabHunting) {
             setOpponent(Scarab());
@@ -2325,7 +2325,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (getQuestStatusJapori() == SpecialEvent.StatusJaporiInTransit) {
             int system;
             for (system = 0; system < Universe().length
-                    && Universe()[system].SpecialEventType() != SpecialEventType.Japori; system++)
+                    && Universe()[system].getSpecialEventType() != SpecialEventType.Japori; system++)
                 ;
             GuiFacade.alert(AlertType.AntidoteDestroyed, Universe()[system].name());
             setQuestStatusJapori(SpecialEvent.StatusJaporiNotStarted);
@@ -2377,13 +2377,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         int system = -1;
         for (int i = 0; i < Universe().length; i++) {
             int distance = Functions.Distance(Universe()[baseSystem.castToInt()], Universe()[i]);
-            if (distance >= 70 && distance < bestDistance && Universe()[i].SpecialEventType() == SpecialEventType.NA) {
+            if (distance >= 70 && distance < bestDistance && Universe()[i].getSpecialEventType() == SpecialEventType.NA) {
                 system = i;
                 bestDistance = distance;
             }
         }
         if (system >= 0)
-            Universe()[system].SpecialEventType(specEvent);
+            Universe()[system].setSpecialEventType(specEvent);
 
         return (system >= 0);
     }
@@ -2545,7 +2545,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         StarSystem curSys = Commander().getCurrentSystem();
         boolean remove = true;
 
-        switch (curSys.SpecialEventType()) {
+        switch (curSys.getSpecialEventType()) {
             case Artifact:
                 setQuestStatusArtifact(SpecialEvent.StatusArtifactOnBoard);
                 break;
@@ -2565,7 +2565,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 setQuestStatusDragonfly(getQuestStatusDragonfly() + 1);
                 break;
             case DragonflyDestroyed:
-                curSys.SpecialEventType(SpecialEventType.DragonflyShield);
+                curSys.setSpecialEventType(SpecialEventType.DragonflyShield);
                 remove = false;
                 break;
             case DragonflyShield:
@@ -2606,7 +2606,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case GemulonRescued:
-                curSys.SpecialEventType(SpecialEventType.GemulonFuel);
+                curSys.setSpecialEventType(SpecialEventType.GemulonFuel);
                 setQuestStatusGemulon(SpecialEvent.StatusGemulonFuel);
                 remove = false;
                 break;
@@ -2652,7 +2652,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 setQuestStatusMoon(SpecialEvent.StatusMoonDone);
                 throw new GameEndException(GameEndType.BoughtMoon);
             case Princess:
-                curSys.SpecialEventType(SpecialEventType.PrincessReturned);
+                curSys.setSpecialEventType(SpecialEventType.PrincessReturned);
                 remove = false;
                 setQuestStatusPrincess(getQuestStatusPrincess() + 1);
                 break;
@@ -2682,7 +2682,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
             case PrincessReturned:
                 Commander().getShip().Fire(CrewMemberId.Princess);
-                curSys.SpecialEventType(SpecialEventType.PrincessQuantum);
+                curSys.setSpecialEventType(SpecialEventType.PrincessQuantum);
                 setQuestStatusPrincess(SpecialEvent.StatusPrincessReturned);
                 remove = false;
                 break;
@@ -2706,7 +2706,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case ReactorDelivered:
-                curSys.SpecialEventType(SpecialEventType.ReactorLaser);
+                curSys.setSpecialEventType(SpecialEventType.ReactorLaser);
                 setQuestStatusReactor(SpecialEvent.StatusReactorDelivered);
                 remove = false;
                 break;
@@ -2725,7 +2725,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
             case ScarabDestroyed:
                 setQuestStatusScarab(SpecialEvent.StatusScarabDestroyed);
-                curSys.SpecialEventType(SpecialEventType.ScarabUpgradeHull);
+                curSys.setSpecialEventType(SpecialEventType.ScarabUpgradeHull);
                 remove = false;
                 break;
             case ScarabUpgradeHull:
@@ -2740,7 +2740,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
             case SculptureDelivered:
                 setQuestStatusSculpture(SpecialEvent.StatusSculptureDelivered);
-                curSys.SpecialEventType(SpecialEventType.SculptureHiddenBays);
+                curSys.setSpecialEventType(SpecialEventType.SculptureHiddenBays);
                 remove = false;
                 break;
             case SculptureHiddenBays:
@@ -2814,7 +2814,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             Commander().setCash(Commander().getCash() - curSys.specialEvent().price());
 
         if (remove)
-            curSys.SpecialEventType(SpecialEventType.NA);
+            curSys.setSpecialEventType(SpecialEventType.NA);
     }
 
     public void IncDays(int num) {
@@ -2845,8 +2845,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             setQuestStatusGemulon(Math.min(getQuestStatusGemulon() + num, SpecialEvent.StatusGemulonTooLate));
             if (getQuestStatusGemulon() == SpecialEvent.StatusGemulonTooLate) {
                 StarSystem gemulon = Universe()[StarSystemId.Gemulon.castToInt()];
-                gemulon.SpecialEventType(SpecialEventType.GemulonInvaded);
-                gemulon.techLevel(TechLevel.PreAgricultural);
+                gemulon.setSpecialEventType(SpecialEventType.GemulonInvaded);
+                gemulon.setTechLevel(TechLevel.PreAgricultural);
                 gemulon.PoliticalSystemType(PoliticalSystemType.Anarchy);
             }
         }
@@ -2859,7 +2859,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             setQuestStatusExperiment(Math.min(getQuestStatusExperiment() + num, SpecialEvent.StatusExperimentPerformed));
             if (getQuestStatusExperiment() == SpecialEvent.StatusExperimentPerformed) {
                 setFabricRipProbability(Consts.FabricRipInitialProbability);
-                Universe()[StarSystemId.Daled.castToInt()].SpecialEventType(SpecialEventType.ExperimentFailed);
+                Universe()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentFailed);
                 GuiFacade.alert(AlertType.SpecialExperimentPerformed);
                 NewsAddEvent(NewsEvent.ExperimentPerformed);
             }
@@ -2920,9 +2920,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         while (commander.getCurrentSystem() == null) {
             StarSystem system = Universe()[Functions.GetRandom(Universe().length)];
-            if (system.SpecialEventType() == SpecialEventType.NA
-                    && system.techLevel().castToInt() > TechLevel.PreAgricultural.castToInt()
-                    && system.techLevel().castToInt() < TechLevel.HiTech.castToInt()) {
+            if (system.getSpecialEventType() == SpecialEventType.NA
+                    && system.getTechLevel().castToInt() > TechLevel.PreAgricultural.castToInt()
+                    && system.getTechLevel().castToInt() < TechLevel.HiTech.castToInt()) {
                 // Make sure at least three other systems can be reached
                 int close = 0;
                 for (int i = 0; i < Universe().length && close < 3; i++) {
@@ -2945,8 +2945,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public void NewsAddEventsOnArrival() {
-        if (Commander().getCurrentSystem().SpecialEventType() != SpecialEventType.NA) {
-            switch (Commander().getCurrentSystem().SpecialEventType()) {
+        if (Commander().getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
+            switch (Commander().getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
                     if (Commander().getShip().ArtifactOnBoard())
                         NewsAddEvent(NewsEvent.ArtifactDelivery);
@@ -3079,7 +3079,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         ArrayList systemIdList = new ArrayList();
         for (int system = 0; system < Universe().length; system++) {
-            if (Universe()[system].techLevel() == TechLevel.HiTech)
+            if (Universe()[system].getTechLevel() == TechLevel.HiTech)
                 systemIdList.add(system);
         }
 
@@ -3099,40 +3099,40 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         boolean goodUniverse = true;
         int system;
 
-        Universe()[StarSystemId.Baratas.castToInt()].SpecialEventType(SpecialEventType.DragonflyBaratas);
-        Universe()[StarSystemId.Melina.castToInt()].SpecialEventType(SpecialEventType.DragonflyMelina);
-        Universe()[StarSystemId.Regulas.castToInt()].SpecialEventType(SpecialEventType.DragonflyRegulas);
-        Universe()[StarSystemId.Zalkon.castToInt()].SpecialEventType(SpecialEventType.DragonflyDestroyed);
-        Universe()[StarSystemId.Daled.castToInt()].SpecialEventType(SpecialEventType.ExperimentStopped);
-        Universe()[StarSystemId.Gemulon.castToInt()].SpecialEventType(SpecialEventType.GemulonRescued);
-        Universe()[StarSystemId.Japori.castToInt()].SpecialEventType(SpecialEventType.JaporiDelivery);
-        Universe()[StarSystemId.Devidia.castToInt()].SpecialEventType(SpecialEventType.JarekGetsOut);
-        Universe()[StarSystemId.Utopia.castToInt()].SpecialEventType(SpecialEventType.MoonRetirement);
-        Universe()[StarSystemId.Nix.castToInt()].SpecialEventType(SpecialEventType.ReactorDelivered);
-        Universe()[StarSystemId.Acamar.castToInt()].SpecialEventType(SpecialEventType.SpaceMonsterKilled);
-        Universe()[StarSystemId.Kravat.castToInt()].SpecialEventType(SpecialEventType.WildGetsOut);
-        Universe()[StarSystemId.Endor.castToInt()].SpecialEventType(SpecialEventType.SculptureDelivered);
-        Universe()[StarSystemId.Galvon.castToInt()].SpecialEventType(SpecialEventType.Princess);
-        Universe()[StarSystemId.Centauri.castToInt()].SpecialEventType(SpecialEventType.PrincessCentauri);
-        Universe()[StarSystemId.Inthara.castToInt()].SpecialEventType(SpecialEventType.PrincessInthara);
-        Universe()[StarSystemId.Qonos.castToInt()].SpecialEventType(SpecialEventType.PrincessQonos);
+        Universe()[StarSystemId.Baratas.castToInt()].setSpecialEventType(SpecialEventType.DragonflyBaratas);
+        Universe()[StarSystemId.Melina.castToInt()].setSpecialEventType(SpecialEventType.DragonflyMelina);
+        Universe()[StarSystemId.Regulas.castToInt()].setSpecialEventType(SpecialEventType.DragonflyRegulas);
+        Universe()[StarSystemId.Zalkon.castToInt()].setSpecialEventType(SpecialEventType.DragonflyDestroyed);
+        Universe()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentStopped);
+        Universe()[StarSystemId.Gemulon.castToInt()].setSpecialEventType(SpecialEventType.GemulonRescued);
+        Universe()[StarSystemId.Japori.castToInt()].setSpecialEventType(SpecialEventType.JaporiDelivery);
+        Universe()[StarSystemId.Devidia.castToInt()].setSpecialEventType(SpecialEventType.JarekGetsOut);
+        Universe()[StarSystemId.Utopia.castToInt()].setSpecialEventType(SpecialEventType.MoonRetirement);
+        Universe()[StarSystemId.Nix.castToInt()].setSpecialEventType(SpecialEventType.ReactorDelivered);
+        Universe()[StarSystemId.Acamar.castToInt()].setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
+        Universe()[StarSystemId.Kravat.castToInt()].setSpecialEventType(SpecialEventType.WildGetsOut);
+        Universe()[StarSystemId.Endor.castToInt()].setSpecialEventType(SpecialEventType.SculptureDelivered);
+        Universe()[StarSystemId.Galvon.castToInt()].setSpecialEventType(SpecialEventType.Princess);
+        Universe()[StarSystemId.Centauri.castToInt()].setSpecialEventType(SpecialEventType.PrincessCentauri);
+        Universe()[StarSystemId.Inthara.castToInt()].setSpecialEventType(SpecialEventType.PrincessInthara);
+        Universe()[StarSystemId.Qonos.castToInt()].setSpecialEventType(SpecialEventType.PrincessQonos);
 
         // Assign a wormhole location endpoint for the Scarab.
         for (system = 0; system < Wormholes().length
-                && Universe()[Wormholes()[system]].SpecialEventType() != SpecialEventType.NA; system++)
+                && Universe()[Wormholes()[system]].getSpecialEventType() != SpecialEventType.NA; system++)
             ;
         if (system < Wormholes().length)
-            Universe()[Wormholes()[system]].SpecialEventType(SpecialEventType.ScarabDestroyed);
+            Universe()[Wormholes()[system]].setSpecialEventType(SpecialEventType.ScarabDestroyed);
         else
             goodUniverse = false;
 
         // Find a Hi-Tech system without a special event.
         if (goodUniverse) {
             for (system = 0; system < Universe().length
-                    && !(Universe()[system].SpecialEventType() == SpecialEventType.NA && Universe()[system].techLevel() == TechLevel.HiTech); system++)
+                    && !(Universe()[system].getSpecialEventType() == SpecialEventType.NA && Universe()[system].getTechLevel() == TechLevel.HiTech); system++)
                 ;
             if (system < Universe().length)
-                Universe()[system].SpecialEventType(SpecialEventType.ArtifactDelivery);
+                Universe()[system].setSpecialEventType(SpecialEventType.ArtifactDelivery);
             else
                 goodUniverse = false;
         }
@@ -3163,9 +3163,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 for (int j = 0; j < Consts.SpecialEvents[i].Occurrence(); j++) {
                     do {
                         system = Functions.GetRandom(Universe().length);
-                    } while (Universe()[system].SpecialEventType() != SpecialEventType.NA);
+                    } while (Universe()[system].getSpecialEventType() != SpecialEventType.NA);
 
-                    Universe()[system].SpecialEventType(Consts.SpecialEvents[i].Type());
+                    Universe()[system].setSpecialEventType(Consts.SpecialEvents[i].Type());
                 }
             }
         }
@@ -3772,8 +3772,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     new String[]{Commander().Name(), Commander().getCurrentSystem().name(),
                             Commander().getShip().Name()}));
 
-        if (curSys.systemPressure() != SystemPressure.None)
-            items.add(Strings.NewsPressureInternal[curSys.systemPressure().castToInt()]);
+        if (curSys.getSystemPressure() != SystemPressure.None)
+            items.add(Strings.NewsPressureInternal[curSys.getSystemPressure().castToInt()]);
 
         if (Commander().getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
             String baseStr = Strings.NewsPoliceRecordPsychopath[Functions
@@ -3790,28 +3790,28 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // This is then modified by adding 10% for every level of play less than
         // Impossible
         boolean realNews = false;
-        int minProbability = Consts.StoryProbability * curSys.techLevel().castToInt() + 10
+        int minProbability = Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10
                 * (5 - Difficulty().castToInt());
         for (int i = 0; i < Universe().length; i++) {
             if (Universe()[i].destOk() && Universe()[i] != curSys) {
                 // Special stories that always get shown: moon, millionaire,
                 // shipyard
-                if (Universe()[i].SpecialEventType() != SpecialEventType.NA) {
-                    if (Universe()[i].SpecialEventType() == SpecialEventType.Moon)
+                if (Universe()[i].getSpecialEventType() != SpecialEventType.NA) {
+                    if (Universe()[i].getSpecialEventType() == SpecialEventType.Moon)
                         items.add(Functions.stringVars(Strings.NewsMoonForSale, Universe()[i].name()));
-                    else if (Universe()[i].SpecialEventType() == SpecialEventType.TribbleBuyer)
+                    else if (Universe()[i].getSpecialEventType() == SpecialEventType.TribbleBuyer)
                         items.add(Functions.stringVars(Strings.NewsTribbleBuyer, Universe()[i].name()));
                 }
                 if (Universe()[i].shipyardId() != ShipyardId.NA)
                     items.add(Functions.stringVars(Strings.NewsShipyard, Universe()[i].name()));
 
                 // And not-always-shown stories
-                if (Universe()[i].systemPressure() != SystemPressure.None
-                        && Functions.GetRandom2(100) <= Consts.StoryProbability * curSys.techLevel().castToInt() + 10
+                if (Universe()[i].getSystemPressure() != SystemPressure.None
+                        && Functions.GetRandom2(100) <= Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10
                         * (5 - Difficulty().castToInt())) {
                     int index = Functions.GetRandom2(Strings.NewsPressureExternal.length);
                     String baseStr = Strings.NewsPressureExternal[index];
-                    String pressure = Strings.NewsPressureExternalPressures[Universe()[i].systemPressure().castToInt()];
+                    String pressure = Strings.NewsPressureExternalPressures[Universe()[i].getSystemPressure().castToInt()];
                     items.add(Functions.stringVars(baseStr, pressure, Universe()[i].name()));
                     realNews = true;
                 }

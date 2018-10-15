@@ -256,12 +256,12 @@ class SystemPanel extends Panel {
 
             systemNameLabelValue.setText(system.name());
             systemSizeLabelValue.setText(Strings.Sizes[system.size().castToInt()]);
-            systemTechLevelLabelValue.setText(Strings.TechLevelNames[system.techLevel().castToInt()]);
+            systemTechLevelLabelValue.setText(Strings.TechLevelNames[system.getTechLevel().castToInt()]);
             systemGovermentLabelValue.setText(system.politicalSystem().name());
-            systemResoursesLabelValue.setText(Strings.SpecialResources[system.specialResource().castToInt()]);
+            systemResoursesLabelValue.setText(Strings.SpecialResources[system.getSpecialResource().castToInt()]);
             systemPoliceLabelValue.setText(Strings.ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
             systemPiratesLabelValue.setText(Strings.ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
-            systemPressureLabelValue.setText(Strings.SystemPressures[system.systemPressure().castToInt()]);
+            systemPressureLabelValue.setText(Strings.SystemPressures[system.getSystemPressure().castToInt()]);
             systemPressureLabel.setVisible(true);
             newsButton.setVisible(true);
             hireMercenaryButton.setVisible(mercenaries.length > 0);
