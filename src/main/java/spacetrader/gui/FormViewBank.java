@@ -42,10 +42,10 @@ public class FormViewBank extends SpaceTraderForm {
 
     private final Container components = null;
     private final Game game = Game.currentGame();
-    private final Commander cmdr = Game.currentGame().Commander();
-    private final int MaxLoan = Game.currentGame().Commander().getPoliceRecordScore() >=
+    private final Commander cmdr = Game.currentGame().getCommander();
+    private final int MaxLoan = Game.currentGame().getCommander().getPoliceRecordScore() >=
             Consts.PoliceRecordScoreClean ?
-            Math.min(25000, Math.max(1000, Game.currentGame().Commander().Worth() / 5000 * 500)) :
+            Math.min(25000, Math.max(1000, Game.currentGame().getCommander().Worth() / 5000 * 500)) :
             500;
     private spacetrader.controls.Label lblLoan;
     private spacetrader.controls.Label lblCurrentDebtLabel;

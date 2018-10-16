@@ -57,7 +57,7 @@ public class FormBuyFuel extends SpaceTraderForm {
     public FormBuyFuel() {
         initializeComponent();
 
-        Commander cmdr = game.Commander();
+        Commander cmdr = game.getCommander();
         numAmount.setMaximum(Math.min(cmdr.getCash(), (cmdr.getShip().getFuelTanks() - cmdr.getShip().getFuel())
                 * cmdr.getShip().getFuelCost()));
         numAmount.setValue(numAmount.getMaximum());

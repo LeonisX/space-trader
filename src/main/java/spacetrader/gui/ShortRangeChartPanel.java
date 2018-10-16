@@ -162,7 +162,7 @@ public class ShortRangeChartPanel extends Panel {
                         int y = centerY + (universe[i].Y() - curSys.Y()) * delta;
 
                         if (j == 1) {
-                            if (universe[i] == game.WarpSystem()) {
+                            if (universe[i] == game.getWarpSystem()) {
                                 e.Graphics.DrawLine(DEFAULT_PEN, x - 6, y, x + 6, y);
                                 e.Graphics.DrawLine(DEFAULT_PEN, x, y - 6, x, y + 6);
                             }

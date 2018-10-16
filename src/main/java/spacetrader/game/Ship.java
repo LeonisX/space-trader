@@ -74,7 +74,7 @@ public class Ship extends ShipSpec {
             SetValues(ShipType.Bottle);
         } else {
             int tries = oppType == OpponentType.Mantis ? Game.currentGame().Difficulty().castToInt() + 1 : Math
-                    .max(1, Game.currentGame().Commander().Worth() / 150000
+                    .max(1, Game.currentGame().getCommander().Worth() / 150000
                             + Game.currentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
 
             GenerateOpponentShip(oppType);
@@ -199,7 +199,7 @@ public class Ship extends ShipSpec {
         }
 
         if (Trader() != skill)
-            Game.currentGame().RecalculateBuyPrices(Game.currentGame().Commander().getCurrentSystem());
+            Game.currentGame().RecalculateBuyPrices(Game.currentGame().getCommander().getCurrentSystem());
 
         if (merc != null && !Util.ArrayContains(Consts.SpecialCrewMemberIds, (merc.Id()))) {
             StarSystem[] universe = Game.currentGame().Universe();
@@ -208,7 +208,7 @@ public class Ship extends ShipSpec {
             merc.setCurrentSystemId(StarSystemId.NA);
             while (merc.getCurrentSystemId() == StarSystemId.NA) {
                 StarSystem system = universe[Functions.GetRandom(universe.length)];
-                if (Functions.Distance(system, Game.currentGame().Commander().getCurrentSystem()) < Consts.MaxRange)
+                if (Functions.Distance(system, Game.currentGame().getCommander().getCurrentSystem()) < Consts.MaxRange)
                     merc.setCurrentSystemId(system.Id());
             }
         }
@@ -232,7 +232,7 @@ public class Ship extends ShipSpec {
             for (int bays, i = 0; i < baysToFill; i += bays) {
                 int item = Functions.GetRandom(Consts.TradeItems.length);
                 bays = Math.min(baysToFill - i, 1 + Functions.GetRandom(10 - item));
-                Cargo()[item] += bays;
+                getCargo()[item] += bays;
             }
         }
     }
@@ -246,7 +246,7 @@ public class Ship extends ShipSpec {
         Crew()[0].Fighter(1 + Functions.GetRandom(Consts.MaxSkill));
         Crew()[0].Trader(1 + Functions.GetRandom(Consts.MaxSkill));
 
-        if (Game.currentGame().WarpSystem().Id() == StarSystemId.Kravat && WildOnBoard()
+        if (Game.currentGame().getWarpSystem().Id() == StarSystemId.Kravat && WildOnBoard()
                 && Functions.GetRandom(10) < diff.castToInt() + 1)
             Crew()[0].Engineer(Consts.MaxSkill);
         else
@@ -417,8 +417,8 @@ public class Ship extends ShipSpec {
     }
 
     private void GenerateOpponentShip(OpponentType oppType) {
-        Commander cmdr = Game.currentGame().Commander();
-        PoliticalSystem polSys = Game.currentGame().WarpSystem().politicalSystem();
+        Commander cmdr = Game.currentGame().getCommander();
+        PoliticalSystem polSys = Game.currentGame().getWarpSystem().politicalSystem();
 
         if (oppType == OpponentType.Mantis)
             SetValues(ShipType.Mantis);
@@ -550,10 +550,10 @@ public class Ship extends ShipSpec {
     // *************************************************************************
     public boolean HasTradeableItems() {
         boolean found = false;
-        boolean criminal = Game.currentGame().Commander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
+        boolean criminal = Game.currentGame().getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
         _tradeableItems = new boolean[10];
 
-        for (int i = 0; i < Cargo().length; i++) {
+        for (int i = 0; i < getCargo().length; i++) {
             // Trade only if trader is selling and the item has a buy price on
             // the
             // local system, or trader is buying, and there is a sell price on
@@ -563,10 +563,10 @@ public class Ship extends ShipSpec {
             // buy
             // or sell such items.
             // Simplified this - JAF
-            if (Cargo()[i] > 0
+            if (getCargo()[i] > 0
                     && !(criminal ^ Consts.TradeItems[i].Illegal())
-                    && ((!CommandersShip() && Game.currentGame().PriceCargoBuy()[i] > 0) || (CommandersShip() && Game
-                    .currentGame().PriceCargoSell()[i] > 0))) {
+                    && ((!CommandersShip() && Game.currentGame().getPriceCargoBuy()[i] > 0) || (CommandersShip() && Game
+                    .currentGame().getPriceCargoSell()[i] > 0))) {
                 found = true;
                 TradeableItems()[i] = true;
             }
@@ -598,7 +598,7 @@ public class Ship extends ShipSpec {
             Crew()[slot] = merc;
 
         if (Trader() != skill)
-            Game.currentGame().RecalculateBuyPrices(Game.currentGame().Commander().getCurrentSystem());
+            Game.currentGame().RecalculateBuyPrices(Game.currentGame().getCommander().getCurrentSystem());
     }
 
     public String IllegalSpecialCargoActions() {
@@ -689,8 +689,8 @@ public class Ship extends ShipSpec {
     public void RemoveIllegalGoods() {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (Consts.TradeItems[i].Illegal()) {
-                Cargo()[i] = 0;
-                Game.currentGame().Commander().PriceCargo()[i] = 0;
+                getCargo()[i] = 0;
+                Game.currentGame().getCommander().getPriceCargo()[i] = 0;
             }
         }
     }
@@ -751,7 +751,7 @@ public class Ship extends ShipSpec {
     public int Worth(boolean forInsurance) {
         int price = BaseWorth(forInsurance);
         for (int i = 0; i < _cargo.length; i++)
-            price += Game.currentGame().Commander().PriceCargo()[i];
+            price += Game.currentGame().getCommander().getPriceCargo()[i];
 
         return price;
     }
@@ -760,7 +760,7 @@ public class Ship extends ShipSpec {
         int illegalCargo = 0;
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (Consts.TradeItems[i].Illegal())
-                illegalCargo += Cargo()[i];
+                illegalCargo += getCargo()[i];
         }
 
         return illegalCargo > 0;
@@ -770,7 +770,7 @@ public class Ship extends ShipSpec {
         return CommandersShip() && Game.currentGame().getQuestStatusArtifact() == SpecialEvent.StatusArtifactOnBoard;
     }
 
-    public int[] Cargo() {
+    public int[] getCargo() {
         return _cargo;
     }
 
@@ -790,13 +790,13 @@ public class Ship extends ShipSpec {
     }
 
     public boolean Cloaked() {
-        int oppEng = CommandersShip() ? Game.currentGame().getOpponent().Engineer() : Game.currentGame().Commander()
+        int oppEng = CommandersShip() ? Game.currentGame().getOpponent().Engineer() : Game.currentGame().getCommander()
                 .getShip().Engineer();
         return HasGadget(GadgetType.CloakingDevice) && Engineer() > oppEng;
     }
 
     public boolean CommandersShip() {
-        return this == Game.currentGame().Commander().getShip();
+        return this == Game.currentGame().getCommander().getShip();
     }
 
     public CrewMember[] Crew() {
@@ -815,7 +815,7 @@ public class Ship extends ShipSpec {
         int illegalCargo = 0;
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (Consts.TradeItems[i].Illegal())
-                illegalCargo += Cargo()[i];
+                illegalCargo += getCargo()[i];
         }
 
         return (illegalCargo - HiddenCargoBays()) > 0;
@@ -1049,8 +1049,8 @@ public class Ship extends ShipSpec {
         // Put all of the cargo items in a list and sort it. Reverse it so the
         // most expensive items are first.
         ArrayList<Integer> tradeItems = new ArrayList<Integer>();
-        for (int tradeItem = 0; tradeItem < Cargo().length; tradeItem++) {
-            for (int count = 0; count < Cargo()[tradeItem]; count++)
+        for (int tradeItem = 0; tradeItem < getCargo().length; tradeItem++) {
+            for (int count = 0; count < getCargo()[tradeItem]; count++)
                 tradeItems.add(tradeItem);
         }
         tradeItems.Sort();

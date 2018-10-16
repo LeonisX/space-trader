@@ -110,7 +110,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
     }
 
     public int Price() {
-        Commander cmdr = Game.currentGame().Commander();
+        Commander cmdr = Game.currentGame().getCommander();
         int price = 0;
 
         if (cmdr != null && cmdr.getCurrentSystem().getTechLevel().castToInt() >= MinimumTechLevel().castToInt())

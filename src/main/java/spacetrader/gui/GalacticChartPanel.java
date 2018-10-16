@@ -196,7 +196,7 @@ public class GalacticChartPanel extends Panel {
 
             for (int i = 0; i < universe.length; i++) {
                 int imageIndex = universe[i].Visited() ? IMG_S_V : IMG_S_N;
-                if (universe[i] == game.WarpSystem())
+                if (universe[i] == game.getWarpSystem())
                     imageIndex++;
                 Image image = ilChartImages.getImages()[imageIndex];
 
@@ -217,11 +217,11 @@ public class GalacticChartPanel extends Panel {
     }
 
     private void btnJump_Click(Object sender, spacetrader.controls.EventArgs e) {
-        if (game.WarpSystem() == null)
+        if (game.getWarpSystem() == null)
             GuiFacade.alert(AlertType.ChartJumpNoSystemSelected);
-        else if (game.WarpSystem() == commander.getCurrentSystem())
+        else if (game.getWarpSystem() == commander.getCurrentSystem())
             GuiFacade.alert(AlertType.ChartJumpCurrent);
-        else if (GuiFacade.alert(AlertType.ChartJump, game.WarpSystem().name()) == DialogResult.YES) {
+        else if (GuiFacade.alert(AlertType.ChartJump, game.getWarpSystem().name()) == DialogResult.YES) {
             game.setCanSuperWarp(false);
             try {
                 controller.autoSave_depart();
@@ -267,7 +267,7 @@ public class GalacticChartPanel extends Panel {
             if (game.TargetWormhole()) {
                 lblWormholeLabel.setVisible(true);
                 lblWormhole.setVisible(true);
-                lblWormhole.setText(game.WarpSystem().name());
+                lblWormhole.setText(game.getWarpSystem().name());
             } else {
                 lblWormholeLabel.setVisible(false);
                 lblWormhole.setVisible(false);

@@ -20,6 +20,10 @@ public class Button extends BaseComponent {
         asJButton().setText(text);
     }
 
+    public void setText(int number) {
+        asJButton().setText(Integer.toString(number));
+    }
+
     @Override
     public void setSize(Dimension size) {
         // width should be bigger because font is bigger(?).

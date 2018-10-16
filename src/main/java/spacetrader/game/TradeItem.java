@@ -100,7 +100,7 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
         return compared;
     }
 
-    public int StandardPrice(StarSystem target) {
+    public int standardPrice(StarSystem target) {
         int price = 0;
 
         if (target.itemUsed(this)) {

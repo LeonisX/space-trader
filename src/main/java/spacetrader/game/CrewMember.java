@@ -76,10 +76,10 @@ public class CrewMember extends STSerializableObject {
         if (skillIdList.size() > 0) {
             int skill = (Integer) skillIdList.get(Functions.GetRandom(skillIdList.size()));
 
-            int curTrader = Game.currentGame().Commander().getShip().Trader();
+            int curTrader = Game.currentGame().getCommander().getShip().Trader();
             Skills()[skill] += amount;
-            if (Game.currentGame().Commander().getShip().Trader() != curTrader)
-                Game.currentGame().RecalculateBuyPrices(Game.currentGame().Commander().getCurrentSystem());
+            if (Game.currentGame().getCommander().getShip().Trader() != curTrader)
+                Game.currentGame().RecalculateBuyPrices(Game.currentGame().getCommander().getCurrentSystem());
         }
     }
 

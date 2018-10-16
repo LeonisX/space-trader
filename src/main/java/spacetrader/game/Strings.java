@@ -36,6 +36,7 @@ public class Strings {
 
     public static final String ChartDistance = "^1 to ^2.";
 
+    public static final String CargoAll = "All";
     public static final String CargoBuyAfford = "You can afford to buy ^1.";
     public static final String CargoBuyAvailable = "The trader has ^1 for sale.";
     public static final String CargoBuying = "buying";
@@ -44,6 +45,8 @@ public class Strings {
     public static final String CargoBuyStatement = "At ^1 each, you can buy up to ^2.";
     public static final String CargoBuyStatementSteal = "Your victim has ^1 of these goods.";
     public static final String CargoBuyStatementTrader = "The trader wants to sell ^1 for the price of ^2 each.";
+    public static final String CargoCredit = "cr.";
+    public static final String CargoDump = "Dump";
     public static final String CargoSellDumpCost = "It costs ^1 per unit for disposal.";
     public static final String CargoSelling = "selling";
     public static final String CargoSellNA = "no trade";
@@ -329,8 +332,7 @@ public class Strings {
     // #endregion
 
     // #region EquipmentTypes
-    public static final String[] EquipmentTypes = new String[]{"Weapon", "Shield",
-            "Gadget"};
+    public static final String[] EquipmentTypes = new String[]{"Weapon", "Shield", "Gadget"};
     // #endregion
 
     // #region GadgetNames
@@ -340,8 +342,7 @@ public class Strings {
     // #endregion
 
     // #region GameCompletionTypes
-    public static final String[] GameCompletionTypes = new String[]{"Was killed",
-            "Retired", "Claimed moon"};
+    public static final String[] GameCompletionTypes = new String[]{"Was killed", "Retired", "Claimed moon"};
     // #endregion
 
     // #region ListStrings

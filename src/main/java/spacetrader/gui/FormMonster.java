@@ -680,7 +680,7 @@ public class FormMonster extends SpaceTraderForm {
 
     private String CurrentSystemDisplay(CrewMember merc) {
         return (merc.getCurrentSystem() == null ? Strings.Unknown
-                : (game.Commander().getShip().HasCrew(merc.Id()) ? Functions.stringVars(Strings.MercOnBoard, merc
+                : (game.getCommander().getShip().HasCrew(merc.Id()) ? Functions.stringVars(Strings.MercOnBoard, merc
                 .getCurrentSystem().name()) : merc.getCurrentSystem().name()));
     }
 
@@ -787,7 +787,7 @@ public class FormMonster extends SpaceTraderForm {
 
         for (int i = 0; i < mercIds.length; i++) {
             CrewMember merc = game.Mercenaries()[mercIds[i]];
-            boolean link = merc.getCurrentSystem() != null && !game.Commander().getShip().HasCrew(merc.Id());
+            boolean link = merc.getCurrentSystem() != null && !game.getCommander().getShip().HasCrew(merc.Id());
 
             lblMercIds.setText(lblMercIds.getText() + ((merc.Id().castToInt()) + Strings.newline));
             lblMercNames.setText(lblMercNames.getText() + (merc.Name() + Strings.newline));

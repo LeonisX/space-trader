@@ -3,16 +3,16 @@ package spacetrader.game;
 import spacetrader.game.enums.StarSystemId;
 
 public interface SystemTracker {
+
     void SelectNextSystemWithinRange(boolean forward);
 
     StarSystem TrackedSystem();
-
 
     boolean TargetWormhole();
 
     void TargetWormhole(boolean value);
 
-    StarSystem WarpSystem();
+    StarSystem getWarpSystem();
 
     StarSystem[] Universe();
 

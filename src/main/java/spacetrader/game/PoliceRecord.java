@@ -40,7 +40,7 @@ public class PoliceRecord {
     public static PoliceRecord GetPoliceRecordFromScore(int PoliceRecordScore) {
         int i;
         for (i = 0; i < Consts.PoliceRecords.length
-                && Game.currentGame().Commander().getPoliceRecordScore() >= Consts.PoliceRecords[i].MinScore(); i++)
+                && Game.currentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecords[i].MinScore(); i++)
             ;
         return Consts.PoliceRecords[Math.max(0, i - 1)];
     }

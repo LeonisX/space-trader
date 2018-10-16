@@ -59,7 +59,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
     public FormBuyRepairs() {
         initializeComponent();
 
-        Commander cmdr = game.Commander();
+        Commander cmdr = game.getCommander();
         numAmount.setMaximum(Math.min(cmdr.getCash(), (cmdr.getShip().getHullStrength() - cmdr.getShip().getHull())
                 * cmdr.getShip().getRepairCost()));
         numAmount.setValue(numAmount.getMaximum());

@@ -149,9 +149,9 @@ public class FormShipList extends SpaceTraderForm {
         //#endregion
 
         UpdateAll();
-        Info(game.Commander().getShip().Type().castToInt());
+        Info(game.getCommander().getShip().Type().castToInt());
 
-        if (game.Commander().getShip().getTribbles() > 0 && !game.getTribbleMessage()) {
+        if (game.getCommander().getShip().getTribbles() > 0 && !game.getTribbleMessage()) {
             GuiFacade.alert(AlertType.TribblesTradeIn);
             game.setTribbleMessage(true);
         }
@@ -980,7 +980,7 @@ public class FormShipList extends SpaceTraderForm {
     private void Buy(int id) {
         Info(id);
 
-        if (game.Commander().TradeShip(Consts.ShipSpecs[id], prices[id])) {
+        if (game.getCommander().TradeShip(Consts.ShipSpecs[id], prices[id])) {
             if (game.getQuestStatusScarab() == SpecialEvent.StatusScarabDone)
                 game.setQuestStatusScarab(SpecialEvent.StatusScarabNotStarted);
 
@@ -1008,13 +1008,13 @@ public class FormShipList extends SpaceTraderForm {
         for (int i = 0; i < lblPrice.length; i++) {
             btnBuy[i].setVisible(false);
 
-            if (Consts.ShipSpecs[i].MinimumTechLevel().castToInt() > game.Commander().getCurrentSystem().getTechLevel().castToInt())
+            if (Consts.ShipSpecs[i].MinimumTechLevel().castToInt() > game.getCommander().getCurrentSystem().getTechLevel().castToInt())
                 lblPrice[i].setText(Strings.CargoBuyNA);
-            else if (Consts.ShipSpecs[i].Type() == game.Commander().getShip().Type())
+            else if (Consts.ShipSpecs[i].Type() == game.getCommander().getShip().Type())
                 lblPrice[i].setText(Strings.ShipBuyGotOne);
             else {
                 btnBuy[i].setVisible(true);
-                prices[i] = Consts.ShipSpecs[i].getPrice() - game.Commander().getShip().Worth(false);
+                prices[i] = Consts.ShipSpecs[i].getPrice() - game.getCommander().getShip().Worth(false);
                 lblPrice[i].setText(Functions.formatMoney(prices[i]));
             }
         }

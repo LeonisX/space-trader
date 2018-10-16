@@ -617,7 +617,7 @@ public class FormEquipment extends SpaceTraderForm {
 
     private void Buy() {
         if (selectedEquipment != null && !sellSideSelected) {
-            Commander cmdr = game.Commander();
+            Commander cmdr = game.getCommander();
             EquipmentType baseType = selectedEquipment.EquipmentType();
 
             if (baseType == EquipmentType.Gadget && cmdr.getShip().HasGadget(((Gadget) selectedEquipment).Type())
@@ -659,7 +659,7 @@ public class FormEquipment extends SpaceTraderForm {
                 // will have selected indices of -1, so adding
                 // 2 to the total cancels those out.
                 int slot = lstSellWeapon.getSelectedIndex() + lstSellShield.getSelectedIndex() + lstSellGadget.getSelectedIndex() + 2;
-                Commander cmdr = game.Commander();
+                Commander cmdr = game.getCommander();
 
                 if (selectedEquipment.EquipmentType() == EquipmentType.Gadget
                         && (((Gadget) selectedEquipment).Type() == GadgetType.ExtraCargoBays || ((Gadget) selectedEquipment)
@@ -766,7 +766,7 @@ public class FormEquipment extends SpaceTraderForm {
         lstSellShield.Items.clear();
         lstSellGadget.Items.clear();
 
-        Ship ship = Game.currentGame().Commander().getShip();
+        Ship ship = Game.currentGame().getCommander().getShip();
         Equipment[] equipSell;
         int index;
 

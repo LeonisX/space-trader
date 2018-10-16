@@ -96,12 +96,7 @@ public class Functions {
 
     public static String formatMoney(int num) {
         // return String.format("{0:n0} cr.", num);
-        return String.format("%,d cr.", num);
-    }
-
-    public static String formatMoney(int num, String credit) {
-        // return String.format("{0:n0} cr.", num);
-        return String.format("%,d %s", num, credit);
+        return String.format("%,d %s", num, Strings.CargoCredit);
     }
 
     public static String FormatPercent(int num) {

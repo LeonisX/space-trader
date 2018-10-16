@@ -632,11 +632,11 @@ public class FormPlunder extends SpaceTraderForm {
     }
 
     private void UpdateAll() {
-        Ship ship = game.Commander().getShip();
+        Ship ship = game.getCommander().getShip();
         Ship opp = game.getOpponent();
 
         for (int i = 0; i < btnPlunderQty.length; i++)
-            btnPlunderQty[i].setText("" + opp.Cargo()[i]);
+            btnPlunderQty[i].setText("" + opp.getCargo()[i]);
 
         lblBays.setText(ship.FilledCargoBays() + "/" + ship.CargoBays());
     }

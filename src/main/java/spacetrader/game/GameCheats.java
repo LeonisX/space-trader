@@ -23,7 +23,7 @@ public class GameCheats {
      * @return false if did anything, true if didn't recognized word (i.e., need to search for a system).
      */
     public boolean ConsiderCheat(String[] words, GameController controller) {
-        Ship ship = game.Commander().getShip();
+        Ship ship = game.getCommander().getShip();
 
         String first = words.length > 0 ? words[0] : "";
         String second = words.length > 1 ? words[1] : "";
@@ -42,7 +42,7 @@ public class GameCheats {
                         ship.Shields()[num1] = (Shield) Consts.Shields[num2].Clone();
                     break;
                 case DeLorean:
-                    game.Commander().setDays(Math.max(0, num1));
+                    game.getCommander().setDays(Math.max(0, num1));
                     break;
                 case Diamond:
                     ship.setHullUpgraded(!ship.getHullUpgraded());
@@ -63,7 +63,7 @@ public class GameCheats {
                     }
                     break;
                 case Fame:
-                    game.Commander().setReputationScore(Math.max(0, num1));
+                    game.getCommander().setReputationScore(Math.max(0, num1));
                     break;
                 case Go:
                     game.setSelectedSystemByName(second);
@@ -78,22 +78,22 @@ public class GameCheats {
                 case Ice: {
                     switch (SomeStringsForCheatSwitch.find(second)) {
                         case Pirate:
-                            game.Commander().setKillsPirate(Math.max(0, num2));
+                            game.getCommander().setKillsPirate(Math.max(0, num2));
                             break;
                         case Police:
-                            game.Commander().setKillsPolice(Math.max(0, num2));
+                            game.getCommander().setKillsPolice(Math.max(0, num2));
                             break;
                         case Trader:
-                            game.Commander().setKillsTrader(Math.max(0, num2));
+                            game.getCommander().setKillsTrader(Math.max(0, num2));
                             break;
                     }
                 }
                 break;
                 case Indemnity:
-                    game.Commander().NoClaim(Math.max(0, num1));
+                    game.getCommander().NoClaim(Math.max(0, num1));
                     break;
                 case IOU:
-                    game.Commander().setDebt(Math.max(0, num1));
+                    game.getCommander().setDebt(Math.max(0, num1));
                     break;
                 case Iron:
                     if (num1 >= 0 && num1 < ship.Weapons().length && num2 >= 0 && num2 < Consts.Weapons.length)
@@ -130,17 +130,17 @@ public class GameCheats {
                         int skill = ship.Trader();
                         ship.Crew()[num1] = game.Mercenaries()[num2];
                         if (ship.Trader() != skill)
-                            game.RecalculateBuyPrices(game.Commander().getCurrentSystem());
+                            game.RecalculateBuyPrices(game.getCommander().getCurrentSystem());
                     }
                     break;
                 case RapSheet:
-                    game.Commander().setPoliceRecordScore(num1);
+                    game.getCommander().setPoliceRecordScore(num1);
                     break;
                 case Rarity:
                     game.setChanceOfVeryRareEncounter(Math.max(0, Math.min(1000, num1)));
                     break;
                 case Scratch:
-                    game.Commander().setCash(Math.max(0, num1));
+                    game.getCommander().setCash(Math.max(0, num1));
                     break;
                 case Skin:
                     ship.setHull(Math.max(0, Math.min(ship.getHullStrength(), num1)));
@@ -205,8 +205,8 @@ public class GameCheats {
                 }
                 break;
                 case Swag:
-                    if (num1 >= 0 && num1 < ship.Cargo().length)
-                        ship.Cargo()[num1] = Math.max(0, Math.min(ship.FreeCargoBays() + ship.Cargo()[num1], num2));
+                    if (num1 >= 0 && num1 < ship.getCargo().length)
+                        ship.getCargo()[num1] = Math.max(0, Math.min(ship.FreeCargoBays() + ship.getCargo()[num1], num2));
                     break;
                 case Test:
                     GuiFacade.performTestForm();

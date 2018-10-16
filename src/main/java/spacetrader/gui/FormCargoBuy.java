@@ -51,7 +51,7 @@ public class FormCargoBuy extends SpaceTraderForm {
     public FormCargoBuy(int item, int maxAmount, CargoBuyOp op) {
         initializeComponent();
 
-        Commander cmdr = game.Commander();
+        Commander cmdr = game.getCommander();
         numAmount.setMaximum(maxAmount);
         numAmount.setValue(numAmount.getMinimum());
         this.setText(Functions.stringVars(Strings.CargoTitle, Strings.CargoBuyOps[op.castToInt()],
@@ -62,20 +62,20 @@ public class FormCargoBuy extends SpaceTraderForm {
         switch (op) {
             case BuySystem:
                 lblStatement.setText(Functions.stringVars(Strings.CargoBuyStatement, Functions.formatMoney(game
-                        .PriceCargoBuy()[item]), Functions.formatNumber(maxAmount)));
+                        .getPriceCargoBuy()[item]), Functions.formatNumber(maxAmount)));
 
                 this.setHeight(btnOk.getTop() + btnOk.getHeight() + 34);
                 break;
             case BuyTrader:
-                int afford = Math.min(cmdr.getCash() / game.PriceCargoBuy()[item], cmdr.getShip()
+                int afford = Math.min(cmdr.getCash() / game.getPriceCargoBuy()[item], cmdr.getShip()
                         .FreeCargoBays());
                 if (afford < maxAmount)
                     numAmount.setMaximum(afford);
 
                 lblStatement.setText(Functions.stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].Name(),
-                        Functions.formatMoney(game.PriceCargoBuy()[item])));
+                        Functions.formatMoney(game.getPriceCargoBuy()[item])));
                 lblAvailable.setText(Functions.stringVars(Strings.CargoBuyAvailable, Functions.multiples(game.getOpponent()
-                        .Cargo()[item], Strings.CargoUnit)));
+                        .getCargo()[item], Strings.CargoUnit)));
                 lblAfford.setText(Functions.stringVars(Strings.CargoBuyAfford, Functions.multiples(afford,
                         Strings.CargoUnit)));
 
@@ -91,7 +91,7 @@ public class FormCargoBuy extends SpaceTraderForm {
                 break;
             case Plunder:
                 lblStatement.setText(Functions.stringVars(Strings.CargoBuyStatementSteal, Functions.formatNumber(game
-                        .getOpponent().Cargo()[item])));
+                        .getOpponent().getCargo()[item])));
 
                 this.setHeight(btnOk.getTop() + btnOk.getHeight() + 34);
                 break;

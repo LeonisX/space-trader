@@ -318,7 +318,7 @@ public class TargetSystemPanel extends Panel {
         btnNextSystem.setVisible(game != null);
         btnPrevSystem.setVisible(game != null);
 
-        if (game == null || game.WarpSystem() == null) {
+        if (game == null || game.getWarpSystem() == null) {
             lblTargetName.setText("");
             lblTargetSize.setText("");
             lblTargetTech.setText("");
@@ -331,7 +331,7 @@ public class TargetSystemPanel extends Panel {
             btnWarp.setVisible(false);
             btnTrack.setVisible(false);
         } else {
-            StarSystem system = game.WarpSystem();
+            StarSystem system = game.getWarpSystem();
             int distance = Functions.Distance(commander.getCurrentSystem(), system);
 
             lblTargetName.setText(system.name());

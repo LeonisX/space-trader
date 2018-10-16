@@ -43,7 +43,7 @@ public class FormShipyard extends SpaceTraderForm {
     //#region Control Declarations
 
     private final Game game = Game.currentGame();
-    private final Shipyard shipyard = Game.currentGame().Commander().getCurrentSystem().shipyard();
+    private final Shipyard shipyard = Game.currentGame().getCommander().getCurrentSystem().shipyard();
     private final ShipType[] imgTypes = new ShipType[]{ShipType.Flea, ShipType.Gnat, ShipType.Firefly,
             ShipType.Mosquito, ShipType.Bumblebee, ShipType.Beetle, ShipType.Hornet, ShipType.Grasshopper,
             ShipType.Termite, ShipType.Wasp, ShipType.Custom};
@@ -1025,7 +1025,7 @@ public class FormShipyard extends SpaceTraderForm {
             ShipTemplate template = (ShipTemplate) selTemplate.getSelectedItem();
 
             if (template.Name() == Strings.ShipNameCurrentShip)
-                txtName.setText(game.Commander().getShip().Name());
+                txtName.setText(game.getCommander().getShip().Name());
             else if (template.Name().endsWith(Strings.ShipNameTemplateSuffixDefault)
                     || template.Name().endsWith(Strings.ShipNameTemplateSuffixMinimum))
                 txtName.setText("");
@@ -1073,7 +1073,7 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void LoadTemplateList() {
-        ShipTemplate currentShip = new ShipTemplate(game.Commander().getShip(), Strings.ShipNameCurrentShip);
+        ShipTemplate currentShip = new ShipTemplate(game.getCommander().getShip(), Strings.ShipNameCurrentShip);
         selTemplate.items.add(currentShip);
 
         selTemplate.items.add(Consts.ShipTemplateSeparator);
@@ -1207,17 +1207,17 @@ public class FormShipyard extends SpaceTraderForm {
 
     private void btnConstruct_Click(Object sender, EventArgs e) {
         if (ConstructButtonEnabled()) {
-            if (game.Commander().TradeShip(shipyard.ShipSpec(), shipyard.TotalCost(), txtName.getText())) {
+            if (game.getCommander().TradeShip(shipyard.ShipSpec(), shipyard.TotalCost(), txtName.getText())) {
                 Strings.ShipNames[ShipType.Custom.castToInt()] = txtName.getText();
 
                 if (game.getQuestStatusScarab() == SpecialEvent.StatusScarabDone)
                     game.setQuestStatusScarab(SpecialEvent.StatusScarabNotStarted);
 
                 // Replace the current custom images with the new ones.
-                if (game.Commander().getShip().ImageIndex() == ShipType.Custom.castToInt()) {
+                if (game.getCommander().getShip().ImageIndex() == ShipType.Custom.castToInt()) {
                     GuiEngine.imageProvider.setCustomShipImages(customImages);
 
-                    game.Commander().getShip().UpdateCustomImageOffsetConstants();
+                    game.getCommander().getShip().UpdateCustomImageOffsetConstants();
                 }
 
                 GuiFacade.alert(AlertType.ShipDesignThanks, shipyard.Name());

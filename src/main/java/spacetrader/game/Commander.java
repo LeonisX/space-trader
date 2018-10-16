@@ -238,7 +238,7 @@ public class Commander extends CrewMember {
         _noclaim = Math.max(0, Math.min(Consts.MaxNoClaim, value));
     }
 
-    public int[] PriceCargo() {
+    public int[] getPriceCargo() {
         return _priceCargo;
     }
 

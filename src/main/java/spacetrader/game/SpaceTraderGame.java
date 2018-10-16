@@ -7,11 +7,11 @@ package spacetrader.game;
  */
 public interface SpaceTraderGame {
 
-    Commander Commander();
+    Commander getCommander();
 
-    int[] PriceCargoBuy();
+    int[] getPriceCargoBuy();
 
-    int[] PriceCargoSell();
+    int[] getPriceCargoSell();
 
-    StarSystem WarpSystem();
+    StarSystem getWarpSystem();
 }

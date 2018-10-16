@@ -113,8 +113,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         System.out.println("===================");
         dumpStrings(getFrame(), this.getName());
 
-        loadDimensions(getFrame(), this.getName());
-        loadStrings(getFrame(), this.getName());
+        //loadDimensions(getFrame(), this.getName());
+        //loadStrings(getFrame(), this.getName());
     }
 
     private void setAllComponentNames(Object obj) {
@@ -339,7 +339,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         systemPanel = new SystemPanel(this);
         dockPanel = new DockPanel(this);
-        cargoPanel = new CargoPanel(this);
+        cargoPanel = new CargoPanel();
         shipyardPanel = new ShipyardPanel(this);
         galacticChartPanel = new GalacticChartPanel(this, ilChartImages);
         shortRangeChartPanel = new ShortRangeChartPanel(this, ilChartImages);
@@ -833,7 +833,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     public void setGame(Game game) {
         this.game = game;
         controller = new GameController(game, this);
-        commander = game == null ? null : game.Commander();
+        commander = (game == null) ? null : game.getCommander();
 
         dockPanel.setGame(commander);
         cargoPanel.setGame(game, controller);

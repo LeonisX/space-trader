@@ -586,10 +586,10 @@ public class FormJettison extends SpaceTraderForm {
     }
 
     private void UpdateAll() {
-        Ship ship = game.Commander().getShip();
+        Ship ship = game.getCommander().getShip();
 
         for (int i = 0; i < btnJettisonQty.length; i++)
-            btnJettisonQty[i].setText("" + ship.Cargo()[i]);
+            btnJettisonQty[i].setText("" + ship.getCargo()[i]);
 
         lblBays.setText(ship.FilledCargoBays() + "/" + ship.CargoBays());
     }

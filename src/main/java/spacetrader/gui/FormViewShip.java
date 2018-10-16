@@ -51,7 +51,7 @@ public class FormViewShip extends SpaceTraderForm {
     //#region Member Declarations
 
     private Game game = Game.currentGame();
-    private Ship ship = Game.currentGame().Commander().getShip();
+    private Ship ship = Game.currentGame().getCommander().getShip();
 
     //#endregion
 

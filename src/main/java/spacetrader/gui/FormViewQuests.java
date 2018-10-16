@@ -154,7 +154,7 @@ public class FormViewQuests extends SpaceTraderForm {
                                         - game.getQuestStatusExperiment(), "day")));
         }
 
-        if (game.Commander().getShip().ReactorOnBoard()) {
+        if (game.getCommander().getShip().ReactorOnBoard()) {
             if (game.getQuestStatusReactor() == SpecialEvent.StatusReactorFuelOk)
                 quests.add(Strings.QuestReactor);
             else
@@ -197,7 +197,7 @@ public class FormViewQuests extends SpaceTraderForm {
                 quests.add(Strings.QuestPrincessQonos);
                 break;
             case SpecialEvent.StatusPrincessRescued:
-                if (game.Commander().getShip().PrincessOnBoard()) {
+                if (game.getCommander().getShip().PrincessOnBoard()) {
                     if (game.getQuestStatusPrincess() == SpecialEvent.StatusPrincessImpatient)
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturningImpatient,
@@ -238,7 +238,7 @@ public class FormViewQuests extends SpaceTraderForm {
                                                 .castToInt()].Location().name()));
         }
 
-        if (game.Commander().getShip().SculptureOnBoard())
+        if (game.getCommander().getShip().SculptureOnBoard())
             quests.add(Strings.QuestSculpture);
         else if (game.getQuestStatusReactor() == SpecialEvent.StatusReactorDelivered)
             quests.add(Strings.QuestSculptureHiddenBays);
@@ -246,21 +246,21 @@ public class FormViewQuests extends SpaceTraderForm {
         if (game.getQuestStatusArtifact() == SpecialEvent.StatusArtifactOnBoard)
             quests.add(Strings.QuestArtifact);
 
-        if (game.Commander().getShip().JarekOnBoard()) {
+        if (game.getCommander().getShip().JarekOnBoard()) {
             if (game.getQuestStatusJarek() == SpecialEvent.StatusJarekImpatient)
                 quests.add(Strings.QuestJarekImpatient);
             else
                 quests.add(Strings.QuestJarek);
         }
 
-        if (game.Commander().getShip().WildOnBoard()) {
+        if (game.getCommander().getShip().WildOnBoard()) {
             if (game.getQuestStatusWild() == SpecialEvent.StatusWildImpatient)
                 quests.add(Strings.QuestWildImpatient);
             else
                 quests.add(Strings.QuestWild);
         }
 
-        if (game.Commander().getShip().getTribbles() > 0)
+        if (game.getCommander().getShip().getTribbles() > 0)
             quests.add(Strings.QuestTribbles);
 
         if (game.getQuestStatusMoon() == SpecialEvent.StatusMoonBought)

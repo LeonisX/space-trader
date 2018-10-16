@@ -30,12 +30,12 @@ public class GameController {
     }
 
     public void cargoBuy(int tradeItem, boolean max) {
-        game.CargoBuySystem(tradeItem, max);
+        game.cargoBuySystem(tradeItem, max);
         mainWindow.updateAll();
     }
 
     public void cargoSell(int tradeItem, boolean all) {
-        if (game.PriceCargoSell()[tradeItem] > 0)
+        if (game.getPriceCargoSell()[tradeItem] > 0)
             game.CargoSellSystem(tradeItem, all);
         else
             game.CargoDump(tradeItem);
@@ -76,8 +76,8 @@ public class GameController {
         GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.Score() / 10), Functions
                 .formatNumber(game.Score() % 10));
 
-        HighScoreRecord candidate = new HighScoreRecord(game.Commander().Name(), game.Score(), game.getEndStatus(),
-                game.Commander().getDays(), game.Commander().Worth(), game.Difficulty());
+        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().Name(), game.Score(), game.getEndStatus(),
+                game.getCommander().getDays(), game.getCommander().Worth(), game.Difficulty());
         if (candidate.CompareTo(Functions.GetHighScores()[0]) > 0) {
             if (game.Cheats().cheatMode)
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
@@ -98,7 +98,7 @@ public class GameController {
             if (obj != null) {
                 mainWindow.setGame(new Game((Hashtable) obj, mainWindow));
                 SaveGameFile = fileName;
-                SaveGameDays = game.Commander().getDays();
+                SaveGameDays = game.getCommander().getDays();
 
                 mainWindow.setInGameControlsEnabled(true);
                 mainWindow.updateAll();
@@ -112,7 +112,7 @@ public class GameController {
         if (Functions.saveFile(fileName, game.serialize()) && saveFileName)
             SaveGameFile = fileName;
 
-        SaveGameDays = game.Commander().getDays();
+        SaveGameDays = game.getCommander().getDays();
     }
 
     public void autoSave_arrive() {

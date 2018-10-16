@@ -418,7 +418,7 @@ public class FormViewCommander extends SpaceTraderForm {
     // #endregion
 
     private void InitializeScreen() {
-        Commander cmdr = game.Commander();
+        Commander cmdr = game.getCommander();
 
         lblName.setText(cmdr.Name());
         lblDifficulty.setText(Strings.DifficultyLevels[game.Difficulty().castToInt()]);
