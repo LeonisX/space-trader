@@ -334,7 +334,7 @@ public class TargetSystemPanel extends Panel {
             StarSystem system = game.getWarpSystem();
             int distance = Functions.Distance(commander.getCurrentSystem(), system);
 
-            lblTargetName.setText(system.name());
+            lblTargetName.setText(system.getName());
             lblTargetSize.setText(Strings.Sizes[system.size().castToInt()]);
             lblTargetTech.setText(Strings.TechLevelNames[system.getTechLevel().castToInt()]);
             lblTargetPolSys.setText(system.politicalSystem().name());

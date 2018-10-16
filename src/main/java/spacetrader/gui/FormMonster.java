@@ -671,7 +671,7 @@ public class FormMonster extends SpaceTraderForm {
 
             if (compareVal == 0) // Default sort - System Name
             {
-                compareVal = A.name().compareTo(B.name());
+                compareVal = A.getName().compareTo(B.getName());
             }
         }
 
@@ -681,7 +681,7 @@ public class FormMonster extends SpaceTraderForm {
     private String CurrentSystemDisplay(CrewMember merc) {
         return (merc.getCurrentSystem() == null ? Strings.Unknown
                 : (game.getCommander().getShip().HasCrew(merc.Id()) ? Functions.stringVars(Strings.MercOnBoard, merc
-                .getCurrentSystem().name()) : merc.getCurrentSystem().name()));
+                .getCurrentSystem().getName()) : merc.getCurrentSystem().getName()));
     }
 
     private void PopulateIdArrays() {
@@ -800,12 +800,12 @@ public class FormMonster extends SpaceTraderForm {
                 int start = lblMercSystems.getText().length();
                 lblMercSystems.setText(lblMercSystems.getText() + (CurrentSystemDisplay(merc) + Strings.newline));
                 if (link)
-                    lblMercSystems.Links.add(start, merc.getCurrentSystem().name().length(), merc.getCurrentSystem().name());
+                    lblMercSystems.Links.add(start, merc.getCurrentSystem().getName().length(), merc.getCurrentSystem().getName());
             } else {
                 int start = lblMercSystems2.getText().length();
                 lblMercSystems2.setText(lblMercSystems2.getText() + (CurrentSystemDisplay(merc) + Strings.newline));
                 if (link)
-                    lblMercSystems2.Links.add(start, merc.getCurrentSystem().name().length(), merc.getCurrentSystem().name());
+                    lblMercSystems2.Links.add(start, merc.getCurrentSystem().getName().length(), merc.getCurrentSystem().getName());
             }
         }
 
@@ -828,10 +828,10 @@ public class FormMonster extends SpaceTraderForm {
             StarSystem system = game.getUniverse()[questSystemIds[i]];
             int start = lblQuestSystems.getText().length();
 
-            lblQuestSystems.setText(lblQuestSystems.getText() + (system.name() + Strings.newline));
+            lblQuestSystems.setText(lblQuestSystems.getText() + (system.getName() + Strings.newline));
             lblQuests.setText(lblQuests.getText() + (system.specialEvent().getTitle() + Strings.newline));
 
-            lblQuestSystems.Links.add(start, system.name().length(), system.name());
+            lblQuestSystems.Links.add(start, system.getName().length(), system.getName());
         }
 
         lblQuestSystems.setText(lblQuestSystems.getText().trim());
@@ -847,10 +847,10 @@ public class FormMonster extends SpaceTraderForm {
             StarSystem system = game.getUniverse()[shipyardSystemIds[i]];
             int start = lblShipyardSystems.getText().length();
 
-            lblShipyardSystems.setText(lblShipyardSystems.getText() + (system.name() + Strings.newline));
+            lblShipyardSystems.setText(lblShipyardSystems.getText() + (system.getName() + Strings.newline));
             lblShipyards.setText(lblShipyards.getText() + (system.getShipyard().Name() + Strings.newline));
 
-            lblShipyardSystems.Links.add(start, system.name().length(), system.name());
+            lblShipyardSystems.Links.add(start, system.getName().length(), system.getName());
         }
 
         lblShipyardSystems.setText(lblShipyardSystems.getText().trim());

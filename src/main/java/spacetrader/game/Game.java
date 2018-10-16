@@ -874,7 +874,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         _clicks = clicks;
     }
 
-    public GameCheats Cheats() {
+    public GameCheats getCheats() {
         return _cheats;
     }
 
@@ -2325,7 +2325,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             for (system = 0; system < getUniverse().length
                     && getUniverse()[system].getSpecialEventType() != SpecialEventType.Japori; system++)
                 ;
-            GuiFacade.alert(AlertType.AntidoteDestroyed, getUniverse()[system].name());
+            GuiFacade.alert(AlertType.AntidoteDestroyed, getUniverse()[system].getName());
             setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_NOT_STARTED);
         }
 
@@ -2690,8 +2690,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     remove = false;
                 } else {
                     if (getCommander().getShip().WildOnBoard()) {
-                        if (GuiFacade.alert(AlertType.WildWontStayAboardReactor, curSys.name()) == DialogResult.OK) {
-                            GuiFacade.alert(AlertType.WildLeavesShip, curSys.name());
+                        if (GuiFacade.alert(AlertType.WildWontStayAboardReactor, curSys.getName()) == DialogResult.OK) {
+                            GuiFacade.alert(AlertType.WildLeavesShip, curSys.getName());
                             setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
                         } else
                             remove = false;
@@ -3366,10 +3366,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             // if Wild is aboard, make sure ship is armed!
             if (getCommander().getShip().WildOnBoard() && !getCommander().getShip().HasWeapon(WeaponType.BeamLaser, false)) {
-                if (GuiFacade.alert(AlertType.WildWontStayAboardLaser, getCommander().getCurrentSystem().name()) == DialogResult.CANCEL)
+                if (GuiFacade.alert(AlertType.WildWontStayAboardLaser, getCommander().getCurrentSystem().getName()) == DialogResult.CANCEL)
                     wildOk = false;
                 else {
-                    GuiFacade.alert(AlertType.WildLeavesShip, getCommander().getCurrentSystem().name());
+                    GuiFacade.alert(AlertType.WildLeavesShip, getCommander().getCurrentSystem().getName());
                     setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
                 }
             }
@@ -3719,7 +3719,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         }
 
         return Functions.stringVars(Strings.EncounterText, new String[]{
-                Functions.multiples(getClicks(), Strings.DistanceSubunit), getWarpSystem().name(), encounterPretext,
+                Functions.multiples(getClicks(), Strings.DistanceSubunit), getWarpSystem().getName(), encounterPretext,
                 getOpponent().Name().toLowerCase()});
     }
 
@@ -3753,7 +3753,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         String[] heads = Strings.NewsMastheads[getCommander().getCurrentSystem().PoliticalSystemType().castToInt()];
         String head = heads[getCommander().getCurrentSystem().Id().castToInt() % heads.length];
 
-        return Functions.stringVars(head, getCommander().getCurrentSystem().name());
+        return Functions.stringVars(head, getCommander().getCurrentSystem().getName());
     }
 
     public String NewspaperText() {
@@ -3767,7 +3767,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         for (Iterator en = NewsEvents().iterator(); en.hasNext(); )
             items.add(Functions.stringVars(Strings.NewsEvent[((spacetrader.game.enums.NewsEvent) en.next()).castToInt()],
-                    new String[]{getCommander().Name(), getCommander().getCurrentSystem().name(),
+                    new String[]{getCommander().Name(), getCommander().getCurrentSystem().getName(),
                             getCommander().getShip().Name()}));
 
         if (curSys.getSystemPressure() != SystemPressure.None)
@@ -3776,10 +3776,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (getCommander().getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
             String baseStr = Strings.NewsPoliceRecordPsychopath[Functions
                     .GetRandom2(Strings.NewsPoliceRecordPsychopath.length)];
-            items.add(Functions.stringVars(baseStr, getCommander().Name(), curSys.name()));
+            items.add(Functions.stringVars(baseStr, getCommander().Name(), curSys.getName()));
         } else if (getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreHero) {
             String baseStr = Strings.NewsPoliceRecordHero[Functions.GetRandom2(Strings.NewsPoliceRecordHero.length)];
-            items.add(Functions.stringVars(baseStr, getCommander().Name(), curSys.name()));
+            items.add(Functions.stringVars(baseStr, getCommander().Name(), curSys.getName()));
         }
 
         // and now, finally, useful news (if any)
@@ -3796,12 +3796,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // shipyard
                 if (getUniverse()[i].getSpecialEventType() != SpecialEventType.NA) {
                     if (getUniverse()[i].getSpecialEventType() == SpecialEventType.Moon)
-                        items.add(Functions.stringVars(Strings.NewsMoonForSale, getUniverse()[i].name()));
+                        items.add(Functions.stringVars(Strings.NewsMoonForSale, getUniverse()[i].getName()));
                     else if (getUniverse()[i].getSpecialEventType() == SpecialEventType.TribbleBuyer)
-                        items.add(Functions.stringVars(Strings.NewsTribbleBuyer, getUniverse()[i].name()));
+                        items.add(Functions.stringVars(Strings.NewsTribbleBuyer, getUniverse()[i].getName()));
                 }
                 if (getUniverse()[i].getShipyardId() != ShipyardId.NA)
-                    items.add(Functions.stringVars(Strings.NewsShipyard, getUniverse()[i].name()));
+                    items.add(Functions.stringVars(Strings.NewsShipyard, getUniverse()[i].getName()));
 
                 // And not-always-shown stories
                 if (getUniverse()[i].getSystemPressure() != SystemPressure.None
@@ -3810,7 +3810,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     int index = Functions.GetRandom2(Strings.NewsPressureExternal.length);
                     String baseStr = Strings.NewsPressureExternal[index];
                     String pressure = Strings.NewsPressureExternalPressures[getUniverse()[i].getSystemPressure().castToInt()];
-                    items.add(Functions.stringVars(baseStr, pressure, getUniverse()[i].name()));
+                    items.add(Functions.stringVars(baseStr, pressure, getUniverse()[i].getName()));
                     realNews = true;
                 }
             }
@@ -3894,7 +3894,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public void setSelectedSystemByName(String value) {
         boolean found = false;
         for (int i = 0; i < getUniverse().length && !found; i++) {
-            String name = getUniverse()[i].name();
+            String name = getUniverse()[i].getName();
             if (name.toLowerCase().contains(value.toLowerCase())) {
                 SelectedSystemId(StarSystemId.fromInt(i));
                 found = true;

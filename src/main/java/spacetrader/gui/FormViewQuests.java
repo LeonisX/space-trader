@@ -228,14 +228,14 @@ public class FormViewQuests extends SpaceTraderForm {
                                 .stringVars(
                                         Strings.QuestScarabNotify,
                                         Consts.SpecialEvents[SpecialEventType.ScarabDestroyed
-                                                .castToInt()].getLocation().name()));
+                                                .castToInt()].getLocation().getName()));
             else
                 quests
                         .add(Functions
                                 .stringVars(
                                         Strings.QuestScarabHull,
                                         Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull
-                                                .castToInt()].getLocation().name()));
+                                                .castToInt()].getLocation().getName()));
         }
 
         if (game.getCommander().getShip().SculptureOnBoard())

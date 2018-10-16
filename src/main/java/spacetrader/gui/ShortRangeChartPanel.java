@@ -145,7 +145,7 @@ public class ShortRangeChartPanel extends Panel {
 
                 if (game.isShowTrackedRange())
                     e.Graphics.DrawString(Functions.stringVars(Strings.ChartDistance, Functions.multiples(dist,
-                            Strings.DistanceUnit), trackSys.name()), font, new SolidBrush(Color.black), 0,
+                            Strings.DistanceUnit), trackSys.getName()), font, new SolidBrush(Color.black), 0,
                             picShortRangeChart.getHeight() - 13);
             }
 
@@ -184,8 +184,8 @@ public class ShortRangeChartPanel extends Panel {
                                 ilChartImages.draw(e.Graphics, xW - OFF_X, y - OFF_Y, IMG_G_W);
                             }
                         } else {
-                            SizeF size = e.Graphics.MeasureString(universe[i].name(), getFont());
-                            e.Graphics.DrawString(universe[i].name(), smallFont, new SolidBrush(Color.black), x
+                            SizeF size = e.Graphics.MeasureString(universe[i].getName(), getFont());
+                            e.Graphics.DrawString(universe[i].getName(), smallFont, new SolidBrush(Color.black), x
                                     - size.width / 2 + OFF_X, y /*- size.Height*/ - 5);
                             // implementations differ as to which point we start the string at. --aviv
                         }

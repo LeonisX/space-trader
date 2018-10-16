@@ -326,7 +326,7 @@ public class StarSystem extends STSerializableObject {
         return (CrewMember[]) forHire.toArray(new CrewMember[0]);
     }
 
-    public String name() {
+    public String getName() {
         return Strings.SystemNames[_id.castToInt()];
     }
 

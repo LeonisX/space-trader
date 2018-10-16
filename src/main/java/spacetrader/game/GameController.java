@@ -79,7 +79,7 @@ public class GameController {
         HighScoreRecord candidate = new HighScoreRecord(game.getCommander().Name(), game.Score(), game.getEndStatus(),
                 game.getCommander().getDays(), game.getCommander().Worth(), game.Difficulty());
         if (candidate.CompareTo(Functions.GetHighScores()[0]) > 0) {
-            if (game.Cheats().cheatMode)
+            if (game.getCheats().cheatMode)
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
             else {
                 addHighScore(candidate);

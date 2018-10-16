@@ -661,7 +661,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         dockPanel.update();
         cargoPanel.update();
         shipyardPanel.update();
-        galacticChartPanel.Refresh();
+        galacticChartPanel.refresh();
         shortRangeChartPanel.Refresh();
         targetSystemPanel.update();
 

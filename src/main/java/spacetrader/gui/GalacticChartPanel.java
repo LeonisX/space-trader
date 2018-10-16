@@ -1,7 +1,9 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.Button;
 import spacetrader.controls.Image;
+import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
@@ -11,19 +13,8 @@ import spacetrader.util.Util;
 
 import java.awt.*;
 
-/*
- * Aviv, aug 09:
- *
- * - fixed tracking to work (was string==, changed with .equals)
- *
- * - extracted cheats to class
- *
- * - replaced Game with SystemTracker where possible.
- */
 public class GalacticChartPanel extends Panel {
 
-    private final SpaceTrader mainWindow;
-    private final spacetrader.controls.ImageList ilChartImages;
     private final int OFF_X = ChartsGraphicsConsts.OFF_X;
     private final int OFF_Y = ChartsGraphicsConsts.OFF_Y;
     private final int OFF_X_WORM = ChartsGraphicsConsts.OFF_X_WORM;
@@ -37,15 +28,21 @@ public class GalacticChartPanel extends Panel {
     private final int IMG_S_W = ChartsGraphicsConsts.IMG_S_W;
     private final Pen DEFAULT_PEN = new Pen(Color.black);
     private final Brush DEFAULT_BRUSH = new SolidBrush(Color.white);
+
+    private final SpaceTrader mainWindow;
+
+    private final ImageList ilChartImages;
+
     private SystemTracker game = null;
     private GameController controller = null;
     private Commander commander;
     private GameCheats cheats;
-    private spacetrader.controls.Label lblWormhole;
-    private spacetrader.controls.Label lblWormholeLabel;
-    private spacetrader.controls.Button btnJump;
-    private spacetrader.controls.Button btnFind;
-    private spacetrader.controls.PictureBox picGalacticChart;
+
+    private Label lblWormhole;
+    private Label lblWormholeLabel;
+    private Button btnJump;
+    private Button btnFind;
+    private PictureBox picGalacticChart;
 
     GalacticChartPanel(SpaceTrader mainWindow, ImageList images) {
         this.mainWindow = mainWindow;
@@ -56,15 +53,15 @@ public class GalacticChartPanel extends Panel {
         this.game = game;
         this.controller = controller;
         this.commander = commander;
-        cheats = game == null ? null : game.Cheats();
+        cheats = (game == null) ? null : game.getCheats();
     }
 
     void initializeComponent() {
-        picGalacticChart = new spacetrader.controls.PictureBox();
-        lblWormhole = new spacetrader.controls.Label();
-        lblWormholeLabel = new spacetrader.controls.Label();
-        btnJump = new spacetrader.controls.Button();
-        btnFind = new spacetrader.controls.Button();
+        picGalacticChart = new PictureBox();
+        lblWormhole = new Label();
+        lblWormholeLabel = new Label();
+        btnJump = new Button();
+        btnFind = new Button();
 
         picGalacticChart.setBackground(Color.white);
         picGalacticChart.setLocation(new Point(8, 16));
@@ -74,64 +71,55 @@ public class GalacticChartPanel extends Panel {
         picGalacticChart.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
             @Override
             public void handle(Object sender, PaintEventArgs e) {
-                picGalacticChart_Paint(sender, e);
+                picGalacticChart_Paint(e);
             }
         });
         picGalacticChart.setMouseDown(new spacetrader.controls.EventHandler<Object, MouseEventArgs>() {
             @Override
             public void handle(Object sender, MouseEventArgs e) {
-                picGalacticChart_MouseDown(sender, e);
+                picGalacticChart_MouseDown(e);
             }
         });
 
-        //
-        // boxGalacticChart
-        //
         anchor = (((AnchorStyles.Top_Right)));
         setBackground(SystemColors.Control);
+
         controls.add(lblWormhole);
         controls.add(lblWormholeLabel);
         controls.add(btnJump);
         controls.add(btnFind);
         controls.add(picGalacticChart);
-        setSize(new spacetrader.controls.Size(176, 168));
+
+        setSize(new Size(176, 168));
         setTabIndex(5);
         setTabStop(false);
         setText("Galactic Chart");
-        //
-        // lblWormhole
-        //
+
         lblWormhole.setLocation(new Point(8, 148));
-        lblWormhole.setSize(new spacetrader.controls.Size(72, 13));
+        lblWormhole.setSize(new Size(72, 13));
         lblWormhole.setTabIndex(29);
         lblWormhole.setText("Tarchannen");
-        //
-        // lblWormholeLabel
-        //
+
         lblWormholeLabel.setLocation(new Point(8, 135));
-        lblWormholeLabel.setSize(new spacetrader.controls.Size(72, 13));
+        lblWormholeLabel.setSize(new Size(72, 13));
         lblWormholeLabel.setTabIndex(28);
         lblWormholeLabel.setText("Wormhole to");
-        //
-        // btnJump
-        //
+
         btnJump.setFlatStyle(FlatStyle.FLAT);
         btnJump.setLocation(new Point(81, 138));
-        btnJump.setSize(new spacetrader.controls.Size(42, 22));
+        btnJump.setSize(new Size(42, 22));
         btnJump.setTabIndex(55);
         btnJump.setText("Jump");
         btnJump.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnJump_Click(sender, e);
+                btnJump_Click();
             }
         });
-        //
-        // btnFind
-        //
+
         btnFind.setFlatStyle(FlatStyle.FLAT);
         btnFind.setLocation(new Point(132, 138));
-        btnFind.setSize(new spacetrader.controls.Size(36, 22));
+        btnFind.setSize(new Size(36, 22));
         btnFind.setTabIndex(56);
         btnFind.setText("Find");
         btnFind.setClick(new EventHandler<Object, EventArgs>() {
@@ -143,7 +131,7 @@ public class GalacticChartPanel extends Panel {
 
     }
 
-    private void picGalacticChart_MouseDown(Object sender, spacetrader.controls.MouseEventArgs e) {
+    private void picGalacticChart_MouseDown(spacetrader.controls.MouseEventArgs e) {
         if (e.Button != MouseButtons.Left || game == null)
             return;
 
@@ -174,7 +162,7 @@ public class GalacticChartPanel extends Panel {
             mainWindow.updateAll();
     }
 
-    private void picGalacticChart_Paint(Object sender, spacetrader.controls.PaintEventArgs e) {
+    private void picGalacticChart_Paint(spacetrader.controls.PaintEventArgs e) {
         if (game != null) {
             StarSystem[] universe = game.getUniverse();
             int[] wormholes = game.Wormholes();
@@ -216,12 +204,12 @@ public class GalacticChartPanel extends Panel {
             e.Graphics.FillRectangle(DEFAULT_BRUSH, 0, 0, picGalacticChart.getWidth(), picGalacticChart.getHeight());
     }
 
-    private void btnJump_Click(Object sender, spacetrader.controls.EventArgs e) {
+    private void btnJump_Click() {
         if (game.getWarpSystem() == null)
             GuiFacade.alert(AlertType.ChartJumpNoSystemSelected);
         else if (game.getWarpSystem() == commander.getCurrentSystem())
             GuiFacade.alert(AlertType.ChartJumpCurrent);
-        else if (GuiFacade.alert(AlertType.ChartJump, game.getWarpSystem().name()) == DialogResult.YES) {
+        else if (GuiFacade.alert(AlertType.ChartJump, game.getWarpSystem().getName()) == DialogResult.YES) {
             game.setCanSuperWarp(false);
             try {
                 controller.autoSave_depart();
@@ -247,7 +235,7 @@ public class GalacticChartPanel extends Panel {
             if (tryToFind) {
                 game.setSelectedSystemByName(form.SystemName());
                 if (form.TrackSystem()
-                        && game.SelectedSystem().name().toLowerCase().equals(form.SystemName().toLowerCase()))
+                        && game.SelectedSystem().getName().toLowerCase().equals(form.SystemName().toLowerCase()))
                     game.setTrackedSystemId(game.SelectedSystemId());
             }
 
@@ -256,7 +244,7 @@ public class GalacticChartPanel extends Panel {
         }
     }
 
-    void Refresh() {
+    void refresh() {
         picGalacticChart.refresh();
         if (game == null) {
             lblWormholeLabel.setVisible(false);
@@ -267,7 +255,7 @@ public class GalacticChartPanel extends Panel {
             if (game.TargetWormhole()) {
                 lblWormholeLabel.setVisible(true);
                 lblWormhole.setVisible(true);
-                lblWormhole.setText(game.getWarpSystem().name());
+                lblWormhole.setText(game.getWarpSystem().getName());
             } else {
                 lblWormholeLabel.setVisible(false);
                 lblWormhole.setVisible(false);

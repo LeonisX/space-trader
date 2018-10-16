@@ -245,7 +245,7 @@ class SystemPanel extends Panel {
             StarSystem system = commander.getCurrentSystem();
             CrewMember[] mercenaries = system.mercenariesForHire();
 
-            systemNameLabelValue.setText(system.name());
+            systemNameLabelValue.setText(system.getName());
             systemSizeLabelValue.setText(Strings.Sizes[system.size().castToInt()]);
             systemTechLevelLabelValue.setText(Strings.TechLevelNames[system.getTechLevel().castToInt()]);
             systemGovermentLabelValue.setText(system.politicalSystem().name());
