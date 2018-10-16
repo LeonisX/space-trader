@@ -332,7 +332,7 @@ public class TargetSystemPanel extends Panel {
             btnTrack.setVisible(false);
         } else {
             StarSystem system = game.getWarpSystem();
-            int distance = Functions.Distance(commander.getCurrentSystem(), system);
+            int distance = Functions.distance(commander.getCurrentSystem(), system);
 
             lblTargetName.setText(system.getName());
             lblTargetSize.setText(Strings.Sizes[system.size().castToInt()]);

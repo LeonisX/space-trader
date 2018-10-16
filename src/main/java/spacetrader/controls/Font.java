@@ -33,8 +33,8 @@ public class Font extends java.awt.Font {
         }
     }
 
-    public final String FontFamily;
-    public final String Name;
+    private final String fontFamily;
+    private final String name;
 
     public Font(String name, float size) {
         this(name, size, FontStyle.Regular, GraphicsUnit.Point);
@@ -42,14 +42,14 @@ public class Font extends java.awt.Font {
 
     public Font(String name, float size, FontStyle style, GraphicsUnit unit) {
         super(name, style.awtFontStyle, (int) unit.toPixels(size));
-        Name = getName();
-        FontFamily = getFamily();
+        this.name = getName();
+        fontFamily = getFamily();
     }
 
     Font(java.awt.Font source) {
         super(source);
-        Name = getName();
-        FontFamily = getFamily();
+        name = getName();
+        fontFamily = getFamily();
     }
 
     private static java.awt.Font makeAndRegisterFont(String name) throws FontFormatException, IOException {
@@ -60,5 +60,14 @@ public class Font extends java.awt.Font {
         java.awt.Font font = java.awt.Font.createFont(Font.TRUETYPE_FONT, stream);
         GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
         return font;
+    }
+
+    public String getFontFamily() {
+        return fontFamily;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

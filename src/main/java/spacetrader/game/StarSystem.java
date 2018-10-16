@@ -306,7 +306,7 @@ public class StarSystem extends STSerializableObject {
     }
 
     public int Distance() {
-        return Functions.Distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());
+        return Functions.distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
     public StarSystemId Id() {

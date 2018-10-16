@@ -73,11 +73,11 @@ public class Functions {
         return items;
     }
 
-    public static int Distance(StarSystem a, StarSystem b) {
+    public static int distance(StarSystem a, StarSystem b) {
         return (int) Math.floor(Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2)));
     }
 
-    static int Distance(StarSystem a, int x, int y) {
+    static int distance(StarSystem a, int x, int y) {
         return (int) Math.floor(Math.sqrt(Math.pow(a.getX() - x, 2) + Math.pow(a.getY() - y, 2)));
     }
 

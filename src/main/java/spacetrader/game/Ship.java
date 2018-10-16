@@ -208,7 +208,7 @@ public class Ship extends ShipSpec {
             merc.setCurrentSystemId(StarSystemId.NA);
             while (merc.getCurrentSystemId() == StarSystemId.NA) {
                 StarSystem system = universe[Functions.GetRandom(universe.length)];
-                if (Functions.Distance(system, Game.getCurrentGame().getCommander().getCurrentSystem()) < Consts.MaxRange)
+                if (Functions.distance(system, Game.getCurrentGame().getCommander().getCurrentSystem()) < Consts.MaxRange)
                     merc.setCurrentSystemId(system.Id());
             }
         }

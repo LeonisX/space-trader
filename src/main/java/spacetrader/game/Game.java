@@ -2374,7 +2374,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         int bestDistance = 999;
         int system = -1;
         for (int i = 0; i < getUniverse().length; i++) {
-            int distance = Functions.Distance(getUniverse()[baseSystem.castToInt()], getUniverse()[i]);
+            int distance = Functions.distance(getUniverse()[baseSystem.castToInt()], getUniverse()[i]);
             if (distance >= 70 && distance < bestDistance && getUniverse()[i].getSpecialEventType() == SpecialEventType.NA) {
                 system = i;
                 bestDistance = distance;
@@ -2496,12 +2496,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     for (j = 0; j < i && !tooClose; j++) {
                         // Minimum distance between any two systems not to be
                         // accepted.
-                        if (Functions.Distance(getUniverse()[j], x, y) < Consts.MinDistance)
+                        if (Functions.distance(getUniverse()[j], x, y) < Consts.MinDistance)
                             tooClose = true;
 
                         // There should be at least one system which is close
                         // enough.
-                        if (Functions.Distance(getUniverse()[j], x, y) < Consts.CloseDistance)
+                        if (Functions.distance(getUniverse()[j], x, y) < Consts.CloseDistance)
                             closeFound = true;
                     }
                     ok = (closeFound && !tooClose);
@@ -2926,7 +2926,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 int close = 0;
                 for (int i = 0; i < getUniverse().length && close < 3; i++) {
                     if (i != system.Id().castToInt()
-                            && Functions.Distance(getUniverse()[i], system) <= commander.getShip().getFuelTanks())
+                            && Functions.distance(getUniverse()[i], system) <= commander.getShip().getFuelTanks())
                         close++;
                 }
 
@@ -3381,7 +3381,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 if (viaSingularity)
                     NewsAddEvent(NewsEvent.ExperimentArrival);
                 else
-                    NormalDeparture(viaSingularity || getArrivedViaWormhole() ? 0 : Functions.Distance(getCommander()
+                    NormalDeparture(viaSingularity || getArrivedViaWormhole() ? 0 : Functions.distance(getCommander()
                             .getCurrentSystem(), getWarpSystem()));
 
                 getCommander().getCurrentSystem().CountDown(CountDownStart());
