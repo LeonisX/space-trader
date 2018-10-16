@@ -223,11 +223,11 @@ public class Commander extends CrewMember {
 
 
     public int getCashToSpend() {
-        return _cash - (Game.getCurrentGame().Options().getReserveMoney() ? CurrentCosts() : 0);
+        return _cash - (Game.getCurrentGame().Options().getReserveMoney() ? getCurrentCosts() : 0);
     }
 
-    public int CurrentCosts() {
-        return Game.getCurrentGame().CurrentCosts();
+    public int getCurrentCosts() {
+        return Game.getCurrentGame().getCurrentCosts();
     }
 
     public int NoClaim() {

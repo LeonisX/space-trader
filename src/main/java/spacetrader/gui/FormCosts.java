@@ -70,7 +70,7 @@ public class FormCosts extends SpaceTraderForm {
         lblIns.setText(Functions.formatMoney(game.InsuranceCosts()));
         lblInt.setText(Functions.formatMoney(game.InterestCosts()));
         lblTax.setText(Functions.formatMoney(game.WormholeCosts()));
-        lblTotal.setText(Functions.formatMoney(game.CurrentCosts()));
+        lblTotal.setText(Functions.formatMoney(game.getCurrentCosts()));
     }
 
     // #region Windows Form Designer generated code

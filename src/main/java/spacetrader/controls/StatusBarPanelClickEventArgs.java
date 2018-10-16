@@ -2,11 +2,14 @@ package spacetrader.controls;
 
 public class StatusBarPanelClickEventArgs extends EventArgs {
 
-    public final StatusBarPanel StatusBarPanel;
+    private final StatusBarPanel statusBarPanel;
 
     StatusBarPanelClickEventArgs(StatusBarPanel statusBarPanel) {
         super();
-        StatusBarPanel = statusBarPanel;
+        this.statusBarPanel = statusBarPanel;
     }
 
+    public StatusBarPanel getStatusBarPanel() {
+        return statusBarPanel;
+    }
 }

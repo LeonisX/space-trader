@@ -995,7 +995,7 @@ public class FormShipList extends SpaceTraderForm {
         picShip.setImage(spec.Image());
         lblName.setText(spec.Name());
         lblSize.setText(Strings.Sizes[spec.getSize().castToInt()]);
-        lblBays.setText(Functions.formatNumber(spec.CargoBays()));
+        lblBays.setText(Functions.formatNumber(spec.getCargoBays()));
         lblRange.setText(Functions.multiples(spec.getFuelTanks(), Strings.DistanceUnit));
         lblHull.setText(Functions.formatNumber(spec.getHullStrength()));
         lblWeapon.setText(Functions.formatNumber(spec.getWeaponSlots()));

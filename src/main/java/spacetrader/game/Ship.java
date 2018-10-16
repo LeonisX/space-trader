@@ -215,9 +215,9 @@ public class Ship extends ShipSpec {
     }
 
     private void GenerateOpponentAddCargo(boolean pirate) {
-        if (CargoBays() > 0) {
+        if (getCargoBays() > 0) {
             Difficulty diff = Game.getCurrentGame().Difficulty();
-            int baysToFill = CargoBays();
+            int baysToFill = getCargoBays();
 
             if (diff.castToInt() >= Difficulty.Normal.castToInt())
                 baysToFill = Math.min(15, 3 + Functions.GetRandom(baysToFill - 5));
@@ -778,15 +778,15 @@ public class Ship extends ShipSpec {
     // transporting special items are now included in the total bays and in the
     // filled bays. JAF
     public @Override
-    int CargoBays() {
-        int bays = super.CargoBays();
+    int getCargoBays() {
+        int bays = super.getCargoBays();
 
         for (int i = 0; i < Gadgets().length; i++)
             if (Gadgets()[i] != null
                     && (Gadgets()[i].Type() == GadgetType.ExtraCargoBays || Gadgets()[i].Type() == GadgetType.HiddenCargoBays))
                 bays += 5;
 
-        return super.CargoBays() + ExtraCargoBays() + HiddenCargoBays();
+        return super.getCargoBays() + ExtraCargoBays() + HiddenCargoBays();
     }
 
     public boolean Cloaked() {
@@ -852,7 +852,7 @@ public class Ship extends ShipSpec {
     // transporting special items are now included in the total bays and in the
     // filled bays. JAF
 
-    public int FilledCargoBays() {
+    public int getFilledCargoBays() {
         int filled = FilledNormalCargoBays();
 
         if (CommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT)
@@ -874,7 +874,7 @@ public class Ship extends ShipSpec {
     }
 
     public int FreeCargoBays() {
-        return CargoBays() - FilledCargoBays();
+        return getCargoBays() - getFilledCargoBays();
     }
 
     public int FreeCrewQuarters() {

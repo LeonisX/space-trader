@@ -242,6 +242,11 @@ public class Strings {
     public static final String SpecialCargoTribblesInfest = "An infestation of tribbles.";
     public static final String SpecialCargoTribblesCute = "cute, furry tribble";
 
+    public static final String StatusBarBays = "Bays:";
+    public static final String StatusBarCash = "Cash:";
+    public static final String StatusBarCurrentCosts = "Current Costs:";
+    public static final String StatusBarNoGameLoaded = "No Game Loaded.";
+
     public static final String TimeUnit = "day";
 
     public static final String TribbleDangerousNumber = "a dangerous number of";

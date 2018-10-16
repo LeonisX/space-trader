@@ -209,11 +209,11 @@ public class ShipSpec extends STSerializableObject {
         Consts.ShipImageOffsets[custIndex].Width = Math.min(62 - Consts.ShipImageOffsets[custIndex].X, width);
     }
 
-    public int CargoBays() {
+    public int getCargoBays() {
         return _cargoBays;
     }
 
-    public void CargoBays(int value) {
+    public void setCargoBays(int value) {
         _cargoBays = value;
     }
 

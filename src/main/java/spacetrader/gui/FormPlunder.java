@@ -638,7 +638,7 @@ public class FormPlunder extends SpaceTraderForm {
         for (int i = 0; i < btnPlunderQty.length; i++)
             btnPlunderQty[i].setText("" + opp.getCargo()[i]);
 
-        lblBays.setText(ship.FilledCargoBays() + "/" + ship.CargoBays());
+        lblBays.setText(ship.getFilledCargoBays() + "/" + ship.getCargoBays());
     }
 
     //#endregion

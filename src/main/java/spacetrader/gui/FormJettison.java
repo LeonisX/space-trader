@@ -591,7 +591,7 @@ public class FormJettison extends SpaceTraderForm {
         for (int i = 0; i < btnJettisonQty.length; i++)
             btnJettisonQty[i].setText("" + ship.getCargo()[i]);
 
-        lblBays.setText(ship.FilledCargoBays() + "/" + ship.CargoBays());
+        lblBays.setText(ship.getFilledCargoBays() + "/" + ship.getCargoBays());
     }
 
     //#endregion

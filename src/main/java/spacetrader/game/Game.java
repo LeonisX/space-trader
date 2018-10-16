@@ -1376,7 +1376,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     GenerateOpponent(OpponentType.Trader);
                     for (int i = 0; i < getOpponent().getCargo().length; i++)
                         getOpponent().getCargo()[i] = 0;
-                    getOpponent().getCargo()[TradeItemType.Narcotics.castToInt()] = Math.min(getOpponent().CargoBays(), 5);
+                    getOpponent().getCargo()[TradeItemType.Narcotics.castToInt()] = Math.min(getOpponent().getCargoBays(), 5);
 
                     showEncounter = true;
                 }
@@ -1798,10 +1798,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // Impossible level, and 100% on Easy or Beginner.
         if ((Difficulty().castToInt() < spacetrader.game.enums.Difficulty.Normal.castToInt() || Functions
                 .GetRandom(Difficulty().castToInt()) == 0)
-                && getOpponent().FilledCargoBays() > 0) {
+                && getOpponent().getFilledCargoBays() > 0) {
             // Changed this to actually pick a good that was in the opponent's
             // cargo hold - JAF.
-            int index = Functions.GetRandom(getOpponent().FilledCargoBays());
+            int index = Functions.GetRandom(getOpponent().getFilledCargoBays());
             int tradeItem = -1;
             for (int sum = 0; sum <= index; sum += getOpponent().getCargo()[++tradeItem])
                 ;
@@ -3422,7 +3422,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return Difficulty().castToInt() + 3;
     }
 
-    public int CurrentCosts() {
+    public int getCurrentCosts() {
         return InsuranceCosts() + InterestCosts() + MercenaryCosts() + WormholeCosts();
     }
 

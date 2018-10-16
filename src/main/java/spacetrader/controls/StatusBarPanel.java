@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class StatusBarPanel implements ISupportInitialize, IName {
 
-    final StatusBarPanelAutoSize AutoSize;
+    private final StatusBarPanelAutoSize autoSize;
     private final JStatusBarSection jpanel = new JStatusBarSection(" ");
 
     public StatusBarPanel() {
@@ -14,12 +14,18 @@ public class StatusBarPanel implements ISupportInitialize, IName {
     }
 
     public StatusBarPanel(StatusBarPanelAutoSize autoSize) {
-        AutoSize = autoSize;
+        this.autoSize = autoSize;
         jpanel.setFont(BaseComponent.DEFAULT_FONT);
     }
 
+    public StatusBarPanelAutoSize getAutoSize() {
+        return autoSize;
+    }
+
     public void setText(String text) {
-        if (text.isEmpty()) text = "  ";
+        if (text.isEmpty()) {
+            text = "  ";
+        }
         jpanel.setText(text);
     }
 

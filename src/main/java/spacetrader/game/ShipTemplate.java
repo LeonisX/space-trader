@@ -54,7 +54,7 @@ public class ShipTemplate extends STSerializableObject implements Comparable<Shi
         _name = name;
         _size = spec.getSize();
         _imageIndex = spec.ImageIndex();
-        _cargoBays = spec.CargoBays();
+        _cargoBays = spec.getCargoBays();
         _weaponSlots = spec.getWeaponSlots();
         _shieldSlots = spec.getShieldSlots();
         _gadgetSlots = spec.getGadgetSlots();

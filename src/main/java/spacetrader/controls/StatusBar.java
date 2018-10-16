@@ -25,7 +25,7 @@ public class StatusBar extends BaseComponent {
     }
 
     private void add(StatusBarPanel panel) {
-        asJStatusBar().addSection(panel.asJStatusBarSection(), panel.AutoSize == StatusBarPanelAutoSize.SPRING);
+        asJStatusBar().addSection(panel.asJStatusBarSection(), panel.getAutoSize() == StatusBarPanelAutoSize.SPRING);
         panel.asJStatusBarSection().addMouseListener(new MouseAdapterExtension(panel));
     }
 

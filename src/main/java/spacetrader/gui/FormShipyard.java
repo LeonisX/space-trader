@@ -1154,7 +1154,7 @@ public class FormShipyard extends SpaceTraderForm {
             numHullStrength.setValue(Math.max(numHullStrength.getMinimum(), (extraHull + shipyard.PerUnitHull())
                     / shipyard.PerUnitHull() * shipyard.PerUnitHull() + shipyard.BaseHull()));
 
-        shipyard.ShipSpec().CargoBays(numCargoBays.getValue());
+        shipyard.ShipSpec().setCargoBays(numCargoBays.getValue());
         shipyard.ShipSpec().FuelTanks(numFuelTanks.getValue());
         shipyard.ShipSpec().setHullStrength(numHullStrength.getValue());
         shipyard.ShipSpec().setWeaponSlots(numWeaponSlots.getValue());
