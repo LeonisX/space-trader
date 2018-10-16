@@ -89,7 +89,7 @@ public class ShortRangeChartPanel extends Panel {
                     if (e.getX() >= x - OFF_X && e.getX() <= x + OFF_X && e.getY() >= y - OFF_Y && e.getY() <= y + OFF_Y) {
                         clickedSystem = true;
                         game.setSelectedSystemId(StarSystemId.fromInt(i));
-                    } else if (Functions.WormholeExists(i, -1)) {
+                    } else if (Functions.wormholeExists(i, -1)) {
                         int xW = x + 9;
 
                         if (e.getX() >= xW - OFF_X && e.getX() <= xW + OFF_X && e.getY() >= y - OFF_Y && e.getY() <= y + OFF_Y) {
@@ -175,7 +175,7 @@ public class ShortRangeChartPanel extends Panel {
                             ilChartImages.draw(e.getGraphics(), x - OFF_X, y - OFF_Y, universe[i].isVisited() ? IMG_G_V
                                     : IMG_G_N);
 
-                            if (Functions.WormholeExists(i, -1)) {
+                            if (Functions.wormholeExists(i, -1)) {
                                 int xW = x + 9;
                                 if (game.isTargetWormhole() && universe[i] == game.getSelectedSystem()) {
                                     e.getGraphics().drawLine(DEFAULT_PEN, xW - 6, y, xW + 6, y);

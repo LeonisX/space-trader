@@ -22,7 +22,7 @@ public class GameCheats {
     /**
      * @return false if did anything, true if didn't recognized word (i.e., need to search for a system).
      */
-    public boolean ConsiderCheat(String[] words, GameController controller) {
+    public boolean considerCheat(String[] words, GameController controller) {
         Ship ship = game.getCommander().getShip();
 
         String first = words.length > 0 ? words[0] : "";
@@ -68,11 +68,11 @@ public class GameCheats {
                 case Go:
                     game.setSelectedSystemByName(second);
                     if (game.getSelectedSystem().getName().toLowerCase().equals(second.toLowerCase())) {
-                        controller.autoSave_depart();
+                        controller.autoSaveOnDeparture();
 
                         game.WarpDirect();
 
-                        controller.autoSave_arrive();
+                        controller.autoSaveOnArrival();
                     }
                     break;
                 case Ice: {

@@ -302,7 +302,7 @@ public class StarSystem extends STSerializableObject {
     public boolean destOk() {
         Commander comm = Game.getCurrentGame().getCommander();
         return this != comm.getCurrentSystem()
-                && (Distance() <= comm.getShip().getFuel() || Functions.WormholeExists(comm.getCurrentSystem(), this));
+                && (Distance() <= comm.getShip().getFuel() || Functions.wormholeExists(comm.getCurrentSystem(), this));
     }
 
     public int Distance() {

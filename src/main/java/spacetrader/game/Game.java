@@ -2516,7 +2516,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // names in the alphabet are all in the center.
         for (i = 0; i < getUniverse().length; i++) {
             j = Functions.GetRandom(getUniverse().length);
-            if (!Functions.WormholeExists(j, -1)) {
+            if (!Functions.wormholeExists(j, -1)) {
                 int x = getUniverse()[i].getX();
                 int y = getUniverse()[i].getY();
                 getUniverse()[i].setX(getUniverse()[j].getX());
@@ -3221,7 +3221,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             else
                 index = (dest.length + index + (forward ? 1 : -1)) % dest.length;
 
-            if (Functions.WormholeExists(getCommander().getCurrentSystem(), getUniverse()[dest[index]])) {
+            if (Functions.wormholeExists(getCommander().getCurrentSystem(), getUniverse()[dest[index]])) {
                 setSelectedSystemId(getCommander().getCurrentSystemId());
                 setTargetWormhole(true);
             } else
@@ -3376,7 +3376,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             }
 
             if (wildOk) {
-                setArrivedViaWormhole(Functions.WormholeExists(getCommander().getCurrentSystem(), getWarpSystem()));
+                setArrivedViaWormhole(Functions.wormholeExists(getCommander().getCurrentSystem(), getWarpSystem()));
 
                 if (viaSingularity)
                     NewsAddEvent(NewsEvent.ExperimentArrival);
@@ -3942,7 +3942,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public int WormholeCosts() {
-        return Functions.WormholeExists(getCommander().getCurrentSystem(), getWarpSystem()) ? Consts.WormDist
+        return Functions.wormholeExists(getCommander().getCurrentSystem(), getWarpSystem()) ? Consts.WormDist
                 * getCommander().getShip().getFuelCost() : 0;
     }
 

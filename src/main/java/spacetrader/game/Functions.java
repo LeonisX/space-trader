@@ -290,7 +290,7 @@ public class Functions {
     // If b < 0, then return true if there exists a wormhole
     // at all from a.
     // *************************************************************************
-    public static boolean WormholeExists(int a, int b) {
+    public static boolean wormholeExists(int a, int b) {
         int[] wormholes = Game.getCurrentGame().getWormholes();
         int i = Util.bruteSeek(wormholes, a);
         // int i = Array.IndexOf(wormholes, a);
@@ -298,7 +298,7 @@ public class Functions {
         return (i >= 0 && (b < 0 || wormholes[(i + 1) % wormholes.length] == b));
     }
 
-    static boolean WormholeExists(StarSystem a, StarSystem b) {
+    static boolean wormholeExists(StarSystem a, StarSystem b) {
         StarSystem[] universe = Game.getCurrentGame().getUniverse();
         int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, (int) a.Id);

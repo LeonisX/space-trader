@@ -303,11 +303,11 @@ public class TargetSystemPanel extends Panel {
 
     private void btnWarp_Click(Object sender, spacetrader.controls.EventArgs e) {
         try {
-            controller.autoSave_depart();
+            controller.autoSaveOnDeparture();
 
             game.setWarp(false);
 
-            controller.autoSave_arrive();
+            controller.autoSaveOnArrival();
         } catch (GameEndException ex) {
             controller.gameEnd();
         }

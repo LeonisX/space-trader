@@ -115,13 +115,15 @@ public class GameController {
         SaveGameDays = game.getCommander().getDays();
     }
 
-    public void autoSave_arrive() {
-        if (game.getAutoSave())
+    public void autoSaveOnArrival() {
+        if (game.getAutoSave()) {
             saveGame(SAVE_ARRIVAL, false);
+        }
     }
 
-    public void autoSave_depart() {
-        if (game.getAutoSave())
+    public void autoSaveOnDeparture() {
+        if (game.getAutoSave()) {
             saveGame(SAVE_DEPARTURE, false);
+        }
     }
 }

@@ -126,11 +126,11 @@ public class FormFind extends SpaceTraderForm {
         this.setText("Find System");
     }
 
-    public String SystemName() {
+    public String getSystemName() {
         return txtSystem.getText();
     }
 
-    public boolean TrackSystem() {
+    public boolean isTrackSystem() {
         return chkTrack.isChecked();
     }
 }

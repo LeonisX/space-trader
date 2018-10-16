@@ -138,7 +138,7 @@ public class GalacticChartPanel extends Panel {
             if (e.getX() >= x - 2 && e.getX() <= x + 2 && e.getY() >= y - 2 && e.getY() <= y + 2) {
                 clickedSystem = true;
                 game.setSelectedSystemId(StarSystemId.fromInt(i));
-            } else if (Functions.WormholeExists(i, -1)) {
+            } else if (Functions.wormholeExists(i, -1)) {
                 int xW = x + OFF_X_WORM;
 
                 if (e.getX() >= xW - 2 && e.getX() <= xW + 2 && e.getY() >= y - 2 && e.getY() <= y + 2) {
@@ -176,8 +176,9 @@ public class GalacticChartPanel extends Panel {
 
             for (int i = 0; i < universe.length; i++) {
                 int imageIndex = universe[i].isVisited() ? IMG_S_V : IMG_S_N;
-                if (universe[i] == game.getWarpSystem())
+                if (universe[i] == game.getWarpSystem()) {
                     imageIndex++;
+                }
                 Image image = ilChartImages.getImages()[imageIndex];
 
                 if (universe[i] == game.getTrackedSystem()) {
@@ -189,26 +190,26 @@ public class GalacticChartPanel extends Panel {
 
                 ilChartImages.draw(e.getGraphics(), universe[i].getX(), universe[i].getY(), imageIndex);
 
-                if (Functions.WormholeExists(i, -1))
+                if (Functions.wormholeExists(i, -1)) {
                     ilChartImages.draw(e.getGraphics(), universe[i].getX() + OFF_X_WORM, universe[i].getY(), IMG_S_W);
+                }
             }
-        } else
+        } else {
             e.getGraphics().fillRectangle(DEFAULT_BRUSH, 0, 0, galacticChartPicture.getWidth(), galacticChartPicture.getHeight());
+        }
     }
 
     private void jumpButtonClick() {
-        if (game.getWarpSystem() == null)
+        if (null == game.getWarpSystem()) {
             GuiFacade.alert(AlertType.ChartJumpNoSystemSelected);
-        else if (game.getWarpSystem() == commander.getCurrentSystem())
+        } else if (game.getWarpSystem() == commander.getCurrentSystem()) {
             GuiFacade.alert(AlertType.ChartJumpCurrent);
-        else if (GuiFacade.alert(AlertType.ChartJump, game.getWarpSystem().getName()) == DialogResult.YES) {
+        } else if (GuiFacade.alert(AlertType.ChartJump, game.getWarpSystem().getName()) == DialogResult.YES) {
             game.setCanSuperWarp(false);
             try {
-                controller.autoSave_depart();
-
+                controller.autoSaveOnDeparture();
                 game.setWarp(true);
-
-                controller.autoSave_arrive();
+                controller.autoSaveOnArrival();
             } catch (GameEndException ex) {
                 controller.gameEnd();
             }
@@ -220,17 +221,16 @@ public class GalacticChartPanel extends Panel {
     private void findButtonClick() {
         FormFind form = new FormFind();
         if (form.showDialog(mainWindow) == DialogResult.OK) {
-            String[] words = form.SystemName().split(" ");
+            String[] words = form.getSystemName().split(" ");
 
-            boolean tryToFind = cheats.ConsiderCheat(words, controller);
+            boolean tryToFind = cheats.considerCheat(words, controller);
 
             if (tryToFind) {
-                game.setSelectedSystemByName(form.SystemName());
-                if (form.TrackSystem()
-                        && game.getSelectedSystem().getName().toLowerCase().equals(form.SystemName().toLowerCase()))
+                game.setSelectedSystemByName(form.getSystemName());
+                if (form.isTrackSystem() && game.getSelectedSystem().getName().equalsIgnoreCase(form.getSystemName())) {
                     game.setTrackedSystemId(game.getSelectedSystemId());
+                }
             }
-
             // todo inline when done
             mainWindow.updateAll();
         }
