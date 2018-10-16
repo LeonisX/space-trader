@@ -72,6 +72,7 @@ public class Strings {
     public static final String DockHullCost = "Full repairs will cost ^1";
     public static final String DockHullFull = "No repairs are needed.";
     public static final String DockHullStatus = "Your hull strength is at ^1%.";
+    public static final String DockParsec = "parsec";
 
     public static final String EncounterActionCmdrChased = "The ^1 is still following you.";
     public static final String EncounterActionCmdrHit = "The ^1 hits you.";

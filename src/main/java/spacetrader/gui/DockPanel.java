@@ -5,11 +5,12 @@ import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.game.Commander;
-import spacetrader.game.Functions;
 import spacetrader.game.Ship;
-import spacetrader.game.Strings;
 
 import java.awt.*;
+
+import static spacetrader.game.Functions.*;
+import static spacetrader.game.Strings.*;
 
 class DockPanel extends Panel {
 
@@ -46,14 +47,14 @@ class DockPanel extends Panel {
         controls.add(hullStatusLabel);
         controls.add(repairCostLabel);
 
-        setSize(new spacetrader.controls.Size(240, 90));
+        setSize(new Size(240, 90));
         setTabIndex(2);
         setTabStop(false);
         setText("Dock");
 
         repairButton.setFlatStyle(FlatStyle.FLAT);
         repairButton.setLocation(new Point(180, 56));
-        repairButton.setSize(new spacetrader.controls.Size(48, 22));
+        repairButton.setSize(new Size(48, 22));
         repairButton.setTabIndex(5);
         repairButton.setText("Repair");
         repairButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -65,7 +66,7 @@ class DockPanel extends Panel {
 
         fuelUpButton.setFlatStyle(FlatStyle.FLAT);
         fuelUpButton.setLocation(new Point(192, 18));
-        fuelUpButton.setSize(new spacetrader.controls.Size(36, 22));
+        fuelUpButton.setSize(new Size(36, 22));
         fuelUpButton.setTabIndex(4);
         fuelUpButton.setText("Fuel");
         fuelUpButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -76,22 +77,22 @@ class DockPanel extends Panel {
         });
 
         fuelStatusLabel.setLocation(new Point(8, 16));
-        fuelStatusLabel.setSize(new spacetrader.controls.Size(162, 13));
+        fuelStatusLabel.setSize(new Size(162, 13));
         fuelStatusLabel.setTabIndex(20);
         //fuelStatusLabel.setText("You have fuel to fly 88 parsecs.");
 
         fuelCostLabel.setLocation(new Point(8, 31));
-        fuelCostLabel.setSize(new spacetrader.controls.Size(121, 13));
+        fuelCostLabel.setSize(new Size(121, 13));
         fuelCostLabel.setTabIndex(19);
         //fuelCostLabel.setText("A full tank costs 888 cr.");
 
         hullStatusLabel.setLocation(new Point(8, 52));
-        hullStatusLabel.setSize(new spacetrader.controls.Size(152, 13));
+        hullStatusLabel.setSize(new Size(152, 13));
         hullStatusLabel.setTabIndex(18);
         //hullStatusLabel.setText("Your hull strength is at 888%.");
 
         repairCostLabel.setLocation(new Point(8, 67));
-        repairCostLabel.setSize(new spacetrader.controls.Size(150, 13));
+        repairCostLabel.setSize(new Size(150, 13));
         repairCostLabel.setTabIndex(19);
         //repairCostLabel.setText("Full repairs will cost 8,888 cr.");
     }
@@ -129,18 +130,19 @@ class DockPanel extends Panel {
         } else {
             Ship ship = commander.getShip();
 
-            fuelStatusLabel.setText(Functions.stringVars(Strings.DockFuelStatus, Functions.multiples(ship.getFuel(),
-                    mainWindow.getStrings().get("dockPanel.parsec"))));
+            fuelStatusLabel.setText(stringVars(DockFuelStatus, multiples(ship.getFuel(), DockParsec)));
+
             int tanksEmpty = ship.getFuelTanks() - ship.getFuel();
-            fuelCostLabel.setText(tanksEmpty > 0 ? Functions.stringVars(Strings.DockFuelCost, Functions
-                    .formatMoney(tanksEmpty * ship.getFuelCost())) : Strings.DockFuelFull);
+            fuelCostLabel.setText(tanksEmpty > 0
+                    ? stringVars(DockFuelCost, formatMoney(tanksEmpty * ship.getFuelCost())) : DockFuelFull);
             fuelUpButton.setVisible(tanksEmpty > 0);
 
-            hullStatusLabel.setText(Functions.stringVars(Strings.DockHullStatus, Functions.formatNumber((int) Math
-                    .floor((double) 100 * ship.getHull() / ship.getHullStrength()))));
+            hullStatusLabel.setText(stringVars(DockHullStatus,
+                    formatNumber((int) Math.floor((double) 100 * ship.getHull() / ship.getHullStrength()))));
+
             int hullLoss = ship.getHullStrength() - ship.getHull();
-            repairCostLabel.setText(hullLoss > 0 ? Functions.stringVars(Strings.DockHullCost, Functions
-                    .formatMoney(hullLoss * ship.getRepairCost())) : Strings.DockHullFull);
+            repairCostLabel.setText(hullLoss > 0
+                    ? stringVars(DockHullCost, formatMoney(hullLoss * ship.getRepairCost())) : DockHullFull);
             repairButton.setVisible(hullLoss > 0);
         }
     }
