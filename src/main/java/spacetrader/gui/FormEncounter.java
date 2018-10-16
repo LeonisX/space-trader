@@ -1530,13 +1530,13 @@ public class FormEncounter extends SpaceTraderForm {
 
     private void picShipOpponent_Paint(Object sender,
                                        spacetrader.controls.PaintEventArgs e) {
-        Functions.PaintShipImage(opponent, e.Graphics,
+        Functions.PaintShipImage(opponent, e.getGraphics(),
                 picShipOpponent.getBackground());
     }
 
     private void picShipYou_Paint(Object sender,
                                   spacetrader.controls.PaintEventArgs e) {
-        Functions.PaintShipImage(cmdrship, e.Graphics, picShipYou.getBackground());
+        Functions.PaintShipImage(cmdrship, e.getGraphics(), picShipYou.getBackground());
     }
 
     private void picTrib_Click(Object sender, EventArgs e) {

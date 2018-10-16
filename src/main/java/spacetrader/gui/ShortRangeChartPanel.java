@@ -123,10 +123,10 @@ public class ShortRangeChartPanel extends Panel {
             int centerY = picShortRangeChart.getHeight() / 2;
             int delta = picShortRangeChart.getHeight() / (Consts.MaxRange * 2);
 
-            e.Graphics.DrawLine(DEFAULT_PEN, centerX - 1, centerY - 1, centerX + 1, centerY + 1);
-            e.Graphics.DrawLine(DEFAULT_PEN, centerX - 1, centerY + 1, centerX + 1, centerY - 1);
+            e.getGraphics().DrawLine(DEFAULT_PEN, centerX - 1, centerY - 1, centerX + 1, centerY + 1);
+            e.getGraphics().DrawLine(DEFAULT_PEN, centerX - 1, centerY + 1, centerX + 1, centerY - 1);
             if (fuel > 0)
-                e.Graphics.DrawEllipse(DEFAULT_PEN, centerX - fuel * delta, centerY - fuel * delta, fuel * delta * 2,
+                e.getGraphics().DrawEllipse(DEFAULT_PEN, centerX - fuel * delta, centerY - fuel * delta, fuel * delta * 2,
                         fuel * delta * 2);
 
             if (trackSys != null) {
@@ -138,13 +138,13 @@ public class ShortRangeChartPanel extends Panel {
                     int dX2 = (int) Math.round(4 * (trackSys.getY() - curSys.getY()) / (double) dist);
                     int dY2 = (int) Math.round(4 * (curSys.getX() - trackSys.getX()) / (double) dist);
 
-                    e.Graphics.FillPolygon(new SolidBrush(new Color(220, 20, 60)), new Point[]{
+                    e.getGraphics().FillPolygon(new SolidBrush(new Color(220, 20, 60)), new Point[]{
                             new Point(centerX + dX, centerY + dY), new Point(centerX - dX2, centerY - dY2),
                             new Point(centerX + dX2, centerY + dY2)});
                 }
 
                 if (game.isShowTrackedRange())
-                    e.Graphics.DrawString(Functions.stringVars(Strings.ChartDistance, Functions.multiples(dist,
+                    e.getGraphics().DrawString(Functions.stringVars(Strings.ChartDistance, Functions.multiples(dist,
                             Strings.DistanceUnit), trackSys.getName()), font, new SolidBrush(Color.black), 0,
                             picShortRangeChart.getHeight() - 13);
             }
@@ -163,29 +163,29 @@ public class ShortRangeChartPanel extends Panel {
 
                         if (j == 1) {
                             if (universe[i] == game.getWarpSystem()) {
-                                e.Graphics.DrawLine(DEFAULT_PEN, x - 6, y, x + 6, y);
-                                e.Graphics.DrawLine(DEFAULT_PEN, x, y - 6, x, y + 6);
+                                e.getGraphics().DrawLine(DEFAULT_PEN, x - 6, y, x + 6, y);
+                                e.getGraphics().DrawLine(DEFAULT_PEN, x, y - 6, x, y + 6);
                             }
 
                             if (universe[i] == game.getTrackedSystem()) {
-                                e.Graphics.DrawLine(DEFAULT_PEN, x - 5, y - 5, x + 5, y + 5);
-                                e.Graphics.DrawLine(DEFAULT_PEN, x - 5, y + 5, x + 5, y - 5);
+                                e.getGraphics().DrawLine(DEFAULT_PEN, x - 5, y - 5, x + 5, y + 5);
+                                e.getGraphics().DrawLine(DEFAULT_PEN, x - 5, y + 5, x + 5, y - 5);
                             }
 
-                            ilChartImages.draw(e.Graphics, x - OFF_X, y - OFF_Y, universe[i].Visited() ? IMG_G_V
+                            ilChartImages.draw(e.getGraphics(), x - OFF_X, y - OFF_Y, universe[i].Visited() ? IMG_G_V
                                     : IMG_G_N);
 
                             if (Functions.WormholeExists(i, -1)) {
                                 int xW = x + 9;
                                 if (game.isTargetWormhole() && universe[i] == game.getSelectedSystem()) {
-                                    e.Graphics.DrawLine(DEFAULT_PEN, xW - 6, y, xW + 6, y);
-                                    e.Graphics.DrawLine(DEFAULT_PEN, xW, y - 6, xW, y + 6);
+                                    e.getGraphics().DrawLine(DEFAULT_PEN, xW - 6, y, xW + 6, y);
+                                    e.getGraphics().DrawLine(DEFAULT_PEN, xW, y - 6, xW, y + 6);
                                 }
-                                ilChartImages.draw(e.Graphics, xW - OFF_X, y - OFF_Y, IMG_G_W);
+                                ilChartImages.draw(e.getGraphics(), xW - OFF_X, y - OFF_Y, IMG_G_W);
                             }
                         } else {
-                            SizeF size = e.Graphics.MeasureString(universe[i].getName(), getFont());
-                            e.Graphics.DrawString(universe[i].getName(), smallFont, new SolidBrush(Color.black), x
+                            SizeF size = e.getGraphics().MeasureString(universe[i].getName(), getFont());
+                            e.getGraphics().DrawString(universe[i].getName(), smallFont, new SolidBrush(Color.black), x
                                     - size.width / 2 + OFF_X, y /*- size.Height*/ - 5);
                             // implementations differ as to which point we start the string at. --aviv
                         }
@@ -193,7 +193,7 @@ public class ShortRangeChartPanel extends Panel {
                 }
             }
         } else
-            e.Graphics
+            e.getGraphics()
                     .FillRectangle(DEFAULT_BRUSH, 0, 0, picShortRangeChart.getWidth(), picShortRangeChart.getHeight());
     }
 
