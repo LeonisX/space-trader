@@ -16,5 +16,4 @@ public class JLineSeparator extends JSeparator {
                 break;
         }
     }
-
 }

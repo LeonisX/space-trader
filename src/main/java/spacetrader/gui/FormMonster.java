@@ -200,7 +200,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelPilot.setTabIndex(7);
         lblMercSkillLabelPilot.setTabStop(true);
         lblMercSkillLabelPilot.setText("P");
-        lblMercSkillLabelPilot.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillLabelPilot.textAlign = ContentAlignment.TOP_RIGHT;
         lblMercSkillLabelPilot.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -218,7 +218,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelFighter.setTabIndex(8);
         lblMercSkillLabelFighter.setTabStop(true);
         lblMercSkillLabelFighter.setText("F");
-        lblMercSkillLabelFighter.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillLabelFighter.textAlign = ContentAlignment.TOP_RIGHT;
         lblMercSkillLabelFighter.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -236,7 +236,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelTrader.setTabIndex(9);
         lblMercSkillLabelTrader.setTabStop(true);
         lblMercSkillLabelTrader.setText("T");
-        lblMercSkillLabelTrader.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillLabelTrader.textAlign = ContentAlignment.TOP_RIGHT;
         lblMercSkillLabelTrader.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -254,7 +254,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillLabelEngineer.setTabIndex(10);
         lblMercSkillLabelEngineer.setTabStop(true);
         lblMercSkillLabelEngineer.setText("E");
-        lblMercSkillLabelEngineer.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillLabelEngineer.textAlign = ContentAlignment.TOP_RIGHT;
         lblMercSkillLabelEngineer.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -323,7 +323,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercIDLabel.setTabIndex(5);
         lblMercIDLabel.setTabStop(true);
         lblMercIDLabel.setText("ID");
-        lblMercIDLabel.TextAlign = ContentAlignment.TopRight;
+        lblMercIDLabel.textAlign = ContentAlignment.TOP_RIGHT;
         lblMercIDLabel.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -415,7 +415,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillsPilot.setName("lblMercSkillsPilot");
         lblMercSkillsPilot.setSize(new Size(20, 563));
         lblMercSkillsPilot.setTabIndex(144);
-        lblMercSkillsPilot.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillsPilot.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblMercSkillsFighter
         //
@@ -423,7 +423,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillsFighter.setName("lblMercSkillsFighter");
         lblMercSkillsFighter.setSize(new Size(20, 563));
         lblMercSkillsFighter.setTabIndex(145);
-        lblMercSkillsFighter.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillsFighter.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblMercSkillsTrader
         //
@@ -431,7 +431,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillsTrader.setName("lblMercSkillsTrader");
         lblMercSkillsTrader.setSize(new Size(20, 563));
         lblMercSkillsTrader.setTabIndex(146);
-        lblMercSkillsTrader.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillsTrader.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblMercSkillsEngineer
         //
@@ -439,7 +439,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercSkillsEngineer.setName("lblMercSkillsEngineer");
         lblMercSkillsEngineer.setSize(new Size(20, 563));
         lblMercSkillsEngineer.setTabIndex(147);
-        lblMercSkillsEngineer.TextAlign = ContentAlignment.TopRight;
+        lblMercSkillsEngineer.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblMercSystems
         //
@@ -461,7 +461,7 @@ public class FormMonster extends SpaceTraderForm {
         lblMercIds.setName("lblMercIds");
         lblMercIds.setSize(new Size(23, 563));
         lblMercIds.setTabIndex(142);
-        lblMercIds.TextAlign = ContentAlignment.TopRight;
+        lblMercIds.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblMercNames
         //

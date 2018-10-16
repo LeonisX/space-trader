@@ -278,7 +278,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private void loadDimensions(Component component, String prefix) {
         prefix = formatPropertyName(prefix);
         if (component.getName() != null && !component.getName().startsWith("null.")) {
-            double scale = 1.5;
+            double scale = 1.0;
             //TODO delete
             if (dimensions.get(prefix + ".width") != null) {
                 Dimension dimension = dimensions.getSize(prefix);
@@ -363,7 +363,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         systemPanel.initializeComponent();
         systemPanel.setLocation(new Point(4, 2));
 
-        cargoPanel.initializeComponent(strings);
+        cargoPanel.initializeComponent();
         cargoPanel.setLocation(new Point(252, 2));
 
         dockPanel.initializeComponent();

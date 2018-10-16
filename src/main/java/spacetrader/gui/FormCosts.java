@@ -110,7 +110,7 @@ public class FormCosts extends SpaceTraderForm {
         this.lblMerc.setSize(new spacetrader.controls.Size(39, 13));
         this.lblMerc.setTabIndex(36);
         this.lblMerc.setText("888 cr.");
-        this.lblMerc.TextAlign = ContentAlignment.TopRight;
+        this.lblMerc.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblIns
         //
@@ -119,7 +119,7 @@ public class FormCosts extends SpaceTraderForm {
         this.lblIns.setSize(new spacetrader.controls.Size(39, 13));
         this.lblIns.setTabIndex(40);
         this.lblIns.setText("888 cr.");
-        this.lblIns.TextAlign = ContentAlignment.TopRight;
+        this.lblIns.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblInt
         //
@@ -128,7 +128,7 @@ public class FormCosts extends SpaceTraderForm {
         this.lblInt.setSize(new spacetrader.controls.Size(39, 13));
         this.lblInt.setTabIndex(44);
         this.lblInt.setText("888 cr.");
-        this.lblInt.TextAlign = ContentAlignment.TopRight;
+        this.lblInt.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblTax
         //
@@ -137,7 +137,7 @@ public class FormCosts extends SpaceTraderForm {
         this.lblTax.setSize(new spacetrader.controls.Size(39, 13));
         this.lblTax.setTabIndex(48);
         this.lblTax.setText("888 cr.");
-        this.lblTax.TextAlign = ContentAlignment.TopRight;
+        this.lblTax.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblTotal
         //
@@ -146,7 +146,7 @@ public class FormCosts extends SpaceTraderForm {
         this.lblTotal.setSize(new spacetrader.controls.Size(39, 13));
         this.lblTotal.setTabIndex(52);
         this.lblTotal.setText("888 cr.");
-        this.lblTotal.TextAlign = ContentAlignment.TopRight;
+        this.lblTotal.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblTotalLabel
         //

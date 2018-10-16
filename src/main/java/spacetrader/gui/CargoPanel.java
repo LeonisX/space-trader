@@ -29,7 +29,6 @@ import spacetrader.controls.Panel;
 import spacetrader.game.*;
 
 import java.awt.*;
-import java.util.Map;
 
 class CargoPanel extends Panel {
 
@@ -39,133 +38,144 @@ class CargoPanel extends Panel {
     private SpaceTraderGame game = null;
     private GameController controller = null;
 
-    private Button btnBuyMax0;
-    private Button btnBuyQty0;
-    private Button btnSellQty0;
-    private Button btnSellAll0;
-    private Button btnBuyMax1;
-    private Button btnBuyQty1;
-    private Button btnSellQty1;
-    private Button btnSellAll1;
-    private Button btnSellQty2;
-    private Button btnSellAll2;
-    private Button btnBuyQty2;
-    private Button btnBuyMax2;
-    private Button btnSellQty3;
-    private Button btnSellAll3;
-    private Button btnBuyQty3;
-    private Button btnBuyMax3;
-    private Button btnSellQty4;
-    private Button btnSellAll4;
-    private Button btnBuyQty4;
-    private Button btnBuyMax4;
-    private Button btnSellQty5;
-    private Button btnSellAll5;
-    private Button btnBuyQty5;
-    private Button btnBuyMax5;
-    private Button btnSellQty6;
-    private Button btnSellAll6;
-    private Button btnBuyQty6;
-    private Button btnBuyMax6;
-    private Button btnSellQty7;
-    private Button btnSellAll7;
-    private Button btnBuyQty7;
-    private Button btnBuyMax7;
-    private Button btnSellQty8;
-    private Button btnSellAll8;
-    private Button btnBuyQty8;
-    private Button btnBuyMax8;
-    private Button btnSellQty9;
-    private Button btnSellAll9;
-    private Button btnBuyQty9;
-    private Button btnBuyMax9;
-    private ImageList ilChartImages;
-    private ImageList ilDirectionImages;
-    private ImageList ilEquipmentImages;
-    private ImageList ilShipImages;
-    private Label lblBuy;
-    private Label lblBuyPrice0;
-    private Label lblBuyPrice1;
-    private Label lblBuyPrice2;
-    private Label lblBuyPrice3;
-    private Label lblBuyPrice4;
-    private Label lblBuyPrice5;
-    private Label lblBuyPrice6;
-    private Label lblBuyPrice7;
-    private Label lblBuyPrice8;
-    private Label lblBuyPrice9;
-    private Label lblSell;
-    private Label lblSellPrice0;
-    private Label lblSellPrice1;
-    private Label lblSellPrice2;
-    private Label lblSellPrice3;
-    private Label lblSellPrice4;
-    private Label lblSellPrice5;
-    private Label lblSellPrice6;
-    private Label lblSellPrice7;
-    private Label lblSellPrice8;
-    private Label lblSellPrice9;
-    private Label lblTargetDiff0;
-    private Label lblTargetDiff1;
-    private Label lblTargetDiff2;
-    private Label lblTargetDiff3;
-    private Label lblTargetDiff4;
-    private Label lblTargetDiff5;
-    private Label lblTargetDiff6;
-    private Label lblTargetDiff7;
-    private Label lblTargetDiff8;
-    private Label lblTargetDiff9;
-    private Label lblTargetDiffLabel;
-    private Label lblTargetPct0;
-    private Label lblTargetPct1;
-    private Label lblTargetPct2;
-    private Label lblTargetPct3;
-    private Label lblTargetPct4;
-    private Label lblTargetPct5;
-    private Label lblTargetPct6;
-    private Label lblTargetPct7;
-    private Label lblTargetPct8;
-    private Label lblTargetPct9;
-    private Label lblTargetPctLabel;
-    private Label lblTargetPrice0;
-    private Label lblTargetPrice1;
-    private Label lblTargetPrice2;
-    private Label lblTargetPrice3;
-    private Label lblTargetPrice4;
-    private Label lblTargetPrice5;
-    private Label lblTargetPrice6;
-    private Label lblTargetPrice7;
-    private Label lblTargetPrice8;
-    private Label lblTargetPrice9;
-    private Label lblTargetPriceLabel;
-    private Label lblTradeCmdty0;
-    private Label lblTradeCmdty1;
-    private Label lblTradeCmdty2;
-    private Label lblTradeCmdty3;
-    private Label lblTradeCmdty4;
-    private Label lblTradeCmdty5;
-    private Label lblTradeCmdty6;
-    private Label lblTradeCmdty7;
-    private Label lblTradeCmdty8;
-    private Label lblTradeCmdty9;
-    private Label lblTradeTarget;
+    private Button buyMaxButton0;
+    private Button buyButton0;
+    private Button sellButton0;
+    private Button sellAllButton0;
+    private Button buyMaxButton1;
+    private Button buyButton1;
+    private Button sellButton1;
+    private Button sellAllButton1;
+    private Button sellButton2;
+    private Button sellAllButton2;
+    private Button buyButton2;
+    private Button buyMaxButton2;
+    private Button sellButton3;
+    private Button sellAllButton3;
+    private Button buyButton3;
+    private Button buyMaxButton3;
+    private Button sellButton4;
+    private Button sellAllButton4;
+    private Button buyButton4;
+    private Button buyMaxButton4;
+    private Button sellButton5;
+    private Button sellAllButton5;
+    private Button buyButton5;
+    private Button buyMaxButton5;
+    private Button sellButton6;
+    private Button sellAllButton6;
+    private Button buyButton6;
+    private Button buyMaxButton6;
+    private Button sellButton7;
+    private Button sellAllButton7;
+    private Button buyButton7;
+    private Button buyMaxButton7;
+    private Button sellButton8;
+    private Button sellAllButton8;
+    private Button buyButton8;
+    private Button buyMaxButton8;
+    private Button sellButton9;
+    private Button sellAllButton9;
+    private Button buyButton9;
+    private Button buyMaxButton9;
+    
+    private Label commodityLabel0;
+    private Label commodityLabel1;
+    private Label commodityLabel2;
+    private Label commodityLabel3;
+    private Label commodityLabel4;
+    private Label commodityLabel5;
+    private Label commodityLabel6;
+    private Label commodityLabel7;
+    private Label commodityLabel8;
+    private Label commodityLabel9;
 
+    private Label buyPriceLabel;
+    private Label buyPriceLabelValue0;
+    private Label buyPriceLabelValue1;
+    private Label buyPriceLabelValue2;
+    private Label buyPriceLabelValue3;
+    private Label buyPriceLabelValue4;
+    private Label buyPriceLabelValue5;
+    private Label buyPriceLabelValue6;
+    private Label buyPriceLabelValue7;
+    private Label buyPriceLabelValue8;
+    private Label buyPriceLabelValue9;
+    
+    private Label sellPriceLabel;
+    private Label sellPriceLabelValue0;
+    private Label sellPriceLabelValue1;
+    private Label sellPriceLabelValue2;
+    private Label sellPriceLabelValue3;
+    private Label sellPriceLabelValue4;
+    private Label sellPriceLabelValue5;
+    private Label sellPriceLabelValue6;
+    private Label sellPriceLabelValue7;
+    private Label sellPriceLabelValue8;
+    private Label sellPriceLabelValue9;
+
+    private Label tradeTargetLabel;
+    
+    private Label targetPriceLabel;
+    private Label targetPriceLabelValue0;
+    private Label targetPriceLabelValue1;
+    private Label targetPriceLabelValue2;
+    private Label targetPriceLabelValue3;
+    private Label targetPriceLabelValue4;
+    private Label targetPriceLabelValue5;
+    private Label targetPriceLabelValue6;
+    private Label targetPriceLabelValue7;
+    private Label targetPriceLabelValue8;
+    private Label targetPriceLabelValue9;
+    
+    
+    private Label targetDiffLabel;
+    private Label targetDiffLabelValue0;
+    private Label targetDiffLabelValue1;
+    private Label targetDiffLabelValue2;
+    private Label targetDiffLabelValue3;
+    private Label targetDiffLabelValue4;
+    private Label targetDiffLabelValue5;
+    private Label targetDiffLabelValue6;
+    private Label targetDiffLabelValue7;
+    private Label targetDiffLabelValue8;
+    private Label targetDiffLabelValue9;
+
+    private Label targetPercentageLabel;
+    private Label targetPercentageLabelValue0;
+    private Label targetPercentageLabelValue1;
+    private Label targetPercentageLabelValue2;
+    private Label targetPercentageLabelValue3;
+    private Label targetPercentageLabelValue4;
+    private Label targetPercentageLabelValue5;
+    private Label targetPercentageLabelValue6;
+    private Label targetPercentageLabelValue7;
+    private Label targetPercentageLabelValue8;
+    private Label targetPercentageLabelValue9;
+    
     private VerticalLine verticalLine0;
     private VerticalLine verticalLine1;
     private VerticalLine verticalLine2;
     private HorizontalLine horizontalLine;
 
-    private IContainer components;
+    private ImageList ilChartImages;
+    private ImageList ilDirectionImages;
+    private ImageList ilEquipmentImages;
+    private ImageList ilShipImages;
 
     private Label[] sellPriceArray;
     private Label[] buyPriceArray;
     private Label[] targetPriceArray;
     private Label[] targetDiffArray;
     private Label[] targetPercentageArray;
-    private Button[] btnSellQty;
-    private Button[] btnSellAll;
-    private Button[] btnBuyQty;
-    private Button[] btnBuyMax;
+
+    private Button[] sellButtonArray;
+    private Button[] sellAllButtonArray;
+    private Button[] buyButtonArray;
+    private Button[] buyMaxButtonArray;
+
+    //TODO need???
+    private IContainer components;
 
     CargoPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
@@ -177,271 +187,211 @@ class CargoPanel extends Panel {
     }
 
     private void finishInit() {
-        sellPriceArray = new Label[]{lblSellPrice0, lblSellPrice1, lblSellPrice2, lblSellPrice3, lblSellPrice4,
-                lblSellPrice5, lblSellPrice6, lblSellPrice7, lblSellPrice8, lblSellPrice9};
+        sellPriceArray = new Label[]{sellPriceLabelValue0, sellPriceLabelValue1, sellPriceLabelValue2,
+                sellPriceLabelValue3, sellPriceLabelValue4, sellPriceLabelValue5, sellPriceLabelValue6,
+                sellPriceLabelValue7, sellPriceLabelValue8, sellPriceLabelValue9};
 
-        buyPriceArray = new Label[]{lblBuyPrice0, lblBuyPrice1, lblBuyPrice2, lblBuyPrice3, lblBuyPrice4, lblBuyPrice5,
-                lblBuyPrice6, lblBuyPrice7, lblBuyPrice8, lblBuyPrice9};
+        buyPriceArray = new Label[]{buyPriceLabelValue0, buyPriceLabelValue1, buyPriceLabelValue2,
+                buyPriceLabelValue3, buyPriceLabelValue4, buyPriceLabelValue5, buyPriceLabelValue6,
+                buyPriceLabelValue7, buyPriceLabelValue8, buyPriceLabelValue9};
 
-        targetPriceArray = new Label[]{lblTargetPrice0, lblTargetPrice1, lblTargetPrice2, lblTargetPrice3,
-                lblTargetPrice4, lblTargetPrice5, lblTargetPrice6, lblTargetPrice7, lblTargetPrice8, lblTargetPrice9};
+        targetPriceArray = new Label[]{targetPriceLabelValue0, targetPriceLabelValue1, targetPriceLabelValue2,
+                targetPriceLabelValue3, targetPriceLabelValue4, targetPriceLabelValue5, targetPriceLabelValue6,
+                targetPriceLabelValue7, targetPriceLabelValue8, targetPriceLabelValue9};
 
-        targetDiffArray = new Label[]{lblTargetDiff0, lblTargetDiff1, lblTargetDiff2, lblTargetDiff3, lblTargetDiff4,
-                lblTargetDiff5, lblTargetDiff6, lblTargetDiff7, lblTargetDiff8, lblTargetDiff9};
+        targetDiffArray = new Label[]{targetDiffLabelValue0, targetDiffLabelValue1, targetDiffLabelValue2,
+                targetDiffLabelValue3, targetDiffLabelValue4, targetDiffLabelValue5, targetDiffLabelValue6,
+                targetDiffLabelValue7, targetDiffLabelValue8, targetDiffLabelValue9};
 
-        targetPercentageArray = new Label[]{lblTargetPct0, lblTargetPct1, lblTargetPct2, lblTargetPct3, lblTargetPct4,
-                lblTargetPct5, lblTargetPct6, lblTargetPct7, lblTargetPct8, lblTargetPct9};
+        targetPercentageArray = new Label[]{targetPercentageLabelValue0, targetPercentageLabelValue1,
+                targetPercentageLabelValue2, targetPercentageLabelValue3, targetPercentageLabelValue4,
+                targetPercentageLabelValue5, targetPercentageLabelValue6, targetPercentageLabelValue7,
+                targetPercentageLabelValue8, targetPercentageLabelValue9};
 
-        btnSellQty = new Button[]{btnSellQty0, btnSellQty1, btnSellQty2, btnSellQty3, btnSellQty4, btnSellQty5,
-                btnSellQty6, btnSellQty7, btnSellQty8, btnSellQty9};
+        sellButtonArray = new Button[]{sellButton0, sellButton1, sellButton2, sellButton3, sellButton4, sellButton5,
+                sellButton6, sellButton7, sellButton8, sellButton9};
 
-        btnSellAll = new Button[]{btnSellAll0, btnSellAll1, btnSellAll2, btnSellAll3, btnSellAll4, btnSellAll5,
-                btnSellAll6, btnSellAll7, btnSellAll8, btnSellAll9};
+        sellAllButtonArray = new Button[]{sellAllButton0, sellAllButton1, sellAllButton2, sellAllButton3,
+                sellAllButton4, sellAllButton5, sellAllButton6, sellAllButton7, sellAllButton8, sellAllButton9};
 
-        btnBuyQty = new Button[]{btnBuyQty0, btnBuyQty1, btnBuyQty2, btnBuyQty3, btnBuyQty4, btnBuyQty5, btnBuyQty6,
-                btnBuyQty7, btnBuyQty8, btnBuyQty9};
+        buyButtonArray = new Button[]{buyButton0, buyButton1, buyButton2, buyButton3, buyButton4, buyButton5,
+                buyButton6, buyButton7, buyButton8, buyButton9};
 
-        btnBuyMax = new Button[]{btnBuyMax0, btnBuyMax1, btnBuyMax2, btnBuyMax3, btnBuyMax4, btnBuyMax5, btnBuyMax6,
-                btnBuyMax7, btnBuyMax8, btnBuyMax9};
+        buyMaxButtonArray = new Button[]{buyMaxButton0, buyMaxButton1, buyMaxButton2, buyMaxButton3, buyMaxButton4,
+                buyMaxButton5, buyMaxButton6, buyMaxButton7, buyMaxButton8, buyMaxButton9};
     }
 
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
-    void initializeComponent(Map<String, String> strings) {
-        components = new Container();
+    void initializeComponent() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
-        //TODO names
+
+        components = new Container();
+
         verticalLine0 = new VerticalLine();
         verticalLine1 = new VerticalLine();
         verticalLine2 = new VerticalLine();
         horizontalLine = new HorizontalLine();
-        lblTargetPct9 = new Label();
-        lblTargetDiff9 = new Label();
-        lblTargetPrice9 = new Label();
-        btnBuyMax9 = new Button();
-        btnBuyQty9 = new Button();
-        lblBuyPrice9 = new Label();
-        btnSellAll9 = new Button();
-        btnSellQty9 = new Button();
-        lblSellPrice9 = new Label();
-        lblTargetPct8 = new Label();
-        lblTargetDiff8 = new Label();
-        lblTargetPrice8 = new Label();
-        btnBuyMax8 = new Button();
-        btnBuyQty8 = new Button();
-        lblBuyPrice8 = new Label();
-        btnSellAll8 = new Button();
-        btnSellQty8 = new Button();
-        lblSellPrice8 = new Label();
-        lblTargetPct7 = new Label();
-        lblTargetDiff7 = new Label();
-        lblTargetPrice7 = new Label();
-        btnBuyMax7 = new Button();
-        btnBuyQty7 = new Button();
-        lblBuyPrice7 = new Label();
-        btnSellAll7 = new Button();
-        btnSellQty7 = new Button();
-        lblSellPrice7 = new Label();
-        lblTargetPct6 = new Label();
-        lblTargetDiff6 = new Label();
-        lblTargetPrice6 = new Label();
-        btnBuyMax6 = new Button();
-        btnBuyQty6 = new Button();
-        lblBuyPrice6 = new Label();
-        btnSellAll6 = new Button();
-        btnSellQty6 = new Button();
-        lblSellPrice6 = new Label();
-        lblTargetPct5 = new Label();
-        lblTargetDiff5 = new Label();
-        lblTargetPrice5 = new Label();
-        btnBuyMax5 = new Button();
-        btnBuyQty5 = new Button();
-        lblBuyPrice5 = new Label();
-        btnSellAll5 = new Button();
-        btnSellQty5 = new Button();
-        lblSellPrice5 = new Label();
-        lblTargetPct4 = new Label();
-        lblTargetDiff4 = new Label();
-        lblTargetPrice4 = new Label();
-        btnBuyMax4 = new Button();
-        btnBuyQty4 = new Button();
-        lblBuyPrice4 = new Label();
-        btnSellAll4 = new Button();
-        btnSellQty4 = new Button();
-        lblSellPrice4 = new Label();
-        lblTargetPct3 = new Label();
-        lblTargetDiff3 = new Label();
-        lblTargetPrice3 = new Label();
-        btnBuyMax3 = new Button();
-        btnBuyQty3 = new Button();
-        lblBuyPrice3 = new Label();
-        btnSellAll3 = new Button();
-        btnSellQty3 = new Button();
-        lblSellPrice3 = new Label();
-        lblTargetPct2 = new Label();
-        lblTargetDiff2 = new Label();
-        lblTargetPrice2 = new Label();
-        btnBuyMax2 = new Button();
-        btnBuyQty2 = new Button();
-        lblBuyPrice2 = new Label();
-        btnSellAll2 = new Button();
-        btnSellQty2 = new Button();
-        lblSellPrice2 = new Label();
-        lblTargetPct1 = new Label();
-        lblTargetDiff1 = new Label();
-        lblTargetPrice1 = new Label();
-        btnBuyMax1 = new Button();
-        btnBuyQty1 = new Button();
-        lblBuyPrice1 = new Label();
-        lblTargetPctLabel = new Label();
-        lblTargetDiffLabel = new Label();
-        lblTargetPriceLabel = new Label();
-        lblTargetPct0 = new Label();
-        lblTargetDiff0 = new Label();
-        lblTargetPrice0 = new Label();
-        btnBuyMax0 = new Button();
-        btnBuyQty0 = new Button();
-        lblBuyPrice0 = new Label();
-        btnSellAll1 = new Button();
-        btnSellQty1 = new Button();
-        lblSellPrice1 = new Label();
-        btnSellAll0 = new Button();
-        btnSellQty0 = new Button();
-        lblSellPrice0 = new Label();
-        lblTradeTarget = new Label();
-        lblBuy = new Label();
-        lblSell = new Label();
-        lblTradeCmdty9 = new Label();
-        lblTradeCmdty8 = new Label();
-        lblTradeCmdty2 = new Label();
-        lblTradeCmdty0 = new Label();
-        lblTradeCmdty1 = new Label();
-        lblTradeCmdty6 = new Label();
-        lblTradeCmdty5 = new Label();
-        lblTradeCmdty4 = new Label();
-        lblTradeCmdty3 = new Label();
-        lblTradeCmdty7 = new Label();
+
+        commodityLabel9 = new Label();
+        commodityLabel8 = new Label();
+        commodityLabel2 = new Label();
+        commodityLabel0 = new Label();
+        commodityLabel1 = new Label();
+        commodityLabel6 = new Label();
+        commodityLabel5 = new Label();
+        commodityLabel4 = new Label();
+        commodityLabel3 = new Label();
+        commodityLabel7 = new Label();
+
+        tradeTargetLabel = new Label();
+        buyPriceLabel = new Label();
+        sellPriceLabel = new Label();
+        targetPriceLabel = new Label();
+        targetDiffLabel = new Label();
+        targetPercentageLabel = new Label();
+
+        buyMaxButton0 = new Button();
+        buyButton0 = new Button();
+        buyPriceLabelValue0 = new Label();
+        sellAllButton0 = new Button();
+        sellButton0 = new Button();
+        sellPriceLabelValue0 = new Label();
+        targetPercentageLabelValue0 = new Label();
+        targetDiffLabelValue0 = new Label();
+        targetPriceLabelValue0 = new Label();
+
+        buyMaxButton1 = new Button();
+        buyButton1 = new Button();
+        buyPriceLabelValue1 = new Label();
+        sellAllButton1 = new Button();
+        sellButton1 = new Button();
+        sellPriceLabelValue1 = new Label();
+        targetPercentageLabelValue1 = new Label();
+        targetDiffLabelValue1 = new Label();
+        targetPriceLabelValue1 = new Label();
+
+        buyMaxButton2 = new Button();
+        buyButton2 = new Button();
+        buyPriceLabelValue2 = new Label();
+        sellAllButton2 = new Button();
+        sellButton2 = new Button();
+        sellPriceLabelValue2 = new Label();
+        targetPercentageLabelValue2 = new Label();
+        targetDiffLabelValue2 = new Label();
+        targetPriceLabelValue2 = new Label();
+
+        buyMaxButton3 = new Button();
+        buyButton3 = new Button();
+        buyPriceLabelValue3 = new Label();
+        sellAllButton3 = new Button();
+        sellButton3 = new Button();
+        sellPriceLabelValue3 = new Label();
+        targetPercentageLabelValue3 = new Label();
+        targetDiffLabelValue3 = new Label();
+        targetPriceLabelValue3 = new Label();
+
+        buyMaxButton4 = new Button();
+        buyButton4 = new Button();
+        buyPriceLabelValue4 = new Label();
+        sellAllButton4 = new Button();
+        sellButton4 = new Button();
+        sellPriceLabelValue4 = new Label();
+        targetPercentageLabelValue4 = new Label();
+        targetDiffLabelValue4 = new Label();
+        targetPriceLabelValue4 = new Label();
+
+        buyMaxButton5 = new Button();
+        buyButton5 = new Button();
+        buyPriceLabelValue5 = new Label();
+        sellAllButton5 = new Button();
+        sellButton5 = new Button();
+        sellPriceLabelValue5 = new Label();
+        targetPercentageLabelValue5 = new Label();
+        targetDiffLabelValue5 = new Label();
+        targetPriceLabelValue5 = new Label();
+
+        buyMaxButton6 = new Button();
+        buyButton6 = new Button();
+        buyPriceLabelValue6 = new Label();
+        sellAllButton6 = new Button();
+        sellButton6 = new Button();
+        sellPriceLabelValue6 = new Label();
+        targetPercentageLabelValue6 = new Label();
+        targetDiffLabelValue6 = new Label();
+        targetPriceLabelValue6 = new Label();
+
+        buyMaxButton7 = new Button();
+        buyButton7 = new Button();
+        buyPriceLabelValue7 = new Label();
+        sellAllButton7 = new Button();
+        sellButton7 = new Button();
+        sellPriceLabelValue7 = new Label();
+        targetPercentageLabelValue7 = new Label();
+        targetDiffLabelValue7 = new Label();
+        targetPriceLabelValue7 = new Label();
+
+        buyMaxButton8 = new Button();
+        buyButton8 = new Button();
+        buyPriceLabelValue8 = new Label();
+        sellAllButton8 = new Button();
+        sellButton8 = new Button();
+        sellPriceLabelValue8 = new Label();
+        targetPercentageLabelValue8 = new Label();
+        targetDiffLabelValue8 = new Label();
+        targetPriceLabelValue8 = new Label();
+
+        buyMaxButton9 = new Button();
+        buyButton9 = new Button();
+        buyPriceLabelValue9 = new Label();
+        sellAllButton9 = new Button();
+        sellButton9 = new Button();
+        sellPriceLabelValue9 = new Label();
+        targetPercentageLabelValue9 = new Label();
+        targetDiffLabelValue9 = new Label();
+        targetPriceLabelValue9 = new Label();
+
         ilChartImages = new ImageList(components);
         ilShipImages = new ImageList(components);
         ilDirectionImages = new ImageList(components);
         ilEquipmentImages = new ImageList(components);
+
         this.suspendLayout();
-        //
-        // boxCargo
-        //
-        anchor = AnchorStyles.Top_Right;
+
+        this.anchor = AnchorStyles.Top_Right;
+
         controls.add(verticalLine0);
         controls.add(verticalLine1);
         controls.add(verticalLine2);
         controls.add(horizontalLine);
-        controls.add(lblTargetPct9);
-        controls.add(lblTargetDiff9);
-        controls.add(lblTargetPrice9);
-        controls.add(btnBuyMax9);
-        controls.add(btnBuyQty9);
-        controls.add(lblBuyPrice9);
-        controls.add(btnSellAll9);
-        controls.add(btnSellQty9);
-        controls.add(lblSellPrice9);
-        controls.add(lblTargetPct8);
-        controls.add(lblTargetDiff8);
-        controls.add(lblTargetPrice8);
-        controls.add(btnBuyMax8);
-        controls.add(btnBuyQty8);
-        controls.add(lblBuyPrice8);
-        controls.add(btnSellAll8);
-        controls.add(btnSellQty8);
-        controls.add(lblSellPrice8);
-        controls.add(lblTargetPct7);
-        controls.add(lblTargetDiff7);
-        controls.add(lblTargetPrice7);
-        controls.add(btnBuyMax7);
-        controls.add(btnBuyQty7);
-        controls.add(lblBuyPrice7);
-        controls.add(btnSellAll7);
-        controls.add(btnSellQty7);
-        controls.add(lblSellPrice7);
-        controls.add(lblTargetPct6);
-        controls.add(lblTargetDiff6);
-        controls.add(lblTargetPrice6);
-        controls.add(btnBuyMax6);
-        controls.add(btnBuyQty6);
-        controls.add(lblBuyPrice6);
-        controls.add(btnSellAll6);
-        controls.add(btnSellQty6);
-        controls.add(lblSellPrice6);
-        controls.add(lblTargetPct5);
-        controls.add(lblTargetDiff5);
-        controls.add(lblTargetPrice5);
-        controls.add(btnBuyMax5);
-        controls.add(btnBuyQty5);
-        controls.add(lblBuyPrice5);
-        controls.add(btnSellAll5);
-        controls.add(btnSellQty5);
-        controls.add(lblSellPrice5);
-        controls.add(lblTargetPct4);
-        controls.add(lblTargetDiff4);
-        controls.add(lblTargetPrice4);
-        controls.add(btnBuyMax4);
-        controls.add(btnBuyQty4);
-        controls.add(lblBuyPrice4);
-        controls.add(btnSellAll4);
-        controls.add(btnSellQty4);
-        controls.add(lblSellPrice4);
-        controls.add(lblTargetPct3);
-        controls.add(lblTargetDiff3);
-        controls.add(lblTargetPrice3);
-        controls.add(btnBuyMax3);
-        controls.add(btnBuyQty3);
-        controls.add(lblBuyPrice3);
-        controls.add(btnSellAll3);
-        controls.add(btnSellQty3);
-        controls.add(lblSellPrice3);
-        controls.add(lblTargetPct2);
-        controls.add(lblTargetDiff2);
-        controls.add(lblTargetPrice2);
-        controls.add(btnBuyMax2);
-        controls.add(btnBuyQty2);
-        controls.add(lblBuyPrice2);
-        controls.add(btnSellAll2);
-        controls.add(btnSellQty2);
-        controls.add(lblSellPrice2);
-        controls.add(lblTargetPct1);
-        controls.add(lblTargetDiff1);
-        controls.add(lblTargetPrice1);
-        controls.add(btnBuyMax1);
-        controls.add(btnBuyQty1);
-        controls.add(lblBuyPrice1);
-        controls.add(lblTargetPctLabel);
-        controls.add(lblTargetDiffLabel);
-        controls.add(lblTargetPriceLabel);
-        controls.add(lblTargetPct0);
-        controls.add(lblTargetDiff0);
-        controls.add(lblTargetPrice0);
-        controls.add(btnBuyMax0);
-        controls.add(btnBuyQty0);
-        controls.add(lblBuyPrice0);
-        controls.add(btnSellAll1);
-        controls.add(btnSellQty1);
-        controls.add(lblSellPrice1);
-        controls.add(btnSellAll0);
-        controls.add(btnSellQty0);
-        controls.add(lblSellPrice0);
-        controls.add(lblTradeTarget);
-        controls.add(lblBuy);
-        controls.add(lblSell);
-        controls.add(lblTradeCmdty9);
-        controls.add(lblTradeCmdty8);
-        controls.add(lblTradeCmdty2);
-        controls.add(lblTradeCmdty0);
-        controls.add(lblTradeCmdty1);
-        controls.add(lblTradeCmdty6);
-        controls.add(lblTradeCmdty5);
-        controls.add(lblTradeCmdty4);
-        controls.add(lblTradeCmdty3);
-        controls.add(lblTradeCmdty7);
+
+        controls.add(commodityLabel9);
+        controls.add(commodityLabel8);
+        controls.add(commodityLabel2);
+        controls.add(commodityLabel0);
+        controls.add(commodityLabel1);
+        controls.add(commodityLabel6);
+        controls.add(commodityLabel5);
+        controls.add(commodityLabel4);
+        controls.add(commodityLabel3);
+        controls.add(commodityLabel7);
+
+        controls.add(buyPriceLabel);
+        controls.add(sellPriceLabel);
+        controls.add(tradeTargetLabel);
+        controls.add(targetPriceLabel);
+        controls.add(targetDiffLabel);
+        controls.add(targetPercentageLabel);
+
+        controls.addAll(sellPriceArray);
+        controls.addAll(buyPriceArray);
+        controls.addAll(targetPriceArray);
+        controls.addAll(targetDiffArray);
+        controls.addAll(targetPercentageArray);
+
+        controls.addAll(sellButtonArray);
+        controls.addAll(sellAllButtonArray);
+        controls.addAll(buyButtonArray);
+        controls.addAll(buyMaxButtonArray);
+
         setSize(new Size(512, 300));
         setTabIndex(8);
         setTabStop(false);
@@ -467,38 +417,38 @@ class CargoPanel extends Panel {
         verticalLine2.setTabIndex(130);
         verticalLine2.setTabStop(false);
         //
-        // lblTargetPct9
+        // targetPercentageLabelValue9
         //
-        lblTargetPct9.setLocation(new Point(466, 276));
-        lblTargetPct9.setSize(new Size(37, 13));
-        lblTargetPct9.setTabIndex(127);
-        lblTargetPct9.setText("--------");
-        lblTargetPct9.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue9.setLocation(new Point(466, 276));
+        targetPercentageLabelValue9.setSize(new Size(37, 13));
+        targetPercentageLabelValue9.setTabIndex(127);
+        targetPercentageLabelValue9.setText("--------");
+        targetPercentageLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff9
+        // targetDiffLabelValue9
         //
-        lblTargetDiff9.setLocation(new Point(410, 276));
-        lblTargetDiff9.setSize(new Size(52, 13));
-        lblTargetDiff9.setTabIndex(126);
-        lblTargetDiff9.setText("------------");
-        lblTargetDiff9.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue9.setLocation(new Point(410, 276));
+        targetDiffLabelValue9.setSize(new Size(52, 13));
+        targetDiffLabelValue9.setTabIndex(126);
+        targetDiffLabelValue9.setText("------------");
+        targetDiffLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice9
+        // targetPriceLabelValue9
         //
-        lblTargetPrice9.setLocation(new Point(358, 276));
-        lblTargetPrice9.setSize(new Size(48, 13));
-        lblTargetPrice9.setTabIndex(125);
-        lblTargetPrice9.setText("-----------");
-        lblTargetPrice9.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue9.setLocation(new Point(358, 276));
+        targetPriceLabelValue9.setSize(new Size(48, 13));
+        targetPriceLabelValue9.setTabIndex(125);
+        targetPriceLabelValue9.setText("-----------");
+        targetPriceLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax9
+        // buyMaxButton9
         //
-        btnBuyMax9.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax9.setLocation(new Point(262, 272));
-        btnBuyMax9.setSize(new Size(36, 22));
-        btnBuyMax9.setTabIndex(51);
-        btnBuyMax9.setText("Max");
-        btnBuyMax9.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton9.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton9.setLocation(new Point(262, 272));
+        buyMaxButton9.setSize(new Size(36, 22));
+        buyMaxButton9.setTabIndex(51);
+        buyMaxButton9.setText("Max");
+        buyMaxButton9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
@@ -506,1057 +456,1057 @@ class CargoPanel extends Panel {
         });
 
         //
-        // btnBuyQty9
+        // buyButton9
         //
-        btnBuyQty9.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty9.setLocation(new Point(227, 272));
-        btnBuyQty9.setSize(new Size(28, 22));
-        btnBuyQty9.setTabIndex(50);
-        btnBuyQty9.setText("88");
-        btnBuyQty9.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton9.setFlatStyle(FlatStyle.FLAT);
+        buyButton9.setLocation(new Point(227, 272));
+        buyButton9.setSize(new Size(28, 22));
+        buyButton9.setTabIndex(50);
+        buyButton9.setText("88");
+        buyButton9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice9
+        // buyPriceLabelValue9
         //
-        lblBuyPrice9.setLocation(new Point(302, 276));
-        lblBuyPrice9.setSize(new Size(48, 13));
-        lblBuyPrice9.setTabIndex(122);
-        lblBuyPrice9.setText("not sold");
-        lblBuyPrice9.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue9.setLocation(new Point(302, 276));
+        buyPriceLabelValue9.setSize(new Size(48, 13));
+        buyPriceLabelValue9.setTabIndex(122);
+        buyPriceLabelValue9.setText("not sold");
+        buyPriceLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll9
+        // sellAllButton9
         //
-        btnSellAll9.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll9.setLocation(new Point(115, 272));
-        btnSellAll9.setSize(new Size(44, 22));
-        btnSellAll9.setTabIndex(49);
-        btnSellAll9.setText("Dump");
-        btnSellAll9.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton9.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton9.setLocation(new Point(115, 272));
+        sellAllButton9.setSize(new Size(44, 22));
+        sellAllButton9.setTabIndex(49);
+        sellAllButton9.setText("Dump");
+        sellAllButton9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty9
+        // sellButton9
         //
-        btnSellQty9.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty9.setLocation(new Point(80, 272));
-        btnSellQty9.setSize(new Size(28, 22));
-        btnSellQty9.setTabIndex(48);
-        btnSellQty9.setText("88");
-        btnSellQty9.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton9.setFlatStyle(FlatStyle.FLAT);
+        sellButton9.setLocation(new Point(80, 272));
+        sellButton9.setSize(new Size(28, 22));
+        sellButton9.setTabIndex(48);
+        sellButton9.setText("88");
+        sellButton9.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice9
+        // sellPriceLabelValue9
         //
-        lblSellPrice9.setLocation(new Point(163, 276));
-        lblSellPrice9.setSize(new Size(48, 13));
-        lblSellPrice9.setTabIndex(119);
-        lblSellPrice9.setText("no trade");
-        lblSellPrice9.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue9.setLocation(new Point(163, 276));
+        sellPriceLabelValue9.setSize(new Size(48, 13));
+        sellPriceLabelValue9.setTabIndex(119);
+        sellPriceLabelValue9.setText("no trade");
+        sellPriceLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct8
+        // targetPercentageLabelValue8
         //
-        lblTargetPct8.setLocation(new Point(466, 252));
-        lblTargetPct8.setSize(new Size(37, 13));
-        lblTargetPct8.setTabIndex(118);
-        lblTargetPct8.setText("-888%");
-        lblTargetPct8.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue8.setLocation(new Point(466, 252));
+        targetPercentageLabelValue8.setSize(new Size(37, 13));
+        targetPercentageLabelValue8.setTabIndex(118);
+        targetPercentageLabelValue8.setText("-888%");
+        targetPercentageLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff8
+        // targetDiffLabelValue8
         //
-        lblTargetDiff8.setLocation(new Point(410, 252));
-        lblTargetDiff8.setSize(new Size(52, 13));
-        lblTargetDiff8.setTabIndex(117);
-        lblTargetDiff8.setText("-8,888 cr.");
-        lblTargetDiff8.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue8.setLocation(new Point(410, 252));
+        targetDiffLabelValue8.setSize(new Size(52, 13));
+        targetDiffLabelValue8.setTabIndex(117);
+        targetDiffLabelValue8.setText("-8,888 cr.");
+        targetDiffLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice8
+        // targetPriceLabelValue8
         //
-        lblTargetPrice8.setLocation(new Point(358, 252));
-        lblTargetPrice8.setSize(new Size(48, 13));
-        lblTargetPrice8.setTabIndex(116);
-        lblTargetPrice8.setText("8,888 cr.");
-        lblTargetPrice8.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue8.setLocation(new Point(358, 252));
+        targetPriceLabelValue8.setSize(new Size(48, 13));
+        targetPriceLabelValue8.setTabIndex(116);
+        targetPriceLabelValue8.setText("8,888 cr.");
+        targetPriceLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax8
+        // buyMaxButton8
         //
-        btnBuyMax8.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax8.setLocation(new Point(262, 248));
-        btnBuyMax8.setSize(new Size(36, 22));
-        btnBuyMax8.setTabIndex(47);
-        btnBuyMax8.setText("Max");
-        btnBuyMax8.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton8.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton8.setLocation(new Point(262, 248));
+        buyMaxButton8.setSize(new Size(36, 22));
+        buyMaxButton8.setTabIndex(47);
+        buyMaxButton8.setText("Max");
+        buyMaxButton8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty8
+        // buyButton8
         //
-        btnBuyQty8.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty8.setLocation(new Point(227, 248));
-        btnBuyQty8.setSize(new Size(28, 22));
-        btnBuyQty8.setTabIndex(46);
-        btnBuyQty8.setText("88");
-        btnBuyQty8.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton8.setFlatStyle(FlatStyle.FLAT);
+        buyButton8.setLocation(new Point(227, 248));
+        buyButton8.setSize(new Size(28, 22));
+        buyButton8.setTabIndex(46);
+        buyButton8.setText("88");
+        buyButton8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice8
+        // buyPriceLabelValue8
         //
-        lblBuyPrice8.setLocation(new Point(302, 252));
-        lblBuyPrice8.setSize(new Size(48, 13));
-        lblBuyPrice8.setTabIndex(113);
-        lblBuyPrice8.setText("8,888 cr.");
-        lblBuyPrice8.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue8.setLocation(new Point(302, 252));
+        buyPriceLabelValue8.setSize(new Size(48, 13));
+        buyPriceLabelValue8.setTabIndex(113);
+        buyPriceLabelValue8.setText("8,888 cr.");
+        buyPriceLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll8
+        // sellAllButton8
         //
-        btnSellAll8.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll8.setLocation(new Point(115, 248));
-        btnSellAll8.setSize(new Size(44, 22));
-        btnSellAll8.setTabIndex(45);
-        btnSellAll8.setText("All");
-        btnSellAll8.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton8.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton8.setLocation(new Point(115, 248));
+        sellAllButton8.setSize(new Size(44, 22));
+        sellAllButton8.setTabIndex(45);
+        sellAllButton8.setText("All");
+        sellAllButton8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty8
+        // sellButton8
         //
-        btnSellQty8.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty8.setLocation(new Point(80, 248));
-        btnSellQty8.setSize(new Size(28, 22));
-        btnSellQty8.setTabIndex(44);
-        btnSellQty8.setText("88");
-        btnSellQty8.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton8.setFlatStyle(FlatStyle.FLAT);
+        sellButton8.setLocation(new Point(80, 248));
+        sellButton8.setSize(new Size(28, 22));
+        sellButton8.setTabIndex(44);
+        sellButton8.setText("88");
+        sellButton8.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice8
+        // sellPriceLabelValue8
         //
-        lblSellPrice8.setLocation(new Point(163, 252));
-        lblSellPrice8.setSize(new Size(48, 13));
-        lblSellPrice8.setTabIndex(110);
-        lblSellPrice8.setText("8,888 cr.");
-        lblSellPrice8.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue8.setLocation(new Point(163, 252));
+        sellPriceLabelValue8.setSize(new Size(48, 13));
+        sellPriceLabelValue8.setTabIndex(110);
+        sellPriceLabelValue8.setText("8,888 cr.");
+        sellPriceLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct7
+        // targetPercentageLabelValue7
         //
-        lblTargetPct7.setLocation(new Point(466, 228));
-        lblTargetPct7.setSize(new Size(37, 13));
-        lblTargetPct7.setTabIndex(109);
-        lblTargetPct7.setText("-888%");
-        lblTargetPct7.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue7.setLocation(new Point(466, 228));
+        targetPercentageLabelValue7.setSize(new Size(37, 13));
+        targetPercentageLabelValue7.setTabIndex(109);
+        targetPercentageLabelValue7.setText("-888%");
+        targetPercentageLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff7
+        // targetDiffLabelValue7
         //
-        lblTargetDiff7.setFont(FontCollection.regular825);
-        lblTargetDiff7.setLocation(new Point(410, 228));
-        lblTargetDiff7.setSize(new Size(52, 13));
-        lblTargetDiff7.setTabIndex(108);
-        lblTargetDiff7.setText("-8,888 cr.");
-        lblTargetDiff7.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue7.setFont(FontCollection.regular825);
+        targetDiffLabelValue7.setLocation(new Point(410, 228));
+        targetDiffLabelValue7.setSize(new Size(52, 13));
+        targetDiffLabelValue7.setTabIndex(108);
+        targetDiffLabelValue7.setText("-8,888 cr.");
+        targetDiffLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice7
+        // targetPriceLabelValue7
         //
-        lblTargetPrice7.setLocation(new Point(358, 228));
-        lblTargetPrice7.setSize(new Size(48, 13));
-        lblTargetPrice7.setTabIndex(107);
-        lblTargetPrice7.setText("8,888 cr.");
-        lblTargetPrice7.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue7.setLocation(new Point(358, 228));
+        targetPriceLabelValue7.setSize(new Size(48, 13));
+        targetPriceLabelValue7.setTabIndex(107);
+        targetPriceLabelValue7.setText("8,888 cr.");
+        targetPriceLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax7
+        // buyMaxButton7
         //
-        btnBuyMax7.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax7.setLocation(new Point(262, 224));
-        btnBuyMax7.setSize(new Size(36, 22));
-        btnBuyMax7.setTabIndex(43);
-        btnBuyMax7.setText("Max");
-        btnBuyMax7.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton7.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton7.setLocation(new Point(262, 224));
+        buyMaxButton7.setSize(new Size(36, 22));
+        buyMaxButton7.setTabIndex(43);
+        buyMaxButton7.setText("Max");
+        buyMaxButton7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty7
+        // buyButton7
         //
-        btnBuyQty7.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty7.setLocation(new Point(227, 224));
-        btnBuyQty7.setSize(new Size(28, 22));
-        btnBuyQty7.setTabIndex(42);
-        btnBuyQty7.setText("88");
-        btnBuyQty7.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton7.setFlatStyle(FlatStyle.FLAT);
+        buyButton7.setLocation(new Point(227, 224));
+        buyButton7.setSize(new Size(28, 22));
+        buyButton7.setTabIndex(42);
+        buyButton7.setText("88");
+        buyButton7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice7
+        // buyPriceLabelValue7
         //
-        lblBuyPrice7.setLocation(new Point(302, 228));
-        lblBuyPrice7.setSize(new Size(48, 13));
-        lblBuyPrice7.setTabIndex(104);
-        lblBuyPrice7.setText("8,888 cr.");
-        lblBuyPrice7.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue7.setLocation(new Point(302, 228));
+        buyPriceLabelValue7.setSize(new Size(48, 13));
+        buyPriceLabelValue7.setTabIndex(104);
+        buyPriceLabelValue7.setText("8,888 cr.");
+        buyPriceLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll7
+        // sellAllButton7
         //
-        btnSellAll7.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll7.setLocation(new Point(115, 224));
-        btnSellAll7.setSize(new Size(44, 22));
-        btnSellAll7.setTabIndex(41);
-        btnSellAll7.setText("All");
-        btnSellAll7.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton7.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton7.setLocation(new Point(115, 224));
+        sellAllButton7.setSize(new Size(44, 22));
+        sellAllButton7.setTabIndex(41);
+        sellAllButton7.setText("All");
+        sellAllButton7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty7
+        // sellButton7
         //
-        btnSellQty7.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty7.setLocation(new Point(80, 224));
-        btnSellQty7.setSize(new Size(28, 22));
-        btnSellQty7.setTabIndex(40);
-        btnSellQty7.setText("88");
-        btnSellQty7.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton7.setFlatStyle(FlatStyle.FLAT);
+        sellButton7.setLocation(new Point(80, 224));
+        sellButton7.setSize(new Size(28, 22));
+        sellButton7.setTabIndex(40);
+        sellButton7.setText("88");
+        sellButton7.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice7
+        // sellPriceLabelValue7
         //
-        lblSellPrice7.setLocation(new Point(163, 228));
-        lblSellPrice7.setSize(new Size(48, 13));
-        lblSellPrice7.setTabIndex(101);
-        lblSellPrice7.setText("8,888 cr.");
-        lblSellPrice7.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue7.setLocation(new Point(163, 228));
+        sellPriceLabelValue7.setSize(new Size(48, 13));
+        sellPriceLabelValue7.setTabIndex(101);
+        sellPriceLabelValue7.setText("8,888 cr.");
+        sellPriceLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct6
+        // targetPercentageLabelValue6
         //
-        lblTargetPct6.setLocation(new Point(466, 204));
-        lblTargetPct6.setSize(new Size(37, 13));
-        lblTargetPct6.setTabIndex(100);
-        lblTargetPct6.setText("-888%");
-        lblTargetPct6.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue6.setLocation(new Point(466, 204));
+        targetPercentageLabelValue6.setSize(new Size(37, 13));
+        targetPercentageLabelValue6.setTabIndex(100);
+        targetPercentageLabelValue6.setText("-888%");
+        targetPercentageLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff6
+        // targetDiffLabelValue6
         //
-        lblTargetDiff6.setLocation(new Point(410, 204));
-        lblTargetDiff6.setSize(new Size(52, 13));
-        lblTargetDiff6.setTabIndex(99);
-        lblTargetDiff6.setText("-8,888 cr.");
-        lblTargetDiff6.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue6.setLocation(new Point(410, 204));
+        targetDiffLabelValue6.setSize(new Size(52, 13));
+        targetDiffLabelValue6.setTabIndex(99);
+        targetDiffLabelValue6.setText("-8,888 cr.");
+        targetDiffLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice6
+        // targetPriceLabelValue6
         //
-        lblTargetPrice6.setLocation(new Point(358, 204));
-        lblTargetPrice6.setSize(new Size(48, 13));
-        lblTargetPrice6.setTabIndex(98);
-        lblTargetPrice6.setText("8,888 cr.");
-        lblTargetPrice6.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue6.setLocation(new Point(358, 204));
+        targetPriceLabelValue6.setSize(new Size(48, 13));
+        targetPriceLabelValue6.setTabIndex(98);
+        targetPriceLabelValue6.setText("8,888 cr.");
+        targetPriceLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax6
+        // buyMaxButton6
         //
-        btnBuyMax6.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax6.setLocation(new Point(262, 200));
-        btnBuyMax6.setSize(new Size(36, 22));
-        btnBuyMax6.setTabIndex(39);
-        btnBuyMax6.setText("Max");
-        btnBuyMax6.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton6.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton6.setLocation(new Point(262, 200));
+        buyMaxButton6.setSize(new Size(36, 22));
+        buyMaxButton6.setTabIndex(39);
+        buyMaxButton6.setText("Max");
+        buyMaxButton6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty6
+        // buyButton6
         //
-        btnBuyQty6.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty6.setLocation(new Point(227, 200));
-        btnBuyQty6.setSize(new Size(28, 22));
-        btnBuyQty6.setTabIndex(38);
-        btnBuyQty6.setText("88");
-        btnBuyQty6.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton6.setFlatStyle(FlatStyle.FLAT);
+        buyButton6.setLocation(new Point(227, 200));
+        buyButton6.setSize(new Size(28, 22));
+        buyButton6.setTabIndex(38);
+        buyButton6.setText("88");
+        buyButton6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice6
+        // buyPriceLabelValue6
         //
-        lblBuyPrice6.setLocation(new Point(302, 204));
-        lblBuyPrice6.setSize(new Size(48, 13));
-        lblBuyPrice6.setTabIndex(95);
-        lblBuyPrice6.setText("8,888 cr.");
-        lblBuyPrice6.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue6.setLocation(new Point(302, 204));
+        buyPriceLabelValue6.setSize(new Size(48, 13));
+        buyPriceLabelValue6.setTabIndex(95);
+        buyPriceLabelValue6.setText("8,888 cr.");
+        buyPriceLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll6
+        // sellAllButton6
         //
-        btnSellAll6.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll6.setLocation(new Point(115, 200));
-        btnSellAll6.setSize(new Size(44, 22));
-        btnSellAll6.setTabIndex(37);
-        btnSellAll6.setText("All");
-        btnSellAll6.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton6.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton6.setLocation(new Point(115, 200));
+        sellAllButton6.setSize(new Size(44, 22));
+        sellAllButton6.setTabIndex(37);
+        sellAllButton6.setText("All");
+        sellAllButton6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty6
+        // sellButton6
         //
-        btnSellQty6.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty6.setLocation(new Point(80, 200));
-        btnSellQty6.setSize(new Size(28, 22));
-        btnSellQty6.setTabIndex(36);
-        btnSellQty6.setText("88");
-        btnSellQty6.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton6.setFlatStyle(FlatStyle.FLAT);
+        sellButton6.setLocation(new Point(80, 200));
+        sellButton6.setSize(new Size(28, 22));
+        sellButton6.setTabIndex(36);
+        sellButton6.setText("88");
+        sellButton6.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice6
+        // sellPriceLabelValue6
         //
-        lblSellPrice6.setLocation(new Point(163, 204));
-        lblSellPrice6.setSize(new Size(48, 13));
-        lblSellPrice6.setTabIndex(92);
-        lblSellPrice6.setText("8,888 cr.");
-        lblSellPrice6.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue6.setLocation(new Point(163, 204));
+        sellPriceLabelValue6.setSize(new Size(48, 13));
+        sellPriceLabelValue6.setTabIndex(92);
+        sellPriceLabelValue6.setText("8,888 cr.");
+        sellPriceLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct5
+        // targetPercentageLabelValue5
         //
-        lblTargetPct5.setLocation(new Point(466, 180));
-        lblTargetPct5.setSize(new Size(37, 13));
-        lblTargetPct5.setTabIndex(91);
-        lblTargetPct5.setText("-888%");
-        lblTargetPct5.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue5.setLocation(new Point(466, 180));
+        targetPercentageLabelValue5.setSize(new Size(37, 13));
+        targetPercentageLabelValue5.setTabIndex(91);
+        targetPercentageLabelValue5.setText("-888%");
+        targetPercentageLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff5
+        // targetDiffLabelValue5
         //
-        lblTargetDiff5.setLocation(new Point(410, 180));
-        lblTargetDiff5.setSize(new Size(52, 13));
-        lblTargetDiff5.setTabIndex(90);
-        lblTargetDiff5.setText("-8,888 cr.");
-        lblTargetDiff5.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue5.setLocation(new Point(410, 180));
+        targetDiffLabelValue5.setSize(new Size(52, 13));
+        targetDiffLabelValue5.setTabIndex(90);
+        targetDiffLabelValue5.setText("-8,888 cr.");
+        targetDiffLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice5
+        // targetPriceLabelValue5
         //
-        lblTargetPrice5.setLocation(new Point(358, 180));
-        lblTargetPrice5.setSize(new Size(48, 13));
-        lblTargetPrice5.setTabIndex(89);
-        lblTargetPrice5.setText("8,888 cr.");
-        lblTargetPrice5.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue5.setLocation(new Point(358, 180));
+        targetPriceLabelValue5.setSize(new Size(48, 13));
+        targetPriceLabelValue5.setTabIndex(89);
+        targetPriceLabelValue5.setText("8,888 cr.");
+        targetPriceLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax5
+        // buyMaxButton5
         //
-        btnBuyMax5.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax5.setLocation(new Point(262, 176));
-        btnBuyMax5.setSize(new Size(36, 22));
-        btnBuyMax5.setTabIndex(35);
-        btnBuyMax5.setText("Max");
-        btnBuyMax5.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton5.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton5.setLocation(new Point(262, 176));
+        buyMaxButton5.setSize(new Size(36, 22));
+        buyMaxButton5.setTabIndex(35);
+        buyMaxButton5.setText("Max");
+        buyMaxButton5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty5
+        // buyButton5
         //
-        btnBuyQty5.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty5.setLocation(new Point(227, 176));
-        btnBuyQty5.setSize(new Size(28, 22));
-        btnBuyQty5.setTabIndex(34);
-        btnBuyQty5.setText("88");
-        btnBuyQty5.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton5.setFlatStyle(FlatStyle.FLAT);
+        buyButton5.setLocation(new Point(227, 176));
+        buyButton5.setSize(new Size(28, 22));
+        buyButton5.setTabIndex(34);
+        buyButton5.setText("88");
+        buyButton5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice5
+        // buyPriceLabelValue5
         //
-        lblBuyPrice5.setLocation(new Point(302, 180));
-        lblBuyPrice5.setSize(new Size(48, 13));
-        lblBuyPrice5.setTabIndex(86);
-        lblBuyPrice5.setText("8,888 cr.");
-        lblBuyPrice5.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue5.setLocation(new Point(302, 180));
+        buyPriceLabelValue5.setSize(new Size(48, 13));
+        buyPriceLabelValue5.setTabIndex(86);
+        buyPriceLabelValue5.setText("8,888 cr.");
+        buyPriceLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll5
+        // sellAllButton5
         //
-        btnSellAll5.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll5.setLocation(new Point(115, 176));
-        btnSellAll5.setSize(new Size(44, 22));
-        btnSellAll5.setTabIndex(33);
-        btnSellAll5.setText("All");
-        btnSellAll5.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton5.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton5.setLocation(new Point(115, 176));
+        sellAllButton5.setSize(new Size(44, 22));
+        sellAllButton5.setTabIndex(33);
+        sellAllButton5.setText("All");
+        sellAllButton5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty5
+        // sellButton5
         //
-        btnSellQty5.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty5.setLocation(new Point(80, 176));
-        btnSellQty5.setSize(new Size(28, 22));
-        btnSellQty5.setTabIndex(32);
-        btnSellQty5.setText("88");
-        btnSellQty5.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton5.setFlatStyle(FlatStyle.FLAT);
+        sellButton5.setLocation(new Point(80, 176));
+        sellButton5.setSize(new Size(28, 22));
+        sellButton5.setTabIndex(32);
+        sellButton5.setText("88");
+        sellButton5.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice5
+        // sellPriceLabelValue5
         //
-        lblSellPrice5.setLocation(new Point(163, 180));
-        lblSellPrice5.setSize(new Size(48, 13));
-        lblSellPrice5.setTabIndex(83);
-        lblSellPrice5.setText("8,888 cr.");
-        lblSellPrice5.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue5.setLocation(new Point(163, 180));
+        sellPriceLabelValue5.setSize(new Size(48, 13));
+        sellPriceLabelValue5.setTabIndex(83);
+        sellPriceLabelValue5.setText("8,888 cr.");
+        sellPriceLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct4
+        // targetPercentageLabelValue4
         //
-        lblTargetPct4.setLocation(new Point(466, 156));
-        lblTargetPct4.setSize(new Size(37, 13));
-        lblTargetPct4.setTabIndex(82);
-        lblTargetPct4.setText("-888%");
-        lblTargetPct4.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue4.setLocation(new Point(466, 156));
+        targetPercentageLabelValue4.setSize(new Size(37, 13));
+        targetPercentageLabelValue4.setTabIndex(82);
+        targetPercentageLabelValue4.setText("-888%");
+        targetPercentageLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff4
+        // targetDiffLabelValue4
         //
-        lblTargetDiff4.setLocation(new Point(410, 156));
-        lblTargetDiff4.setSize(new Size(52, 13));
-        lblTargetDiff4.setTabIndex(81);
-        lblTargetDiff4.setText("-8,888 cr.");
-        lblTargetDiff4.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue4.setLocation(new Point(410, 156));
+        targetDiffLabelValue4.setSize(new Size(52, 13));
+        targetDiffLabelValue4.setTabIndex(81);
+        targetDiffLabelValue4.setText("-8,888 cr.");
+        targetDiffLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice4
+        // targetPriceLabelValue4
         //
-        lblTargetPrice4.setLocation(new Point(358, 156));
-        lblTargetPrice4.setSize(new Size(48, 13));
-        lblTargetPrice4.setTabIndex(80);
-        lblTargetPrice4.setText("8,888 cr.");
-        lblTargetPrice4.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue4.setLocation(new Point(358, 156));
+        targetPriceLabelValue4.setSize(new Size(48, 13));
+        targetPriceLabelValue4.setTabIndex(80);
+        targetPriceLabelValue4.setText("8,888 cr.");
+        targetPriceLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax4
+        // buyMaxButton4
         //
-        btnBuyMax4.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax4.setLocation(new Point(262, 152));
-        btnBuyMax4.setSize(new Size(36, 22));
-        btnBuyMax4.setTabIndex(31);
-        btnBuyMax4.setText("Max");
-        btnBuyMax4.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton4.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton4.setLocation(new Point(262, 152));
+        buyMaxButton4.setSize(new Size(36, 22));
+        buyMaxButton4.setTabIndex(31);
+        buyMaxButton4.setText("Max");
+        buyMaxButton4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty4
+        // buyButton4
         //
-        btnBuyQty4.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty4.setLocation(new Point(227, 152));
-        btnBuyQty4.setSize(new Size(28, 22));
-        btnBuyQty4.setTabIndex(30);
-        btnBuyQty4.setText("88");
-        btnBuyQty4.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton4.setFlatStyle(FlatStyle.FLAT);
+        buyButton4.setLocation(new Point(227, 152));
+        buyButton4.setSize(new Size(28, 22));
+        buyButton4.setTabIndex(30);
+        buyButton4.setText("88");
+        buyButton4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice4
+        // buyPriceLabelValue4
         //
-        lblBuyPrice4.setLocation(new Point(302, 156));
-        lblBuyPrice4.setSize(new Size(48, 13));
-        lblBuyPrice4.setTabIndex(77);
-        lblBuyPrice4.setText("8,888 cr.");
-        lblBuyPrice4.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue4.setLocation(new Point(302, 156));
+        buyPriceLabelValue4.setSize(new Size(48, 13));
+        buyPriceLabelValue4.setTabIndex(77);
+        buyPriceLabelValue4.setText("8,888 cr.");
+        buyPriceLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll4
+        // sellAllButton4
         //
-        btnSellAll4.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll4.setLocation(new Point(115, 152));
-        btnSellAll4.setSize(new Size(44, 22));
-        btnSellAll4.setTabIndex(29);
-        btnSellAll4.setText("All");
-        btnSellAll4.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton4.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton4.setLocation(new Point(115, 152));
+        sellAllButton4.setSize(new Size(44, 22));
+        sellAllButton4.setTabIndex(29);
+        sellAllButton4.setText("All");
+        sellAllButton4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty4
+        // sellButton4
         //
-        btnSellQty4.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty4.setLocation(new Point(80, 152));
-        btnSellQty4.setSize(new Size(28, 22));
-        btnSellQty4.setTabIndex(28);
-        btnSellQty4.setText("88");
-        btnSellQty4.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton4.setFlatStyle(FlatStyle.FLAT);
+        sellButton4.setLocation(new Point(80, 152));
+        sellButton4.setSize(new Size(28, 22));
+        sellButton4.setTabIndex(28);
+        sellButton4.setText("88");
+        sellButton4.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice4
+        // sellPriceLabelValue4
         //
-        lblSellPrice4.setLocation(new Point(163, 156));
-        lblSellPrice4.setSize(new Size(48, 13));
-        lblSellPrice4.setTabIndex(74);
-        lblSellPrice4.setText("8,888 cr.");
-        lblSellPrice4.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue4.setLocation(new Point(163, 156));
+        sellPriceLabelValue4.setSize(new Size(48, 13));
+        sellPriceLabelValue4.setTabIndex(74);
+        sellPriceLabelValue4.setText("8,888 cr.");
+        sellPriceLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct3
+        // targetPercentageLabelValue3
         //
-        lblTargetPct3.setLocation(new Point(466, 132));
-        lblTargetPct3.setSize(new Size(37, 13));
-        lblTargetPct3.setTabIndex(73);
-        lblTargetPct3.setText("-888%");
-        lblTargetPct3.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue3.setLocation(new Point(466, 132));
+        targetPercentageLabelValue3.setSize(new Size(37, 13));
+        targetPercentageLabelValue3.setTabIndex(73);
+        targetPercentageLabelValue3.setText("-888%");
+        targetPercentageLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff3
+        // targetDiffLabelValue3
         //
-        lblTargetDiff3.setLocation(new Point(410, 132));
-        lblTargetDiff3.setSize(new Size(52, 13));
-        lblTargetDiff3.setTabIndex(72);
-        lblTargetDiff3.setText("-8,888 cr.");
-        lblTargetDiff3.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue3.setLocation(new Point(410, 132));
+        targetDiffLabelValue3.setSize(new Size(52, 13));
+        targetDiffLabelValue3.setTabIndex(72);
+        targetDiffLabelValue3.setText("-8,888 cr.");
+        targetDiffLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice3
+        // targetPriceLabelValue3
         //
-        lblTargetPrice3.setLocation(new Point(358, 132));
-        lblTargetPrice3.setSize(new Size(48, 13));
-        lblTargetPrice3.setTabIndex(71);
-        lblTargetPrice3.setText("8,888 cr.");
-        lblTargetPrice3.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue3.setLocation(new Point(358, 132));
+        targetPriceLabelValue3.setSize(new Size(48, 13));
+        targetPriceLabelValue3.setTabIndex(71);
+        targetPriceLabelValue3.setText("8,888 cr.");
+        targetPriceLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax3
+        // buyMaxButton3
         //
-        btnBuyMax3.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax3.setLocation(new Point(262, 128));
-        btnBuyMax3.setSize(new Size(36, 22));
-        btnBuyMax3.setTabIndex(27);
-        btnBuyMax3.setText("Max");
-        btnBuyMax3.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton3.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton3.setLocation(new Point(262, 128));
+        buyMaxButton3.setSize(new Size(36, 22));
+        buyMaxButton3.setTabIndex(27);
+        buyMaxButton3.setText("Max");
+        buyMaxButton3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty3
+        // buyButton3
         //
-        btnBuyQty3.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty3.setLocation(new Point(227, 128));
-        btnBuyQty3.setSize(new Size(28, 22));
-        btnBuyQty3.setTabIndex(26);
-        btnBuyQty3.setText("88");
-        btnBuyQty3.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton3.setFlatStyle(FlatStyle.FLAT);
+        buyButton3.setLocation(new Point(227, 128));
+        buyButton3.setSize(new Size(28, 22));
+        buyButton3.setTabIndex(26);
+        buyButton3.setText("88");
+        buyButton3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice3
+        // buyPriceLabelValue3
         //
-        lblBuyPrice3.setLocation(new Point(302, 132));
-        lblBuyPrice3.setSize(new Size(48, 13));
-        lblBuyPrice3.setTabIndex(68);
-        lblBuyPrice3.setText("8,888 cr.");
-        lblBuyPrice3.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue3.setLocation(new Point(302, 132));
+        buyPriceLabelValue3.setSize(new Size(48, 13));
+        buyPriceLabelValue3.setTabIndex(68);
+        buyPriceLabelValue3.setText("8,888 cr.");
+        buyPriceLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll3
+        // sellAllButton3
         //
-        btnSellAll3.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll3.setLocation(new Point(115, 128));
-        btnSellAll3.setSize(new Size(44, 22));
-        btnSellAll3.setTabIndex(25);
-        btnSellAll3.setText("All");
-        btnSellAll3.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton3.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton3.setLocation(new Point(115, 128));
+        sellAllButton3.setSize(new Size(44, 22));
+        sellAllButton3.setTabIndex(25);
+        sellAllButton3.setText("All");
+        sellAllButton3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty3
+        // sellButton3
         //
-        btnSellQty3.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty3.setLocation(new Point(80, 128));
-        btnSellQty3.setSize(new Size(28, 22));
-        btnSellQty3.setTabIndex(24);
-        btnSellQty3.setText("88");
-        btnSellQty3.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton3.setFlatStyle(FlatStyle.FLAT);
+        sellButton3.setLocation(new Point(80, 128));
+        sellButton3.setSize(new Size(28, 22));
+        sellButton3.setTabIndex(24);
+        sellButton3.setText("88");
+        sellButton3.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice3
+        // sellPriceLabelValue3
         //
-        lblSellPrice3.setLocation(new Point(163, 132));
-        lblSellPrice3.setSize(new Size(48, 13));
-        lblSellPrice3.setTabIndex(65);
-        lblSellPrice3.setText("8,888 cr.");
-        lblSellPrice3.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue3.setLocation(new Point(163, 132));
+        sellPriceLabelValue3.setSize(new Size(48, 13));
+        sellPriceLabelValue3.setTabIndex(65);
+        sellPriceLabelValue3.setText("8,888 cr.");
+        sellPriceLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct2
+        // targetPercentageLabelValue2
         //
-        lblTargetPct2.setLocation(new Point(466, 108));
-        lblTargetPct2.setSize(new Size(37, 13));
-        lblTargetPct2.setTabIndex(64);
-        lblTargetPct2.setText("-888%");
-        lblTargetPct2.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue2.setLocation(new Point(466, 108));
+        targetPercentageLabelValue2.setSize(new Size(37, 13));
+        targetPercentageLabelValue2.setTabIndex(64);
+        targetPercentageLabelValue2.setText("-888%");
+        targetPercentageLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff2
+        // targetDiffLabelValue2
         //
-        lblTargetDiff2.setLocation(new Point(410, 108));
-        lblTargetDiff2.setSize(new Size(52, 13));
-        lblTargetDiff2.setTabIndex(63);
-        lblTargetDiff2.setText("-8,888 cr.");
-        lblTargetDiff2.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue2.setLocation(new Point(410, 108));
+        targetDiffLabelValue2.setSize(new Size(52, 13));
+        targetDiffLabelValue2.setTabIndex(63);
+        targetDiffLabelValue2.setText("-8,888 cr.");
+        targetDiffLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice2
+        // targetPriceLabelValue2
         //
-        lblTargetPrice2.setLocation(new Point(358, 108));
-        lblTargetPrice2.setSize(new Size(48, 13));
-        lblTargetPrice2.setTabIndex(62);
-        lblTargetPrice2.setText("8,888 cr.");
-        lblTargetPrice2.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue2.setLocation(new Point(358, 108));
+        targetPriceLabelValue2.setSize(new Size(48, 13));
+        targetPriceLabelValue2.setTabIndex(62);
+        targetPriceLabelValue2.setText("8,888 cr.");
+        targetPriceLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax2
+        // buyMaxButton2
         //
-        btnBuyMax2.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax2.setLocation(new Point(262, 104));
-        btnBuyMax2.setSize(new Size(36, 22));
-        btnBuyMax2.setTabIndex(23);
-        btnBuyMax2.setText("Max");
-        btnBuyMax2.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton2.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton2.setLocation(new Point(262, 104));
+        buyMaxButton2.setSize(new Size(36, 22));
+        buyMaxButton2.setTabIndex(23);
+        buyMaxButton2.setText("Max");
+        buyMaxButton2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty2
+        // buyButton2
         //
-        btnBuyQty2.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty2.setLocation(new Point(227, 104));
-        btnBuyQty2.setSize(new Size(28, 22));
-        btnBuyQty2.setTabIndex(22);
-        btnBuyQty2.setText("88");
-        btnBuyQty2.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton2.setFlatStyle(FlatStyle.FLAT);
+        buyButton2.setLocation(new Point(227, 104));
+        buyButton2.setSize(new Size(28, 22));
+        buyButton2.setTabIndex(22);
+        buyButton2.setText("88");
+        buyButton2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice2
+        // buyPriceLabelValue2
         //
-        lblBuyPrice2.setLocation(new Point(302, 108));
-        lblBuyPrice2.setSize(new Size(48, 13));
-        lblBuyPrice2.setTabIndex(59);
-        lblBuyPrice2.setText("8,888 cr.");
-        lblBuyPrice2.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue2.setLocation(new Point(302, 108));
+        buyPriceLabelValue2.setSize(new Size(48, 13));
+        buyPriceLabelValue2.setTabIndex(59);
+        buyPriceLabelValue2.setText("8,888 cr.");
+        buyPriceLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll2
+        // sellAllButton2
         //
-        btnSellAll2.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll2.setLocation(new Point(115, 104));
-        btnSellAll2.setSize(new Size(44, 22));
-        btnSellAll2.setTabIndex(21);
-        btnSellAll2.setText("All");
-        btnSellAll2.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton2.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton2.setLocation(new Point(115, 104));
+        sellAllButton2.setSize(new Size(44, 22));
+        sellAllButton2.setTabIndex(21);
+        sellAllButton2.setText("All");
+        sellAllButton2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty2
+        // sellButton2
         //
-        btnSellQty2.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty2.setLocation(new Point(80, 104));
-        btnSellQty2.setSize(new Size(28, 22));
-        btnSellQty2.setTabIndex(20);
-        btnSellQty2.setText("88");
-        btnSellQty2.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton2.setFlatStyle(FlatStyle.FLAT);
+        sellButton2.setLocation(new Point(80, 104));
+        sellButton2.setSize(new Size(28, 22));
+        sellButton2.setTabIndex(20);
+        sellButton2.setText("88");
+        sellButton2.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice2
+        // sellPriceLabelValue2
         //
-        lblSellPrice2.setLocation(new Point(163, 108));
-        lblSellPrice2.setSize(new Size(48, 13));
-        lblSellPrice2.setTabIndex(56);
-        lblSellPrice2.setText("8,888 cr.");
-        lblSellPrice2.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue2.setLocation(new Point(163, 108));
+        sellPriceLabelValue2.setSize(new Size(48, 13));
+        sellPriceLabelValue2.setTabIndex(56);
+        sellPriceLabelValue2.setText("8,888 cr.");
+        sellPriceLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPct1
+        // targetPercentageLabelValue1
         //
-        lblTargetPct1.setLocation(new Point(466, 84));
-        lblTargetPct1.setSize(new Size(37, 13));
-        lblTargetPct1.setTabIndex(55);
-        lblTargetPct1.setText("-888%");
-        lblTargetPct1.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue1.setLocation(new Point(466, 84));
+        targetPercentageLabelValue1.setSize(new Size(37, 13));
+        targetPercentageLabelValue1.setTabIndex(55);
+        targetPercentageLabelValue1.setText("-888%");
+        targetPercentageLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff1
+        // targetDiffLabelValue1
         //
-        lblTargetDiff1.setLocation(new Point(410, 84));
-        lblTargetDiff1.setSize(new Size(52, 13));
-        lblTargetDiff1.setTabIndex(54);
-        lblTargetDiff1.setText("-8,888 cr.");
-        lblTargetDiff1.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue1.setLocation(new Point(410, 84));
+        targetDiffLabelValue1.setSize(new Size(52, 13));
+        targetDiffLabelValue1.setTabIndex(54);
+        targetDiffLabelValue1.setText("-8,888 cr.");
+        targetDiffLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice1
+        // targetPriceLabelValue1
         //
-        lblTargetPrice1.setLocation(new Point(358, 84));
-        lblTargetPrice1.setSize(new Size(48, 13));
-        lblTargetPrice1.setTabIndex(53);
-        lblTargetPrice1.setText("8,888 cr.");
-        lblTargetPrice1.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue1.setLocation(new Point(358, 84));
+        targetPriceLabelValue1.setSize(new Size(48, 13));
+        targetPriceLabelValue1.setTabIndex(53);
+        targetPriceLabelValue1.setText("8,888 cr.");
+        targetPriceLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax1
+        // buyMaxButton1
         //
-        btnBuyMax1.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax1.setLocation(new Point(262, 80));
-        btnBuyMax1.setSize(new Size(36, 22));
-        btnBuyMax1.setTabIndex(19);
-        btnBuyMax1.setText("Max");
-        btnBuyMax1.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton1.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton1.setLocation(new Point(262, 80));
+        buyMaxButton1.setSize(new Size(36, 22));
+        buyMaxButton1.setTabIndex(19);
+        buyMaxButton1.setText("Max");
+        buyMaxButton1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty1
+        // buyButton1
         //
-        btnBuyQty1.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty1.setLocation(new Point(227, 80));
-        btnBuyQty1.setSize(new Size(28, 22));
-        btnBuyQty1.setTabIndex(18);
-        btnBuyQty1.setText("88");
-        btnBuyQty1.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton1.setFlatStyle(FlatStyle.FLAT);
+        buyButton1.setLocation(new Point(227, 80));
+        buyButton1.setSize(new Size(28, 22));
+        buyButton1.setTabIndex(18);
+        buyButton1.setText("88");
+        buyButton1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice1
+        // buyPriceLabelValue1
         //
-        lblBuyPrice1.setLocation(new Point(302, 84));
-        lblBuyPrice1.setSize(new Size(48, 13));
-        lblBuyPrice1.setTabIndex(50);
-        lblBuyPrice1.setText("8,888 cr.");
-        lblBuyPrice1.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue1.setLocation(new Point(302, 84));
+        buyPriceLabelValue1.setSize(new Size(48, 13));
+        buyPriceLabelValue1.setTabIndex(50);
+        buyPriceLabelValue1.setText("8,888 cr.");
+        buyPriceLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPctLabel
+        // targetPercentageLabel
         //
-        lblTargetPctLabel.setAutoSize(true);
-        lblTargetPctLabel.setLocation(new Point(476, 34));
-        lblTargetPctLabel.setSize(new Size(14, 16));
-        lblTargetPctLabel.setTabIndex(49);
-        lblTargetPctLabel.setText("%");
+        targetPercentageLabel.setAutoSize(true);
+        targetPercentageLabel.setLocation(new Point(476, 34));
+        targetPercentageLabel.setSize(new Size(14, 16));
+        targetPercentageLabel.setTabIndex(49);
+        targetPercentageLabel.setText("%");
         //
-        // lblTargetDiffLabel
+        // targetDiffLabel
         //
-        lblTargetDiffLabel.setAutoSize(true);
-        lblTargetDiffLabel.setLocation(new Point(424, 34));
-        lblTargetDiffLabel.setSize(new Size(18, 16));
-        lblTargetDiffLabel.setTabIndex(48);
-        lblTargetDiffLabel.setText("+/-");
+        targetDiffLabel.setAutoSize(true);
+        targetDiffLabel.setLocation(new Point(424, 34));
+        targetDiffLabel.setSize(new Size(18, 16));
+        targetDiffLabel.setTabIndex(48);
+        targetDiffLabel.setText("+/-");
         //
-        // lblTargetPriceLabel
+        // targetPriceLabel
         //
-        lblTargetPriceLabel.setAutoSize(true);
-        lblTargetPriceLabel.setLocation(new Point(360, 34));
-        lblTargetPriceLabel.setSize(new Size(30, 16));
-        lblTargetPriceLabel.setTabIndex(47);
-        lblTargetPriceLabel.setText("Price");
+        targetPriceLabel.setAutoSize(true);
+        targetPriceLabel.setLocation(new Point(360, 34));
+        targetPriceLabel.setSize(new Size(30, 16));
+        targetPriceLabel.setTabIndex(47);
+        targetPriceLabel.setText("Price");
         //
-        // lblTargetPct0
+        // targetPercentageLabelValue0
         //
-        lblTargetPct0.setLocation(new Point(466, 60));
-        lblTargetPct0.setSize(new Size(37, 13));
-        lblTargetPct0.setTabIndex(46);
-        lblTargetPct0.setText("-888%");
-        lblTargetPct0.TextAlign = ContentAlignment.TopRight;
+        targetPercentageLabelValue0.setLocation(new Point(466, 60));
+        targetPercentageLabelValue0.setSize(new Size(37, 13));
+        targetPercentageLabelValue0.setTabIndex(46);
+        targetPercentageLabelValue0.setText("-888%");
+        targetPercentageLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetDiff0
+        // targetDiffLabelValue0
         //
-        lblTargetDiff0.setLocation(new Point(410, 60));
-        lblTargetDiff0.setSize(new Size(52, 13));
-        lblTargetDiff0.setTabIndex(45);
-        lblTargetDiff0.setText("-8,888 cr.");
-        lblTargetDiff0.TextAlign = ContentAlignment.TopRight;
+        targetDiffLabelValue0.setLocation(new Point(410, 60));
+        targetDiffLabelValue0.setSize(new Size(52, 13));
+        targetDiffLabelValue0.setTabIndex(45);
+        targetDiffLabelValue0.setText("-8,888 cr.");
+        targetDiffLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTargetPrice0
+        // targetPriceLabelValue0
         //
-        lblTargetPrice0.setLocation(new Point(358, 60));
-        lblTargetPrice0.setSize(new Size(48, 13));
-        lblTargetPrice0.setTabIndex(44);
-        lblTargetPrice0.setText("8,888 cr.");
-        lblTargetPrice0.TextAlign = ContentAlignment.TopRight;
+        targetPriceLabelValue0.setLocation(new Point(358, 60));
+        targetPriceLabelValue0.setSize(new Size(48, 13));
+        targetPriceLabelValue0.setTabIndex(44);
+        targetPriceLabelValue0.setText("8,888 cr.");
+        targetPriceLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnBuyMax0
+        // buyMaxButton0
         //
-        btnBuyMax0.setFlatStyle(FlatStyle.FLAT);
-        btnBuyMax0.setLocation(new Point(262, 56));
-        btnBuyMax0.setSize(new Size(36, 22));
-        btnBuyMax0.setTabIndex(15);
-        btnBuyMax0.setText("Max");
-        btnBuyMax0.setClick(new EventHandler<Object, EventArgs>() {
+        buyMaxButton0.setFlatStyle(FlatStyle.FLAT);
+        buyMaxButton0.setLocation(new Point(262, 56));
+        buyMaxButton0.setSize(new Size(36, 22));
+        buyMaxButton0.setTabIndex(15);
+        buyMaxButton0.setText("Max");
+        buyMaxButton0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnBuyQty0
+        // buyButton0
         //
-        btnBuyQty0.setFlatStyle(FlatStyle.FLAT);
-        btnBuyQty0.setLocation(new Point(227, 56));
-        btnBuyQty0.setSize(new Size(28, 22));
-        btnBuyQty0.setTabIndex(14);
-        btnBuyQty0.setText("88");
-        btnBuyQty0.setClick(new EventHandler<Object, EventArgs>() {
+        buyButton0.setFlatStyle(FlatStyle.FLAT);
+        buyButton0.setLocation(new Point(227, 56));
+        buyButton0.setSize(new Size(28, 22));
+        buyButton0.setTabIndex(14);
+        buyButton0.setText("88");
+        buyButton0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblBuyPrice0
+        // buyPriceLabelValue0
         //
-        lblBuyPrice0.setLocation(new Point(302, 60));
-        lblBuyPrice0.setSize(new Size(48, 13));
-        lblBuyPrice0.setTabIndex(41);
-        lblBuyPrice0.setText("8,888 cr.");
-        lblBuyPrice0.TextAlign = ContentAlignment.TopRight;
+        buyPriceLabelValue0.setLocation(new Point(302, 60));
+        buyPriceLabelValue0.setSize(new Size(48, 13));
+        buyPriceLabelValue0.setTabIndex(41);
+        buyPriceLabelValue0.setText("8,888 cr.");
+        buyPriceLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll1
+        // sellAllButton1
         //
-        btnSellAll1.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll1.setLocation(new Point(115, 80));
-        btnSellAll1.setSize(new Size(44, 22));
-        btnSellAll1.setTabIndex(17);
-        btnSellAll1.setText("All");
-        btnSellAll1.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton1.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton1.setLocation(new Point(115, 80));
+        sellAllButton1.setSize(new Size(44, 22));
+        sellAllButton1.setTabIndex(17);
+        sellAllButton1.setText("All");
+        sellAllButton1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty1
+        // sellButton1
         //
-        btnSellQty1.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty1.setLocation(new Point(80, 80));
-        btnSellQty1.setSize(new Size(28, 22));
-        btnSellQty1.setTabIndex(16);
-        btnSellQty1.setText("88");
-        btnSellQty1.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton1.setFlatStyle(FlatStyle.FLAT);
+        sellButton1.setLocation(new Point(80, 80));
+        sellButton1.setSize(new Size(28, 22));
+        sellButton1.setTabIndex(16);
+        sellButton1.setText("88");
+        sellButton1.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice1
+        // sellPriceLabelValue1
         //
-        lblSellPrice1.setLocation(new Point(163, 84));
-        lblSellPrice1.setSize(new Size(48, 13));
-        lblSellPrice1.setTabIndex(38);
-        lblSellPrice1.setText("8,888 cr.");
-        lblSellPrice1.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue1.setLocation(new Point(163, 84));
+        sellPriceLabelValue1.setSize(new Size(48, 13));
+        sellPriceLabelValue1.setTabIndex(38);
+        sellPriceLabelValue1.setText("8,888 cr.");
+        sellPriceLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // btnSellAll0
+        // sellAllButton0
         //
-        btnSellAll0.setFlatStyle(FlatStyle.FLAT);
-        btnSellAll0.setLocation(new Point(115, 56));
-        btnSellAll0.setSize(new Size(44, 22));
-        btnSellAll0.setTabIndex(13);
-        btnSellAll0.setText("All");
-        btnSellAll0.setClick(new EventHandler<Object, EventArgs>() {
+        sellAllButton0.setFlatStyle(FlatStyle.FLAT);
+        sellAllButton0.setLocation(new Point(115, 56));
+        sellAllButton0.setSize(new Size(44, 22));
+        sellAllButton0.setTabIndex(13);
+        sellAllButton0.setText("All");
+        sellAllButton0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // btnSellQty0
+        // sellButton0
         //
-        btnSellQty0.setFlatStyle(FlatStyle.FLAT);
-        btnSellQty0.setLocation(new Point(80, 56));
-        btnSellQty0.setSize(new Size(28, 22));
-        btnSellQty0.setTabIndex(12);
-        btnSellQty0.setText("88");
-        btnSellQty0.setClick(new EventHandler<Object, EventArgs>() {
+        sellButton0.setFlatStyle(FlatStyle.FLAT);
+        sellButton0.setLocation(new Point(80, 56));
+        sellButton0.setSize(new Size(28, 22));
+        sellButton0.setTabIndex(12);
+        sellButton0.setText("88");
+        sellButton0.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 btnBuySell_Click(((Button) sender).getName());
             }
         });
         //
-        // lblSellPrice0
+        // sellPriceLabelValue0
         //
-        lblSellPrice0.setLocation(new Point(163, 60));
-        lblSellPrice0.setSize(new Size(48, 13));
-        lblSellPrice0.setTabIndex(35);
-        lblSellPrice0.setText("8,888 cr.");
-        lblSellPrice0.TextAlign = ContentAlignment.TopRight;
+        sellPriceLabelValue0.setLocation(new Point(163, 60));
+        sellPriceLabelValue0.setSize(new Size(48, 13));
+        sellPriceLabelValue0.setTabIndex(35);
+        sellPriceLabelValue0.setText("8,888 cr.");
+        sellPriceLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
         //
-        // lblTradeTarget
+        // tradeTargetLabel
         //
-        lblTradeTarget.setAutoSize(true);
-        lblTradeTarget.setLocation(new Point(391, 16));
-        lblTradeTarget.setSize(new Size(78, 16));
-        lblTradeTarget.setTabIndex(28);
-        lblTradeTarget.setText("Target System");
+        tradeTargetLabel.setAutoSize(true);
+        tradeTargetLabel.setLocation(new Point(391, 16));
+        tradeTargetLabel.setSize(new Size(78, 16));
+        tradeTargetLabel.setTabIndex(28);
+        tradeTargetLabel.setText("Target System");
         //
-        // lblBuy
+        // buyPriceLabel
         //
-        lblBuy.setAutoSize(true);
-        lblBuy.setLocation(new Point(273, 34));
-        lblBuy.setSize(new Size(24, 16));
-        lblBuy.setTabIndex(27);
-        lblBuy.setText("Buy");
+        buyPriceLabel.setAutoSize(true);
+        buyPriceLabel.setLocation(new Point(273, 34));
+        buyPriceLabel.setSize(new Size(24, 16));
+        buyPriceLabel.setTabIndex(27);
+        buyPriceLabel.setText("Buy");
         //
-        // lblSell
+        // sellPriceLabel
         //
-        lblSell.setAutoSize(true);
-        lblSell.setFont(FontCollection.regular825);
-        lblSell.setLocation(new Point(132, 34));
-        lblSell.setSize(new Size(23, 16));
-        lblSell.setTabIndex(26);
-        lblSell.setText("Sell");
+        sellPriceLabel.setAutoSize(true);
+        sellPriceLabel.setFont(FontCollection.regular825);
+        sellPriceLabel.setLocation(new Point(132, 34));
+        sellPriceLabel.setSize(new Size(23, 16));
+        sellPriceLabel.setTabIndex(26);
+        sellPriceLabel.setText("Sell");
         //
-        // lblTradeCmdty9
+        // commodityLabel9
         //
-        lblTradeCmdty9.setAutoSize(true);
-        lblTradeCmdty9.setLocation(new Point(8, 276));
-        lblTradeCmdty9.setSize(new Size(40, 16));
-        lblTradeCmdty9.setTabIndex(25);
-        lblTradeCmdty9.setText("Robots");
+        commodityLabel9.setAutoSize(true);
+        commodityLabel9.setLocation(new Point(8, 276));
+        commodityLabel9.setSize(new Size(40, 16));
+        commodityLabel9.setTabIndex(25);
+        commodityLabel9.setText("Robots");
         //
-        // lblTradeCmdty8
+        // commodityLabel8
         //
-        lblTradeCmdty8.setAutoSize(true);
-        lblTradeCmdty8.setLocation(new Point(8, 252));
-        lblTradeCmdty8.setSize(new Size(51, 16));
-        lblTradeCmdty8.setTabIndex(24);
-        lblTradeCmdty8.setText("Narcotics");
+        commodityLabel8.setAutoSize(true);
+        commodityLabel8.setLocation(new Point(8, 252));
+        commodityLabel8.setSize(new Size(51, 16));
+        commodityLabel8.setTabIndex(24);
+        commodityLabel8.setText("Narcotics");
         //
-        // lblTradeCmdty2
+        // commodityLabel2
         //
-        lblTradeCmdty2.setAutoSize(true);
-        lblTradeCmdty2.setLocation(new Point(8, 108));
-        lblTradeCmdty2.setSize(new Size(30, 16));
-        lblTradeCmdty2.setTabIndex(23);
-        lblTradeCmdty2.setText("Food");
+        commodityLabel2.setAutoSize(true);
+        commodityLabel2.setLocation(new Point(8, 108));
+        commodityLabel2.setSize(new Size(30, 16));
+        commodityLabel2.setTabIndex(23);
+        commodityLabel2.setText("Food");
         //
-        // lblTradeCmdty0
+        // commodityLabel0
         //
-        lblTradeCmdty0.setAutoSize(true);
-        lblTradeCmdty0.setLocation(new Point(8, 60));
-        lblTradeCmdty0.setSize(new Size(34, 16));
-        lblTradeCmdty0.setTabIndex(22);
-        lblTradeCmdty0.setText("Water");
+        commodityLabel0.setAutoSize(true);
+        commodityLabel0.setLocation(new Point(8, 60));
+        commodityLabel0.setSize(new Size(34, 16));
+        commodityLabel0.setTabIndex(22);
+        commodityLabel0.setText("Water");
         //
-        // lblTradeCmdty1
+        // commodityLabel1
         //
-        lblTradeCmdty1.setAutoSize(true);
-        lblTradeCmdty1.setLocation(new Point(8, 84));
-        lblTradeCmdty1.setSize(new Size(27, 16));
-        lblTradeCmdty1.setTabIndex(21);
-        lblTradeCmdty1.setText("Furs");
+        commodityLabel1.setAutoSize(true);
+        commodityLabel1.setLocation(new Point(8, 84));
+        commodityLabel1.setSize(new Size(27, 16));
+        commodityLabel1.setTabIndex(21);
+        commodityLabel1.setText("Furs");
         //
-        // lblTradeCmdty6
+        // commodityLabel6
         //
-        lblTradeCmdty6.setAutoSize(true);
-        lblTradeCmdty6.setLocation(new Point(8, 204));
-        lblTradeCmdty6.setSize(new Size(50, 16));
-        lblTradeCmdty6.setTabIndex(20);
-        lblTradeCmdty6.setText("Medicine");
+        commodityLabel6.setAutoSize(true);
+        commodityLabel6.setLocation(new Point(8, 204));
+        commodityLabel6.setSize(new Size(50, 16));
+        commodityLabel6.setTabIndex(20);
+        commodityLabel6.setText("Medicine");
         //
-        // lblTradeCmdty5
+        // commodityLabel5
         //
-        lblTradeCmdty5.setAutoSize(true);
-        lblTradeCmdty5.setLocation(new Point(8, 180));
-        lblTradeCmdty5.setSize(new Size(49, 16));
-        lblTradeCmdty5.setTabIndex(19);
-        lblTradeCmdty5.setText("Firearms");
+        commodityLabel5.setAutoSize(true);
+        commodityLabel5.setLocation(new Point(8, 180));
+        commodityLabel5.setSize(new Size(49, 16));
+        commodityLabel5.setTabIndex(19);
+        commodityLabel5.setText("Firearms");
         //
-        // lblTradeCmdty4
+        // commodityLabel4
         //
-        lblTradeCmdty4.setAutoSize(true);
-        lblTradeCmdty4.setLocation(new Point(8, 156));
-        lblTradeCmdty4.setSize(new Size(41, 16));
-        lblTradeCmdty4.setTabIndex(18);
-        lblTradeCmdty4.setText("Games");
+        commodityLabel4.setAutoSize(true);
+        commodityLabel4.setLocation(new Point(8, 156));
+        commodityLabel4.setSize(new Size(41, 16));
+        commodityLabel4.setTabIndex(18);
+        commodityLabel4.setText("Games");
         //
-        // lblTradeCmdty3
+        // commodityLabel3
         //
-        lblTradeCmdty3.setAutoSize(true);
-        lblTradeCmdty3.setLocation(new Point(8, 132));
-        lblTradeCmdty3.setSize(new Size(23, 16));
-        lblTradeCmdty3.setTabIndex(17);
-        lblTradeCmdty3.setText("Ore");
+        commodityLabel3.setAutoSize(true);
+        commodityLabel3.setLocation(new Point(8, 132));
+        commodityLabel3.setSize(new Size(23, 16));
+        commodityLabel3.setTabIndex(17);
+        commodityLabel3.setText("Ore");
         //
-        // lblTradeCmdty7
+        // commodityLabel7
         //
-        lblTradeCmdty7.setAutoSize(true);
-        lblTradeCmdty7.setLocation(new Point(8, 228));
-        lblTradeCmdty7.setSize(new Size(53, 16));
-        lblTradeCmdty7.setTabIndex(16);
-        lblTradeCmdty7.setText("Machines");
+        commodityLabel7.setAutoSize(true);
+        commodityLabel7.setLocation(new Point(8, 228));
+        commodityLabel7.setSize(new Size(53, 16));
+        commodityLabel7.setTabIndex(16);
+        commodityLabel7.setText("Machines");
         //
         // ilChartImages
         //
@@ -1597,10 +1547,10 @@ class CargoPanel extends Panel {
                 targetPriceArray[i].setText("");
                 targetDiffArray[i].setText("");
                 targetPercentageArray[i].setText("");
-                btnSellQty[i].setVisible(false);
-                btnSellAll[i].setVisible(false);
-                btnBuyQty[i].setVisible(false);
-                btnBuyMax[i].setVisible(false);
+                sellButtonArray[i].setVisible(false);
+                sellAllButtonArray[i].setVisible(false);
+                buyButtonArray[i].setVisible(false);
+                buyMaxButtonArray[i].setVisible(false);
             }
             return;
         }
@@ -1615,21 +1565,21 @@ class CargoPanel extends Panel {
             sellPriceArray[i].setText(sell[i] > 0
                     ? Functions.formatMoney(sell[i], mainWindow.getStrings().get("cargoPanel.credit"))
                     : Strings.CargoSellNA);
-            btnSellQty[i].setText("" + cmdr.getShip().Cargo()[i]);
-            btnSellQty[i].setVisible(true);
-            btnSellAll[i].setText(sell[i] > 0 ? "All" : "Dump");
-            btnSellAll[i].setVisible(true);
+            sellButtonArray[i].setText("" + cmdr.getShip().Cargo()[i]);
+            sellButtonArray[i].setVisible(true);
+            sellAllButtonArray[i].setText(sell[i] > 0 ? "All" : "Dump");
+            sellAllButtonArray[i].setVisible(true);
             buyPriceArray[i].setText(buy[i] > 0
                     ? Functions.formatMoney(buy[i], mainWindow.getStrings().get("cargoPanel.credit"))
                     : Strings.CargoBuyNA);
-            btnBuyQty[i].setText("" + cmdr.getCurrentSystem().TradeItems()[i]);
-            btnBuyQty[i].setVisible(buy[i] > 0);
-            btnBuyMax[i].setVisible(buy[i] > 0);
+            buyButtonArray[i].setText("" + cmdr.getCurrentSystem().TradeItems()[i]);
+            buyButtonArray[i].setVisible(buy[i] > 0);
+            buyMaxButtonArray[i].setVisible(buy[i] > 0);
 
             if (sell[i] * cmdr.getShip().Cargo()[i] > cmdr.PriceCargo()[i])
                 sellPriceArray[i].setFont(BOLD_FONT);
             else
-                sellPriceArray[i].setFont(lblSell.getFont());
+                sellPriceArray[i].setFont(sellPriceLabel.getFont());
 
             if (warpSys != null && warpSys.destOk() && price > 0)
                 targetPriceArray[i].setText(Functions.formatMoney(price, mainWindow.getStrings().get("cargoPanel.credit")));
@@ -1641,12 +1591,12 @@ class CargoPanel extends Panel {
                 targetDiffArray[i].setText((diff > 0 ? "+" : "")
                         + Functions.formatMoney(diff, mainWindow.getStrings().get("cargoPanel.credit")));
                 targetPercentageArray[i].setText((diff > 0 ? "+" : "") + Functions.formatNumber(100 * diff / buy[i]) + "%");
-                buyPriceArray[i].setFont((diff > 0 && cmdr.getCurrentSystem().TradeItems()[i] > 0) ? BOLD_FONT : lblBuy
+                buyPriceArray[i].setFont((diff > 0 && cmdr.getCurrentSystem().TradeItems()[i] > 0) ? BOLD_FONT : buyPriceLabel
                         .getFont());
             } else {
                 targetDiffArray[i].setText("------------");
                 targetPercentageArray[i].setText("--------");
-                buyPriceArray[i].setFont(lblBuy.getFont());
+                buyPriceArray[i].setFont(buyPriceLabel.getFont());
             }
 
             targetPriceArray[i].setFont(buyPriceArray[i].getFont());

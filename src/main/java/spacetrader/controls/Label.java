@@ -10,8 +10,8 @@ public class Label extends BaseComponent {
     private static final String START = "<HTML>";
     private static final String NEWLINE = "<br>";
 
-    public ContentAlignment TextAlign;
-    public ContentAlignment ImageAlign;
+    public ContentAlignment textAlign;
+    public ContentAlignment imageAlign;
     private boolean convertedToHtml;
 
     public Label() {

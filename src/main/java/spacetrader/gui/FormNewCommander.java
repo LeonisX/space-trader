@@ -321,7 +321,7 @@ public class FormNewCommander extends SpaceTraderForm {
         this.lblPoints.setSize(new spacetrader.controls.Size(17, 13));
         this.lblPoints.setTabIndex(41);
         this.lblPoints.setText("16");
-        this.lblPoints.TextAlign = ContentAlignment.TopRight;
+        this.lblPoints.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // FormNewCommander
         //

@@ -304,7 +304,7 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblCash.setSize(new spacetrader.controls.Size(70, 13));
         this.lblCash.setTabIndex(43);
         this.lblCash.setText("8,888,888 cr.");
-        this.lblCash.TextAlign = ContentAlignment.TopRight;
+        this.lblCash.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblDebt
         //
@@ -312,7 +312,7 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblDebt.setSize(new spacetrader.controls.Size(70, 13));
         this.lblDebt.setTabIndex(42);
         this.lblDebt.setText("8,888,888 cr.");
-        this.lblDebt.TextAlign = ContentAlignment.TopRight;
+        this.lblDebt.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblNetWorth
         //
@@ -320,7 +320,7 @@ public class FormViewCommander extends SpaceTraderForm {
         this.lblNetWorth.setSize(new spacetrader.controls.Size(70, 13));
         this.lblNetWorth.setTabIndex(41);
         this.lblNetWorth.setText("8,888,888 cr.");
-        this.lblNetWorth.TextAlign = ContentAlignment.TopRight;
+        this.lblNetWorth.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // boxNotoriety
         //

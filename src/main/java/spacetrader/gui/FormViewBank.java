@@ -142,7 +142,7 @@ public class FormViewBank extends SpaceTraderForm {
         lblCurrentDebt.setSize(new spacetrader.controls.Size(56, 13));
         lblCurrentDebt.setTabIndex(4);
         lblCurrentDebt.setText("88,888 cr.");
-        lblCurrentDebt.TextAlign = ContentAlignment.TopRight;
+        lblCurrentDebt.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblMaxLoan
         //
@@ -151,7 +151,7 @@ public class FormViewBank extends SpaceTraderForm {
         lblMaxLoan.setSize(new spacetrader.controls.Size(56, 13));
         lblMaxLoan.setTabIndex(5);
         lblMaxLoan.setText("88,888 cr.");
-        lblMaxLoan.TextAlign = ContentAlignment.TopRight;
+        lblMaxLoan.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnGetLoan
         //
@@ -190,7 +190,7 @@ public class FormViewBank extends SpaceTraderForm {
         lblNoClaim.setSize(new spacetrader.controls.Size(32, 13));
         lblNoClaim.setTabIndex(27);
         lblNoClaim.setText("88%");
-        lblNoClaim.TextAlign = ContentAlignment.TopRight;
+        lblNoClaim.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblShipValue
         //
@@ -199,7 +199,7 @@ public class FormViewBank extends SpaceTraderForm {
         lblShipValue.setSize(new spacetrader.controls.Size(56, 13));
         lblShipValue.setTabIndex(26);
         lblShipValue.setText("88,888 cr.");
-        lblShipValue.TextAlign = ContentAlignment.TopRight;
+        lblShipValue.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblNoClaimLabel
         //
@@ -238,7 +238,7 @@ public class FormViewBank extends SpaceTraderForm {
         lblInsAmt.setSize(new spacetrader.controls.Size(82, 13));
         lblInsAmt.setTabIndex(30);
         lblInsAmt.setText("8,888 cr. daily");
-        lblInsAmt.TextAlign = ContentAlignment.TopRight;
+        lblInsAmt.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblInsAmtLabel
         //

@@ -2,11 +2,15 @@ package spacetrader.controls;
 
 public enum ContentAlignment {
 
-    TopLeft(Horizontal.top, Vertical.left), TopCenter(Horizontal.top, Vertical.center), TopRight(Horizontal.top,
-            Vertical.right), MiddleLeft(Horizontal.middle, Vertical.left), MiddleCenter(Horizontal.middle,
-            Vertical.center), MiddleRight(Horizontal.middle, Vertical.right), ButtomLeft(Horizontal.bottom,
-            Vertical.left), ButtomCenter(Horizontal.bottom, Vertical.center), ButtomRight(Horizontal.bottom,
-            Vertical.right);
+    TOP_LEFT(Horizontal.TOP, Vertical.LEFT),
+    TOP_CENTER(Horizontal.TOP, Vertical.CENTER),
+    TOP_RIGHT(Horizontal.TOP, Vertical.RIGHT),
+    MIDDLE_LEFT(Horizontal.MIDDLE, Vertical.LEFT),
+    MIDDLE_CENTER(Horizontal.MIDDLE, Vertical.CENTER),
+    MIDDLE_RIGHT(Horizontal.MIDDLE, Vertical.RIGHT),
+    BOTTOM_LEFT(Horizontal.BOTTOM, Vertical.LEFT),
+    BOTTOM_CENTER(Horizontal.BOTTOM, Vertical.CENTER),
+    BOTTOM_RIGHT(Horizontal.BOTTOM, Vertical.RIGHT);
 
     public final Vertical vertical;
     public final Horizontal horizontal;
@@ -17,10 +21,10 @@ public enum ContentAlignment {
     }
 
     public enum Horizontal {
-        top, middle, bottom
+        TOP, MIDDLE, BOTTOM
     }
 
     public enum Vertical {
-        left, center, right
+        LEFT, CENTER, RIGHT
     }
 }

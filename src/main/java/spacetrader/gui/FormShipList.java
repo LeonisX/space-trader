@@ -284,7 +284,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice0.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice0.setTabIndex(36);
         lblPrice0.setText("-888,888 cr.");
-        lblPrice0.TextAlign = ContentAlignment.TopRight;
+        lblPrice0.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblPrice1
         //
@@ -293,7 +293,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice1.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice1.setTabIndex(40);
         lblPrice1.setText("-888,888 cr.");
-        lblPrice1.TextAlign = ContentAlignment.TopRight;
+        lblPrice1.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo1
         //
@@ -341,7 +341,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice2.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice2.setTabIndex(44);
         lblPrice2.setText("-888,888 cr.");
-        lblPrice2.TextAlign = ContentAlignment.TopRight;
+        lblPrice2.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo2
         //
@@ -389,7 +389,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice3.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice3.setTabIndex(48);
         lblPrice3.setText("-888,888 cr.");
-        lblPrice3.TextAlign = ContentAlignment.TopRight;
+        lblPrice3.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo3
         //
@@ -437,7 +437,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice4.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice4.setTabIndex(52);
         lblPrice4.setText("-888,888 cr.");
-        lblPrice4.TextAlign = ContentAlignment.TopRight;
+        lblPrice4.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo4
         //
@@ -485,7 +485,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice5.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice5.setTabIndex(56);
         lblPrice5.setText("got one");
-        lblPrice5.TextAlign = ContentAlignment.TopRight;
+        lblPrice5.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo5
         //
@@ -533,7 +533,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice6.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice6.setTabIndex(60);
         lblPrice6.setText("-888,888 cr.");
-        lblPrice6.TextAlign = ContentAlignment.TopRight;
+        lblPrice6.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo6
         //
@@ -581,7 +581,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice7.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice7.setTabIndex(64);
         lblPrice7.setText("-888,888 cr.");
-        lblPrice7.TextAlign = ContentAlignment.TopRight;
+        lblPrice7.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo7
         //
@@ -629,7 +629,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice8.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice8.setTabIndex(68);
         lblPrice8.setText("-888,888 cr.");
-        lblPrice8.TextAlign = ContentAlignment.TopRight;
+        lblPrice8.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo8
         //
@@ -677,7 +677,7 @@ public class FormShipList extends SpaceTraderForm {
         lblPrice9.setSize(new spacetrader.controls.Size(64, 13));
         lblPrice9.setTabIndex(72);
         lblPrice9.setText("not sold");
-        lblPrice9.TextAlign = ContentAlignment.TopRight;
+        lblPrice9.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // btnInfo9
         //

@@ -123,7 +123,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblRank0.setSize(new spacetrader.controls.Size(14, 13));
         lblRank0.setTabIndex(33);
         lblRank0.setText("1.");
-        lblRank0.TextAlign = ContentAlignment.TopRight;
+        lblRank0.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblRank2
         //
@@ -133,7 +133,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblRank2.setSize(new spacetrader.controls.Size(14, 13));
         lblRank2.setTabIndex(34);
         lblRank2.setText("3.");
-        lblRank2.TextAlign = ContentAlignment.TopRight;
+        lblRank2.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblRank1
         //
@@ -143,7 +143,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblRank1.setSize(new spacetrader.controls.Size(14, 13));
         lblRank1.setTabIndex(35);
         lblRank1.setText("2.");
-        lblRank1.TextAlign = ContentAlignment.TopRight;
+        lblRank1.textAlign = ContentAlignment.TOP_RIGHT;
         //
         // lblScore0
         //
@@ -152,7 +152,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblScore0.setSize(new spacetrader.controls.Size(43, 13));
         lblScore0.setTabIndex(36);
         lblScore0.setText("888.8%");
-        lblScore0.TextAlign = ContentAlignment.TopRight;
+        lblScore0.textAlign = ContentAlignment.TOP_RIGHT;
         lblScore0.setVisible(false);
         //
         // lblScore1
@@ -162,7 +162,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblScore1.setSize(new spacetrader.controls.Size(43, 13));
         lblScore1.setTabIndex(37);
         lblScore1.setText("888.8%");
-        lblScore1.TextAlign = ContentAlignment.TopRight;
+        lblScore1.textAlign = ContentAlignment.TOP_RIGHT;
         lblScore1.setVisible(false);
         //
         // lblScore2
@@ -172,7 +172,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         lblScore2.setSize(new spacetrader.controls.Size(43, 13));
         lblScore2.setTabIndex(38);
         lblScore2.setText("888.8%");
-        lblScore2.TextAlign = ContentAlignment.TopRight;
+        lblScore2.textAlign = ContentAlignment.TOP_RIGHT;
         lblScore2.setVisible(false);
         //
         // lblName0
