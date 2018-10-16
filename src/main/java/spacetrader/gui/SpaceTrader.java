@@ -84,7 +84,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private OpenFileDialog openFileDialog;
     private SaveFileDialog saveFileDialog;
 
-    private PictureBox linePictureBox;
+    private HorizontalLine horizontalLine;
 
     //TODO need???
     private IContainer components;
@@ -168,7 +168,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         //this.suspendLayout();
 
         this.setClientSize(dimensions.getSize(this.getName()));
-        controls.add(linePictureBox);
+        controls.add(horizontalLine);
         controls.add(dockPanel);
         controls.add(cargoPanel);
         controls.add(targetSystemPanel);
@@ -557,11 +557,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializePictureBox() {
-        linePictureBox = new PictureBox();
-        linePictureBox.setBackground(Color.DARK_GRAY);
-        linePictureBox.setLocation(new Point(0, 0));
-        linePictureBox.setSize(new Size(770, 1));
-        linePictureBox.setTabStop(false);
+        horizontalLine = new HorizontalLine();
+        horizontalLine.setLocation(new Point(0, 0));
+        horizontalLine.setSize(new Size(770, 1));
+        horizontalLine.setTabStop(false);
     }
 
     private void initializeDialogs() {
