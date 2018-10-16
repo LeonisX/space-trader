@@ -606,7 +606,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib00
         //
-        picTrib00.setBackground(SystemColors.Control);
+        picTrib00.setBackground(SystemColors.CONTROL);
         picTrib00.setLocation(new java.awt.Point(16, 16));
         picTrib00.setName("picTrib00");
         picTrib00.setSize(new spacetrader.controls.Size(12, 12));
@@ -629,7 +629,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib50
         //
-        picTrib50.setBackground(SystemColors.Control);
+        picTrib50.setBackground(SystemColors.CONTROL);
         picTrib50.setLocation(new java.awt.Point(16, 224));
         picTrib50.setName("picTrib50");
         picTrib50.setSize(new spacetrader.controls.Size(12, 12));
@@ -645,7 +645,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib10
         //
-        picTrib10.setBackground(SystemColors.Control);
+        picTrib10.setBackground(SystemColors.CONTROL);
         picTrib10.setLocation(new java.awt.Point(8, 56));
         picTrib10.setName("picTrib10");
         picTrib10.setSize(new spacetrader.controls.Size(12, 12));
@@ -661,7 +661,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib40
         //
-        picTrib40.setBackground(SystemColors.Control);
+        picTrib40.setBackground(SystemColors.CONTROL);
         picTrib40.setLocation(new java.awt.Point(8, 184));
         picTrib40.setName("picTrib40");
         picTrib40.setSize(new spacetrader.controls.Size(12, 12));
@@ -677,7 +677,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib20
         //
-        picTrib20.setBackground(SystemColors.Control);
+        picTrib20.setBackground(SystemColors.CONTROL);
         picTrib20.setLocation(new java.awt.Point(8, 96));
         picTrib20.setName("picTrib20");
         picTrib20.setSize(new spacetrader.controls.Size(12, 12));
@@ -693,7 +693,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib30
         //
-        picTrib30.setBackground(SystemColors.Control);
+        picTrib30.setBackground(SystemColors.CONTROL);
         picTrib30.setLocation(new java.awt.Point(16, 136));
         picTrib30.setName("picTrib30");
         picTrib30.setSize(new spacetrader.controls.Size(12, 12));
@@ -709,7 +709,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib04
         //
-        picTrib04.setBackground(SystemColors.Control);
+        picTrib04.setBackground(SystemColors.CONTROL);
         picTrib04.setLocation(new java.awt.Point(176, 8));
         picTrib04.setName("picTrib04");
         picTrib04.setSize(new spacetrader.controls.Size(12, 12));
@@ -725,7 +725,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib03
         //
-        picTrib03.setBackground(SystemColors.Control);
+        picTrib03.setBackground(SystemColors.CONTROL);
         picTrib03.setLocation(new java.awt.Point(128, 8));
         picTrib03.setName("picTrib03");
         picTrib03.setSize(new spacetrader.controls.Size(12, 12));
@@ -741,7 +741,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib02
         //
-        picTrib02.setBackground(SystemColors.Control);
+        picTrib02.setBackground(SystemColors.CONTROL);
         picTrib02.setLocation(new java.awt.Point(96, 16));
         picTrib02.setName("picTrib02");
         picTrib02.setSize(new spacetrader.controls.Size(12, 12));
@@ -757,7 +757,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib01
         //
-        picTrib01.setBackground(SystemColors.Control);
+        picTrib01.setBackground(SystemColors.CONTROL);
         picTrib01.setLocation(new java.awt.Point(56, 8));
         picTrib01.setName("picTrib01");
         picTrib01.setSize(new spacetrader.controls.Size(12, 12));
@@ -773,7 +773,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib05
         //
-        picTrib05.setBackground(SystemColors.Control);
+        picTrib05.setBackground(SystemColors.CONTROL);
         picTrib05.setLocation(new java.awt.Point(208, 16));
         picTrib05.setName("picTrib05");
         picTrib05.setSize(new spacetrader.controls.Size(12, 12));
@@ -789,7 +789,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib11
         //
-        picTrib11.setBackground(SystemColors.Control);
+        picTrib11.setBackground(SystemColors.CONTROL);
         picTrib11.setLocation(new java.awt.Point(32, 80));
         picTrib11.setName("picTrib11");
         picTrib11.setSize(new spacetrader.controls.Size(12, 12));
@@ -805,7 +805,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib12
         //
-        picTrib12.setBackground(SystemColors.Control);
+        picTrib12.setBackground(SystemColors.CONTROL);
         picTrib12.setLocation(new java.awt.Point(88, 56));
         picTrib12.setName("picTrib12");
         picTrib12.setSize(new spacetrader.controls.Size(12, 12));
@@ -821,7 +821,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib13
         //
-        picTrib13.setBackground(SystemColors.Control);
+        picTrib13.setBackground(SystemColors.CONTROL);
         picTrib13.setLocation(new java.awt.Point(128, 40));
         picTrib13.setName("picTrib13");
         picTrib13.setSize(new spacetrader.controls.Size(12, 12));
@@ -837,7 +837,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib14
         //
-        picTrib14.setBackground(SystemColors.Control);
+        picTrib14.setBackground(SystemColors.CONTROL);
         picTrib14.setLocation(new java.awt.Point(192, 72));
         picTrib14.setName("picTrib14");
         picTrib14.setSize(new spacetrader.controls.Size(12, 12));
@@ -853,7 +853,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib15
         //
-        picTrib15.setBackground(SystemColors.Control);
+        picTrib15.setBackground(SystemColors.CONTROL);
         picTrib15.setLocation(new java.awt.Point(216, 48));
         picTrib15.setName("picTrib15");
         picTrib15.setSize(new spacetrader.controls.Size(12, 12));
@@ -869,7 +869,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib21
         //
-        picTrib21.setBackground(SystemColors.Control);
+        picTrib21.setBackground(SystemColors.CONTROL);
         picTrib21.setLocation(new java.awt.Point(56, 96));
         picTrib21.setName("picTrib21");
         picTrib21.setSize(new spacetrader.controls.Size(12, 12));
@@ -885,7 +885,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib22
         //
-        picTrib22.setBackground(SystemColors.Control);
+        picTrib22.setBackground(SystemColors.CONTROL);
         picTrib22.setLocation(new java.awt.Point(96, 80));
         picTrib22.setName("picTrib22");
         picTrib22.setSize(new spacetrader.controls.Size(12, 12));
@@ -901,7 +901,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib23
         //
-        picTrib23.setBackground(SystemColors.Control);
+        picTrib23.setBackground(SystemColors.CONTROL);
         picTrib23.setLocation(new java.awt.Point(136, 88));
         picTrib23.setName("picTrib23");
         picTrib23.setSize(new spacetrader.controls.Size(12, 12));
@@ -917,7 +917,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib24
         //
-        picTrib24.setBackground(SystemColors.Control);
+        picTrib24.setBackground(SystemColors.CONTROL);
         picTrib24.setLocation(new java.awt.Point(176, 104));
         picTrib24.setName("picTrib24");
         picTrib24.setSize(new spacetrader.controls.Size(12, 12));
@@ -933,7 +933,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib25
         //
-        picTrib25.setBackground(SystemColors.Control);
+        picTrib25.setBackground(SystemColors.CONTROL);
         picTrib25.setLocation(new java.awt.Point(216, 96));
         picTrib25.setName("picTrib25");
         picTrib25.setSize(new spacetrader.controls.Size(12, 12));
@@ -949,7 +949,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib31
         //
-        picTrib31.setBackground(SystemColors.Control);
+        picTrib31.setBackground(SystemColors.CONTROL);
         picTrib31.setLocation(new java.awt.Point(56, 128));
         picTrib31.setName("picTrib31");
         picTrib31.setSize(new spacetrader.controls.Size(12, 12));
@@ -965,7 +965,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib32
         //
-        picTrib32.setBackground(SystemColors.Control);
+        picTrib32.setBackground(SystemColors.CONTROL);
         picTrib32.setLocation(new java.awt.Point(96, 120));
         picTrib32.setName("picTrib32");
         picTrib32.setSize(new spacetrader.controls.Size(12, 12));
@@ -981,7 +981,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib33
         //
-        picTrib33.setBackground(SystemColors.Control);
+        picTrib33.setBackground(SystemColors.CONTROL);
         picTrib33.setLocation(new java.awt.Point(128, 128));
         picTrib33.setName("picTrib33");
         picTrib33.setSize(new spacetrader.controls.Size(12, 12));
@@ -997,7 +997,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib34
         //
-        picTrib34.setBackground(SystemColors.Control);
+        picTrib34.setBackground(SystemColors.CONTROL);
         picTrib34.setLocation(new java.awt.Point(168, 144));
         picTrib34.setName("picTrib34");
         picTrib34.setSize(new spacetrader.controls.Size(12, 12));
@@ -1013,7 +1013,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib35
         //
-        picTrib35.setBackground(SystemColors.Control);
+        picTrib35.setBackground(SystemColors.CONTROL);
         picTrib35.setLocation(new java.awt.Point(208, 128));
         picTrib35.setName("picTrib35");
         picTrib35.setSize(new spacetrader.controls.Size(12, 12));
@@ -1029,7 +1029,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib41
         //
-        picTrib41.setBackground(SystemColors.Control);
+        picTrib41.setBackground(SystemColors.CONTROL);
         picTrib41.setLocation(new java.awt.Point(48, 176));
         picTrib41.setName("picTrib41");
         picTrib41.setSize(new spacetrader.controls.Size(12, 12));
@@ -1045,7 +1045,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib51
         //
-        picTrib51.setBackground(SystemColors.Control);
+        picTrib51.setBackground(SystemColors.CONTROL);
         picTrib51.setLocation(new java.awt.Point(64, 216));
         picTrib51.setName("picTrib51");
         picTrib51.setSize(new spacetrader.controls.Size(12, 12));
@@ -1061,7 +1061,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib42
         //
-        picTrib42.setBackground(SystemColors.Control);
+        picTrib42.setBackground(SystemColors.CONTROL);
         picTrib42.setLocation(new java.awt.Point(88, 168));
         picTrib42.setName("picTrib42");
         picTrib42.setSize(new spacetrader.controls.Size(12, 12));
@@ -1077,7 +1077,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib52
         //
-        picTrib52.setBackground(SystemColors.Control);
+        picTrib52.setBackground(SystemColors.CONTROL);
         picTrib52.setLocation(new java.awt.Point(96, 224));
         picTrib52.setName("picTrib52");
         picTrib52.setSize(new spacetrader.controls.Size(12, 12));
@@ -1093,7 +1093,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib43
         //
-        picTrib43.setBackground(SystemColors.Control);
+        picTrib43.setBackground(SystemColors.CONTROL);
         picTrib43.setLocation(new java.awt.Point(136, 176));
         picTrib43.setName("picTrib43");
         picTrib43.setSize(new spacetrader.controls.Size(12, 12));
@@ -1109,7 +1109,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib53
         //
-        picTrib53.setBackground(SystemColors.Control);
+        picTrib53.setBackground(SystemColors.CONTROL);
         picTrib53.setLocation(new java.awt.Point(144, 216));
         picTrib53.setName("picTrib53");
         picTrib53.setSize(new spacetrader.controls.Size(12, 12));
@@ -1125,7 +1125,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib44
         //
-        picTrib44.setBackground(SystemColors.Control);
+        picTrib44.setBackground(SystemColors.CONTROL);
         picTrib44.setLocation(new java.awt.Point(184, 184));
         picTrib44.setName("picTrib44");
         picTrib44.setSize(new spacetrader.controls.Size(12, 12));
@@ -1141,7 +1141,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib45
         //
-        picTrib45.setBackground(SystemColors.Control);
+        picTrib45.setBackground(SystemColors.CONTROL);
         picTrib45.setLocation(new java.awt.Point(216, 176));
         picTrib45.setName("picTrib45");
         picTrib45.setSize(new spacetrader.controls.Size(12, 12));
@@ -1157,7 +1157,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib54
         //
-        picTrib54.setBackground(SystemColors.Control);
+        picTrib54.setBackground(SystemColors.CONTROL);
         picTrib54.setLocation(new java.awt.Point(176, 224));
         picTrib54.setName("picTrib54");
         picTrib54.setSize(new spacetrader.controls.Size(12, 12));
@@ -1173,7 +1173,7 @@ public class FormEncounter extends SpaceTraderForm {
         //
         // picTrib55
         //
-        picTrib55.setBackground(SystemColors.Control);
+        picTrib55.setBackground(SystemColors.CONTROL);
         picTrib55.setLocation(new java.awt.Point(208, 216));
         picTrib55.setName("picTrib55");
         picTrib55.setSize(new spacetrader.controls.Size(12, 12));

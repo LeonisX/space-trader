@@ -75,7 +75,7 @@ public class TargetSystemPanel extends Panel {
         lblTargetName = new spacetrader.controls.Label();
         lblTargetNameLabel = new spacetrader.controls.Label();
 
-        anchor = (((AnchorStyles.Top_Right)));
+        anchor = (((AnchorStyles.TOP_RIGHT)));
         controls.add(btnTrack);
         controls.add(btnNextSystem);
         controls.add(btnPrevSystem);
@@ -297,7 +297,7 @@ public class TargetSystemPanel extends Panel {
     }
 
     private void btnTrack_Click(Object sender, spacetrader.controls.EventArgs e) {
-        game.setTrackedSystemId(game.SelectedSystemId());
+        game.setTrackedSystemId(game.getSelectedSystemId());
         updateAll();
     }
 
@@ -305,7 +305,7 @@ public class TargetSystemPanel extends Panel {
         try {
             controller.autoSave_depart();
 
-            game.Warp(false);
+            game.setWarp(false);
 
             controller.autoSave_arrive();
         } catch (GameEndException ex) {
@@ -345,17 +345,17 @@ public class TargetSystemPanel extends Panel {
             lblTargetDistance.setText("" + distance);
             lblTargetOutOfRange.setVisible(!system.destOk() && system != commander.getCurrentSystem());
             btnWarp.setVisible(system.destOk());
-            btnTrack.setVisible(lblTargetOutOfRange.isVisible() && system != game.TrackedSystem());
+            btnTrack.setVisible(lblTargetOutOfRange.isVisible() && system != game.getTrackedSystem());
         }
     }
 
     private void btnNextSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
-        game.SelectNextSystemWithinRange(true);
+        game.selectNextSystemWithinRange(true);
         updateAll();
     }
 
     private void btnPrevSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
-        game.SelectNextSystemWithinRange(false);
+        game.selectNextSystemWithinRange(false);
         updateAll();
     }
 }

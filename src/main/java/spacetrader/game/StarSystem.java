@@ -405,19 +405,19 @@ public class StarSystem extends STSerializableObject {
         _visited = value;
     }
 
-    public int X() {
+    public int getX() {
         return _x;
     }
 
-    public void X(int value) {
+    public void setX(int value) {
         _x = value;
     }
 
-    public int Y() {
+    public int getY() {
         return _y;
     }
 
-    public void Y(int value) {
+    public void setY(int value) {
         _y = value;
     }
 

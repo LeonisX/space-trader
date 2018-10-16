@@ -4,35 +4,36 @@ import spacetrader.game.enums.StarSystemId;
 
 public interface SystemTracker {
 
-    void SelectNextSystemWithinRange(boolean forward);
+    void selectNextSystemWithinRange(boolean forward);
 
-    StarSystem TrackedSystem();
+    boolean isTargetWormhole();
 
-    boolean TargetWormhole();
+    int[] getWormholes();
 
-    void TargetWormhole(boolean value);
-
-    StarSystem getWarpSystem();
+    void setTargetWormhole(boolean value);
 
     StarSystem[] getUniverse();
 
-    int[] Wormholes();
+    StarSystem getSelectedSystem();
 
-    StarSystem SelectedSystem();
+    StarSystemId getSelectedSystemId();
 
-    StarSystemId SelectedSystemId();
-
-    void SelectedSystemId(StarSystemId value);
+    void setSelectedSystemId(StarSystemId value);
 
     void setSelectedSystemByName(String value);
+
+    StarSystem getTrackedSystem();
+
+    void setTrackedSystemId(StarSystemId trackedSystemId);
+
+    boolean isShowTrackedRange();
+
+    StarSystem getWarpSystem();
 
     boolean getCanSuperWarp();
 
     void setCanSuperWarp(boolean canSuperWarp);
 
-    void Warp(boolean viaSingularity);
+    void setWarp(boolean viaSingularity);
 
-    void setTrackedSystemId(StarSystemId trackedSystemId);
-
-    boolean isShowTrackedRange();
 }

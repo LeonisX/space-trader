@@ -375,7 +375,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         getCommander().getCurrentSystem().Visited(true);
         setPaidForNewspaper(false);
 
-        if (TrackedSystem() == getCommander().getCurrentSystem() && Options().getTrackAutoOff())
+        if (getTrackedSystem() == getCommander().getCurrentSystem() && Options().getTrackAutoOff())
             setTrackedSystemId(StarSystemId.NA);
 
         ArrivalCheckReactor();
@@ -2478,13 +2478,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             int x = 0;
             int y = 0;
 
-            if (i < Wormholes().length) {
+            if (i < getWormholes().length) {
                 // Place the first systems somewhere in the center.
                 x = ((Consts.GalaxyWidth * (1 + 2 * (i % 3))) / 6)
                         - Functions.GetRandom(-Consts.CloseDistance + 1, Consts.CloseDistance);
                 y = ((Consts.GalaxyHeight * (i < 3 ? 1 : 3)) / 4)
                         - Functions.GetRandom(-Consts.CloseDistance + 1, Consts.CloseDistance);
-                Wormholes()[i] = i;
+                getWormholes()[i] = i;
             } else {
                 boolean ok = false;
                 while (!ok) {
@@ -2517,25 +2517,26 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         for (i = 0; i < getUniverse().length; i++) {
             j = Functions.GetRandom(getUniverse().length);
             if (!Functions.WormholeExists(j, -1)) {
-                int x = getUniverse()[i].X();
-                int y = getUniverse()[i].Y();
-                getUniverse()[i].X(getUniverse()[j].X());
-                getUniverse()[i].Y(getUniverse()[j].Y());
-                getUniverse()[j].X(x);
-                getUniverse()[j].Y(y);
+                int x = getUniverse()[i].getX();
+                int y = getUniverse()[i].getY();
+                getUniverse()[i].setX(getUniverse()[j].getX());
+                getUniverse()[i].setY(getUniverse()[j].getY());
+                getUniverse()[j].setX(x);
+                getUniverse()[j].setY(y);
 
-                int w = Util.BruteSeek(Wormholes(), i);
-                if (w >= 0)
-                    Wormholes()[w] = j;
+                int w = Util.BruteSeek(getWormholes(), i);
+                if (w >= 0) {
+                    getWormholes()[w] = j;
+                }
             }
         }
 
         // Randomize wormhole order
-        for (i = 0; i < Wormholes().length; i++) {
-            j = Functions.GetRandom(Wormholes().length);
-            int w = Wormholes()[i];
-            Wormholes()[i] = Wormholes()[j];
-            Wormholes()[j] = w;
+        for (i = 0; i < getWormholes().length; i++) {
+            j = Functions.GetRandom(getWormholes().length);
+            int w = getWormholes()[i];
+            getWormholes()[i] = getWormholes()[j];
+            getWormholes()[j] = w;
         }
     }
 
@@ -3116,11 +3117,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         getUniverse()[StarSystemId.Qonos.castToInt()].setSpecialEventType(SpecialEventType.PrincessQonos);
 
         // Assign a wormhole location endpoint for the Scarab.
-        for (system = 0; system < Wormholes().length
-                && getUniverse()[Wormholes()[system]].getSpecialEventType() != SpecialEventType.NA; system++)
+        for (system = 0; system < getWormholes().length
+                && getUniverse()[getWormholes()[system]].getSpecialEventType() != SpecialEventType.NA; system++)
             ;
-        if (system < Wormholes().length)
-            getUniverse()[Wormholes()[system]].setSpecialEventType(SpecialEventType.ScarabDestroyed);
+        if (system < getWormholes().length)
+            getUniverse()[getWormholes()[system]].setSpecialEventType(SpecialEventType.ScarabDestroyed);
         else
             goodUniverse = false;
 
@@ -3209,7 +3210,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         VeryRareEncounters().add(VeryRareEncounter.BottleGood);
     }
 
-    public void SelectNextSystemWithinRange(boolean forward) {
+    public void selectNextSystemWithinRange(boolean forward) {
         int[] dest = Destinations();
 
         if (dest.length > 0) {
@@ -3221,10 +3222,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 index = (dest.length + index + (forward ? 1 : -1)) % dest.length;
 
             if (Functions.WormholeExists(getCommander().getCurrentSystem(), getUniverse()[dest[index]])) {
-                SelectedSystemId(getCommander().getCurrentSystemId());
-                TargetWormhole(true);
+                setSelectedSystemId(getCommander().getCurrentSystemId());
+                setTargetWormhole(true);
             } else
-                SelectedSystemId(StarSystemId.fromInt(dest[index]));
+                setSelectedSystemId(StarSystemId.fromInt(dest[index]));
         }
     }
 
@@ -3311,7 +3312,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 && getFabricRipProbability() > 0
                 && (getFabricRipProbability() == Consts.FabricRipInitialProbability || Functions.GetRandom(100) < getFabricRipProbability())) {
             GuiFacade.alert(AlertType.SpecialTimespaceFabricRip);
-            SelectedSystemId(StarSystemId.fromInt(Functions.GetRandom(getUniverse().length)));
+            setSelectedSystemId(StarSystemId.fromInt(Functions.GetRandom(getUniverse().length)));
         }
 
         boolean uneventful = true;
@@ -3352,7 +3353,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     // #region Properties
 
-    public void Warp(boolean viaSingularity) {
+    public void setWarp(boolean viaSingularity) {
         if (getCommander().getDebt() > Consts.DebtTooLarge)
             GuiFacade.alert(AlertType.DebtTooLargeGrounded);
         else if (getCommander().getCash() < MercenaryCosts())
@@ -3405,7 +3406,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     @CheatCode
     public void WarpDirect() {
-        _warpSystemId = SelectedSystemId();
+        _warpSystemId = getSelectedSystemId();
 
         getCommander().getCurrentSystem().CountDown(CountDownStart());
         NewsResetEvents();
@@ -3877,15 +3878,15 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return _scorpion;
     }
 
-    public StarSystem SelectedSystem() {
+    public StarSystem getSelectedSystem() {
         return (_selectedSystemId == StarSystemId.NA ? null : getUniverse()[_selectedSystemId.castToInt()]);
     }
 
-    public StarSystemId SelectedSystemId() {
+    public StarSystemId getSelectedSystemId() {
         return _selectedSystemId;
     }
 
-    public void SelectedSystemId(StarSystemId value) {
+    public void setSelectedSystemId(StarSystemId value) {
         _selectedSystemId = value;
         _warpSystemId = value;
         _targetWormhole = false;
@@ -3896,7 +3897,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         for (int i = 0; i < getUniverse().length && !found; i++) {
             String name = getUniverse()[i].getName();
             if (name.toLowerCase().contains(value.toLowerCase())) {
-                SelectedSystemId(StarSystemId.fromInt(i));
+                setSelectedSystemId(StarSystemId.fromInt(i));
                 found = true;
             }
         }
@@ -3906,20 +3907,20 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return _spaceMonster;
     }
 
-    public boolean TargetWormhole() {
+    public boolean isTargetWormhole() {
         return _targetWormhole;
     }
 
-    public void TargetWormhole(boolean value) {
+    public void setTargetWormhole(boolean value) {
         _targetWormhole = value;
 
         if (_targetWormhole) {
-            int wormIndex = Util.BruteSeek(Wormholes(), SelectedSystemId().castToInt());
-            _warpSystemId = StarSystemId.fromInt(Wormholes()[(wormIndex + 1) % Wormholes().length]);
+            int wormIndex = Util.BruteSeek(getWormholes(), getSelectedSystemId().castToInt());
+            _warpSystemId = StarSystemId.fromInt(getWormholes()[(wormIndex + 1) % getWormholes().length]);
         }
     }
 
-    public StarSystem TrackedSystem() {
+    public StarSystem getTrackedSystem() {
         return (_trackedSystemId == StarSystemId.NA ? null : getUniverse()[_trackedSystemId.castToInt()]);
     }
 
@@ -3945,7 +3946,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 * getCommander().getShip().getFuelCost() : 0;
     }
 
-    public int[] Wormholes() {
+    public int[] getWormholes() {
         return _wormholes;
     }
 

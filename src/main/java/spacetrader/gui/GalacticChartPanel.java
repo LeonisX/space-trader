@@ -13,19 +13,10 @@ import spacetrader.util.Util;
 
 import java.awt.*;
 
+import static spacetrader.gui.ChartsGraphicsConsts.*;
+
 public class GalacticChartPanel extends Panel {
 
-    private final int OFF_X = ChartsGraphicsConsts.OFF_X;
-    private final int OFF_Y = ChartsGraphicsConsts.OFF_Y;
-    private final int OFF_X_WORM = ChartsGraphicsConsts.OFF_X_WORM;
-    private final int IMG_G_N = ChartsGraphicsConsts.IMG_G_N;
-    private final int IMG_G_V = ChartsGraphicsConsts.IMG_G_V;
-    private final int IMG_G_W = ChartsGraphicsConsts.IMG_G_W;
-    private final int IMG_S_N = ChartsGraphicsConsts.IMG_S_N;
-    private final int IMG_S_NS = ChartsGraphicsConsts.IMG_S_NS;
-    private final int IMG_S_V = ChartsGraphicsConsts.IMG_S_V;
-    private final int IMG_S_VS = ChartsGraphicsConsts.IMG_S_VS;
-    private final int IMG_S_W = ChartsGraphicsConsts.IMG_S_W;
     private final Pen DEFAULT_PEN = new Pen(Color.black);
     private final Brush DEFAULT_BRUSH = new SolidBrush(Color.white);
 
@@ -38,11 +29,11 @@ public class GalacticChartPanel extends Panel {
     private Commander commander;
     private GameCheats cheats;
 
-    private Label lblWormhole;
-    private Label lblWormholeLabel;
-    private Button btnJump;
-    private Button btnFind;
-    private PictureBox picGalacticChart;
+    private Label wormholeLabelValue;
+    private Label wormholeLabel;
+    private Button jumpButton;
+    private Button findButton;
+    private PictureBox galacticChartPicture;
 
     GalacticChartPanel(SpaceTrader mainWindow, ImageList images) {
         this.mainWindow = mainWindow;
@@ -57,102 +48,103 @@ public class GalacticChartPanel extends Panel {
     }
 
     void initializeComponent() {
-        picGalacticChart = new PictureBox();
-        lblWormhole = new Label();
-        lblWormholeLabel = new Label();
-        btnJump = new Button();
-        btnFind = new Button();
+        galacticChartPicture = new PictureBox();
+        wormholeLabelValue = new Label();
+        wormholeLabel = new Label();
+        jumpButton = new Button();
+        findButton = new Button();
 
-        picGalacticChart.setBackground(Color.white);
-        picGalacticChart.setLocation(new Point(8, 16));
-        picGalacticChart.setSize(new Size(160, 116));
-        picGalacticChart.setTabIndex(0);
-        picGalacticChart.setTabStop(false);
-        picGalacticChart.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
-            @Override
-            public void handle(Object sender, PaintEventArgs e) {
-                picGalacticChart_Paint(e);
-            }
-        });
-        picGalacticChart.setMouseDown(new spacetrader.controls.EventHandler<Object, MouseEventArgs>() {
-            @Override
-            public void handle(Object sender, MouseEventArgs e) {
-                picGalacticChart_MouseDown(e);
-            }
-        });
+        anchor = AnchorStyles.TOP_RIGHT;
+        setBackground(SystemColors.CONTROL);
 
-        anchor = (((AnchorStyles.Top_Right)));
-        setBackground(SystemColors.Control);
-
-        controls.add(lblWormhole);
-        controls.add(lblWormholeLabel);
-        controls.add(btnJump);
-        controls.add(btnFind);
-        controls.add(picGalacticChart);
+        controls.add(wormholeLabelValue);
+        controls.add(wormholeLabel);
+        controls.add(jumpButton);
+        controls.add(findButton);
+        controls.add(galacticChartPicture);
 
         setSize(new Size(176, 168));
         setTabIndex(5);
         setTabStop(false);
         setText("Galactic Chart");
 
-        lblWormhole.setLocation(new Point(8, 148));
-        lblWormhole.setSize(new Size(72, 13));
-        lblWormhole.setTabIndex(29);
-        lblWormhole.setText("Tarchannen");
-
-        lblWormholeLabel.setLocation(new Point(8, 135));
-        lblWormholeLabel.setSize(new Size(72, 13));
-        lblWormholeLabel.setTabIndex(28);
-        lblWormholeLabel.setText("Wormhole to");
-
-        btnJump.setFlatStyle(FlatStyle.FLAT);
-        btnJump.setLocation(new Point(81, 138));
-        btnJump.setSize(new Size(42, 22));
-        btnJump.setTabIndex(55);
-        btnJump.setText("Jump");
-        btnJump.setClick(new EventHandler<Object, EventArgs>() {
+        galacticChartPicture.setBackground(Color.white);
+        galacticChartPicture.setLocation(new Point(8, 16));
+        galacticChartPicture.setSize(new Size(160, 116));
+        galacticChartPicture.setTabIndex(0);
+        galacticChartPicture.setTabStop(false);
+        galacticChartPicture.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
             @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnJump_Click();
+            public void handle(Object sender, PaintEventArgs e) {
+                galacticChartPicturePaint(e);
+            }
+        });
+        galacticChartPicture.setMouseDown(new spacetrader.controls.EventHandler<Object, MouseEventArgs>() {
+            @Override
+            public void handle(Object sender, MouseEventArgs e) {
+                galacticChartPictureMouseDown(e);
             }
         });
 
-        btnFind.setFlatStyle(FlatStyle.FLAT);
-        btnFind.setLocation(new Point(132, 138));
-        btnFind.setSize(new Size(36, 22));
-        btnFind.setTabIndex(56);
-        btnFind.setText("Find");
-        btnFind.setClick(new EventHandler<Object, EventArgs>() {
+        wormholeLabel.setLocation(new Point(8, 135));
+        wormholeLabel.setSize(new Size(72, 13));
+        wormholeLabel.setTabIndex(28);
+        wormholeLabel.setText("Wormhole to");
+
+        wormholeLabelValue.setLocation(new Point(8, 148));
+        wormholeLabelValue.setSize(new Size(72, 13));
+        wormholeLabelValue.setTabIndex(29);
+        //wormholeLabelValue.setText("Tarchannen");
+
+        jumpButton.setFlatStyle(FlatStyle.FLAT);
+        jumpButton.setLocation(new Point(81, 138));
+        jumpButton.setSize(new Size(42, 22));
+        jumpButton.setTabIndex(55);
+        jumpButton.setText("Jump");
+        jumpButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnFind_Click();
+                jumpButtonClick();
+            }
+        });
+
+        findButton.setFlatStyle(FlatStyle.FLAT);
+        findButton.setLocation(new Point(132, 138));
+        findButton.setSize(new Size(36, 22));
+        findButton.setTabIndex(56);
+        findButton.setText("Find");
+        findButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
+                findButtonClick();
             }
         });
 
     }
 
-    private void picGalacticChart_MouseDown(spacetrader.controls.MouseEventArgs e) {
-        if (e.Button != MouseButtons.Left || game == null)
+    private void galacticChartPictureMouseDown(spacetrader.controls.MouseEventArgs e) {
+        if (e.getButton() != MouseButtons.LEFT || game == null) {
             return;
+        }
 
         StarSystem[] universe = game.getUniverse();
 
         boolean clickedSystem = false;
 
         for (int i = 0; i < universe.length && !clickedSystem; i++) {
-            int x = universe[i].X() + OFF_X;
-            int y = universe[i].Y() + OFF_Y;
+            int x = universe[i].getX() + OFF_X;
+            int y = universe[i].getY() + OFF_Y;
 
-            if (e.X >= x - 2 && e.X <= x + 2 && e.Y >= y - 2 && e.Y <= y + 2) {
+            if (e.getX() >= x - 2 && e.getX() <= x + 2 && e.getY() >= y - 2 && e.getY() <= y + 2) {
                 clickedSystem = true;
-                game.SelectedSystemId(StarSystemId.fromInt(i));
+                game.setSelectedSystemId(StarSystemId.fromInt(i));
             } else if (Functions.WormholeExists(i, -1)) {
                 int xW = x + OFF_X_WORM;
 
-                if (e.X >= xW - 2 && e.X <= xW + 2 && e.Y >= y - 2 && e.Y <= y + 2) {
+                if (e.getX() >= xW - 2 && e.getX() <= xW + 2 && e.getY() >= y - 2 && e.getY() <= y + 2) {
                     clickedSystem = true;
-                    game.SelectedSystemId(StarSystemId.fromInt(i));
-                    game.TargetWormhole(true);
+                    game.setSelectedSystemId(StarSystemId.fromInt(i));
+                    game.setTargetWormhole(true);
                 }
             }
         }
@@ -162,24 +154,24 @@ public class GalacticChartPanel extends Panel {
             mainWindow.updateAll();
     }
 
-    private void picGalacticChart_Paint(spacetrader.controls.PaintEventArgs e) {
+    private void galacticChartPicturePaint(spacetrader.controls.PaintEventArgs e) {
         if (game != null) {
             StarSystem[] universe = game.getUniverse();
-            int[] wormholes = game.Wormholes();
-            StarSystem targetSys = game.SelectedSystem();
+            int[] wormholes = game.getWormholes();
+            StarSystem targetSys = game.getSelectedSystem();
             StarSystem curSys = commander.getCurrentSystem();
             int fuel = commander.getShip().getFuel();
 
             if (fuel > 0)
-                e.Graphics.DrawEllipse(DEFAULT_PEN, curSys.X() + OFF_X - fuel, curSys.Y() + OFF_Y - fuel, fuel * 2,
+                e.Graphics.DrawEllipse(DEFAULT_PEN, curSys.getX() + OFF_X - fuel, curSys.getY() + OFF_Y - fuel, fuel * 2,
                         fuel * 2);
 
-            int index = game.SelectedSystemId().castToInt();
-            if (game.TargetWormhole()) {
+            int index = game.getSelectedSystemId().castToInt();
+            if (game.isTargetWormhole()) {
                 int dest = wormholes[(Util.BruteSeek(wormholes, index) + 1) % wormholes.length];
                 StarSystem destSys = universe[dest];
-                e.Graphics.DrawLine(DEFAULT_PEN, targetSys.X() + OFF_X_WORM + OFF_X, targetSys.Y() + OFF_Y, destSys.X()
-                        + OFF_X, destSys.Y() + OFF_Y);
+                e.Graphics.DrawLine(DEFAULT_PEN, targetSys.getX() + OFF_X_WORM + OFF_X, targetSys.getY() + OFF_Y, destSys.getX()
+                        + OFF_X, destSys.getY() + OFF_Y);
             }
 
             for (int i = 0; i < universe.length; i++) {
@@ -188,23 +180,23 @@ public class GalacticChartPanel extends Panel {
                     imageIndex++;
                 Image image = ilChartImages.getImages()[imageIndex];
 
-                if (universe[i] == game.TrackedSystem()) {
-                    e.Graphics.DrawLine(DEFAULT_PEN, universe[i].X(), universe[i].Y(), universe[i].X()
-                            + image.getWidth() - 1, universe[i].Y() + image.getHeight() - 1);
-                    e.Graphics.DrawLine(DEFAULT_PEN, universe[i].X(), universe[i].Y() + image.getHeight() - 1,
-                            universe[i].X() + image.getWidth() - 1, universe[i].Y());
+                if (universe[i] == game.getTrackedSystem()) {
+                    e.Graphics.DrawLine(DEFAULT_PEN, universe[i].getX(), universe[i].getY(), universe[i].getX()
+                            + image.getWidth() - 1, universe[i].getY() + image.getHeight() - 1);
+                    e.Graphics.DrawLine(DEFAULT_PEN, universe[i].getX(), universe[i].getY() + image.getHeight() - 1,
+                            universe[i].getX() + image.getWidth() - 1, universe[i].getY());
                 }
 
-                ilChartImages.draw(e.Graphics, universe[i].X(), universe[i].Y(), imageIndex);
+                ilChartImages.draw(e.Graphics, universe[i].getX(), universe[i].getY(), imageIndex);
 
                 if (Functions.WormholeExists(i, -1))
-                    ilChartImages.draw(e.Graphics, universe[i].X() + OFF_X_WORM, universe[i].Y(), IMG_S_W);
+                    ilChartImages.draw(e.Graphics, universe[i].getX() + OFF_X_WORM, universe[i].getY(), IMG_S_W);
             }
         } else
-            e.Graphics.FillRectangle(DEFAULT_BRUSH, 0, 0, picGalacticChart.getWidth(), picGalacticChart.getHeight());
+            e.Graphics.FillRectangle(DEFAULT_BRUSH, 0, 0, galacticChartPicture.getWidth(), galacticChartPicture.getHeight());
     }
 
-    private void btnJump_Click() {
+    private void jumpButtonClick() {
         if (game.getWarpSystem() == null)
             GuiFacade.alert(AlertType.ChartJumpNoSystemSelected);
         else if (game.getWarpSystem() == commander.getCurrentSystem())
@@ -214,7 +206,7 @@ public class GalacticChartPanel extends Panel {
             try {
                 controller.autoSave_depart();
 
-                game.Warp(true);
+                game.setWarp(true);
 
                 controller.autoSave_arrive();
             } catch (GameEndException ex) {
@@ -225,7 +217,7 @@ public class GalacticChartPanel extends Panel {
         }
     }
 
-    private void btnFind_Click() {
+    private void findButtonClick() {
         FormFind form = new FormFind();
         if (form.showDialog(mainWindow) == DialogResult.OK) {
             String[] words = form.SystemName().split(" ");
@@ -235,8 +227,8 @@ public class GalacticChartPanel extends Panel {
             if (tryToFind) {
                 game.setSelectedSystemByName(form.SystemName());
                 if (form.TrackSystem()
-                        && game.SelectedSystem().getName().toLowerCase().equals(form.SystemName().toLowerCase()))
-                    game.setTrackedSystemId(game.SelectedSystemId());
+                        && game.getSelectedSystem().getName().toLowerCase().equals(form.SystemName().toLowerCase()))
+                    game.setTrackedSystemId(game.getSelectedSystemId());
             }
 
             // todo inline when done
@@ -245,33 +237,33 @@ public class GalacticChartPanel extends Panel {
     }
 
     void refresh() {
-        picGalacticChart.refresh();
+        galacticChartPicture.refresh();
         if (game == null) {
-            lblWormholeLabel.setVisible(false);
-            lblWormhole.setVisible(false);
-            btnJump.setVisible(false);
-            btnFind.setVisible(false);
+            wormholeLabel.setVisible(false);
+            wormholeLabelValue.setVisible(false);
+            jumpButton.setVisible(false);
+            findButton.setVisible(false);
         } else {
-            if (game.TargetWormhole()) {
-                lblWormholeLabel.setVisible(true);
-                lblWormhole.setVisible(true);
-                lblWormhole.setText(game.getWarpSystem().getName());
+            if (game.isTargetWormhole()) {
+                wormholeLabel.setVisible(true);
+                wormholeLabelValue.setVisible(true);
+                wormholeLabelValue.setText(game.getWarpSystem().getName());
             } else {
-                lblWormholeLabel.setVisible(false);
-                lblWormhole.setVisible(false);
+                wormholeLabel.setVisible(false);
+                wormholeLabelValue.setVisible(false);
             }
-            btnJump.setVisible(game.getCanSuperWarp());
-            btnFind.setVisible(true);
+            jumpButton.setVisible(game.getCanSuperWarp());
+            findButton.setVisible(true);
         }
     }
 
     @Override
     public int getWidth() {
-        return picGalacticChart.getWidth();
+        return galacticChartPicture.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return picGalacticChart.getHeight();
+        return galacticChartPicture.getHeight();
     }
 }

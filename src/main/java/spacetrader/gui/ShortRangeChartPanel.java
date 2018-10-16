@@ -60,7 +60,7 @@ public class ShortRangeChartPanel extends Panel {
             }
         });
 
-        anchor = (((AnchorStyles.Top_Right)));
+        anchor = (((AnchorStyles.TOP_RIGHT)));
         controls.add(picShortRangeChart);
         setSize(new spacetrader.controls.Size(176, 168));
         setTabIndex(6);
@@ -71,7 +71,7 @@ public class ShortRangeChartPanel extends Panel {
     }
 
     private void picShortRangeChart_MouseDown(Object sender, spacetrader.controls.MouseEventArgs e) {
-        if (e.Button == MouseButtons.Left && game != null) {
+        if (e.getButton() == MouseButtons.LEFT && game != null) {
             StarSystem[] universe = game.getUniverse();
             StarSystem curSys = commander.getCurrentSystem();
 
@@ -81,21 +81,21 @@ public class ShortRangeChartPanel extends Panel {
             int delta = picShortRangeChart.getHeight() / (Consts.MaxRange * 2);
 
             for (int i = 0; i < universe.length && !clickedSystem; i++) {
-                if ((Math.abs(universe[i].X() - curSys.X()) * delta <= picShortRangeChart.getWidth() / 2 - 10)
-                        && (Math.abs(universe[i].Y() - curSys.Y()) * delta <= picShortRangeChart.getHeight() / 2 - 10)) {
-                    int x = centerX + (universe[i].X() - curSys.X()) * delta;
-                    int y = centerY + (universe[i].Y() - curSys.Y()) * delta;
+                if ((Math.abs(universe[i].getX() - curSys.getX()) * delta <= picShortRangeChart.getWidth() / 2 - 10)
+                        && (Math.abs(universe[i].getY() - curSys.getY()) * delta <= picShortRangeChart.getHeight() / 2 - 10)) {
+                    int x = centerX + (universe[i].getX() - curSys.getX()) * delta;
+                    int y = centerY + (universe[i].getY() - curSys.getY()) * delta;
 
-                    if (e.X >= x - OFF_X && e.X <= x + OFF_X && e.Y >= y - OFF_Y && e.Y <= y + OFF_Y) {
+                    if (e.getX() >= x - OFF_X && e.getX() <= x + OFF_X && e.getY() >= y - OFF_Y && e.getY() <= y + OFF_Y) {
                         clickedSystem = true;
-                        game.SelectedSystemId(StarSystemId.fromInt(i));
+                        game.setSelectedSystemId(StarSystemId.fromInt(i));
                     } else if (Functions.WormholeExists(i, -1)) {
                         int xW = x + 9;
 
-                        if (e.X >= xW - OFF_X && e.X <= xW + OFF_X && e.Y >= y - OFF_Y && e.Y <= y + OFF_Y) {
+                        if (e.getX() >= xW - OFF_X && e.getX() <= xW + OFF_X && e.getY() >= y - OFF_Y && e.getY() <= y + OFF_Y) {
                             clickedSystem = true;
-                            game.SelectedSystemId((StarSystemId.fromInt(i)));
-                            game.TargetWormhole(true);
+                            game.setSelectedSystemId((StarSystemId.fromInt(i)));
+                            game.setTargetWormhole(true);
                         }
                     }
                 }
@@ -114,8 +114,8 @@ public class ShortRangeChartPanel extends Panel {
     private void picShortRangeChart_Paint(Object sender, spacetrader.controls.PaintEventArgs e) {
         if (game != null) {
             StarSystem[] universe = game.getUniverse();
-            int[] wormholes = game.Wormholes();
-            StarSystem trackSys = game.TrackedSystem();
+            int[] wormholes = game.getWormholes();
+            StarSystem trackSys = game.getTrackedSystem();
             StarSystem curSys = commander.getCurrentSystem();
             int fuel = commander.getShip().getFuel();
 
@@ -132,11 +132,11 @@ public class ShortRangeChartPanel extends Panel {
             if (trackSys != null) {
                 int dist = Functions.Distance(curSys, trackSys);
                 if (dist > 0) {
-                    int dX = (int) Math.round(25 * (trackSys.X() - curSys.X()) / (double) dist);
-                    int dY = (int) Math.round(25 * (trackSys.Y() - curSys.Y()) / (double) dist);
+                    int dX = (int) Math.round(25 * (trackSys.getX() - curSys.getX()) / (double) dist);
+                    int dY = (int) Math.round(25 * (trackSys.getY() - curSys.getY()) / (double) dist);
 
-                    int dX2 = (int) Math.round(4 * (trackSys.Y() - curSys.Y()) / (double) dist);
-                    int dY2 = (int) Math.round(4 * (curSys.X() - trackSys.X()) / (double) dist);
+                    int dX2 = (int) Math.round(4 * (trackSys.getY() - curSys.getY()) / (double) dist);
+                    int dY2 = (int) Math.round(4 * (curSys.getX() - trackSys.getX()) / (double) dist);
 
                     e.Graphics.FillPolygon(new SolidBrush(new Color(220, 20, 60)), new Point[]{
                             new Point(centerX + dX, centerY + dY), new Point(centerX - dX2, centerY - dY2),
@@ -156,10 +156,10 @@ public class ShortRangeChartPanel extends Panel {
             // system is visible.
             for (int j = 0; j < 2; j++) {
                 for (int i = 0; i < universe.length; i++) {
-                    if ((Math.abs(universe[i].X() - curSys.X()) * delta <= picShortRangeChart.getWidth() / 2 - 10)
-                            && (Math.abs(universe[i].Y() - curSys.Y()) * delta <= picShortRangeChart.getHeight() / 2 - 10)) {
-                        int x = centerX + (universe[i].X() - curSys.X()) * delta;
-                        int y = centerY + (universe[i].Y() - curSys.Y()) * delta;
+                    if ((Math.abs(universe[i].getX() - curSys.getX()) * delta <= picShortRangeChart.getWidth() / 2 - 10)
+                            && (Math.abs(universe[i].getY() - curSys.getY()) * delta <= picShortRangeChart.getHeight() / 2 - 10)) {
+                        int x = centerX + (universe[i].getX() - curSys.getX()) * delta;
+                        int y = centerY + (universe[i].getY() - curSys.getY()) * delta;
 
                         if (j == 1) {
                             if (universe[i] == game.getWarpSystem()) {
@@ -167,7 +167,7 @@ public class ShortRangeChartPanel extends Panel {
                                 e.Graphics.DrawLine(DEFAULT_PEN, x, y - 6, x, y + 6);
                             }
 
-                            if (universe[i] == game.TrackedSystem()) {
+                            if (universe[i] == game.getTrackedSystem()) {
                                 e.Graphics.DrawLine(DEFAULT_PEN, x - 5, y - 5, x + 5, y + 5);
                                 e.Graphics.DrawLine(DEFAULT_PEN, x - 5, y + 5, x + 5, y - 5);
                             }
@@ -177,7 +177,7 @@ public class ShortRangeChartPanel extends Panel {
 
                             if (Functions.WormholeExists(i, -1)) {
                                 int xW = x + 9;
-                                if (game.TargetWormhole() && universe[i] == game.SelectedSystem()) {
+                                if (game.isTargetWormhole() && universe[i] == game.getSelectedSystem()) {
                                     e.Graphics.DrawLine(DEFAULT_PEN, xW - 6, y, xW + 6, y);
                                     e.Graphics.DrawLine(DEFAULT_PEN, xW, y - 6, xW, y + 6);
                                 }

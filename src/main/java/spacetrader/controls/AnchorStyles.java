@@ -2,6 +2,6 @@ package spacetrader.controls;
 
 public enum AnchorStyles {
 
-    Top_Right
+    TOP_RIGHT
 
 }

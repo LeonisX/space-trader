@@ -361,7 +361,7 @@ class CargoPanel extends Panel {
 
         this.suspendLayout();
 
-        this.anchor = AnchorStyles.Top_Right;
+        this.anchor = AnchorStyles.TOP_RIGHT;
 
         controls.add(verticalLine0);
         controls.add(verticalLine1);

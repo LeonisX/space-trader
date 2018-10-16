@@ -644,7 +644,7 @@ public class FormShipyard extends SpaceTraderForm {
         // btnConstruct
         //
         btnConstruct.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnConstruct.setForeground(SystemColors.ControlText);
+        btnConstruct.setForeground(SystemColors.CONTROL_TEXT);
         btnConstruct.setLocation(new java.awt.Point(382, 344));
         btnConstruct.setName("btnConstruct");
         btnConstruct.setSize(new spacetrader.controls.Size(88, 22));
@@ -948,7 +948,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // lblDisabledPct
         //
-        lblDisabledPct.setBackground(SystemColors.Info);
+        lblDisabledPct.setBackground(SystemColors.INFO);
         lblDisabledPct.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         lblDisabledPct.imageAlign = ContentAlignment.MIDDLE_RIGHT;
         lblDisabledPct.setLocation(new java.awt.Point(154, 182));
@@ -968,7 +968,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // lblDisabledName
         //
-        lblDisabledName.setBackground(SystemColors.Info);
+        lblDisabledName.setBackground(SystemColors.INFO);
         lblDisabledName.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
         lblDisabledName.imageAlign = ContentAlignment.MIDDLE_LEFT;
         lblDisabledName.setLocation(new java.awt.Point(96, 222));

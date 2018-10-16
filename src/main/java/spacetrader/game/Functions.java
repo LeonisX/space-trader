@@ -74,11 +74,11 @@ public class Functions {
     }
 
     public static int Distance(StarSystem a, StarSystem b) {
-        return (int) Math.floor(Math.sqrt(Math.pow(a.X() - b.X(), 2) + Math.pow(a.Y() - b.Y(), 2)));
+        return (int) Math.floor(Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2)));
     }
 
     static int Distance(StarSystem a, int x, int y) {
-        return (int) Math.floor(Math.sqrt(Math.pow(a.X() - x, 2) + Math.pow(a.Y() - y, 2)));
+        return (int) Math.floor(Math.sqrt(Math.pow(a.getX() - x, 2) + Math.pow(a.getY() - y, 2)));
     }
 
     private static void DrawPartialImage(Graphics g, Image img, int start, int stop) {
@@ -291,7 +291,7 @@ public class Functions {
     // at all from a.
     // *************************************************************************
     public static boolean WormholeExists(int a, int b) {
-        int[] wormholes = Game.getCurrentGame().Wormholes();
+        int[] wormholes = Game.getCurrentGame().getWormholes();
         int i = Util.BruteSeek(wormholes, a);
         // int i = Array.IndexOf(wormholes, a);
 
@@ -300,7 +300,7 @@ public class Functions {
 
     static boolean WormholeExists(StarSystem a, StarSystem b) {
         StarSystem[] universe = Game.getCurrentGame().getUniverse();
-        int[] wormholes = Game.getCurrentGame().Wormholes();
+        int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, (int) a.Id);
         int i = Util.BruteSeek(wormholes, a.Id().castToInt());
 
@@ -308,7 +308,7 @@ public class Functions {
     }
 
     public static StarSystem WormholeTarget(int a) {
-        int[] wormholes = Game.getCurrentGame().Wormholes();
+        int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, a);
         int i = Util.BruteSeek(wormholes, a);
 
