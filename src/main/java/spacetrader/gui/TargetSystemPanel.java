@@ -338,7 +338,7 @@ public class TargetSystemPanel extends Panel {
             lblTargetSize.setText(Strings.Sizes[system.size().castToInt()]);
             lblTargetTech.setText(Strings.TechLevelNames[system.getTechLevel().castToInt()]);
             lblTargetPolSys.setText(system.politicalSystem().name());
-            lblTargetResource.setText(system.Visited() ? Strings.SpecialResources[system.getSpecialResource().castToInt()]
+            lblTargetResource.setText(system.isVisited() ? Strings.SpecialResources[system.getSpecialResource().castToInt()]
                     : Strings.Unknown);
             lblTargetPolice.setText(Strings.ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
             lblTargetPirates.setText(Strings.ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);

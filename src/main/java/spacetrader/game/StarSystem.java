@@ -374,7 +374,7 @@ public class StarSystem extends STSerializableObject {
     }
 
     public SpecialResource getSpecialResource() {
-        return Visited() ? _specialResource : SpecialResource.Nothing;
+        return isVisited() ? _specialResource : SpecialResource.Nothing;
     }
 
     public SystemPressure getSystemPressure() {
@@ -397,11 +397,11 @@ public class StarSystem extends STSerializableObject {
         return _tradeItems;
     }
 
-    public boolean Visited() {
+    public boolean isVisited() {
         return _visited;
     }
 
-    public void Visited(boolean value) {
+    public void setVisited(boolean value) {
         _visited = value;
     }
 

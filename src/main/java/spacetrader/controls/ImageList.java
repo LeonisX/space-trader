@@ -15,7 +15,7 @@ public class ImageList {
     }
 
     public void draw(Graphics graphics, int x, int y, int imageIndex) {
-        graphics.DrawImage(images[imageIndex], x, y, new Rectangle(0, 0, size.width, size.height), GraphicsUnit.Pixel);
+        graphics.drawImage(images[imageIndex], x, y, new Rectangle(0, 0, size.width, size.height), GraphicsUnit.Pixel);
     }
 
     public Image[] getImages() {

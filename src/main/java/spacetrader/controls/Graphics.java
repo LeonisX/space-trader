@@ -4,29 +4,29 @@ import java.awt.*;
 
 public class Graphics {
 
-    private final java.awt.Graphics impl;
+    private final java.awt.Graphics graphics;
 
-    public Graphics(java.awt.Graphics graphics) {
-        impl = graphics;
+    Graphics(java.awt.Graphics graphics) {
+        this.graphics = graphics;
     }
 
-    public void DrawEllipse(Pen pen, int x, int y, int width, int height) {
-        impl.setColor(pen.color);
-        impl.drawOval(x, y, width, height);
+    public void drawEllipse(Pen pen, int x, int y, int width, int height) {
+        graphics.setColor(pen.color);
+        graphics.drawOval(x, y, width, height);
     }
 
-    public void DrawLine(Pen pen, int x1, int y1, int x2, int y2) {
-        impl.setColor(pen.color);
-        impl.drawLine(x1, y1, x2, y2);
+    public void drawLine(Pen pen, int x1, int y1, int x2, int y2) {
+        graphics.setColor(pen.color);
+        graphics.drawLine(x1, y1, x2, y2);
     }
 
-    public void FillRectangle(Brush brush, int x, int y, int width, int height) {
-        impl.setColor(brush.color);
-        impl.fillRect(x, y, width, height);
+    public void fillRectangle(Brush brush, int x, int y, int width, int height) {
+        graphics.setColor(brush.color);
+        graphics.fillRect(x, y, width, height);
     }
 
-    public void FillPolygon(Brush brush, Point[] points) {
-        impl.setColor(brush.color);
+    public void fillPolygon(Brush brush, Point[] points) {
+        graphics.setColor(brush.color);
 
         int[] xs = new int[points.length];
         int[] ys = new int[points.length];
@@ -37,34 +37,34 @@ public class Graphics {
             ys[i] = point.y;
         }
 
-        impl.fillPolygon(xs, ys, points.length);
+        graphics.fillPolygon(xs, ys, points.length);
     }
 
-    public void DrawString(String text, Font font, Brush Brush, int x, int y) {
-        impl.setColor(Brush.color);
-        impl.setFont(font);
-        impl.drawString(text, x, y);
+    public void drawString(String text, Font font, Brush Brush, int x, int y) {
+        graphics.setColor(Brush.color);
+        graphics.setFont(font);
+        graphics.drawString(text, x, y);
     }
 
     public void clear(Color backgroundColor) {
-        Color bk = impl.getColor();
-        impl.setColor(backgroundColor);
+        Color bk = graphics.getColor();
+        graphics.setColor(backgroundColor);
 
-        impl.fillRect(0, 0, 1000000, 1000000);
+        graphics.fillRect(0, 0, 1000000, 1000000);
 
-        impl.setColor(bk);
+        graphics.setColor(bk);
     }
 
-    public void DrawImage(Image img, int x, int y, Rectangle rect, GraphicsUnit pixel) {
-        impl.drawImage(img.asSwingImage(), x, y, x + rect.Width, y + rect.Height,
+    public void drawImage(Image img, int x, int y, Rectangle rect, GraphicsUnit pixel) {
+        graphics.drawImage(img.asSwingImage(), x, y, x + rect.Width, y + rect.Height,
                 rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height, null);
     }
 
-    public SizeF MeasureString(String text, java.awt.Font font) {
-        if (impl == null)
+    public SizeF measureString(String text, java.awt.Font font) {
+        if (graphics == null)
             return new SizeF(30, text.length() * 5);
 
-        FontMetrics metrics = impl.getFontMetrics(font);
+        FontMetrics metrics = graphics.getFontMetrics(font);
         int w = metrics.stringWidth(text);
         int h = metrics.getHeight();
         return new SizeF(h, w);

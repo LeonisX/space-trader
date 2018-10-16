@@ -30,7 +30,7 @@ public class Util {
         });
     }
 
-    public static int BruteSeek(int[] array, int a) {
+    public static int bruteSeek(int[] array, int a) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == a)
                 return i;

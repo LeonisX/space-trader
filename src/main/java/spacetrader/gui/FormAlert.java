@@ -55,7 +55,7 @@ public class FormAlert extends SpaceTraderForm {
             text = Functions.stringVars(text, args);
         }
 
-        lblText.setWidth(g.MeasureString((text.length() > 80 ? _80_CHARS : text), this.getFont()).width + 25);
+        lblText.setWidth(g.measureString((text.length() > 80 ? _80_CHARS : text), this.getFont()).width + 25);
         // lblText.setWidth(300);
         lblText.setText(text);
         lblText.setHeight(30 + 30 * text.length() / 80);
@@ -64,11 +64,11 @@ public class FormAlert extends SpaceTraderForm {
         int btnWidth = 0;
         btn1.setText(button1Text);
         btn1.setDialogResult(button1Result);
-        btn1.setWidth(Math.max(40, g.MeasureString(btn1.getText(), this.getFont()).width + 35));
+        btn1.setWidth(Math.max(40, g.measureString(btn1.getText(), this.getFont()).width + 35));
         btnWidth = btn1.getWidth();
         if (button2Text != null) {
             btn2.setText(button2Text);
-            btn2.setWidth(Math.max((int) Math.ceil(g.MeasureString(btn2.getText(), this.getFont()).width) + 10, 40));
+            btn2.setWidth(Math.max((int) Math.ceil(g.measureString(btn2.getText(), this.getFont()).width) + 10, 40));
             btn2.setVisible(true);
             btn2.setDialogResult(button2Result);
             btnWidth += btn2.getWidth() + 6;

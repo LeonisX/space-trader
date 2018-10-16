@@ -82,7 +82,7 @@ public class Functions {
     }
 
     private static void DrawPartialImage(Graphics g, Image img, int start, int stop) {
-        g.DrawImage(img, 2 + start, 2, new Rectangle(start, 0, stop - start, img.getHeight()), GraphicsUnit.Pixel);
+        g.drawImage(img, 2 + start, 2, new Rectangle(start, 0, stop - start, img.getHeight()), GraphicsUnit.Pixel);
     }
 
     public static String formatNumber(int num) {
@@ -292,7 +292,7 @@ public class Functions {
     // *************************************************************************
     public static boolean WormholeExists(int a, int b) {
         int[] wormholes = Game.getCurrentGame().getWormholes();
-        int i = Util.BruteSeek(wormholes, a);
+        int i = Util.bruteSeek(wormholes, a);
         // int i = Array.IndexOf(wormholes, a);
 
         return (i >= 0 && (b < 0 || wormholes[(i + 1) % wormholes.length] == b));
@@ -302,7 +302,7 @@ public class Functions {
         StarSystem[] universe = Game.getCurrentGame().getUniverse();
         int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, (int) a.Id);
-        int i = Util.BruteSeek(wormholes, a.Id().castToInt());
+        int i = Util.bruteSeek(wormholes, a.Id().castToInt());
 
         return (i >= 0 && (universe[wormholes[(i + 1) % wormholes.length]] == b));
     }
@@ -310,7 +310,7 @@ public class Functions {
     public static StarSystem WormholeTarget(int a) {
         int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, a);
-        int i = Util.BruteSeek(wormholes, a);
+        int i = Util.bruteSeek(wormholes, a);
 
         return (i >= 0 ? (Game.getCurrentGame().getUniverse()[wormholes[(i + 1) % wormholes.length]]) : null);
     }

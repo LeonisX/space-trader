@@ -372,7 +372,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     private void Arrival() {
         getCommander().setCurrentSystem(getWarpSystem());
-        getCommander().getCurrentSystem().Visited(true);
+        getCommander().getCurrentSystem().setVisited(true);
         setPaidForNewspaper(false);
 
         if (getTrackedSystem() == getCommander().getCurrentSystem() && Options().getTrackAutoOff())
@@ -2524,7 +2524,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getUniverse()[j].setX(x);
                 getUniverse()[j].setY(y);
 
-                int w = Util.BruteSeek(getWormholes(), i);
+                int w = Util.bruteSeek(getWormholes(), i);
                 if (w >= 0) {
                     getWormholes()[w] = j;
                 }
@@ -2935,7 +2935,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             }
         }
 
-        commander.getCurrentSystem().Visited(true);
+        commander.getCurrentSystem().setVisited(true);
         return commander;
     }
 
@@ -3214,7 +3214,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         int[] dest = Destinations();
 
         if (dest.length > 0) {
-            int index = spacetrader.util.Util.BruteSeek(dest, getWarpSystemId().castToInt());
+            int index = spacetrader.util.Util.bruteSeek(dest, getWarpSystemId().castToInt());
 
             if (index < 0)
                 index = forward ? 0 : dest.length - 1;
@@ -3915,7 +3915,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         _targetWormhole = value;
 
         if (_targetWormhole) {
-            int wormIndex = Util.BruteSeek(getWormholes(), getSelectedSystemId().castToInt());
+            int wormIndex = Util.bruteSeek(getWormholes(), getSelectedSystemId().castToInt());
             _warpSystemId = StarSystemId.fromInt(getWormholes()[(wormIndex + 1) % getWormholes().length]);
         }
     }

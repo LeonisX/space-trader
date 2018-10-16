@@ -163,27 +163,27 @@ public class GalacticChartPanel extends Panel {
             int fuel = commander.getShip().getFuel();
 
             if (fuel > 0)
-                e.getGraphics().DrawEllipse(DEFAULT_PEN, curSys.getX() + OFF_X - fuel, curSys.getY() + OFF_Y - fuel, fuel * 2,
-                        fuel * 2);
+                e.getGraphics().drawEllipse(DEFAULT_PEN, curSys.getX() + OFF_X - fuel, curSys.getY() + OFF_Y - fuel,
+                        fuel * 2, fuel * 2);
 
             int index = game.getSelectedSystemId().castToInt();
             if (game.isTargetWormhole()) {
-                int dest = wormholes[(Util.BruteSeek(wormholes, index) + 1) % wormholes.length];
+                int dest = wormholes[(Util.bruteSeek(wormholes, index) + 1) % wormholes.length];
                 StarSystem destSys = universe[dest];
-                e.getGraphics().DrawLine(DEFAULT_PEN, targetSys.getX() + OFF_X_WORM + OFF_X, targetSys.getY() + OFF_Y, destSys.getX()
-                        + OFF_X, destSys.getY() + OFF_Y);
+                e.getGraphics().drawLine(DEFAULT_PEN, targetSys.getX() + OFF_X_WORM + OFF_X, targetSys.getY() + OFF_Y,
+                        destSys.getX() + OFF_X, destSys.getY() + OFF_Y);
             }
 
             for (int i = 0; i < universe.length; i++) {
-                int imageIndex = universe[i].Visited() ? IMG_S_V : IMG_S_N;
+                int imageIndex = universe[i].isVisited() ? IMG_S_V : IMG_S_N;
                 if (universe[i] == game.getWarpSystem())
                     imageIndex++;
                 Image image = ilChartImages.getImages()[imageIndex];
 
                 if (universe[i] == game.getTrackedSystem()) {
-                    e.getGraphics().DrawLine(DEFAULT_PEN, universe[i].getX(), universe[i].getY(), universe[i].getX()
+                    e.getGraphics().drawLine(DEFAULT_PEN, universe[i].getX(), universe[i].getY(), universe[i].getX()
                             + image.getWidth() - 1, universe[i].getY() + image.getHeight() - 1);
-                    e.getGraphics().DrawLine(DEFAULT_PEN, universe[i].getX(), universe[i].getY() + image.getHeight() - 1,
+                    e.getGraphics().drawLine(DEFAULT_PEN, universe[i].getX(), universe[i].getY() + image.getHeight() - 1,
                             universe[i].getX() + image.getWidth() - 1, universe[i].getY());
                 }
 
@@ -193,7 +193,7 @@ public class GalacticChartPanel extends Panel {
                     ilChartImages.draw(e.getGraphics(), universe[i].getX() + OFF_X_WORM, universe[i].getY(), IMG_S_W);
             }
         } else
-            e.getGraphics().FillRectangle(DEFAULT_BRUSH, 0, 0, galacticChartPicture.getWidth(), galacticChartPicture.getHeight());
+            e.getGraphics().fillRectangle(DEFAULT_BRUSH, 0, 0, galacticChartPicture.getWidth(), galacticChartPicture.getHeight());
     }
 
     private void jumpButtonClick() {
