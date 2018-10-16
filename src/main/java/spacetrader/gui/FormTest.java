@@ -279,7 +279,7 @@ public class FormTest extends SpaceTraderForm {
         String btn1, btn2;
         DialogResult res1, res2;
 
-        if (specEvent.MessageOnly()) {
+        if (specEvent.isMessageOnly()) {
             btn1 = "Ok";
             btn2 = null;
             res1 = DialogResult.OK;
@@ -291,7 +291,7 @@ public class FormTest extends SpaceTraderForm {
             res2 = DialogResult.NO;
         }
 
-        (new FormAlert(specEvent.title(), specEvent.string(), btn1, res1, btn2, res2, null)).showDialog(this);
+        (new FormAlert(specEvent.getTitle(), specEvent.getString(), btn1, res1, btn2, res2, null)).showDialog(this);
     }
 
     //#endregion

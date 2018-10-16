@@ -262,7 +262,7 @@ class SystemPanel extends Panel {
             }
             specialButton.setVisible(system.showSpecialButton());
             if (specialButton.isVisible()) {
-                setToolTip(specialButton, system.specialEvent().title());
+                setToolTip(specialButton, system.specialEvent().getTitle());
             }
         }
     }
@@ -281,7 +281,7 @@ class SystemPanel extends Panel {
         String button1Text, button2Text;
         DialogResult button1Result, button2Result;
 
-        if (specEvent.MessageOnly()) {
+        if (specEvent.isMessageOnly()) {
             button1Text = "Ok";
             button2Text = null;
             button1Result = DialogResult.OK;
@@ -293,10 +293,10 @@ class SystemPanel extends Panel {
             button2Result = DialogResult.NO;
         }
 
-        FormAlert alert = new FormAlert(specEvent.title(), specEvent.string(), button1Text, button1Result,
+        FormAlert alert = new FormAlert(specEvent.getTitle(), specEvent.getString(), button1Text, button1Result,
                 button2Text, button2Result, null);
         if (alert.showDialog() != DialogResult.NO) {
-            if (commander.cashToSpend() < specEvent.price())
+            if (commander.getCashToSpend() < specEvent.getPrice())
                 GuiFacade.alert(AlertType.SpecialIF);
             else {
                 try {

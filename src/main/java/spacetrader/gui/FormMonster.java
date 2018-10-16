@@ -42,7 +42,7 @@ public class FormMonster extends SpaceTraderForm {
     // #endregion
 
     // #region Control Declarations
-    private final Game game = Game.currentGame();
+    private final Game game = Game.getCurrentGame();
     private Button btnClose;
     private SimplePanel pnlMercs;
     private SimplePanel pnlQuests;
@@ -647,8 +647,8 @@ public class FormMonster extends SpaceTraderForm {
             if (compareVal == 0 && sortBy != "N")
                 compareVal = A.Name().compareTo(B.Name());
         } else {
-            StarSystem A = game.Universe()[a];
-            StarSystem B = game.Universe()[b];
+            StarSystem A = game.getUniverse()[a];
+            StarSystem B = game.getUniverse()[b];
 
             if (sortBy == "D") // Description
             {
@@ -657,12 +657,12 @@ public class FormMonster extends SpaceTraderForm {
 
                 switch (SomeStringsForCheatSwitch.valueOf(sortWhat)) {
                     case Q: // Quests
-                        nameA = A.specialEvent().title();
-                        nameB = B.specialEvent().title();
+                        nameA = A.specialEvent().getTitle();
+                        nameB = B.specialEvent().getTitle();
                         break;
                     case S: // Shipyards
-                        nameA = A.shipyard().Name();
-                        nameB = B.shipyard().Name();
+                        nameA = A.getShipyard().Name();
+                        nameB = B.getShipyard().Name();
                         break;
                 }
 
@@ -696,11 +696,11 @@ public class FormMonster extends SpaceTraderForm {
         // Populate the quest and shipyard system ids arrays.
         ArrayList quests = new ArrayList();
         ArrayList shipyards = new ArrayList();
-        for (StarSystem system : game.Universe()) {
+        for (StarSystem system : game.getUniverse()) {
             if (system.showSpecialButton())
                 quests.add(system.Id().castToInt());
 
-            if (system.shipyardId() != ShipyardId.NA)
+            if (system.getShipyardId() != ShipyardId.NA)
                 shipyards.add(system.Id().castToInt());
         }
         questSystemIds = (Integer[]) quests.toArray(new Integer[0]);
@@ -825,11 +825,11 @@ public class FormMonster extends SpaceTraderForm {
         lblQuestSystems.Links.clear();
 
         for (int i = 0; i < questSystemIds.length; i++) {
-            StarSystem system = game.Universe()[questSystemIds[i]];
+            StarSystem system = game.getUniverse()[questSystemIds[i]];
             int start = lblQuestSystems.getText().length();
 
             lblQuestSystems.setText(lblQuestSystems.getText() + (system.name() + Strings.newline));
-            lblQuests.setText(lblQuests.getText() + (system.specialEvent().title() + Strings.newline));
+            lblQuests.setText(lblQuests.getText() + (system.specialEvent().getTitle() + Strings.newline));
 
             lblQuestSystems.Links.add(start, system.name().length(), system.name());
         }
@@ -844,11 +844,11 @@ public class FormMonster extends SpaceTraderForm {
         lblShipyardSystems.Links.clear();
 
         for (int i = 0; i < shipyardSystemIds.length; i++) {
-            StarSystem system = game.Universe()[shipyardSystemIds[i]];
+            StarSystem system = game.getUniverse()[shipyardSystemIds[i]];
             int start = lblShipyardSystems.getText().length();
 
             lblShipyardSystems.setText(lblShipyardSystems.getText() + (system.name() + Strings.newline));
-            lblShipyards.setText(lblShipyards.getText() + (system.shipyard().Name() + Strings.newline));
+            lblShipyards.setText(lblShipyards.getText() + (system.getShipyard().Name() + Strings.newline));
 
             lblShipyardSystems.Links.add(start, system.name().length(), system.name());
         }
@@ -862,8 +862,8 @@ public class FormMonster extends SpaceTraderForm {
     // #region Event Handlers
 
     private void SystemLinkClicked(Object sender, LinkLabelLinkClickedEventArgs e) {
-        Game.currentGame().setSelectedSystemByName(e.Link.LinkData.toString());
-        Game.currentGame().getParentWindow().updateAll();
+        Game.getCurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
+        Game.getCurrentGame().getParentWindow().updateAll();
         Close();
     }
 

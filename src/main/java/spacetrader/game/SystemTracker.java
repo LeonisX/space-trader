@@ -14,7 +14,7 @@ public interface SystemTracker {
 
     StarSystem getWarpSystem();
 
-    StarSystem[] Universe();
+    StarSystem[] getUniverse();
 
     int[] Wormholes();
 

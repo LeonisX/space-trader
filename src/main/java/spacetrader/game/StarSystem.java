@@ -96,10 +96,10 @@ public class StarSystem extends STSerializableObject {
                 // too many robots or narcotics available.
                 if (i >= TradeItemType.Narcotics.castToInt())
                     _tradeItems[i] = ((_tradeItems[i] *
-                            (5 - Game.currentGame()
+                            (5 - Game.getCurrentGame()
                                     .Difficulty()
                                     .castToInt())) /
-                            (6 - Game.currentGame().Difficulty().castToInt())) + 1;
+                            (6 - Game.getCurrentGame().Difficulty().castToInt())) + 1;
 
                 if (this.getSpecialResource() == Consts.TradeItems[i].ResourceLowPrice())
                     _tradeItems[i] = _tradeItems[i] * 4 / 3;
@@ -156,7 +156,7 @@ public class StarSystem extends STSerializableObject {
     }
 
     public boolean showSpecialButton() {
-        Game game = Game.currentGame();
+        Game game = Game.getCurrentGame();
         boolean show = false;
 
         switch (getSpecialEventType()) {
@@ -173,19 +173,19 @@ public class StarSystem extends STSerializableObject {
                 show = game.getCommander().getShip().FreeCargoBays() >= 3;
                 break;
             case DragonflyBaratas:
-                show = game.getQuestStatusDragonfly() > SpecialEvent.StatusDragonflyNotStarted
-                        && game.getQuestStatusDragonfly() < SpecialEvent.StatusDragonflyDestroyed;
+                show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_NOT_STARTED
+                        && game.getQuestStatusDragonfly() < SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
                 break;
             case DragonflyDestroyed:
-                show = game.getQuestStatusDragonfly() == SpecialEvent.StatusDragonflyDestroyed;
+                show = game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
                 break;
             case DragonflyMelina:
-                show = game.getQuestStatusDragonfly() > SpecialEvent.StatusDragonflyFlyBaratas
-                        && game.getQuestStatusDragonfly() < SpecialEvent.StatusDragonflyDestroyed;
+                show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS
+                        && game.getQuestStatusDragonfly() < SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
                 break;
             case DragonflyRegulas:
-                show = game.getQuestStatusDragonfly() > SpecialEvent.StatusDragonflyFlyMelina
-                        && game.getQuestStatusDragonfly() < SpecialEvent.StatusDragonflyDestroyed;
+                show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA
+                        && game.getQuestStatusDragonfly() < SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
                 break;
             case DragonflyShield:
             case ExperimentFailed:
@@ -206,51 +206,51 @@ public class StarSystem extends STSerializableObject {
                 show = game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
                 break;
             case ExperimentStopped:
-                show = game.getQuestStatusExperiment() > SpecialEvent.StatusExperimentNotStarted
-                        && game.getQuestStatusExperiment() < SpecialEvent.StatusExperimentPerformed;
+                show = game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
+                        && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED;
                 break;
             case GemulonRescued:
-                show = game.getQuestStatusGemulon() > SpecialEvent.StatusGemulonNotStarted
-                        && game.getQuestStatusGemulon() < SpecialEvent.StatusGemulonTooLate;
+                show = game.getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
+                        && game.getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE;
                 break;
             case Japori:
-                show = game.getQuestStatusJapori() == SpecialEvent.StatusJaporiNotStarted
+                show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_NOT_STARTED
                         && game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
                 break;
             case JaporiDelivery:
-                show = game.getQuestStatusJapori() == SpecialEvent.StatusJaporiInTransit;
+                show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT;
                 break;
             case JarekGetsOut:
                 show = game.getCommander().getShip().JarekOnBoard();
                 break;
             case Moon:
-                show = game.getQuestStatusMoon() == SpecialEvent.StatusMoonNotStarted
-                        && game.getCommander().Worth() > SpecialEvent.MoonCost * .8;
+                show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
+                        && game.getCommander().Worth() > SpecialEvent.MOON_COST * .8;
                 break;
             case MoonRetirement:
-                show = game.getQuestStatusMoon() == SpecialEvent.StatusMoonBought;
+                show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;
                 break;
             case Princess:
                 show = game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
                         && game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
             case PrincessCentauri:
-                show = game.getQuestStatusPrincess() >= SpecialEvent.StatusPrincessFlyCentauri
-                        && game.getQuestStatusPrincess() <= SpecialEvent.StatusPrincessFlyQonos;
+                show = game.getQuestStatusPrincess() >= SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI
+                        && game.getQuestStatusPrincess() <= SpecialEvent.STATUS_PRINCESS_FLY_QONOS;
                 break;
             case PrincessInthara:
-                show = game.getQuestStatusPrincess() >= SpecialEvent.StatusPrincessFlyInthara
-                        && game.getQuestStatusPrincess() <= SpecialEvent.StatusPrincessFlyQonos;
+                show = game.getQuestStatusPrincess() >= SpecialEvent.STATUS_PRINCESS_FLY_INTHARA
+                        && game.getQuestStatusPrincess() <= SpecialEvent.STATUS_PRINCESS_FLY_QONOS;
                 break;
             case PrincessQonos:
-                show = game.getQuestStatusPrincess() == SpecialEvent.StatusPrincessRescued
+                show = game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RESCUED
                         && !game.getCommander().getShip().PrincessOnBoard();
                 break;
             case PrincessReturned:
                 show = game.getCommander().getShip().PrincessOnBoard();
                 break;
             case Reactor:
-                show = game.getQuestStatusReactor() == SpecialEvent.StatusReactorNotStarted
+                show = game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_NOT_STARTED
                         && game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
                         && game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
@@ -258,23 +258,23 @@ public class StarSystem extends STSerializableObject {
                 show = game.getCommander().getShip().ReactorOnBoard();
                 break;
             case Scarab:
-                show = game.getQuestStatusScarab() == SpecialEvent.StatusScarabNotStarted
+                show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_NOT_STARTED
                         && game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
             case ScarabDestroyed:
             case ScarabUpgradeHull:
-                show = game.getQuestStatusScarab() == SpecialEvent.StatusScarabDestroyed;
+                show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED;
                 break;
             case Sculpture:
-                show = game.getQuestStatusSculpture() == SpecialEvent.StatusSculptureNotStarted
+                show = game.getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_NOT_STARTED
                         && game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
                         && game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
             case SculptureDelivered:
-                show = game.getQuestStatusSculpture() == SpecialEvent.StatusSculptureInTransit;
+                show = game.getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
                 break;
             case SpaceMonsterKilled:
-                show = game.getQuestStatusSpaceMonster() == SpecialEvent.StatusSpaceMonsterDestroyed;
+                show = game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED;
                 break;
             case TribbleBuyer:
                 show = game.getCommander().getShip().getTribbles() > 0;
@@ -300,13 +300,13 @@ public class StarSystem extends STSerializableObject {
     }
 
     public boolean destOk() {
-        Commander comm = Game.currentGame().getCommander();
+        Commander comm = Game.getCurrentGame().getCommander();
         return this != comm.getCurrentSystem()
                 && (Distance() <= comm.getShip().getFuel() || Functions.WormholeExists(comm.getCurrentSystem(), this));
     }
 
     public int Distance() {
-        return Functions.Distance(this, Game.currentGame().getCommander().getCurrentSystem());
+        return Functions.Distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
     public StarSystemId Id() {
@@ -314,8 +314,8 @@ public class StarSystem extends STSerializableObject {
     }
 
     public CrewMember[] mercenariesForHire() {
-        Commander cmdr = Game.currentGame().getCommander();
-        CrewMember[] mercs = Game.currentGame().Mercenaries();
+        Commander cmdr = Game.getCurrentGame().getCommander();
+        CrewMember[] mercs = Game.getCurrentGame().Mercenaries();
         ArrayList forHire = new ArrayList(3);
 
         for (int i = 1; i < mercs.length; i++) {
@@ -342,16 +342,16 @@ public class StarSystem extends STSerializableObject {
         _politicalSystemType = value;
     }
 
-    public Shipyard shipyard() {
-        //shipyardId();
+    public Shipyard getShipyard() {
+        //getShipyardId();
         return (_shipyardId == spacetrader.game.enums.ShipyardId.NA ? null : Consts.Shipyards[_shipyardId.castToInt()]);
     }
 
-    public ShipyardId shipyardId() {
+    public ShipyardId getShipyardId() {
         return _shipyardId;
     }
 
-    public void shipyardId(ShipyardId value) {
+    public void setShipyardId(ShipyardId value) {
         _shipyardId = value;
     }
 

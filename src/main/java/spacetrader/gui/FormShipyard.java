@@ -42,8 +42,8 @@ import java.util.Arrays;
 public class FormShipyard extends SpaceTraderForm {
     //#region Control Declarations
 
-    private final Game game = Game.currentGame();
-    private final Shipyard shipyard = Game.currentGame().getCommander().getCurrentSystem().shipyard();
+    private final Game game = Game.getCurrentGame();
+    private final Shipyard shipyard = Game.getCurrentGame().getCommander().getCurrentSystem().getShipyard();
     private final ShipType[] imgTypes = new ShipType[]{ShipType.Flea, ShipType.Gnat, ShipType.Firefly,
             ShipType.Mosquito, ShipType.Bumblebee, ShipType.Beetle, ShipType.Hornet, ShipType.Grasshopper,
             ShipType.Termite, ShipType.Wasp, ShipType.Custom};
@@ -1210,8 +1210,8 @@ public class FormShipyard extends SpaceTraderForm {
             if (game.getCommander().TradeShip(shipyard.ShipSpec(), shipyard.TotalCost(), txtName.getText())) {
                 Strings.ShipNames[ShipType.Custom.castToInt()] = txtName.getText();
 
-                if (game.getQuestStatusScarab() == SpecialEvent.StatusScarabDone)
-                    game.setQuestStatusScarab(SpecialEvent.StatusScarabNotStarted);
+                if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE)
+                    game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
 
                 // Replace the current custom images with the new ones.
                 if (game.getCommander().getShip().ImageIndex() == ShipType.Custom.castToInt()) {

@@ -75,7 +75,7 @@ public class FormEquipment extends SpaceTraderForm {
     private spacetrader.controls.Label lblBuyWeaponNone;
     private spacetrader.controls.Label lblBuyShieldNone;
     private spacetrader.controls.Label lblBuyGadgetNone;
-    private Game game = Game.currentGame();
+    private Game game = Game.getCurrentGame();
 
     // #endregion
 
@@ -625,7 +625,7 @@ public class FormEquipment extends SpaceTraderForm {
                 GuiFacade.alert(AlertType.EquipmentAlreadyOwn);
             else if (cmdr.getDebt() > 0)
                 GuiFacade.alert(AlertType.DebtNoBuy);
-            else if (selectedEquipment.Price() > cmdr.cashToSpend())
+            else if (selectedEquipment.Price() > cmdr.getCashToSpend())
                 GuiFacade.alert(AlertType.EquipmentIF);
             else if ((baseType == EquipmentType.Weapon && cmdr.getShip().FreeSlotsWeapon() == 0)
                     || (baseType == EquipmentType.Shield && cmdr.getShip().FreeSlotsShield() == 0)
@@ -766,7 +766,7 @@ public class FormEquipment extends SpaceTraderForm {
         lstSellShield.Items.clear();
         lstSellGadget.Items.clear();
 
-        Ship ship = Game.currentGame().getCommander().getShip();
+        Ship ship = Game.getCurrentGame().getCommander().getShip();
         Equipment[] equipSell;
         int index;
 

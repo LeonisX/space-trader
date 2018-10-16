@@ -39,7 +39,7 @@ public class FormCargoSell extends SpaceTraderForm {
     // #region Control Declarations
 
     private final Container components = null;
-    private final Game game = Game.currentGame();
+    private final Game game = Game.getCurrentGame();
     private spacetrader.controls.Button btnOk;
     private spacetrader.controls.Button btnAll;
     private spacetrader.controls.Button btnNone;

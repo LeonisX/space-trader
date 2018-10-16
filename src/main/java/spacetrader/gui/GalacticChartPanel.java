@@ -147,7 +147,7 @@ public class GalacticChartPanel extends Panel {
         if (e.Button != MouseButtons.Left || game == null)
             return;
 
-        StarSystem[] universe = game.Universe();
+        StarSystem[] universe = game.getUniverse();
 
         boolean clickedSystem = false;
 
@@ -176,7 +176,7 @@ public class GalacticChartPanel extends Panel {
 
     private void picGalacticChart_Paint(Object sender, spacetrader.controls.PaintEventArgs e) {
         if (game != null) {
-            StarSystem[] universe = game.Universe();
+            StarSystem[] universe = game.getUniverse();
             int[] wormholes = game.Wormholes();
             StarSystem targetSys = game.SelectedSystem();
             StarSystem curSys = commander.getCurrentSystem();

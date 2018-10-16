@@ -333,7 +333,7 @@ public class ShipSpec extends STSerializableObject {
                 + Consts.ShipImgOffsetShield];
     }
 
-    public TechLevel MinimumTechLevel() {
+    public TechLevel getMinimumTechLevel() {
         return _minTech;
     }
 

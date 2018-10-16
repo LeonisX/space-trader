@@ -50,7 +50,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
 
     // #region Member Declarations
 
-    private Game game = Game.currentGame();
+    private Game game = Game.getCurrentGame();
 
     // #endregion
 

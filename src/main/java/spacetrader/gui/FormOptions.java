@@ -69,7 +69,7 @@ public class FormOptions extends SpaceTraderForm {
 
     // #region Member Declarations
 
-    private Game game = Game.currentGame();
+    private Game game = Game.getCurrentGame();
     private boolean initializing = true;
 
     private GameOptions _options = new GameOptions(false);

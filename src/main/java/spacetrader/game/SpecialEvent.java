@@ -29,128 +29,127 @@ package spacetrader.game;
 import spacetrader.game.enums.SpecialEventType;
 
 public class SpecialEvent {
-    // #region Constants
-    public final static int MoonCost = 500000;
 
-    public final static int StatusArtifactNotStarted = 0;
-    public final static int StatusArtifactOnBoard = 1;
-    public final static int StatusArtifactDone = 2;
+    public final static int MOON_COST = 500000;
 
-    public final static int StatusDragonflyNotStarted = 0;
-    public final static int StatusDragonflyFlyBaratas = 1;
-    public final static int StatusDragonflyFlyMelina = 2;
-    public final static int StatusDragonflyFlyRegulas = 3;
-    public final static int StatusDragonflyFlyZalkon = 4;
-    public final static int StatusDragonflyDestroyed = 5;
-    public final static int StatusDragonflyDone = 6;
+    public final static int STATUS_ARTIFACT_NOT_STARTED = 0;
+    public final static int STATUS_ARTIFACT_ON_BOARD = 1;
+    public final static int STATUS_ARTIFACT_DONE = 2;
 
-    public final static int StatusExperimentNotStarted = 0;
-    public final static int StatusExperimentStarted = 1;
-    public final static int StatusExperimentDate = 11;
-    public final static int StatusExperimentPerformed = 12;
-    public final static int StatusExperimentCancelled = 13;
+    public final static int STATUS_DRAGONFLY_NOT_STARTED = 0;
+    public final static int STATUS_DRAGONFLY_FLY_BARATAS = 1;
+    public final static int STATUS_DRAGONFLY_FLY_MELINA = 2;
+    public final static int STATUS_DRAGONFLY_FLY_REGULAS = 3;
+    public final static int STATUS_DRAGONFLY_FLY_ZALKON = 4;
+    public final static int STATUS_DRAGONFLY_DESTROYED = 5;
+    public final static int STATUS_DRAGONFLY_DONE = 6;
 
-    public final static int StatusGemulonNotStarted = 0;
-    public final static int StatusGemulonStarted = 1;
-    public final static int StatusGemulonDate = 7;
-    public final static int StatusGemulonTooLate = 8;
-    public final static int StatusGemulonFuel = 9;
-    public final static int StatusGemulonDone = 10;
+    public final static int STATUS_EXPERIMENT_NOT_STARTED = 0;
+    public final static int STATUS_EXPERIMENT_STARTED = 1;
+    public final static int STATUS_EXPERIMENT_DATE = 11;
+    public final static int STATUS_EXPERIMENT_PERFORMED = 12;
+    public final static int STATUS_EXPERIMENT_CANCELLED = 13;
 
-    public final static int StatusJaporiNotStarted = 0;
-    public final static int StatusJaporiInTransit = 1;
-    public final static int StatusJaporiDone = 2;
+    public final static int STATUS_GEMULON_NOT_STARTED = 0;
+    public final static int STATUS_GEMULON_STARTED = 1;
+    public final static int STATUS_GEMULON_DATE = 7;
+    public final static int STATUS_GEMULON_TOO_LATE = 8;
+    public final static int STATUS_GEMULON_FUEL = 9;
+    public final static int STATUS_GEMULON_DONE = 10;
 
-    public final static int StatusJarekNotStarted = 0;
-    public final static int StatusJarekStarted = 1;
-    public final static int StatusJarekImpatient = 11;
-    public final static int StatusJarekDone = 12;
+    public final static int STATUS_JAPORI_NOT_STARTED = 0;
+    public final static int STATUS_JAPORI_IN_TRANSIT = 1;
+    public final static int STATUS_JAPORI_DONE = 2;
 
-    public final static int StatusMoonNotStarted = 0;
-    public final static int StatusMoonBought = 1;
-    public final static int StatusMoonDone = 2;
+    public final static int STATUS_JAREK_NOT_STARTED = 0;
+    public final static int STATUS_JAREK_STARTED = 1;
+    public final static int STATUS_JAREK_IMPATIENT = 11;
+    public final static int STATUS_JAREK_DONE = 12;
 
-    public final static int StatusPrincessNotStarted = 0;
-    public final static int StatusPrincessFlyCentauri = 1;
-    public final static int StatusPrincessFlyInthara = 2;
-    public final static int StatusPrincessFlyQonos = 3;
-    public final static int StatusPrincessRescued = 4;
-    public final static int StatusPrincessImpatient = 14;
-    public final static int StatusPrincessReturned = 15;
-    public final static int StatusPrincessDone = 16;
+    public final static int STATUS_MOON_NOT_STARTED = 0;
+    public final static int STATUS_MOON_BOUGHT = 1;
+    public final static int STATUS_MOON_DONE = 2;
 
-    public final static int StatusReactorNotStarted = 0;
-    public final static int StatusReactorFuelOk = 1;
-    public final static int StatusReactorDate = 20;
-    public final static int StatusReactorDelivered = 21;
-    public final static int StatusReactorDone = 22;
+    public final static int STATUS_PRINCESS_NOT_STARTED = 0;
+    public final static int STATUS_PRINCESS_FLY_CENTAURI = 1;
+    public final static int STATUS_PRINCESS_FLY_INTHARA = 2;
+    public final static int STATUS_PRINCESS_FLY_QONOS = 3;
+    public final static int STATUS_PRINCESS_RESCUED = 4;
+    public final static int STATUS_PRINCESS_IMPATIENT = 14;
+    public final static int STATUS_PRINCESS_RETURNED = 15;
+    public final static int STATUS_PRINCESS_DONE = 16;
 
-    public final static int StatusScarabNotStarted = 0;
-    public final static int StatusScarabHunting = 1;
-    public final static int StatusScarabDestroyed = 2;
-    public final static int StatusScarabDone = 3;
+    public final static int STATUS_REACTOR_NOT_STARTED = 0;
+    public final static int STATUS_REACTOR_FUEL_OK = 1;
+    public final static int STATUS_REACTOR_DATE = 20;
+    public final static int STATUS_REACTOR_DELIVERED = 21;
+    public final static int STATUS_REACTOR_DONE = 22;
 
-    public final static int StatusSculptureNotStarted = 0;
-    public final static int StatusSculptureInTransit = 1;
-    public final static int StatusSculptureDelivered = 2;
-    public final static int StatusSculptureDone = 3;
+    public final static int STATUS_SCARAB_NOT_STARTED = 0;
+    public final static int STATUS_SCARAB_HUNTING = 1;
+    public final static int STATUS_SCARAB_DESTROYED = 2;
+    public final static int STATUS_SCARAB_DONE = 3;
 
-    public final static int StatusSpaceMonsterNotStarted = 0;
-    public final static int StatusSpaceMonsterAtAcamar = 1;
-    public final static int StatusSpaceMonsterDestroyed = 2;
-    public final static int StatusSpaceMonsterDone = 3;
+    public final static int STATUS_SCULPTURE_NOT_STARTED = 0;
+    public final static int STATUS_SCULPTURE_IN_TRANSIT = 1;
+    public final static int STATUS_SCULPTURE_DELIVERED = 2;
+    public final static int STATUS_SCULPTURE_DONE = 3;
 
-    public final static int StatusWildNotStarted = 0;
-    public final static int StatusWildStarted = 1;
-    public final static int StatusWildImpatient = 11;
-    public final static int StatusWildDone = 12;
+    //TODO unused???
+    public final static int STATUS_SPACE_MONSTER_NOT_STARTED = 0;
+    public final static int STATUS_SPACE_MONSTER_AT_ACAMAR = 1;
+    public final static int STATUS_SPACE_MONSTER_DESTROYED = 2;
+    public final static int STATUS_SPACE_MONSTER_DONE = 3;
 
-    private SpecialEventType _type;
-    private int _price;
-    private int _occurrence;
-    private boolean _messageOnly;
+    public final static int STATUS_WILD_NOT_STARTED = 0;
+    public final static int STATUS_WILD_STARTED = 1;
+    public final static int STATUS_WILD_IMPATIENT = 11;
+    public final static int STATUS_WILD_DONE = 12;
+
+    private SpecialEventType type;
+    private int price;
+    private int occurrence;
+    private boolean messageOnly;
 
     public SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly) {
-        _type = type;
-        _price = price;
-        _occurrence = occurrence;
-        _messageOnly = messageOnly;
+        this.type = type;
+        this.price = price;
+        this.occurrence = occurrence;
+        this.messageOnly = messageOnly;
     }
 
-    //TODO normal getters
-
-    public StarSystem Location() {
+    public StarSystem getLocation() {
         StarSystem location = null;
-        StarSystem[] universe = Game.currentGame().Universe();
+        StarSystem[] universe = Game.getCurrentGame().getUniverse();
 
         for (int i = 0; i < universe.length && location == null; i++)
-            if (universe[i].getSpecialEventType() == Type())
+            if (universe[i].getSpecialEventType() == getType())
                 location = universe[i];
 
         return location;
     }
 
-    public boolean MessageOnly() {
-        return _messageOnly;
+    public boolean isMessageOnly() {
+        return messageOnly;
     }
 
-    public int Occurrence() {
-        return _occurrence;
+    public int getOccurrence() {
+        return occurrence;
     }
 
-    public int price() {
-        return _price;
+    public int getPrice() {
+        return price;
     }
 
-    public String string() {
-        return Strings.SpecialEventStrings[_type.castToInt()];
+    public String getString() {
+        return Strings.SpecialEventStrings[type.castToInt()];
     }
 
-    public String title() {
-        return Strings.SpecialEventTitles[_type.castToInt()];
+    public String getTitle() {
+        return Strings.SpecialEventTitles[type.castToInt()];
     }
 
-    public SpecialEventType Type() {
-        return _type;
+    public SpecialEventType getType() {
+        return type;
     }
 }

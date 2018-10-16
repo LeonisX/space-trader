@@ -88,7 +88,7 @@ public class GameController {
         } else
             GuiFacade.alert(AlertType.GameEndHighScoreMissed);
 
-        Game.currentGame(null);
+        Game.setCurrentGame(null);
         mainWindow.setGame(null);
     }
 

@@ -43,7 +43,7 @@ public class FormShipList extends SpaceTraderForm {
     private final Container components = null;
     private final Label[] lblPrice;
     private final Button[] btnBuy;
-    private final Game game = Game.currentGame();
+    private final Game game = Game.getCurrentGame();
     private final int[] prices = new int[Consts.ShipSpecs.length];
     private spacetrader.controls.Button btnClose;
     private spacetrader.controls.Button btnBuy0;
@@ -981,8 +981,8 @@ public class FormShipList extends SpaceTraderForm {
         Info(id);
 
         if (game.getCommander().TradeShip(Consts.ShipSpecs[id], prices[id])) {
-            if (game.getQuestStatusScarab() == SpecialEvent.StatusScarabDone)
-                game.setQuestStatusScarab(SpecialEvent.StatusScarabNotStarted);
+            if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE)
+                game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
 
             UpdateAll();
             game.getParentWindow().updateAll();
@@ -1008,7 +1008,7 @@ public class FormShipList extends SpaceTraderForm {
         for (int i = 0; i < lblPrice.length; i++) {
             btnBuy[i].setVisible(false);
 
-            if (Consts.ShipSpecs[i].MinimumTechLevel().castToInt() > game.getCommander().getCurrentSystem().getTechLevel().castToInt())
+            if (Consts.ShipSpecs[i].getMinimumTechLevel().castToInt() > game.getCommander().getCurrentSystem().getTechLevel().castToInt())
                 lblPrice[i].setText(Strings.CargoBuyNA);
             else if (Consts.ShipSpecs[i].Type() == game.getCommander().getShip().Type())
                 lblPrice[i].setText(Strings.ShipBuyGotOne);

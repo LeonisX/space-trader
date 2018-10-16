@@ -58,7 +58,7 @@ public class Functions {
     // #region Methods
 
     static int AdjustSkillForDifficulty(int skill) {
-        Difficulty diff = Game.currentGame().Difficulty();
+        Difficulty diff = Game.getCurrentGame().Difficulty();
         skill = diff.adjustSkill(skill);
 
         return skill;
@@ -291,7 +291,7 @@ public class Functions {
     // at all from a.
     // *************************************************************************
     public static boolean WormholeExists(int a, int b) {
-        int[] wormholes = Game.currentGame().Wormholes();
+        int[] wormholes = Game.getCurrentGame().Wormholes();
         int i = Util.BruteSeek(wormholes, a);
         // int i = Array.IndexOf(wormholes, a);
 
@@ -299,8 +299,8 @@ public class Functions {
     }
 
     static boolean WormholeExists(StarSystem a, StarSystem b) {
-        StarSystem[] universe = Game.currentGame().Universe();
-        int[] wormholes = Game.currentGame().Wormholes();
+        StarSystem[] universe = Game.getCurrentGame().getUniverse();
+        int[] wormholes = Game.getCurrentGame().Wormholes();
         // int i = Array.IndexOf(wormholes, (int) a.Id);
         int i = Util.BruteSeek(wormholes, a.Id().castToInt());
 
@@ -308,11 +308,11 @@ public class Functions {
     }
 
     public static StarSystem WormholeTarget(int a) {
-        int[] wormholes = Game.currentGame().Wormholes();
+        int[] wormholes = Game.getCurrentGame().Wormholes();
         // int i = Array.IndexOf(wormholes, a);
         int i = Util.BruteSeek(wormholes, a);
 
-        return (i >= 0 ? (Game.currentGame().Universe()[wormholes[(i + 1) % wormholes.length]]) : null);
+        return (i >= 0 ? (Game.getCurrentGame().getUniverse()[wormholes[(i + 1) % wormholes.length]]) : null);
     }
 
     // #endregion

@@ -69,13 +69,13 @@ public class Ship extends ShipSpec {
             AddEquipment(Consts.Gadgets[GadgetType.NavigatingSystem.castToInt()]);
             AddEquipment(Consts.Gadgets[GadgetType.TargetingSystem.castToInt()]);
 
-            Crew()[0] = Game.currentGame().Mercenaries()[CrewMemberId.FamousCaptain.castToInt()];
+            Crew()[0] = Game.getCurrentGame().Mercenaries()[CrewMemberId.FamousCaptain.castToInt()];
         } else if (oppType == OpponentType.Bottle) {
             SetValues(ShipType.Bottle);
         } else {
-            int tries = oppType == OpponentType.Mantis ? Game.currentGame().Difficulty().castToInt() + 1 : Math
-                    .max(1, Game.currentGame().getCommander().Worth() / 150000
-                            + Game.currentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
+            int tries = oppType == OpponentType.Mantis ? Game.getCurrentGame().Difficulty().castToInt() + 1 : Math
+                    .max(1, Game.getCurrentGame().getCommander().Worth() / 150000
+                            + Game.getCurrentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
 
             GenerateOpponentShip(oppType);
             GenerateOpponentAddCrew();
@@ -106,7 +106,7 @@ public class Ship extends ShipSpec {
         _crew = new CrewMember[crewIds.length];
         for (int index = 0; index < _crew.length; index++) {
             CrewMemberId id = CrewMemberId.fromInt(crewIds[index]);
-            _crew[index] = (id == CrewMemberId.NA ? null : Game.currentGame().Mercenaries()[id.castToInt()]);
+            _crew[index] = (id == CrewMemberId.NA ? null : Game.getCurrentGame().Mercenaries()[id.castToInt()]);
         }
     }
 
@@ -199,16 +199,16 @@ public class Ship extends ShipSpec {
         }
 
         if (Trader() != skill)
-            Game.currentGame().RecalculateBuyPrices(Game.currentGame().getCommander().getCurrentSystem());
+            Game.getCurrentGame().RecalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
 
         if (merc != null && !Util.ArrayContains(Consts.SpecialCrewMemberIds, (merc.Id()))) {
-            StarSystem[] universe = Game.currentGame().Universe();
+            StarSystem[] universe = Game.getCurrentGame().getUniverse();
 
             // The leaving Mercenary travels to a nearby random system.
             merc.setCurrentSystemId(StarSystemId.NA);
             while (merc.getCurrentSystemId() == StarSystemId.NA) {
                 StarSystem system = universe[Functions.GetRandom(universe.length)];
-                if (Functions.Distance(system, Game.currentGame().getCommander().getCurrentSystem()) < Consts.MaxRange)
+                if (Functions.Distance(system, Game.getCurrentGame().getCommander().getCurrentSystem()) < Consts.MaxRange)
                     merc.setCurrentSystemId(system.Id());
             }
         }
@@ -216,7 +216,7 @@ public class Ship extends ShipSpec {
 
     private void GenerateOpponentAddCargo(boolean pirate) {
         if (CargoBays() > 0) {
-            Difficulty diff = Game.currentGame().Difficulty();
+            Difficulty diff = Game.getCurrentGame().Difficulty();
             int baysToFill = CargoBays();
 
             if (diff.castToInt() >= Difficulty.Normal.castToInt())
@@ -238,15 +238,15 @@ public class Ship extends ShipSpec {
     }
 
     private void GenerateOpponentAddCrew() {
-        CrewMember[] mercs = Game.currentGame().Mercenaries();
-        Difficulty diff = Game.currentGame().Difficulty();
+        CrewMember[] mercs = Game.getCurrentGame().Mercenaries();
+        Difficulty diff = Game.getCurrentGame().Difficulty();
 
         Crew()[0] = mercs[CrewMemberId.Opponent.castToInt()];
         Crew()[0].Pilot(1 + Functions.GetRandom(Consts.MaxSkill));
         Crew()[0].Fighter(1 + Functions.GetRandom(Consts.MaxSkill));
         Crew()[0].Trader(1 + Functions.GetRandom(Consts.MaxSkill));
 
-        if (Game.currentGame().getWarpSystem().Id() == StarSystemId.Kravat && WildOnBoard()
+        if (Game.getCurrentGame().getWarpSystem().Id() == StarSystemId.Kravat && WildOnBoard()
                 && Functions.GetRandom(10) < diff.castToInt() + 1)
             Crew()[0].Engineer(Consts.MaxSkill);
         else
@@ -273,7 +273,7 @@ public class Ship extends ShipSpec {
         if (getGadgetSlots() > 0) {
             int numGadgets = 0;
 
-            if (Game.currentGame().Difficulty() == Difficulty.Impossible)
+            if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
                 numGadgets = getGadgetSlots();
             else {
                 numGadgets = Functions.GetRandom(getGadgetSlots() + 1);
@@ -336,7 +336,7 @@ public class Ship extends ShipSpec {
         if (getShieldSlots() > 0) {
             int numShields = 0;
 
-            if (Game.currentGame().Difficulty() == Difficulty.Impossible)
+            if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
                 numShields = getShieldSlots();
             else {
                 numShields = Functions.GetRandom(getShieldSlots() + 1);
@@ -374,7 +374,7 @@ public class Ship extends ShipSpec {
         if (getWeaponSlots() > 0) {
             int numWeapons = 0;
 
-            if (Game.currentGame().Difficulty() == Difficulty.Impossible)
+            if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
                 numWeapons = getWeaponSlots();
             else if (getWeaponSlots() == 1)
                 numWeapons = 1;
@@ -417,8 +417,8 @@ public class Ship extends ShipSpec {
     }
 
     private void GenerateOpponentShip(OpponentType oppType) {
-        Commander cmdr = Game.currentGame().getCommander();
-        PoliticalSystem polSys = Game.currentGame().getWarpSystem().politicalSystem();
+        Commander cmdr = Game.getCurrentGame().getCommander();
+        PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().politicalSystem();
 
         if (oppType == OpponentType.Mantis)
             SetValues(ShipType.Mantis);
@@ -430,7 +430,7 @@ public class Ship extends ShipSpec {
                 case Pirate:
                     // Pirates become better when you get richer
                     tries = 1 + cmdr.Worth() / 100000;
-                    tries = Math.max(1, tries + Game.currentGame().Difficulty().castToInt()
+                    tries = Math.max(1, tries + Game.getCurrentGame().Difficulty().castToInt()
                             - Difficulty.Normal.castToInt());
                     break;
                 case Police:
@@ -445,7 +445,7 @@ public class Ship extends ShipSpec {
                         tries = 3;
                     else
                         tries = 1;
-                    tries = Math.max(1, tries + Game.currentGame().Difficulty().castToInt()
+                    tries = Math.max(1, tries + Game.getCurrentGame().Difficulty().castToInt()
                             - Difficulty.Normal.castToInt());
                     break;
             }
@@ -550,7 +550,7 @@ public class Ship extends ShipSpec {
     // *************************************************************************
     public boolean HasTradeableItems() {
         boolean found = false;
-        boolean criminal = Game.currentGame().getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
+        boolean criminal = Game.getCurrentGame().getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
         _tradeableItems = new boolean[10];
 
         for (int i = 0; i < getCargo().length; i++) {
@@ -565,8 +565,8 @@ public class Ship extends ShipSpec {
             // Simplified this - JAF
             if (getCargo()[i] > 0
                     && !(criminal ^ Consts.TradeItems[i].Illegal())
-                    && ((!CommandersShip() && Game.currentGame().getPriceCargoBuy()[i] > 0) || (CommandersShip() && Game
-                    .currentGame().getPriceCargoSell()[i] > 0))) {
+                    && ((!CommandersShip() && Game.getCurrentGame().getPriceCargoBuy()[i] > 0) || (CommandersShip() && Game
+                    .getCurrentGame().getPriceCargoSell()[i] > 0))) {
                 found = true;
                 TradeableItems()[i] = true;
             }
@@ -598,7 +598,7 @@ public class Ship extends ShipSpec {
             Crew()[slot] = merc;
 
         if (Trader() != skill)
-            Game.currentGame().RecalculateBuyPrices(Game.currentGame().getCommander().getCurrentSystem());
+            Game.getCurrentGame().RecalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
     public String IllegalSpecialCargoActions() {
@@ -641,7 +641,7 @@ public class Ship extends ShipSpec {
 
     public void PerformRepairs() {
         // A disabled ship cannot be repaired.
-        if (CommandersShip() || !Game.currentGame().getOpponentDisabled()) {
+        if (CommandersShip() || !Game.getCurrentGame().getOpponentDisabled()) {
             // Engineer may do some repairs
             int repairs = Functions.GetRandom(Engineer());
             if (repairs > 0) {
@@ -690,7 +690,7 @@ public class Ship extends ShipSpec {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (Consts.TradeItems[i].Illegal()) {
                 getCargo()[i] = 0;
-                Game.currentGame().getCommander().getPriceCargo()[i] = 0;
+                Game.getCurrentGame().getCommander().getPriceCargo()[i] = 0;
             }
         }
     }
@@ -751,7 +751,7 @@ public class Ship extends ShipSpec {
     public int Worth(boolean forInsurance) {
         int price = BaseWorth(forInsurance);
         for (int i = 0; i < _cargo.length; i++)
-            price += Game.currentGame().getCommander().getPriceCargo()[i];
+            price += Game.getCurrentGame().getCommander().getPriceCargo()[i];
 
         return price;
     }
@@ -767,7 +767,7 @@ public class Ship extends ShipSpec {
     }
 
     public boolean ArtifactOnBoard() {
-        return CommandersShip() && Game.currentGame().getQuestStatusArtifact() == SpecialEvent.StatusArtifactOnBoard;
+        return CommandersShip() && Game.getCurrentGame().getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD;
     }
 
     public int[] getCargo() {
@@ -790,13 +790,13 @@ public class Ship extends ShipSpec {
     }
 
     public boolean Cloaked() {
-        int oppEng = CommandersShip() ? Game.currentGame().getOpponent().Engineer() : Game.currentGame().getCommander()
+        int oppEng = CommandersShip() ? Game.getCurrentGame().getOpponent().Engineer() : Game.getCurrentGame().getCommander()
                 .getShip().Engineer();
         return HasGadget(GadgetType.CloakingDevice) && Engineer() > oppEng;
     }
 
     public boolean CommandersShip() {
-        return this == Game.currentGame().getCommander().getShip();
+        return this == Game.getCurrentGame().getCommander().getShip();
     }
 
     public CrewMember[] Crew() {
@@ -855,11 +855,11 @@ public class Ship extends ShipSpec {
     public int FilledCargoBays() {
         int filled = FilledNormalCargoBays();
 
-        if (CommandersShip() && Game.currentGame().getQuestStatusJapori() == SpecialEvent.StatusJaporiInTransit)
+        if (CommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT)
             filled += 10;
 
         if (ReactorOnBoard())
-            filled += 5 + 10 - (Game.currentGame().getQuestStatusReactor() - 1) / 2;
+            filled += 5 + 10 - (Game.getCurrentGame().getQuestStatusReactor() - 1) / 2;
 
         return filled;
     }
@@ -928,7 +928,7 @@ public class Ship extends ShipSpec {
     }
 
     public boolean HagglingComputerOnBoard() {
-        return CommandersShip() && Game.currentGame().getQuestStatusJarek() == SpecialEvent.StatusJarekDone;
+        return CommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
     }
 
     public int HiddenCargoBays() {
@@ -963,14 +963,14 @@ public class Ship extends ShipSpec {
     }
 
     public boolean ReactorOnBoard() {
-        int status = Game.currentGame().getQuestStatusReactor();
-        return CommandersShip() && status > SpecialEvent.StatusReactorNotStarted
-                && status < SpecialEvent.StatusReactorDelivered;
+        int status = Game.getCurrentGame().getQuestStatusReactor();
+        return CommandersShip() && status > SpecialEvent.STATUS_REACTOR_NOT_STARTED
+                && status < SpecialEvent.STATUS_REACTOR_DELIVERED;
     }
 
     public boolean SculptureOnBoard() {
         return CommandersShip()
-                && Game.currentGame().getQuestStatusSculpture() == SpecialEvent.StatusSculptureInTransit;
+                && Game.getCurrentGame().getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
     }
 
     public int ShieldCharge() {

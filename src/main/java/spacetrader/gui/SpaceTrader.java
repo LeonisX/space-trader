@@ -723,7 +723,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void mnuGameSave_Click() {
-        if (Game.currentGame() != null) {
+        if (Game.getCurrentGame() != null) {
             if (controller.SaveGameFile != null) {
                 controller.saveGame(controller.SaveGameFile, false);
             } else {
@@ -733,7 +733,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void mnuGameSaveAs_Click() {
-        if (Game.currentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
+        if (Game.getCurrentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
             controller.saveGame(saveFileDialog.getFileName(), true);
         }
     }

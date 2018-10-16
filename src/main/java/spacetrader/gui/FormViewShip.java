@@ -50,8 +50,8 @@ public class FormViewShip extends SpaceTraderForm {
 
     //#region Member Declarations
 
-    private Game game = Game.currentGame();
-    private Ship ship = Game.currentGame().getCommander().getShip();
+    private Game game = Game.getCurrentGame();
+    private Ship ship = Game.getCurrentGame().getCommander().getShip();
 
     //#endregion
 
@@ -169,7 +169,7 @@ public class FormViewShip extends SpaceTraderForm {
     //#endregion
 
     private void DisplayEquipment() {
-        if (game.getQuestStatusScarab() == SpecialEvent.StatusScarabDone) {
+        if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
             lblEquipLabel.setText(lblEquipLabel.getText() + ("Hull:" + Strings.newline + Strings.newline));
             lblEquip.setText(lblEquip.getText() + ("Hardened" + Strings.newline + Strings.newline));
         }
@@ -264,13 +264,13 @@ public class FormViewShip extends SpaceTraderForm {
                 specialCargo.add(Functions.multiples(ship.getTribbles(), Strings.SpecialCargoTribblesCute) + ".");
         }
 
-        if (game.getQuestStatusJapori() == SpecialEvent.StatusJaporiInTransit)
+        if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT)
             specialCargo.add(Strings.SpecialCargoJapori);
 
         if (ship.ArtifactOnBoard())
             specialCargo.add(Strings.SpecialCargoArtifact);
 
-        if (game.getQuestStatusJarek() == SpecialEvent.StatusJarekDone)
+        if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE)
             specialCargo.add(Strings.SpecialCargoJarek);
 
         if (ship.ReactorOnBoard()) {

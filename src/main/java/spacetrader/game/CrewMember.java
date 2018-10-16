@@ -76,10 +76,10 @@ public class CrewMember extends STSerializableObject {
         if (skillIdList.size() > 0) {
             int skill = (Integer) skillIdList.get(Functions.GetRandom(skillIdList.size()));
 
-            int curTrader = Game.currentGame().getCommander().getShip().Trader();
+            int curTrader = Game.getCurrentGame().getCommander().getShip().Trader();
             Skills()[skill] += amount;
-            if (Game.currentGame().getCommander().getShip().Trader() != curTrader)
-                Game.currentGame().RecalculateBuyPrices(Game.currentGame().getCommander().getCurrentSystem());
+            if (Game.getCurrentGame().getCommander().getShip().Trader() != curTrader)
+                Game.getCurrentGame().RecalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
         }
     }
 
@@ -129,7 +129,7 @@ public class CrewMember extends STSerializableObject {
     public void TonicTweakRandomSkill() {
         int[] oldSkills = Arrays.copyOf(Skills(), Skills().length);
 
-        if (Game.currentGame().Difficulty().castToInt() < Difficulty.Hard.castToInt()) {
+        if (Game.getCurrentGame().Difficulty().castToInt() < Difficulty.Hard.castToInt()) {
             // add one to a random skill, subtract one from a random skill
             while (Skills()[0] == oldSkills[0] && Skills()[1] == oldSkills[1] && Skills()[2] == oldSkills[2]
                     && Skills()[3] == oldSkills[3]) {
@@ -155,7 +155,7 @@ public class CrewMember extends STSerializableObject {
     // #region Properties
 
     public StarSystem getCurrentSystem() {
-        return _curSystemId == StarSystemId.NA ? null : Game.currentGame().Universe()[_curSystemId.castToInt()];
+        return _curSystemId == StarSystemId.NA ? null : Game.getCurrentGame().getUniverse()[_curSystemId.castToInt()];
     }
 
     public void setCurrentSystem(StarSystem value) {

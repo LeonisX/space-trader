@@ -77,7 +77,7 @@ public class Commander extends CrewMember {
         _ship = new Ship(GetValueFromHash(hash, "_ship"/*,_ship*/, Hashtable.class));
         _priceCargo = GetValueFromHash(hash, "_priceCargo", _priceCargo, int[].class);
 
-        Game.currentGame().Mercenaries()[CrewMemberId.Commander.castToInt()] = this;
+        Game.getCurrentGame().Mercenaries()[CrewMemberId.Commander.castToInt()] = this;
         Strings.CrewMemberNames[CrewMemberId.Commander.castToInt()] = GetValueFromHash(hash, "_name",
                 Strings.CrewMemberNames[CrewMemberId.Commander.castToInt()]);
     }
@@ -124,7 +124,7 @@ public class Commander extends CrewMember {
 
         if (netPrice > 0 && getDebt() > 0)
             GuiFacade.alert(AlertType.DebtNoBuy);
-        else if (netPrice > cashToSpend())
+        else if (netPrice > getCashToSpend())
             GuiFacade.alert(AlertType.ShipBuyIF);
         else if (specToBuy.getCrewQuarters() < getShip().SpecialCrew().length) {
             String passengers = getShip().SpecialCrew()[1].Name();
@@ -162,14 +162,14 @@ public class Commander extends CrewMember {
                 extraCost += Consts.PodTransferCost;
             }
 
-            if (netPrice + extraCost > cashToSpend())
+            if (netPrice + extraCost > getCashToSpend())
                 GuiFacade.alert(AlertType.ShipBuyIFTransfer);
 
             extraCost = 0;
 
             for (int i = 0; i < special.length; i++) {
                 if (add[i]) {
-                    if (netPrice + extraCost + special[i].TransferPrice() > cashToSpend())
+                    if (netPrice + extraCost + special[i].TransferPrice() > getCashToSpend())
                         GuiFacade.alert(AlertType.ShipBuyNoTransfer, special[i].Name());
                     else if (GuiFacade.alert(AlertType.ShipBuyTransfer, special[i].Name(), special[i].Name()
                             .toLowerCase(), Functions.formatNumber(special[i].TransferPrice())) == DialogResult.YES)
@@ -180,7 +180,7 @@ public class Commander extends CrewMember {
             }
 
             if (addPod) {
-                if (netPrice + extraCost + Consts.PodTransferCost > cashToSpend())
+                if (netPrice + extraCost + Consts.PodTransferCost > getCashToSpend())
                     GuiFacade.alert(AlertType.ShipBuyNoTransfer, Strings.ShipInfoEscapePod);
                 else if (GuiFacade.alert(AlertType.ShipBuyTransfer, Strings.ShipInfoEscapePod, Strings.ShipInfoEscapePod.toLowerCase(), Functions.formatNumber(Consts.PodTransferCost)) == DialogResult.YES)
                     extraCost += Consts.PodTransferCost;
@@ -222,12 +222,12 @@ public class Commander extends CrewMember {
     // //#region Properties
 
 
-    public int cashToSpend() {
-        return _cash - (Game.currentGame().Options().getReserveMoney() ? CurrentCosts() : 0);
+    public int getCashToSpend() {
+        return _cash - (Game.getCurrentGame().Options().getReserveMoney() ? CurrentCosts() : 0);
     }
 
     public int CurrentCosts() {
-        return Game.currentGame().CurrentCosts();
+        return Game.getCurrentGame().CurrentCosts();
     }
 
     public int NoClaim() {
@@ -244,7 +244,7 @@ public class Commander extends CrewMember {
 
     public int Worth() {
         return getShip().getPrice() + _cash - _debt
-                + (Game.currentGame().getQuestStatusMoon() > 0 ? SpecialEvent.MoonCost : 0);
+                + (Game.getCurrentGame().getQuestStatusMoon() > 0 ? SpecialEvent.MOON_COST : 0);
     }
 
     public Ship getShip() {

@@ -245,7 +245,7 @@ public class Shipyard {
     }
 
     public int TradeIn() {
-        return Game.currentGame().getCommander().getShip().Worth(false);
+        return Game.getCurrentGame().getCommander().getShip().Worth(false);
     }
 
 

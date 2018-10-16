@@ -40,7 +40,7 @@ public class FormPlunder extends SpaceTraderForm {
     private final Container components = null;
     private final Button[] btnPlunderQty;
     private final Button[] btnPlunderAll;
-    private final Game game = Game.currentGame();
+    private final Game game = Game.getCurrentGame();
     private spacetrader.controls.Button btnPlunderAll9;
     private spacetrader.controls.Button btnPlunderQty9;
     private spacetrader.controls.Button btnPlunderAll8;

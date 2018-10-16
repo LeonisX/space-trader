@@ -55,7 +55,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     private spacetrader.controls.ListBox lstCrew;
     private spacetrader.controls.Label lblCrewNoQuarters;
     private spacetrader.controls.Label lblForHireNone;
-    private Game game = Game.currentGame();
+    private Game game = Game.getCurrentGame();
     private CrewMember selectedCrewMember = null;
     private boolean handlingSelect = false;
 

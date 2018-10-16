@@ -72,7 +72,7 @@ public class ShortRangeChartPanel extends Panel {
 
     private void picShortRangeChart_MouseDown(Object sender, spacetrader.controls.MouseEventArgs e) {
         if (e.Button == MouseButtons.Left && game != null) {
-            StarSystem[] universe = game.Universe();
+            StarSystem[] universe = game.getUniverse();
             StarSystem curSys = commander.getCurrentSystem();
 
             boolean clickedSystem = false;
@@ -113,7 +113,7 @@ public class ShortRangeChartPanel extends Panel {
 
     private void picShortRangeChart_Paint(Object sender, spacetrader.controls.PaintEventArgs e) {
         if (game != null) {
-            StarSystem[] universe = game.Universe();
+            StarSystem[] universe = game.getUniverse();
             int[] wormholes = game.Wormholes();
             StarSystem trackSys = game.TrackedSystem();
             StarSystem curSys = commander.getCurrentSystem();
