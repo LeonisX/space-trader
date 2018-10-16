@@ -972,7 +972,7 @@ public class FormShipList extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormShipList");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Ship List");
     }
     //#endregion

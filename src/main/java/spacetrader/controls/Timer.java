@@ -5,28 +5,32 @@ import java.awt.event.ActionListener;
 
 public class Timer {
 
-    public EventHandler<Object, EventArgs> Tick;
+    private EventHandler<Object, EventArgs> tick;
 
     private final javax.swing.Timer timer = new javax.swing.Timer(0, new ActionListener() {
         public void actionPerformed(ActionEvent arg0) {
-            Tick.handle(Timer.this, null);
-            Stop();
+            tick.handle(Timer.this, null);
+            stop();
         }
     });
 
     public Timer(IContainer components) {
     }
 
-    public void Start() {
+    public void start() {
         timer.start();
     }
 
-    public void Stop() {
+    public void stop() {
         timer.stop();
     }
 
     public void setInterval(int interval) {
         timer.setDelay(interval);
         timer.setInitialDelay(interval);
+    }
+
+    public void setTick(EventHandler<Object, EventArgs> tick) {
+        this.tick = tick;
     }
 }

@@ -605,7 +605,7 @@ public class FormEquipment extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormEquipment");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Buy/Sell Equipment");
         Panel r = this.boxSell;
         Panel r1 = this.boxBuy;

@@ -935,7 +935,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // ilShipyardLogos
         //
-        ilShipyardLogos.colorDepth = spacetrader.controls.ColorDepth.Depth24Bit;
+        ilShipyardLogos.setColorDepth(ColorDepth.Depth24Bit);
         ilShipyardLogos.setImageSize(new spacetrader.controls.Size(80, 80));
         ilShipyardLogos.setImageStream(((spacetrader.controls.ImageListStreamer) (resources
                 .getObject("ilShipyardLogos.ImageStream"))));
@@ -992,7 +992,7 @@ public class FormShipyard extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("Form_Shipyard");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Ship Design at XXXX Shipyards");
         ((ISupportInitialize) (numHullStrength)).endInit();
         ((ISupportInitialize) (numCargoBays)).endInit();

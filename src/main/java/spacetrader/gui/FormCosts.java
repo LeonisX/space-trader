@@ -221,7 +221,7 @@ public class FormCosts extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormCosts");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Cost Specification");
     }
     // #endregion

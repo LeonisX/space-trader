@@ -617,7 +617,7 @@ public class FormPlunder extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormPlunder");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Plunder Cargo");
         this.performLayout();
 

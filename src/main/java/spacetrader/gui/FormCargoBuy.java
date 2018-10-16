@@ -214,7 +214,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormCargoBuy");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Buy Xxxxxxxxxx");
         ((ISupportInitialize) (numAmount)).endInit();
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ImageList {
 
-    public Object colorDepth;
+    private Object colorDepth;
     private Image[] images;
     private Size size;
 
@@ -20,6 +20,10 @@ public class ImageList {
 
     public Image[] getImages() {
         return images;
+    }
+
+    public void setColorDepth(Object colorDepth) {
+        this.colorDepth = colorDepth;
     }
 
     public void setImageStream(ImageListStreamer imageStream) {

@@ -574,7 +574,7 @@ public class FormJettison extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormJettison");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Jettison Cargo");
     }
 

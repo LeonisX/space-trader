@@ -142,7 +142,7 @@ public class FormBuyFuel extends SpaceTraderForm {
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormBuyFuel");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Buy Fuel");
         ((ISupportInitialize) (this.numAmount)).endInit();
     }

@@ -221,7 +221,7 @@ public class FormCargoSell extends SpaceTraderForm {
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setName("FormCargoSell");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Sell Xxxxxxxxxx");
         ((ISupportInitialize) (numAmount)).endInit();
 

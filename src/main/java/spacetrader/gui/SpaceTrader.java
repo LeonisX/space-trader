@@ -184,7 +184,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         this.setFormBorderStyle(FormBorderStyle.FixedSingle);
         this.setIcon(((Icon) (resources.getObject("$this.Icon"))));
         this.setMaximizeBox(false);
-        this.setStartPosition(FormStartPosition.Manual);
+        this.setStartPosition(FormStartPosition.MANUAL);
         this.setText(strings.getTitle(this.getName()));
         this.setClosing(new spacetrader.controls.EventHandler<Object, CancelEventArgs>() {
             @Override

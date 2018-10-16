@@ -144,7 +144,7 @@ public class FormGetLoan extends SpaceTraderForm {
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormGetLoan");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Get Loan");
         ((ISupportInitialize) (this.numAmount)).endInit();
     }

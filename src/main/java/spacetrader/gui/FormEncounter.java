@@ -1190,12 +1190,12 @@ public class FormEncounter extends SpaceTraderForm {
         // tmrTick
         //
         tmrTick.setInterval(1000);
-        tmrTick.Tick = new EventHandler<Object, EventArgs>() {
+        tmrTick.setTick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
                 tmrTick_Tick(sender, e);
             }
-        };
+        });
         //
         // FormEncounter
         //
@@ -1270,7 +1270,7 @@ public class FormEncounter extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormEncounter");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Encounter");
 
     }
@@ -1278,7 +1278,7 @@ public class FormEncounter extends SpaceTraderForm {
     // #endregion
 
     private void DisableAuto() {
-        tmrTick.Stop();
+        tmrTick.stop();
 
         game.setEncounterContinueFleeing(false);
         game.setEncounterContinueAttacking(false);
@@ -1296,7 +1296,7 @@ public class FormEncounter extends SpaceTraderForm {
 
             if (game.getEncounterContinueFleeing()
                     || game.getEncounterContinueAttacking())
-                tmrTick.Start();
+                tmrTick.start();
         } else
             close();
     }

@@ -122,7 +122,7 @@ public class FormViewQuests extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormViewQuests");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Quests");
     }
 

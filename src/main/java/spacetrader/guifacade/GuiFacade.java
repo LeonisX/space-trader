@@ -24,7 +24,7 @@ public class GuiFacade {
      */
     public static int queryAmountAcquire(int item, int maxAmount, CargoBuyOp op) {
         FormCargoBuy form = new FormCargoBuy(item, maxAmount, op);
-        return form.Show() == DialogResult.OK ? form.Amount() : 0;
+        return form.showDialog() == DialogResult.OK ? form.Amount() : 0;
     }
 
     /**
@@ -34,7 +34,7 @@ public class GuiFacade {
      */
     public static int queryAmountRelease(int item, CargoSellOp op, int maxAmount, int price) {
         FormCargoSell form = new FormCargoSell(item, maxAmount, op, price);
-        return form.Show() == DialogResult.OK ? form.Amount() : 0;
+        return form.showDialog() == DialogResult.OK ? form.Amount() : 0;
     }
 
     /**
@@ -44,7 +44,7 @@ public class GuiFacade {
      * todo smells like there's too much game code in that form.
      */
     public static void performPlundering() {
-        (new FormPlunder()).Show();
+        (new FormPlunder()).showDialog();
     }
 
     /**
@@ -53,7 +53,7 @@ public class GuiFacade {
      * todo smells like there's too much game code in that form.
      */
     public static void performJettison() {
-        (new FormJettison()).Show();
+        (new FormJettison()).showDialog();
     }
 
     /**
@@ -77,22 +77,22 @@ public class GuiFacade {
 
 
     public static DialogResult alert(AlertType type) {
-        return FormAlert.Alert(type);
+        return FormAlert.alert(type);
     }
 
     public static DialogResult alert(AlertType type, String var1, String var2) {
-        return FormAlert.Alert(type, var1, var2);
+        return FormAlert.alert(type, var1, var2);
     }
 
     public static DialogResult alert(AlertType type, String var1, String var2, String var3) {
-        return FormAlert.Alert(type, var1, var2, var3);
+        return FormAlert.alert(type, var1, var2, var3);
     }
 
     public static DialogResult alert(AlertType type, String[] args) {
-        return FormAlert.Alert(type, args);
+        return FormAlert.alert(type, args);
     }
 
     public static DialogResult alert(AlertType type, String var1) {
-        return FormAlert.Alert(type, var1);
+        return FormAlert.alert(type, var1);
     }
 }

@@ -238,7 +238,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormViewHighScores");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("High Scores");
     }
     //#endregion

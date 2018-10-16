@@ -60,10 +60,10 @@ public class WinformForm extends WinformPane {
         if (startPosition == null)
             return;
         switch (startPosition) {
-            case CenterParent:
+            case CENTER_PARENT:
                 jDialog.setLocationRelativeTo(parent == null ? null : parent.asSwingObject());
                 break;
-            case Manual:
+            case MANUAL:
                 break;
             default:
                 throw new Error("Unknown startPosition kind: " + startPosition);

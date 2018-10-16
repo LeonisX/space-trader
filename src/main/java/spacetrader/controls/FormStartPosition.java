@@ -2,6 +2,6 @@ package spacetrader.controls;
 
 public enum FormStartPosition {
 
-    Manual, CenterParent
+    MANUAL, CENTER_PARENT
 
 }

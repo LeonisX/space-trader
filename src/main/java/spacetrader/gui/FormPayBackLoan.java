@@ -147,7 +147,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormPayBackLoan");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Pay Back Loan");
         ((ISupportInitialize) (numAmount)).endInit();
     }

@@ -151,7 +151,7 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormBuyRepairs");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Hull Repair");
         ((ISupportInitialize) (this.numAmount)).endInit();
     }

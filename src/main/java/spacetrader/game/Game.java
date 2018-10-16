@@ -3394,7 +3394,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     // Clicks will be -1 if we were arrested or used the escape
                     // pod.
                     /*
-                     * if (Clicks == 0) FormAlert.Alert(AlertType.TravelArrival, ParentWindow);
+                     * if (Clicks == 0) FormAlert.alert(AlertType.TravelArrival, ParentWindow);
                      */
                 } else
                     GuiFacade.alert(AlertType.TravelUneventfulTrip);

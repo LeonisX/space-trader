@@ -10,11 +10,13 @@ import java.awt.event.WindowEvent;
 import java.util.Stack;
 
 abstract class SpaceTraderForm extends WinformForm {
+
     protected SpaceTraderForm() {
         ((Window) swingComponent).addWindowListener(new MyListener());
     }
 
-    public DialogResult Show() {
+    @Override
+    public DialogResult showDialog() {
         return super.showDialog(FormsOwnerTree.top());
     }
 
@@ -35,7 +37,8 @@ abstract class SpaceTraderForm extends WinformForm {
 }
 
 abstract class FormsOwnerTree {
-    static private final Stack<WinformPane> stack = new Stack<WinformPane>();
+
+    static private final Stack<WinformPane> stack = new Stack<>();
 
     static public void add(WinformPane e) {
         stack.push(e);
@@ -45,9 +48,10 @@ abstract class FormsOwnerTree {
         return stack.empty() ? null : stack.peek();
     }
 
-    static public void pop(WinformPane ob) {
+    static void pop(WinformPane ob) {
         WinformPane top = stack.pop();
-        if (top != ob)
+        if (top != ob) {
             throw new Error("Stack order error; expected " + ob + ", found " + top);
+        }
     }
 }

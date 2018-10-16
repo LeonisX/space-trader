@@ -20,6 +20,10 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.Button;
+import spacetrader.controls.Container;
+import spacetrader.controls.Graphics;
+import spacetrader.controls.Label;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
 import spacetrader.game.Strings;
@@ -27,25 +31,29 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.guifacade.Facaded;
 
+import java.awt.*;
+
 @Facaded
 public class FormAlert extends SpaceTraderForm {
-    private static final String _80_CHARS = "01234567890123456789012345678901234567890123456789012345678901234567890123456789";
+
+    private static final String DA_80_CHARS = "01234567890123456789012345678901234567890123456789012345678901234567890123456789";
 
     private static final int SPLASH_INDEX = 4;
 
-    private spacetrader.controls.Label lblText;
-    private spacetrader.controls.Button btn1;
-    private spacetrader.controls.Button btn2;
-    private spacetrader.controls.ImageList ilImages;
-    private spacetrader.controls.Timer tmrTick;
+    private Label messageLabel;
+    private Button firstButton;
+    private Button secondButton;
+    private ImageList ilImages;
+    private Timer tmrTick;
+    //TODO need?
     private IContainer components;
 
     private FormAlert() {
         initializeComponent();
     }
 
-    public FormAlert(String title, String text, String button1Text, DialogResult button1Result, String button2Text,
-                     DialogResult button2Result, String[] args) {
+    FormAlert(String title, String text, String button1Text, DialogResult button1Result, String button2Text,
+              DialogResult button2Result, String[] args) {
         this();
         Graphics g = this.createGraphics();
 
@@ -55,93 +63,92 @@ public class FormAlert extends SpaceTraderForm {
             text = Functions.stringVars(text, args);
         }
 
-        lblText.setWidth(g.measureString((text.length() > 80 ? _80_CHARS : text), this.getFont()).width + 25);
-        // lblText.setWidth(300);
-        lblText.setText(text);
-        lblText.setHeight(30 + 30 * text.length() / 80);
+        messageLabel.setWidth(g.measureString((text.length() > 80 ? DA_80_CHARS : text), this.getFont()).width + 25);
+        // messageLabel.setWidth(300);
+        messageLabel.setText(text);
+        messageLabel.setHeight(30 + 30 * text.length() / 80);
 
         // Size the buttons.
-        int btnWidth = 0;
-        btn1.setText(button1Text);
-        btn1.setDialogResult(button1Result);
-        btn1.setWidth(Math.max(40, g.measureString(btn1.getText(), this.getFont()).width + 35));
-        btnWidth = btn1.getWidth();
+        int btnWidth;
+        firstButton.setText(button1Text);
+        firstButton.setDialogResult(button1Result);
+        firstButton.setWidth(Math.max(40, g.measureString(firstButton.getText(), this.getFont()).width + 35));
+        btnWidth = firstButton.getWidth();
         if (button2Text != null) {
-            btn2.setText(button2Text);
-            btn2.setWidth(Math.max((int) Math.ceil(g.measureString(btn2.getText(), this.getFont()).width) + 10, 40));
-            btn2.setVisible(true);
-            btn2.setDialogResult(button2Result);
-            btnWidth += btn2.getWidth() + 6;
+            secondButton.setText(button2Text);
+            secondButton.setWidth(Math.max((int) Math.ceil(g.measureString(secondButton.getText(), this.getFont()).width) + 10, 40));
+            secondButton.setVisible(true);
+            secondButton.setDialogResult(button2Result);
+            btnWidth += secondButton.getWidth() + 6;
         }
 
         // Size the form.
-        this.setWidth(Math.max(btnWidth, lblText.getWidth()) + 16);
-        this.setHeight(lblText.getHeight() + 75);
+        this.setWidth(Math.max(btnWidth, messageLabel.getWidth()) + 16);
+        this.setHeight(messageLabel.getHeight() + 75);
 
-        // Locate the spacetrader.controls.
-        lblText.setLeft((this.getWidth() - lblText.getWidth()) / 2);
-        btn1.setTop(lblText.getHeight() + 19);
-        btn1.setLeft((this.getWidth() - btnWidth) / 2);
-        btn2.setTop(btn1.getTop());
-        btn2.setLeft(btn1.getLeft() + btn1.getWidth() + 6);
+        // Locate the 
+        messageLabel.setLeft((this.getWidth() - messageLabel.getWidth()) / 2);
+        firstButton.setTop(messageLabel.getHeight() + 19);
+        firstButton.setLeft((this.getWidth() - btnWidth) / 2);
+        secondButton.setTop(firstButton.getTop());
+        secondButton.setLeft(firstButton.getLeft() + firstButton.getWidth() + 6);
 
         // Set the title.
         this.setText(title);
     }
 
-    public FormAlert(String title, int imageIndex) {
+    private FormAlert(String title, int imageIndex) {
         this();
         // Make sure the extra spacetrader.controls are hidden.
-        lblText.setVisible(false);
-        btn2.setVisible(false);
+        messageLabel.setVisible(false);
+        secondButton.setVisible(false);
 
-        // Move btn1 off-screen.
-        btn1.setLeft(-btn1.getWidth());
-        btn1.setTop(-btn1.getHeight());
-        setAcceptButton(btn1);
-        setCancelButton(btn1);
+        // Move firstButton off-screen.
+        firstButton.setLeft(-firstButton.getWidth());
+        firstButton.setTop(-firstButton.getHeight());
+        setAcceptButton(firstButton);
+        setCancelButton(firstButton);
 
         // Set the background image.
         setBackgroundImage(ilImages.getImages()[imageIndex]);
         setClientSize((new SizeF(getBackgroundImage().getWidth(), getBackgroundImage().getHeight())));
 
         // Set the title.
-        this.setText(title);
+        setText(title);
 
-        // If this is the splash screen, get rid of the title bar and start the
-        // timer.
+        // If this is the splash screen, get rid of the title bar and start the timer.
         if (imageIndex == SPLASH_INDEX) {
-            this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.None);
-            tmrTick.Start();
+            this.setFormBorderStyle(FormBorderStyle.None);
+            tmrTick.start();
         }
     }
 
     @Facaded
-    public static DialogResult Alert(AlertType type) {
-        return Alert(type, new String[]{});
+    public static DialogResult alert(AlertType type) {
+        return alert(type, new String[]{});
     }
 
     @Facaded
-    public static DialogResult Alert(AlertType type, String var1) {
-        return Alert(type, new String[]{var1});
+    public static DialogResult alert(AlertType type, String var1) {
+        return alert(type, new String[]{var1});
     }
 
     @Facaded
-    public static DialogResult Alert(AlertType type, String var1, String var2) {
-        return Alert(type, new String[]{var1, var2});
+    public static DialogResult alert(AlertType type, String var1, String var2) {
+        return alert(type, new String[]{var1, var2});
     }
 
     @Facaded
-    public static DialogResult Alert(AlertType type, String var1, String var2, String var3) {
-        return Alert(type, new String[]{var1, var2, var3});
+    public static DialogResult alert(AlertType type, String var1, String var2, String var3) {
+        return alert(type, new String[]{var1, var2, var3});
     }
 
     @Facaded
-    public static DialogResult Alert(AlertType type, String[] args) {
-        return MakeDialog(type, args).Show();
+    public static DialogResult alert(AlertType type, String[] args) {
+        return makeDialog(type, args).showDialog();
     }
 
-    private static FormAlert MakeDialog(AlertType type, String[] args) {
+    private static FormAlert makeDialog(AlertType type, String[] args) {
         switch (type) {
             case Alert:
                 return (new FormAlert("^1", "^2", "Ok", DialogResult.OK, null, DialogResult.NONE, args));
@@ -508,7 +515,7 @@ public class FormAlert extends SpaceTraderForm {
                 return (new FormAlert("Congratulations!", "You have made the high-score list!", "Ok", DialogResult.OK,
                         null, DialogResult.NONE, args));
             case GameEndHighScoreCheat:
-                return (new FormAlert("Naughy, Naughty!",
+                return (new FormAlert("Naughty, Naughty!",
                         "You would have made the high-score list if you weren't a Cheat!.", "Ok", DialogResult.OK, null,
                         DialogResult.NONE, args));
             case GameEndHighScoreMissed:
@@ -869,97 +876,77 @@ public class FormAlert extends SpaceTraderForm {
                         args));
 
             default:
-                throw new IllegalArgumentException("Unkown AlertType: " + type);
+                throw new IllegalArgumentException("Unknown AlertType: " + type);
         }
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
         components = new Container();
         ResourceManager resources = new ResourceManager(FormAlert.class);
-        lblText = new spacetrader.controls.Label();
-        btn1 = new spacetrader.controls.Button();
-        btn2 = new spacetrader.controls.Button();
-        ilImages = new spacetrader.controls.ImageList(components);
-        tmrTick = new spacetrader.controls.Timer(components);
+        messageLabel = new Label();
+        firstButton = new Button();
+        secondButton = new Button();
+        ilImages = new ImageList(components);
+        tmrTick = new Timer(components);
         this.suspendLayout();
-        //
-        // lblText
-        //
-        lblText.setLocation(new java.awt.Point(8, 8));
-        lblText.setName("lblText");
-        // this.lblText.setSize(new winforms.size(12, 13));
-        lblText.setTabIndex(3);
-        lblText.setText("X");
-        //
-        // btn1
-        //
-        btn1.setDialogResult(DialogResult.OK);
-        btn1.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btn1.setLocation(new java.awt.Point(115, 32));
-        btn1.setName("btn1");
-        btn1.setSize(new spacetrader.controls.Size(40, 22));
-        btn1.setTabIndex(1);
-        btn1.setText("Ok");
-        //
-        // btn2
-        //
-        btn2.setDialogResult(DialogResult.NO);
-        btn2.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btn2.setLocation(new java.awt.Point(200, 32));
-        btn2.setName("btn2");
-        btn2.setSize(new spacetrader.controls.Size(40, 22));
-        btn2.setTabIndex(2);
-        btn2.setText("No");
-        btn2.setVisible(false);
-        //
-        // ilImages
-        //
-        ilImages.colorDepth = spacetrader.controls.ColorDepth.Depth24Bit;
-        ilImages.setImageSize(new spacetrader.controls.Size(160, 160));
-        ilImages.setImageStream(((spacetrader.controls.ImageListStreamer) (resources.getObject("ilImages.ImageStream"))));
+
+        messageLabel.setLocation(new Point(8, 8));
+        //messageLabel.setName("messageLabel");
+        // this.messageLabel.setSize(new Size(12, 13));
+        messageLabel.setTabIndex(3);
+        //messageLabel.setText("X");
+
+        firstButton.setDialogResult(DialogResult.OK);
+        firstButton.setFlatStyle(FlatStyle.FLAT);
+        firstButton.setLocation(new Point(115, 32));
+        //firstButton.setName("firstButton");
+        firstButton.setSize(new Size(40, 22));
+        firstButton.setTabIndex(1);
+        //firstButton.setText("Ok");
+
+        secondButton.setDialogResult(DialogResult.NO);
+        secondButton.setFlatStyle(FlatStyle.FLAT);
+        secondButton.setLocation(new Point(200, 32));
+        //secondButton.setName("secondButton");
+        secondButton.setSize(new Size(40, 22));
+        secondButton.setTabIndex(2);
+        secondButton.setText("No");
+        //secondButton.setVisible(false);
+
+        ilImages.setColorDepth(ColorDepth.Depth24Bit);
+        ilImages.setImageSize(new Size(160, 160));
+        ilImages.setImageStream(((ImageListStreamer) (resources.getObject("ilImages.ImageStream"))));
         ilImages.setTransparentColor(null);
-        //
-        // tmrTick
-        //
+
         tmrTick.setInterval(4000);
-        tmrTick.Tick = new EventHandler<Object, EventArgs>() {
+        tmrTick.setTick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
+            public void handle(Object sender, EventArgs e) {
                 FormAlert.this.close();
             }
-        };
-        //
-        // FormAlert
-        //
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setClientSize(new spacetrader.controls.Size(270, 63));
+        });
+
+        this.setAutoScaleBaseSize(new Size(5, 13));
+        this.setClientSize(new Size(270, 63));
         this.setControlBox(false);
-        controls.add(btn2);
-        controls.add(btn1);
-        controls.add(lblText);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
+
+        controls.add(secondButton);
+        controls.add(firstButton);
+        controls.add(messageLabel);
+
+        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setName("FormAlert");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
-        this.setText("Title");
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
+        //this.setText("Title");
         this.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                FormAlert_Click();
+            public void handle(Object sender, EventArgs e) {
+                // If the button is off-screen, this is an image and can be clicked away.
+                if (firstButton.getLeft() < 0) {
+                    close();
+                }
             }
         });
     }
-
-    private void FormAlert_Click() {
-        // If the button is off-screen, this is an image and can be clicked
-        // away.
-        if (btn1.getLeft() < 0)
-            close();
-    }
 }
-

@@ -338,7 +338,7 @@ public class FormNewCommander extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setName("FormNewCommander");
         this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
+        this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("New Commander");
         ((ISupportInitialize) (this.numPilot)).endInit();
         ((ISupportInitialize) (this.numFighter)).endInit();

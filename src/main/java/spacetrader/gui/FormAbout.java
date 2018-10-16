@@ -98,7 +98,7 @@ public class FormAbout extends WinformForm {
         setMinimizeBox(false);
         setName("FormAbout");
         setShowInTaskbar(false);
-        setStartPosition(FormStartPosition.CenterParent);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
         setText("About Space Trader");
         performLayout();
     }

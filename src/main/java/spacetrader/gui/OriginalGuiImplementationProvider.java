@@ -41,11 +41,11 @@ public class OriginalGuiImplementationProvider implements ImplementationProvider
     public CheatGui getCheatGuiProvider() {
         return new CheatGui() {
             public void showMonsterForm() {
-                (new FormMonster()).Show();
+                (new FormMonster()).showDialog();
             }
 
             public void showTestForm() {
-                (new FormTest()).Show();
+                (new FormTest()).showDialog();
             }
         };
     }
