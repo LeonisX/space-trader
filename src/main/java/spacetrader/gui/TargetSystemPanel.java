@@ -1,41 +1,46 @@
 package spacetrader.gui;
 
-import spacetrader.controls.AnchorStyles;
-import spacetrader.controls.EventArgs;
-import spacetrader.controls.EventHandler;
-import spacetrader.controls.FlatStyle;
+import spacetrader.controls.*;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.game.*;
 
 import java.awt.*;
 
-public class TargetSystemPanel extends Panel {
+import static spacetrader.game.Strings.*;
+
+class TargetSystemPanel extends Panel {
 
     private final SpaceTrader mainWindow;
+    
     private SystemTracker game = null;
     private GameController controller = null;
     private Commander commander;
-    private spacetrader.controls.Button btnTrack;
-    private spacetrader.controls.Button btnWarp;
-    private spacetrader.controls.Button btnPrevSystem;
-    private spacetrader.controls.Button btnNextSystem;
-    private spacetrader.controls.Label lblTargetDistance;
-    private spacetrader.controls.Label lblTargetDistanceLabel;
-    private spacetrader.controls.Label lblTargetGovtLabel;
-    private spacetrader.controls.Label lblTargetName;
-    private spacetrader.controls.Label lblTargetNameLabel;
-    private spacetrader.controls.Label lblTargetOutOfRange;
-    private spacetrader.controls.Label lblTargetPirates;
-    private spacetrader.controls.Label lblTargetPiratesLabel;
-    private spacetrader.controls.Label lblTargetPolice;
-    private spacetrader.controls.Label lblTargetPoliceLabel;
-    private spacetrader.controls.Label lblTargetPolSys;
-    private spacetrader.controls.Label lblTargetResource;
-    private spacetrader.controls.Label lblTargetResourceLabel;
-    private spacetrader.controls.Label lblTargetSize;
-    private spacetrader.controls.Label lblTargetTech;
-    private spacetrader.controls.Label lblTargetTechLabel;
-    private spacetrader.controls.Label lblTargetSizeLabel;
+
+    private Button prevSystemButton;
+    private Button nextSystemButton;
+
+    private Label targetNameLabel;
+    private Label targetNameLabelValue;
+    private Label targetSizeLabel;
+    private Label targetSizeLabelValue;
+    private Label targetTechLevelLabel;
+    private Label targetTechLevelLabelValue;
+    private Label targetGovernmentLabel;
+    private Label targetGovernmentLabelValue;
+    private Label targetResourceLabel;
+    private Label targetResourceLabelValue;
+    private Label targetPoliceLabel;
+    private Label targetPoliceLabelValue;
+    private Label targetPiratesLabel;
+    private Label targetPiratesLabelValue;
+    private Label targetDistanceLabelValue;
+    private Label targetDistanceLabel;
+    private Label targetOutOfRangeLabel;
+
+    private Button trackButton;
+    private Button warpButton;
 
     TargetSystemPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
@@ -47,266 +52,259 @@ public class TargetSystemPanel extends Panel {
         this.commander = commander;
     }
 
+    void initializeComponent() {
+        trackButton = new Button();
+        nextSystemButton = new Button();
+        prevSystemButton = new Button();
+        targetOutOfRangeLabel = new Label();
+        warpButton = new Button();
+        targetGovernmentLabelValue = new Label();
+        targetSizeLabelValue = new Label();
+        targetTechLevelLabelValue = new Label();
+        targetDistanceLabelValue = new Label();
+        targetPiratesLabelValue = new Label();
+        targetPoliceLabelValue = new Label();
+        targetResourceLabelValue = new Label();
+        targetDistanceLabel = new Label();
+        targetPiratesLabel = new Label();
+        targetPoliceLabel = new Label();
+        targetResourceLabel = new Label();
+        targetGovernmentLabel = new Label();
+        targetTechLevelLabel = new Label();
+        targetSizeLabel = new Label();
+        targetNameLabelValue = new Label();
+        targetNameLabel = new Label();
+
+        anchor = AnchorStyles.TOP_RIGHT;
+        
+        controls.add(trackButton);
+        controls.add(nextSystemButton);
+        controls.add(prevSystemButton);
+        controls.add(targetOutOfRangeLabel);
+        controls.add(warpButton);
+        controls.add(targetGovernmentLabelValue);
+        controls.add(targetSizeLabelValue);
+        controls.add(targetTechLevelLabelValue);
+        controls.add(targetDistanceLabelValue);
+        controls.add(targetPiratesLabelValue);
+        controls.add(targetPoliceLabelValue);
+        controls.add(targetResourceLabelValue);
+        controls.add(targetDistanceLabel);
+        controls.add(targetPiratesLabel);
+        controls.add(targetPoliceLabel);
+        controls.add(targetResourceLabel);
+        controls.add(targetGovernmentLabel);
+        controls.add(targetTechLevelLabel);
+        controls.add(targetSizeLabel);
+        controls.add(targetNameLabelValue);
+        controls.add(targetNameLabel);
+        
+        setSize(new Size(216, 168));
+        setTabIndex(7);
+        setTabStop(false);
+        setText("Target System");
+
+        prevSystemButton.setFlatStyle(FlatStyle.FLAT);
+        prevSystemButton.setLocation(new Point(160, 16));
+        prevSystemButton.setSize(new Size(18, 18));
+        prevSystemButton.setTabIndex(57);
+        prevSystemButton.setText("<");
+        prevSystemButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                prevSystemButtonClick();
+            }
+        });
+
+        nextSystemButton.setFlatStyle(FlatStyle.FLAT);
+        nextSystemButton.setLocation(new Point(186, 16));
+        nextSystemButton.setSize(new Size(18, 18));
+        nextSystemButton.setTabIndex(58);
+        nextSystemButton.setText(">");
+        nextSystemButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                nextSystemButtonClick();
+            }
+        });
+
+        targetNameLabel.setAutoSize(true);
+        targetNameLabel.setFont(FontCollection.bold825);
+        targetNameLabel.setLocation(new Point(8, 16));
+        targetNameLabel.setSize(new Size(39, 16));
+        targetNameLabel.setTabIndex(0);
+        targetNameLabel.setText("Name:");
+
+        targetNameLabelValue.setLocation(new Point(88, 16));
+        targetNameLabelValue.setSize(new Size(65, 13));
+        targetNameLabelValue.setTabIndex(1);
+        //targetNameLabelValue.setText("Tarchannen");
+
+        targetSizeLabel.setAutoSize(true);
+        targetSizeLabel.setFont(FontCollection.bold825);
+        targetSizeLabel.setLocation(new Point(8, 32));
+        targetSizeLabel.setSize(new Size(31, 16));
+        targetSizeLabel.setTabIndex(2);
+        targetSizeLabel.setText("Size:");
+
+        targetSizeLabelValue.setLocation(new Point(88, 32));
+        targetSizeLabelValue.setSize(new Size(45, 13));
+        targetSizeLabelValue.setTabIndex(14);
+        //targetSizeLabelValue.setText("Medium");
+
+        targetTechLevelLabel.setAutoSize(true);
+        targetTechLevelLabel.setFont(FontCollection.bold825);
+        targetTechLevelLabel.setLocation(new Point(8, 48));
+        targetTechLevelLabel.setSize(new Size(65, 16));
+        targetTechLevelLabel.setTabIndex(3);
+        targetTechLevelLabel.setText("Tech Level:");
+
+        targetTechLevelLabelValue.setLocation(new Point(88, 48));
+        targetTechLevelLabelValue.setSize(new Size(82, 13));
+        targetTechLevelLabelValue.setTabIndex(13);
+        //targetTechLevelLabelValue.setText("Pre-Agricultural");
+
+        targetGovernmentLabel.setAutoSize(true);
+        targetGovernmentLabel.setFont(FontCollection.bold825);
+        targetGovernmentLabel.setLocation(new Point(8, 64));
+        targetGovernmentLabel.setSize(new Size(72, 16));
+        targetGovernmentLabel.setTabIndex(4);
+        targetGovernmentLabel.setText("Government:");
+
+        targetGovernmentLabelValue.setLocation(new Point(88, 64));
+        targetGovernmentLabelValue.setSize(new Size(91, 13));
+        targetGovernmentLabelValue.setTabIndex(15);
+        //targetGovernmentLabelValue.setText("Communist State");
+
+        targetResourceLabel.setAutoSize(true);
+        targetResourceLabel.setFont(FontCollection.bold825);
+        targetResourceLabel.setLocation(new Point(8, 80));
+        targetResourceLabel.setSize(new Size(58, 16));
+        targetResourceLabel.setTabIndex(5);
+        targetResourceLabel.setText("Resource:");
+
+        targetResourceLabelValue.setLocation(new Point(88, 80));
+        targetResourceLabelValue.setSize(new Size(105, 13));
+        targetResourceLabelValue.setTabIndex(9);
+        //targetResourceLabelValue.setText("Sweetwater Oceans");
+
+        targetPoliceLabel.setAutoSize(true);
+        targetPoliceLabel.setFont(FontCollection.bold825);
+        targetPoliceLabel.setLocation(new Point(8, 96));
+        targetPoliceLabel.setSize(new Size(40, 16));
+        targetPoliceLabel.setTabIndex(6);
+        targetPoliceLabel.setText("Police:");
+
+        targetPoliceLabelValue.setLocation(new Point(88, 96));
+        targetPoliceLabelValue.setSize(new Size(53, 13));
+        targetPoliceLabelValue.setTabIndex(10);
+        //targetPoliceLabelValue.setText("Abundant");
+
+        targetPiratesLabel.setAutoSize(true);
+        targetPiratesLabel.setFont(FontCollection.bold825);
+        targetPiratesLabel.setLocation(new Point(8, 112));
+        targetPiratesLabel.setSize(new Size(44, 16));
+        targetPiratesLabel.setTabIndex(7);
+        targetPiratesLabel.setText("Pirates:");
+
+        targetPiratesLabelValue.setLocation(new Point(88, 112));
+        targetPiratesLabelValue.setSize(new Size(53, 13));
+        targetPiratesLabelValue.setTabIndex(11);
+        //targetPiratesLabelValue.setText("Abundant");
+
+        targetDistanceLabel.setAutoSize(true);
+        targetDistanceLabel.setFont(FontCollection.bold825);
+        targetDistanceLabel.setLocation(new Point(8, 128));
+        targetDistanceLabel.setSize(new Size(53, 16));
+        targetDistanceLabel.setTabIndex(8);
+        targetDistanceLabel.setText("Distance:");
+
+        targetDistanceLabelValue.setLocation(new Point(88, 128));
+        targetDistanceLabelValue.setSize(new Size(66, 13));
+        targetDistanceLabelValue.setTabIndex(12);
+        ///targetDistanceLabelValue.setText("888 parsecs");
+
+        trackButton.setFlatStyle(FlatStyle.FLAT);
+        trackButton.setLocation(new Point(160, 140));
+        trackButton.setSize(new Size(44, 22));
+        trackButton.setTabIndex(60);
+        trackButton.setText("Track");
+        trackButton.setVisible(false);
+        trackButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                trackButtonClick();
+            }
+        });
+
+        targetOutOfRangeLabel.setLocation(new Point(8, 144));
+        targetOutOfRangeLabel.setSize(new Size(144, 13));
+        targetOutOfRangeLabel.setTabIndex(17);
+        targetOutOfRangeLabel.setText("This system is out of range.");
+
+        warpButton.setFlatStyle(FlatStyle.FLAT);
+        warpButton.setLocation(new Point(160, 98));
+        warpButton.setSize(new Size(44, 44));
+        warpButton.setTabIndex(59);
+        warpButton.setText("Warp");
+        warpButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                warpButtonClick();
+            }
+        });
+    }
+
     private void updateAll() {
         // todo inline when done
         mainWindow.updateAll();
     }
+    
+    void update() {
+        nextSystemButton.setVisible(game != null);
+        prevSystemButton.setVisible(game != null);
 
-    void initializeComponent() {
-        btnTrack = new spacetrader.controls.Button();
-        btnNextSystem = new spacetrader.controls.Button();
-        btnPrevSystem = new spacetrader.controls.Button();
-        lblTargetOutOfRange = new spacetrader.controls.Label();
-        btnWarp = new spacetrader.controls.Button();
-        lblTargetPolSys = new spacetrader.controls.Label();
-        lblTargetSize = new spacetrader.controls.Label();
-        lblTargetTech = new spacetrader.controls.Label();
-        lblTargetDistance = new spacetrader.controls.Label();
-        lblTargetPirates = new spacetrader.controls.Label();
-        lblTargetPolice = new spacetrader.controls.Label();
-        lblTargetResource = new spacetrader.controls.Label();
-        lblTargetDistanceLabel = new spacetrader.controls.Label();
-        lblTargetPiratesLabel = new spacetrader.controls.Label();
-        lblTargetPoliceLabel = new spacetrader.controls.Label();
-        lblTargetResourceLabel = new spacetrader.controls.Label();
-        lblTargetGovtLabel = new spacetrader.controls.Label();
-        lblTargetTechLabel = new spacetrader.controls.Label();
-        lblTargetSizeLabel = new spacetrader.controls.Label();
-        lblTargetName = new spacetrader.controls.Label();
-        lblTargetNameLabel = new spacetrader.controls.Label();
+        if (null == game || null == game.getWarpSystem()) {
+            targetNameLabelValue.setText("");
+            targetSizeLabelValue.setText("");
+            targetTechLevelLabelValue.setText("");
+            targetGovernmentLabelValue.setText("");
+            targetResourceLabelValue.setText("");
+            targetPoliceLabelValue.setText("");
+            targetPiratesLabelValue.setText("");
+            targetDistanceLabelValue.setText("");
+            targetOutOfRangeLabel.setVisible(false);
+            warpButton.setVisible(false);
+            trackButton.setVisible(false);
+        } else {
+            StarSystem system = game.getWarpSystem();
+            int distance = Functions.distance(commander.getCurrentSystem(), system);
 
-        anchor = (((AnchorStyles.TOP_RIGHT)));
-        controls.add(btnTrack);
-        controls.add(btnNextSystem);
-        controls.add(btnPrevSystem);
-        controls.add(lblTargetOutOfRange);
-        controls.add(btnWarp);
-        controls.add(lblTargetPolSys);
-        controls.add(lblTargetSize);
-        controls.add(lblTargetTech);
-        controls.add(lblTargetDistance);
-        controls.add(lblTargetPirates);
-        controls.add(lblTargetPolice);
-        controls.add(lblTargetResource);
-        controls.add(lblTargetDistanceLabel);
-        controls.add(lblTargetPiratesLabel);
-        controls.add(lblTargetPoliceLabel);
-        controls.add(lblTargetResourceLabel);
-        controls.add(lblTargetGovtLabel);
-        controls.add(lblTargetTechLabel);
-        controls.add(lblTargetSizeLabel);
-        controls.add(lblTargetName);
-        controls.add(lblTargetNameLabel);
-        setSize(new spacetrader.controls.Size(216, 168));
-        setTabIndex(7);
-        setTabStop(false);
-        setText("Target System");
-        //
-        // btnTrack
-        //
-        btnTrack.setFlatStyle(FlatStyle.FLAT);
-        btnTrack.setLocation(new Point(160, 140));
-        btnTrack.setSize(new spacetrader.controls.Size(44, 22));
-        btnTrack.setTabIndex(60);
-        btnTrack.setText("Track");
-        btnTrack.setVisible(false);
-        btnTrack.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnTrack_Click(sender, e);
-            }
-        });
-        //
-        // btnNextSystem
-        //
-        btnNextSystem.setFlatStyle(FlatStyle.FLAT);
-        btnNextSystem.setLocation(new Point(186, 16));
-        btnNextSystem.setSize(new spacetrader.controls.Size(18, 18));
-        btnNextSystem.setTabIndex(58);
-        btnNextSystem.setText(">");
-        btnNextSystem.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnNextSystem_Click(sender, e);
-            }
-        });
-        //
-        // btnPrevSystem
-        //
-        btnPrevSystem.setFlatStyle(FlatStyle.FLAT);
-        btnPrevSystem.setLocation(new Point(160, 16));
-        btnPrevSystem.setSize(new spacetrader.controls.Size(18, 18));
-        btnPrevSystem.setTabIndex(57);
-        btnPrevSystem.setText("<");
-        btnPrevSystem.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnPrevSystem_Click(sender, e);
-            }
-        });
-        //
-        // lblTargetOutOfRange
-        //
-        lblTargetOutOfRange.setLocation(new Point(8, 144));
-        lblTargetOutOfRange.setSize(new spacetrader.controls.Size(144, 13));
-        lblTargetOutOfRange.setTabIndex(17);
-        lblTargetOutOfRange.setText("This system is out of range.");
-        //
-        // btnWarp
-        //
-        btnWarp.setFlatStyle(FlatStyle.FLAT);
-        btnWarp.setLocation(new Point(160, 98));
-        btnWarp.setSize(new spacetrader.controls.Size(44, 44));
-        btnWarp.setTabIndex(59);
-        btnWarp.setText("Warp");
-        btnWarp.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnWarp_Click(sender, e);
-            }
-        });
-        //
-        // lblTargetPolSys
-        //
-        lblTargetPolSys.setLocation(new Point(88, 64));
-        lblTargetPolSys.setSize(new spacetrader.controls.Size(91, 13));
-        lblTargetPolSys.setTabIndex(15);
-        lblTargetPolSys.setText("Communist State");
-        //
-        // lblTargetSize
-        //
-        lblTargetSize.setLocation(new Point(88, 32));
-        lblTargetSize.setSize(new spacetrader.controls.Size(45, 13));
-        lblTargetSize.setTabIndex(14);
-        lblTargetSize.setText("Medium");
-        //
-        // lblTargetTech
-        //
-        lblTargetTech.setLocation(new Point(88, 48));
-        lblTargetTech.setSize(new spacetrader.controls.Size(82, 13));
-        lblTargetTech.setTabIndex(13);
-        lblTargetTech.setText("Pre-Agricultural");
-        //
-        // lblTargetDistance
-        //
-        lblTargetDistance.setLocation(new Point(88, 128));
-        lblTargetDistance.setSize(new spacetrader.controls.Size(66, 13));
-        lblTargetDistance.setTabIndex(12);
-        lblTargetDistance.setText("888 parsecs");
-        //
-        // lblTargetPirates
-        //
-        lblTargetPirates.setLocation(new Point(88, 112));
-        lblTargetPirates.setSize(new spacetrader.controls.Size(53, 13));
-        lblTargetPirates.setTabIndex(11);
-        lblTargetPirates.setText("Abundant");
-        //
-        // lblTargetPolice
-        //
-        lblTargetPolice.setLocation(new Point(88, 96));
-        lblTargetPolice.setSize(new spacetrader.controls.Size(53, 13));
-        lblTargetPolice.setTabIndex(10);
-        lblTargetPolice.setText("Abundant");
-        //
-        // lblTargetResource
-        //
-        lblTargetResource.setLocation(new Point(88, 80));
-        lblTargetResource.setSize(new spacetrader.controls.Size(105, 13));
-        lblTargetResource.setTabIndex(9);
-        lblTargetResource.setText("Sweetwater Oceans");
-        //
-        // lblTargetDistanceLabel
-        //
-        lblTargetDistanceLabel.setAutoSize(true);
-        lblTargetDistanceLabel.setFont(FontCollection.bold825);
-        lblTargetDistanceLabel.setLocation(new Point(8, 128));
-        lblTargetDistanceLabel.setSize(new spacetrader.controls.Size(53, 16));
-        lblTargetDistanceLabel.setTabIndex(8);
-        lblTargetDistanceLabel.setText("Distance:");
-        //
-        // lblTargetPiratesLabel
-        //
-        lblTargetPiratesLabel.setAutoSize(true);
-        lblTargetPiratesLabel.setFont(FontCollection.bold825);
-        lblTargetPiratesLabel.setLocation(new Point(8, 112));
-        lblTargetPiratesLabel.setSize(new spacetrader.controls.Size(44, 16));
-        lblTargetPiratesLabel.setTabIndex(7);
-        lblTargetPiratesLabel.setText("Pirates:");
-        //
-        // lblTargetPoliceLabel
-        //
-        lblTargetPoliceLabel.setAutoSize(true);
-        lblTargetPoliceLabel.setFont(FontCollection.bold825);
-        lblTargetPoliceLabel.setLocation(new Point(8, 96));
-        lblTargetPoliceLabel.setSize(new spacetrader.controls.Size(40, 16));
-        lblTargetPoliceLabel.setTabIndex(6);
-        lblTargetPoliceLabel.setText("Police:");
-        //
-        // lblTargetResourceLabel
-        //
-        lblTargetResourceLabel.setAutoSize(true);
-        lblTargetResourceLabel.setFont(FontCollection.bold825);
-        lblTargetResourceLabel.setLocation(new Point(8, 80));
-        lblTargetResourceLabel.setSize(new spacetrader.controls.Size(58, 16));
-        lblTargetResourceLabel.setTabIndex(5);
-        lblTargetResourceLabel.setText("Resource:");
-        //
-        // lblTargetGovtLabel
-        //
-        lblTargetGovtLabel.setAutoSize(true);
-        lblTargetGovtLabel.setFont(FontCollection.bold825);
-        lblTargetGovtLabel.setLocation(new Point(8, 64));
-        lblTargetGovtLabel.setSize(new spacetrader.controls.Size(72, 16));
-        lblTargetGovtLabel.setTabIndex(4);
-        lblTargetGovtLabel.setText("Government:");
-        //
-        // lblTargetTechLabel
-        //
-        lblTargetTechLabel.setAutoSize(true);
-        lblTargetTechLabel.setFont(FontCollection.bold825);
-        lblTargetTechLabel.setLocation(new Point(8, 48));
-        lblTargetTechLabel.setSize(new spacetrader.controls.Size(65, 16));
-        lblTargetTechLabel.setTabIndex(3);
-        lblTargetTechLabel.setText("Tech Level:");
-        //
-        // lblTargetSizeLabel
-        //
-        lblTargetSizeLabel.setAutoSize(true);
-        lblTargetSizeLabel.setFont(FontCollection.bold825);
-        lblTargetSizeLabel.setLocation(new Point(8, 32));
-        lblTargetSizeLabel.setSize(new spacetrader.controls.Size(31, 16));
-        lblTargetSizeLabel.setTabIndex(2);
-        lblTargetSizeLabel.setText("Size:");
-        //
-        // lblTargetName
-        //
-        lblTargetName.setLocation(new Point(88, 16));
-        lblTargetName.setSize(new spacetrader.controls.Size(65, 13));
-        lblTargetName.setTabIndex(1);
-        lblTargetName.setText("Tarchannen");
-        //
-        // lblTargetNameLabel
-        //
-        lblTargetNameLabel.setAutoSize(true);
-        lblTargetNameLabel.setFont(FontCollection.bold825);
-        lblTargetNameLabel.setLocation(new Point(8, 16));
-        lblTargetNameLabel.setSize(new spacetrader.controls.Size(39, 16));
-        lblTargetNameLabel.setTabIndex(0);
-        lblTargetNameLabel.setText("Name:");
-
+            targetNameLabelValue.setText(system.getName());
+            targetSizeLabelValue.setText(Sizes[system.size().castToInt()]);
+            targetTechLevelLabelValue.setText(TechLevelNames[system.getTechLevel().castToInt()]);
+            targetGovernmentLabelValue.setText(system.politicalSystem().name());
+            targetResourceLabelValue.setText(system.isVisited()
+                    ? SpecialResources[system.getSpecialResource().castToInt()]
+                    : Unknown);
+            targetPoliceLabelValue.setText(ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
+            targetPiratesLabelValue.setText(ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
+            targetDistanceLabelValue.setText(distance);
+            targetOutOfRangeLabel.setVisible(!system.destOk() && system != commander.getCurrentSystem());
+            warpButton.setVisible(system.destOk());
+            trackButton.setVisible(targetOutOfRangeLabel.isVisible() && system != game.getTrackedSystem());
+        }
     }
 
-    private void btnTrack_Click(Object sender, spacetrader.controls.EventArgs e) {
+    private void trackButtonClick() {
         game.setTrackedSystemId(game.getSelectedSystemId());
         updateAll();
     }
 
-    private void btnWarp_Click(Object sender, spacetrader.controls.EventArgs e) {
+    private void warpButtonClick() {
         try {
             controller.autoSaveOnDeparture();
-
             game.setWarp(false);
-
             controller.autoSaveOnArrival();
         } catch (GameEndException ex) {
             controller.gameEnd();
@@ -314,47 +312,12 @@ public class TargetSystemPanel extends Panel {
         updateAll();
     }
 
-    void update() {
-        btnNextSystem.setVisible(game != null);
-        btnPrevSystem.setVisible(game != null);
-
-        if (game == null || game.getWarpSystem() == null) {
-            lblTargetName.setText("");
-            lblTargetSize.setText("");
-            lblTargetTech.setText("");
-            lblTargetPolSys.setText("");
-            lblTargetResource.setText("");
-            lblTargetPolice.setText("");
-            lblTargetPirates.setText("");
-            lblTargetDistance.setText("");
-            lblTargetOutOfRange.setVisible(false);
-            btnWarp.setVisible(false);
-            btnTrack.setVisible(false);
-        } else {
-            StarSystem system = game.getWarpSystem();
-            int distance = Functions.distance(commander.getCurrentSystem(), system);
-
-            lblTargetName.setText(system.getName());
-            lblTargetSize.setText(Strings.Sizes[system.size().castToInt()]);
-            lblTargetTech.setText(Strings.TechLevelNames[system.getTechLevel().castToInt()]);
-            lblTargetPolSys.setText(system.politicalSystem().name());
-            lblTargetResource.setText(system.isVisited() ? Strings.SpecialResources[system.getSpecialResource().castToInt()]
-                    : Strings.Unknown);
-            lblTargetPolice.setText(Strings.ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
-            lblTargetPirates.setText(Strings.ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
-            lblTargetDistance.setText("" + distance);
-            lblTargetOutOfRange.setVisible(!system.destOk() && system != commander.getCurrentSystem());
-            btnWarp.setVisible(system.destOk());
-            btnTrack.setVisible(lblTargetOutOfRange.isVisible() && system != game.getTrackedSystem());
-        }
-    }
-
-    private void btnNextSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
+    private void nextSystemButtonClick() {
         game.selectNextSystemWithinRange(true);
         updateAll();
     }
 
-    private void btnPrevSystem_Click(Object sender, spacetrader.controls.EventArgs e) {
+    private void prevSystemButtonClick() {
         game.selectNextSystemWithinRange(false);
         updateAll();
     }

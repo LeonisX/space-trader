@@ -38,6 +38,10 @@ public class Label extends BaseComponent {
         ((JLabel) swingComponent).setText(text);
     }
 
+    public void setText(int number) {
+        this.setText(Integer.toString(number));
+    }
+
     @Override
     public void setBackground(Color background) {
         ((JLabel) swingComponent).setOpaque(background != null);
