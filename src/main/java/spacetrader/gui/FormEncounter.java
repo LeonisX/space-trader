@@ -1393,14 +1393,14 @@ public class FormEncounter extends SpaceTraderForm {
             visible[INT] = true;
 
         for (int i = 0; i < visible.length; i++) {
-            if (visible[i] != buttons[i].getVisible()) {
+            if (visible[i] != buttons[i].isVisible()) {
                 buttons[i].setVisible(visible[i]);
                 if (i == INT)
                     picContinuous.setVisible(visible[i]);
             }
         }
 
-        if (picContinuous.getVisible())
+        if (picContinuous.isVisible())
             picContinuous.setImage(ilContinuous.getImages()[contImg = (contImg + 1) % 2]);
     }
 
@@ -1437,7 +1437,7 @@ public class FormEncounter extends SpaceTraderForm {
 
         for (int i = 0; i < toShow; i++) {
             int index = Functions.GetRandom(tribbles.length);
-            while (tribbles[index].getVisible())
+            while (tribbles[index].isVisible())
                 index = (index + 1) % tribbles.length;
 
             tribbles[index].setImage(ilTribbles.getImages()[Functions

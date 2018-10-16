@@ -345,7 +345,7 @@ public class TargetSystemPanel extends Panel {
             lblTargetDistance.setText("" + distance);
             lblTargetOutOfRange.setVisible(!system.destOk() && system != commander.getCurrentSystem());
             btnWarp.setVisible(system.destOk());
-            btnTrack.setVisible(lblTargetOutOfRange.getVisible() && system != game.TrackedSystem());
+            btnTrack.setVisible(lblTargetOutOfRange.isVisible() && system != game.TrackedSystem());
         }
     }
 

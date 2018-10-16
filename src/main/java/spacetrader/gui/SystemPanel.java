@@ -36,8 +36,6 @@ class SystemPanel extends Panel {
     private Label systemSizeLabel;
     private Label systemTechLevelLabelValue;
     private Label systemTechLevelLabel;
-    private ToolTip tipSpecial;
-    private ToolTip tipMerc;
 
     SystemPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
@@ -180,7 +178,6 @@ class SystemPanel extends Panel {
         systemPiratesLabelValue.setTabIndex(11);
         //systemPiratesLabelValue.setText("Abundant");
 
-
         systemPressureLabel.setAutoSize(true);
         systemPressureLabel.setLocation(new Point(8, 134));
         systemPressureLabel.setSize(new Size(122, 16));
@@ -191,7 +188,6 @@ class SystemPanel extends Panel {
         systemPressureLabelValue.setSize(new Size(168, 16));
         systemPressureLabelValue.setTabIndex(18);
         //systemPressureLabelValue.setText("suffering from extreme bordom.");
-
 
         newsButton.setFlatStyle(FlatStyle.FLAT);
         newsButton.setLocation(new Point(8, 174));
@@ -229,10 +225,6 @@ class SystemPanel extends Panel {
                 hireMercenaryButtonClick();
             }
         });
-
-        //TODO what is it???
-        tipSpecial = new ToolTip();
-        tipMerc = new ToolTip();
     }
 
     void update() {
@@ -264,13 +256,13 @@ class SystemPanel extends Panel {
             systemPressureLabel.setVisible(true);
             newsButton.setVisible(true);
             hireMercenaryButton.setVisible(mercenaries.length > 0);
-            if (hireMercenaryButton.getVisible()) {
-                tipMerc.setToolTip(hireMercenaryButton, Functions.stringVars(Strings.MercenariesForHire,
+            if (hireMercenaryButton.isVisible()) {
+                setToolTip(hireMercenaryButton, Functions.stringVars(Strings.MercenariesForHire,
                         mercenaries.length == 1 ? mercenaries[0].Name() : mercenaries.length + Strings.Mercenaries));
             }
             specialButton.setVisible(system.showSpecialButton());
-            if (specialButton.getVisible()) {
-                tipSpecial.setToolTip(specialButton, system.specialEvent().title());
+            if (specialButton.isVisible()) {
+                setToolTip(specialButton, system.specialEvent().title());
             }
         }
     }
@@ -316,5 +308,9 @@ class SystemPanel extends Panel {
         }
 
         mainWindow.updateAll();
+    }
+
+    private void setToolTip(Button button, String text) {
+        button.asJButton().setToolTipText(text);
     }
 }

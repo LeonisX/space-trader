@@ -26,7 +26,7 @@ public class Button extends BaseComponent {
         super.setSize(new Dimension(size.width, size.height));
     }
 
-    JButton asJButton() {
+    public JButton asJButton() {
         return (JButton) swingComponent;
     }
 

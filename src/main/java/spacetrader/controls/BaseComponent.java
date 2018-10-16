@@ -112,7 +112,7 @@ public class BaseComponent implements ISupportInitialize, IName {
         // /TODO impl.
     }
 
-    public boolean getVisible() {
+    public boolean isVisible() {
         return swingComponent.isVisible();
     }
 

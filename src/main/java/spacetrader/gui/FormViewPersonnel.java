@@ -420,7 +420,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     //#region Event Handlers
 
     private void HireFire(Object sender, EventArgs e) {
-        if (selectedCrewMember != null && btnHireFire.getVisible()) {
+        if (selectedCrewMember != null && btnHireFire.isVisible()) {
             if (game.Commander().getShip().HasCrew(selectedCrewMember.Id())) {
                 if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.Name()) == DialogResult.YES) {
                     game.Commander().getShip().Fire(selectedCrewMember.Id());
