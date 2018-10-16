@@ -142,7 +142,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         this.setCancelButton(btnNothing);
         this.setClientSize(new spacetrader.controls.Size(264, 79));
         this.setControlBox(false);
-        Controls.addAll(lblStatement, btnNothing, btnMax, btnOk, numAmount,
+        controls.addAll(lblStatement, btnNothing, btnMax, btnOk, numAmount,
                 lblQuestion);
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormPayBackLoan");

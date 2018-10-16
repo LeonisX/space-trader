@@ -985,7 +985,7 @@ public class FormShipyard extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnCancel);
         this.setClientSize(new spacetrader.controls.Size(478, 375));
-        Controls.addAll(Arrays.asList(lblDisabledPct, boxWelcome, lblDisabledName, boxAllocation, boxCosts, boxInfo,
+        controls.addAll(Arrays.asList(lblDisabledPct, boxWelcome, lblDisabledName, boxAllocation, boxCosts, boxInfo,
                 btnCancel, btnConstruct));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
@@ -1221,7 +1221,7 @@ public class FormShipyard extends SpaceTraderForm {
                 }
 
                 GuiFacade.alert(AlertType.ShipDesignThanks, shipyard.Name());
-                Close();
+                close();
             }
         }
     }

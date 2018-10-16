@@ -138,7 +138,7 @@ public class FormBuyFuel extends SpaceTraderForm {
         this.setCancelButton(this.btnNothing);
         this.setClientSize(new spacetrader.controls.Size(270, 63));
         this.setControlBox(false);
-        this.Controls.addAll(Arrays.asList(this.btnNothing, this.btnMax, this.btnOk, this.numAmount, this.lblQuestion));
+        this.controls.addAll(Arrays.asList(this.btnNothing, this.btnMax, this.btnOk, this.numAmount, this.lblQuestion));
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormBuyFuel");
         this.setShowInTaskbar(false);

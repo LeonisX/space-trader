@@ -561,27 +561,27 @@ public class FormMonster extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new Size(5, 13));
         this.setCancelButton(btnClose);
         this.setClientSize(new Size(617, 358));
-        Controls.add(picLine2);
-        Controls.add(pnlShipyards);
-        Controls.add(pnlQuests);
-        Controls.add(picLine1);
-        Controls.add(picLine0);
-        Controls.add(pnlMercs);
-        Controls.add(lblShipyardsLabel);
-        Controls.add(lblShipyardsDescLabel);
-        Controls.add(lblShipyardsSystemLabel);
-        Controls.add(lblMercNameLabel);
-        Controls.add(lblMercIDLabel);
-        Controls.add(lblQuestDescLabel);
-        Controls.add(lblQuestSystemLabel);
-        Controls.add(lblMercSystemLabel);
-        Controls.add(lblMercSkillLabelEngineer);
-        Controls.add(lblMercSkillLabelTrader);
-        Controls.add(lblMercSkillLabelFighter);
-        Controls.add(lblMercSkillLabelPilot);
-        Controls.add(lblMercLabel);
-        Controls.add(lblQuestsLabel);
-        Controls.add(btnClose);
+        controls.add(picLine2);
+        controls.add(pnlShipyards);
+        controls.add(pnlQuests);
+        controls.add(picLine1);
+        controls.add(picLine0);
+        controls.add(pnlMercs);
+        controls.add(lblShipyardsLabel);
+        controls.add(lblShipyardsDescLabel);
+        controls.add(lblShipyardsSystemLabel);
+        controls.add(lblMercNameLabel);
+        controls.add(lblMercIDLabel);
+        controls.add(lblQuestDescLabel);
+        controls.add(lblQuestSystemLabel);
+        controls.add(lblMercSystemLabel);
+        controls.add(lblMercSkillLabelEngineer);
+        controls.add(lblMercSkillLabelTrader);
+        controls.add(lblMercSkillLabelFighter);
+        controls.add(lblMercSkillLabelPilot);
+        controls.add(lblMercLabel);
+        controls.add(lblQuestsLabel);
+        controls.add(btnClose);
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
@@ -864,7 +864,7 @@ public class FormMonster extends SpaceTraderForm {
     private void SystemLinkClicked(Object sender, LinkLabelLinkClickedEventArgs e) {
         Game.getCurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
         Game.getCurrentGame().getParentWindow().updateAll();
-        Close();
+        close();
     }
 
     private void SortLinkClicked(Object sender, LinkLabelLinkClickedEventArgs e) {

@@ -212,7 +212,7 @@ public class FormCosts extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
         this.setClientSize(new spacetrader.controls.Size(148, 99));
-        this.Controls.addAll(this.picLine, this.lblTotal,
+        this.controls.addAll(this.picLine, this.lblTotal,
                 this.lblTax, this.lblInt, this.lblIns, this.lblMerc,
                 this.btnClose, this.lblInsLabel, this.lblTotalLabel,
                 this.lblTaxLabel, this.lblIntLabel, this.lblMercLabel);

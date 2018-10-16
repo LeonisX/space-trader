@@ -62,7 +62,7 @@ public class ResourceManager {
         }
     }
 
-    Object getImage(String imageName) {
+    public static Object getImage(String imageName) {
         return new Bitmap(classLoader.getResource(imageName.trim()));
     }
 

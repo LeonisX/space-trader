@@ -26,104 +26,80 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.Button;
 import spacetrader.controls.Image;
+import spacetrader.controls.Label;
 
 import javax.swing.*;
 import java.awt.*;
 
+public class FormAbout extends WinformForm {
 
-public class FormAbout extends spacetrader.controls.WinformForm {
-    // #region Control Declarations
-
-    private spacetrader.controls.Button btnClose;
-    private spacetrader.controls.Label lblTitle;
-    private spacetrader.controls.Label lblAbout;
-    private spacetrader.controls.PictureBox picLogo;
-
-    // #endregion
-
-    // #region Methods
+    private PictureBox logoPicture;
+    private Label titleLabel;
+    private Label aboutLabel;
+    private Button closeButton;
 
     FormAbout() {
         initializeComponent();
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, UnsupportedLookAndFeelException {
         Launcher.runForm(new FormAbout());
     }
-    // #endregion
 
-    // #endregion
-
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        spacetrader.controls.ComponentResourceManager resources = new ComponentResourceManager(FormAbout.class);
-        this.btnClose = new spacetrader.controls.Button();
-        this.lblTitle = new spacetrader.controls.Label();
-        this.lblAbout = new spacetrader.controls.Label();
-        this.picLogo = new spacetrader.controls.PictureBox();
-        ((ISupportInitialize) (this.picLogo)).beginInit();
-        this.suspendLayout();
-        //
-        // btnClose
-        //
-        this.btnClose.setDialogResult(DialogResult.CANCEL);
-        this.btnClose.setLocation(new Point(-32, -32));
-        this.btnClose.setName("btnClose");
-        this.btnClose.setSize(new Size(32, 32));
-        this.btnClose.setTabIndex(32);
-        this.btnClose.setTabStop(false);
-        this.btnClose.setText("X");
-        //
-        // lblTitle
-        //
-        this.lblTitle.setAutoSize(true);
-        this.lblTitle.setFont(FontCollection.bold825);
-        this.lblTitle.setLocation(new Point(172, 8));
-        this.lblTitle.setName("lblTitle");
-        this.lblTitle.setSize(new Size(187, 13));
-        this.lblTitle.setTabIndex(33);
-        this.lblTitle.setText("Space Trader for Windows 2.01");
-        //
-        // lblAbout
-        //
-        this.lblAbout.setLocation(new Point(172, 32));
-        this.lblAbout.setName("lblAbout");
-        this.lblAbout.setSize(new Size(272, 160));
-        this.lblAbout.setTabIndex(34);
-        this.lblAbout.setText(resources.getString("lblAbout.Text"));
-        //
-        // picLogo
-        //
-        this.picLogo.setImage(((Image) (resources.getObject("picLogo.Image"))));
-        this.picLogo.setLocation(new Point(8, 8));
-        this.picLogo.setName("picLogo");
-        this.picLogo.setSize(new Size(160, 160));
-        this.picLogo.setTabIndex(35);
-        this.picLogo.setTabStop(false);
-        //
-        // FormAbout
-        //
-        this.setAutoScaleBaseSize(new Size(5, 13));
-        this.setCancelButton(this.btnClose);
-        this.setClientSize(new Size(446, 191));
-        this.Controls.add(this.picLogo);
-        this.Controls.add(this.lblAbout);
-        this.Controls.add(this.lblTitle);
-        this.Controls.add(this.btnClose);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
-        this.setMaximizeBox(false);
-        this.setMinimizeBox(false);
-        this.setName("FormAbout");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CenterParent);
-        this.setText("About Space Trader");
-        ((ISupportInitialize) (this.picLogo)).endInit();
-        this.PerformLayout();
+        closeButton = new Button();
+        titleLabel = new Label();
+        aboutLabel = new Label();
+        logoPicture = new PictureBox();
+        suspendLayout();
 
+        closeButton.setDialogResult(DialogResult.CANCEL);
+        closeButton.setLocation(new Point(-32, -32));
+        closeButton.setSize(new Size(32, 32));
+        closeButton.setTabIndex(32);
+        closeButton.setTabStop(false);
+
+        titleLabel.setAutoSize(true);
+        titleLabel.setFont(FontCollection.bold825);
+        titleLabel.setLocation(new Point(172, 8));
+        titleLabel.setSize(new Size(187, 13));
+        titleLabel.setTabIndex(33);
+        titleLabel.setText("Space Trader for Windows 2.01");
+
+        aboutLabel.setLocation(new Point(172, 32));
+        aboutLabel.setSize(new Size(272, 160));
+        aboutLabel.setTabIndex(34);
+        aboutLabel.setText("Copyright © 2005 French<BR>spacetrader@frenchfryz.com<BR><BR>" +
+                "Palm version copyright © 2000-2002 by Peter Spronk<BR>" +
+                "space_trader@hotmail.com<BR><BR>Pictures copyright © 2000 by Alexander Lawrence<BR><BR>" +
+                "This game is freeware under a GNU General Public License.<BR>" +
+                "http://spacetraderwin.sourceforge.net/");
+
+        logoPicture.setImage(((Image) (ResourceManager.getImage("images/splash.jpg"))));
+        logoPicture.setLocation(new Point(8, 8));
+        logoPicture.setSize(new Size(160, 160));
+        logoPicture.setTabIndex(35);
+        logoPicture.setTabStop(false);
+
+        setAutoScaleBaseSize(new Size(5, 13));
+        setCancelButton(closeButton);
+        setClientSize(new Size(446, 191));
+
+        controls.add(logoPicture);
+        controls.add(aboutLabel);
+        controls.add(titleLabel);
+        controls.add(closeButton);
+
+        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setMaximizeBox(false);
+        setMinimizeBox(false);
+        setName("FormAbout");
+        setShowInTaskbar(false);
+        setStartPosition(FormStartPosition.CenterParent);
+        setText("About Space Trader");
+        performLayout();
     }
 }

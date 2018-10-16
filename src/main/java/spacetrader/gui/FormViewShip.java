@@ -155,7 +155,7 @@ public class FormViewShip extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
         this.setClientSize(new spacetrader.controls.Size(402, 219));
-        this.Controls.addAll(Arrays.asList(this.boxSpecialCargo, this.lblEquip, this.lblEquipLabel, this.btnClose,
+        this.controls.addAll(Arrays.asList(this.boxSpecialCargo, this.lblEquip, this.lblEquipLabel, this.btnClose,
                 this.lblTypeLabel, this.lblType));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);

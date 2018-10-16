@@ -403,7 +403,7 @@ public class FormViewCommander extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
         this.setClientSize(new spacetrader.controls.Size(232, 304));
-        this.Controls.addAll(Arrays.asList(this.boxNotoriety, this.boxFinances, this.boxSkills, this.lblTime,
+        this.controls.addAll(Arrays.asList(this.boxNotoriety, this.boxFinances, this.boxSkills, this.lblTime,
                 this.lblDifficultyLabel, this.lblTimeLabel, this.lblNameLabel, this.btnClose, this.lblDifficulty,
                 this.lblName));
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);

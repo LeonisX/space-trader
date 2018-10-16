@@ -231,7 +231,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnClose);
         this.setClientSize(new spacetrader.controls.Size(218, 191));
-        Controls.addAll(Arrays.asList(lblStatus2, lblStatus1, lblStatus0, lblName2, lblName1, lblName0, lblScore2,
+        controls.addAll(Arrays.asList(lblStatus2, lblStatus1, lblStatus0, lblName2, lblName1, lblName0, lblScore2,
                 lblScore1, lblScore0, lblRank1, lblRank2, lblRank0, btnClose));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);

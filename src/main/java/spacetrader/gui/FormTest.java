@@ -252,7 +252,7 @@ public class FormTest extends SpaceTraderForm {
         //
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setClientSize(new spacetrader.controls.Size(370, 255));
-        this.Controls.addAll(Arrays.asList(
+        this.controls.addAll(Arrays.asList(
                 this.panel1,
                 this.boxAlert));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);

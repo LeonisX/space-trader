@@ -1,6 +1,8 @@
 package spacetrader.gui;
 
 class ChartsGraphicsConsts {
+
+    //TODO multiplier?
     static final int OFF_X = 3;
     static final int OFF_Y = 3;
     static final int OFF_X_WORM = OFF_X + 1;
@@ -12,4 +14,5 @@ class ChartsGraphicsConsts {
     static final int IMG_S_V = 5;
     static final int IMG_S_VS = 6;
     static final int IMG_S_W = 7;
+
 }

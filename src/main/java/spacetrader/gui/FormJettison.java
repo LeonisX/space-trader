@@ -563,7 +563,7 @@ public class FormJettison extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnDone);
         this.setClientSize(new spacetrader.controls.Size(218, 283));
-        Controls.addAll(Arrays.asList(btnDone, lblBays, lblBaysLabel, lblTradeCmdty9, lblTradeCmdty8, lblTradeCmdty2,
+        controls.addAll(Arrays.asList(btnDone, lblBays, lblBaysLabel, lblTradeCmdty9, lblTradeCmdty8, lblTradeCmdty2,
                 lblTradeCmdty0, lblTradeCmdty1, lblTradeCmdty6, lblTradeCmdty5, lblTradeCmdty4, lblTradeCmdty3,
                 lblTradeCmdty7, btnJettisonAll9, btnJettisonQty9, btnJettisonAll8, btnJettisonQty8, btnJettisonAll7,
                 btnJettisonQty7, btnJettisonAll6, btnJettisonQty6, btnJettisonAll5, btnJettisonQty5, btnJettisonAll4,

@@ -924,7 +924,7 @@ public class FormShipList extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnClose);
         this.setClientSize(new spacetrader.controls.Size(438, 255));
-        Controls.addAll(Arrays.asList(
+        controls.addAll(Arrays.asList(
                 boxShipInfo,
                 lblPrice9,
                 btnInfo9,

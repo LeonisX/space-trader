@@ -116,7 +116,7 @@ public class FormViewQuests extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
         this.setClientSize(new spacetrader.controls.Size(378, 325));
-        this.Controls.addAll(Arrays.asList(this.btnClose, this.lblQuests));
+        this.controls.addAll(Arrays.asList(this.btnClose, this.lblQuests));
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
@@ -297,7 +297,7 @@ public class FormViewQuests extends SpaceTraderForm {
                                        spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
         Game.getCurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
         Game.getCurrentGame().getParentWindow().updateAll();
-        Close();
+        close();
     }
 
     // #endregion

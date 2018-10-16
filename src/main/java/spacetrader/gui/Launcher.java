@@ -6,11 +6,11 @@ import spacetrader.controls.WinformForm;
 import javax.swing.*;
 
 
-public class Launcher {
+class Launcher {
 
-    public static void runForm(WinformForm form) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+    static void runForm(WinformForm form) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
             UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         SwingUtilities.updateComponentTreeUI(form.asSwingObject());
         DialogResult res = form.showDialog(null);
         System.out.println("Dialog result: " + res);

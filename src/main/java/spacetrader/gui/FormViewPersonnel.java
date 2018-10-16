@@ -309,10 +309,10 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
         this.setClientSize(new spacetrader.controls.Size(488, 129));
-        this.Controls.add(this.boxInfo);
-        this.Controls.add(this.boxForHire);
-        this.Controls.add(this.boxCurrentCrew);
-        this.Controls.add(this.btnClose);
+        this.controls.add(this.boxInfo);
+        this.controls.add(this.boxForHire);
+        this.controls.add(this.boxCurrentCrew);
+        this.controls.add(this.btnClose);
         this.setFormBorderStyle(FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);

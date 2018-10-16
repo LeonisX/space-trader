@@ -290,7 +290,7 @@ public class FormViewBank extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(btnClose);
         this.setClientSize(new spacetrader.controls.Size(226, 231));
-        Controls.addAll(Arrays.asList(
+        controls.addAll(Arrays.asList(
                 lblMaxNoClaim,
                 btnClose,
                 btnPayBack,

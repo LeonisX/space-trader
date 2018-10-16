@@ -1202,69 +1202,69 @@ public class FormEncounter extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setClientSize(new spacetrader.controls.Size(234, 271));
         this.setControlBox(false);
-        Controls.add(picTrib55);
-        Controls.add(picTrib54);
-        Controls.add(picTrib45);
-        Controls.add(picTrib44);
-        Controls.add(picTrib53);
-        Controls.add(picTrib43);
-        Controls.add(picTrib52);
-        Controls.add(picTrib42);
-        Controls.add(picTrib51);
-        Controls.add(picTrib41);
-        Controls.add(picTrib35);
-        Controls.add(picTrib34);
-        Controls.add(picTrib33);
-        Controls.add(picTrib32);
-        Controls.add(picTrib31);
-        Controls.add(picTrib25);
-        Controls.add(picTrib24);
-        Controls.add(picTrib23);
-        Controls.add(picTrib22);
-        Controls.add(picTrib21);
-        Controls.add(picTrib15);
-        Controls.add(picTrib14);
-        Controls.add(picTrib13);
-        Controls.add(picTrib12);
-        Controls.add(picTrib11);
-        Controls.add(picTrib05);
-        Controls.add(picTrib01);
-        Controls.add(picTrib02);
-        Controls.add(picTrib03);
-        Controls.add(picTrib04);
-        Controls.add(picTrib30);
-        Controls.add(picTrib20);
-        Controls.add(picTrib40);
-        Controls.add(picTrib10);
-        Controls.add(picTrib50);
-        Controls.add(picTrib00);
-        Controls.add(picEncounterType);
-        Controls.add(picContinuous);
-        Controls.add(btnYield);
-        Controls.add(btnInt);
-        Controls.add(btnMeet);
-        Controls.add(btnPlunder);
-        Controls.add(btnTrade);
-        Controls.add(btnIgnore);
-        Controls.add(btnSurrender);
-        Controls.add(btnBribe);
-        Controls.add(btnSubmit);
-        Controls.add(btnFlee);
-        Controls.add(lblOpponentShields);
-        Controls.add(lblOpponentHull);
-        Controls.add(lblYouShields);
-        Controls.add(lblYouHull);
-        Controls.add(lblYouShip);
-        Controls.add(lblOpponentShip);
-        Controls.add(lblYouLabel);
-        Controls.add(lblOpponentLabel);
-        Controls.add(lblAction);
-        Controls.add(picShipOpponent);
-        Controls.add(picShipYou);
-        Controls.add(lblEncounter);
-        Controls.add(btnDrink);
-        Controls.add(btnBoard);
-        Controls.add(btnAttack);
+        controls.add(picTrib55);
+        controls.add(picTrib54);
+        controls.add(picTrib45);
+        controls.add(picTrib44);
+        controls.add(picTrib53);
+        controls.add(picTrib43);
+        controls.add(picTrib52);
+        controls.add(picTrib42);
+        controls.add(picTrib51);
+        controls.add(picTrib41);
+        controls.add(picTrib35);
+        controls.add(picTrib34);
+        controls.add(picTrib33);
+        controls.add(picTrib32);
+        controls.add(picTrib31);
+        controls.add(picTrib25);
+        controls.add(picTrib24);
+        controls.add(picTrib23);
+        controls.add(picTrib22);
+        controls.add(picTrib21);
+        controls.add(picTrib15);
+        controls.add(picTrib14);
+        controls.add(picTrib13);
+        controls.add(picTrib12);
+        controls.add(picTrib11);
+        controls.add(picTrib05);
+        controls.add(picTrib01);
+        controls.add(picTrib02);
+        controls.add(picTrib03);
+        controls.add(picTrib04);
+        controls.add(picTrib30);
+        controls.add(picTrib20);
+        controls.add(picTrib40);
+        controls.add(picTrib10);
+        controls.add(picTrib50);
+        controls.add(picTrib00);
+        controls.add(picEncounterType);
+        controls.add(picContinuous);
+        controls.add(btnYield);
+        controls.add(btnInt);
+        controls.add(btnMeet);
+        controls.add(btnPlunder);
+        controls.add(btnTrade);
+        controls.add(btnIgnore);
+        controls.add(btnSurrender);
+        controls.add(btnBribe);
+        controls.add(btnSubmit);
+        controls.add(btnFlee);
+        controls.add(lblOpponentShields);
+        controls.add(lblOpponentHull);
+        controls.add(lblYouShields);
+        controls.add(lblYouHull);
+        controls.add(lblYouShip);
+        controls.add(lblOpponentShip);
+        controls.add(lblYouLabel);
+        controls.add(lblOpponentLabel);
+        controls.add(lblAction);
+        controls.add(picShipOpponent);
+        controls.add(picShipYou);
+        controls.add(lblEncounter);
+        controls.add(btnDrink);
+        controls.add(btnBoard);
+        controls.add(btnAttack);
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
@@ -1298,12 +1298,12 @@ public class FormEncounter extends SpaceTraderForm {
                     || game.getEncounterContinueAttacking())
                 tmrTick.Start();
         } else
-            Close();
+            close();
     }
 
     private void Exit(EncounterResult result) {
         _result = result;
-        Close();
+        close();
     }
 
     private void UpdateButtons() {
@@ -1514,7 +1514,7 @@ public class FormEncounter extends SpaceTraderForm {
         DisableAuto();
 
         if ((_result = game.EncounterVerifySurrender()) != EncounterResult.Continue)
-            Close();
+            close();
     }
 
     private void btnTrade_Click(Object sender, EventArgs e) {
@@ -1525,7 +1525,7 @@ public class FormEncounter extends SpaceTraderForm {
 
     private void btnYield_Click(Object sender, EventArgs e) {
         if ((_result = game.EncounterVerifyYield()) != EncounterResult.Continue)
-            Close();
+            close();
     }
 
     private void picShipOpponent_Paint(Object sender,

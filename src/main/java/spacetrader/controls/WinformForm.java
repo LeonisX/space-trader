@@ -7,35 +7,36 @@ import java.awt.*;
 // TODO make Closing etc work.
 public class WinformForm extends WinformPane {
 
-    protected final WinformJPanel Controls;
-    private final JDialog jdialog;
+    protected final WinformJPanel controls;
+    private final JDialog jDialog;
     private final WinformJPanel panel;
-    DialogResult result;
+
+    private DialogResult result;
     // Must encapsulate most of these.
-    private Size AutoScaleBaseSize;
-    private boolean ShowInTaskbar;
-    private boolean MinimizeBox;
-    private boolean MaximizeBox;
-    private FormStartPosition StartPosition;
-    private Button AcceptButton;
-    private Button CancelButton;
-    private String Title;
+    private Size autoScaleBaseSize;
+    private boolean showInTaskbar;
+    private boolean minimizeBox;
+    private boolean maximizeBox;
+    private FormStartPosition startPosition;
+    private Button acceptButton;
+    private Button cancelButton;
+    private String title;
     private WinformPane parent;
 
     protected WinformForm() {
         // super(new WinformJPanel());
         super(new JDialog());
-        jdialog = (JDialog) swingComponent;
-        jdialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        jDialog = (JDialog) swingComponent;
+        jDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         panel = new WinformJPanel(this);
-        jdialog.setContentPane(panel);
-        Controls = panel;
-        jdialog.setResizable(false);
+        jDialog.setContentPane(panel);
+        controls = panel;
+        jDialog.setResizable(false);
     }
 
     // ///////////// implementation ends here.
-    protected Graphics CreateGraphics() {
-        return new Graphics(jdialog.getGraphics());
+    protected Graphics createGraphics() {
+        return new Graphics(jDialog.getGraphics());
     }
 
     public DialogResult showDialog() {
@@ -47,7 +48,7 @@ public class WinformForm extends WinformPane {
         parent = owner;
 
         panel.addMouseListener(getMouseListener());
-        jdialog.setModalityType(ModalityType.APPLICATION_MODAL);
+        jDialog.setModalityType(ModalityType.APPLICATION_MODAL);
 
         fixLocation();
         show();
@@ -56,103 +57,103 @@ public class WinformForm extends WinformPane {
     }
 
     private void fixLocation() {
-        if (StartPosition == null)
+        if (startPosition == null)
             return;
-        switch (StartPosition) {
+        switch (startPosition) {
             case CenterParent:
-                jdialog.setLocationRelativeTo(parent == null ? null : parent.asSwingObject());
+                jDialog.setLocationRelativeTo(parent == null ? null : parent.asSwingObject());
                 break;
             case Manual:
                 break;
             default:
-                throw new Error("Unknown startPosition kind: " + StartPosition);
+                throw new Error("Unknown startPosition kind: " + startPosition);
         }
     }
 
-    public void Close() {
-        jdialog.setVisible(false);
-        jdialog.dispose();
+    public void close() {
+        jDialog.setVisible(false);
+        jDialog.dispose();
     }
 
-    protected void PerformLayout() {
+    protected void performLayout() {
     }
 
     public Size getAutoScaleBaseSize() {
-        return AutoScaleBaseSize;
+        return autoScaleBaseSize;
     }
 
     public void setAutoScaleBaseSize(Size autoScaleBaseSize) {
-        AutoScaleBaseSize = autoScaleBaseSize;
+        this.autoScaleBaseSize = autoScaleBaseSize;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public Button getAcceptButton() {
-        return AcceptButton;
+        return acceptButton;
     }
 
     public void setAcceptButton(Button acceptButton) {
-        jdialog.getRootPane().setDefaultButton(acceptButton.asJButton());
+        jDialog.getRootPane().setDefaultButton(acceptButton.asJButton());
     }
 
     public Button getCancelButton() {
-        return CancelButton;
+        return cancelButton;
     }
 
     // TODO handle.
     public void setCancelButton(Button cancelButton) {
-        CancelButton = cancelButton;
+        this.cancelButton = cancelButton;
     }
 
     public void setStartPosition(FormStartPosition startPosition) {
-        StartPosition = startPosition;
+        this.startPosition = startPosition;
     }
 
     public void setControlBox(boolean controlBox) {
-        jdialog.setDefaultCloseOperation(controlBox ? JDialog.DISPOSE_ON_CLOSE : JDialog.DO_NOTHING_ON_CLOSE);
+        jDialog.setDefaultCloseOperation(controlBox ? JDialog.DISPOSE_ON_CLOSE : JDialog.DO_NOTHING_ON_CLOSE);
     }
 
     public boolean getShowInTaskbar() {
-        return ShowInTaskbar;
+        return showInTaskbar;
     }
 
     // TODO ShowInTaskbar
     public void setShowInTaskbar(boolean showInTaskbar) {
-        ShowInTaskbar = showInTaskbar;
+        this.showInTaskbar = showInTaskbar;
     }
 
     public boolean getMinimizeBox() {
-        return MinimizeBox;
+        return minimizeBox;
     }
 
     public void setMinimizeBox(boolean minimizeBox) {
-        MinimizeBox = minimizeBox;
+        this.minimizeBox = minimizeBox;
     }
 
     public boolean getMaximizeBox() {
-        return MaximizeBox;
+        return maximizeBox;
     }
 
     public void setMaximizeBox(boolean maximizeBox) {
-        MaximizeBox = maximizeBox;
+        this.maximizeBox = maximizeBox;
     }
 
     public void setFormBorderStyle(FormBorderStyle style) {
         switch (style) {
             case FixedDialog:
-                jdialog.setUndecorated(false);
+                jDialog.setUndecorated(false);
                 break;
             case FixedSingle:
-                jdialog.setUndecorated(false);
+                jDialog.setUndecorated(false);
                 break;
             case None:
-                jdialog.setUndecorated(true);
+                jDialog.setUndecorated(true);
                 break;
 
             default:
@@ -170,16 +171,16 @@ public class WinformForm extends WinformPane {
     }
 
     public String getText() {
-        return jdialog.getTitle();
+        return jDialog.getTitle();
     }
 
     public void setText(String text) {
-        jdialog.setTitle(text);
+        jDialog.setTitle(text);
     }
 
     @Override
     public void dispose() {
-        jdialog.dispose();
+        jDialog.dispose();
     }
 
     @Override

@@ -47,7 +47,7 @@ public class FormAlert extends SpaceTraderForm {
     public FormAlert(String title, String text, String button1Text, DialogResult button1Result, String button2Text,
                      DialogResult button2Result, String[] args) {
         this();
-        Graphics g = this.CreateGraphics();
+        Graphics g = this.createGraphics();
 
         // Replace any variables.
         if (args != null) {
@@ -930,7 +930,7 @@ public class FormAlert extends SpaceTraderForm {
         tmrTick.Tick = new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                FormAlert.this.Close();
+                FormAlert.this.close();
             }
         };
         //
@@ -939,9 +939,9 @@ public class FormAlert extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setClientSize(new spacetrader.controls.Size(270, 63));
         this.setControlBox(false);
-        Controls.add(btn2);
-        Controls.add(btn1);
-        Controls.add(lblText);
+        controls.add(btn2);
+        controls.add(btn1);
+        controls.add(lblText);
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormAlert");
         this.setShowInTaskbar(false);
@@ -959,7 +959,7 @@ public class FormAlert extends SpaceTraderForm {
         // If the button is off-screen, this is an image and can be clicked
         // away.
         if (btn1.getLeft() < 0)
-            Close();
+            close();
     }
 }
 

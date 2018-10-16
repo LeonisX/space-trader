@@ -596,10 +596,10 @@ public class FormEquipment extends SpaceTraderForm {
         this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
         this.setCancelButton(this.btnClose);
         this.setClientSize(new spacetrader.controls.Size(522, 311));
-        this.Controls.add(this.boxShipInfo);
-        this.Controls.add(this.boxBuy);
-        this.Controls.add(this.boxSell);
-        this.Controls.add(this.btnClose);
+        this.controls.add(this.boxShipInfo);
+        this.controls.add(this.boxBuy);
+        this.controls.add(this.boxSell);
+        this.controls.add(this.btnClose);
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);

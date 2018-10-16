@@ -117,7 +117,7 @@ public class FormFind extends SpaceTraderForm {
         this.setCancelButton(btnCancel);
         this.setClientSize(new spacetrader.controls.Size(184, 97));
         this.setControlBox(false);
-        Controls.addAll(chkTrack, txtSystem,
+        controls.addAll(chkTrack, txtSystem,
                 btnCancel, btnOk, lblText);
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormFind");

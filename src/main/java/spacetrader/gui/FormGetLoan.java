@@ -139,7 +139,7 @@ public class FormGetLoan extends SpaceTraderForm {
         this.setCancelButton(this.btnNothing);
         this.setClientSize(new spacetrader.controls.Size(252, 79));
         this.setControlBox(false);
-        this.Controls.addAll(Arrays.asList(this.lblStatement, this.btnNothing, this.btnMax, this.btnOk, this.numAmount,
+        this.controls.addAll(Arrays.asList(this.lblStatement, this.btnNothing, this.btnMax, this.btnOk, this.numAmount,
                 this.lblQuestion));
         this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
         this.setName("FormGetLoan");
