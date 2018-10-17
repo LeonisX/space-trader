@@ -22,7 +22,6 @@ package spacetrader.gui;
 
 import spacetrader.controls.*;
 import spacetrader.controls.Container;
-import spacetrader.controls.Icon;
 import spacetrader.controls.Image;
 import spacetrader.controls.MenuItem;
 import spacetrader.game.*;
@@ -32,13 +31,9 @@ import spacetrader.game.enums.ShipType;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.*;
+import spacetrader.util.ReflectionUtils;
 
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 import static spacetrader.controls.MenuItem.separator;
 
@@ -107,44 +102,19 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         updateAll();
 
-        setAllComponentNames(this);
+        ReflectionUtils.setAllComponentNames(this);
 
-        dumpDimensions(getFrame(), this.getName());
+        ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
         System.out.println("===================");
-        dumpStrings(getFrame(), this.getName());
+        ReflectionUtils.dumpControlsStrings(getFrame(), this.getName());
 
-        //loadDimensions(getFrame(), this.getName());
-        //loadStrings(getFrame(), this.getName());
-    }
+        ReflectionUtils.dumpStrings();
 
-    private void setAllComponentNames(Object obj) {
-        try {
-            getFieldNamesAndValues(obj).forEach((name, object) -> {
-                if (object instanceof IName) {
-                    IName iName = (IName) object;
-                    if (null == iName.getName()) {
-                        iName.setName(name);
-                        setAllComponentNames(object);
-                    }
-                }
-            });
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Map<String, Object> getFieldNamesAndValues(final Object obj)
-            throws IllegalArgumentException, IllegalAccessException {
-        Class<?> c1 = obj.getClass();
-        Map<String, Object> map = new HashMap<>();
-        Field[] fields = c1.getDeclaredFields();
-        for (Field field : fields) {
-            String name = field.getName();
-            field.setAccessible(true);
-            Object value = field.get(obj);
-            map.put(name, value);
-        }
-        return map;
+        System.out.println("");
+        ReflectionUtils.loadControlsDimensions(getFrame(), this.getName(), dimensions);
+        ReflectionUtils.loadControlsStrings(getFrame(), this.getName(), strings);
+        ReflectionUtils.loadStrings(strings);
+        System.out.println("");
     }
 
     private void initializeComponent() {
@@ -206,132 +176,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         });
 
-    }
-
-    private void dumpDimensions(Component component, String prefix) {
-        component.getSize();
-        component.getLocation();
-
-        System.out.println(formatPropertyName(prefix) + ".x=" + component.getX());
-        System.out.println(formatPropertyName(prefix) + ".y=" + component.getY());
-        System.out.println(formatPropertyName(prefix) + ".width=" + component.getWidth());
-        System.out.println(formatPropertyName(prefix) + ".height=" + component.getHeight());
-
-        if (component instanceof java.awt.Container) {
-            for (Component child : ((java.awt.Container) component).getComponents()) {
-                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                dumpDimensions(child, prefix + "." + name);
-            }
-        }
-    }
-
-    private String formatPropertyName(String prefix) {
-        return prefix.replace(".JRootPane", "")
-                .replace(".null.glassPane", "")
-                .replace(".null.layeredPane", "")
-                .replace(".null.contentPane", "")
-                .replace(".null", "")
-                .replace(".WinformJPanel", "");
-    }
-
-    private void dumpStrings(Component component, String prefix) {
-        component.getSize();
-        component.getLocation();
-
-        if (component instanceof AbstractButton) {
-            print(formatPropertyName(prefix) + ".text", ((AbstractButton) component).getText());
-        }
-        if (component instanceof JLabel) {
-            print(formatPropertyName(prefix) + ".text", ((JLabel) component).getText());
-        }
-        if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            print(formatPropertyName(prefix) + ".title", ((TitledBorder) ((JPanel) component).getBorder()).getTitle());
-        }
-        if (component instanceof JFrame) {
-            print(formatPropertyName(prefix) + ".title", ((JFrame) component).getTitle());
-        }
-
-        if (component instanceof JMenu) {
-            for (Component child : ((JMenu) component).getMenuComponents()) {
-                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                dumpStrings(child, prefix + "." + name);
-            }
-        }
-
-        if (component instanceof java.awt.Container) {
-            for (Component child : ((java.awt.Container) component).getComponents()) {
-                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                dumpStrings(child, prefix + "." + name);
-            }
-        }
-    }
-
-    private void print(String key, String value) {
-        //TODO button names
-        if (!value.isEmpty() && !key.contains("btnBuyQty") && !key.contains("btnSellQty")) {
-            System.out.println(key + "=" + value);
-        } else {
-            System.out.println("# " + key + "=" + value);
-        }
-    }
-
-    private void loadDimensions(Component component, String prefix) {
-        prefix = formatPropertyName(prefix);
-        if (component.getName() != null && !component.getName().startsWith("null.")) {
-            double scale = 1.0;
-            //TODO delete
-            if (dimensions.get(prefix + ".width") != null) {
-                Dimension dimension = dimensions.getSize(prefix);
-                dimension.setSize(dimension.getWidth() * scale, dimension.getHeight() * scale);
-                component.setSize(dimension);
-                if (!(component instanceof JFrame)) {
-                    Point point = dimensions.getLocation(prefix);
-                    point.setLocation(point.getX() * scale, point.getY() * scale);
-                    component.setLocation(point);
-                }
-            } else {
-                System.out.println("!!!" + prefix);
-            }
-        }
-        if (component instanceof java.awt.Container) {
-            for (Component child : ((java.awt.Container) component).getComponents()) {
-                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                loadDimensions(child, prefix + "." + name);
-            }
-        }
-    }
-
-    private void loadStrings(Component component, String prefix) {
-        prefix = formatPropertyName(prefix);
-        if (component instanceof JFrame) {
-            ((JFrame) component).setTitle(strings.getTitle(prefix));
-        }
-
-        if (component instanceof AbstractButton) {
-            ((AbstractButton) component).setText(strings.getText(prefix));
-        }
-
-        if (component instanceof JLabel) {
-            ((JLabel) component).setText(strings.getText(prefix));
-        }
-
-        if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            ((TitledBorder) ((JPanel) component).getBorder()).setTitle(strings.getTitle(prefix));
-        }
-
-        if (component instanceof JMenu) {
-            for (Component child : ((JMenu) component).getMenuComponents()) {
-                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                loadStrings(child, prefix + "." + name);
-            }
-        }
-
-        if (component instanceof java.awt.Container) {
-            for (Component child : ((java.awt.Container) component).getComponents()) {
-                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                loadStrings(child, prefix + "." + name);
-            }
-        }
     }
 
     private void initializeComponents() {
