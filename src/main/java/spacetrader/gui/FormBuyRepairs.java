@@ -30,42 +30,34 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
+import spacetrader.util.ReflectionUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
-public class FormBuyRepairs extends spacetrader.controls.WinformForm {
-    // #region Control Declarations
+public class FormBuyRepairs extends WinformForm {
+    
+    private Label questionLabel;
+    private NumericUpDown numericUpDown;
+    private Button okButton;
+    private Button maxButton;
+    private Button nothingButton;
 
-    private spacetrader.controls.Button btnOk;
-    private spacetrader.controls.Label lblQuestion;
-    private spacetrader.controls.Button btnMax;
-    private spacetrader.controls.Button btnNothing;
-    private spacetrader.controls.NumericUpDown numAmount;
-
-    // #endregion
-
-    // #region Member Declarations
-
-    private Game game = Game.getCurrentGame();
-
-    // #endregion
-
-    // #region Methods
-
-    public FormBuyRepairs() {
+    FormBuyRepairs() {
         initializeComponent();
 
+        Game game = Game.getCurrentGame();
         Commander cmdr = game.getCommander();
-        numAmount.setMaximum(Math.min(cmdr.getCash(), (cmdr.getShip().getHullStrength() - cmdr.getShip().getHull())
-                * cmdr.getShip().getRepairCost()));
-        numAmount.setValue(numAmount.getMaximum());
+        numericUpDown.setMaximum(Math.min(cmdr.getCash(),
+                (cmdr.getShip().getHullStrength() - cmdr.getShip().getHull()) * cmdr.getShip().getRepairCost()));
+        numericUpDown.setValue(numericUpDown.getMaximum());
     }
 
-    // #endregion
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, UnsupportedLookAndFeelException {
         FormBuyRepairs form = new FormBuyRepairs();
@@ -73,100 +65,68 @@ public class FormBuyRepairs extends spacetrader.controls.WinformForm {
         System.out.println(form.getAmount());
     }
 
-    // #endregion
-
-    // #endregion
-
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        this.lblQuestion = new spacetrader.controls.Label();
-        this.numAmount = new spacetrader.controls.NumericUpDown();
-        this.btnOk = new spacetrader.controls.Button();
-        this.btnMax = new spacetrader.controls.Button();
-        this.btnNothing = new spacetrader.controls.Button();
-        ((ISupportInitialize) (this.numAmount)).beginInit();
-        this.suspendLayout();
-        //
-        // lblQuestion
-        //
-        this.lblQuestion.setAutoSize(true);
-        this.lblQuestion.setLocation(new Point(8, 8));
-        this.lblQuestion.setName("lblQuestion");
-        this.lblQuestion.setSize(new Size(227, 13));
-        this.lblQuestion.setTabIndex(3);
-        this.lblQuestion.setText("How much do you want to spend on repairs?");
-        //
-        // numAmount
-        //
-        this.numAmount.setLocation(new Point(232, 6));
-        this.numAmount.setMaximum(999);
-        this.numAmount.setMinimum(1);
-        this.numAmount.setName("numAmount");
-        this.numAmount.setSize(new Size(44, 20));
-        this.numAmount.setTabIndex(1);
-        this.numAmount.setValue(888);
-        //
-        // btnOk
-        //
-        this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnOk.setLocation(new Point(69, 32));
-        this.btnOk.setName("btnOk");
-        this.btnOk.setSize(new Size(41, 22));
-        this.btnOk.setTabIndex(2);
-        this.btnOk.setText("Ok");
-        //
-        // btnMax
-        //
-        this.btnMax.setDialogResult(DialogResult.OK);
-        this.btnMax.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnMax.setLocation(new Point(117, 32));
-        this.btnMax.setName("btnMax");
-        this.btnMax.setSize(new Size(41, 22));
-        this.btnMax.setTabIndex(3);
-        this.btnMax.setText("Max");
-        //
-        // btnNothing
-        //
-        this.btnNothing.setDialogResult(DialogResult.CANCEL);
-        this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnNothing.setLocation(new Point(165, 32));
-        this.btnNothing.setName("btnNothing");
-        this.btnNothing.setSize(new Size(53, 22));
-        this.btnNothing.setTabIndex(4);
-        this.btnNothing.setText("Nothing");
-        //
-        // FormBuyRepairs
-        //
-        this.setAcceptButton(this.btnOk);
-        this.setAutoScaleBaseSize(new Size(5, 13));
-        this.setCancelButton(this.btnNothing);
-        this.setClientSize(new Size(286, 63));
-        this.setControlBox(false);
-        this.controls.addAll(Arrays.asList(this.btnNothing, this.btnMax, this.btnOk, this.numAmount, this.lblQuestion));
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
-        this.setName("FormBuyRepairs");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Hull Repair");
-        ((ISupportInitialize) (this.numAmount)).endInit();
-    }
+        questionLabel = new Label();
+        numericUpDown = new NumericUpDown();
+        okButton = new Button();
+        maxButton = new Button();
+        nothingButton = new Button();
+        ((ISupportInitialize) (numericUpDown)).beginInit();
 
-    // #endregion
+        setName("formBuyRepair");
+        ReflectionUtils.setAllComponentNames(this);
 
-    // #region Properties
+        suspendLayout();
 
-    // #region Event Handlers
-    // This action is not connected in the .NET version either.
-    private void btnMax_Click(Object sender, EventArgs e) {
-        numAmount.setValue(numAmount.getMaximum());
+        questionLabel.setAutoSize(true);
+        questionLabel.setLocation(new Point(8, 8));
+        questionLabel.setSize(new Size(227, 13));
+        questionLabel.setTabIndex(3);
+        questionLabel.setText("How much do you want to spend on repairs?");
+
+        numericUpDown.setLocation(new Point(232, 6));
+        //numericUpDown.setMaximum(999);
+        numericUpDown.setMinimum(1);
+        numericUpDown.setSize(new Size(44, 20));
+        numericUpDown.setTabIndex(1);
+        //numericUpDown.setValue(888);
+
+        okButton.setDialogResult(DialogResult.OK);
+        okButton.setFlatStyle(FlatStyle.FLAT);
+        okButton.setLocation(new Point(69, 32));
+        okButton.setSize(new Size(41, 22));
+        okButton.setTabIndex(2);
+        okButton.setText("Ok");
+
+        maxButton.setDialogResult(DialogResult.OK);
+        maxButton.setFlatStyle(FlatStyle.FLAT);
+        maxButton.setLocation(new Point(117, 32));
+        maxButton.setSize(new Size(41, 22));
+        maxButton.setTabIndex(3);
+        maxButton.setText("Max");
+
+        nothingButton.setDialogResult(DialogResult.CANCEL);
+        nothingButton.setFlatStyle(FlatStyle.FLAT);
+        nothingButton.setLocation(new Point(165, 32));
+        nothingButton.setSize(new Size(53, 22));
+        nothingButton.setTabIndex(4);
+        nothingButton.setText("Nothing");
+
+        setAcceptButton(okButton);
+        setAutoScaleBaseSize(new Size(5, 13));
+        setCancelButton(nothingButton);
+        setClientSize(new Size(286, 63));
+        setControlBox(false);
+        controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
+        setFormBorderStyle(FormBorderStyle.FixedDialog);
+
+        setShowInTaskbar(false);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setText("Hull Repair");
+        ((ISupportInitialize) (numericUpDown)).endInit();
     }
 
     public int getAmount() {
-        return numAmount.getValue();
+        return numericUpDown.getValue();
     }
 }

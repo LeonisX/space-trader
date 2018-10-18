@@ -58,73 +58,73 @@ public class FormBuyFuel extends SpaceTraderForm {
     }
 
     private void initializeComponent() {
-        this.questionLabel = new Label();
-        this.numericUpDown = new NumericUpDown();
-        this.okButton = new Button();
-        this.maxButton = new Button();
-        this.nothingButton = new Button();
-        ((ISupportInitialize) (this.numericUpDown)).beginInit();
+        questionLabel = new Label();
+        numericUpDown = new NumericUpDown();
+        okButton = new Button();
+        maxButton = new Button();
+        nothingButton = new Button();
+        ((ISupportInitialize) (numericUpDown)).beginInit();
 
-        this.setName("formBuyFuel");
+        setName("formBuyFuel");
         ReflectionUtils.setAllComponentNames(this);
 
-        this.suspendLayout();
+        suspendLayout();
 
-        this.questionLabel.setAutoSize(true);
-        this.questionLabel.setLocation(new Point(8, 8));
-        this.questionLabel.setSize(new Size(211, 13));
-        this.questionLabel.setTabIndex(3);
-        this.questionLabel.setText("How much do you want to spend on fuel?");
+        questionLabel.setAutoSize(true);
+        questionLabel.setLocation(new Point(8, 8));
+        questionLabel.setSize(new Size(211, 13));
+        questionLabel.setTabIndex(3);
+        questionLabel.setText("How much do you want to spend on fuel?");
 
-        this.numericUpDown.setLocation(new Point(216, 6));
-        //this.numericUpDown.setMaximum(999);
-        this.numericUpDown.setMinimum(1);
-        this.numericUpDown.setSize(new Size(44, 20));
-        this.numericUpDown.setTabIndex(1);
-        //this.numericUpDown.setValue(888);
+        numericUpDown.setLocation(new Point(216, 6));
+        //numericUpDown.setMaximum(999);
+        numericUpDown.setMinimum(1);
+        numericUpDown.setSize(new Size(44, 20));
+        numericUpDown.setTabIndex(1);
+        //numericUpDown.setValue(888);
 
-        this.okButton.setDialogResult(DialogResult.OK);
-        this.okButton.setFlatStyle(FlatStyle.FLAT);
-        this.okButton.setLocation(new Point(61, 32));
-        this.okButton.setSize(new Size(41, 22));
-        this.okButton.setTabIndex(2);
-        this.okButton.setText("Ok");
+        okButton.setDialogResult(DialogResult.OK);
+        okButton.setFlatStyle(FlatStyle.FLAT);
+        okButton.setLocation(new Point(61, 32));
+        okButton.setSize(new Size(41, 22));
+        okButton.setTabIndex(2);
+        okButton.setText("Ok");
 
-        this.maxButton.setDialogResult(DialogResult.OK);
-        this.maxButton.setFlatStyle(FlatStyle.FLAT);
+        maxButton.setDialogResult(DialogResult.OK);
+        maxButton.setFlatStyle(FlatStyle.FLAT);
         //TODO delete all sizes
-        this.maxButton.setLocation(new Point(109, 32));
-        this.maxButton.setSize(new Size(41, 22));
-        this.maxButton.setTabIndex(3);
+        maxButton.setLocation(new Point(109, 32));
+        maxButton.setSize(new Size(41, 22));
+        maxButton.setTabIndex(3);
         //TODO delete all texts
-        this.maxButton.setText("Max");
-        this.maxButton.setClick(new EventHandler<Object, EventArgs>() {
+        maxButton.setText("Max");
+        maxButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
                 numericUpDown.setValue(numericUpDown.getMaximum());
             }
         });
 
-        this.nothingButton.setDialogResult(DialogResult.CANCEL);
-        this.nothingButton.setFlatStyle(FlatStyle.FLAT);
-        this.nothingButton.setLocation(new Point(157, 32));
-        this.nothingButton.setSize(new Size(53, 22));
-        this.nothingButton.setTabIndex(4);
-        this.nothingButton.setText("Nothing");
+        nothingButton.setDialogResult(DialogResult.CANCEL);
+        nothingButton.setFlatStyle(FlatStyle.FLAT);
+        nothingButton.setLocation(new Point(157, 32));
+        nothingButton.setSize(new Size(53, 22));
+        nothingButton.setTabIndex(4);
+        nothingButton.setText("Nothing");
 
-        this.setAcceptButton(this.okButton);
-        this.setAutoScaleBaseSize(new Size(5, 13));
-        this.setCancelButton(this.nothingButton);
-        this.setClientSize(new Size(270, 63));
-        this.setControlBox(false);
+        setAcceptButton(okButton);
+        setAutoScaleBaseSize(new Size(5, 13));
+        setCancelButton(nothingButton);
+        setClientSize(new Size(270, 63));
+        setControlBox(false);
 
-        this.controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
+        controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
 
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setFormBorderStyle(FormBorderStyle.FixedDialog);
 
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Buy Fuel");
-        ((ISupportInitialize) (this.numericUpDown)).endInit();
+        setShowInTaskbar(false);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setText("Buy Fuel");
+        ((ISupportInitialize) (numericUpDown)).endInit();
     }
 
     public int getAmount() {

@@ -127,7 +127,13 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
 
-        FormBuyFuel form = new FormBuyFuel();
+/*        FormBuyFuel form = new FormBuyFuel();
+        ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
+        System.out.println("===================");
+        ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
+        System.out.println("===================");*/
+
+        FormBuyRepairs form = new FormBuyRepairs();
         ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
         System.out.println("===================");
         ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
