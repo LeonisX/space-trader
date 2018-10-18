@@ -130,7 +130,7 @@ class DockPanel extends Panel {
         } else {
             Ship ship = commander.getShip();
 
-            fuelStatusLabel.setText(stringVars(DockFuelStatus, multiples(ship.getFuel(), DockParsec)));
+            fuelStatusLabel.setText(stringVars(DockFuelStatus, multiples(ship.getFuel(), DistanceUnit)));
 
             int tanksEmpty = ship.getFuelTanks() - ship.getFuel();
             fuelCostLabel.setText(tanksEmpty > 0

@@ -16,14 +16,13 @@
 * All main window strings and sizes to file
 * Automatic update main window
 * Find all languages in resources
-* How to know variable name runtime?
+* Need to update font sizes. Dump all too
 * Show in Cargo planet names (target)
 
 ## Known bugs:
 
 * Load game from scratch
 * High Score
-* Launcher
 * When start game: 8->9->0->1!! & start
 
 * Multilanguage support
@@ -31,3 +30,7 @@
 * Full refactor, code clean-up
 * --Bug fixes
 * Custom strings reader
+
+## Far perspectives
+
+* JavaFX UI

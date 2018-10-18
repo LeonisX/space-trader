@@ -29,6 +29,7 @@ import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
+import spacetrader.util.ReflectionUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,6 +58,7 @@ public class FormAbout extends WinformForm {
         suspendLayout();
 
         closeButton.setDialogResult(DialogResult.CANCEL);
+        //TODO delete all sizes
         closeButton.setLocation(new Point(-32, -32));
         closeButton.setSize(new Size(32, 32));
         closeButton.setTabIndex(32);
@@ -96,7 +98,8 @@ public class FormAbout extends WinformForm {
         setFormBorderStyle(FormBorderStyle.FixedDialog);
         setMaximizeBox(false);
         setMinimizeBox(false);
-        setName("FormAbout");
+        setName("formAbout");
+        ReflectionUtils.setAllComponentNames(this);
         setShowInTaskbar(false);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setText("About Space Trader");

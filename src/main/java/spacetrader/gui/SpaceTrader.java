@@ -36,6 +36,7 @@ import spacetrader.util.ReflectionUtils;
 import java.awt.*;
 
 import static spacetrader.controls.MenuItem.separator;
+import static spacetrader.game.enums.AlertType.EncounterDrinkContents;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
 
@@ -104,9 +105,24 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         ReflectionUtils.setAllComponentNames(this);
 
+        //ReflectionUtils.dumpAllAlertStrings();
+
         ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
         System.out.println("===================");
         ReflectionUtils.dumpControlsStrings(getFrame(), this.getName());
+        System.out.println("===================");
+
+        FormAbout formAbout = new FormAbout();
+        ReflectionUtils.dumpControlsDimensions(formAbout.asSwingObject(), formAbout.getName());
+        System.out.println("===================");
+        ReflectionUtils.dumpControlsStrings(formAbout.asSwingObject(), formAbout.getName());
+        System.out.println("===================");
+
+        FormAlert formAlert = FormAlert.makeDialog(EncounterDrinkContents, new String[]{});
+        ReflectionUtils.dumpControlsDimensions(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
+        System.out.println("===================");
+        ReflectionUtils.dumpControlsStrings(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
+        System.out.println("===================");
 
         ReflectionUtils.dumpStrings();
 
@@ -547,6 +563,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 && form.showDialog(this) == DialogResult.OK) {
             setGame(new Game(form.CommanderName(), form.Difficulty(), form.Pilot(), form.Fighter(), form.Trader(), form
                     .Engineer(), this));
+            //TODO
             controller.SaveGameFile = null;
             controller.SaveGameDays = 0;
 
@@ -606,6 +623,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
+    //TODO rename all methods
     private void mnuViewBank_Click() {
         showBank();
     }

@@ -3242,9 +3242,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getParentWindow().updateAll();
             }
         }
-
-        if (getPaidForNewspaper())
-            GuiFacade.alert(AlertType.Alert, NewspaperHead(), NewspaperText());
+        if (getPaidForNewspaper()) {
+            GuiFacade.alert(AlertType.Alert, getNewspaperHead(), getNewspaperText());
+        }
     }
 
     public @Override
@@ -3750,14 +3750,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return _newsEvents;
     }
 
-    public String NewspaperHead() {
+    public String getNewspaperHead() {
         String[] heads = Strings.NewsMastheads[getCommander().getCurrentSystem().PoliticalSystemType().castToInt()];
         String head = heads[getCommander().getCurrentSystem().Id().castToInt() % heads.length];
 
         return Functions.stringVars(head, getCommander().getCurrentSystem().getName());
     }
 
-    public String NewspaperText() {
+    public String getNewspaperText() {
         StarSystem curSys = getCommander().getCurrentSystem();
         List items = new ArrayList();
 
