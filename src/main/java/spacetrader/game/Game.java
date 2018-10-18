@@ -919,14 +919,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     private void cargoBuy(int tradeItem, boolean max, CargoBuyOp op) {
-        int freeBays = getCommander().getShip().FreeCargoBays();
+        int freeBays = getCommander().getShip().getFreeCargoBays();
         int[] items = null;
         int unitPrice = 0;
         int cashToSpend = getCommander().getCash();
 
         switch (op) {
             case BuySystem:
-                freeBays = Math.max(0, getCommander().getShip().FreeCargoBays() - Options().getLeaveEmpty());
+                freeBays = Math.max(0, getCommander().getShip().getFreeCargoBays() - Options().getLeaveEmpty());
                 items = getCommander().getCurrentSystem().getTradeItems();
                 unitPrice = getPriceCargoBuy()[tradeItem];
                 cashToSpend = getCommander().getCashToSpend();
@@ -1028,7 +1028,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     || getCommander().getPoliceRecordScore() <= Consts.PoliceRecordScoreDubious
                     || GuiFacade.alert(AlertType.EncounterDumpWarning) == DialogResult.YES) {
                 int unitCost = 0;
-                int maxAmount = (op == CargoSellOp.SellTrader) ? Math.min(qtyInHand, getOpponent().FreeCargoBays())
+                int maxAmount = (op == CargoSellOp.SellTrader) ? Math.min(qtyInHand, getOpponent().getFreeCargoBays())
                         : qtyInHand;
                 if (op == CargoSellOp.Dump) {
                     unitCost = 5 * (Difficulty().castToInt() + 1);
@@ -1324,7 +1324,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 setEncounterType(spacetrader.game.enums.EncounterType.TraderFlee);
                 // Will there be trade in orbit?
             else if (Functions.GetRandom(1000) < getChanceOfTradeInOrbit()) {
-                if (getCommander().getShip().FreeCargoBays() > 0 && getOpponent().HasTradeableItems())
+                if (getCommander().getShip().getFreeCargoBays() > 0 && getOpponent().HasTradeableItems())
                     setEncounterType(spacetrader.game.enums.EncounterType.TraderSell);
                     // we fudge on whether the trader has capacity to carry the
                     // stuff he's buying.
@@ -1809,13 +1809,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             if (GuiFacade.alert(AlertType.EncounterScoop, Consts.TradeItems[tradeItem].Name()) == DialogResult.YES) {
                 boolean jettisoned = false;
 
-                if (getCommander().getShip().FreeCargoBays() == 0
+                if (getCommander().getShip().getFreeCargoBays() == 0
                         && GuiFacade.alert(AlertType.EncounterScoopNoRoom) == DialogResult.YES) {
                     GuiFacade.performJettison();
                     jettisoned = true;
                 }
 
-                if (getCommander().getShip().FreeCargoBays() > 0)
+                if (getCommander().getShip().getFreeCargoBays() > 0)
                     getCommander().getShip().getCargo()[tradeItem]++;
                 else if (jettisoned)
                     GuiFacade.alert(AlertType.EncounterScoopNoScoop);
@@ -2188,7 +2188,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // Pirates steal as much as they have room for, which could be
                 // everything - JAF.
                 // Take most high-priced items - JAF.
-                while (getOpponent().FreeCargoBays() > 0 && cargoToSteal.size() > 0) {
+                while (getOpponent().getFreeCargoBays() > 0 && cargoToSteal.size() > 0) {
                     int item = (Integer) cargoToSteal.get(0);
 
                     getCommander().getPriceCargo()[item] -= getCommander().getPriceCargo()[item]
@@ -2614,7 +2614,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // start it over again.
                 remove = false;
 
-                if (getCommander().getShip().FreeCargoBays() < 10)
+                if (getCommander().getShip().getFreeCargoBays() < 10)
                     GuiFacade.alert(AlertType.CargoNoEmptyBays);
                 else {
                     GuiFacade.alert(AlertType.AntidoteOnBoard);
@@ -2686,7 +2686,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 remove = false;
                 break;
             case Reactor:
-                if (getCommander().getShip().FreeCargoBays() < 15) {
+                if (getCommander().getShip().getFreeCargoBays() < 15) {
                     GuiFacade.alert(AlertType.CargoNoEmptyBays);
                     remove = false;
                 } else {

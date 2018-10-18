@@ -170,7 +170,7 @@ public class StarSystem extends STSerializableObject {
                 show = game.getCommander().getShip().ArtifactOnBoard();
                 break;
             case CargoForSale:
-                show = game.getCommander().getShip().FreeCargoBays() >= 3;
+                show = game.getCommander().getShip().getFreeCargoBays() >= 3;
                 break;
             case DragonflyBaratas:
                 show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_NOT_STARTED

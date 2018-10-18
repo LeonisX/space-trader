@@ -663,7 +663,7 @@ public class FormEquipment extends SpaceTraderForm {
 
                 if (selectedEquipment.EquipmentType() == EquipmentType.Gadget
                         && (((Gadget) selectedEquipment).Type() == GadgetType.ExtraCargoBays || ((Gadget) selectedEquipment)
-                        .Type() == GadgetType.HiddenCargoBays) && cmdr.getShip().FreeCargoBays() < 5) {
+                        .Type() == GadgetType.HiddenCargoBays) && cmdr.getShip().getFreeCargoBays() < 5) {
                     GuiFacade.alert(AlertType.EquipmentExtraBaysInUse);
                 } else {
                     cmdr.setCash(cmdr.getCash() + selectedEquipment.SellPrice());

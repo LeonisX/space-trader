@@ -206,7 +206,7 @@ public class GameCheats {
                 break;
                 case Swag:
                     if (num1 >= 0 && num1 < ship.getCargo().length)
-                        ship.getCargo()[num1] = Math.max(0, Math.min(ship.FreeCargoBays() + ship.getCargo()[num1], num2));
+                        ship.getCargo()[num1] = Math.max(0, Math.min(ship.getFreeCargoBays() + ship.getCargo()[num1], num2));
                     break;
                 case Test:
                     GuiFacade.performTestForm();

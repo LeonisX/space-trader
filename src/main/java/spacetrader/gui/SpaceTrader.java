@@ -24,11 +24,9 @@ import spacetrader.controls.*;
 import spacetrader.controls.Container;
 import spacetrader.controls.Image;
 import spacetrader.controls.MenuItem;
+import spacetrader.controls.Size;
 import spacetrader.game.*;
-import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.Difficulty;
-import spacetrader.game.enums.GameEndType;
-import spacetrader.game.enums.ShipType;
+import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.*;
@@ -133,12 +131,19 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
         System.out.println("===================");*/
 
+/*
         FormBuyRepairs form = new FormBuyRepairs();
         ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
         System.out.println("===================");
         ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
         System.out.println("===================");
+*/
 
+        FormCargoBuy form = new FormCargoBuy(1, 1, CargoBuyOp.BuySystem);
+        ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
+        System.out.println("===================");
+        ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
+        System.out.println("===================");
 
         //ReflectionUtils.dumpStrings();
 

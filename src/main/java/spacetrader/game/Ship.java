@@ -873,7 +873,7 @@ public class Ship extends ShipSpec {
         return filled;
     }
 
-    public int FreeCargoBays() {
+    public int getFreeCargoBays() {
         return getCargoBays() - getFilledCargoBays();
     }
 

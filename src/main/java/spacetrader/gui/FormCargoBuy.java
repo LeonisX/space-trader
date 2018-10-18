@@ -22,211 +22,181 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.game.enums.CargoBuyOp;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
 import spacetrader.game.*;
+import spacetrader.game.enums.CargoBuyOp;
 import spacetrader.guifacade.Facaded;
+import spacetrader.util.ReflectionUtils;
+
+import java.awt.*;
+
+import static spacetrader.game.Functions.formatMoney;
+import static spacetrader.game.Functions.formatNumber;
+import static spacetrader.game.Functions.stringVars;
 
 public class FormCargoBuy extends SpaceTraderForm {
-    // #region Control Declarations
-
-    private final Game game = Game.getCurrentGame();
-    private spacetrader.controls.Button btnOk;
-    private spacetrader.controls.Button btnAll;
-    private spacetrader.controls.Button btnNone;
-    private spacetrader.controls.Label lblQuestion;
-    private spacetrader.controls.Label lblStatement;
-    private spacetrader.controls.NumericUpDown numAmount;
-    private spacetrader.controls.Label lblAvailable;
-    private spacetrader.controls.Label lblAfford;
+    
+    private Button okButton;
+    private Button allButton;
+    private Button noneButton;
+    private Label questionLabel;
+    private Label statementLabelValue;
+    private NumericUpDown numericUpDown;
+    private Label availableLabelValue;
+    private Label affordLabelValue;
 
     @Facaded
     public FormCargoBuy(int item, int maxAmount, CargoBuyOp op) {
         initializeComponent();
 
+        Game game = Game.getCurrentGame();
         Commander cmdr = game.getCommander();
-        numAmount.setMaximum(maxAmount);
-        numAmount.setValue(numAmount.getMinimum());
-        this.setText(Functions.stringVars(Strings.CargoTitle, Strings.CargoBuyOps[op.castToInt()],
-                Consts.TradeItems[item].Name()));
-        lblQuestion.setText(Functions.stringVars(Strings.CargoBuyQuestion, Strings.CargoBuyOps[op.castToInt()]
-                .toLowerCase()));
+        numericUpDown.setMaximum(maxAmount);
+        numericUpDown.setValue(numericUpDown.getMinimum());
+        setText(stringVars(Strings.CargoTitle, Strings.CargoBuyOps[op.castToInt()], Consts.TradeItems[item].Name()));
+        questionLabel.setText(stringVars(Strings.CargoBuyQuestion, Strings.CargoBuyOps[op.castToInt()].toLowerCase()));
 
         switch (op) {
             case BuySystem:
-                lblStatement.setText(Functions.stringVars(Strings.CargoBuyStatement, Functions.formatMoney(game
-                        .getPriceCargoBuy()[item]), Functions.formatNumber(maxAmount)));
+                statementLabelValue.setText(stringVars(Strings.CargoBuyStatement,
+                        formatMoney(game.getPriceCargoBuy()[item]), formatNumber(maxAmount)));
 
-                this.setHeight(btnOk.getTop() + btnOk.getHeight() + 34);
+                //TODO multiplier
+                setHeight(okButton.getTop() + okButton.getHeight() + 34);
                 break;
             case BuyTrader:
-                int afford = Math.min(cmdr.getCash() / game.getPriceCargoBuy()[item], cmdr.getShip()
-                        .FreeCargoBays());
-                if (afford < maxAmount)
-                    numAmount.setMaximum(afford);
-
-                lblStatement.setText(Functions.stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].Name(),
-                        Functions.formatMoney(game.getPriceCargoBuy()[item])));
-                lblAvailable.setText(Functions.stringVars(Strings.CargoBuyAvailable, Functions.multiples(game.getOpponent()
+                int afford = Math.min(cmdr.getCash() / game.getPriceCargoBuy()[item], cmdr.getShip().getFreeCargoBays());
+                if (afford < maxAmount) {
+                    numericUpDown.setMaximum(afford);
+                }
+                statementLabelValue.setText(stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].Name(),
+                        formatMoney(game.getPriceCargoBuy()[item])));
+                availableLabelValue.setText(stringVars(Strings.CargoBuyAvailable, Functions.multiples(game.getOpponent()
                         .getCargo()[item], Strings.CargoUnit)));
-                lblAfford.setText(Functions.stringVars(Strings.CargoBuyAfford, Functions.multiples(afford,
+                affordLabelValue.setText(stringVars(Strings.CargoBuyAfford, Functions.multiples(afford,
                         Strings.CargoUnit)));
 
-                lblAvailable.setVisible(true);
-                lblAfford.setVisible(true);
-
-                btnOk.setTop(btnOk.getTop() + 26);
-                btnAll.setTop(btnAll.getTop() + 26);
-                btnNone.setTop(btnNone.getTop() + 26);
-                lblQuestion.setTop(lblQuestion.getTop() + 26);
-                numAmount.setTop(numAmount.getTop() + 26);
+                availableLabelValue.setVisible(true);
+                affordLabelValue.setVisible(true);
+                //TODO multiplier
+                okButton.setTop(okButton.getTop() + 26);
+                allButton.setTop(allButton.getTop() + 26);
+                noneButton.setTop(noneButton.getTop() + 26);
+                questionLabel.setTop(questionLabel.getTop() + 26);
+                numericUpDown.setTop(numericUpDown.getTop() + 26);
 
                 break;
             case Plunder:
-                lblStatement.setText(Functions.stringVars(Strings.CargoBuyStatementSteal, Functions.formatNumber(game
+                statementLabelValue.setText(stringVars(Strings.CargoBuyStatementSteal, formatNumber(game
                         .getOpponent().getCargo()[item])));
-
-                this.setHeight(btnOk.getTop() + btnOk.getHeight() + 34);
+                //TODO multiplier
+                setHeight(okButton.getTop() + okButton.getHeight() + 34);
                 break;
         }
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        lblQuestion = new spacetrader.controls.Label();
-        lblStatement = new spacetrader.controls.Label();
-        numAmount = new spacetrader.controls.NumericUpDown();
-        btnOk = new spacetrader.controls.Button();
-        btnAll = new spacetrader.controls.Button();
-        btnNone = new spacetrader.controls.Button();
-        lblAvailable = new spacetrader.controls.Label();
-        lblAfford = new spacetrader.controls.Label();
-        ((ISupportInitialize) (numAmount)).beginInit();
-        this.suspendLayout();
-        //
-        // lblQuestion
-        //
-        lblQuestion.setAutoSize(true);
-        lblQuestion.setLocation(new java.awt.Point(8, 24));
-        lblQuestion.setName("lblQuestion");
-        lblQuestion.setSize(new spacetrader.controls.Size(161, 16));
-        lblQuestion.setTabIndex(1);
-        lblQuestion.setText("How many do you want to buy?");
-        //
-        // lblStatement
-        //
-        lblStatement.setLocation(new java.awt.Point(8, 8));
-        lblStatement.setName("lblStatement");
-        lblStatement.setSize(new spacetrader.controls.Size(326, 13));
-        lblStatement.setTabIndex(3);
-        lblStatement.setText("The trader wants to sell Machines for the price of 8,888 cr. each.");
-        //
-        // numAmount
-        //
-        numAmount.setLocation(new java.awt.Point(168, 22));
-        numAmount.setMaximum(999);
-        numAmount.setMinimum(1);
-        numAmount.setName("numAmount");
-        numAmount.setSize(new spacetrader.controls.Size(44, 20));
-        numAmount.setTabIndex(1);
-        numAmount.setValue(1);
-        //
-        // btnOk
-        //
-        btnOk.setDialogResult(DialogResult.OK);
-        btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnOk.setLocation(new java.awt.Point(95, 48));
-        btnOk.setName("btnOk");
-        btnOk.setSize(new spacetrader.controls.Size(41, 22));
-        btnOk.setTabIndex(2);
-        btnOk.setText("Ok");
-        //
-        // btnAll
-        //
-        btnAll.setDialogResult(DialogResult.OK);
-        btnAll.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnAll.setLocation(new java.awt.Point(143, 48));
-        btnAll.setName("btnAll");
-        btnAll.setSize(new spacetrader.controls.Size(41, 22));
-        btnAll.setTabIndex(3);
-        btnAll.setText("All");
-        btnAll.setClick(new EventHandler<Object, EventArgs>() {
+        questionLabel = new Label();
+        statementLabelValue = new Label();
+        numericUpDown = new NumericUpDown();
+        okButton = new Button();
+        allButton = new Button();
+        noneButton = new Button();
+        availableLabelValue = new Label();
+        affordLabelValue = new Label();
+        ((ISupportInitialize) (numericUpDown)).beginInit();
+
+        setName("formCargoBuy");
+        ReflectionUtils.setAllComponentNames(this);
+
+        suspendLayout();
+
+        //TODO delete all texts & sizes
+        statementLabelValue.setLocation(new Point(8, 8));
+        statementLabelValue.setSize(new Size(326, 13));
+        statementLabelValue.setTabIndex(3);
+        //statementLabelValue.setText("The trader wants to sell Machines for the price of 8,888 cr. each.");
+
+        availableLabelValue.setLocation(new Point(8, 21));
+        availableLabelValue.setSize(new Size(163, 13));
+        availableLabelValue.setTabIndex(5);
+        //availableLabelValue.setText("The trader has 88 units for sale.");
+        availableLabelValue.setVisible(false);
+
+        questionLabel.setAutoSize(true);
+        questionLabel.setLocation(new Point(8, 24));
+        questionLabel.setSize(new Size(161, 16));
+        questionLabel.setTabIndex(1);
+        questionLabel.setText("How many do you want to buy?");
+
+        numericUpDown.setLocation(new Point(168, 22));
+        numericUpDown.setMaximum(999);
+        numericUpDown.setMinimum(1);
+        numericUpDown.setSize(new Size(44, 20));
+        numericUpDown.setTabIndex(1);
+        numericUpDown.setValue(1);
+
+        affordLabelValue.setLocation(new Point(8, 34));
+        affordLabelValue.setSize(new Size(157, 13));
+        affordLabelValue.setTabIndex(6);
+        //affordLabelValue.setText("You can afford to buy 88 units.");
+        affordLabelValue.setVisible(false);
+
+        okButton.setDialogResult(DialogResult.OK);
+        okButton.setFlatStyle(FlatStyle.FLAT);
+        okButton.setLocation(new Point(95, 48));
+        okButton.setSize(new Size(41, 22));
+        okButton.setTabIndex(2);
+        okButton.setText("Ok");
+
+        allButton.setDialogResult(DialogResult.OK);
+        allButton.setFlatStyle(FlatStyle.FLAT);
+        allButton.setLocation(new Point(143, 48));
+        allButton.setSize(new Size(41, 22));
+        allButton.setTabIndex(3);
+        allButton.setText("All");
+        allButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnAll_Click(sender, e);
+            public void handle(Object sender, EventArgs e) {
+                numericUpDown.setValue(numericUpDown.getMaximum());
             }
         });
-        //
-        // btnNone
-        //
-        btnNone.setDialogResult(DialogResult.CANCEL);
-        btnNone.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnNone.setLocation(new java.awt.Point(191, 48));
-        btnNone.setName("btnNone");
-        btnNone.setSize(new spacetrader.controls.Size(41, 22));
-        btnNone.setTabIndex(4);
-        btnNone.setText("None");
-        //
-        // lblAvailable
-        //
-        lblAvailable.setLocation(new java.awt.Point(8, 21));
-        lblAvailable.setName("lblAvailable");
-        lblAvailable.setSize(new spacetrader.controls.Size(163, 13));
-        lblAvailable.setTabIndex(5);
-        lblAvailable.setText("The trader has 88 units for sale.");
-        lblAvailable.setVisible(false);
-        //
-        // lblAfford
-        //
-        lblAfford.setLocation(new java.awt.Point(8, 34));
-        lblAfford.setName("lblAfford");
-        lblAfford.setSize(new spacetrader.controls.Size(157, 13));
-        lblAfford.setTabIndex(6);
-        lblAfford.setText("You can afford to buy 88 units.");
-        lblAfford.setVisible(false);
-        //
-        // FormCargoBuy
-        //
-        this.setAcceptButton(btnOk);
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setCancelButton(btnNone);
-        this.setClientSize(new spacetrader.controls.Size(326, 105));
-        this.setControlBox(false);
-        controls.add(btnNone);
-        controls.add(btnAll);
-        controls.add(btnOk);
-        controls.add(numAmount);
-        controls.add(lblQuestion);
-        controls.add(lblStatement);
-        controls.add(lblAfford);
-        controls.add(lblAvailable);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
-        this.setName("FormCargoBuy");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Buy Xxxxxxxxxx");
-        ((ISupportInitialize) (numAmount)).endInit();
 
+        noneButton.setDialogResult(DialogResult.CANCEL);
+        noneButton.setFlatStyle(FlatStyle.FLAT);
+        noneButton.setLocation(new Point(191, 48));
+        noneButton.setSize(new Size(41, 22));
+        noneButton.setTabIndex(4);
+        noneButton.setText("None");
+
+        setAcceptButton(okButton);
+        setAutoScaleBaseSize(new Size(5, 13));
+        setCancelButton(noneButton);
+        setClientSize(new Size(326, 105));
+        setControlBox(false);
+
+        controls.add(statementLabelValue);
+        controls.add(availableLabelValue);
+        controls.add(questionLabel);
+        controls.add(numericUpDown);
+        controls.add(affordLabelValue);
+        controls.add(okButton);
+        controls.add(allButton);
+        controls.add(noneButton);
+
+        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setShowInTaskbar(false);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        //setText("Buy Xxxxxxxxxx");
+        ((ISupportInitialize) (numericUpDown)).endInit();
     }
-
-    private void btnAll_Click(Object sender, EventArgs e) {
-        numAmount.setValue(numAmount.getMaximum());
-    }
-
 
     @Facaded
     public int Amount() {
-        return numAmount.getValue();
+        return numericUpDown.getValue();
     }
 }
