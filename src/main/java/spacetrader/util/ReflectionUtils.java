@@ -179,7 +179,7 @@ public class ReflectionUtils {
     }
 
     private static void print(String key, String value) {
-        //TODO button names
+        value = value.replace("<HTML>", "").replace("</HTML>", "");
         if (!value.isEmpty() && !key.contains(".buyButton") && !key.contains(".sellButton")) {
             System.out.println(key + "=" + value);
         } else {

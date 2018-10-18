@@ -26,6 +26,7 @@ import spacetrader.controls.Image;
 import spacetrader.controls.MenuItem;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.game.enums.ShipType;
 import spacetrader.guifacade.GuiFacade;
@@ -107,7 +108,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         //ReflectionUtils.dumpAllAlertStrings();
 
-        ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
+        /*ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
         System.out.println("===================");
         ReflectionUtils.dumpControlsStrings(getFrame(), this.getName());
         System.out.println("===================");
@@ -122,9 +123,18 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         ReflectionUtils.dumpControlsDimensions(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
         System.out.println("===================");
         ReflectionUtils.dumpControlsStrings(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
+        System.out.println("===================");*/
+
+        Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
+
+        FormBuyFuel form = new FormBuyFuel();
+        ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
+        System.out.println("===================");
+        ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
         System.out.println("===================");
 
-        ReflectionUtils.dumpStrings();
+
+        //ReflectionUtils.dumpStrings();
 
         System.out.println("");
         ReflectionUtils.loadControlsDimensions(getFrame(), this.getName(), dimensions);

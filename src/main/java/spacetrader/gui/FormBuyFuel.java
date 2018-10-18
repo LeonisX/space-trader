@@ -29,139 +29,105 @@
 //using System.Windows.Forms;
 package spacetrader.gui;
 
+import spacetrader.controls.Button;
 import spacetrader.controls.*;
+import spacetrader.controls.Label;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
+import spacetrader.util.ReflectionUtils;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public class FormBuyFuel extends SpaceTraderForm {
-    // #region Control Declarations
 
-    private spacetrader.controls.Button btnOk;
-    private spacetrader.controls.Label lblQuestion;
-    private spacetrader.controls.Button btnMax;
-    private spacetrader.controls.Button btnNothing;
-    private spacetrader.controls.NumericUpDown numAmount;
+    private Label questionLabel;
+    private NumericUpDown numericUpDown;
+    private Button okButton;
+    private Button maxButton;
+    private Button nothingButton;
 
-    // #endregion
-
-    // #region Member Declarations
-
-    private Game game = Game.getCurrentGame();
-
-    // #endregion
-
-    // #region Methods
-
-    public FormBuyFuel() {
+    FormBuyFuel() {
         initializeComponent();
 
+        Game game = Game.getCurrentGame();
         Commander cmdr = game.getCommander();
-        numAmount.setMaximum(Math.min(cmdr.getCash(), (cmdr.getShip().getFuelTanks() - cmdr.getShip().getFuel())
-                * cmdr.getShip().getFuelCost()));
-        numAmount.setValue(numAmount.getMaximum());
+        numericUpDown.setMaximum(Math.min(cmdr.getCash(),
+                (cmdr.getShip().getFuelTanks() - cmdr.getShip().getFuel()) * cmdr.getShip().getFuelCost()));
+        numericUpDown.setValue(numericUpDown.getMaximum());
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        this.lblQuestion = new spacetrader.controls.Label();
-        this.numAmount = new spacetrader.controls.NumericUpDown();
-        this.btnOk = new spacetrader.controls.Button();
-        this.btnMax = new spacetrader.controls.Button();
-        this.btnNothing = new spacetrader.controls.Button();
-        ((ISupportInitialize) (this.numAmount)).beginInit();
+        this.questionLabel = new Label();
+        this.numericUpDown = new NumericUpDown();
+        this.okButton = new Button();
+        this.maxButton = new Button();
+        this.nothingButton = new Button();
+        ((ISupportInitialize) (this.numericUpDown)).beginInit();
+
+        this.setName("formBuyFuel");
+        ReflectionUtils.setAllComponentNames(this);
+
         this.suspendLayout();
-        //
-        // lblQuestion
-        //
-        this.lblQuestion.setAutoSize(true);
-        this.lblQuestion.setLocation(new java.awt.Point(8, 8));
-        this.lblQuestion.setName("lblQuestion");
-        this.lblQuestion.setSize(new spacetrader.controls.Size(211, 13));
-        this.lblQuestion.setTabIndex(3);
-        this.lblQuestion.setText("How much do you want to spend on fuel?");
-        //
-        // numAmount
-        //
-        this.numAmount.setLocation(new java.awt.Point(216, 6));
-        this.numAmount.setMaximum(999);
-        this.numAmount.setMinimum(1);
-        this.numAmount.setName("numAmount");
-        this.numAmount.setSize(new spacetrader.controls.Size(44, 20));
-        this.numAmount.setTabIndex(1);
-        this.numAmount.setValue(888);
-        //
-        // btnOk
-        //
-        this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnOk.setLocation(new java.awt.Point(61, 32));
-        this.btnOk.setName("btnOk");
-        this.btnOk.setSize(new spacetrader.controls.Size(41, 22));
-        this.btnOk.setTabIndex(2);
-        this.btnOk.setText("Ok");
-        //
-        // btnMax
-        //
-        this.btnMax.setDialogResult(DialogResult.OK);
-        this.btnMax.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnMax.setLocation(new java.awt.Point(109, 32));
-        this.btnMax.setName("btnMax");
-        this.btnMax.setSize(new spacetrader.controls.Size(41, 22));
-        this.btnMax.setTabIndex(3);
-        this.btnMax.setText("Max");
-        this.btnMax.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnMax_Click(sender, e);
+
+        this.questionLabel.setAutoSize(true);
+        this.questionLabel.setLocation(new Point(8, 8));
+        this.questionLabel.setSize(new Size(211, 13));
+        this.questionLabel.setTabIndex(3);
+        this.questionLabel.setText("How much do you want to spend on fuel?");
+
+        this.numericUpDown.setLocation(new Point(216, 6));
+        //this.numericUpDown.setMaximum(999);
+        this.numericUpDown.setMinimum(1);
+        this.numericUpDown.setSize(new Size(44, 20));
+        this.numericUpDown.setTabIndex(1);
+        //this.numericUpDown.setValue(888);
+
+        this.okButton.setDialogResult(DialogResult.OK);
+        this.okButton.setFlatStyle(FlatStyle.FLAT);
+        this.okButton.setLocation(new Point(61, 32));
+        this.okButton.setSize(new Size(41, 22));
+        this.okButton.setTabIndex(2);
+        this.okButton.setText("Ok");
+
+        this.maxButton.setDialogResult(DialogResult.OK);
+        this.maxButton.setFlatStyle(FlatStyle.FLAT);
+        //TODO delete all sizes
+        this.maxButton.setLocation(new Point(109, 32));
+        this.maxButton.setSize(new Size(41, 22));
+        this.maxButton.setTabIndex(3);
+        //TODO delete all texts
+        this.maxButton.setText("Max");
+        this.maxButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                numericUpDown.setValue(numericUpDown.getMaximum());
             }
         });
-        //
-        // btnNothing
-        //
-        this.btnNothing.setDialogResult(DialogResult.CANCEL);
-        this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnNothing.setLocation(new java.awt.Point(157, 32));
-        this.btnNothing.setName("btnNothing");
-        this.btnNothing.setSize(new spacetrader.controls.Size(53, 22));
-        this.btnNothing.setTabIndex(4);
-        this.btnNothing.setText("Nothing");
-        //
-        // FormBuyFuel
-        //
-        this.setAcceptButton(this.btnOk);
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setCancelButton(this.btnNothing);
-        this.setClientSize(new spacetrader.controls.Size(270, 63));
+
+        this.nothingButton.setDialogResult(DialogResult.CANCEL);
+        this.nothingButton.setFlatStyle(FlatStyle.FLAT);
+        this.nothingButton.setLocation(new Point(157, 32));
+        this.nothingButton.setSize(new Size(53, 22));
+        this.nothingButton.setTabIndex(4);
+        this.nothingButton.setText("Nothing");
+
+        this.setAcceptButton(this.okButton);
+        this.setAutoScaleBaseSize(new Size(5, 13));
+        this.setCancelButton(this.nothingButton);
+        this.setClientSize(new Size(270, 63));
         this.setControlBox(false);
-        this.controls.addAll(Arrays.asList(this.btnNothing, this.btnMax, this.btnOk, this.numAmount, this.lblQuestion));
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
-        this.setName("FormBuyFuel");
+
+        this.controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
+
+        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Buy Fuel");
-        ((ISupportInitialize) (this.numAmount)).endInit();
+        ((ISupportInitialize) (this.numericUpDown)).endInit();
     }
-
-    // #endregion
-
-    // #endregion
-
-    // #region Event Handlers
-
-    private void btnMax_Click(Object sender, EventArgs e) {
-        numAmount.setValue(numAmount.getMaximum());
-    }
-
-    // #endregion
-
-    // #region Properties
 
     public int getAmount() {
-        return numAmount.getValue();
+        return numericUpDown.getValue();
     }
 }
