@@ -61,14 +61,14 @@ public class FormCargoBuy extends SpaceTraderForm {
         questionLabel.setText(stringVars(Strings.CargoBuyQuestion, Strings.CargoBuyOps[op.castToInt()].toLowerCase()));
 
         switch (op) {
-            case BuySystem:
+            case BUY_SYSTEM:
                 statementLabelValue.setText(stringVars(Strings.CargoBuyStatement,
                         formatMoney(game.getPriceCargoBuy()[item]), formatNumber(maxAmount)));
 
                 //TODO multiplier
                 setHeight(okButton.getTop() + okButton.getHeight() + 34);
                 break;
-            case BuyTrader:
+            case BUY_TRADER:
                 int afford = Math.min(cmdr.getCash() / game.getPriceCargoBuy()[item], cmdr.getShip().getFreeCargoBays());
                 if (afford < maxAmount) {
                     numericUpDown.setMaximum(afford);
@@ -90,7 +90,7 @@ public class FormCargoBuy extends SpaceTraderForm {
                 numericUpDown.setTop(numericUpDown.getTop() + 26);
 
                 break;
-            case Plunder:
+            case PLUNDER:
                 statementLabelValue.setText(stringVars(Strings.CargoBuyStatementSteal, formatNumber(game
                         .getOpponent().getCargo()[item])));
                 //TODO multiplier

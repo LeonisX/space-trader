@@ -162,6 +162,9 @@ public class ReflectionUtils {
         if (component instanceof JFrame) {
             print(formatPropertyName(prefix) + ".title", ((JFrame) component).getTitle());
         }
+        if (component instanceof JDialog) {
+            print(formatPropertyName(prefix) + ".title", ((Dialog) component).getTitle());
+        }
 
         if (component instanceof JMenu) {
             for (Component child : ((JMenu) component).getMenuComponents()) {
@@ -180,7 +183,7 @@ public class ReflectionUtils {
 
     private static void print(String key, String value) {
         value = value.replace("<HTML>", "").replace("</HTML>", "");
-        if (!value.isEmpty() && !key.contains(".buyButton") && !key.contains(".sellButton")) {
+        if (!value.isEmpty() && !key.contains(".buyButton") && !key.contains(".sellButton") && !key.contains("LabelValue")) {
             System.out.println(key + "=" + value);
         } else {
             System.out.println("# " + key + "=" + value);
@@ -229,6 +232,10 @@ public class ReflectionUtils {
 
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
             ((TitledBorder) ((JPanel) component).getBorder()).setTitle(stringsMap.getTitle(prefix));
+        }
+
+        if (component instanceof JDialog) {
+            ((JDialog) component).setTitle(stringsMap.getTitle(prefix));
         }
 
         if (component instanceof JMenu) {

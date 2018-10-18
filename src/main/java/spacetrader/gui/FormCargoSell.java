@@ -22,229 +22,163 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
 import spacetrader.game.enums.CargoSellOp;
 import spacetrader.game.*;
 import spacetrader.guifacade.Facaded;
+import spacetrader.util.ReflectionUtils;
+
+import java.awt.*;
+
+import static spacetrader.game.Functions.*;
 
 @Facaded
 public class FormCargoSell extends SpaceTraderForm {
-    // #region Control Declarations
 
-    private final Container components = null;
-    private final Game game = Game.getCurrentGame();
-    private spacetrader.controls.Button btnOk;
-    private spacetrader.controls.Button btnAll;
-    private spacetrader.controls.Button btnNone;
-    private spacetrader.controls.Label lblStatement;
-    private spacetrader.controls.Label lblQuestion;
-    private spacetrader.controls.NumericUpDown numAmount;
-    private spacetrader.controls.Label lblPaid;
-
-    // #endregion
-
-    // #region Member Declarations
-    private spacetrader.controls.Label lblProfit;
-
-    // #endregion
-
-    // #region Methods
+    private Label statementLabelValue;
+    private Label questionLabel;
+    private NumericUpDown numericUpDown;
+    private Label paidLabelValue;
+    private Label profitLabelValue;
+    private Button okButton;
+    private Button allButton;
+    private Button noneButton;
 
     public FormCargoSell(int item, int maxAmount, CargoSellOp op, int price) {
         initializeComponent();
 
-        Commander cmdr = game.getCommander();
-        int cost = cmdr.getPriceCargo()[item] / cmdr.getShip().getCargo()[item];
+        Game game = Game.getCurrentGame();
+        Commander commander = game.getCommander();
+        int cost = commander.getPriceCargo()[item] / commander.getShip().getCargo()[item];
 
-        numAmount.setMaximum(maxAmount);
-        numAmount.setValue(numAmount.getMinimum());
-        this.setText(Functions.stringVars(Strings.CargoTitle,
-                Strings.CargoSellOps[op.castToInt()],
-                Consts.TradeItems[item].Name()));
-        lblQuestion.setText(Functions.stringVars(Strings.CargoSellQuestion,
-                Strings.CargoSellOps[op.castToInt()].toLowerCase()));
-        lblPaid.setText(Functions.stringVars(
-                op == CargoSellOp.SellTrader ? Strings.CargoSellPaidTrader
-                        : Strings.CargoSellPaid, Functions.formatMoney(cost),
-                Functions.multiples(maxAmount, Strings.CargoUnit)));
-        lblProfit.setText(Functions.stringVars(Strings.CargoSellProfit,
-                price >= cost ? "profit" : "loss", Functions
-                        .formatMoney(price >= cost ? price - cost : cost
-                                - price)));
+        numericUpDown.setMaximum(maxAmount);
+        numericUpDown.setValue(numericUpDown.getMinimum());
+        setText(stringVars(Strings.CargoTitle, Strings.CargoSellOps[op.castToInt()], Consts.TradeItems[item].Name()));
+        questionLabel.setText(stringVars(Strings.CargoSellQuestion, Strings.CargoSellOps[op.castToInt()].toLowerCase()));
+        paidLabelValue.setText(stringVars(op == CargoSellOp.SELL_TRADER ? Strings.CargoSellPaidTrader
+                        : Strings.CargoSellPaid, formatMoney(cost), multiples(maxAmount, Strings.CargoUnit)));
+        profitLabelValue.setText(stringVars(Strings.CargoSellProfitPerUnit,
+                price >= cost ? Strings.CargoProfit : Strings.CargoLoss, formatMoney(price >= cost ? price - cost : cost - price)));
 
         // Override defaults for some ops.
         switch (op) {
-            case Dump:
-                lblStatement.setText(Functions.stringVars(
-                        Strings.CargoSellStatementDump,
-                        Strings.CargoSellOps[op.castToInt()].toLowerCase(),
-                        Functions.formatNumber(maxAmount)));
-                lblProfit.setText(Functions.stringVars(Strings.CargoSellDumpCost,
-                        Functions.formatMoney(-price)));
+            case DUMP:
+                statementLabelValue.setText(stringVars(Strings.CargoSellStatementDump,
+                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), formatNumber(maxAmount)));
+                profitLabelValue.setText(stringVars(Strings.CargoSellDumpCost, formatMoney(-price)));
                 break;
-            case Jettison:
-                lblStatement.setText(Functions.stringVars(
-                        Strings.CargoSellStatementDump,
-                        Strings.CargoSellOps[op.castToInt()].toLowerCase(),
-                        Functions.formatNumber(maxAmount)));
+            case JETTISON:
+                statementLabelValue.setText(stringVars(Strings.CargoSellStatementDump,
+                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), formatNumber(maxAmount)));
                 break;
-            case SellSystem:
-                lblStatement.setText(Functions.stringVars(
-                        Strings.CargoSellStatement, Functions
-                                .formatNumber(maxAmount), Functions
-                                .formatMoney(price)));
+            case SELL_SYSTEM:
+                statementLabelValue.setText(stringVars(Strings.CargoSellStatement, formatNumber(maxAmount), formatMoney(price)));
                 break;
-            case SellTrader:
-                lblStatement.setText(Functions.stringVars(
-                        Strings.CargoSellStatementTrader,
-                        Consts.TradeItems[item].Name(), Functions.formatMoney(price)));
+            case SELL_TRADER:
+                statementLabelValue.setText(stringVars(Strings.CargoSellStatementTrader,
+                        Consts.TradeItems[item].Name(), formatMoney(price)));
                 break;
         }
     }
-
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
+    
     private void initializeComponent() {
-        lblQuestion = new spacetrader.controls.Label();
-        lblStatement = new spacetrader.controls.Label();
-        numAmount = new spacetrader.controls.NumericUpDown();
-        btnOk = new spacetrader.controls.Button();
-        btnAll = new spacetrader.controls.Button();
-        btnNone = new spacetrader.controls.Button();
-        lblPaid = new spacetrader.controls.Label();
-        lblProfit = new spacetrader.controls.Label();
-        ((ISupportInitialize) (numAmount)).beginInit();
-        this.suspendLayout();
-        //
-        // lblQuestion
-        //
-        lblQuestion.setLocation(new java.awt.Point(8, 50));
-        lblQuestion.setName("lblQuestion");
-        lblQuestion.setSize(new spacetrader.controls.Size(160, 13));
-        lblQuestion.setTabIndex(1);
-        lblQuestion.setText("How many do you want to sell?");
-        //
-        // lblStatement
-        //
-        lblStatement.setLocation(new java.awt.Point(8, 8));
-        lblStatement.setName("lblStatement");
-        lblStatement.setSize(new spacetrader.controls.Size(302, 13));
-        lblStatement.setTabIndex(3);
-        lblStatement.setText("The trader wants to by Machines, and offers 8,888 cr. each.");
-        //
-        // numAmount
-        //
-        numAmount.setLocation(new java.awt.Point(168, 48));
-        numAmount.setMinimum(1);
-        numAmount.setName("numAmount");
-        numAmount.setSize(new spacetrader.controls.Size(38, 20));
-        numAmount.setTabIndex(1);
-        numAmount.setValue(88);
-        //
-        // btnOk
-        //
-        btnOk.setDialogResult(DialogResult.OK);
-        btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnOk.setLocation(new java.awt.Point(83, 74));
-        btnOk.setName("btnOk");
-        btnOk.setSize(new spacetrader.controls.Size(41, 22));
-        btnOk.setTabIndex(2);
-        btnOk.setText("Ok");
-        //
-        // btnAll
-        //
-        btnAll.setDialogResult(DialogResult.OK);
-        btnAll.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnAll.setLocation(new java.awt.Point(131, 74));
-        btnAll.setName("btnAll");
-        btnAll.setSize(new spacetrader.controls.Size(41, 22));
-        btnAll.setTabIndex(3);
-        btnAll.setText("All");
-        btnAll.setClick(new EventHandler<Object, EventArgs>() {
+        questionLabel = new Label();
+        statementLabelValue = new Label();
+        numericUpDown = new NumericUpDown();
+        okButton = new Button();
+        allButton = new Button();
+        noneButton = new Button();
+        paidLabelValue = new Label();
+        profitLabelValue = new Label();
+
+        ((ISupportInitialize) (numericUpDown)).beginInit();
+
+        setName("formCargoSell");
+        ReflectionUtils.setAllComponentNames(this);
+
+        suspendLayout();
+
+        statementLabelValue.setLocation(new Point(8, 8));
+        statementLabelValue.setSize(new Size(302, 13));
+        statementLabelValue.setTabIndex(3);
+        //statementLabelValue.setText("The trader wants to by Machines, and offers 8,888 cr. each.");
+
+        paidLabelValue.setLocation(new Point(8, 21));
+        paidLabelValue.setSize(new Size(280, 13));
+        paidLabelValue.setTabIndex(5);
+        //paidLabelValue.setText("You paid about 8,888 cr. per unit, and can sell 88 units.");
+
+        profitLabelValue.setLocation(new Point(8, 34));
+        profitLabelValue.setSize(new Size(200, 13));
+        profitLabelValue.setTabIndex(6);
+        //profitLabelValue.setText("It costs 8,888 cr. per unit for disposal.");
+
+        questionLabel.setLocation(new Point(8, 50));
+        questionLabel.setSize(new Size(160, 13));
+        questionLabel.setTabIndex(1);
+        questionLabel.setText("How many do you want to sell?");
+
+        numericUpDown.setLocation(new Point(168, 48));
+        numericUpDown.setMinimum(1);
+        numericUpDown.setSize(new Size(38, 20));
+        numericUpDown.setTabIndex(1);
+        numericUpDown.setValue(88);
+        
+        okButton.setDialogResult(DialogResult.OK);
+        okButton.setFlatStyle(FlatStyle.FLAT);
+        okButton.setLocation(new Point(83, 74));
+        okButton.setSize(new Size(41, 22));
+        okButton.setTabIndex(2);
+        okButton.setText("Ok");
+        
+        allButton.setDialogResult(DialogResult.OK);
+        allButton.setFlatStyle(FlatStyle.FLAT);
+        allButton.setLocation(new Point(131, 74));
+        allButton.setSize(new Size(41, 22));
+        allButton.setTabIndex(3);
+        allButton.setText("All");
+        allButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnAll_Click(sender, e);
+            public void handle(Object sender, EventArgs e) {
+                numericUpDown.setValue(numericUpDown.getMaximum());
             }
         });
-        //
-        // btnNone
-        //
-        btnNone.setDialogResult(DialogResult.CANCEL);
-        btnNone.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnNone.setLocation(new java.awt.Point(179, 74));
-        btnNone.setName("btnNone");
-        btnNone.setSize(new spacetrader.controls.Size(41, 22));
-        btnNone.setTabIndex(4);
-        btnNone.setText("None");
-        //
-        // lblPaid
-        //
-        lblPaid.setLocation(new java.awt.Point(8, 21));
-        lblPaid.setName("lblPaid");
-        lblPaid.setSize(new spacetrader.controls.Size(280, 13));
-        lblPaid.setTabIndex(5);
-        lblPaid.setText("You paid about 8,888 cr. per unit, and can sell 88 units.");
-        //
-        // lblProfit
-        //
-        lblProfit.setLocation(new java.awt.Point(8, 34));
-        lblProfit.setName("lblProfit");
-        lblProfit.setSize(new spacetrader.controls.Size(200, 13));
-        lblProfit.setTabIndex(6);
-        lblProfit.setText("It costs 8,888 cr. per unit for disposal.");
-        //
-        // FormCargoSell
-        //
-        this.setAcceptButton(btnOk);
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setCancelButton(btnNone);
-        this.setClientSize(new spacetrader.controls.Size(302, 105));
-        this.setControlBox(false);
-        controls.add(lblProfit);
-        controls.add(lblPaid);
-        controls.add(btnNone);
-        controls.add(btnAll);
-        controls.add(btnOk);
-        controls.add(numAmount);
-        controls.add(lblQuestion);
-        controls.add(lblStatement);
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
-        this.setName("FormCargoSell");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Sell Xxxxxxxxxx");
-        ((ISupportInitialize) (numAmount)).endInit();
+        
+        noneButton.setDialogResult(DialogResult.CANCEL);
+        noneButton.setFlatStyle(FlatStyle.FLAT);
+        noneButton.setLocation(new java.awt.Point(179, 74));
+        noneButton.setSize(new Size(41, 22));
+        noneButton.setTabIndex(4);
+        noneButton.setText("None");
+
+        setAcceptButton(okButton);
+        setAutoScaleBaseSize(new Size(5, 13));
+        setCancelButton(noneButton);
+        setClientSize(new Size(302, 105));
+        setControlBox(false);
+
+        controls.add(statementLabelValue);
+        controls.add(paidLabelValue);
+        controls.add(profitLabelValue);
+        controls.add(questionLabel);
+        controls.add(numericUpDown);
+        controls.add(okButton);
+        controls.add(allButton);
+        controls.add(noneButton);
+
+        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setShowInTaskbar(false);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        //setText("Sell Xxxxxxxxxx");
+        ((ISupportInitialize) (numericUpDown)).endInit();
 
     }
-
-    // #endregion
-
-    // #endregion
-
-    // #region Event Handlers
-
-    private void btnAll_Click(Object sender, EventArgs e) {
-        numAmount.setValue(numAmount.getMaximum());
-    }
-
-    // #endregion
-
-    // #region Properties
-
 
     public int Amount() {
-        return numAmount.getValue();
+        return numericUpDown.getValue();
     }
-
-    // #endregion
 }

@@ -925,13 +925,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         int cashToSpend = getCommander().getCash();
 
         switch (op) {
-            case BuySystem:
+            case BUY_SYSTEM:
                 freeBays = Math.max(0, getCommander().getShip().getFreeCargoBays() - Options().getLeaveEmpty());
                 items = getCommander().getCurrentSystem().getTradeItems();
                 unitPrice = getPriceCargoBuy()[tradeItem];
                 cashToSpend = getCommander().getCashToSpend();
                 break;
-            case BuyTrader:
+            case BUY_TRADER:
                 items = getOpponent().getCargo();
                 TradeItem item = Consts.TradeItems[tradeItem];
                 int chance = item.Illegal() ? 45 : 10;
@@ -940,23 +940,23 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         .round(getPriceCargoBuy()[tradeItem] * adj / item.RoundOff())
                         * item.RoundOff()));
                 break;
-            case Plunder:
+            case PLUNDER:
                 items = getOpponent().getCargo();
                 break;
         }
 
-        if (op == CargoBuyOp.BuySystem && getCommander().getDebt() > Consts.DebtTooLarge)
+        if (op == CargoBuyOp.BUY_SYSTEM && getCommander().getDebt() > Consts.DebtTooLarge)
             GuiFacade.alert(AlertType.DebtTooLargeTrade);
-        else if (op == CargoBuyOp.BuySystem && (items[tradeItem] <= 0 || unitPrice <= 0))
+        else if (op == CargoBuyOp.BUY_SYSTEM && (items[tradeItem] <= 0 || unitPrice <= 0))
             GuiFacade.alert(AlertType.CargoNoneAvailable);
         else if (freeBays == 0)
             GuiFacade.alert(AlertType.CargoNoEmptyBays);
-        else if (op != CargoBuyOp.Plunder && cashToSpend < unitPrice)
+        else if (op != CargoBuyOp.PLUNDER && cashToSpend < unitPrice)
             GuiFacade.alert(AlertType.CargoIF);
         else {
             int qty = 0;
             int maxAmount = Math.min(freeBays, items[tradeItem]);
-            if (op == CargoBuyOp.BuySystem)
+            if (op == CargoBuyOp.BUY_SYSTEM)
                 maxAmount = Math.min(maxAmount, getCommander().getCashToSpend() / unitPrice);
 
             if (max)
@@ -976,37 +976,37 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public void cargoBuySystem(int tradeItem, boolean max) {
-        cargoBuy(tradeItem, max, CargoBuyOp.BuySystem);
+        cargoBuy(tradeItem, max, CargoBuyOp.BUY_SYSTEM);
     }
 
     public void CargoBuyTrader(int tradeItem) {
-        cargoBuy(tradeItem, false, CargoBuyOp.BuyTrader);
+        cargoBuy(tradeItem, false, CargoBuyOp.BUY_TRADER);
     }
 
     public void CargoPlunder(int tradeItem, boolean max) {
-        cargoBuy(tradeItem, max, CargoBuyOp.Plunder);
+        cargoBuy(tradeItem, max, CargoBuyOp.PLUNDER);
     }
 
     public void CargoDump(int tradeItem) {
-        CargoSell(tradeItem, false, CargoSellOp.Dump);
+        CargoSell(tradeItem, false, CargoSellOp.DUMP);
     }
 
     public void CargoJettison(int tradeItem, boolean all) {
-        CargoSell(tradeItem, all, CargoSellOp.Jettison);
+        CargoSell(tradeItem, all, CargoSellOp.JETTISON);
     }
 
     public void CargoSellSystem(int tradeItem, boolean all) {
-        CargoSell(tradeItem, all, CargoSellOp.SellSystem);
+        CargoSell(tradeItem, all, CargoSellOp.SELL_SYSTEM);
     }
 
     private void CargoSell(int tradeItem, boolean all, CargoSellOp op) {
         int qtyInHand = getCommander().getShip().getCargo()[tradeItem];
         int unitPrice;
         switch (op) {
-            case SellSystem:
+            case SELL_SYSTEM:
                 unitPrice = getPriceCargoSell()[tradeItem];
                 break;
-            case SellTrader:
+            case SELL_TRADER:
                 TradeItem item = Consts.TradeItems[tradeItem];
                 int chance = item.Illegal() ? 45 : 10;
                 double adj = Functions.GetRandom(100) < chance ? (item.Illegal() ? 0.8 : 0.9) : 1.1;
@@ -1021,16 +1021,16 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (qtyInHand == 0)
             GuiFacade.alert(AlertType.CargoNoneToSell, Strings.CargoSellOps[op.castToInt()]);
-        else if (op == CargoSellOp.SellSystem && unitPrice <= 0)
+        else if (op == CargoSellOp.SELL_SYSTEM && unitPrice <= 0)
             GuiFacade.alert(AlertType.CargoNotInterested);
         else {
-            if (op != CargoSellOp.Jettison || getLitterWarning()
+            if (op != CargoSellOp.JETTISON || getLitterWarning()
                     || getCommander().getPoliceRecordScore() <= Consts.PoliceRecordScoreDubious
                     || GuiFacade.alert(AlertType.EncounterDumpWarning) == DialogResult.YES) {
                 int unitCost = 0;
-                int maxAmount = (op == CargoSellOp.SellTrader) ? Math.min(qtyInHand, getOpponent().getFreeCargoBays())
+                int maxAmount = (op == CargoSellOp.SELL_TRADER) ? Math.min(qtyInHand, getOpponent().getFreeCargoBays())
                         : qtyInHand;
-                if (op == CargoSellOp.Dump) {
+                if (op == CargoSellOp.DUMP) {
                     unitCost = 5 * (Difficulty().castToInt() + 1);
                     maxAmount = Math.min(maxAmount, getCommander().getCashToSpend() / unitCost);
                 }
@@ -1051,7 +1051,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                             / qtyInHand;
                     getCommander().setCash(getCommander().getCash() + totalPrice);
 
-                    if (op == CargoSellOp.Jettison) {
+                    if (op == CargoSellOp.JETTISON) {
                         if (Functions.GetRandom(10) < Difficulty().castToInt() + 1) {
                             if (getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreDubious)
                                 getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
@@ -1067,7 +1067,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public void CargoSellTrader(int tradeItem) {
-        CargoSell(tradeItem, false, CargoSellOp.SellTrader);
+        CargoSell(tradeItem, false, CargoSellOp.SELL_TRADER);
     }
 
     public void CreateFlea() {

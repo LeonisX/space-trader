@@ -449,12 +449,14 @@ public class Strings {
     public static String CargoBuyStatementTrader = "The trader wants to sell ^1 for the price of ^2 each.";
     public static String CargoCredit = "cr.";
     public static String CargoDump = "Dump";
+    public static String CargoLoss = "loss";
+    public static String CargoProfit = "profit";
     public static String CargoSellDumpCost = "It costs ^1 per unit for disposal.";
     public static String CargoSelling = "selling";
     public static String CargoSellNA = "no trade";
     public static String CargoSellPaid = "You paid about ^1 per unit.";
     public static String CargoSellPaidTrader = "You paid about ^1 per unit, and can sell ^2.";
-    public static String CargoSellProfit = "Your ^1 per unit is ^2";
+    public static String CargoSellProfitPerUnit = "Your ^1 per unit is ^2";
     public static String CargoSellQuestion = "How many do you want to ^1?";
     public static String CargoSellStatement = "You can sell up to ^1 at ^2 each.";
     public static String CargoSellStatementDump = "You can ^1 up to ^2.";

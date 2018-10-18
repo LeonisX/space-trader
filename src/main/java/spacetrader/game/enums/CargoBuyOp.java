@@ -1,9 +1,10 @@
 package spacetrader.game.enums;
 
 public enum CargoBuyOp implements SpaceTraderEnum {
-    BuySystem,
-    BuyTrader,
-    Plunder;
+
+    BUY_SYSTEM,
+    BUY_TRADER,
+    PLUNDER;
 
     public int castToInt() {
         return ordinal();

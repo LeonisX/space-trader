@@ -104,54 +104,80 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         ReflectionUtils.setAllComponentNames(this);
 
-        //ReflectionUtils.dumpAllAlertStrings();
+        dumpAllDimensions();
+        dumpAllStrings();
 
-        /*ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
-        System.out.println("===================");
-        ReflectionUtils.dumpControlsStrings(getFrame(), this.getName());
-        System.out.println("===================");
-
-        FormAbout formAbout = new FormAbout();
-        ReflectionUtils.dumpControlsDimensions(formAbout.asSwingObject(), formAbout.getName());
-        System.out.println("===================");
-        ReflectionUtils.dumpControlsStrings(formAbout.asSwingObject(), formAbout.getName());
-        System.out.println("===================");
-
-        FormAlert formAlert = FormAlert.makeDialog(EncounterDrinkContents, new String[]{});
-        ReflectionUtils.dumpControlsDimensions(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
-        System.out.println("===================");
-        ReflectionUtils.dumpControlsStrings(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
-        System.out.println("===================");*/
-
-        Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
-
-/*        FormBuyFuel form = new FormBuyFuel();
-        ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
-        System.out.println("===================");
-        ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
-        System.out.println("===================");*/
-
-/*
-        FormBuyRepairs form = new FormBuyRepairs();
-        ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
-        System.out.println("===================");
-        ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
-        System.out.println("===================");
-*/
-
-        FormCargoBuy form = new FormCargoBuy(1, 1, CargoBuyOp.BuySystem);
-        ReflectionUtils.dumpControlsDimensions(form.asSwingObject(), form.asSwingObject().getName());
-        System.out.println("===================");
-        ReflectionUtils.dumpControlsStrings(form.asSwingObject(), form.asSwingObject().getName());
-        System.out.println("===================");
-
-        //ReflectionUtils.dumpStrings();
-
-        System.out.println("");
         ReflectionUtils.loadControlsDimensions(getFrame(), this.getName(), dimensions);
         ReflectionUtils.loadControlsStrings(getFrame(), this.getName(), strings);
         ReflectionUtils.loadStrings(strings);
-        System.out.println("");
+    }
+
+    private void dumpAllDimensions() {
+        Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
+        game.getCommander().getShip().getCargo()[1] = 12;
+
+        /*ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
+        System.out.println();
+
+        FormAbout formAbout = new FormAbout();
+        ReflectionUtils.dumpControlsDimensions(formAbout.asSwingObject(), formAbout.getName());
+        System.out.println();
+
+        FormAlert formAlert = FormAlert.makeDialog(EncounterDrinkContents, new String[]{});
+        ReflectionUtils.dumpControlsDimensions(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
+        System.out.println();
+
+        FormBuyFuel formBuyFuel = new FormBuyFuel();
+        ReflectionUtils.dumpControlsDimensions(formBuyFuel.asSwingObject(), formBuyFuel.asSwingObject().getName());
+        System.out.println();
+
+        FormBuyRepairs formBuyRepairs = new FormBuyRepairs();
+        ReflectionUtils.dumpControlsDimensions(formBuyRepairs.asSwingObject(), formBuyRepairs.asSwingObject().getName());
+        System.out.println();
+
+        FormCargoBuy formCargoBuy = new FormCargoBuy(1, 1, CargoBuyOp.BUY_SYSTEM);
+        ReflectionUtils.dumpControlsDimensions(formCargoBuy.asSwingObject(), formCargoBuy.asSwingObject().getName());
+        System.out.println();
+
+        FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON,255);
+        ReflectionUtils.dumpControlsDimensions(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
+        System.out.println();*/
+    }
+
+    private void dumpAllStrings() {
+        //ReflectionUtils.dumpAllAlertStrings();
+
+        Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
+        game.getCommander().getShip().getCargo()[1] = 12;
+
+        /*ReflectionUtils.dumpControlsStrings(getFrame(), this.getName());
+        System.out.println();
+
+        FormAbout formAbout = new FormAbout();
+        ReflectionUtils.dumpControlsStrings(formAbout.asSwingObject(), formAbout.getName());
+        System.out.println();
+
+        FormAlert formAlert = FormAlert.makeDialog(EncounterDrinkContents, new String[]{});
+        ReflectionUtils.dumpControlsStrings(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
+        System.out.println();
+
+        FormBuyFuel formBuyFuel = new FormBuyFuel();
+        ReflectionUtils.dumpControlsStrings(formBuyFuel.asSwingObject(), formBuyFuel.asSwingObject().getName());
+        System.out.println();
+
+        FormBuyRepairs formBuyRepairs = new FormBuyRepairs();
+        ReflectionUtils.dumpControlsStrings(formBuyRepairs.asSwingObject(), formBuyRepairs.asSwingObject().getName());
+        System.out.println();
+
+        FormCargoBuy formCargoBuy = new FormCargoBuy(1, 1, CargoBuyOp.BUY_SYSTEM);
+        ReflectionUtils.dumpControlsStrings(formCargoBuy.asSwingObject(), formCargoBuy.asSwingObject().getName());
+        System.out.println();
+
+        FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON,255);
+        ReflectionUtils.dumpControlsStrings(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
+        System.out.println();*/
+
+        //ReflectionUtils.dumpStrings();
     }
 
     private void initializeComponent() {
