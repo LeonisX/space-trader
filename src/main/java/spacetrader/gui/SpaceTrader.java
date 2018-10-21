@@ -142,6 +142,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON,255);
         ReflectionUtils.dumpControlsDimensions(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
         System.out.println();*/
+
+        Component formCosts = new FormCosts().asSwingObject();
+        ReflectionUtils.dumpControlsDimensions(formCosts, formCosts.getName());
+        System.out.println();
     }
 
     private void dumpAllStrings() {
@@ -176,6 +180,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON,255);
         ReflectionUtils.dumpControlsStrings(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
         System.out.println();*/
+
+        Component formCosts = new FormCosts().asSwingObject();
+        ReflectionUtils.dumpControlsStrings(formCosts, formCosts.getName());
 
         //ReflectionUtils.dumpStrings();
     }

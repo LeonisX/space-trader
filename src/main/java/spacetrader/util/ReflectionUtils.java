@@ -252,7 +252,7 @@ public class ReflectionUtils {
             }
         }
     }
-
+/*
     //TODO delete
     public static void dumpAllAlertStrings() {
         Arrays.stream(AlertType.values()).forEach(alertType -> {
@@ -296,7 +296,7 @@ public class ReflectionUtils {
 
         if (component instanceof java.awt.Container) {
             for (Component child : ((java.awt.Container) component).getComponents()) {
-                String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
+                String name = *//*child.getName() == null ? child.getClass().getSimpleName() :*//* child.getName();
                 dumpControlsStrings2(child, prefix + "." + name, stringsList);
             }
         }
@@ -1059,5 +1059,5 @@ public class ReflectionUtils {
             "            default:\n" +
             "                throw new IllegalArgumentException(\"Unknown AlertType: \" + type);\n" +
             "        }\n" +
-            "    }";
+            "    }";*/
 }
