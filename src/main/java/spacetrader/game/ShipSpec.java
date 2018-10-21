@@ -183,13 +183,13 @@ public class ShipSpec extends STSerializableObject {
         int count = 0;
 
         switch (type) {
-            case Weapon:
+            case WEAPON:
                 count = getWeaponSlots();
                 break;
-            case Shield:
+            case SHIELD:
                 count = getShieldSlots();
                 break;
-            case Gadget:
+            case GADGET:
                 count = getGadgetSlots();
                 break;
         }

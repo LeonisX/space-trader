@@ -569,7 +569,7 @@ public class FormJettison extends SpaceTraderForm {
                 btnJettisonQty7, btnJettisonAll6, btnJettisonQty6, btnJettisonAll5, btnJettisonQty5, btnJettisonAll4,
                 btnJettisonQty4, btnJettisonAll3, btnJettisonQty3, btnJettisonAll2, btnJettisonQty2, btnJettisonAll1,
                 btnJettisonQty1, btnJettisonAll0, btnJettisonQty0));
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormJettison");

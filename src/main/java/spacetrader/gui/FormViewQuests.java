@@ -117,7 +117,7 @@ public class FormViewQuests extends SpaceTraderForm {
         this.setCancelButton(this.btnClose);
         this.setClientSize(new spacetrader.controls.Size(378, 325));
         this.controls.addAll(Arrays.asList(this.btnClose, this.lblQuests));
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormViewQuests");

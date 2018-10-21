@@ -46,7 +46,7 @@ public class Weapon extends Equipment {
 
     public Weapon(WeaponType type, int power, boolean disabling, int price,
                   TechLevel minTechLevel, int chance) {
-        super(spacetrader.game.enums.EquipmentType.Weapon, price, minTechLevel, chance);
+        super(spacetrader.game.enums.EquipmentType.WEAPON, price, minTechLevel, chance);
         _type = type;
         _power = power;
         _disabling = disabling;
@@ -99,16 +99,16 @@ public class Weapon extends Equipment {
     }
 
     public @Override
-    String Name() {
+    String getName() {
         return Strings.WeaponNames[_type.castToInt()];
     }
 
-    public int Power() {
+    public int getPower() {
         return _power;
     }
 
     public @Override
-    EquipmentSubType SubType() {
+    EquipmentSubType getSubType() {
         return Type();
     }
 

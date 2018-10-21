@@ -35,7 +35,6 @@ import spacetrader.util.ReflectionUtils;
 import java.awt.*;
 
 import static spacetrader.controls.MenuItem.separator;
-import static spacetrader.game.enums.AlertType.EncounterDrinkContents;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
 
@@ -234,7 +233,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         setStatusBar(statusBar);
         this.setMenu(mainMenu);
 
-        this.setFormBorderStyle(FormBorderStyle.FixedSingle);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_SINGLE);
         this.setIcon(((Icon) (resources.getObject("$this.Icon"))));
         this.setMaximizeBox(false);
         this.setStartPosition(FormStartPosition.MANUAL);

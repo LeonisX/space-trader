@@ -313,7 +313,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         this.controls.add(this.boxForHire);
         this.controls.add(this.boxCurrentCrew);
         this.controls.add(this.btnClose);
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormViewPersonnel");
@@ -340,21 +340,21 @@ public class FormViewPersonnel extends SpaceTraderForm {
     private void UpdateCurrentCrew() {
         CrewMember[] crew = game.getCommander().getShip().Crew();
 
-        lstCrew.Items.clear();
+        lstCrew.getItems().clear();
         for (int i = 1; i < crew.length; i++) {
             if (crew[i] == null)
-                lstCrew.Items.add(Strings.PersonnelVacancy);
+                lstCrew.getItems().add(Strings.PersonnelVacancy);
             else
-                lstCrew.Items.add(crew[i]);
+                lstCrew.getItems().add(crew[i]);
         }
 
-        boolean entries = (lstCrew.Items.size() > 0);
+        boolean entries = (lstCrew.getItems().size() > 0);
 
         lstCrew.setVisible(entries);
         lblCrewNoQuarters.setVisible(!entries);
 
         if (entries)
-            lstCrew.setHeight(lstCrew.getItemHeight() * Math.min(lstCrew.Items.size(), 6) + 2);
+            lstCrew.setHeight(lstCrew.getItemHeight() * Math.min(lstCrew.getItems().size(), 6) + 2);
         else
             // TODO: remove this when Strings are moved to resource.
             lblCrewNoQuarters.setText(Strings.PersonnelNoQuarters);
@@ -363,17 +363,17 @@ public class FormViewPersonnel extends SpaceTraderForm {
     private void UpdateForHire() {
         CrewMember[] mercs = game.getCommander().getCurrentSystem().mercenariesForHire();
 
-        lstForHire.Items.clear();
+        lstForHire.getItems().clear();
         for (int i = 0; i < mercs.length; i++)
-            lstForHire.Items.add(mercs[i]);
+            lstForHire.getItems().add(mercs[i]);
 
-        boolean entries = (lstForHire.Items.size() > 0);
+        boolean entries = (lstForHire.getItems().size() > 0);
 
         lstForHire.setVisible(entries);
         lblForHireNone.setVisible(!entries);
 
         if (entries)
-            lstForHire.setHeight(lstForHire.getItemHeight() * Math.min(lstForHire.Items.size(), 6) + 2);
+            lstForHire.setHeight(lstForHire.getItemHeight() * Math.min(lstForHire.getItems().size(), 6) + 2);
         else
             // TODO: remove this when Strings are moved to resource.
             lblForHireNone.setText(Strings.PersonnelNoMercenaries);

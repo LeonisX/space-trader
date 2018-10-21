@@ -406,7 +406,7 @@ public class FormViewCommander extends SpaceTraderForm {
         this.controls.addAll(Arrays.asList(this.boxNotoriety, this.boxFinances, this.boxSkills, this.lblTime,
                 this.lblDifficultyLabel, this.lblTimeLabel, this.lblNameLabel, this.btnClose, this.lblDifficulty,
                 this.lblName));
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormViewCommander");

@@ -44,7 +44,7 @@ public class Gadget extends Equipment {
     // #region Methods
 
     public Gadget(GadgetType type, SkillType skillBonus, int price, TechLevel minTechLevel, int chance) {
-        super(spacetrader.game.enums.EquipmentType.Gadget, price, minTechLevel, chance);
+        super(spacetrader.game.enums.EquipmentType.GADGET, price, minTechLevel, chance);
         _type = type;
         _skillBonus = skillBonus;
     }
@@ -75,7 +75,7 @@ public class Gadget extends Equipment {
         boolean equal = false;
 
         try {
-            if (Type() == (GadgetType) type)
+            if (getType() == (GadgetType) type)
                 equal = true;
         } catch (Exception e) {
             Log.write("Ignored Exception " + e);
@@ -88,16 +88,16 @@ public class Gadget extends Equipment {
 
     // #region Properties
     @Override
-    public String Name() {
+    public String getName() {
         return Strings.GadgetNames[_type.castToInt()];
     }
 
     @Override
-    public EquipmentSubType SubType() {
-        return Type();
+    public EquipmentSubType getSubType() {
+        return getType();
     }
 
-    public GadgetType Type() {
+    public GadgetType getType() {
         return _type;
     }
 

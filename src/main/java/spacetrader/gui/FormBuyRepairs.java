@@ -118,7 +118,7 @@ public class FormBuyRepairs extends WinformForm {
         setClientSize(new Size(286, 63));
         setControlBox(false);
         controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
-        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
 
         setShowInTaskbar(false);
         setStartPosition(FormStartPosition.CENTER_PARENT);

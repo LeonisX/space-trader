@@ -119,7 +119,7 @@ public class FormBuyFuel extends SpaceTraderForm {
 
         controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
 
-        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
 
         setShowInTaskbar(false);
         setStartPosition(FormStartPosition.CENTER_PARENT);

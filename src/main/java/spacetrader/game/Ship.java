@@ -61,13 +61,13 @@ public class Ship extends ShipSpec {
             SetValues(Consts.ShipSpecs[Consts.MaxShip].Type());
 
             for (int i = 0; i < Shields().length; i++)
-                AddEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
+                addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
 
             for (int i = 0; i < Weapons().length; i++)
-                AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+                addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
 
-            AddEquipment(Consts.Gadgets[GadgetType.NavigatingSystem.castToInt()]);
-            AddEquipment(Consts.Gadgets[GadgetType.TargetingSystem.castToInt()]);
+            addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
+            addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
             Crew()[0] = Game.getCurrentGame().Mercenaries()[CrewMemberId.FamousCaptain.castToInt()];
         } else if (oppType == OpponentType.Bottle) {
@@ -110,8 +110,8 @@ public class Ship extends ShipSpec {
         }
     }
 
-    public void AddEquipment(Equipment item) {
-        Equipment[] equip = EquipmentByType(item.EquipmentType());
+    public void addEquipment(Equipment item) {
+        Equipment[] equip = getEquipmentByType(item.getEquipmentType());
 
         int slot = -1;
         for (int i = 0; i < equip.length && slot == -1; i++)
@@ -134,13 +134,13 @@ public class Ship extends ShipSpec {
         // Add 3/4 of the price of each item of equipment
         for (i = 0; i < _weapons.length; i++)
             if (_weapons[i] != null)
-                price += _weapons[i].SellPrice();
+                price += _weapons[i].getSellPrice();
         for (i = 0; i < _shields.length; i++)
             if (_shields[i] != null)
-                price += _shields[i].SellPrice();
+                price += _shields[i].getSellPrice();
         for (i = 0; i < _gadgets.length; i++)
             if (_gadgets[i] != null)
-                price += _gadgets[i].SellPrice();
+                price += _gadgets[i].getSellPrice();
 
         return price;
     }
@@ -150,11 +150,11 @@ public class Ship extends ShipSpec {
 
         for (int i = 0; i < Weapons().length; i++)
             if (Weapons()[i] != null)
-                price += Weapons()[i].Price();
+                price += Weapons()[i].getPrice();
 
         for (int i = 0; i < Shields().length; i++)
             if (Shields()[i] != null)
-                price += Shields()[i].Price();
+                price += Shields()[i].getPrice();
 
         // Gadgets aren't counted in the price, because they are already taken
         // into account in
@@ -168,16 +168,16 @@ public class Ship extends ShipSpec {
         return Math.max(25, Math.min(2500, bounty));
     }
 
-    public Equipment[] EquipmentByType(EquipmentType type) {
+    public Equipment[] getEquipmentByType(EquipmentType type) {
         Equipment[] equip = null;
         switch (type) {
-            case Weapon:
+            case WEAPON:
                 equip = Weapons();
                 break;
-            case Shield:
+            case SHIELD:
                 equip = Shields();
                 break;
-            case Gadget:
+            case GADGET:
                 equip = Gadgets();
                 break;
         }
@@ -291,11 +291,11 @@ public class Ship extends ShipSpec {
                         gadgetType++;
                         sum += Consts.Gadgets[gadgetType].Chance();
                     }
-                    if (!HasGadget(Consts.Gadgets[gadgetType].Type()) && gadgetType > bestGadgetType)
+                    if (!hasGadget(Consts.Gadgets[gadgetType].getType()) && gadgetType > bestGadgetType)
                         bestGadgetType = gadgetType;
                 }
 
-                AddEquipment(Consts.Gadgets[bestGadgetType]);
+                addEquipment(Consts.Gadgets[bestGadgetType]);
             }
         }
     }
@@ -358,11 +358,11 @@ public class Ship extends ShipSpec {
                         bestShieldType = shieldType;
                 }
 
-                AddEquipment(Consts.Shields[bestShieldType]);
+                addEquipment(Consts.Shields[bestShieldType]);
 
                 Shields()[i].setCharge(0);
                 for (int j = 0; j < 5; j++) {
-                    int charge = 1 + Functions.getRandom(Shields()[i].Power());
+                    int charge = 1 + Functions.getRandom(Shields()[i].getPower());
                     if (charge > Shields()[i].getCharge())
                         Shields()[i].setCharge(charge);
                 }
@@ -398,7 +398,7 @@ public class Ship extends ShipSpec {
                         bestWeaponType = weaponType;
                 }
 
-                AddEquipment(Consts.Weapons[bestWeaponType]);
+                addEquipment(Consts.Weapons[bestWeaponType]);
             }
         }
     }
@@ -512,24 +512,24 @@ public class Ship extends ShipSpec {
 
     public boolean HasEquipment(Equipment item) {
         boolean found = false;
-        switch (item.EquipmentType()) {
-            case Weapon:
+        switch (item.getEquipmentType()) {
+            case WEAPON:
                 found = HasWeapon(((Weapon) item).Type(), true);
                 break;
-            case Shield:
+            case SHIELD:
                 found = HasShield(((Shield) item).Type());
                 break;
-            case Gadget:
-                found = HasGadget(((Gadget) item).Type());
+            case GADGET:
+                found = hasGadget(((Gadget) item).getType());
                 break;
         }
         return found;
     }
 
-    public boolean HasGadget(GadgetType gadgetType) {
+    public boolean hasGadget(GadgetType gadgetType) {
         boolean found = false;
         for (int i = 0; i < Gadgets().length && !found; i++) {
-            if (Gadgets()[i] != null && Gadgets()[i].Type() == gadgetType)
+            if (Gadgets()[i] != null && Gadgets()[i].getType() == gadgetType)
                 found = true;
         }
         return found;
@@ -656,7 +656,7 @@ public class Ship extends ShipSpec {
 
                 for (int i = 0; i < Shields().length && repairs > 0; i++) {
                     if (Shields()[i] != null) {
-                        int used = Math.min(repairs, Shields()[i].Power() - Shields()[i].getCharge());
+                        int used = Math.min(repairs, Shields()[i].getPower() - Shields()[i].getCharge());
                         Shields()[i].setCharge(Shields()[i].getCharge() + used);
                         repairs -= used;
                     }
@@ -665,8 +665,8 @@ public class Ship extends ShipSpec {
         }
     }
 
-    public void RemoveEquipment(EquipmentType type, int slot) {
-        Equipment[] equip = EquipmentByType(type);
+    public void removeEquipment(EquipmentType type, int slot) {
+        Equipment[] equip = getEquipmentByType(type);
 
         int last = equip.length - 1;
         for (int i = slot; i < last; i++)
@@ -674,13 +674,13 @@ public class Ship extends ShipSpec {
         equip[last] = null;
     }
 
-    public void RemoveEquipment(EquipmentType type, Object subType) {
+    public void removeEquipment(EquipmentType type, Object subType) {
         boolean found = false;
-        Equipment[] equip = EquipmentByType(type);
+        Equipment[] equip = getEquipmentByType(type);
 
         for (int i = 0; i < equip.length && !found; i++) {
             if (equip[i] != null && equip[i].TypeEquals(subType)) {
-                RemoveEquipment(type, i);
+                removeEquipment(type, i);
                 found = true;
             }
         }
@@ -739,7 +739,7 @@ public class Ship extends ShipSpec {
         for (int i = 0; i < Weapons().length; i++)
             if (Weapons()[i] != null && Weapons()[i].Type().castToInt() >= min.castToInt()
                     && Weapons()[i].Type().castToInt() <= max.castToInt())
-                total += Weapons()[i].Power();
+                total += Weapons()[i].getPower();
 
         return total;
     }
@@ -783,7 +783,7 @@ public class Ship extends ShipSpec {
 
         for (int i = 0; i < Gadgets().length; i++)
             if (Gadgets()[i] != null
-                    && (Gadgets()[i].Type() == GadgetType.ExtraCargoBays || Gadgets()[i].Type() == GadgetType.HiddenCargoBays))
+                    && (Gadgets()[i].getType() == GadgetType.EXTRA_CARGO_BAYS || Gadgets()[i].getType() == GadgetType.HIDDEN_CARGO_BAYS))
                 bays += 5;
 
         return super.getCargoBays() + ExtraCargoBays() + HiddenCargoBays();
@@ -792,7 +792,7 @@ public class Ship extends ShipSpec {
     public boolean Cloaked() {
         int oppEng = CommandersShip() ? Game.getCurrentGame().getOpponent().Engineer() : Game.getCurrentGame().getCommander()
                 .getShip().Engineer();
-        return HasGadget(GadgetType.CloakingDevice) && Engineer() > oppEng;
+        return hasGadget(GadgetType.CLOAKING_DEVICE) && Engineer() > oppEng;
     }
 
     public boolean CommandersShip() {
@@ -838,7 +838,7 @@ public class Ship extends ShipSpec {
         int bays = 0;
 
         for (int i = 0; i < Gadgets().length; i++)
-            if (Gadgets()[i] != null && Gadgets()[i].Type() == GadgetType.ExtraCargoBays)
+            if (Gadgets()[i] != null && Gadgets()[i].getType() == GadgetType.EXTRA_CARGO_BAYS)
                 bays += 5;
 
         return bays;
@@ -886,11 +886,11 @@ public class Ship extends ShipSpec {
         return count;
     }
 
-    public int FreeSlots() {
-        return FreeSlotsGadget() + FreeSlotsShield() + FreeSlotsWeapon();
+    public int getFreeSlots() {
+        return getFreeGadgetSlots() + getFreeShieldSlots() + getFreeWeaponSlots();
     }
 
-    public int FreeSlotsGadget() {
+    public int getFreeGadgetSlots() {
         int count = 0;
         for (int i = 0; i < Gadgets().length; i++) {
             if (Gadgets()[i] == null)
@@ -900,7 +900,7 @@ public class Ship extends ShipSpec {
 
     }
 
-    public int FreeSlotsShield() {
+    public int getFreeShieldSlots() {
         int count = 0;
         for (int i = 0; i < Shields().length; i++) {
             if (Shields()[i] == null)
@@ -909,7 +909,7 @@ public class Ship extends ShipSpec {
         return count;
     }
 
-    public int FreeSlotsWeapon() {
+    public int getFreeWeaponSlots() {
         int count = 0;
         for (int i = 0; i < Weapons().length; i++) {
             if (Weapons()[i] == null)
@@ -920,7 +920,7 @@ public class Ship extends ShipSpec {
 
     public @Override
     int getFuelTanks() {
-        return super.getFuelTanks() + (HasGadget(GadgetType.FuelCompactor) ? Consts.FuelCompactorTanks : 0);
+        return super.getFuelTanks() + (hasGadget(GadgetType.FUEL_COMPACTOR) ? Consts.FuelCompactorTanks : 0);
     }
 
     public Gadget[] Gadgets() {
@@ -935,7 +935,7 @@ public class Ship extends ShipSpec {
         int bays = 0;
 
         for (int i = 0; i < Gadgets().length; i++)
-            if (Gadgets()[i] != null && Gadgets()[i].Type() == GadgetType.HiddenCargoBays)
+            if (Gadgets()[i] != null && Gadgets()[i].getType() == GadgetType.HIDDEN_CARGO_BAYS)
                 bays += 5;
 
         return bays;
@@ -992,7 +992,7 @@ public class Ship extends ShipSpec {
 
         for (int i = 0; i < Shields().length; i++)
             if (Shields()[i] != null)
-                total += Shields()[i].Power();
+                total += Shields()[i].getPower();
 
         return total;
     }

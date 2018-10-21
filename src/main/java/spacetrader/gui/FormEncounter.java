@@ -184,7 +184,7 @@ public class FormEncounter extends SpaceTraderForm {
 
         setName("formEncounter");
         setText("Encounter");
-        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -217,7 +217,7 @@ public class FormEncounter extends SpaceTraderForm {
         yourShipPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
             @Override
             public void handle(Object sender, PaintEventArgs e) {
-                picShipYou_Paint(e);
+                yourShipPicturePaint(e);
             }
         });
 
@@ -229,49 +229,49 @@ public class FormEncounter extends SpaceTraderForm {
         opponentsShipPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
             @Override
             public void handle(Object sender, PaintEventArgs e) {
-                picShipOpponent_Paint(e);
+                opponentsShipPicturePaint(e);
             }
         });
 
         yourShipLabelValue.setLocation(new Point(26, 88));
         yourShipLabelValue.setSize(new Size(100, 13));
         yourShipLabelValue.setTabIndex(19);
-        yourShipLabelValue.setText("Grasshopper");
+        //yourShipLabelValue.setText("Grasshopper");
 
         opponentsShipLabelValue.setLocation(new Point(138, 88));
         opponentsShipLabelValue.setSize(new Size(80, 13));
         opponentsShipLabelValue.setTabIndex(18);
-        opponentsShipLabelValue.setText("Space Monster");
+        //opponentsShipLabelValue.setText("Space Monster");
 
         yourHullLabelValue.setLocation(new Point(26, 104));
         yourHullLabelValue.setSize(new Size(68, 13));
         yourHullLabelValue.setTabIndex(20);
-        yourHullLabelValue.setText("Hull at 100%");
+        //yourHullLabelValue.setText("Hull at 100%");
 
         opponentsHullLabelValue.setLocation(new Point(138, 104));
         opponentsHullLabelValue.setSize(new Size(68, 13));
         opponentsHullLabelValue.setTabIndex(22);
-        opponentsHullLabelValue.setText("Hull at 100%");
+        //opponentsHullLabelValue.setText("Hull at 100%");
 
         yourShieldsLabelValue.setLocation(new Point(26, 120));
         yourShieldsLabelValue.setSize(new Size(86, 13));
         yourShieldsLabelValue.setTabIndex(21);
-        yourShieldsLabelValue.setText("Shields at 100%");
+        //yourShieldsLabelValue.setText("Shields at 100%");
 
         opponentsShieldsLabelValue.setLocation(new Point(138, 120));
         opponentsShieldsLabelValue.setSize(new Size(86, 13));
         opponentsShieldsLabelValue.setTabIndex(23);
-        opponentsShieldsLabelValue.setText("Shields at 100%");
+        //opponentsShieldsLabelValue.setText("Shields at 100%");
 
         encounterLabelValue.setLocation(new Point(8, 152));
         encounterLabelValue.setSize(new Size(232, 26));
         encounterLabelValue.setTabIndex(0);
-        encounterLabelValue.setText("At 20 clicks from Tarchannen, you encounter the famous Captain Ahab.");
+        //encounterLabelValue.setText("At 20 clicks from Tarchannen, you encounter the famous Captain Ahab.");
 
         actionLabelValue.setLocation(new Point(8, 192));
         actionLabelValue.setSize(new Size(232, 39));
         actionLabelValue.setTabIndex(15);
-        actionLabelValue.setText("\"We know you removed illegal goods from the Marie Celeste. You must give them up at once!\"");
+        //actionLabelValue.setText("\"We know you removed illegal goods from the Marie Celeste. You must give them up at once!\"");
 
         attackButton.setFlatStyle(FlatStyle.FLAT);
         attackButton.setLocation(new Point(8, 240));
@@ -803,11 +803,11 @@ public class FormEncounter extends SpaceTraderForm {
         }
     }
 
-    private void picShipOpponent_Paint(PaintEventArgs e) {
+    private void opponentsShipPicturePaint(PaintEventArgs e) {
         Functions.paintShipImage(opponent, e.getGraphics(), opponentsShipPicture.getBackground());
     }
 
-    private void picShipYou_Paint(PaintEventArgs e) {
+    private void yourShipPicturePaint(PaintEventArgs e) {
         Functions.paintShipImage(commanderShip, e.getGraphics(), yourShipPicture.getBackground());
     }
 

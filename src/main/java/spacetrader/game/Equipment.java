@@ -65,7 +65,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
 
     @Override
     public String toString() {
-        return Name();
+        return getName();
     }
 
     public abstract boolean TypeEquals(Object type);
@@ -73,14 +73,14 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
     private int BaseImageIndex() {
         int baseImageIndex = 0;
 
-        switch (EquipmentType()) {
-            case Gadget:
+        switch (getEquipmentType()) {
+            case GADGET:
                 baseImageIndex = Strings.WeaponNames.length + Strings.ShieldNames.length;
                 break;
-            case Shield:
+            case SHIELD:
                 baseImageIndex = Strings.WeaponNames.length;
                 break;
-            case Weapon:
+            case WEAPON:
                 // baseImageIndex should be 0
                 break;
         }
@@ -92,24 +92,24 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
         return _chance;
     }
 
-    public EquipmentType EquipmentType() {
+    public EquipmentType getEquipmentType() {
         return _equipType;
     }
 
-    final public Image Image() {
+    final public Image getImage() {
         return GuiEngine.imageProvider.getEquipmentImages().getImages()[BaseImageIndex()
-                + SubType().castToInt()];
+                + getSubType().castToInt()];
     }
 
     private TechLevel MinimumTechLevel() {
         return _minTech;
     }
 
-    public String Name() {
+    public String getName() {
         return "Name not defined";
     }
 
-    public int Price() {
+    public int getPrice() {
         Commander cmdr = Game.getCurrentGame().getCommander();
         int price = 0;
 
@@ -119,17 +119,17 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
         return price;
     }
 
-    public int SellPrice() {
+    public int getSellPrice() {
         return _price * 3 / 4;
     }
 
-    public EquipmentSubType SubType() {
+    public EquipmentSubType getSubType() {
         return null;
     }
 
     int TransferPrice() {
         // The cost to transfer is 10% of the item worth. This is changed
         // from actually PAYING the buyer about 8% to transfer items. - JAF
-        return SellPrice() * 110 / 90;
+        return getSellPrice() * 110 / 90;
     }
 }

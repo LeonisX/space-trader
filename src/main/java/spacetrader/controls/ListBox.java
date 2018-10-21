@@ -5,11 +5,15 @@ import java.awt.*;
 
 public class ListBox extends BaseComponent {
 
-    public final MyListModel Items = new MyListModel();
+    private final MyListModel items = new MyListModel();
 
     public ListBox() {
         super(new JList());
-        asJList().setModel(Items);
+        asJList().setModel(items);
+    }
+
+    public MyListModel getItems() {
+        return items;
     }
 
     @Override
@@ -17,7 +21,7 @@ public class ListBox extends BaseComponent {
         if (borderStyle != BorderStyle.FIXED_SINGLE)
             throw new Error("Unknown border style");
 
-        asJList().setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        asJList().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
     }
 
     public void clearSelected() {

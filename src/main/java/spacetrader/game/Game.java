@@ -287,9 +287,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         GuiFacade.alert(AlertType.JailConvicted, Functions.multiples(term, Strings.TimeUnit), Functions.multiples(fine,
                 Strings.MoneyUnit));
 
-        if (getCommander().getShip().HasGadget(GadgetType.HiddenCargoBays)) {
-            while (getCommander().getShip().HasGadget(GadgetType.HiddenCargoBays))
-                getCommander().getShip().RemoveEquipment(EquipmentType.Gadget, GadgetType.HiddenCargoBays);
+        if (getCommander().getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+            while (getCommander().getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS))
+                getCommander().getShip().removeEquipment(EquipmentType.GADGET, GadgetType.HIDDEN_CARGO_BAYS);
 
             GuiFacade.alert(AlertType.JailHiddenCargoBaysRemoved);
         }
@@ -403,14 +403,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     private void ArrivalCheckEasterEgg() {
         /* This Easter Egg gives the commander a Lighting Shield */
         if (getCommander().getCurrentSystem().Id() == StarSystemId.Og) {
-            if (getCommander().getShip().FreeSlotsShield() <= 0)
+            if (getCommander().getShip().getFreeShieldSlots() <= 0)
                 return;
             for (int i = 0; i < getCommander().getShip().getCargo().length; i++)
                 if (getCommander().getShip().getCargo()[i] != 1)
                     return;
 
             GuiFacade.alert(AlertType.Egg);
-            getCommander().getShip().AddEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+            getCommander().getShip().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
             for (int i = 0; i < getCommander().getShip().getCargo().length; i++) {
                 getCommander().getShip().getCargo()[i] = 0;
                 getCommander().getPriceCargo()[i] = 0;
@@ -507,7 +507,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         for (int i = 0; i < ship.Shields().length; ++i)
             if (ship.Shields()[i] != null)
-                ship.Shields()[i].setCharge(ship.Shields()[i].Power());
+                ship.Shields()[i].setCharge(ship.Shields()[i].getPower());
 
         boolean fuelOk = true;
         int toAdd = ship.getFuelTanks() - ship.getFuel();
@@ -1079,30 +1079,30 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     private void CreateShips() {
         Dragonfly().Crew()[0] = Mercenaries()[CrewMemberId.Dragonfly.castToInt()];
-        Dragonfly().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Dragonfly().AddEquipment(Consts.Weapons[WeaponType.PulseLaser.castToInt()]);
-        Dragonfly().AddEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
-        Dragonfly().AddEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
-        Dragonfly().AddEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
-        Dragonfly().AddEquipment(Consts.Gadgets[GadgetType.AutoRepairSystem.castToInt()]);
-        Dragonfly().AddEquipment(Consts.Gadgets[GadgetType.TargetingSystem.castToInt()]);
+        Dragonfly().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        Dragonfly().addEquipment(Consts.Weapons[WeaponType.PulseLaser.castToInt()]);
+        Dragonfly().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+        Dragonfly().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+        Dragonfly().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+        Dragonfly().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
+        Dragonfly().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
         Scarab().Crew()[0] = Mercenaries()[CrewMemberId.Scarab.castToInt()];
-        Scarab().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Scarab().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        Scarab().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        Scarab().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
 
         Scorpion().Crew()[0] = Mercenaries()[CrewMemberId.Scorpion.castToInt()];
-        Scorpion().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Scorpion().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Scorpion().AddEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
-        Scorpion().AddEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
-        Scorpion().AddEquipment(Consts.Gadgets[GadgetType.AutoRepairSystem.castToInt()]);
-        Scorpion().AddEquipment(Consts.Gadgets[GadgetType.TargetingSystem.castToInt()]);
+        Scorpion().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        Scorpion().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        Scorpion().addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
+        Scorpion().addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
+        Scorpion().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
+        Scorpion().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
         SpaceMonster().Crew()[0] = Mercenaries()[CrewMemberId.SpaceMonster.castToInt()];
-        SpaceMonster().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        SpaceMonster().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        SpaceMonster().AddEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        SpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        SpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        SpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
     }
 
     private boolean DetermineEncounter() {
@@ -1619,7 +1619,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // they WILL be hit.
         if (!(Difficulty() == spacetrader.game.enums.Difficulty.Beginner && defender.CommandersShip() && fleeing)
                 && (attacker.CommandersShip() && getOpponentDisabled()
-                && attacker.HasGadget(GadgetType.TargetingSystem) || Functions.getRandom(attacker.Fighter()
+                && attacker.hasGadget(GadgetType.TARGETING_SYSTEM) || Functions.getRandom(attacker.Fighter()
                 + defender.getSize().castToInt()) >= (fleeing ? 2 : 1)
                 * Functions.getRandom(5 + defender.Pilot() / 2))) {
             // If the defender is disabled, it only takes one shot to destroy it
@@ -1725,14 +1725,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public void encounterMeet() {
         AlertType initialAlert = AlertType.Alert;
         int skill = 0;
-        EquipmentType equipType = EquipmentType.Gadget;
+        EquipmentType equipType = EquipmentType.GADGET;
         Object equipSubType = null;
 
         switch (getEncounterType()) {
             case CAPTAIN_AHAB:
                 // Trade a reflective shield for skill points in piloting?
                 initialAlert = AlertType.MeetCaptainAhab;
-                equipType = EquipmentType.Shield;
+                equipType = EquipmentType.SHIELD;
                 equipSubType = ShieldType.Reflective;
                 skill = SkillType.Pilot.castToInt();
 
@@ -1740,7 +1740,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case CAPTAIN_CONRAD:
                 // Trade a military laser for skill points in engineering?
                 initialAlert = AlertType.MeetCaptainConrad;
-                equipType = EquipmentType.Weapon;
+                equipType = EquipmentType.WEAPON;
                 equipSubType = WeaponType.MilitaryLaser;
                 skill = SkillType.Engineer.castToInt();
 
@@ -1748,7 +1748,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case CAPTAIN_HUIE:
                 // Trade a military laser for skill points in trading?
                 initialAlert = AlertType.MeetCaptainHuie;
-                equipType = EquipmentType.Weapon;
+                equipType = EquipmentType.WEAPON;
                 equipSubType = WeaponType.MilitaryLaser;
                 skill = SkillType.Trader.castToInt();
 
@@ -1757,7 +1757,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (GuiFacade.alert(initialAlert) == DialogResult.YES) {
             // Remove the equipment we're trading.
-            getCommander().getShip().RemoveEquipment(equipType, equipSubType);
+            getCommander().getShip().removeEquipment(equipType, equipSubType);
 
             // Add points to the appropriate skill - two points if
             // beginner-normal, one otherwise.
@@ -2155,12 +2155,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                             false), getCommander().getShip().IllegalSpecialCargoActions()})) == DialogResult.YES)
                 result = EncounterResult.ARRESTED;
         } else if (getCommander().getShip().PrincessOnBoard()
-                && !getCommander().getShip().HasGadget(GadgetType.HiddenCargoBays)) {
+                && !getCommander().getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             GuiFacade.alert(AlertType.EncounterPiratesSurrenderPrincess);
         } else {
             setRaided(true);
 
-            if (getCommander().getShip().HasGadget(GadgetType.HiddenCargoBays)) {
+            if (getCommander().getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
                 ArrayList precious = new ArrayList();
                 if (getCommander().getShip().PrincessOnBoard())
                     precious.add(Strings.EncounterHidePrincess);
@@ -2568,12 +2568,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 remove = false;
                 break;
             case DragonflyShield:
-                if (getCommander().getShip().FreeSlotsShield() == 0) {
+                if (getCommander().getShip().getFreeShieldSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentLightningShield);
-                    getCommander().getShip().AddEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
                     setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DONE);
                 }
                 break;
@@ -2595,12 +2595,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_STARTED);
                 break;
             case GemulonFuel:
-                if (getCommander().getShip().FreeSlotsGadget() == 0) {
+                if (getCommander().getShip().getFreeGadgetSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentFuelCompactor);
-                    getCommander().getShip().AddEquipment(Consts.Gadgets[GadgetType.FuelCompactor.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
                     setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_DONE);
                 }
                 break;
@@ -2670,12 +2670,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case PrincessQuantum:
-                if (getCommander().getShip().FreeSlotsWeapon() == 0) {
+                if (getCommander().getShip().getFreeWeaponSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentQuantumDisruptor);
-                    getCommander().getShip().AddEquipment(Consts.Weapons[WeaponType.QuantumDisruptor.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Weapons[WeaponType.QuantumDisruptor.castToInt()]);
                     setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_DONE);
                 }
                 break;
@@ -2710,12 +2710,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 remove = false;
                 break;
             case ReactorLaser:
-                if (getCommander().getShip().FreeSlotsWeapon() == 0) {
+                if (getCommander().getShip().getFreeWeaponSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentMorgansLaser);
-                    getCommander().getShip().AddEquipment(Consts.Weapons[WeaponType.MorgansLaser.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Weapons[WeaponType.MorgansLaser.castToInt()]);
                     setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
                 }
                 break;
@@ -2744,12 +2744,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
             case SculptureHiddenBays:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
-                if (getCommander().getShip().FreeSlotsGadget() == 0) {
+                if (getCommander().getShip().getFreeGadgetSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentHiddenCompartments);
-                    getCommander().getShip().AddEquipment(Consts.Gadgets[GadgetType.HiddenCargoBays.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
                     setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
                 }
                 break;

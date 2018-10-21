@@ -119,7 +119,7 @@ public class FormFind extends SpaceTraderForm {
         this.setControlBox(false);
         controls.addAll(chkTrack, txtSystem,
                 btnCancel, btnOk, lblText);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FIXED_DIALOG);
         this.setName("FormFind");
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CENTER_PARENT);

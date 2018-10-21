@@ -582,7 +582,7 @@ public class FormMonster extends SpaceTraderForm {
         controls.add(lblMercLabel);
         controls.add(lblQuestsLabel);
         controls.add(btnClose);
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormMonster");

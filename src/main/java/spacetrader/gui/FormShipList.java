@@ -967,7 +967,7 @@ public class FormShipList extends SpaceTraderForm {
                 lblName0,
                 btnBuy0,
                 btnClose));
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormShipList");

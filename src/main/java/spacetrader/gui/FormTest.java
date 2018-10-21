@@ -255,7 +255,7 @@ public class FormTest extends SpaceTraderForm {
         this.controls.addAll(Arrays.asList(
                 this.panel1,
                 this.boxAlert));
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormTest");

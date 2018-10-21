@@ -308,7 +308,7 @@ public class FormViewBank extends SpaceTraderForm {
                 btnGetLoan,
                 lblMaxLoan,
                 lblCurrentDebt));
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormViewBank");

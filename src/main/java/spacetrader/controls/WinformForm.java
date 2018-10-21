@@ -146,13 +146,13 @@ public class WinformForm extends WinformPane {
 
     public void setFormBorderStyle(FormBorderStyle style) {
         switch (style) {
-            case FixedDialog:
+            case FIXED_DIALOG:
                 jDialog.setUndecorated(false);
                 break;
-            case FixedSingle:
+            case FIXED_SINGLE:
                 jDialog.setUndecorated(false);
                 break;
-            case None:
+            case NONE:
                 jDialog.setUndecorated(true);
                 break;
 

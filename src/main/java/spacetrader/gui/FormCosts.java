@@ -68,7 +68,7 @@ class FormCosts extends SpaceTraderForm {
         controls.addAll(mercenariesLabel, mercenariesLabelValue, insuranceLabel, insuranceLabelValue, interestLabel,
                 interestLabelValue, wormholeTaxLabel, wormholeTaxLabelValue, horizontalLine, totalLabel,
                 totalLabelValue, closeButton);
-        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

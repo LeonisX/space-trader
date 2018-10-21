@@ -157,7 +157,7 @@ public class FormViewShip extends SpaceTraderForm {
         this.setClientSize(new spacetrader.controls.Size(402, 219));
         this.controls.addAll(Arrays.asList(this.boxSpecialCargo, this.lblEquip, this.lblEquipLabel, this.btnClose,
                 this.lblTypeLabel, this.lblType));
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormViewShip");
@@ -186,7 +186,7 @@ public class FormViewShip extends SpaceTraderForm {
                 lblEquipLabel.setText(lblEquipLabel.getText()
                         + (equipPrinted ? Strings.newline : "Equipment:" + Strings.newline));
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.multiples(count, Consts.Weapons[i].Name()) + Strings.newline));
+                        + (Functions.multiples(count, Consts.Weapons[i].getName()) + Strings.newline));
                 equipPrinted = true;
             }
         }
@@ -201,7 +201,7 @@ public class FormViewShip extends SpaceTraderForm {
                 lblEquipLabel.setText(lblEquipLabel.getText()
                         + (equipPrinted ? Strings.newline : "Equipment:" + Strings.newline));
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.multiples(count, Consts.Shields[i].Name()) + Strings.newline));
+                        + (Functions.multiples(count, Consts.Shields[i].getName()) + Strings.newline));
                 equipPrinted = true;
             }
         }
@@ -209,21 +209,21 @@ public class FormViewShip extends SpaceTraderForm {
         for (int i = 0; i < Consts.Gadgets.length; i++) {
             int count = 0;
             for (int j = 0; j < ship.Gadgets().length; j++) {
-                if (ship.Gadgets()[j] != null && ship.Gadgets()[j].Type() == Consts.Gadgets[i].Type())
+                if (ship.Gadgets()[j] != null && ship.Gadgets()[j].getType() == Consts.Gadgets[i].getType())
                     count++;
             }
             if (count > 0) {
                 lblEquipLabel.setText(lblEquipLabel.getText()
                         + (equipPrinted ? Strings.newline : "Equipment:" + Strings.newline));
 
-                if (i == GadgetType.ExtraCargoBays.castToInt() || i == GadgetType.HiddenCargoBays.castToInt()) {
+                if (i == GadgetType.EXTRA_CARGO_BAYS.castToInt() || i == GadgetType.HIDDEN_CARGO_BAYS.castToInt()) {
                     count *= 5;
                     lblEquip
                             .setText(lblEquip.getText()
-                                    + (Functions.formatNumber(count) + Consts.Gadgets[i].Name().substring(1) + Strings.newline));
+                                    + (Functions.formatNumber(count) + Consts.Gadgets[i].getName().substring(1) + Strings.newline));
                 } else
                     lblEquip.setText(lblEquip.getText()
-                            + (Functions.multiples(count, Consts.Gadgets[i].Name()) + Strings.newline));
+                            + (Functions.multiples(count, Consts.Gadgets[i].getName()) + Strings.newline));
 
                 equipPrinted = true;
             }
@@ -236,21 +236,21 @@ public class FormViewShip extends SpaceTraderForm {
             equipPrinted = true;
         }
 
-        if (ship.FreeSlots() > 0) {
+        if (ship.getFreeSlots() > 0) {
             lblEquipLabel.setText(lblEquipLabel.getText() + ((equipPrinted ? Strings.newline : "") + "Unfilled:"));
             lblEquip.setText(lblEquip.getText() + (equipPrinted ? Strings.newline : ""));
 
-            if (ship.FreeSlotsWeapon() > 0)
+            if (ship.getFreeWeaponSlots() > 0)
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.multiples(ship.FreeSlotsWeapon(), "weapon slot") + Strings.newline));
+                        + (Functions.multiples(ship.getFreeWeaponSlots(), "weapon slot") + Strings.newline));
 
-            if (ship.FreeSlotsShield() > 0)
+            if (ship.getFreeShieldSlots() > 0)
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.multiples(ship.FreeSlotsShield(), "shield slot") + Strings.newline));
+                        + (Functions.multiples(ship.getFreeShieldSlots(), "shield slot") + Strings.newline));
 
-            if (ship.FreeSlotsGadget() > 0)
+            if (ship.getFreeGadgetSlots() > 0)
                 lblEquip.setText(lblEquip.getText()
-                        + (Functions.multiples(ship.FreeSlotsGadget(), "gadget slot") + Strings.newline));
+                        + (Functions.multiples(ship.getFreeGadgetSlots(), "gadget slot") + Strings.newline));
         }
     }
 

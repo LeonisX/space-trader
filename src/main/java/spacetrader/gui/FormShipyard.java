@@ -987,7 +987,7 @@ public class FormShipyard extends SpaceTraderForm {
         this.setClientSize(new spacetrader.controls.Size(478, 375));
         controls.addAll(Arrays.asList(lblDisabledPct, boxWelcome, lblDisabledName, boxAllocation, boxCosts, boxInfo,
                 btnCancel, btnConstruct));
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("Form_Shipyard");

@@ -41,7 +41,7 @@ public class Shield extends Equipment {
 
     public Shield(ShieldType type, int power, int price,
                   TechLevel minTechLevel, int chance) {
-        super(spacetrader.game.enums.EquipmentType.Shield, price, minTechLevel, chance);
+        super(spacetrader.game.enums.EquipmentType.SHIELD, price, minTechLevel, chance);
         _type = type;
         _power = power;
 
@@ -80,11 +80,11 @@ public class Shield extends Equipment {
         }
     }
 
-    public String Name() {
+    public String getName() {
         return Strings.ShieldNames[_type.castToInt()];
     }
 
-    public int Power() {
+    public int getPower() {
         return _power;
     }
 
@@ -93,7 +93,7 @@ public class Shield extends Equipment {
         return _type;
     }
 
-    public EquipmentSubType SubType() {
+    public EquipmentSubType getSubType() {
         return Type();
     }
 

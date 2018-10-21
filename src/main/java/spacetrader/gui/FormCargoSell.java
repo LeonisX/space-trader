@@ -170,7 +170,7 @@ public class FormCargoSell extends SpaceTraderForm {
         controls.add(allButton);
         controls.add(noneButton);
 
-        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setShowInTaskbar(false);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         //setText("Sell Xxxxxxxxxx");

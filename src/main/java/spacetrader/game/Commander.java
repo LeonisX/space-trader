@@ -58,7 +58,7 @@ public class Commander extends CrewMember {
         super(baseCrewMember);
         // Start off with a crew of only the commander and a Pulse Laser.
         getShip().Crew()[0] = this;
-        getShip().AddEquipment(Consts.Weapons[WeaponType.PulseLaser.castToInt()]);
+        getShip().addEquipment(Consts.Weapons[WeaponType.PulseLaser.castToInt()]);
     }
 
     public Commander(Hashtable hash)// : base(hash)
@@ -140,16 +140,16 @@ public class Commander extends CrewMember {
             Equipment[] special = new Equipment[]{Consts.Weapons[WeaponType.MorgansLaser.castToInt()],
                     Consts.Weapons[WeaponType.QuantumDisruptor.castToInt()],
                     Consts.Shields[ShieldType.Lightning.castToInt()],
-                    Consts.Gadgets[GadgetType.FuelCompactor.castToInt()],
-                    Consts.Gadgets[GadgetType.HiddenCargoBays.castToInt()]};
+                    Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()],
+                    Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]};
             boolean[] add = new boolean[special.length];
             boolean addPod = false;
             int extraCost = 0;
 
             for (int i = 0; i < special.length; i++) {
                 if (getShip().HasEquipment(special[i])) {
-                    if (specToBuy.Slots(special[i].EquipmentType()) == 0)
-                        GuiFacade.alert(AlertType.ShipBuyNoSlots, newShipName, special[i].Name(), Strings.EquipmentTypes[special[i].EquipmentType().castToInt()]);
+                    if (specToBuy.Slots(special[i].getEquipmentType()) == 0)
+                        GuiFacade.alert(AlertType.ShipBuyNoSlots, newShipName, special[i].getName(), Strings.EquipmentTypes[special[i].getEquipmentType().castToInt()]);
                     else {
                         extraCost += special[i].TransferPrice();
                         add[i] = true;
@@ -170,8 +170,8 @@ public class Commander extends CrewMember {
             for (int i = 0; i < special.length; i++) {
                 if (add[i]) {
                     if (netPrice + extraCost + special[i].TransferPrice() > getCashToSpend())
-                        GuiFacade.alert(AlertType.ShipBuyNoTransfer, special[i].Name());
-                    else if (GuiFacade.alert(AlertType.ShipBuyTransfer, special[i].Name(), special[i].Name()
+                        GuiFacade.alert(AlertType.ShipBuyNoTransfer, special[i].getName());
+                    else if (GuiFacade.alert(AlertType.ShipBuyTransfer, special[i].getName(), special[i].getName()
                             .toLowerCase(), Functions.formatNumber(special[i].TransferPrice())) == DialogResult.YES)
                         extraCost += special[i].TransferPrice();
                     else
@@ -200,7 +200,7 @@ public class Commander extends CrewMember {
 
                 for (int i = 0; i < special.length; i++) {
                     if (add[i])
-                        getShip().AddEquipment(special[i]);
+                        getShip().addEquipment(special[i]);
                 }
 
                 if (addPod)

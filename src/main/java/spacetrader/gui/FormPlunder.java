@@ -612,7 +612,7 @@ public class FormPlunder extends SpaceTraderForm {
         controls.add(btnPlunderQty1);
         controls.add(btnPlunderAll0);
         controls.add(btnPlunderQty0);
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormPlunder");

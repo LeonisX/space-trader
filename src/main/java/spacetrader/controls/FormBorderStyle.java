@@ -2,6 +2,6 @@ package spacetrader.controls;
 
 public enum FormBorderStyle {
 
-    FixedSingle, FixedDialog, None
+    FIXED_SINGLE, FIXED_DIALOG, NONE
 
 }

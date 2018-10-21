@@ -127,25 +127,25 @@ public class Consts {
     // TODO many of these can become enums.
     // #region Gadgets
     public static Gadget[] Gadgets = new Gadget[]{
-            new Gadget(GadgetType.ExtraCargoBays, SkillType.NA, 2500,
+            new Gadget(GadgetType.EXTRA_CARGO_BAYS, SkillType.NA, 2500,
                     TechLevel.EarlyIndustrial, 35), // 5 extra holds
-            new Gadget(GadgetType.AutoRepairSystem, SkillType.Engineer, 7500,
+            new Gadget(GadgetType.AUTO_REPAIR_SYSTEM, SkillType.Engineer, 7500,
                     TechLevel.Industrial, 20), // Increases engineer's
             // effectivity
-            new Gadget(GadgetType.NavigatingSystem, SkillType.Pilot, 15000,
+            new Gadget(GadgetType.NAVIGATING_SYSTEM, SkillType.Pilot, 15000,
                     TechLevel.PostIndustrial, 20), // Increases pilot's
             // effectivity
-            new Gadget(GadgetType.TargetingSystem, SkillType.Fighter, 25000,
+            new Gadget(GadgetType.TARGETING_SYSTEM, SkillType.Fighter, 25000,
                     TechLevel.PostIndustrial, 20), // Increases fighter's
             // effectivity
-            new Gadget(GadgetType.CloakingDevice, SkillType.Pilot, 100000,
+            new Gadget(GadgetType.CLOAKING_DEVICE, SkillType.Pilot, 100000,
                     TechLevel.HiTech, 5), // If you have a good engineer,
             // neither pirates nor police will
             // notice you
             // The gadgets below can't be bought
-            new Gadget(GadgetType.FuelCompactor, SkillType.NA, 30000,
+            new Gadget(GadgetType.FUEL_COMPACTOR, SkillType.NA, 30000,
                     TechLevel.Unavailable, 0),
-            new Gadget(GadgetType.HiddenCargoBays, SkillType.NA, 60000,
+            new Gadget(GadgetType.HIDDEN_CARGO_BAYS, SkillType.NA, 60000,
                     TechLevel.Unavailable, 0)};
     // #endregion
 
@@ -481,11 +481,11 @@ public class Consts {
             Weapons[WeaponType.PhotonDisruptor.castToInt()],
             Shields[ShieldType.Energy.castToInt()],
             Shields[ShieldType.Reflective.castToInt()],
-            Gadgets[GadgetType.ExtraCargoBays.castToInt()],
-            Gadgets[GadgetType.AutoRepairSystem.castToInt()],
-            Gadgets[GadgetType.NavigatingSystem.castToInt()],
-            Gadgets[GadgetType.TargetingSystem.castToInt()],
-            Gadgets[GadgetType.CloakingDevice.castToInt()]};
+            Gadgets[GadgetType.EXTRA_CARGO_BAYS.castToInt()],
+            Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()],
+            Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()],
+            Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()],
+            Gadgets[GadgetType.CLOAKING_DEVICE.castToInt()]};
     // #endregion
 
     // #endregion

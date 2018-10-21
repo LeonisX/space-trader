@@ -120,7 +120,7 @@ public class FormAlert extends SpaceTraderForm {
 
         // If this is the splash screen, get rid of the title bar and start the timer.
         if (imageIndex == SPLASH_INDEX) {
-            this.setFormBorderStyle(FormBorderStyle.None);
+            this.setFormBorderStyle(FormBorderStyle.NONE);
             timer.start();
         }
     }
@@ -783,7 +783,7 @@ public class FormAlert extends SpaceTraderForm {
         controls.add(cancelButton);
         controls.add(messageLabel);
 
-        this.setFormBorderStyle(FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setShowInTaskbar(false);
         this.setStartPosition(FormStartPosition.CENTER_PARENT);
         //this.setText("Title");

@@ -95,7 +95,7 @@ public class FormAbout extends WinformForm {
         controls.add(titleLabel);
         controls.add(closeButton);
 
-        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setName("formAbout");

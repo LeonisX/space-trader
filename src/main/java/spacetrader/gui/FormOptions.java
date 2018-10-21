@@ -426,7 +426,7 @@ public class FormOptions extends SpaceTraderForm {
         this.controls.add(this.chkFuel);
         this.controls.add(this.btnCancel);
         this.controls.add(this.btnOk);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
+        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FIXED_DIALOG);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setName("FormOptions");
