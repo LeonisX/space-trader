@@ -64,7 +64,7 @@ public class GuiFacade {
     public static EncounterResult performEncounter(GuiWindow parentWindow) {
         FormEncounter form = new FormEncounter();
         form.showDialog((WinformPane) parentWindow);
-        return form.Result();
+        return form.getResult();
     }
 
     public static void performMonsterCom() {

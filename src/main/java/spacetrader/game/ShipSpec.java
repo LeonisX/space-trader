@@ -146,7 +146,7 @@ public class ShipSpec extends STSerializableObject {
 
         // Save the name if the ship is a custom design.
         if (Type() == ShipType.Custom)
-            hash.add("_name", Name());
+            hash.add("_name", getName());
 
         // Save the images if the ship uses the custom images.
         if (ImageIndex() == ShipType.Custom.castToInt())
@@ -337,7 +337,7 @@ public class ShipSpec extends STSerializableObject {
         return _minTech;
     }
 
-    public String Name() {
+    public String getName() {
         return Strings.ShipNames[Type().castToInt()];
     }
 

@@ -1,16 +1,16 @@
 package spacetrader.game.enums;
 
-public enum VeryRareEncounter implements SpaceTraderEnum// : int
-{
-    MarieCeleste, // = 0,
-    CaptainAhab, // = 1,
-    CaptainConrad, // = 2,
-    CaptainHuie, // = 3,
-    BottleOld, // = 4,
-    BottleGood, // = 5
-    ;
+public enum VeryRareEncounter implements SpaceTraderEnum {
+
+    MARIE_CELESTE, // = 0,
+    CAPTAIN_AHAB, // = 1,
+    CAPTAIN_CONRAD, // = 2,
+    CAPTAIN_HUIE, // = 3,
+    BOTTLE_OLD, // = 4,
+    BOTTLE_GOOD; // = 5
 
     public int castToInt() {
         return ordinal();
     }
+
 }

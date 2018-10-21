@@ -60,7 +60,7 @@ public class FormViewShip extends SpaceTraderForm {
     public FormViewShip() {
         initializeComponent();
 
-        lblType.setText(ship.Name());
+        lblType.setText(ship.getName());
         lblEquipLabel.setText("");
         lblEquip.setText("");
 

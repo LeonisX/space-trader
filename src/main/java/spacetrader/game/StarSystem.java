@@ -89,7 +89,7 @@ public class StarSystem extends STSerializableObject {
                 _tradeItems[i] = 0;
             } else {
                 _tradeItems[i] = (this.size().castToInt() + 1)
-                        * (Functions.GetRandom(9, 14) - Math.abs(Consts.TradeItems[i].TechTopProduction().castToInt()
+                        * (Functions.getRandom(9, 14) - Math.abs(Consts.TradeItems[i].TechTopProduction().castToInt()
                         - this.getTechLevel().castToInt()));
 
                 // Because of the enormous profits possible, there shouldn't be
@@ -110,7 +110,7 @@ public class StarSystem extends STSerializableObject {
                 if (this.getSystemPressure() == Consts.TradeItems[i].PressurePriceHike())
                     _tradeItems[i] = _tradeItems[i] / 5;
 
-                _tradeItems[i] = _tradeItems[i] - Functions.GetRandom(10) + Functions.GetRandom(10);
+                _tradeItems[i] = _tradeItems[i] - Functions.getRandom(10) + Functions.getRandom(10);
 
                 if (_tradeItems[i] < 0)
                     _tradeItems[i] = 0;

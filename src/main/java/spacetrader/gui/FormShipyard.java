@@ -482,7 +482,7 @@ public class FormShipyard extends SpaceTraderForm {
         // picShip
         //
         picShip.setBackground(java.awt.Color.white);
-        picShip.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        picShip.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         picShip.setLocation(new java.awt.Point(80, 95));
         picShip.setName("picShip");
         picShip.setSize(new spacetrader.controls.Size(66, 54));
@@ -949,7 +949,7 @@ public class FormShipyard extends SpaceTraderForm {
         // lblDisabledPct
         //
         lblDisabledPct.setBackground(SystemColors.INFO);
-        lblDisabledPct.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        lblDisabledPct.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         lblDisabledPct.imageAlign = ContentAlignment.MIDDLE_RIGHT;
         lblDisabledPct.setLocation(new java.awt.Point(154, 182));
         lblDisabledPct.setName("lblDisabledPct");
@@ -969,7 +969,7 @@ public class FormShipyard extends SpaceTraderForm {
         // lblDisabledName
         //
         lblDisabledName.setBackground(SystemColors.INFO);
-        lblDisabledName.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        lblDisabledName.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         lblDisabledName.imageAlign = ContentAlignment.MIDDLE_LEFT;
         lblDisabledName.setLocation(new java.awt.Point(96, 222));
         lblDisabledName.setName("lblDisabledName");
@@ -1025,7 +1025,7 @@ public class FormShipyard extends SpaceTraderForm {
             ShipTemplate template = (ShipTemplate) selTemplate.getSelectedItem();
 
             if (template.Name() == Strings.ShipNameCurrentShip)
-                txtName.setText(game.getCommander().getShip().Name());
+                txtName.setText(game.getCommander().getShip().getName());
             else if (template.Name().endsWith(Strings.ShipNameTemplateSuffixDefault)
                     || template.Name().endsWith(Strings.ShipNameTemplateSuffixMinimum))
                 txtName.setText("");
@@ -1088,7 +1088,7 @@ public class FormShipyard extends SpaceTraderForm {
         // Add the buyable ship spec templates.
         for (ShipSpec spec : Consts.ShipSpecs) {
             if (sizes.contains(spec.getSize()) && spec.Type().castToInt() <= Consts.MaxShip)
-                selTemplate.items.add(new ShipTemplate(spec, spec.Name() + Strings.ShipNameTemplateSuffixDefault));
+                selTemplate.items.add(new ShipTemplate(spec, spec.getName() + Strings.ShipNameTemplateSuffixDefault));
         }
 
         selTemplate.items.add(Consts.ShipTemplateSeparator);
@@ -1198,7 +1198,7 @@ public class FormShipyard extends SpaceTraderForm {
         picShip.setImage((imgIndex > Consts.MaxShip ? customImages[0]
                 : Consts.ShipSpecs[imgTypes[imgIndex].castToInt()].Image()));
         lblImage.setText((imgIndex > Consts.MaxShip ? Strings.ShipNameCustomShip : Consts.ShipSpecs[imgTypes[imgIndex]
-                .castToInt()].Name()));
+                .castToInt()].getName()));
     }
 
     //#endregion

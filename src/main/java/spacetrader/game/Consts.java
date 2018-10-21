@@ -343,14 +343,14 @@ public class Consts {
 
     // #region Shipyards
     public static Shipyard[] Shipyards = new Shipyard[]{
-            new Shipyard(ShipyardId.Corellian, Size.Large,
+            new Shipyard(ShipyardId.CORELLIAN, Size.Large,
                     ShipyardSkill.CrewQuarters),
-            new Shipyard(ShipyardId.Incom, Size.Medium,
+            new Shipyard(ShipyardId.INCOM, Size.Medium,
                     ShipyardSkill.ShieldSlotUnits),
-            new Shipyard(ShipyardId.Kuat, Size.Huge, ShipyardSkill.HullPerUnit),
-            new Shipyard(ShipyardId.Sienar, Size.Tiny,
+            new Shipyard(ShipyardId.KUAT, Size.Huge, ShipyardSkill.HullPerUnit),
+            new Shipyard(ShipyardId.SIENAR, Size.Tiny,
                     ShipyardSkill.WeaponSlotUnits),
-            new Shipyard(ShipyardId.Sorosuub, Size.Small,
+            new Shipyard(ShipyardId.SOROSUUB, Size.Small,
                     ShipyardSkill.FuelBase)};
     //TODO was ArrayList
     public static CrewMemberId[] SpecialCrewMemberIds =// new ArrayList(

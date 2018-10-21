@@ -70,7 +70,7 @@ public class GameCheats {
                     if (game.getSelectedSystem().getName().toLowerCase().equals(second.toLowerCase())) {
                         controller.autoSaveOnDeparture();
 
-                        game.WarpDirect();
+                        game.warpDirect();
 
                         controller.autoSaveOnArrival();
                     }

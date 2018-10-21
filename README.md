@@ -25,6 +25,12 @@
 * High Score
 * When start game: 8->9->0->1!! & start
 
+## Regressions:
+
+* Bold font for labels on main screen, formEncounter. Source: new `tahomabd.ttf`
+
+## Done:
+
 * Multilanguage support
 * Gradle
 * Full refactor, code clean-up
@@ -34,3 +40,4 @@
 ## Far perspectives
 
 * JavaFX UI
+

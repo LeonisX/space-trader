@@ -25,9 +25,10 @@
 
 package spacetrader.gui;
 
+import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Container;
-import spacetrader.controls.*;
+import spacetrader.controls.Label;
 import spacetrader.game.Consts;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
@@ -36,12 +37,15 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.EncounterResult;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
+import java.util.Arrays;
+
+import static java.lang.Math.*;
 
 @Facaded
 public class FormEncounter extends SpaceTraderForm {
-    // #region Control Declarations
 
     private final Button[] buttons;
     private final int ATTACK = 0;
@@ -57,1506 +61,767 @@ public class FormEncounter extends SpaceTraderForm {
     private final int SURRENDER = 10;
     private final int TRADE = 11;
     private final int YIELD = 12;
+    
     private final Game game = Game.getCurrentGame();
-    private final Ship cmdrship = Game.getCurrentGame().getCommander().getShip();
+    private final Ship commanderShip = Game.getCurrentGame().getCommander().getShip();
     private final Ship opponent = Game.getCurrentGame().getOpponent();
-    private spacetrader.controls.Label lblEncounter;
-    private spacetrader.controls.PictureBox picShipYou;
-    private spacetrader.controls.PictureBox picShipOpponent;
-    private spacetrader.controls.Label lblOpponentLabel;
-    private spacetrader.controls.Label lblYouLabel;
-    private spacetrader.controls.Label lblOpponentShip;
-    private spacetrader.controls.Label lblYouShip;
-    private spacetrader.controls.Label lblYouHull;
-    private spacetrader.controls.Label lblYouShields;
-    private spacetrader.controls.Label lblOpponentShields;
-    private spacetrader.controls.Label lblOpponentHull;
-    private spacetrader.controls.Label lblAction;
-    private spacetrader.controls.Button btnAttack;
-    private spacetrader.controls.Button btnFlee;
-    private spacetrader.controls.Button btnSubmit;
-    private spacetrader.controls.Button btnBribe;
-    private spacetrader.controls.Button btnSurrender;
-    private spacetrader.controls.Button btnIgnore;
-    private spacetrader.controls.Button btnTrade;
-    private spacetrader.controls.Button btnPlunder;
-    private spacetrader.controls.Button btnBoard;
-    private spacetrader.controls.Button btnMeet;
-    private spacetrader.controls.Button btnDrink;
-    private spacetrader.controls.Button btnInt;
-    private spacetrader.controls.Button btnYield;
-    private spacetrader.controls.PictureBox picContinuous;
-    private spacetrader.controls.ImageList ilContinuous;
-    private spacetrader.controls.PictureBox picEncounterType;
-    private spacetrader.controls.ImageList ilEncounterType;
-    private spacetrader.controls.ImageList ilTribbles;
-    private spacetrader.controls.PictureBox picTrib00;
-    private spacetrader.controls.PictureBox picTrib50;
-    private spacetrader.controls.PictureBox picTrib10;
-    private spacetrader.controls.PictureBox picTrib40;
-    private spacetrader.controls.PictureBox picTrib20;
-    private spacetrader.controls.PictureBox picTrib30;
-    private spacetrader.controls.PictureBox picTrib04;
-    private spacetrader.controls.PictureBox picTrib03;
-    private spacetrader.controls.PictureBox picTrib02;
-    private spacetrader.controls.PictureBox picTrib01;
-    private spacetrader.controls.PictureBox picTrib05;
-    private spacetrader.controls.PictureBox picTrib11;
-    private spacetrader.controls.PictureBox picTrib12;
-    private spacetrader.controls.PictureBox picTrib13;
-    private spacetrader.controls.PictureBox picTrib14;
-    private spacetrader.controls.PictureBox picTrib15;
-    private spacetrader.controls.PictureBox picTrib21;
-    private spacetrader.controls.PictureBox picTrib22;
-    private spacetrader.controls.PictureBox picTrib23;
-    private spacetrader.controls.PictureBox picTrib24;
-    private spacetrader.controls.PictureBox picTrib25;
-    private spacetrader.controls.PictureBox picTrib31;
 
-    // #endregion
+    private Button attackButton = new Button();
+    private Button fleeButton = new Button();
+    private Button submitButton = new Button();
+    private Button bribeButton = new Button();
+    private Button surrenderButton = new Button();
+    private Button ignoreButton = new Button();
+    private Button tradeButton = new Button();
+    private Button plunderButton = new Button();
+    private Button boardButton = new Button();
+    private Button meetButton = new Button();
+    private Button drinkButton = new Button();
+    private Button interruptButton = new Button();
+    private Button yieldButton = new Button();
 
-    // #region Constants
-    private spacetrader.controls.PictureBox picTrib32;
-    private spacetrader.controls.PictureBox picTrib33;
-    private spacetrader.controls.PictureBox picTrib34;
-    private spacetrader.controls.PictureBox picTrib35;
-    private spacetrader.controls.PictureBox picTrib41;
-    private spacetrader.controls.PictureBox picTrib51;
-    private spacetrader.controls.PictureBox picTrib42;
-    private spacetrader.controls.PictureBox picTrib52;
-    private spacetrader.controls.PictureBox picTrib43;
-    private spacetrader.controls.PictureBox picTrib53;
-    private spacetrader.controls.PictureBox picTrib44;
-    private spacetrader.controls.PictureBox picTrib45;
-    private spacetrader.controls.PictureBox picTrib54;
+    private Label encounterLabelValue = new Label();
+    private PictureBox yourShipPicture = new PictureBox();
+    private PictureBox opponentsShipPicture = new PictureBox();
+    private Label opponentLabel = new Label();
+    private Label youLabel = new Label();
+    private Label opponentsShipLabelValue = new Label();
+    private Label yourShipLabelValue = new Label();
+    private Label yourHullLabelValue = new Label();
+    private Label yourShieldsLabelValue = new Label();
+    private Label opponentsShieldsLabelValue = new Label();
+    private Label opponentsHullLabelValue = new Label();
+    private Label actionLabelValue = new Label();
 
-    // #endregion
+    //TODO need?
+    private IContainer components = new Container();
+    
+    private PictureBox continuousPicture = new PictureBox();
+    private ImageList continuousImageList = new ImageList(components);
+    private PictureBox encounterTypePicture = new PictureBox();
+    private ImageList encounterTypeImageList = new ImageList(components);
+    private ImageList tribblesImageList = new ImageList(components);
 
-    // #region Member Declarations
-    private spacetrader.controls.PictureBox picTrib55;
-    private spacetrader.controls.Timer tmrTick;
-    private IContainer components;
-    private int contImg = 1;
+    //TODO refactor, optimize, generate on fly.
+    //TODO clean-up configs
+    private PictureBox tribblePicture00 = new PictureBox();
+    private PictureBox tribblePicture50 = new PictureBox();
+    private PictureBox tribblePicture10 = new PictureBox();
+    private PictureBox tribblePicture40 = new PictureBox();
+    private PictureBox tribblePicture20 = new PictureBox();
+    private PictureBox tribblePicture30 = new PictureBox();
+    private PictureBox tribblePicture04 = new PictureBox();
+    private PictureBox tribblePicture03 = new PictureBox();
+    private PictureBox tribblePicture02 = new PictureBox();
+    private PictureBox tribblePicture01 = new PictureBox();
+    private PictureBox tribblePicture05 = new PictureBox();
+    private PictureBox tribblePicture11 = new PictureBox();
+    private PictureBox tribblePicture12 = new PictureBox();
+    private PictureBox tribblePicture13 = new PictureBox();
+    private PictureBox tribblePicture14 = new PictureBox();
+    private PictureBox tribblePicture15 = new PictureBox();
+    private PictureBox tribblePicture21 = new PictureBox();
+    private PictureBox tribblePicture22 = new PictureBox();
+    private PictureBox tribblePicture23 = new PictureBox();
+    private PictureBox tribblePicture24 = new PictureBox();
+    private PictureBox tribblePicture25 = new PictureBox();
+    private PictureBox tribblePicture31 = new PictureBox();
+    private PictureBox tribblePicture32 = new PictureBox();
+    private PictureBox tribblePicture33 = new PictureBox();
+    private PictureBox tribblePicture34 = new PictureBox();
+    private PictureBox tribblePicture35 = new PictureBox();
+    private PictureBox tribblePicture41 = new PictureBox();
+    private PictureBox tribblePicture51 = new PictureBox();
+    private PictureBox tribblePicture42 = new PictureBox();
+    private PictureBox tribblePicture52 = new PictureBox();
+    private PictureBox tribblePicture43 = new PictureBox();
+    private PictureBox tribblePicture53 = new PictureBox();
+    private PictureBox tribblePicture44 = new PictureBox();
+    private PictureBox tribblePicture45 = new PictureBox();
+    private PictureBox tribblePicture54 = new PictureBox();
+    private PictureBox tribblePicture55 = new PictureBox();
 
-    private EncounterResult _result = EncounterResult.Continue;
+    private PictureBox[] tribblesArray;
 
-    // #endregion
+    private Timer timer = new Timer(components);
+    
+    private int continueImage = 1;
 
-    // #region Methods
+    private EncounterResult _result = EncounterResult.CONTINUE;
 
     public FormEncounter() {
         initializeComponent();
 
         // Set up the Game encounter variables.
-        game.EncounterBegin();
+        game.encounterBegin();
 
         // Enable the control box (the X button) if cheats are enabled.
-        if (game.getEasyEncounters())
+        if (game.isEasyEncounters()) {
             setControlBox(true);
+        }
 
-        buttons = new Button[]{btnAttack, btnBoard, btnBribe, btnDrink,
-                btnFlee, btnIgnore, btnInt, btnMeet, btnPlunder, btnSubmit,
-                btnSurrender, btnTrade, btnYield};
+        buttons = new Button[]{attackButton, boardButton, bribeButton, drinkButton, fleeButton, ignoreButton, interruptButton, meetButton,
+                plunderButton, submitButton, surrenderButton, tradeButton, yieldButton};
 
-        UpdateShipInfo();
-        UpdateTribbles();
-        UpdateButtons();
+        updateShipInfo();
+        updateTribbles();
+        updateButtons();
 
-        if (game.EncounterImageIndex() >= 0)
-            picEncounterType.setImage(ilEncounterType.getImages()[game.EncounterImageIndex()]);
-        else
-            picEncounterType.setVisible(false);
+        if (game.getEncounterImageIndex() >= 0) {
+            encounterTypePicture.setImage(encounterTypeImageList.getImages()[game.getEncounterImageIndex()]);
+        } else {
+            encounterTypePicture.setVisible(false);
+        }
 
-        lblEncounter.setText(game.EncounterTextInitial());
-        lblAction.setText(game.EncounterActionInitial());
+        encounterLabelValue.setText(game.getEncounterTextInitial());
+        actionLabelValue.setText(game.getEncounterActionInitial());
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        components = new Container();
         ResourceManager resources = new ResourceManager(FormEncounter.class);
-        lblEncounter = new spacetrader.controls.Label();
-        picShipYou = new spacetrader.controls.PictureBox();
-        picShipOpponent = new spacetrader.controls.PictureBox();
-        lblAction = new spacetrader.controls.Label();
-        lblOpponentLabel = new spacetrader.controls.Label();
-        lblYouLabel = new spacetrader.controls.Label();
-        lblOpponentShip = new spacetrader.controls.Label();
-        lblYouShip = new spacetrader.controls.Label();
-        lblYouHull = new spacetrader.controls.Label();
-        lblYouShields = new spacetrader.controls.Label();
-        lblOpponentShields = new spacetrader.controls.Label();
-        lblOpponentHull = new spacetrader.controls.Label();
-        btnAttack = new spacetrader.controls.Button();
-        btnFlee = new spacetrader.controls.Button();
-        btnSubmit = new spacetrader.controls.Button();
-        btnBribe = new spacetrader.controls.Button();
-        btnSurrender = new spacetrader.controls.Button();
-        btnIgnore = new spacetrader.controls.Button();
-        btnTrade = new spacetrader.controls.Button();
-        btnPlunder = new spacetrader.controls.Button();
-        btnBoard = new spacetrader.controls.Button();
-        btnMeet = new spacetrader.controls.Button();
-        btnDrink = new spacetrader.controls.Button();
-        btnInt = new spacetrader.controls.Button();
-        btnYield = new spacetrader.controls.Button();
-        picContinuous = new spacetrader.controls.PictureBox();
-        ilContinuous = new spacetrader.controls.ImageList(components);
-        picEncounterType = new spacetrader.controls.PictureBox();
-        ilEncounterType = new spacetrader.controls.ImageList(components);
-        picTrib00 = new spacetrader.controls.PictureBox();
-        ilTribbles = new spacetrader.controls.ImageList(components);
-        picTrib50 = new spacetrader.controls.PictureBox();
-        picTrib10 = new spacetrader.controls.PictureBox();
-        picTrib40 = new spacetrader.controls.PictureBox();
-        picTrib20 = new spacetrader.controls.PictureBox();
-        picTrib30 = new spacetrader.controls.PictureBox();
-        picTrib04 = new spacetrader.controls.PictureBox();
-        picTrib03 = new spacetrader.controls.PictureBox();
-        picTrib02 = new spacetrader.controls.PictureBox();
-        picTrib01 = new spacetrader.controls.PictureBox();
-        picTrib05 = new spacetrader.controls.PictureBox();
-        picTrib11 = new spacetrader.controls.PictureBox();
-        picTrib12 = new spacetrader.controls.PictureBox();
-        picTrib13 = new spacetrader.controls.PictureBox();
-        picTrib14 = new spacetrader.controls.PictureBox();
-        picTrib15 = new spacetrader.controls.PictureBox();
-        picTrib21 = new spacetrader.controls.PictureBox();
-        picTrib22 = new spacetrader.controls.PictureBox();
-        picTrib23 = new spacetrader.controls.PictureBox();
-        picTrib24 = new spacetrader.controls.PictureBox();
-        picTrib25 = new spacetrader.controls.PictureBox();
-        picTrib31 = new spacetrader.controls.PictureBox();
-        picTrib32 = new spacetrader.controls.PictureBox();
-        picTrib33 = new spacetrader.controls.PictureBox();
-        picTrib34 = new spacetrader.controls.PictureBox();
-        picTrib35 = new spacetrader.controls.PictureBox();
-        picTrib41 = new spacetrader.controls.PictureBox();
-        picTrib51 = new spacetrader.controls.PictureBox();
-        picTrib42 = new spacetrader.controls.PictureBox();
-        picTrib52 = new spacetrader.controls.PictureBox();
-        picTrib43 = new spacetrader.controls.PictureBox();
-        picTrib53 = new spacetrader.controls.PictureBox();
-        picTrib44 = new spacetrader.controls.PictureBox();
-        picTrib45 = new spacetrader.controls.PictureBox();
-        picTrib54 = new spacetrader.controls.PictureBox();
-        picTrib55 = new spacetrader.controls.PictureBox();
-        tmrTick = new spacetrader.controls.Timer(components);
-        this.suspendLayout();
-        //
-        // lblEncounter
-        //
-        lblEncounter.setLocation(new java.awt.Point(8, 152));
-        lblEncounter.setName("lblEncounter");
-        lblEncounter.setSize(new spacetrader.controls.Size(232, 26));
-        lblEncounter.setTabIndex(0);
-        lblEncounter.setText("At 20 clicks from Tarchannen, you encounter the famous Captain Ahab.");
-        //
-        // picShipYou
-        //
-        picShipYou.setBackground(java.awt.Color.white);
-        picShipYou.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
-        picShipYou.setLocation(new java.awt.Point(26, 24));
-        picShipYou.setName("picShipYou");
-        picShipYou.setSize(new spacetrader.controls.Size(70, 58));
-        picShipYou.setTabIndex(13);
-        picShipYou.setTabStop(false);
-        picShipYou.setPaint(new EventHandler<Object, PaintEventArgs>() {
-            @Override
-            public void handle(Object sender, PaintEventArgs e) {
-                picShipYou_Paint(sender, e);
-            }
-        });
-        //
-        // picShipOpponent
-        //
-        picShipOpponent.setBackground(java.awt.Color.white);
-        picShipOpponent.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
-        picShipOpponent.setLocation(new java.awt.Point(138, 24));
-        picShipOpponent.setName("picShipOpponent");
-        picShipOpponent.setSize(new spacetrader.controls.Size(70, 58));
-        picShipOpponent.setTabIndex(14);
-        picShipOpponent.setTabStop(false);
-        picShipOpponent.setPaint(new EventHandler<Object, PaintEventArgs>() {
-            @Override
-            public void handle(Object sender, PaintEventArgs e) {
-                picShipOpponent_Paint(sender, e);
-            }
-        });
-        //
-        // lblAction
-        //
-        lblAction.setLocation(new java.awt.Point(8, 192));
-        lblAction.setName("lblAction");
-        lblAction.setSize(new spacetrader.controls.Size(232, 39));
-        lblAction.setTabIndex(15);
-        lblAction.setText("\"We know you removed illegal goods from the Marie Celeste. You must give them up "
-                + "at once!\"");
-        //
-        // lblOpponentLabel
-        //
-        lblOpponentLabel.setAutoSize(true);
-        lblOpponentLabel.setFont(FontCollection.bold825);
-        lblOpponentLabel.setLocation(new java.awt.Point(141, 8));
-        lblOpponentLabel.setName("lblOpponentLabel");
-        lblOpponentLabel.setSize(new spacetrader.controls.Size(59, 16));
-        lblOpponentLabel.setTabIndex(16);
-        lblOpponentLabel.setText("Opponent:");
-        //
-        // lblYouLabel
-        //
-        lblYouLabel.setAutoSize(true);
-        lblYouLabel.setFont(FontCollection.bold825);
-        lblYouLabel.setLocation(new java.awt.Point(45, 8));
-        lblYouLabel.setName("lblYouLabel");
-        lblYouLabel.setSize(new spacetrader.controls.Size(28, 16));
-        lblYouLabel.setTabIndex(17);
-        lblYouLabel.setText("You:");
-        //
-        // lblOpponentShip
-        //
-        lblOpponentShip.setLocation(new java.awt.Point(138, 88));
-        lblOpponentShip.setName("lblOpponentShip");
-        lblOpponentShip.setSize(new spacetrader.controls.Size(80, 13));
-        lblOpponentShip.setTabIndex(18);
-        lblOpponentShip.setText("Space Monster");
-        //
-        // lblYouShip
-        //
-        lblYouShip.setLocation(new java.awt.Point(26, 88));
-        lblYouShip.setName("lblYouShip");
-        lblYouShip.setSize(new spacetrader.controls.Size(100, 13));
-        lblYouShip.setTabIndex(19);
-        lblYouShip.setText("Grasshopper");
-        //
-        // lblYouHull
-        //
-        lblYouHull.setLocation(new java.awt.Point(26, 104));
-        lblYouHull.setName("lblYouHull");
-        lblYouHull.setSize(new spacetrader.controls.Size(68, 13));
-        lblYouHull.setTabIndex(20);
-        lblYouHull.setText("Hull at 100%");
-        //
-        // lblYouShields
-        //
-        lblYouShields.setLocation(new java.awt.Point(26, 120));
-        lblYouShields.setName("lblYouShields");
-        lblYouShields.setSize(new spacetrader.controls.Size(86, 13));
-        lblYouShields.setTabIndex(21);
-        lblYouShields.setText("Shields at 100%");
-        //
-        // lblOpponentShields
-        //
-        lblOpponentShields.setLocation(new java.awt.Point(138, 120));
-        lblOpponentShields.setName("lblOpponentShields");
-        lblOpponentShields.setSize(new spacetrader.controls.Size(86, 13));
-        lblOpponentShields.setTabIndex(23);
-        lblOpponentShields.setText("Shields at 100%");
-        //
-        // lblOpponentHull
-        //
-        lblOpponentHull.setLocation(new java.awt.Point(138, 104));
-        lblOpponentHull.setName("lblOpponentHull");
-        lblOpponentHull.setSize(new spacetrader.controls.Size(68, 13));
-        lblOpponentHull.setTabIndex(22);
-        lblOpponentHull.setText("Hull at 100%");
-        //
-        // btnAttack
-        //
-        btnAttack.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnAttack.setLocation(new java.awt.Point(8, 240));
-        btnAttack.setName("btnAttack");
-        btnAttack.setSize(new spacetrader.controls.Size(46, 22));
-        btnAttack.setTabIndex(24);
-        btnAttack.setText("Attack");
-        btnAttack.setVisible(false);
-        btnAttack.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnAttack_Click(sender, e);
-            }
-        });
-        //
-        // btnFlee
-        //
-        btnFlee.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnFlee.setLocation(new java.awt.Point(62, 240));
-        btnFlee.setName("btnFlee");
-        btnFlee.setSize(new spacetrader.controls.Size(36, 22));
-        btnFlee.setTabIndex(25);
-        btnFlee.setText("Flee");
-        btnFlee.setVisible(false);
-        btnFlee.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnFlee_Click(sender, e);
-            }
-        });
-        //
-        // btnSubmit
-        //
-        btnSubmit.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnSubmit.setLocation(new java.awt.Point(106, 240));
-        btnSubmit.setName("btnSubmit");
-        btnSubmit.setSize(new spacetrader.controls.Size(49, 22));
-        btnSubmit.setTabIndex(26);
-        btnSubmit.setText("Submit");
-        btnSubmit.setVisible(false);
-        btnSubmit.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnSubmit_Click(sender, e);
-            }
-        });
-        //
-        // btnBribe
-        //
-        btnBribe.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnBribe.setLocation(new java.awt.Point(163, 240));
-        btnBribe.setName("btnBribe");
-        btnBribe.setSize(new spacetrader.controls.Size(41, 22));
-        btnBribe.setTabIndex(27);
-        btnBribe.setText("Bribe");
-        btnBribe.setVisible(false);
-        btnBribe.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnBribe_Click(sender, e);
-            }
-        });
-        //
-        // btnSurrender
-        //
-        btnSurrender.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnSurrender.setLocation(new java.awt.Point(106, 240));
-        btnSurrender.setName("btnSurrender");
-        btnSurrender.setSize(new spacetrader.controls.Size(65, 22));
-        btnSurrender.setTabIndex(28);
-        btnSurrender.setText("Surrender");
-        btnSurrender.setVisible(false);
-        btnSurrender.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnSurrender_Click(sender, e);
-            }
-        });
-        //
-        // btnIgnore
-        //
-        btnIgnore.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnIgnore.setLocation(new java.awt.Point(62, 240));
-        btnIgnore.setName("btnIgnore");
-        btnIgnore.setSize(new spacetrader.controls.Size(46, 22));
-        btnIgnore.setTabIndex(29);
-        btnIgnore.setText("Ignore");
-        btnIgnore.setVisible(false);
-        btnIgnore.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnIgnore_Click(sender, e);
-            }
-        });
-        //
-        // btnTrade
-        //
-        btnTrade.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnTrade.setLocation(new java.awt.Point(116, 240));
-        btnTrade.setName("btnTrade");
-        btnTrade.setSize(new spacetrader.controls.Size(44, 22));
-        btnTrade.setTabIndex(30);
-        btnTrade.setText("Trade");
-        btnTrade.setVisible(false);
-        btnTrade.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnTrade_Click(sender, e);
-            }
-        });
-        //
-        // btnPlunder
-        //
-        btnPlunder.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnPlunder.setLocation(new java.awt.Point(62, 240));
-        btnPlunder.setName("btnPlunder");
-        btnPlunder.setSize(new spacetrader.controls.Size(53, 22));
-        btnPlunder.setTabIndex(31);
-        btnPlunder.setText("Plunder");
-        btnPlunder.setVisible(false);
-        btnPlunder.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnPlunder_Click(sender, e);
-            }
-        });
-        //
-        // btnBoard
-        //
-        btnBoard.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnBoard.setLocation(new java.awt.Point(8, 240));
-        btnBoard.setName("btnBoard");
-        btnBoard.setSize(new spacetrader.controls.Size(44, 22));
-        btnBoard.setTabIndex(32);
-        btnBoard.setText("Board");
-        btnBoard.setVisible(false);
-        btnBoard.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnBoard_Click(sender, e);
-            }
-        });
-        //
-        // btnMeet
-        //
-        btnMeet.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnMeet.setLocation(new java.awt.Point(116, 240));
-        btnMeet.setName("btnMeet");
-        btnMeet.setSize(new spacetrader.controls.Size(39, 22));
-        btnMeet.setTabIndex(34);
-        btnMeet.setText("Meet");
-        btnMeet.setVisible(false);
-        btnMeet.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnMeet_Click(sender, e);
-            }
-        });
-        //
-        // btnDrink
-        //
-        btnDrink.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnDrink.setLocation(new java.awt.Point(8, 240));
-        btnDrink.setName("btnDrink");
-        btnDrink.setSize(new spacetrader.controls.Size(41, 22));
-        btnDrink.setTabIndex(35);
-        btnDrink.setText("Drink");
-        btnDrink.setVisible(false);
-        btnDrink.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnDrink_Click(sender, e);
-            }
-        });
-        //
-        // btnInt
-        //
-        btnInt.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnInt.setLocation(new java.awt.Point(179, 240));
-        btnInt.setName("btnInt");
-        btnInt.setSize(new spacetrader.controls.Size(30, 22));
-        btnInt.setTabIndex(36);
-        btnInt.setText("Int.");
-        btnInt.setVisible(false);
-        btnInt.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnInt_Click(sender, e);
-            }
-        });
-        //
-        // btnYield
-        //
-        btnYield.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnYield.setLocation(new java.awt.Point(106, 240));
-        btnYield.setName("btnYield");
-        btnYield.setSize(new spacetrader.controls.Size(39, 22));
-        btnYield.setTabIndex(37);
-        btnYield.setText("Yield");
-        btnYield.setVisible(false);
-        btnYield.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnYield_Click(sender, e);
-            }
-        });
-        //
-        // picContinuous
-        //
-        picContinuous.setLocation(new java.awt.Point(214, 247));
-        picContinuous.setName("picContinuous");
-        picContinuous.setSize(new spacetrader.controls.Size(9, 9));
-        picContinuous.setTabIndex(38);
-        picContinuous.setTabStop(false);
-        picContinuous.setVisible(false);
-        //
-        // ilContinuous
-        //
-        ilContinuous.setImageSize(new spacetrader.controls.Size(9, 9));
-        ilContinuous.setImageStream(((spacetrader.controls.ImageListStreamer) (resources
-                .getObject("ilContinuous.ImageStream"))));
-        ilContinuous.setTransparentColor(java.awt.Color.white);
-        //
-        // picEncounterType
-        //
-        picEncounterType.setLocation(new java.awt.Point(220, 2));
-        picEncounterType.setName("picEncounterType");
-        picEncounterType.setSize(new spacetrader.controls.Size(12, 12));
-        picEncounterType.setTabIndex(39);
-        picEncounterType.setTabStop(false);
-        //
-        // ilEncounterType
-        //
-        ilEncounterType.setImageSize(new spacetrader.controls.Size(12, 12));
-        ilEncounterType.setImageStream(((spacetrader.controls.ImageListStreamer) (resources
-                .getObject("ilEncounterType.ImageStream"))));
-        ilEncounterType.setTransparentColor(Color.white);
-        //
-        // picTrib00
-        //
-        picTrib00.setBackground(SystemColors.CONTROL);
-        picTrib00.setLocation(new java.awt.Point(16, 16));
-        picTrib00.setName("picTrib00");
-        picTrib00.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib00.setTabIndex(41);
-        picTrib00.setTabStop(false);
-        picTrib00.setVisible(false);
-        picTrib00.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // ilTribbles
-        //
-        ilTribbles.setImageSize(new spacetrader.controls.Size(12, 12));
-        ilTribbles.setImageStream(((spacetrader.controls.ImageListStreamer) (resources
-                .getObject("ilTribbles.ImageStream"))));
-        ilTribbles.setTransparentColor(java.awt.Color.white);
-        //
-        // picTrib50
-        //
-        picTrib50.setBackground(SystemColors.CONTROL);
-        picTrib50.setLocation(new java.awt.Point(16, 224));
-        picTrib50.setName("picTrib50");
-        picTrib50.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib50.setTabIndex(42);
-        picTrib50.setTabStop(false);
-        picTrib50.setVisible(false);
-        picTrib50.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib10
-        //
-        picTrib10.setBackground(SystemColors.CONTROL);
-        picTrib10.setLocation(new java.awt.Point(8, 56));
-        picTrib10.setName("picTrib10");
-        picTrib10.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib10.setTabIndex(43);
-        picTrib10.setTabStop(false);
-        picTrib10.setVisible(false);
-        picTrib10.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib40
-        //
-        picTrib40.setBackground(SystemColors.CONTROL);
-        picTrib40.setLocation(new java.awt.Point(8, 184));
-        picTrib40.setName("picTrib40");
-        picTrib40.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib40.setTabIndex(44);
-        picTrib40.setTabStop(false);
-        picTrib40.setVisible(false);
-        picTrib40.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib20
-        //
-        picTrib20.setBackground(SystemColors.CONTROL);
-        picTrib20.setLocation(new java.awt.Point(8, 96));
-        picTrib20.setName("picTrib20");
-        picTrib20.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib20.setTabIndex(45);
-        picTrib20.setTabStop(false);
-        picTrib20.setVisible(false);
-        picTrib20.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib30
-        //
-        picTrib30.setBackground(SystemColors.CONTROL);
-        picTrib30.setLocation(new java.awt.Point(16, 136));
-        picTrib30.setName("picTrib30");
-        picTrib30.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib30.setTabIndex(46);
-        picTrib30.setTabStop(false);
-        picTrib30.setVisible(false);
-        picTrib30.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib04
-        //
-        picTrib04.setBackground(SystemColors.CONTROL);
-        picTrib04.setLocation(new java.awt.Point(176, 8));
-        picTrib04.setName("picTrib04");
-        picTrib04.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib04.setTabIndex(47);
-        picTrib04.setTabStop(false);
-        picTrib04.setVisible(false);
-        picTrib04.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib03
-        //
-        picTrib03.setBackground(SystemColors.CONTROL);
-        picTrib03.setLocation(new java.awt.Point(128, 8));
-        picTrib03.setName("picTrib03");
-        picTrib03.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib03.setTabIndex(48);
-        picTrib03.setTabStop(false);
-        picTrib03.setVisible(false);
-        picTrib03.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib02
-        //
-        picTrib02.setBackground(SystemColors.CONTROL);
-        picTrib02.setLocation(new java.awt.Point(96, 16));
-        picTrib02.setName("picTrib02");
-        picTrib02.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib02.setTabIndex(49);
-        picTrib02.setTabStop(false);
-        picTrib02.setVisible(false);
-        picTrib02.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib01
-        //
-        picTrib01.setBackground(SystemColors.CONTROL);
-        picTrib01.setLocation(new java.awt.Point(56, 8));
-        picTrib01.setName("picTrib01");
-        picTrib01.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib01.setTabIndex(50);
-        picTrib01.setTabStop(false);
-        picTrib01.setVisible(false);
-        picTrib01.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib05
-        //
-        picTrib05.setBackground(SystemColors.CONTROL);
-        picTrib05.setLocation(new java.awt.Point(208, 16));
-        picTrib05.setName("picTrib05");
-        picTrib05.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib05.setTabIndex(51);
-        picTrib05.setTabStop(false);
-        picTrib05.setVisible(false);
-        picTrib05.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib11
-        //
-        picTrib11.setBackground(SystemColors.CONTROL);
-        picTrib11.setLocation(new java.awt.Point(32, 80));
-        picTrib11.setName("picTrib11");
-        picTrib11.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib11.setTabIndex(52);
-        picTrib11.setTabStop(false);
-        picTrib11.setVisible(false);
-        picTrib11.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib12
-        //
-        picTrib12.setBackground(SystemColors.CONTROL);
-        picTrib12.setLocation(new java.awt.Point(88, 56));
-        picTrib12.setName("picTrib12");
-        picTrib12.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib12.setTabIndex(53);
-        picTrib12.setTabStop(false);
-        picTrib12.setVisible(false);
-        picTrib12.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib13
-        //
-        picTrib13.setBackground(SystemColors.CONTROL);
-        picTrib13.setLocation(new java.awt.Point(128, 40));
-        picTrib13.setName("picTrib13");
-        picTrib13.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib13.setTabIndex(54);
-        picTrib13.setTabStop(false);
-        picTrib13.setVisible(false);
-        picTrib13.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib14
-        //
-        picTrib14.setBackground(SystemColors.CONTROL);
-        picTrib14.setLocation(new java.awt.Point(192, 72));
-        picTrib14.setName("picTrib14");
-        picTrib14.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib14.setTabIndex(55);
-        picTrib14.setTabStop(false);
-        picTrib14.setVisible(false);
-        picTrib14.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib15
-        //
-        picTrib15.setBackground(SystemColors.CONTROL);
-        picTrib15.setLocation(new java.awt.Point(216, 48));
-        picTrib15.setName("picTrib15");
-        picTrib15.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib15.setTabIndex(56);
-        picTrib15.setTabStop(false);
-        picTrib15.setVisible(false);
-        picTrib15.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib21
-        //
-        picTrib21.setBackground(SystemColors.CONTROL);
-        picTrib21.setLocation(new java.awt.Point(56, 96));
-        picTrib21.setName("picTrib21");
-        picTrib21.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib21.setTabIndex(57);
-        picTrib21.setTabStop(false);
-        picTrib21.setVisible(false);
-        picTrib21.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib22
-        //
-        picTrib22.setBackground(SystemColors.CONTROL);
-        picTrib22.setLocation(new java.awt.Point(96, 80));
-        picTrib22.setName("picTrib22");
-        picTrib22.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib22.setTabIndex(58);
-        picTrib22.setTabStop(false);
-        picTrib22.setVisible(false);
-        picTrib22.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib23
-        //
-        picTrib23.setBackground(SystemColors.CONTROL);
-        picTrib23.setLocation(new java.awt.Point(136, 88));
-        picTrib23.setName("picTrib23");
-        picTrib23.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib23.setTabIndex(59);
-        picTrib23.setTabStop(false);
-        picTrib23.setVisible(false);
-        picTrib23.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib24
-        //
-        picTrib24.setBackground(SystemColors.CONTROL);
-        picTrib24.setLocation(new java.awt.Point(176, 104));
-        picTrib24.setName("picTrib24");
-        picTrib24.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib24.setTabIndex(60);
-        picTrib24.setTabStop(false);
-        picTrib24.setVisible(false);
-        picTrib24.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib25
-        //
-        picTrib25.setBackground(SystemColors.CONTROL);
-        picTrib25.setLocation(new java.awt.Point(216, 96));
-        picTrib25.setName("picTrib25");
-        picTrib25.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib25.setTabIndex(61);
-        picTrib25.setTabStop(false);
-        picTrib25.setVisible(false);
-        picTrib25.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib31
-        //
-        picTrib31.setBackground(SystemColors.CONTROL);
-        picTrib31.setLocation(new java.awt.Point(56, 128));
-        picTrib31.setName("picTrib31");
-        picTrib31.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib31.setTabIndex(62);
-        picTrib31.setTabStop(false);
-        picTrib31.setVisible(false);
-        picTrib31.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib32
-        //
-        picTrib32.setBackground(SystemColors.CONTROL);
-        picTrib32.setLocation(new java.awt.Point(96, 120));
-        picTrib32.setName("picTrib32");
-        picTrib32.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib32.setTabIndex(63);
-        picTrib32.setTabStop(false);
-        picTrib32.setVisible(false);
-        picTrib32.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib33
-        //
-        picTrib33.setBackground(SystemColors.CONTROL);
-        picTrib33.setLocation(new java.awt.Point(128, 128));
-        picTrib33.setName("picTrib33");
-        picTrib33.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib33.setTabIndex(64);
-        picTrib33.setTabStop(false);
-        picTrib33.setVisible(false);
-        picTrib33.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib34
-        //
-        picTrib34.setBackground(SystemColors.CONTROL);
-        picTrib34.setLocation(new java.awt.Point(168, 144));
-        picTrib34.setName("picTrib34");
-        picTrib34.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib34.setTabIndex(65);
-        picTrib34.setTabStop(false);
-        picTrib34.setVisible(false);
-        picTrib34.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib35
-        //
-        picTrib35.setBackground(SystemColors.CONTROL);
-        picTrib35.setLocation(new java.awt.Point(208, 128));
-        picTrib35.setName("picTrib35");
-        picTrib35.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib35.setTabIndex(66);
-        picTrib35.setTabStop(false);
-        picTrib35.setVisible(false);
-        picTrib35.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib41
-        //
-        picTrib41.setBackground(SystemColors.CONTROL);
-        picTrib41.setLocation(new java.awt.Point(48, 176));
-        picTrib41.setName("picTrib41");
-        picTrib41.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib41.setTabIndex(67);
-        picTrib41.setTabStop(false);
-        picTrib41.setVisible(false);
-        picTrib41.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib51
-        //
-        picTrib51.setBackground(SystemColors.CONTROL);
-        picTrib51.setLocation(new java.awt.Point(64, 216));
-        picTrib51.setName("picTrib51");
-        picTrib51.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib51.setTabIndex(68);
-        picTrib51.setTabStop(false);
-        picTrib51.setVisible(false);
-        picTrib51.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib42
-        //
-        picTrib42.setBackground(SystemColors.CONTROL);
-        picTrib42.setLocation(new java.awt.Point(88, 168));
-        picTrib42.setName("picTrib42");
-        picTrib42.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib42.setTabIndex(69);
-        picTrib42.setTabStop(false);
-        picTrib42.setVisible(false);
-        picTrib42.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib52
-        //
-        picTrib52.setBackground(SystemColors.CONTROL);
-        picTrib52.setLocation(new java.awt.Point(96, 224));
-        picTrib52.setName("picTrib52");
-        picTrib52.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib52.setTabIndex(70);
-        picTrib52.setTabStop(false);
-        picTrib52.setVisible(false);
-        picTrib52.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib43
-        //
-        picTrib43.setBackground(SystemColors.CONTROL);
-        picTrib43.setLocation(new java.awt.Point(136, 176));
-        picTrib43.setName("picTrib43");
-        picTrib43.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib43.setTabIndex(71);
-        picTrib43.setTabStop(false);
-        picTrib43.setVisible(false);
-        picTrib43.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib53
-        //
-        picTrib53.setBackground(SystemColors.CONTROL);
-        picTrib53.setLocation(new java.awt.Point(144, 216));
-        picTrib53.setName("picTrib53");
-        picTrib53.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib53.setTabIndex(72);
-        picTrib53.setTabStop(false);
-        picTrib53.setVisible(false);
-        picTrib53.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib44
-        //
-        picTrib44.setBackground(SystemColors.CONTROL);
-        picTrib44.setLocation(new java.awt.Point(184, 184));
-        picTrib44.setName("picTrib44");
-        picTrib44.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib44.setTabIndex(73);
-        picTrib44.setTabStop(false);
-        picTrib44.setVisible(false);
-        picTrib44.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib45
-        //
-        picTrib45.setBackground(SystemColors.CONTROL);
-        picTrib45.setLocation(new java.awt.Point(216, 176));
-        picTrib45.setName("picTrib45");
-        picTrib45.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib45.setTabIndex(74);
-        picTrib45.setTabStop(false);
-        picTrib45.setVisible(false);
-        picTrib45.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib54
-        //
-        picTrib54.setBackground(SystemColors.CONTROL);
-        picTrib54.setLocation(new java.awt.Point(176, 224));
-        picTrib54.setName("picTrib54");
-        picTrib54.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib54.setTabIndex(75);
-        picTrib54.setTabStop(false);
-        picTrib54.setVisible(false);
-        picTrib54.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // picTrib55
-        //
-        picTrib55.setBackground(SystemColors.CONTROL);
-        picTrib55.setLocation(new java.awt.Point(208, 216));
-        picTrib55.setName("picTrib55");
-        picTrib55.setSize(new spacetrader.controls.Size(12, 12));
-        picTrib55.setTabIndex(76);
-        picTrib55.setTabStop(false);
-        picTrib55.setVisible(false);
-        picTrib55.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                picTrib_Click(sender, e);
-            }
-        });
-        //
-        // tmrTick
-        //
-        tmrTick.setInterval(1000);
-        tmrTick.setTick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                tmrTick_Tick(sender, e);
-            }
-        });
-        //
-        // FormEncounter
-        //
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setClientSize(new spacetrader.controls.Size(234, 271));
-        this.setControlBox(false);
-        controls.add(picTrib55);
-        controls.add(picTrib54);
-        controls.add(picTrib45);
-        controls.add(picTrib44);
-        controls.add(picTrib53);
-        controls.add(picTrib43);
-        controls.add(picTrib52);
-        controls.add(picTrib42);
-        controls.add(picTrib51);
-        controls.add(picTrib41);
-        controls.add(picTrib35);
-        controls.add(picTrib34);
-        controls.add(picTrib33);
-        controls.add(picTrib32);
-        controls.add(picTrib31);
-        controls.add(picTrib25);
-        controls.add(picTrib24);
-        controls.add(picTrib23);
-        controls.add(picTrib22);
-        controls.add(picTrib21);
-        controls.add(picTrib15);
-        controls.add(picTrib14);
-        controls.add(picTrib13);
-        controls.add(picTrib12);
-        controls.add(picTrib11);
-        controls.add(picTrib05);
-        controls.add(picTrib01);
-        controls.add(picTrib02);
-        controls.add(picTrib03);
-        controls.add(picTrib04);
-        controls.add(picTrib30);
-        controls.add(picTrib20);
-        controls.add(picTrib40);
-        controls.add(picTrib10);
-        controls.add(picTrib50);
-        controls.add(picTrib00);
-        controls.add(picEncounterType);
-        controls.add(picContinuous);
-        controls.add(btnYield);
-        controls.add(btnInt);
-        controls.add(btnMeet);
-        controls.add(btnPlunder);
-        controls.add(btnTrade);
-        controls.add(btnIgnore);
-        controls.add(btnSurrender);
-        controls.add(btnBribe);
-        controls.add(btnSubmit);
-        controls.add(btnFlee);
-        controls.add(lblOpponentShields);
-        controls.add(lblOpponentHull);
-        controls.add(lblYouShields);
-        controls.add(lblYouHull);
-        controls.add(lblYouShip);
-        controls.add(lblOpponentShip);
-        controls.add(lblYouLabel);
-        controls.add(lblOpponentLabel);
-        controls.add(lblAction);
-        controls.add(picShipOpponent);
-        controls.add(picShipYou);
-        controls.add(lblEncounter);
-        controls.add(btnDrink);
-        controls.add(btnBoard);
-        controls.add(btnAttack);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FixedDialog);
-        this.setMaximizeBox(false);
-        this.setMinimizeBox(false);
-        this.setName("FormEncounter");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Encounter");
+        ReflectionUtils.setAllComponentNames(this);
+        suspendLayout();
 
+        setName("formEncounter");
+        setText("Encounter");
+        setFormBorderStyle(FormBorderStyle.FixedDialog);
+        setMaximizeBox(false);
+        setMinimizeBox(false);
+        setShowInTaskbar(false);
+        setControlBox(false);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setAutoScaleBaseSize(new Size(5, 13));
+        setClientSize(new Size(234, 271));
+
+        encounterTypePicture.setLocation(new Point(220, 2));
+        encounterTypePicture.setSize(new Size(12, 12));
+        encounterTypePicture.setTabStop(false);
+
+        youLabel.setAutoSize(true);
+        youLabel.setFont(FontCollection.bold825);
+        youLabel.setLocation(new Point(45, 8));
+        youLabel.setSize(new Size(28, 16));
+        youLabel.setText("You:");
+
+        opponentLabel.setAutoSize(true);
+        opponentLabel.setFont(FontCollection.bold825);
+        opponentLabel.setLocation(new Point(141, 8));
+        opponentLabel.setSize(new Size(59, 16));
+        opponentLabel.setText("Opponent:");
+
+        yourShipPicture.setBackground(Color.WHITE);
+        yourShipPicture.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        yourShipPicture.setLocation(new Point(26, 24));
+        yourShipPicture.setSize(new Size(70, 58));
+        yourShipPicture.setTabStop(false);
+        yourShipPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
+            @Override
+            public void handle(Object sender, PaintEventArgs e) {
+                picShipYou_Paint(e);
+            }
+        });
+
+        opponentsShipPicture.setBackground(Color.WHITE);
+        opponentsShipPicture.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        opponentsShipPicture.setLocation(new Point(138, 24));
+        opponentsShipPicture.setSize(new Size(70, 58));
+        opponentsShipPicture.setTabStop(false);
+        opponentsShipPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
+            @Override
+            public void handle(Object sender, PaintEventArgs e) {
+                picShipOpponent_Paint(e);
+            }
+        });
+
+        yourShipLabelValue.setLocation(new Point(26, 88));
+        yourShipLabelValue.setSize(new Size(100, 13));
+        yourShipLabelValue.setTabIndex(19);
+        yourShipLabelValue.setText("Grasshopper");
+
+        opponentsShipLabelValue.setLocation(new Point(138, 88));
+        opponentsShipLabelValue.setSize(new Size(80, 13));
+        opponentsShipLabelValue.setTabIndex(18);
+        opponentsShipLabelValue.setText("Space Monster");
+
+        yourHullLabelValue.setLocation(new Point(26, 104));
+        yourHullLabelValue.setSize(new Size(68, 13));
+        yourHullLabelValue.setTabIndex(20);
+        yourHullLabelValue.setText("Hull at 100%");
+
+        opponentsHullLabelValue.setLocation(new Point(138, 104));
+        opponentsHullLabelValue.setSize(new Size(68, 13));
+        opponentsHullLabelValue.setTabIndex(22);
+        opponentsHullLabelValue.setText("Hull at 100%");
+
+        yourShieldsLabelValue.setLocation(new Point(26, 120));
+        yourShieldsLabelValue.setSize(new Size(86, 13));
+        yourShieldsLabelValue.setTabIndex(21);
+        yourShieldsLabelValue.setText("Shields at 100%");
+
+        opponentsShieldsLabelValue.setLocation(new Point(138, 120));
+        opponentsShieldsLabelValue.setSize(new Size(86, 13));
+        opponentsShieldsLabelValue.setTabIndex(23);
+        opponentsShieldsLabelValue.setText("Shields at 100%");
+
+        encounterLabelValue.setLocation(new Point(8, 152));
+        encounterLabelValue.setSize(new Size(232, 26));
+        encounterLabelValue.setTabIndex(0);
+        encounterLabelValue.setText("At 20 clicks from Tarchannen, you encounter the famous Captain Ahab.");
+
+        actionLabelValue.setLocation(new Point(8, 192));
+        actionLabelValue.setSize(new Size(232, 39));
+        actionLabelValue.setTabIndex(15);
+        actionLabelValue.setText("\"We know you removed illegal goods from the Marie Celeste. You must give them up at once!\"");
+
+        attackButton.setFlatStyle(FlatStyle.FLAT);
+        attackButton.setLocation(new Point(8, 240));
+        attackButton.setSize(new Size(46, 22));
+        attackButton.setTabIndex(24);
+        attackButton.setText("Attack");
+        attackButton.setVisible(false);
+        attackButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                attackButtonClick();
+            }
+        });
+
+        fleeButton.setFlatStyle(FlatStyle.FLAT);
+        fleeButton.setLocation(new Point(62, 240));
+        fleeButton.setSize(new Size(36, 22));
+        fleeButton.setTabIndex(25);
+        fleeButton.setText("Flee");
+        fleeButton.setVisible(false);
+        fleeButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                fleeButtonClick();
+            }
+        });
+
+        submitButton.setFlatStyle(FlatStyle.FLAT);
+        submitButton.setLocation(new Point(106, 240));
+        submitButton.setSize(new Size(49, 22));
+        submitButton.setTabIndex(26);
+        submitButton.setText("Submit");
+        submitButton.setVisible(false);
+        submitButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                submitButtonClick();
+            }
+        });
+
+        bribeButton.setFlatStyle(FlatStyle.FLAT);
+        bribeButton.setLocation(new Point(163, 240));
+        bribeButton.setSize(new Size(41, 22));
+        bribeButton.setTabIndex(27);
+        bribeButton.setText("Bribe");
+        bribeButton.setVisible(false);
+        bribeButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                bribeButtonClick();
+            }
+        });
+
+        surrenderButton.setFlatStyle(FlatStyle.FLAT);
+        surrenderButton.setLocation(new Point(106, 240));
+        surrenderButton.setSize(new Size(65, 22));
+        surrenderButton.setTabIndex(28);
+        surrenderButton.setText("Surrender");
+        surrenderButton.setVisible(false);
+        surrenderButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                surrenderButtonClick();
+            }
+        });
+
+        ignoreButton.setFlatStyle(FlatStyle.FLAT);
+        ignoreButton.setLocation(new Point(62, 240));
+        ignoreButton.setSize(new Size(46, 22));
+        ignoreButton.setTabIndex(29);
+        ignoreButton.setText("Ignore");
+        ignoreButton.setVisible(false);
+        ignoreButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                ignoreButtonClick();
+            }
+        });
+
+        tradeButton.setFlatStyle(FlatStyle.FLAT);
+        tradeButton.setLocation(new Point(116, 240));
+        tradeButton.setSize(new Size(44, 22));
+        tradeButton.setTabIndex(30);
+        tradeButton.setText("Trade");
+        tradeButton.setVisible(false);
+        tradeButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                tradeButtonClick();
+            }
+        });
+
+        plunderButton.setFlatStyle(FlatStyle.FLAT);
+        plunderButton.setLocation(new Point(62, 240));
+        plunderButton.setSize(new Size(53, 22));
+        plunderButton.setTabIndex(31);
+        plunderButton.setText("Plunder");
+        plunderButton.setVisible(false);
+        plunderButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                plunderButtonClick();
+            }
+        });
+
+        boardButton.setFlatStyle(FlatStyle.FLAT);
+        boardButton.setLocation(new Point(8, 240));
+        boardButton.setSize(new Size(44, 22));
+        boardButton.setTabIndex(32);
+        boardButton.setText("Board");
+        boardButton.setVisible(false);
+        boardButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                boardButtonClick();
+            }
+        });
+
+        meetButton.setFlatStyle(FlatStyle.FLAT);
+        meetButton.setLocation(new Point(116, 240));
+        meetButton.setSize(new Size(39, 22));
+        meetButton.setTabIndex(34);
+        meetButton.setText("Meet");
+        meetButton.setVisible(false);
+        meetButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                meetButtonClick();
+            }
+        });
+
+        drinkButton.setFlatStyle(FlatStyle.FLAT);
+        drinkButton.setLocation(new Point(8, 240));
+        drinkButton.setSize(new Size(41, 22));
+        drinkButton.setTabIndex(35);
+        drinkButton.setText("Drink");
+        drinkButton.setVisible(false);
+        drinkButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                drinkButtonClick();
+            }
+        });
+
+        interruptButton.setFlatStyle(FlatStyle.FLAT);
+        interruptButton.setLocation(new Point(179, 240));
+        interruptButton.setSize(new Size(30, 22));
+        interruptButton.setTabIndex(36);
+        interruptButton.setText("Int.");
+        interruptButton.setVisible(false);
+        interruptButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                interruptButtonClick();
+            }
+        });
+
+        yieldButton.setFlatStyle(FlatStyle.FLAT);
+        yieldButton.setLocation(new Point(106, 240));
+        yieldButton.setSize(new Size(39, 22));
+        yieldButton.setTabIndex(37);
+        yieldButton.setText("Yield");
+        yieldButton.setVisible(false);
+        yieldButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                yieldButtonClick();
+            }
+        });
+
+        continuousPicture.setLocation(new Point(214, 247));
+        continuousPicture.setSize(new Size(9, 9));
+        continuousPicture.setTabIndex(38);
+        continuousPicture.setTabStop(false);
+        continuousPicture.setVisible(false);
+
+        tribblePicture00.setLocation(new Point(16, 16));
+        tribblePicture01.setLocation(new Point(56, 8));
+        tribblePicture02.setLocation(new Point(96, 16));
+        tribblePicture03.setLocation(new Point(128, 8));
+        tribblePicture04.setLocation(new Point(176, 8));
+        tribblePicture05.setLocation(new Point(208, 16));
+        tribblePicture10.setLocation(new Point(8, 56));
+        tribblePicture11.setLocation(new Point(32, 80));
+        tribblePicture12.setLocation(new Point(88, 56));
+        tribblePicture13.setLocation(new Point(128, 40));
+        tribblePicture14.setLocation(new Point(192, 72));
+        tribblePicture15.setLocation(new Point(216, 48));
+        tribblePicture20.setLocation(new Point(8, 96));
+        tribblePicture21.setLocation(new Point(56, 96));
+        tribblePicture22.setLocation(new Point(96, 80));
+        tribblePicture23.setLocation(new Point(136, 88));
+        tribblePicture24.setLocation(new Point(176, 104));
+        tribblePicture25.setLocation(new Point(216, 96));
+        tribblePicture30.setLocation(new Point(16, 136));
+        tribblePicture31.setLocation(new Point(56, 128));
+        tribblePicture32.setLocation(new Point(96, 120));
+        tribblePicture33.setLocation(new Point(128, 128));
+        tribblePicture34.setLocation(new Point(168, 144));
+        tribblePicture35.setLocation(new Point(208, 128));
+        tribblePicture40.setLocation(new Point(8, 184));
+        tribblePicture41.setLocation(new Point(48, 176));
+        tribblePicture42.setLocation(new Point(88, 168));
+        tribblePicture43.setLocation(new Point(136, 176));
+        tribblePicture44.setLocation(new Point(184, 184));
+        tribblePicture45.setLocation(new Point(216, 176));
+        tribblePicture50.setLocation(new Point(16, 224));
+        tribblePicture51.setLocation(new Point(64, 216));
+        tribblePicture52.setLocation(new Point(96, 224));
+        tribblePicture53.setLocation(new Point(144, 216));
+        tribblePicture54.setLocation(new Point(176, 224));
+        tribblePicture55.setLocation(new Point(208, 216));
+
+        tribblesArray = new PictureBox[]{
+                tribblePicture00, tribblePicture01, tribblePicture02, tribblePicture03, tribblePicture04, tribblePicture05, 
+                tribblePicture10, tribblePicture11, tribblePicture12, tribblePicture13, tribblePicture14, tribblePicture15,
+                tribblePicture20, tribblePicture21, tribblePicture22, tribblePicture23, tribblePicture24, tribblePicture25, 
+                tribblePicture30, tribblePicture31, tribblePicture32, tribblePicture33, tribblePicture34, tribblePicture35, 
+                tribblePicture40, tribblePicture41, tribblePicture42, tribblePicture43, tribblePicture44, tribblePicture45, 
+                tribblePicture50, tribblePicture51, tribblePicture52, tribblePicture53, tribblePicture54, tribblePicture55
+        };
+
+        Arrays.stream(tribblesArray).forEach(picture -> {
+            picture.setBackground(SystemColors.CONTROL);
+            picture.setSize(new Size(12, 12));
+            picture.setTabStop(false);
+            picture.setVisible(false);
+            picture.setClick(new EventHandler<Object, EventArgs>() {
+                @Override
+                public void handle(Object sender, EventArgs e) {
+                    tribblePictureClick();
+                }
+            });
+        });
+
+        timer.setInterval(1000);
+        timer.setTick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                timerTick();
+            }
+        });
+
+        encounterTypeImageList.setImageSize(new Size(12, 12));
+        encounterTypeImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilEncounterType.ImageStream"))));
+        encounterTypeImageList.setTransparentColor(Color.WHITE);
+
+        tribblesImageList.setImageSize(new Size(12, 12));
+        tribblesImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilTribbles.ImageStream"))));
+        tribblesImageList.setTransparentColor(Color.WHITE);
+
+        continuousImageList.setImageSize(new Size(9, 9));
+        continuousImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilContinuous.ImageStream"))));
+        continuousImageList.setTransparentColor(Color.WHITE);
+
+        controls.add(encounterTypePicture);
+        controls.add(youLabel);
+        controls.add(opponentLabel);
+        controls.add(yourShipPicture);
+        controls.add(opponentsShipPicture);
+        controls.add(yourShipLabelValue);
+        controls.add(opponentsShipLabelValue);
+        controls.add(yourHullLabelValue);
+        controls.add(opponentsHullLabelValue);
+        controls.add(yourShieldsLabelValue);
+        controls.add(opponentsShieldsLabelValue);
+        controls.add(encounterLabelValue);
+        controls.add(actionLabelValue);
+        controls.add(attackButton);
+        controls.add(fleeButton);
+        controls.add(submitButton);
+        controls.add(bribeButton);
+        controls.add(surrenderButton);
+        controls.add(ignoreButton);
+        controls.add(tradeButton);
+        controls.add(plunderButton);
+        controls.add(boardButton);
+        controls.add(meetButton);
+        controls.add(drinkButton);
+        controls.add(interruptButton);
+        controls.add(yieldButton);
+        controls.add(continuousPicture);
+        controls.addAll(tribblesArray);
     }
 
-    // #endregion
-
-    private void DisableAuto() {
-        tmrTick.stop();
+    private void disableAuto() {
+        timer.stop();
 
         game.setEncounterContinueFleeing(false);
         game.setEncounterContinueAttacking(false);
-        btnInt.setVisible(false);
-        picContinuous.setVisible(false);
+        interruptButton.setVisible(false);
+        continuousPicture.setVisible(false);
     }
 
-    private void ExecuteAction() {
-        if ((_result = game.EncounterExecuteAction()) == EncounterResult.Continue) {
-            UpdateButtons();
-            UpdateShipStats();
+    private void executeAction() {
+        if ((_result = game.getEncounterExecuteAction()) == EncounterResult.CONTINUE) {
+            updateButtons();
+            updateShipStats();
 
-            lblEncounter.setText(game.EncounterText());
-            lblAction.setText(game.EncounterAction());
+            encounterLabelValue.setText(game.getEncounterText());
+            actionLabelValue.setText(game.getEncounterAction());
 
-            if (game.getEncounterContinueFleeing()
-                    || game.getEncounterContinueAttacking())
-                tmrTick.start();
-        } else
+            if (game.getEncounterContinueFleeing() || game.getEncounterContinueAttacking()) {
+                timer.start();
+            }
+        } else {
             close();
+        }
     }
 
-    private void Exit(EncounterResult result) {
+    private void exit(EncounterResult result) {
         _result = result;
         close();
     }
 
-    private void UpdateButtons() {
+    private void updateButtons() {
         boolean[] visible = new boolean[buttons.length];
 
         switch (game.getEncounterType()) {
-            case BottleGood:
-            case BottleOld:
+            case BOTTLE_GOOD:
+            case BOTTLE_OLD:
                 visible[DRINK] = true;
                 visible[IGNORE] = true;
-                btnIgnore.setLeft(btnDrink.getLeft() + btnDrink.getWidth() + 8);
+                //TODO scale
+                ignoreButton.setLeft(drinkButton.getLeft() + drinkButton.getWidth() + 8);
                 break;
-            case CaptainAhab:
-            case CaptainConrad:
-            case CaptainHuie:
+            case CAPTAIN_AHAB:
+            case CAPTAIN_CONRAD:
+            case CAPTAIN_HUIE:
                 visible[ATTACK] = true;
                 visible[IGNORE] = true;
                 visible[MEET] = true;
                 break;
-            case DragonflyAttack:
-            case FamousCaptainAttack:
-            case ScorpionAttack:
-            case SpaceMonsterAttack:
-            case TraderAttack:
+            case DRAGONFLY_ATTACK:
+            case FAMOUS_CAPTAIN_ATTACK:
+            case SCORPION_ATTACK:
+            case SPACE_MONSTER_ATTACK:
+            case TRADER_ATTACK:
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
-                btnInt.setLeft(btnFlee.getLeft() + btnFlee.getWidth() + 8);
+                interruptButton.setLeft(fleeButton.getLeft() + fleeButton.getWidth() + 8);
                 break;
-            case DragonflyIgnore:
-            case FamousCaptDisabled:
-            case PoliceDisabled:
-            case PoliceFlee:
-            case PoliceIgnore:
-            case PirateFlee:
-            case PirateIgnore:
-            case ScarabIgnore:
-            case ScorpionIgnore:
-            case SpaceMonsterIgnore:
-            case TraderFlee:
-            case TraderIgnore:
+            case DRAGONFLY_IGNORE:
+            case FAMOUS_CAPT_DISABLED:
+            case POLICE_DISABLED:
+            case POLICE_FLEE:
+            case POLICE_IGNORE:
+            case PIRATE_FLEE:
+            case PIRATE_IGNORE:
+            case SCARAB_IGNORE:
+            case SCORPION_IGNORE:
+            case SPACE_MONSTER_IGNORE:
+            case TRADER_FLEE:
+            case TRADER_IGNORE:
                 visible[ATTACK] = true;
                 visible[IGNORE] = true;
                 break;
-            case MarieCeleste:
+            case MARIE_CELESTE:
                 visible[BOARD] = true;
                 visible[IGNORE] = true;
-                btnIgnore.setLeft(btnBoard.getLeft() + btnBoard.getWidth() + 8);
+                ignoreButton.setLeft(boardButton.getLeft() + boardButton.getWidth() + 8);
                 break;
-            case MarieCelestePolice:
+            case MARIE_CELESTE_POLICE:
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
                 visible[YIELD] = true;
                 visible[BRIBE] = true;
-                btnBribe.setLeft(btnYield.getLeft() + btnYield.getWidth() + 8);
+                bribeButton.setLeft(yieldButton.getLeft() + yieldButton.getWidth() + 8);
                 break;
-            case PirateAttack:
-            case PoliceAttack:
-            case PoliceSurrender:
-            case ScarabAttack:
+            case PIRATE_ATTACK:
+            case POLICE_ATTACK:
+            case POLICE_SURRENDER:
+            case SCARAB_ATTACK:
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
                 visible[SURRENDER] = true;
-                btnInt.setLeft(btnSurrender.getLeft() + btnSurrender.getWidth() + 8);
+                interruptButton.setLeft(surrenderButton.getLeft() + surrenderButton.getWidth() + 8);
                 break;
-            case PirateDisabled:
-            case PirateSurrender:
-            case TraderDisabled:
-            case TraderSurrender:
+            case PIRATE_DISABLED:
+            case PIRATE_SURRENDER:
+            case TRADER_DISABLED:
+            case TRADER_SURRENDER:
                 visible[ATTACK] = true;
                 visible[PLUNDER] = true;
                 break;
-            case PoliceInspect:
+            case POLICE_INSPECT:
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
                 visible[SUBMIT] = true;
                 visible[BRIBE] = true;
                 break;
-            case TraderBuy:
-            case TraderSell:
+            case TRADER_BUY:
+            case TRADER_SELL:
                 visible[ATTACK] = true;
                 visible[IGNORE] = true;
                 visible[TRADE] = true;
                 break;
         }
 
-        if (game.getEncounterContinueAttacking() || game.getEncounterContinueFleeing())
+        if (game.getEncounterContinueAttacking() || game.getEncounterContinueFleeing()) {
             visible[INT] = true;
+        }
 
         for (int i = 0; i < visible.length; i++) {
             if (visible[i] != buttons[i].isVisible()) {
                 buttons[i].setVisible(visible[i]);
-                if (i == INT)
-                    picContinuous.setVisible(visible[i]);
             }
         }
 
-        if (picContinuous.isVisible())
-            picContinuous.setImage(ilContinuous.getImages()[contImg = (contImg + 1) % 2]);
-    }
+        continuousPicture.setVisible(visible[INT]);
 
-    private void UpdateShipInfo() {
-        lblYouShip.setText(cmdrship.Name());
-        lblOpponentShip.setText(opponent.Name());
-
-        UpdateShipStats();
-    }
-
-    private void UpdateShipStats() {
-        lblYouHull.setText(cmdrship.HullText());
-        lblYouShields.setText(cmdrship.ShieldText());
-        lblOpponentHull.setText(opponent.HullText());
-        lblOpponentShields.setText(opponent.ShieldText());
-
-        picShipYou.refresh();
-        picShipOpponent.refresh();
-    }
-
-    private void UpdateTribbles() {
-        PictureBox[] tribbles = new PictureBox[]{picTrib00, picTrib01,
-                picTrib02, picTrib03, picTrib04, picTrib05, picTrib10,
-                picTrib11, picTrib12, picTrib13, picTrib14, picTrib15,
-                picTrib20, picTrib21, picTrib22, picTrib23, picTrib24,
-                picTrib25, picTrib30, picTrib31, picTrib32, picTrib33,
-                picTrib34, picTrib35, picTrib40, picTrib41, picTrib42,
-                picTrib43, picTrib44, picTrib45, picTrib50, picTrib51,
-                picTrib52, picTrib53, picTrib54, picTrib55};
-        int toShow = Math.min(tribbles.length, (int) Math
-                .sqrt(cmdrship.getTribbles()
-                        / Math.ceil(Consts.MaxTribbles
-                        / Math.pow(tribbles.length + 1, 2))));
-
-        for (int i = 0; i < toShow; i++) {
-            int index = Functions.GetRandom(tribbles.length);
-            while (tribbles[index].isVisible())
-                index = (index + 1) % tribbles.length;
-
-            tribbles[index].setImage(ilTribbles.getImages()[Functions
-                    .GetRandom(ilTribbles.getImages().length)]);
-            tribbles[index].setVisible(true);
+        if (continuousPicture.isVisible()) {
+            continuousPicture.setImage(continuousImageList.getImages()[continueImage = (continueImage + 1) % 2]);
         }
     }
 
-    // #endregion
+    private void updateShipInfo() {
+        yourShipLabelValue.setText(commanderShip.getName());
+        opponentsShipLabelValue.setText(opponent.getName());
 
-    // #region Event Handlers
-
-    private void btnAttack_Click(Object sender, EventArgs e) {
-        DisableAuto();
-
-        if (game.EncounterVerifyAttack())
-            ExecuteAction();
+        updateShipStats();
     }
 
-    private void btnBoard_Click(Object sender, EventArgs e) {
-        if (game.EncounterVerifyBoard())
-            Exit(EncounterResult.Normal);
+    private void updateShipStats() {
+        yourHullLabelValue.setText(commanderShip.getHullText());
+        yourShieldsLabelValue.setText(commanderShip.getShieldText());
+        opponentsHullLabelValue.setText(opponent.getHullText());
+        opponentsShieldsLabelValue.setText(opponent.getShieldText());
+
+        yourShipPicture.refresh();
+        opponentsShipPicture.refresh();
     }
 
-    private void btnBribe_Click(Object sender, EventArgs e) {
-        if (game.EncounterVerifyBribe())
-            Exit(EncounterResult.Normal);
+    private void updateTribbles() {
+        int toShow = min(tribblesArray.length,
+                (int) sqrt(commanderShip.getTribbles() / ceil(Consts.MaxTribbles / pow(tribblesArray.length + 1, 2))));
+
+        for (int i = 0; i < toShow; i++) {
+            int index = Functions.getRandom(tribblesArray.length);
+            while (tribblesArray[index].isVisible()) {
+                index = (index + 1) % tribblesArray.length;
+            }
+            tribblesArray[index].setImage(tribblesImageList.getImages()[Functions.getRandom(tribblesImageList.getImages().length)]);
+            tribblesArray[index].setVisible(true);
+        }
     }
 
-    private void btnDrink_Click(Object sender, EventArgs e) {
-        game.EncounterDrink();
+    private void attackButtonClick() {
+        disableAuto();
 
-        Exit(EncounterResult.Normal);
+        if (game.isEncounterVerifyAttack()) {
+            executeAction();
+        }
     }
 
-    private void btnFlee_Click(Object sender, EventArgs e) {
-        DisableAuto();
-
-        if (game.EncounterVerifyFlee())
-            ExecuteAction();
+    private void boardButtonClick() {
+        if (game.isEncounterVerifyBoard()) {
+            exit(EncounterResult.NORMAL);
+        }
     }
 
-    private void btnIgnore_Click(Object sender, EventArgs e) {
-        DisableAuto();
-
-        Exit(EncounterResult.Normal);
+    private void bribeButtonClick() {
+        if (game.isEncounterVerifyBribe()) {
+            exit(EncounterResult.NORMAL);
+        }
     }
 
-    private void btnInt_Click(Object sender, EventArgs e) {
-        DisableAuto();
+    private void drinkButtonClick() {
+        game.encounterDrink();
+
+        exit(EncounterResult.NORMAL);
     }
 
-    private void btnMeet_Click(Object sender, EventArgs e) {
-        game.EncounterMeet();
+    private void fleeButtonClick() {
+        disableAuto();
 
-        Exit(EncounterResult.Normal);
+        if (game.isEncounterVerifyFlee()) {
+            executeAction();
+        }
     }
 
-    private void btnPlunder_Click(Object sender, EventArgs e) {
-        DisableAuto();
+    private void ignoreButtonClick() {
+        disableAuto();
 
-        game.EncounterPlunder();
-
-        Exit(EncounterResult.Normal);
+        exit(EncounterResult.NORMAL);
     }
 
-    private void btnSubmit_Click(Object sender, EventArgs e) {
-        if (game.EncounterVerifySubmit())
-            Exit(cmdrship.IllegalSpecialCargo() ? EncounterResult.Arrested
-                    : EncounterResult.Normal);
+    private void interruptButtonClick() {
+        disableAuto();
     }
 
-    private void btnSurrender_Click(Object sender, EventArgs e) {
-        DisableAuto();
+    private void meetButtonClick() {
+        game.encounterMeet();
 
-        if ((_result = game.EncounterVerifySurrender()) != EncounterResult.Continue)
+        exit(EncounterResult.NORMAL);
+    }
+
+    private void plunderButtonClick() {
+        disableAuto();
+
+        game.encounterPlunder();
+
+        exit(EncounterResult.NORMAL);
+    }
+
+    private void submitButtonClick() {
+        if (game.isEncounterVerifySubmit()) {
+            exit(commanderShip.isIllegalSpecialCargo() ? EncounterResult.ARRESTED : EncounterResult.NORMAL);
+        }
+    }
+
+    private void surrenderButtonClick() {
+        disableAuto();
+
+        if ((_result = game.getEncounterVerifySurrender()) != EncounterResult.CONTINUE) {
             close();
+        }
     }
 
-    private void btnTrade_Click(Object sender, EventArgs e) {
-        game.EncounterTrade();
+    private void tradeButtonClick() {
+        game.encounterTrade();
 
-        Exit(EncounterResult.Normal);
+        exit(EncounterResult.NORMAL);
     }
 
-    private void btnYield_Click(Object sender, EventArgs e) {
-        if ((_result = game.EncounterVerifyYield()) != EncounterResult.Continue)
+    private void yieldButtonClick() {
+        if ((_result = game.getEncounterVerifyYield()) != EncounterResult.CONTINUE) {
             close();
+        }
     }
 
-    private void picShipOpponent_Paint(Object sender,
-                                       spacetrader.controls.PaintEventArgs e) {
-        Functions.PaintShipImage(opponent, e.getGraphics(),
-                picShipOpponent.getBackground());
+    private void picShipOpponent_Paint(PaintEventArgs e) {
+        Functions.paintShipImage(opponent, e.getGraphics(), opponentsShipPicture.getBackground());
     }
 
-    private void picShipYou_Paint(Object sender,
-                                  spacetrader.controls.PaintEventArgs e) {
-        Functions.PaintShipImage(cmdrship, e.getGraphics(), picShipYou.getBackground());
+    private void picShipYou_Paint(PaintEventArgs e) {
+        Functions.paintShipImage(commanderShip, e.getGraphics(), yourShipPicture.getBackground());
     }
 
-    private void picTrib_Click(Object sender, EventArgs e) {
+    private void tribblePictureClick() {
         GuiFacade.alert(AlertType.TribblesSqueek);
     }
 
-    private void tmrTick_Tick(Object sender, EventArgs e) {
-        DisableAuto();
+    private void timerTick() {
+        disableAuto();
 
-        ExecuteAction();
+        executeAction();
     }
 
-    // #endregion
-
-    // #region Properties
-
-
-    public EncounterResult Result() {
+    public EncounterResult getResult() {
         return _result;
     }
-
-    // #endregion
 }

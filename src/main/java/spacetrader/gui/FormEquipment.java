@@ -234,7 +234,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // lstSellGadget
         //
-        this.lstSellGadget.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstSellGadget.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstSellGadget.setLocation(new java.awt.Point(8, 228));
         this.lstSellGadget.setName("lstSellGadget");
         this.lstSellGadget.setSize(new spacetrader.controls.Size(128, 67));
@@ -252,7 +252,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // lstSellShield
         //
-        this.lstSellShield.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstSellShield.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstSellShield.setLocation(new java.awt.Point(8, 132));
         this.lstSellShield.setName("lstSellShield");
         this.lstSellShield.setSize(new spacetrader.controls.Size(128, 67));
@@ -270,7 +270,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // lstSellWeapon
         //
-        this.lstSellWeapon.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstSellWeapon.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstSellWeapon.setLocation(new java.awt.Point(8, 36));
         this.lstSellWeapon.setName("lstSellWeapon");
         this.lstSellWeapon.setSize(new spacetrader.controls.Size(128, 67));
@@ -360,7 +360,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // lstBuyGadget
         //
-        this.lstBuyGadget.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstBuyGadget.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstBuyGadget.setLocation(new java.awt.Point(8, 228));
         this.lstBuyGadget.setName("lstBuyGadget");
         this.lstBuyGadget.setSize(new spacetrader.controls.Size(128, 67));
@@ -378,7 +378,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // lstBuyShield
         //
-        this.lstBuyShield.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstBuyShield.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstBuyShield.setLocation(new java.awt.Point(8, 132));
         this.lstBuyShield.setName("lstBuyShield");
         this.lstBuyShield.setSize(new spacetrader.controls.Size(128, 67));
@@ -396,7 +396,7 @@ public class FormEquipment extends SpaceTraderForm {
         //
         // lstBuyWeapon
         //
-        this.lstBuyWeapon.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstBuyWeapon.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstBuyWeapon.setLocation(new java.awt.Point(8, 36));
         this.lstBuyWeapon.setName("lstBuyWeapon");
         this.lstBuyWeapon.setSize(new spacetrader.controls.Size(128, 67));
@@ -560,7 +560,7 @@ public class FormEquipment extends SpaceTraderForm {
         // picEquipment
         //
         this.picEquipment.setBackground(java.awt.Color.white);
-        this.picEquipment.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.picEquipment.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.picEquipment.setLocation(new java.awt.Point(71, 20));
         this.picEquipment.setName("picEquipment");
         this.picEquipment.setSize(new spacetrader.controls.Size(66, 54));

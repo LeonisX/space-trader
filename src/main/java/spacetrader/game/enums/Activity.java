@@ -22,6 +22,7 @@ public enum Activity implements SpaceTraderEnum {
 
     //TODO go over all NAs, see if can use null, or at least normalize.
     // TODO go over all castToInt, see if needed.
+    @Override
     public int castToInt() {
         return this == NA ? 100 : ordinal();
     }

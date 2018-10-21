@@ -9,7 +9,7 @@ public class Separator extends BaseComponent {
 
     Separator() {
         super(new JLineSeparator());
-        setBorderStyle(BorderStyle.FixedSingle);
+        setBorderStyle(BorderStyle.FIXED_SINGLE);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class Separator extends BaseComponent {
     @Override
     public void setBorderStyle(BorderStyle borderStyle) {
         switch (borderStyle) {
-            case FixedSingle:
+            case FIXED_SINGLE:
                 asJLineSeparator().setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
                 break;
 

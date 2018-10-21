@@ -116,7 +116,7 @@ public class Commander extends CrewMember {
     }
 
     public boolean TradeShip(ShipSpec specToBuy, int netPrice) {
-        return TradeShip(specToBuy, netPrice, specToBuy.Name());
+        return TradeShip(specToBuy, netPrice, specToBuy.getName());
     }
 
     public boolean TradeShip(ShipSpec specToBuy, int netPrice, String newShipName) {
@@ -188,7 +188,7 @@ public class Commander extends CrewMember {
                     addPod = false;
             }
 
-            if (GuiFacade.alert(AlertType.ShipBuyConfirm, getShip().Name(), newShipName, (add[0] || add[1]
+            if (GuiFacade.alert(AlertType.ShipBuyConfirm, getShip().getName(), newShipName, (add[0] || add[1]
                     || add[2] || addPod ? Strings.ShipBuyTransfer : "")) == DialogResult.YES) {
                 CrewMember[] oldCrew = getShip().Crew();
 

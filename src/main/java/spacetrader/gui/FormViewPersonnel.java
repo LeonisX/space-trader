@@ -122,7 +122,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // lstCrew
         //
-        this.lstCrew.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstCrew.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstCrew.setLocation(new java.awt.Point(8, 24));
         this.lstCrew.setName("lstCrew");
         this.lstCrew.setSize(new spacetrader.controls.Size(126, 80));
@@ -151,7 +151,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // lstForHire
         //
-        this.lstForHire.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        this.lstForHire.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         this.lstForHire.setLocation(new java.awt.Point(8, 24));
         this.lstForHire.setName("lstForHire");
         this.lstForHire.setSize(new spacetrader.controls.Size(126, 80));

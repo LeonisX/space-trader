@@ -128,11 +128,11 @@ public class Functions {
         return (HighScoreRecord[]) STSerializableObject.ArrayListToArray((List<Hashtable>) obj, "HighScoreRecord");
     }
 
-    public static int GetRandom(int max) {
-        return GetRandom(0, max);
+    public static int getRandom(int max) {
+        return getRandom(0, max);
     }
 
-    static int GetRandom(int min, int max) {
+    static int getRandom(int min, int max) {
         // return rand.Next(min, max);
         return rand.nextInt(max - min) + min;
     }
@@ -191,7 +191,7 @@ public class Functions {
         return formatNumber(num) + " " + unit + (num == 1 ? "" : "s");
     }
 
-    public static void PaintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
+    public static void paintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
         int x = Consts.ShipImageOffsets[ship.Type().castToInt()].X;
         int width = Consts.ShipImageOffsets[ship.Type().castToInt()].Width;
         int startDamage = x + width - ship.getHull() * width / ship.getHullStrength();
@@ -226,7 +226,7 @@ public class Functions {
     }
 
     static int RandomSkill() {
-        return 1 + GetRandom(5) + GetRandom(6);
+        return 1 + getRandom(5) + getRandom(6);
     }
 
     static void RandSeed(int seed1, int seed2) {

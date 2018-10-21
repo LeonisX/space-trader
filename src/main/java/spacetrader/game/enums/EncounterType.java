@@ -1,47 +1,48 @@
 package spacetrader.game.enums;
 
-public enum EncounterType implements SpaceTraderEnum// : int
-{
-    BottleGood, // = 0,
-    BottleOld, // = 1,
-    CaptainAhab, // = 2,
-    CaptainConrad, // = 3,
-    CaptainHuie, // = 4,
-    DragonflyAttack, // = 5,
-    DragonflyIgnore, // = 6,
-    FamousCaptainAttack, // = 7,
-    FamousCaptDisabled, // = 8,
-    MarieCeleste, // = 9,
-    MarieCelestePolice, // = 10,
-    PirateAttack, // = 11,
-    PirateIgnore, // = 12,
-    PirateFlee, // = 13,
-    PirateSurrender, // = 14,
-    PirateDisabled, // = 15,
-    PoliceAttack, // = 16,
-    PoliceIgnore, // = 17,
-    PoliceFlee, // = 18,
-    PoliceSurrender, // = 19,
-    PoliceDisabled, // = 20,
-    PoliceInspect, // = 21,
-    ScarabAttack, // = 22,
-    ScarabIgnore, // = 23,
-    ScorpionAttack, // = 24,
-    ScorpionIgnore, // = 25,
-    SpaceMonsterAttack, // = 26,
-    SpaceMonsterIgnore, // = 27,
-    TraderAttack, // = 28,
-    TraderIgnore, // = 29,
-    TraderFlee, // = 30,
-    TraderSurrender, // = 31,
-    TraderDisabled, // = 32,
-    TraderBuy, // = 33,
-    TraderSell; // = 34
+public enum EncounterType implements SpaceTraderEnum {
+
+    BOTTLE_GOOD, // = 0,
+    BOTTLE_OLD, // = 1,
+    CAPTAIN_AHAB, // = 2,
+    CAPTAIN_CONRAD, // = 3,
+    CAPTAIN_HUIE, // = 4,
+    DRAGONFLY_ATTACK, // = 5,
+    DRAGONFLY_IGNORE, // = 6,
+    FAMOUS_CAPTAIN_ATTACK, // = 7,
+    FAMOUS_CAPT_DISABLED, // = 8,
+    MARIE_CELESTE, // = 9,
+    MARIE_CELESTE_POLICE, // = 10,
+    PIRATE_ATTACK, // = 11,
+    PIRATE_IGNORE, // = 12,
+    PIRATE_FLEE, // = 13,
+    PIRATE_SURRENDER, // = 14,
+    PIRATE_DISABLED, // = 15,
+    POLICE_ATTACK, // = 16,
+    POLICE_IGNORE, // = 17,
+    POLICE_FLEE, // = 18,
+    POLICE_SURRENDER, // = 19,
+    POLICE_DISABLED, // = 20,
+    POLICE_INSPECT, // = 21,
+    SCARAB_ATTACK, // = 22,
+    SCARAB_IGNORE, // = 23,
+    SCORPION_ATTACK, // = 24,
+    SCORPION_IGNORE, // = 25,
+    SPACE_MONSTER_ATTACK, // = 26,
+    SPACE_MONSTER_IGNORE, // = 27,
+    TRADER_ATTACK, // = 28,
+    TRADER_IGNORE, // = 29,
+    TRADER_FLEE, // = 30,
+    TRADER_SURRENDER, // = 31,
+    TRADER_DISABLED, // = 32,
+    TRADER_BUY, // = 33,
+    TRADER_SELL; // = 34
 
     public static EncounterType fromInt(int i) {
         return values()[i];
     }
 
+    @Override
     public int castToInt() {
         return ordinal();
     }

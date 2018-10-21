@@ -46,7 +46,7 @@ public class PictureBox extends BaseComponent implements ISupportInitialize {
     @Override
     public void setBorderStyle(BorderStyle borderStyle) {
         switch (borderStyle) {
-            case FixedSingle:
+            case FIXED_SINGLE:
                 asJLabel().setBorder(BorderFactory.createLineBorder(Color.black, 1));
                 break;
 

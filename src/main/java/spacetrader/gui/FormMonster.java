@@ -395,7 +395,7 @@ public class FormMonster extends SpaceTraderForm {
         // pnlMercs
         //
         pnlMercs.autoScroll = true;
-        pnlMercs.setBorderStyle(BorderStyle.FixedSingle);
+        pnlMercs.setBorderStyle(BorderStyle.FIXED_SINGLE);
         pnlMercs.controls.add(lblMercSkillsPilot);
         pnlMercs.controls.add(lblMercSkillsFighter);
         pnlMercs.controls.add(lblMercSkillsTrader);
@@ -487,7 +487,7 @@ public class FormMonster extends SpaceTraderForm {
         // pnlQuests
         //
         pnlQuests.autoScroll = true;
-        pnlQuests.setBorderStyle(BorderStyle.FixedSingle);
+        pnlQuests.setBorderStyle(BorderStyle.FIXED_SINGLE);
         pnlQuests.controls.add(lblQuests);
         pnlQuests.controls.add(lblQuestSystems);
         pnlQuests.setLocation(new java.awt.Point(8, 44));
@@ -518,7 +518,7 @@ public class FormMonster extends SpaceTraderForm {
         //
         // pnlShipyards
         //
-        pnlShipyards.setBorderStyle(BorderStyle.FixedSingle);
+        pnlShipyards.setBorderStyle(BorderStyle.FIXED_SINGLE);
         pnlShipyards.controls.add(lblShipyards);
         pnlShipyards.controls.add(lblShipyardSystems);
         pnlShipyards.setLocation(new java.awt.Point(8, 278));

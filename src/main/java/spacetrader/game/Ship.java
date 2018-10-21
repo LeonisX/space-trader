@@ -207,7 +207,7 @@ public class Ship extends ShipSpec {
             // The leaving Mercenary travels to a nearby random system.
             merc.setCurrentSystemId(StarSystemId.NA);
             while (merc.getCurrentSystemId() == StarSystemId.NA) {
-                StarSystem system = universe[Functions.GetRandom(universe.length)];
+                StarSystem system = universe[Functions.getRandom(universe.length)];
                 if (Functions.distance(system, Game.getCurrentGame().getCommander().getCurrentSystem()) < Consts.MaxRange)
                     merc.setCurrentSystemId(system.Id());
             }
@@ -220,7 +220,7 @@ public class Ship extends ShipSpec {
             int baysToFill = getCargoBays();
 
             if (diff.castToInt() >= Difficulty.Normal.castToInt())
-                baysToFill = Math.min(15, 3 + Functions.GetRandom(baysToFill - 5));
+                baysToFill = Math.min(15, 3 + Functions.getRandom(baysToFill - 5));
 
             if (pirate) {
                 if (diff.castToInt() < Difficulty.Normal.castToInt())
@@ -230,8 +230,8 @@ public class Ship extends ShipSpec {
             }
 
             for (int bays, i = 0; i < baysToFill; i += bays) {
-                int item = Functions.GetRandom(Consts.TradeItems.length);
-                bays = Math.min(baysToFill - i, 1 + Functions.GetRandom(10 - item));
+                int item = Functions.getRandom(Consts.TradeItems.length);
+                bays = Math.min(baysToFill - i, 1 + Functions.getRandom(10 - item));
                 getCargo()[item] += bays;
             }
         }
@@ -242,21 +242,21 @@ public class Ship extends ShipSpec {
         Difficulty diff = Game.getCurrentGame().Difficulty();
 
         Crew()[0] = mercs[CrewMemberId.Opponent.castToInt()];
-        Crew()[0].Pilot(1 + Functions.GetRandom(Consts.MaxSkill));
-        Crew()[0].Fighter(1 + Functions.GetRandom(Consts.MaxSkill));
-        Crew()[0].Trader(1 + Functions.GetRandom(Consts.MaxSkill));
+        Crew()[0].Pilot(1 + Functions.getRandom(Consts.MaxSkill));
+        Crew()[0].Fighter(1 + Functions.getRandom(Consts.MaxSkill));
+        Crew()[0].Trader(1 + Functions.getRandom(Consts.MaxSkill));
 
         if (Game.getCurrentGame().getWarpSystem().Id() == StarSystemId.Kravat && WildOnBoard()
-                && Functions.GetRandom(10) < diff.castToInt() + 1)
+                && Functions.getRandom(10) < diff.castToInt() + 1)
             Crew()[0].Engineer(Consts.MaxSkill);
         else
-            Crew()[0].Engineer(1 + Functions.GetRandom(Consts.MaxSkill));
+            Crew()[0].Engineer(1 + Functions.getRandom(Consts.MaxSkill));
 
         int numCrew = 0;
         if (diff == Difficulty.Impossible)
             numCrew = getCrewQuarters();
         else {
-            numCrew = 1 + Functions.GetRandom(getCrewQuarters());
+            numCrew = 1 + Functions.getRandom(getCrewQuarters());
             if (diff == Difficulty.Hard && numCrew < getCrewQuarters())
                 numCrew++;
         }
@@ -265,7 +265,7 @@ public class Ship extends ShipSpec {
             // Keep getting a new random mercenary until we have a non-special
             // one.
             while (Crew()[i] == null || Util.ArrayContains(Consts.SpecialCrewMemberIds, Crew()[i].Id()))
-                Crew()[i] = mercs[Functions.GetRandom(mercs.length)];
+                Crew()[i] = mercs[Functions.getRandom(mercs.length)];
         }
     }
 
@@ -276,15 +276,15 @@ public class Ship extends ShipSpec {
             if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
                 numGadgets = getGadgetSlots();
             else {
-                numGadgets = Functions.GetRandom(getGadgetSlots() + 1);
-                if (numGadgets < getGadgetSlots() && (tries > 4 || (tries > 2 && Functions.GetRandom(2) > 0)))
+                numGadgets = Functions.getRandom(getGadgetSlots() + 1);
+                if (numGadgets < getGadgetSlots() && (tries > 4 || (tries > 2 && Functions.getRandom(2) > 0)))
                     numGadgets++;
             }
 
             for (int i = 0; i < numGadgets; i++) {
                 int bestGadgetType = 0;
                 for (int j = 0; j < tries; j++) {
-                    int x = Functions.GetRandom(100);
+                    int x = Functions.getRandom(100);
                     int sum = Consts.Gadgets[0].Chance();
                     int gadgetType = 0;
                     while (sum < x && gadgetType <= Consts.Gadgets.length - 1) {
@@ -339,15 +339,15 @@ public class Ship extends ShipSpec {
             if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
                 numShields = getShieldSlots();
             else {
-                numShields = Functions.GetRandom(getShieldSlots() + 1);
-                if (numShields < getShieldSlots() && (tries > 3 || (tries > 1 && Functions.GetRandom(2) > 0)))
+                numShields = Functions.getRandom(getShieldSlots() + 1);
+                if (numShields < getShieldSlots() && (tries > 3 || (tries > 1 && Functions.getRandom(2) > 0)))
                     numShields++;
             }
 
             for (int i = 0; i < numShields; i++) {
                 int bestShieldType = 0;
                 for (int j = 0; j < tries; j++) {
-                    int x = Functions.GetRandom(100);
+                    int x = Functions.getRandom(100);
                     int sum = Consts.Shields[0].Chance();
                     int shieldType = 0;
                     while (sum < x && shieldType <= Consts.Shields.length - 1) {
@@ -362,7 +362,7 @@ public class Ship extends ShipSpec {
 
                 Shields()[i].setCharge(0);
                 for (int j = 0; j < 5; j++) {
-                    int charge = 1 + Functions.GetRandom(Shields()[i].Power());
+                    int charge = 1 + Functions.getRandom(Shields()[i].Power());
                     if (charge > Shields()[i].getCharge())
                         Shields()[i].setCharge(charge);
                 }
@@ -379,15 +379,15 @@ public class Ship extends ShipSpec {
             else if (getWeaponSlots() == 1)
                 numWeapons = 1;
             else {
-                numWeapons = 1 + Functions.GetRandom(getWeaponSlots());
-                if (numWeapons < getWeaponSlots() && (tries > 4 || (tries > 3 && Functions.GetRandom(2) > 0)))
+                numWeapons = 1 + Functions.getRandom(getWeaponSlots());
+                if (numWeapons < getWeaponSlots() && (tries > 4 || (tries > 3 && Functions.getRandom(2) > 0)))
                     numWeapons++;
             }
 
             for (int i = 0; i < numWeapons; i++) {
                 int bestWeaponType = 0;
                 for (int j = 0; j < tries; j++) {
-                    int x = Functions.GetRandom(100);
+                    int x = Functions.getRandom(100);
                     int sum = Consts.Weapons[0].Chance();
                     int weaponType = 0;
                     while (sum < x && weaponType <= Consts.Weapons.length - 1) {
@@ -405,11 +405,11 @@ public class Ship extends ShipSpec {
 
     private void GenerateOpponentSetHullStrength() {
         // If there are shields, the hull will probably be stronger
-        if (ShieldStrength() == 0 || Functions.GetRandom(5) == 0) {
+        if (ShieldStrength() == 0 || Functions.getRandom(5) == 0) {
             setHull(0);
 
             for (int i = 0; i < 5; i++) {
-                int hull = 1 + Functions.GetRandom(getHullStrength());
+                int hull = 1 + Functions.getRandom(getHullStrength());
                 if (hull > getHull())
                     setHull(hull);
             }
@@ -463,7 +463,7 @@ public class Ship extends ShipSpec {
             }
 
             for (int i = 0; i < tries; i++) {
-                int x = Functions.GetRandom(total);
+                int x = Functions.getRandom(total);
                 int sum = -1;
                 int j = -1;
 
@@ -493,7 +493,7 @@ public class Ship extends ShipSpec {
     // the tradeable goods when HasTradeableItem is called.
     // *************************************************************************
     public int GetRandomTradeableItem() {
-        int index = Functions.GetRandom(TradeableItems().length);
+        int index = Functions.getRandom(TradeableItems().length);
 
         while (!TradeableItems()[index])
             index = (index + 1) % TradeableItems().length;
@@ -643,7 +643,7 @@ public class Ship extends ShipSpec {
         // A disabled ship cannot be repaired.
         if (CommandersShip() || !Game.getCurrentGame().getOpponentDisabled()) {
             // Engineer may do some repairs
-            int repairs = Functions.GetRandom(Engineer());
+            int repairs = Functions.getRandom(Engineer());
             if (repairs > 0) {
                 int used = Math.min(repairs, getHullStrength() - getHull());
                 setHull(getHull() + used);
@@ -822,7 +822,7 @@ public class Ship extends ShipSpec {
     }
 
     public boolean DetectableIllegalCargoOrPassengers() {
-        return DetectableIllegalCargo() || IllegalSpecialCargo();
+        return DetectableIllegalCargo() || isIllegalSpecialCargo();
     }
 
     public boolean Disableable() {
@@ -941,12 +941,12 @@ public class Ship extends ShipSpec {
         return bays;
     }
 
-    public String HullText() {
+    public String getHullText() {
         return Functions.stringVars(Strings.EncounterHullStrength, Functions.formatNumber((int) Math.floor((double) 100
                 * getHull() / getHullStrength())));
     }
 
-    public boolean IllegalSpecialCargo() {
+    public boolean isIllegalSpecialCargo() {
         return WildOnBoard() || ReactorOnBoard() || SculptureOnBoard();
     }
 
@@ -997,7 +997,7 @@ public class Ship extends ShipSpec {
         return total;
     }
 
-    public String ShieldText() {
+    public String getShieldText() {
         return (Shields().length > 0 && Shields()[0] != null) ? Functions.stringVars(Strings.EncounterShieldStrength,
                 Functions.formatNumber((int) Math.floor((double) 100 * ShieldCharge() / ShieldStrength())))
                 : Strings.EncounterShieldNone;

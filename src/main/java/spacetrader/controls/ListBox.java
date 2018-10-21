@@ -14,7 +14,7 @@ public class ListBox extends BaseComponent {
 
     @Override
     public void setBorderStyle(BorderStyle borderStyle) {
-        if (borderStyle != BorderStyle.FixedSingle)
+        if (borderStyle != BorderStyle.FIXED_SINGLE)
             throw new Error("Unknown border style");
 
         asJList().setBorder(BorderFactory.createLineBorder(Color.black, 1));

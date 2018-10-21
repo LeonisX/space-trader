@@ -822,7 +822,7 @@ public class FormShipList extends SpaceTraderForm {
         // picShip
         //
         picShip.setBackground(java.awt.Color.white);
-        picShip.setBorderStyle(spacetrader.controls.BorderStyle.FixedSingle);
+        picShip.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
         picShip.setLocation(new java.awt.Point(67, 25));
         picShip.setName("picShip");
         picShip.setSize(new spacetrader.controls.Size(66, 54));
@@ -993,7 +993,7 @@ public class FormShipList extends SpaceTraderForm {
         ShipSpec spec = Consts.ShipSpecs[id];
 
         picShip.setImage(spec.Image());
-        lblName.setText(spec.Name());
+        lblName.setText(spec.getName());
         lblSize.setText(Strings.Sizes[spec.getSize().castToInt()]);
         lblBays.setText(Functions.formatNumber(spec.getCargoBays()));
         lblRange.setText(Functions.multiples(spec.getFuelTanks(), Strings.DistanceUnit));

@@ -115,6 +115,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private void dumpAllDimensions() {
         Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
         game.getCommander().getShip().getCargo()[1] = 12;
+        game.setSelectedSystemId(StarSystemId.Aldea);
+        game.warpDirect();
 
         /*ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
         System.out.println();
@@ -139,12 +141,16 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         ReflectionUtils.dumpControlsDimensions(formCargoBuy.asSwingObject(), formCargoBuy.asSwingObject().getName());
         System.out.println();
 
-        FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON,255);
+        FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255);
         ReflectionUtils.dumpControlsDimensions(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
-        System.out.println();*/
+        System.out.println();
 
         Component formCosts = new FormCosts().asSwingObject();
         ReflectionUtils.dumpControlsDimensions(formCosts, formCosts.getName());
+        System.out.println();*/
+
+        Component formEncounter = new FormEncounter().asSwingObject();
+        ReflectionUtils.dumpControlsDimensions(formEncounter, formEncounter.getName());
         System.out.println();
     }
 
@@ -153,6 +159,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
         game.getCommander().getShip().getCargo()[1] = 12;
+        game.setSelectedSystemId(StarSystemId.Aldea);
+        game.warpDirect();
 
         /*ReflectionUtils.dumpControlsStrings(getFrame(), this.getName());
         System.out.println();
@@ -179,10 +187,15 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON,255);
         ReflectionUtils.dumpControlsStrings(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
-        System.out.println();*/
+        System.out.println();
 
         Component formCosts = new FormCosts().asSwingObject();
         ReflectionUtils.dumpControlsStrings(formCosts, formCosts.getName());
+        System.out.println();*/
+
+        Component formEncounter = new FormEncounter().asSwingObject();
+        ReflectionUtils.dumpControlsStrings(formEncounter, formEncounter.getName());
+        System.out.println();
 
         //ReflectionUtils.dumpStrings();
     }

@@ -6,7 +6,7 @@ import java.awt.*;
 
 public enum BorderStyle {
 
-    FixedSingle(BorderFactory.createLineBorder(Color.black, 1));
+    FIXED_SINGLE(BorderFactory.createLineBorder(Color.black, 1));
 
     private Border border;
 
@@ -17,4 +17,5 @@ public enum BorderStyle {
     public Border getBorder() {
         return border;
     }
+
 }
