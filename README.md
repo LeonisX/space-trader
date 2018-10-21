@@ -1,5 +1,18 @@
 # Space Trader
 
+Deeply refactored and upgraded version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal (09.10.2008-03.12.2010)
+
+The project is a Java port of the [Space Trader for Windows](https://sourceforge.net/projects/spacetraderwin) from [Jay French](http://web.archive.org/web/20040212092717/http://www.frenchfryz.com:80/jay/spacetrader/home.php) (08.12.2003-14.08.2008), which is a C# port of the [original](http://ticc.uvt.nl/~pspronck/spacetrader/STFrames.html) Palm version from Peter Spronk (2000-2002). [New site](https://www.spronck.net/spacetrader/).
+
+
+## Whats new:
+
+* Multilanguage support
+* Gradle
+* Full refactor, code clean-up
+* --Bug fixes
+* Custom strings reader
+
 ## TODO
 
 * i18n for Swing
@@ -29,15 +42,8 @@
 
 * Bold font for labels on main screen, formEncounter. Source: new `tahomabd.ttf`
 
-## Done:
-
-* Multilanguage support
-* Gradle
-* Full refactor, code clean-up
-* --Bug fixes
-* Custom strings reader
-
 ## Far perspectives
 
 * JavaFX UI
+* Full-windowed
 
