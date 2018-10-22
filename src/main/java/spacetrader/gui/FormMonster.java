@@ -30,6 +30,7 @@ import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.*;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.CheatCode;
+import spacetrader.util.ReflectionUtils;
 import spacetrader.util.Util;
 
 @CheatCode
@@ -39,40 +40,40 @@ class FormMonster extends SpaceTraderForm {
 
     private final Game game = Game.getCurrentGame();
 
-    private Button btnClose;
-    private SimplePanel pnlMercs;
-    private SimplePanel pnlQuests;
-    private SimplePanel pnlShipyards;
-    private PictureBox picLine1;
-    private PictureBox picLine0;
-    private PictureBox picLine2;
-    private Label lblMercLabel;
-    private Label lblQuestsLabel;
-    private Label lblShipyardsLabel;
-    private LinkLabel lblMercIDLabel;
-    private LinkLabel lblMercNameLabel;
-    private LinkLabel lblMercSkillLabelPilot;
-    private LinkLabel lblMercSkillLabelFighter;
-    private LinkLabel lblMercSkillLabelTrader;
-    private LinkLabel lblMercSkillLabelEngineer;
-    private LinkLabel lblMercSystemLabel;
-    private LinkLabel lblQuestSystemLabel;
-    private LinkLabel lblQuestDescLabel;
-    private LinkLabel lblShipyardsSystemLabel;
-    private LinkLabel lblShipyardsDescLabel;
-    private Label lblMercIds;
-    private Label lblMercNames;
-    private Label lblMercSkillsPilot;
-    private Label lblMercSkillsFighter;
-    private Label lblMercSkillsTrader;
-    private Label lblMercSkillsEngineer;
-    private LinkLabel lblMercSystems;
-    private LinkLabel lblMercSystems2;
-    private LinkLabel lblQuestSystems;
-    private Label lblQuests;
-    private LinkLabel lblShipyardSystems;
+    private Button btnClose = new Button();
+    private SimplePanel pnlMercs = new SimplePanel();
+    private SimplePanel pnlQuests = new SimplePanel();
+    private SimplePanel pnlShipyards = new SimplePanel();
+    private HorizontalLine picLine1 = new HorizontalLine();
+    private HorizontalLine picLine0 = new HorizontalLine();
+    private HorizontalLine picLine2 = new HorizontalLine();
+    private Label lblMercLabel = new Label();
+    private Label lblQuestsLabel = new Label();
+    private Label lblShipyardsLabel = new Label();
+    private LinkLabel lblMercIDLabel = new LinkLabel();
+    private LinkLabel lblMercNameLabel = new LinkLabel();
+    private LinkLabel lblMercSkillLabelPilot = new LinkLabel();
+    private LinkLabel lblMercSkillLabelFighter = new LinkLabel();
+    private LinkLabel lblMercSkillLabelTrader = new LinkLabel();
+    private LinkLabel lblMercSkillLabelEngineer = new LinkLabel();
+    private LinkLabel lblMercSystemLabel = new LinkLabel();
+    private LinkLabel lblQuestSystemLabel = new LinkLabel();
+    private LinkLabel lblQuestDescLabel = new LinkLabel();
+    private LinkLabel lblShipyardsSystemLabel = new LinkLabel();
+    private LinkLabel lblShipyardsDescLabel = new LinkLabel();
+    private Label lblMercIds = new Label();
+    private Label lblMercNames = new Label();
+    private Label lblMercSkillsPilot = new Label();
+    private Label lblMercSkillsFighter = new Label();
+    private Label lblMercSkillsTrader = new Label();
+    private Label lblMercSkillsEngineer = new Label();
+    private LinkLabel lblMercSystems = new LinkLabel();
+    private LinkLabel lblMercSystems2 = new LinkLabel();
+    private LinkLabel lblQuestSystems = new LinkLabel();
+    private Label lblQuests = new Label();
+    private LinkLabel lblShipyardSystems = new LinkLabel();
 
-    private Label lblShipyards;
+    private Label lblShipyards = new Label();
 
     private Integer[] mercIds;
     private Integer[] questSystemIds;
@@ -89,42 +90,8 @@ class FormMonster extends SpaceTraderForm {
     }
 
     private void initializeComponent() {
-        btnClose = new Button();
-        picLine1 = new PictureBox();
-        picLine0 = new PictureBox();
-        lblQuestsLabel = new Label();
-        lblMercLabel = new Label();
-        lblMercSkillLabelPilot = new LinkLabel();
-        lblMercSkillLabelFighter = new LinkLabel();
-        lblMercSkillLabelTrader = new LinkLabel();
-        lblMercSkillLabelEngineer = new LinkLabel();
-        lblMercSystemLabel = new LinkLabel();
-        lblQuestSystemLabel = new LinkLabel();
-        lblQuestDescLabel = new LinkLabel();
-        lblMercIDLabel = new LinkLabel();
-        lblMercNameLabel = new LinkLabel();
-        lblShipyardsDescLabel = new LinkLabel();
-        lblShipyardsSystemLabel = new LinkLabel();
-        lblShipyardsLabel = new Label();
-        pnlMercs = new SimplePanel();
-        lblMercSkillsPilot = new Label();
-        lblMercSkillsFighter = new Label();
-        lblMercSkillsTrader = new Label();
-        lblMercSkillsEngineer = new Label();
-        lblMercSystems = new LinkLabel();
-        lblMercIds = new Label();
-        lblMercNames = new Label();
-        lblMercSystems2 = new LinkLabel();
-        pnlQuests = new SimplePanel();
-        lblQuests = new Label();
-        lblQuestSystems = new LinkLabel();
-        pnlShipyards = new SimplePanel();
-        lblShipyards = new Label();
-        lblShipyardSystems = new LinkLabel();
-        picLine2 = new PictureBox();
-        pnlMercs.suspendLayout();
-        pnlQuests.suspendLayout();
-        pnlShipyards.suspendLayout();
+        ReflectionUtils.setAllComponentNames(this);
+
         this.suspendLayout();
         //
         // btnClose
