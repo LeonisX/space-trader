@@ -48,7 +48,7 @@ public class GameController {
     }
 
     private void addHighScore(HighScoreRecord highScore) {
-        HighScoreRecord[] highScores = Functions.GetHighScores();
+        HighScoreRecord[] highScores = Functions.getHighScores();
         highScores[0] = highScore;
         Util.sort(highScores);
 
@@ -76,9 +76,9 @@ public class GameController {
         GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.Score() / 10), Functions
                 .formatNumber(game.Score() % 10));
 
-        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().Name(), game.Score(), game.getEndStatus(),
-                game.getCommander().getDays(), game.getCommander().Worth(), game.Difficulty());
-        if (candidate.CompareTo(Functions.GetHighScores()[0]) > 0) {
+        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.Score(), game.getEndStatus(),
+                game.getCommander().getDays(), game.getCommander().Worth(), game.getDifficulty());
+        if (candidate.CompareTo(Functions.getHighScores()[0]) > 0) {
             if (game.getCheats().cheatMode)
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
             else {

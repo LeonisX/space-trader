@@ -148,7 +148,7 @@ public abstract class STSerializableObject {
     }
 
     @SuppressWarnings("unchecked")
-    public static <U> U GetValueFromHash(Hashtable hash, String key, Class<U> requstedType) {
+    public static <U> U getValueFromHash(Hashtable hash, String key, Class<U> requestedType) {
         if (!hash.containsKey(key))
             return null;
 
@@ -160,7 +160,7 @@ public abstract class STSerializableObject {
     }
 
     @SuppressWarnings("unchecked")
-    public static <U extends SpaceTraderEnum> U GetValueFromHash2(Hashtable hash, String key, Class<U> requstedType) {
+    public static <U extends SpaceTraderEnum> U getValueFromHash2(Hashtable hash, String key, Class<U> requstedType) {
         if (!hash.containsKey(key))
             return null;
 
@@ -172,7 +172,7 @@ public abstract class STSerializableObject {
     }
 
     @SuppressWarnings("unchecked")
-    public static <U, T extends U> U GetValueFromHash(Hashtable hash, String key, T defaultValue, Class<U> requstedType) {
+    public static <U, T extends U> U getValueFromHash(Hashtable hash, String key, T defaultValue, Class<U> requstedType) {
         if (!hash.containsKey(key))
             return defaultValue;
 
@@ -183,7 +183,7 @@ public abstract class STSerializableObject {
     }
 
     //TODO many of calls to this method then cast it back to the enum type; fix them to call generic form.
-    public static int GetValueFromHash(Hashtable hash, String key, SpaceTraderEnum defaultValue,
+    public static int getValueFromHash(Hashtable hash, String key, SpaceTraderEnum defaultValue,
                                        Class<Integer> requstedType) {
         if (!hash.containsKey(key))
             return defaultValue.castToInt();
@@ -197,15 +197,15 @@ public abstract class STSerializableObject {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T GetValueFromHash(Hashtable hash, String key, T defaultValue) {
-        return GetValueFromHash(hash, key, defaultValue, (Class<T>) defaultValue.getClass());
+    public static <T> T getValueFromHash(Hashtable hash, String key, T defaultValue) {
+        return getValueFromHash(hash, key, defaultValue, (Class<T>) defaultValue.getClass());
     }
 
-    public static int GetValueFromHash(Hashtable hash, String key, int defaultValue) {
+    public static int getValueFromHash(Hashtable hash, String key, int defaultValue) {
         return hash.containsKey(key) ? (Integer) hash.get(key) : defaultValue;
     }
 
-    public static boolean GetValueFromHash(Hashtable hash, String key, boolean defaultValue) {
+    public static boolean getValueFromHash(Hashtable hash, String key, boolean defaultValue) {
         return hash.containsKey(key) ? (Boolean) hash.get(key) : defaultValue;
     }
 

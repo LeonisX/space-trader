@@ -386,20 +386,20 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
         if (selectedCrewMember != null) {
             visible = true;
-            if (selectedCrewMember.Rate() > 0)
+            if (selectedCrewMember.getRate() > 0)
                 rateVisible = true;
 
-            lblName.setText(selectedCrewMember.Name());
+            lblName.setText(selectedCrewMember.getName());
             lblRate.setText(Functions.stringVars(Strings.MoneyRateSuffix, Functions.formatMoney(selectedCrewMember
-                    .Rate())));
-            lblPilot.setText(selectedCrewMember.Pilot() + "");
-            lblFighter.setText(selectedCrewMember.Fighter() + "");
-            lblTrader.setText(selectedCrewMember.Trader() + "");
-            lblEngineer.setText(selectedCrewMember.Engineer() + "");
+                    .getRate())));
+            lblPilot.setText(selectedCrewMember.getPilot() + "");
+            lblFighter.setText(selectedCrewMember.getFighter() + "");
+            lblTrader.setText(selectedCrewMember.getTrader() + "");
+            lblEngineer.setText(selectedCrewMember.getEngineer() + "");
 
-            btnHireFire.setText(game.getCommander().getShip().HasCrew(selectedCrewMember.Id()) ? Strings.MercenaryFire
+            btnHireFire.setText(game.getCommander().getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
                     : Strings.MercenaryHire);
-            hireFireVisible = rateVisible || selectedCrewMember.Id() == CrewMemberId.Zeethibal;
+            hireFireVisible = rateVisible || selectedCrewMember.getId() == CrewMemberId.ZEETHIBAL;
         }
 
         lblName.setVisible(visible);
@@ -421,16 +421,16 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
     private void HireFire(Object sender, EventArgs e) {
         if (selectedCrewMember != null && btnHireFire.isVisible()) {
-            if (game.getCommander().getShip().HasCrew(selectedCrewMember.Id())) {
-                if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.Name()) == DialogResult.YES) {
-                    game.getCommander().getShip().Fire(selectedCrewMember.Id());
+            if (game.getCommander().getShip().hasCrew(selectedCrewMember.getId())) {
+                if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.getName()) == DialogResult.YES) {
+                    game.getCommander().getShip().Fire(selectedCrewMember.getId());
 
                     UpdateAll();
                     game.getParentWindow().updateAll();
                 }
             } else {
                 if (game.getCommander().getShip().FreeCrewQuarters() == 0)
-                    GuiFacade.alert(AlertType.CrewNoQuarters, selectedCrewMember.Name());
+                    GuiFacade.alert(AlertType.CrewNoQuarters, selectedCrewMember.getName());
                 else {
                     game.getCommander().getShip().Hire(selectedCrewMember);
 

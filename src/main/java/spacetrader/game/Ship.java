@@ -63,19 +63,19 @@ public class Ship extends ShipSpec {
             for (int i = 0; i < Shields().length; i++)
                 addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
 
-            for (int i = 0; i < Weapons().length; i++)
+            for (int i = 0; i < getWeapons().length; i++)
                 addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
 
             addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
             addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-            Crew()[0] = Game.getCurrentGame().Mercenaries()[CrewMemberId.FamousCaptain.castToInt()];
+            Crew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
         } else if (oppType == OpponentType.Bottle) {
             SetValues(ShipType.Bottle);
         } else {
-            int tries = oppType == OpponentType.Mantis ? Game.getCurrentGame().Difficulty().castToInt() + 1 : Math
+            int tries = oppType == OpponentType.Mantis ? Game.getCurrentGame().getDifficulty().castToInt() + 1 : Math
                     .max(1, Game.getCurrentGame().getCommander().Worth() / 150000
-                            + Game.getCurrentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
+                            + Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
 
             GenerateOpponentShip(oppType);
             GenerateOpponentAddCrew();
@@ -93,20 +93,20 @@ public class Ship extends ShipSpec {
 
     public Ship(Hashtable hash) {
         super(hash);
-        _fuel = GetValueFromHash(hash, "_fuel", Integer.class);
-        _hull = GetValueFromHash(hash, "_hull", Integer.class);
-        _tribbles = GetValueFromHash(hash, "_tribbles", _tribbles);
-        _cargo = GetValueFromHash(hash, "_cargo", _cargo, int[].class);
-        _weapons = (Weapon[]) ArrayListToArray(GetValueFromHash(hash, "_weapons", ArrayList.class), "Weapon");
-        _shields = (Shield[]) ArrayListToArray(GetValueFromHash(hash, "_shields", ArrayList.class), "Shield");
-        _gadgets = (Gadget[]) ArrayListToArray(GetValueFromHash(hash, "_gadgets", ArrayList.class), "Gadget");
-        _pod = GetValueFromHash(hash, "_pod", _pod);
+        _fuel = getValueFromHash(hash, "_fuel", Integer.class);
+        _hull = getValueFromHash(hash, "_hull", Integer.class);
+        _tribbles = getValueFromHash(hash, "_tribbles", _tribbles);
+        _cargo = getValueFromHash(hash, "_cargo", _cargo, int[].class);
+        _weapons = (Weapon[]) ArrayListToArray(getValueFromHash(hash, "_weapons", ArrayList.class), "Weapon");
+        _shields = (Shield[]) ArrayListToArray(getValueFromHash(hash, "_shields", ArrayList.class), "Shield");
+        _gadgets = (Gadget[]) ArrayListToArray(getValueFromHash(hash, "_gadgets", ArrayList.class), "Gadget");
+        _pod = getValueFromHash(hash, "_pod", _pod);
 
-        int[] crewIds = GetValueFromHash(hash, "_crewIds", (new int[0]), int[].class);
+        int[] crewIds = getValueFromHash(hash, "_crewIds", (new int[0]), int[].class);
         _crew = new CrewMember[crewIds.length];
         for (int index = 0; index < _crew.length; index++) {
             CrewMemberId id = CrewMemberId.fromInt(crewIds[index]);
-            _crew[index] = (id == CrewMemberId.NA ? null : Game.getCurrentGame().Mercenaries()[id.castToInt()]);
+            _crew[index] = (id == CrewMemberId.NA ? null : Game.getCurrentGame().getMercenaries()[id.castToInt()]);
         }
     }
 
@@ -148,9 +148,9 @@ public class Ship extends ShipSpec {
     public int Bounty() {
         int price = getPrice();
 
-        for (int i = 0; i < Weapons().length; i++)
-            if (Weapons()[i] != null)
-                price += Weapons()[i].getPrice();
+        for (int i = 0; i < getWeapons().length; i++)
+            if (getWeapons()[i] != null)
+                price += getWeapons()[i].getPrice();
 
         for (int i = 0; i < Shields().length; i++)
             if (Shields()[i] != null)
@@ -172,7 +172,7 @@ public class Ship extends ShipSpec {
         Equipment[] equip = null;
         switch (type) {
             case WEAPON:
-                equip = Weapons();
+                equip = getWeapons();
                 break;
             case SHIELD:
                 equip = Shields();
@@ -185,11 +185,11 @@ public class Ship extends ShipSpec {
     }
 
     public void Fire(CrewMemberId crewId) {
-        int skill = Trader();
+        int skill = getTrader();
         boolean found = false;
         CrewMember merc = null;
         for (int i = 0; i < Crew().length; i++) {
-            if (Crew()[i] != null && Crew()[i].Id() == crewId) {
+            if (Crew()[i] != null && Crew()[i].getId() == crewId) {
                 found = true;
                 merc = Crew()[i];
             }
@@ -198,10 +198,10 @@ public class Ship extends ShipSpec {
                 Crew()[i] = (i < Crew().length - 1) ? Crew()[i + 1] : null;
         }
 
-        if (Trader() != skill)
-            Game.getCurrentGame().RecalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+        if (getTrader() != skill)
+            Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
 
-        if (merc != null && !Util.ArrayContains(Consts.SpecialCrewMemberIds, (merc.Id()))) {
+        if (merc != null && !Util.arrayContains(Consts.SpecialCrewMemberIds, (merc.getId()))) {
             StarSystem[] universe = Game.getCurrentGame().getUniverse();
 
             // The leaving Mercenary travels to a nearby random system.
@@ -209,21 +209,21 @@ public class Ship extends ShipSpec {
             while (merc.getCurrentSystemId() == StarSystemId.NA) {
                 StarSystem system = universe[Functions.getRandom(universe.length)];
                 if (Functions.distance(system, Game.getCurrentGame().getCommander().getCurrentSystem()) < Consts.MaxRange)
-                    merc.setCurrentSystemId(system.Id());
+                    merc.setCurrentSystemId(system.getId());
             }
         }
     }
 
     private void GenerateOpponentAddCargo(boolean pirate) {
         if (getCargoBays() > 0) {
-            Difficulty diff = Game.getCurrentGame().Difficulty();
+            Difficulty diff = Game.getCurrentGame().getDifficulty();
             int baysToFill = getCargoBays();
 
-            if (diff.castToInt() >= Difficulty.Normal.castToInt())
+            if (diff.castToInt() >= Difficulty.NORMAL.castToInt())
                 baysToFill = Math.min(15, 3 + Functions.getRandom(baysToFill - 5));
 
             if (pirate) {
-                if (diff.castToInt() < Difficulty.Normal.castToInt())
+                if (diff.castToInt() < Difficulty.NORMAL.castToInt())
                     baysToFill = baysToFill * 4 / 5;
                 else
                     baysToFill = Math.max(1, baysToFill / diff.castToInt());
@@ -238,33 +238,33 @@ public class Ship extends ShipSpec {
     }
 
     private void GenerateOpponentAddCrew() {
-        CrewMember[] mercs = Game.getCurrentGame().Mercenaries();
-        Difficulty diff = Game.getCurrentGame().Difficulty();
+        CrewMember[] mercs = Game.getCurrentGame().getMercenaries();
+        Difficulty diff = Game.getCurrentGame().getDifficulty();
 
-        Crew()[0] = mercs[CrewMemberId.Opponent.castToInt()];
-        Crew()[0].Pilot(1 + Functions.getRandom(Consts.MaxSkill));
-        Crew()[0].Fighter(1 + Functions.getRandom(Consts.MaxSkill));
-        Crew()[0].Trader(1 + Functions.getRandom(Consts.MaxSkill));
+        Crew()[0] = mercs[CrewMemberId.OPPONENT.castToInt()];
+        Crew()[0].setPilot(1 + Functions.getRandom(Consts.MaxSkill));
+        Crew()[0].setFighter(1 + Functions.getRandom(Consts.MaxSkill));
+        Crew()[0].setTrader(1 + Functions.getRandom(Consts.MaxSkill));
 
-        if (Game.getCurrentGame().getWarpSystem().Id() == StarSystemId.Kravat && WildOnBoard()
+        if (Game.getCurrentGame().getWarpSystem().getId() == StarSystemId.Kravat && isWildOnBoard()
                 && Functions.getRandom(10) < diff.castToInt() + 1)
-            Crew()[0].Engineer(Consts.MaxSkill);
+            Crew()[0].setEngineer(Consts.MaxSkill);
         else
-            Crew()[0].Engineer(1 + Functions.getRandom(Consts.MaxSkill));
+            Crew()[0].setEngineer(1 + Functions.getRandom(Consts.MaxSkill));
 
         int numCrew = 0;
-        if (diff == Difficulty.Impossible)
+        if (diff == Difficulty.IMPOSSIBLE)
             numCrew = getCrewQuarters();
         else {
             numCrew = 1 + Functions.getRandom(getCrewQuarters());
-            if (diff == Difficulty.Hard && numCrew < getCrewQuarters())
+            if (diff == Difficulty.HARD && numCrew < getCrewQuarters())
                 numCrew++;
         }
 
         for (int i = 1; i < numCrew; i++) {
             // Keep getting a new random mercenary until we have a non-special
             // one.
-            while (Crew()[i] == null || Util.ArrayContains(Consts.SpecialCrewMemberIds, Crew()[i].Id()))
+            while (Crew()[i] == null || Util.arrayContains(Consts.SpecialCrewMemberIds, Crew()[i].getId()))
                 Crew()[i] = mercs[Functions.getRandom(mercs.length)];
         }
     }
@@ -273,7 +273,7 @@ public class Ship extends ShipSpec {
         if (getGadgetSlots() > 0) {
             int numGadgets = 0;
 
-            if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
+            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE)
                 numGadgets = getGadgetSlots();
             else {
                 numGadgets = Functions.getRandom(getGadgetSlots() + 1);
@@ -336,7 +336,7 @@ public class Ship extends ShipSpec {
         if (getShieldSlots() > 0) {
             int numShields = 0;
 
-            if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
+            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE)
                 numShields = getShieldSlots();
             else {
                 numShields = Functions.getRandom(getShieldSlots() + 1);
@@ -374,7 +374,7 @@ public class Ship extends ShipSpec {
         if (getWeaponSlots() > 0) {
             int numWeapons = 0;
 
-            if (Game.getCurrentGame().Difficulty() == Difficulty.Impossible)
+            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE)
                 numWeapons = getWeaponSlots();
             else if (getWeaponSlots() == 1)
                 numWeapons = 1;
@@ -430,8 +430,8 @@ public class Ship extends ShipSpec {
                 case Pirate:
                     // Pirates become better when you get richer
                     tries = 1 + cmdr.Worth() / 100000;
-                    tries = Math.max(1, tries + Game.getCurrentGame().Difficulty().castToInt()
-                            - Difficulty.Normal.castToInt());
+                    tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
+                            - Difficulty.NORMAL.castToInt());
                     break;
                 case Police:
                     // The police will try to hunt you down with better ships if you
@@ -439,14 +439,14 @@ public class Ship extends ShipSpec {
                     // a villain, and they will try even harder when you are
                     // considered to
                     // be a psychopath (or are transporting Jonathan Wild)
-                    if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScorePsychopath || cmdr.getShip().WildOnBoard())
+                    if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScorePsychopath || cmdr.getShip().isWildOnBoard())
                         tries = 5;
                     else if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScoreVillain)
                         tries = 3;
                     else
                         tries = 1;
-                    tries = Math.max(1, tries + Game.getCurrentGame().Difficulty().castToInt()
-                            - Difficulty.Normal.castToInt());
+                    tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
+                            - Difficulty.NORMAL.castToInt());
                     break;
             }
 
@@ -493,18 +493,18 @@ public class Ship extends ShipSpec {
     // the tradeable goods when HasTradeableItem is called.
     // *************************************************************************
     public int GetRandomTradeableItem() {
-        int index = Functions.getRandom(TradeableItems().length);
+        int index = Functions.getRandom(getTradeableItems().length);
 
-        while (!TradeableItems()[index])
-            index = (index + 1) % TradeableItems().length;
+        while (!getTradeableItems()[index])
+            index = (index + 1) % getTradeableItems().length;
 
         return index;
     }
 
-    public boolean HasCrew(CrewMemberId id) {
+    public boolean hasCrew(CrewMemberId id) {
         boolean found = false;
         for (int i = 0; i < Crew().length && !found; i++) {
-            if (Crew()[i] != null && Crew()[i].Id() == id)
+            if (Crew()[i] != null && Crew()[i].getId() == id)
                 found = true;
         }
         return found;
@@ -568,7 +568,7 @@ public class Ship extends ShipSpec {
                     && ((!CommandersShip() && Game.getCurrentGame().getPriceCargoBuy()[i] > 0) || (CommandersShip() && Game
                     .getCurrentGame().getPriceCargoSell()[i] > 0))) {
                 found = true;
-                TradeableItems()[i] = true;
+                getTradeableItems()[i] = true;
             }
         }
 
@@ -577,17 +577,17 @@ public class Ship extends ShipSpec {
 
     public boolean HasWeapon(WeaponType weaponType, boolean exactCompare) {
         boolean found = false;
-        for (int i = 0; i < Weapons().length && !found; i++) {
-            if (Weapons()[i] != null
-                    && (Weapons()[i].Type() == weaponType || !exactCompare
-                    && Weapons()[i].Type().castToInt() > weaponType.castToInt()))
+        for (int i = 0; i < getWeapons().length && !found; i++) {
+            if (getWeapons()[i] != null
+                    && (getWeapons()[i].Type() == weaponType || !exactCompare
+                    && getWeapons()[i].Type().castToInt() > weaponType.castToInt()))
                 found = true;
         }
         return found;
     }
 
     public void Hire(CrewMember merc) {
-        int skill = Trader();
+        int skill = getTrader();
 
         int slot = -1;
         for (int i = 0; i < Crew().length && slot == -1; i++)
@@ -597,8 +597,8 @@ public class Ship extends ShipSpec {
         if (slot >= 0)
             Crew()[slot] = merc;
 
-        if (Trader() != skill)
-            Game.getCurrentGame().RecalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+        if (getTrader() != skill)
+            Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
     public String IllegalSpecialCargoActions() {
@@ -606,20 +606,20 @@ public class Ship extends ShipSpec {
 
         if (ReactorOnBoard())
             actions.add(Strings.EncounterPoliceSurrenderReactor);
-        else if (WildOnBoard())
+        else if (isWildOnBoard())
             actions.add(Strings.EncounterPoliceSurrenderWild);
 
         if (SculptureOnBoard())
             actions.add(Strings.EncounterPoliceSurrenderSculpt);
 
         return actions.size() == 0 ? "" : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions
-                .FormatList(Functions.ArrayListtoStringArray(actions)));
+                .formatList(Functions.arrayListToStringArray(actions)));
     }
 
     public String IllegalSpecialCargoDescription(String wrapper, boolean includePassengers, boolean includeTradeItems) {
         ArrayList<String> items = new ArrayList<String>();
 
-        if (includePassengers && WildOnBoard())
+        if (includePassengers && isWildOnBoard())
             items.add(Strings.EncounterPoliceSubmitWild);
 
         if (ReactorOnBoard())
@@ -631,7 +631,7 @@ public class Ship extends ShipSpec {
         if (includeTradeItems && DetectableIllegalCargo())
             items.add(Strings.EncounterPoliceSubmitGoods);
 
-        String allItems = Functions.FormatList(Functions.ArrayListtoStringArray(items));
+        String allItems = Functions.formatList(Functions.arrayListToStringArray(items));
 
         if (allItems.length() > 0 && wrapper.length() > 0)
             allItems = Functions.stringVars(wrapper, allItems);
@@ -702,7 +702,7 @@ public class Ship extends ShipSpec {
         // We don't want the actual CrewMember Objects - we just want the ids.
         int[] crewIds = new int[_crew.length];
         for (int i = 0; i < crewIds.length; i++)
-            crewIds[i] = (_crew[i] == null ? CrewMemberId.NA : _crew[i].Id()).castToInt();
+            crewIds[i] = (_crew[i] == null ? CrewMemberId.NA : _crew[i].getId()).castToInt();
 
         hash.add("_fuel", _fuel);
         hash.add("_hull", _hull);
@@ -736,10 +736,10 @@ public class Ship extends ShipSpec {
     public int WeaponStrength(WeaponType min, WeaponType max) {
         int total = 0;
 
-        for (int i = 0; i < Weapons().length; i++)
-            if (Weapons()[i] != null && Weapons()[i].Type().castToInt() >= min.castToInt()
-                    && Weapons()[i].Type().castToInt() <= max.castToInt())
-                total += Weapons()[i].getPower();
+        for (int i = 0; i < getWeapons().length; i++)
+            if (getWeapons()[i] != null && getWeapons()[i].Type().castToInt() >= min.castToInt()
+                    && getWeapons()[i].Type().castToInt() <= max.castToInt())
+                total += getWeapons()[i].getPower();
 
         return total;
     }
@@ -831,7 +831,7 @@ public class Ship extends ShipSpec {
     }
 
     public int Engineer() {
-        return Skills()[SkillType.Engineer.castToInt()];
+        return Skills()[SkillType.ENGINEER.castToInt()];
     }
 
     public int ExtraCargoBays() {
@@ -845,7 +845,7 @@ public class Ship extends ShipSpec {
     }
 
     public int Fighter() {
-        return Skills()[SkillType.Fighter.castToInt()];
+        return Skills()[SkillType.FIGHTER.castToInt()];
     }
 
     // Changed the semantics of Filled versus total Cargo Bays. Bays used for
@@ -911,8 +911,8 @@ public class Ship extends ShipSpec {
 
     public int getFreeWeaponSlots() {
         int count = 0;
-        for (int i = 0; i < Weapons().length; i++) {
-            if (Weapons()[i] == null)
+        for (int i = 0; i < getWeapons().length; i++) {
+            if (getWeapons()[i] == null)
                 count++;
         }
         return count;
@@ -947,19 +947,19 @@ public class Ship extends ShipSpec {
     }
 
     public boolean isIllegalSpecialCargo() {
-        return WildOnBoard() || ReactorOnBoard() || SculptureOnBoard();
+        return isWildOnBoard() || ReactorOnBoard() || SculptureOnBoard();
     }
 
     public boolean JarekOnBoard() {
-        return HasCrew(CrewMemberId.Jarek);
+        return hasCrew(CrewMemberId.JAREK);
     }
 
     public int Pilot() {
-        return Skills()[SkillType.Pilot.castToInt()];
+        return Skills()[SkillType.PILOT.castToInt()];
     }
 
     public boolean PrincessOnBoard() {
-        return HasCrew(CrewMemberId.Princess);
+        return hasCrew(CrewMemberId.PRINCESS);
     }
 
     public boolean ReactorOnBoard() {
@@ -1011,11 +1011,11 @@ public class Ship extends ShipSpec {
             int max = 1;
 
             for (int crew = 0; crew < Crew().length; crew++) {
-                if (Crew()[crew] != null && Crew()[crew].Skills()[skill] > max)
-                    max = Crew()[crew].Skills()[skill];
+                if (Crew()[crew] != null && Crew()[crew].getSkills()[skill] > max)
+                    max = Crew()[crew].getSkills()[skill];
             }
 
-            skills[skill] = Math.max(1, Functions.AdjustSkillForDifficulty(max));
+            skills[skill] = Math.max(1, Functions.adjustSkillForDifficulty(max));
         }
 
         // Adjust skills based on any gadgets on board.
@@ -1032,7 +1032,7 @@ public class Ship extends ShipSpec {
     public CrewMember[] SpecialCrew() {
         ArrayList<CrewMember> list = new ArrayList<CrewMember>();
         for (int i = 0; i < Crew().length; i++) {
-            if (Crew()[i] != null && Util.ArrayContains(Consts.SpecialCrewMemberIds, Crew()[i].Id()))
+            if (Crew()[i] != null && Util.arrayContains(Consts.SpecialCrewMemberIds, Crew()[i].getId()))
                 list.add(Crew()[i]);
         }
 
@@ -1068,21 +1068,20 @@ public class Ship extends ShipSpec {
         return tradeItems;
     }
 
-    public boolean[] TradeableItems() {
+    private boolean[] getTradeableItems() {
         return _tradeableItems;
     }
 
-    public int Trader() {
-        return Skills()[SkillType.Trader.castToInt()] + (HagglingComputerOnBoard() ? 1 : 0);
+    public int getTrader() {
+        return Skills()[SkillType.TRADER.castToInt()] + (HagglingComputerOnBoard() ? 1 : 0);
     }
 
-    public Weapon[] Weapons() {
+    public Weapon[] getWeapons() {
         return _weapons;
     }
 
-    public boolean WildOnBoard() {
-        return HasCrew(CrewMemberId.Wild);
+    public boolean isWildOnBoard() {
+        return hasCrew(CrewMemberId.WILD);
     }
 
-    // #endregion
 }

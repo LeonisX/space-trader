@@ -43,10 +43,10 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
     public Equipment(Hashtable hash)// : base(hash)
     {
         super();
-        _equipType = EquipmentType.fromInt(GetValueFromHash(hash, "_equipType", Integer.class));
-        _price = GetValueFromHash(hash, "_price", Integer.class);
-        _minTech = TechLevel.fromInt(GetValueFromHash(hash, "_minTech", Integer.class));
-        _chance = GetValueFromHash(hash, "_chance", Integer.class);
+        _equipType = EquipmentType.fromInt(getValueFromHash(hash, "_equipType", Integer.class));
+        _price = getValueFromHash(hash, "_price", Integer.class);
+        _minTech = TechLevel.fromInt(getValueFromHash(hash, "_minTech", Integer.class));
+        _chance = getValueFromHash(hash, "_chance", Integer.class);
     }
 
     public abstract Equipment Clone();
@@ -114,7 +114,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
         int price = 0;
 
         if (cmdr != null && cmdr.getCurrentSystem().getTechLevel().castToInt() >= MinimumTechLevel().castToInt())
-            price = (_price * (100 - cmdr.getShip().Trader())) / 100;
+            price = (_price * (100 - cmdr.getShip().getTrader())) / 100;
 
         return price;
     }

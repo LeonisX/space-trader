@@ -326,7 +326,7 @@ public class FormViewBank extends SpaceTraderForm {
 
         // Insurance Info
         lblShipValue.setText(Functions.formatMoney(cmdr.getShip().BaseWorth(true)));
-        lblNoClaim.setText(Functions.FormatPercent(cmdr.NoClaim()));
+        lblNoClaim.setText(Functions.formatPercent(cmdr.NoClaim()));
         lblMaxNoClaim.setVisible((cmdr.NoClaim() == Consts.MaxNoClaim));
         lblInsAmt.setText(Functions.stringVars(Strings.MoneyRateSuffix,
                 Functions.formatMoney(game.InsuranceCosts())));

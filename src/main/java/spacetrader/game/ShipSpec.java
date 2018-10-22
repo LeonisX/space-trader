@@ -80,34 +80,34 @@ public class ShipSpec extends STSerializableObject {
 
     public ShipSpec(Hashtable hash) {
         super();
-        _type = ShipType.fromInt(GetValueFromHash(hash, "_type", _type, Integer.class));
-        _size = Size.fromInt(GetValueFromHash(hash, "_size", _size, Integer.class));
-        _cargoBays = GetValueFromHash(hash, "_cargoBays", _cargoBays);
-        _weaponSlots = GetValueFromHash(hash, "_weaponSlots", _weaponSlots);
-        _shieldSlots = GetValueFromHash(hash, "_shieldSlots", _shieldSlots);
-        _gadgetSlots = GetValueFromHash(hash, "_gadgetSlots", _gadgetSlots);
-        _crewQuarters = GetValueFromHash(hash, "_crewQuarters", _crewQuarters);
-        _fuelTanks = GetValueFromHash(hash, "_fuelTanks", _fuelTanks);
-        _fuelCost = GetValueFromHash(hash, "_fuelCost", _fuelCost);
-        _hullStrength = GetValueFromHash(hash, "_hullStrength", _hullStrength);
-        _repairCost = GetValueFromHash(hash, "_repairCost", _repairCost);
-        _price = GetValueFromHash(hash, "_price", _price);
-        _occurrence = GetValueFromHash(hash, "_occurrence", _occurrence);
-        _police = Activity.fromInt(GetValueFromHash(hash, "_police", _police, Integer.class));
-        _pirates = Activity.fromInt(GetValueFromHash(hash, "_pirates", _pirates, Integer.class));
-        _traders = Activity.fromInt(GetValueFromHash(hash, "_traders", _traders, Integer.class));
-        _minTech = TechLevel.fromInt(GetValueFromHash(hash, "_minTech", _minTech, Integer.class));
-        _hullUpgraded = GetValueFromHash(hash, "_hullUpgraded", _hullUpgraded);
-        _imageIndex = GetValueFromHash(hash, "_imageIndex", Consts.ShipImgUseDefault);
+        _type = ShipType.fromInt(getValueFromHash(hash, "_type", _type, Integer.class));
+        _size = Size.fromInt(getValueFromHash(hash, "_size", _size, Integer.class));
+        _cargoBays = getValueFromHash(hash, "_cargoBays", _cargoBays);
+        _weaponSlots = getValueFromHash(hash, "_weaponSlots", _weaponSlots);
+        _shieldSlots = getValueFromHash(hash, "_shieldSlots", _shieldSlots);
+        _gadgetSlots = getValueFromHash(hash, "_gadgetSlots", _gadgetSlots);
+        _crewQuarters = getValueFromHash(hash, "_crewQuarters", _crewQuarters);
+        _fuelTanks = getValueFromHash(hash, "_fuelTanks", _fuelTanks);
+        _fuelCost = getValueFromHash(hash, "_fuelCost", _fuelCost);
+        _hullStrength = getValueFromHash(hash, "_hullStrength", _hullStrength);
+        _repairCost = getValueFromHash(hash, "_repairCost", _repairCost);
+        _price = getValueFromHash(hash, "_price", _price);
+        _occurrence = getValueFromHash(hash, "_occurrence", _occurrence);
+        _police = Activity.fromInt(getValueFromHash(hash, "_police", _police, Integer.class));
+        _pirates = Activity.fromInt(getValueFromHash(hash, "_pirates", _pirates, Integer.class));
+        _traders = Activity.fromInt(getValueFromHash(hash, "_traders", _traders, Integer.class));
+        _minTech = TechLevel.fromInt(getValueFromHash(hash, "_minTech", _minTech, Integer.class));
+        _hullUpgraded = getValueFromHash(hash, "_hullUpgraded", _hullUpgraded);
+        _imageIndex = getValueFromHash(hash, "_imageIndex", Consts.ShipImgUseDefault);
 
         // Get the images if the ship uses the custom images.
         if (ImageIndex() == ShipType.Custom.castToInt())
-            GuiEngine.imageProvider.setCustomShipImages(GetValueFromHash(hash, "_images", GuiEngine.imageProvider
+            GuiEngine.imageProvider.setCustomShipImages(getValueFromHash(hash, "_images", GuiEngine.imageProvider
                     .getCustomShipImages()));
 
         // Get the name if the ship is a custom design.
         if (Type() == ShipType.Custom) {
-            Strings.ShipNames[ShipType.Custom.castToInt()] = GetValueFromHash(hash, "_name",
+            Strings.ShipNames[ShipType.Custom.castToInt()] = getValueFromHash(hash, "_name",
                     Strings.ShipNames[ShipType.Custom.castToInt()]);
 
             Consts.ShipSpecs[ShipType.Custom.castToInt()] = new ShipSpec(_type, _size, _cargoBays, _weaponSlots,
@@ -203,8 +203,8 @@ public class ShipSpec extends STSerializableObject {
 
         // Find the first column of pixels that has a non-white pixel for the X
         // value, and the last column for the width.
-        int x = Functions.GetColumnOfFirstNonWhitePixel(image, 1);
-        int width = Functions.GetColumnOfFirstNonWhitePixel(image, -1) - x + 1;
+        int x = Functions.getColumnOfFirstNonWhitePixel(image, 1);
+        int width = Functions.getColumnOfFirstNonWhitePixel(image, -1) - x + 1;
         Consts.ShipImageOffsets[custIndex].X = Math.max(2, x);
         Consts.ShipImageOffsets[custIndex].Width = Math.min(62 - Consts.ShipImageOffsets[custIndex].X, width);
     }

@@ -197,7 +197,7 @@ public class Shipyard {
         return MAX_UNITS[ShipSpec().getSize().castToInt()];
     }
 
-    public String Name() {
+    public String getName() {
         return Strings.ShipyardNames[Id().castToInt()];
     }
 

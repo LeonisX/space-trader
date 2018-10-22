@@ -67,17 +67,17 @@ public class ShipTemplate extends STSerializableObject implements Comparable<Shi
     }
 
     public ShipTemplate(Hashtable hash) {
-        _name = GetValueFromHash(hash, "_name", _name, String.class);
-        _size = (GetValueFromHash(hash, "_size", _size));
-        _imageIndex = GetValueFromHash(hash, "_imageIndex", _imageIndex);
-        _cargoBays = GetValueFromHash(hash, "_cargoBays", _cargoBays);
-        _weaponSlots = GetValueFromHash(hash, "_weaponSlots", _weaponSlots);
-        _shieldSlots = GetValueFromHash(hash, "_shieldSlots", _shieldSlots);
-        _gadgetSlots = GetValueFromHash(hash, "_gadgetSlots", _gadgetSlots);
-        _crewQuarters = GetValueFromHash(hash, "_crewQuarters", _crewQuarters);
-        _fuelTanks = GetValueFromHash(hash, "_fuelTanks", _fuelTanks);
-        _hullStrength = GetValueFromHash(hash, "_hullStrength", _hullStrength);
-        _images = GetValueFromHash(hash, "_images", _images);
+        _name = getValueFromHash(hash, "_name", _name, String.class);
+        _size = (getValueFromHash(hash, "_size", _size));
+        _imageIndex = getValueFromHash(hash, "_imageIndex", _imageIndex);
+        _cargoBays = getValueFromHash(hash, "_cargoBays", _cargoBays);
+        _weaponSlots = getValueFromHash(hash, "_weaponSlots", _weaponSlots);
+        _shieldSlots = getValueFromHash(hash, "_shieldSlots", _shieldSlots);
+        _gadgetSlots = getValueFromHash(hash, "_gadgetSlots", _gadgetSlots);
+        _crewQuarters = getValueFromHash(hash, "_crewQuarters", _crewQuarters);
+        _fuelTanks = getValueFromHash(hash, "_fuelTanks", _fuelTanks);
+        _hullStrength = getValueFromHash(hash, "_hullStrength", _hullStrength);
+        _images = getValueFromHash(hash, "_images", _images);
     }
 
     public int compareTo(ShipTemplate other) {

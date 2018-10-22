@@ -76,7 +76,7 @@ public class PoliticalSystem {
     public boolean ShipTypeLikely(ShipType shipType, OpponentType oppType) {
         boolean likely = false;
         int diffMod = Math
-                .max(0, Game.getCurrentGame().Difficulty().castToInt() - Difficulty.Normal.castToInt());
+                .max(0, Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
 
         switch (oppType) {
             case Pirate:

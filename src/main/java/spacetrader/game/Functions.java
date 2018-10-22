@@ -44,7 +44,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Functions {
-    // #region Static Variable/Constant Declarations
 
     private final static long DEFSEEDX = 521288629;
     private final static long DEFSEEDY = 362436069;
@@ -53,18 +52,14 @@ public class Functions {
     private static long SeedX = DEFSEEDX;
     private static long SeedY = DEFSEEDY;
 
-    // #endregion
-
-    // #region Methods
-
-    static int AdjustSkillForDifficulty(int skill) {
-        Difficulty diff = Game.getCurrentGame().Difficulty();
+    static int adjustSkillForDifficulty(int skill) {
+        Difficulty diff = Game.getCurrentGame().getDifficulty();
         skill = diff.adjustSkill(skill);
 
         return skill;
     }
 
-    public static String[] ArrayListtoStringArray(List<?> list) {
+    public static String[] arrayListToStringArray(List<?> list) {
         String[] items = new String[list.size()];
 
         for (int i = 0; i < items.length; i++)
@@ -81,7 +76,7 @@ public class Functions {
         return (int) Math.floor(Math.sqrt(Math.pow(a.getX() - x, 2) + Math.pow(a.getY() - y, 2)));
     }
 
-    private static void DrawPartialImage(Graphics g, Image img, int start, int stop) {
+    private static void drawPartialImage(Graphics g, Image img, int start, int stop) {
         g.drawImage(img, 2 + start, 2, new Rectangle(start, 0, stop - start, img.getHeight()), GraphicsUnit.Pixel);
     }
 
@@ -90,7 +85,7 @@ public class Functions {
         return String.format("%,d", num);
     }
 
-    static String FormatList(String[] listItems) {
+    static String formatList(String[] listItems) {
         return stringVars(Strings.ListStrings[listItems.length], listItems);
     }
 
@@ -99,12 +94,12 @@ public class Functions {
         return String.format("%,d %s", num, Strings.CargoCredit);
     }
 
-    public static String FormatPercent(int num) {
+    public static String formatPercent(int num) {
         // return String.format("{0:n0}%", num);
         return String.format("%,d%%", num);
     }
 
-    static int GetColumnOfFirstNonWhitePixel(Image image, int direction) {
+    static int getColumnOfFirstNonWhitePixel(Image image, int direction) {
         Bitmap bitmap = new Bitmap(image);
         int step = direction < 0 ? -1 : 1;
         int col = step > 0 ? 0 : bitmap.getWidth() - 1;
@@ -120,7 +115,7 @@ public class Functions {
         return -1;
     }
 
-    public static HighScoreRecord[] GetHighScores() {
+    public static HighScoreRecord[] getHighScores() {
         Object obj = loadFile(Consts.HighScoreFile, true);
         if (obj == null)
             return new HighScoreRecord[3];
@@ -140,11 +135,11 @@ public class Functions {
     // *************************************************************************
     // Pieter's new random functions, tweaked a bit by SjG
     // *************************************************************************
-    static int GetRandom2(int max) {
-        return (int) (Rand() % max);
+    static int getRandom2(int max) {
+        return (int) (rand() % max);
     }
 
-    public static RegistryKey GetRegistryKey() {
+    public static RegistryKey getRegistryKey() {
         File regfile = new File("registryKey.properties");
 
         return new RegistryKey(regfile);
@@ -202,20 +197,20 @@ public class Functions {
 
         if (startDamage > x) {
             if (startShield > x)
-                DrawPartialImage(graphics, ship.ImageDamaged(), x, Math.min(startDamage, startShield));
+                drawPartialImage(graphics, ship.ImageDamaged(), x, Math.min(startDamage, startShield));
 
             if (startShield < startDamage)
-                DrawPartialImage(graphics, ship.ImageDamagedWithShields(), startShield, startDamage);
+                drawPartialImage(graphics, ship.ImageDamagedWithShields(), startShield, startDamage);
         }
 
         if (startShield > startDamage)
-            DrawPartialImage(graphics, ship.Image(), startDamage, startShield);
+            drawPartialImage(graphics, ship.Image(), startDamage, startShield);
 
         if (startShield < x + width + 2)
-            DrawPartialImage(graphics, ship.ImageWithShields(), startShield, x + width + 2);
+            drawPartialImage(graphics, ship.ImageWithShields(), startShield, x + width + 2);
     }
 
-    private static long Rand() {
+    private static long rand() {
         final int a = 18000;
         final int b = 30903;
 
@@ -225,11 +220,11 @@ public class Functions {
         return ((SeedX << 16) + (SeedY & MAX_WORD));
     }
 
-    static int RandomSkill() {
+    static int randomSkill() {
         return 1 + getRandom(5) + getRandom(6);
     }
 
-    static void RandSeed(int seed1, int seed2) {
+    static void randSeed(int seed1, int seed2) {
         if (seed1 > 0)
             SeedX = seed1; /* use default seeds if parameter is 0 */
         else
@@ -301,19 +296,17 @@ public class Functions {
     static boolean wormholeExists(StarSystem a, StarSystem b) {
         StarSystem[] universe = Game.getCurrentGame().getUniverse();
         int[] wormholes = Game.getCurrentGame().getWormholes();
-        // int i = Array.IndexOf(wormholes, (int) a.Id);
-        int i = Util.bruteSeek(wormholes, a.Id().castToInt());
+        // int i = Array.IndexOf(wormholes, (int) a.getId);
+        int i = Util.bruteSeek(wormholes, a.getId().castToInt());
 
         return (i >= 0 && (universe[wormholes[(i + 1) % wormholes.length]] == b));
     }
 
-    public static StarSystem WormholeTarget(int a) {
+    public static StarSystem wormholeTarget(int a) {
         int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, a);
         int i = Util.bruteSeek(wormholes, a);
 
         return (i >= 0 ? (Game.getCurrentGame().getUniverse()[wormholes[(i + 1) % wormholes.length]]) : null);
     }
-
-    // #endregion
 }

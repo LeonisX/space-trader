@@ -129,16 +129,16 @@ public class Consts {
     public static Gadget[] Gadgets = new Gadget[]{
             new Gadget(GadgetType.EXTRA_CARGO_BAYS, SkillType.NA, 2500,
                     TechLevel.EarlyIndustrial, 35), // 5 extra holds
-            new Gadget(GadgetType.AUTO_REPAIR_SYSTEM, SkillType.Engineer, 7500,
+            new Gadget(GadgetType.AUTO_REPAIR_SYSTEM, SkillType.ENGINEER, 7500,
                     TechLevel.Industrial, 20), // Increases engineer's
             // effectivity
-            new Gadget(GadgetType.NAVIGATING_SYSTEM, SkillType.Pilot, 15000,
+            new Gadget(GadgetType.NAVIGATING_SYSTEM, SkillType.PILOT, 15000,
                     TechLevel.PostIndustrial, 20), // Increases pilot's
             // effectivity
-            new Gadget(GadgetType.TARGETING_SYSTEM, SkillType.Fighter, 25000,
+            new Gadget(GadgetType.TARGETING_SYSTEM, SkillType.FIGHTER, 25000,
                     TechLevel.PostIndustrial, 20), // Increases fighter's
             // effectivity
-            new Gadget(GadgetType.CLOAKING_DEVICE, SkillType.Pilot, 100000,
+            new Gadget(GadgetType.CLOAKING_DEVICE, SkillType.PILOT, 100000,
                     TechLevel.HiTech, 5), // If you have a good engineer,
             // neither pirates nor police will
             // notice you
@@ -354,12 +354,12 @@ public class Consts {
                     ShipyardSkill.FuelBase)};
     //TODO was ArrayList
     public static CrewMemberId[] SpecialCrewMemberIds =// new ArrayList(
-            new CrewMemberId[]{CrewMemberId.Commander,
-                    CrewMemberId.Dragonfly, CrewMemberId.FamousCaptain,
-                    CrewMemberId.Jarek, CrewMemberId.Opponent,
-                    CrewMemberId.Princess, CrewMemberId.Scarab,
-                    CrewMemberId.Scorpion, CrewMemberId.SpaceMonster,
-                    CrewMemberId.Wild};
+            new CrewMemberId[]{CrewMemberId.COMMANDER,
+                    CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN,
+                    CrewMemberId.JAREK, CrewMemberId.OPPONENT,
+                    CrewMemberId.PRINCESS, CrewMemberId.SCARAB,
+                    CrewMemberId.SCORPION, CrewMemberId.SPACE_MONSTER,
+                    CrewMemberId.WILD};
 
     public static SpecialEvent[] SpecialEvents = new SpecialEvent[]{
             new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),

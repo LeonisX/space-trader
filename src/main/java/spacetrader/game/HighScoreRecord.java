@@ -57,12 +57,12 @@ public class HighScoreRecord extends STSerializableObject implements Comparable<
 
     HighScoreRecord(Hashtable hash) {
         super();
-        _name = GetValueFromHash(hash, "_name", String.class);
-        _score = GetValueFromHash(hash, "_score", Integer.class);
-        _type = GetValueFromHash(hash, "_type", GameEndType.class);
-        _days = GetValueFromHash(hash, "_days", Integer.class);
-        _worth = GetValueFromHash(hash, "_worth", Integer.class);
-        _difficulty = GetValueFromHash(hash, "_difficulty", Difficulty.class);
+        _name = getValueFromHash(hash, "_name", String.class);
+        _score = getValueFromHash(hash, "_score", Integer.class);
+        _type = getValueFromHash(hash, "_type", GameEndType.class);
+        _days = getValueFromHash(hash, "_days", Integer.class);
+        _worth = getValueFromHash(hash, "_worth", Integer.class);
+        _difficulty = getValueFromHash(hash, "_difficulty", Difficulty.class);
     }
 
     int CompareTo(HighScoreRecord value) {

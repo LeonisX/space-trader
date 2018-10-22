@@ -21,8 +21,6 @@
 // using System.Collections;
 package spacetrader.game;
 
-// import java.util.ArrayList;
-
 import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.SkillType;
@@ -35,59 +33,60 @@ import java.util.Arrays;
 
 @SuppressWarnings("unchecked")
 public class CrewMember extends STSerializableObject {
-    // #region Member Declarations
 
-    private CrewMemberId _id;
-    private int[] _skills = new int[4];
-    private StarSystemId _curSystemId = StarSystemId.NA;
+    private CrewMemberId id;
+    private int[] skills = new int[4];
+    private StarSystemId currentSystemId = StarSystemId.NA;
 
-    public CrewMember(CrewMemberId id, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
-        _id = id;
-        Pilot(pilot);
-        Fighter(fighter);
-        Trader(trader);
-        Engineer(engineer);
-        _curSystemId = curSystemId;
+    CrewMember(CrewMemberId id, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
+        this.id = id;
+        setPilot(pilot);
+        setFighter(fighter);
+        setTrader(trader);
+        setEngineer(engineer);
+        currentSystemId = curSystemId;
     }
 
-    public CrewMember(CrewMember baseCrewMember) {
-        _id = baseCrewMember.Id();
-        Pilot(baseCrewMember.Pilot());
-        Fighter(baseCrewMember.Fighter());
-        Trader(baseCrewMember.Trader());
-        Engineer(baseCrewMember.Engineer());
-        _curSystemId = baseCrewMember.getCurrentSystemId();
+    CrewMember(CrewMember baseCrewMember) {
+        id = baseCrewMember.getId();
+        setPilot(baseCrewMember.getPilot());
+        setFighter(baseCrewMember.getFighter());
+        setTrader(baseCrewMember.getTrader());
+        setEngineer(baseCrewMember.getEngineer());
+        currentSystemId = baseCrewMember.getCurrentSystemId();
+        skills = baseCrewMember.getSkills();
     }
 
-    public CrewMember(Hashtable hash) {
+    CrewMember(Hashtable hash) {
         super();
-        _id = CrewMemberId.fromInt(GetValueFromHash(hash, "_id", Integer.class));
-        _skills = GetValueFromHash(hash, "_skills", _skills, int[].class);
-        _curSystemId = StarSystemId.fromInt(GetValueFromHash(hash, "_curSystemId", _curSystemId, Integer.class));
+        id = CrewMemberId.fromInt(getValueFromHash(hash, "_id", Integer.class));
+        skills = getValueFromHash(hash, "_skills", skills, int[].class);
+        currentSystemId = StarSystemId.fromInt(getValueFromHash(hash, "_curSystemId", currentSystemId, Integer.class));
     }
 
-    private void ChangeRandomSkill(int amount) {
+    private void changeRandomSkill(int amount) {
         ArrayList skillIdList = new ArrayList(4);
-        for (int i = 0; i < Skills().length; i++) {
-            if (Skills()[i] + amount > 0 && Skills()[i] + amount < Consts.MaxSkill)
+        for (int i = 0; i < getSkills().length; i++) {
+            if (getSkills()[i] + amount > 0 && getSkills()[i] + amount < Consts.MaxSkill) {
                 skillIdList.add(i);
+            }
         }
 
         if (skillIdList.size() > 0) {
             int skill = (Integer) skillIdList.get(Functions.getRandom(skillIdList.size()));
 
-            int curTrader = Game.getCurrentGame().getCommander().getShip().Trader();
-            Skills()[skill] += amount;
-            if (Game.getCurrentGame().getCommander().getShip().Trader() != curTrader)
-                Game.getCurrentGame().RecalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+            int curTrader = Game.getCurrentGame().getCommander().getShip().getTrader();
+            getSkills()[skill] += amount;
+            if (Game.getCurrentGame().getCommander().getShip().getTrader() != curTrader)
+                Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
         }
     }
 
     // *************************************************************************
     // Increase one of the skills.
     // *************************************************************************
-    public void IncreaseRandomSkill() {
-        ChangeRandomSkill(1);
+    void increaseRandomSkill() {
+        changeRandomSkill(1);
     }
 
     // *************************************************************************
@@ -96,12 +95,12 @@ public class CrewMember extends STSerializableObject {
     // in the order of Pilot, Fighter, Trader, Engineer.
     // JAF - rewrote this to be more efficient.
     // *************************************************************************
-    public int NthLowestSkill(int n) {
+    int nthLowestSkill(int n) {
         int[] skillIds = new int[]{0, 1, 2, 3};
 
         for (int j = 0; j < 3; j++) {
             for (int i = 0; i < 3 - j; i++) {
-                if (Skills()[skillIds[i]] > Skills()[skillIds[i + 1]]) {
+                if (getSkills()[skillIds[i]] > getSkills()[skillIds[i + 1]]) {
                     int temp = skillIds[i];
                     skillIds[i] = skillIds[i + 1];
                     skillIds[i + 1] = temp;
@@ -116,9 +115,9 @@ public class CrewMember extends STSerializableObject {
     Hashtable serialize() {
         Hashtable hash = super.serialize();
 
-        hash.add("_id", _id);
-        hash.add("_skills", _skills);
-        hash.add("_curSystemId", _curSystemId);
+        hash.add("_id", id);
+        hash.add("_skills", skills);
+        hash.add("_curSystemId", currentSystemId);
 
         return hash;
     }
@@ -126,96 +125,91 @@ public class CrewMember extends STSerializableObject {
     // *************************************************************************
     // Randomly tweak the skills.
     // *************************************************************************
-    public void TonicTweakRandomSkill() {
-        int[] oldSkills = Arrays.copyOf(Skills(), Skills().length);
+    void tonicTweakRandomSkill() {
+        int[] oldSkills = Arrays.copyOf(getSkills(), getSkills().length);
 
-        if (Game.getCurrentGame().Difficulty().castToInt() < Difficulty.Hard.castToInt()) {
+        if (Game.getCurrentGame().getDifficulty().castToInt() < Difficulty.HARD.castToInt()) {
             // add one to a random skill, subtract one from a random skill
-            while (Skills()[0] == oldSkills[0] && Skills()[1] == oldSkills[1] && Skills()[2] == oldSkills[2]
-                    && Skills()[3] == oldSkills[3]) {
-                ChangeRandomSkill(1);
-                ChangeRandomSkill(-1);
+            while (getSkills()[0] == oldSkills[0] && getSkills()[1] == oldSkills[1] && getSkills()[2] == oldSkills[2]
+                    && getSkills()[3] == oldSkills[3]) {
+                changeRandomSkill(1);
+                changeRandomSkill(-1);
             }
         } else {
-            // add one to two random skills, subtract three from one random
-            // skill
-            ChangeRandomSkill(1);
-            ChangeRandomSkill(1);
-            ChangeRandomSkill(-3);
+            // add one to two random skills, subtract three from one random skill
+            changeRandomSkill(1);
+            changeRandomSkill(1);
+            changeRandomSkill(-3);
         }
     }
 
     public @Override
     String toString() {
-        return Name();
+        return getName();
     }
-
-    // #endregion
-
-    // #region Properties
 
     public StarSystem getCurrentSystem() {
-        return _curSystemId == StarSystemId.NA ? null : Game.getCurrentGame().getUniverse()[_curSystemId.castToInt()];
+        return currentSystemId == StarSystemId.NA ? null : Game.getCurrentGame().getUniverse()[currentSystemId.castToInt()];
     }
 
-    public void setCurrentSystem(StarSystem value) {
-        _curSystemId = value.Id();
+    void setCurrentSystem(StarSystem value) {
+        currentSystemId = value.getId();
     }
 
-    public StarSystemId getCurrentSystemId() {
-        return _curSystemId;
+    StarSystemId getCurrentSystemId() {
+        return currentSystemId;
     }
 
-    public void setCurrentSystemId(StarSystemId currentSystemId) {
-        _curSystemId = currentSystemId;
+    void setCurrentSystemId(StarSystemId currentSystemId) {
+        this.currentSystemId = currentSystemId;
     }
 
-    public int Engineer() {
-        return _skills[SkillType.Engineer.castToInt()];
+    public int getEngineer() {
+        return skills[SkillType.ENGINEER.castToInt()];
     }
 
-    public void Engineer(int value) {
-        _skills[SkillType.Engineer.castToInt()] = value;
+    public void setEngineer(int value) {
+        skills[SkillType.ENGINEER.castToInt()] = value;
     }
 
-    public int Fighter() {
-        return _skills[SkillType.Fighter.castToInt()];
+    public int getFighter() {
+        return skills[SkillType.FIGHTER.castToInt()];
     }
 
-    public void Fighter(int value) {
-        _skills[SkillType.Fighter.castToInt()] = value;
+    public void setFighter(int value) {
+        skills[SkillType.FIGHTER.castToInt()] = value;
     }
 
-    public CrewMemberId Id() {
-        return _id;
+    public CrewMemberId getId() {
+        return id;
     }
 
-    public String Name() {
-        return Strings.CrewMemberNames[_id.castToInt()];
+    public String getName() {
+        return Strings.CrewMemberNames[id.castToInt()];
     }
 
-    public int Pilot() {
-        return _skills[SkillType.Pilot.castToInt()];
+    public int getPilot() {
+        return skills[SkillType.PILOT.castToInt()];
     }
 
-    public void Pilot(int value) {
-        _skills[SkillType.Pilot.castToInt()] = value;
+    public void setPilot(int value) {
+        skills[SkillType.PILOT.castToInt()] = value;
     }
 
-    public int Rate() {
-        return Util.ArrayContains(Consts.SpecialCrewMemberIds, Id()) || Id() == CrewMemberId.Zeethibal ? 0 : (Pilot()
-                + Fighter() + Trader() + Engineer()) * 3;
+    public int getRate() {
+        return Util.arrayContains(Consts.SpecialCrewMemberIds, getId()) || getId() == CrewMemberId.ZEETHIBAL ? 0 : (getPilot()
+                + getFighter() + getTrader() + getEngineer()) * 3;
     }
 
-    public int[] Skills() {
-        return _skills;
+    public int[] getSkills() {
+        return skills;
     }
 
-    public int Trader() {
-        return _skills[SkillType.Trader.castToInt()];
+    public int getTrader() {
+        return skills[SkillType.TRADER.castToInt()];
     }
 
-    public void Trader(int value) {
-        _skills[SkillType.Trader.castToInt()] = value;
+    public void setTrader(int value) {
+        skills[SkillType.TRADER.castToInt()] = value;
     }
 }

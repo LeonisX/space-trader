@@ -420,14 +420,14 @@ public class FormViewCommander extends SpaceTraderForm {
     private void InitializeScreen() {
         Commander cmdr = game.getCommander();
 
-        lblName.setText(cmdr.Name());
-        lblDifficulty.setText(Strings.DifficultyLevels[game.Difficulty().castToInt()]);
+        lblName.setText(cmdr.getName());
+        lblDifficulty.setText(Strings.DifficultyLevels[game.getDifficulty().castToInt()]);
         lblTime.setText(Functions.multiples(cmdr.getDays(), Strings.TimeUnit));
 
-        lblPilot.setText(cmdr.Pilot() + " (" + cmdr.getShip().Pilot() + ")");
-        lblFighter.setText(cmdr.Fighter() + " (" + cmdr.getShip().Fighter() + ")");
-        lblTrader.setText(cmdr.Trader() + " (" + cmdr.getShip().Trader() + ")");
-        lblEngineer.setText(cmdr.Engineer() + " (" + cmdr.getShip().Engineer() + ")");
+        lblPilot.setText(cmdr.getPilot() + " (" + cmdr.getShip().Pilot() + ")");
+        lblFighter.setText(cmdr.getFighter() + " (" + cmdr.getShip().Fighter() + ")");
+        lblTrader.setText(cmdr.getTrader() + " (" + cmdr.getShip().getTrader() + ")");
+        lblEngineer.setText(cmdr.getEngineer() + " (" + cmdr.getShip().Engineer() + ")");
 
         lblCash.setText(Functions.formatMoney(cmdr.getCash()));
         lblDebt.setText(Functions.formatMoney(cmdr.getDebt()));

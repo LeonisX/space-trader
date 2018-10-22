@@ -1,12 +1,12 @@
 package spacetrader.game.enums;
 
-public enum Difficulty implements SpaceTraderEnum// : int
-{
-    Beginner(1), Easy(1), Normal(0), Hard(-1), Impossible(-1);
+public enum Difficulty implements SpaceTraderEnum {
+
+    BEGINNER(1), EASY(1), NORMAL(0), HARD(-1), IMPOSSIBLE(-1);
 
     private final int skillAdjust;
 
-    private Difficulty(int skillAdjust) {
+    Difficulty(int skillAdjust) {
         this.skillAdjust = skillAdjust;
     }
 
@@ -14,6 +14,7 @@ public enum Difficulty implements SpaceTraderEnum// : int
         return values()[i];
     }
 
+    @Override
     public int castToInt() {
         return ordinal();
     }

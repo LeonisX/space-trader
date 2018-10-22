@@ -64,22 +64,22 @@ public class Commander extends CrewMember {
     public Commander(Hashtable hash)// : base(hash)
     {
         super(hash);
-        _cash = GetValueFromHash(hash, "_cash", _cash);
-        _debt = GetValueFromHash(hash, "_debt", _debt);
-        _killsPirate = GetValueFromHash(hash, "_killsPirate", _killsPirate);
-        _killsPolice = GetValueFromHash(hash, "_killsPolice", _killsPolice);
-        _killsTrader = GetValueFromHash(hash, "_killsTrader", _killsTrader);
-        _policeRecordScore = GetValueFromHash(hash, "_policeRecordScore", _policeRecordScore);
-        _reputationScore = GetValueFromHash(hash, "_reputationScore", _reputationScore);
-        _days = GetValueFromHash(hash, "_days", _days);
-        _insurance = GetValueFromHash(hash, "_insurance", _insurance);
-        _noclaim = GetValueFromHash(hash, "_noclaim", _noclaim);
-        _ship = new Ship(GetValueFromHash(hash, "_ship"/*,_ship*/, Hashtable.class));
-        _priceCargo = GetValueFromHash(hash, "_priceCargo", _priceCargo, int[].class);
+        _cash = getValueFromHash(hash, "_cash", _cash);
+        _debt = getValueFromHash(hash, "_debt", _debt);
+        _killsPirate = getValueFromHash(hash, "_killsPirate", _killsPirate);
+        _killsPolice = getValueFromHash(hash, "_killsPolice", _killsPolice);
+        _killsTrader = getValueFromHash(hash, "_killsTrader", _killsTrader);
+        _policeRecordScore = getValueFromHash(hash, "_policeRecordScore", _policeRecordScore);
+        _reputationScore = getValueFromHash(hash, "_reputationScore", _reputationScore);
+        _days = getValueFromHash(hash, "_days", _days);
+        _insurance = getValueFromHash(hash, "_insurance", _insurance);
+        _noclaim = getValueFromHash(hash, "_noclaim", _noclaim);
+        _ship = new Ship(getValueFromHash(hash, "_ship"/*,_ship*/, Hashtable.class));
+        _priceCargo = getValueFromHash(hash, "_priceCargo", _priceCargo, int[].class);
 
-        Game.getCurrentGame().Mercenaries()[CrewMemberId.Commander.castToInt()] = this;
-        Strings.CrewMemberNames[CrewMemberId.Commander.castToInt()] = GetValueFromHash(hash, "_name",
-                Strings.CrewMemberNames[CrewMemberId.Commander.castToInt()]);
+        Game.getCurrentGame().getMercenaries()[CrewMemberId.COMMANDER.castToInt()] = this;
+        Strings.CrewMemberNames[CrewMemberId.COMMANDER.castToInt()] = getValueFromHash(hash, "_name",
+                Strings.CrewMemberNames[CrewMemberId.COMMANDER.castToInt()]);
     }
 
     public void PayInterest() {
@@ -110,7 +110,7 @@ public class Commander extends CrewMember {
         hash.add("_noclaim", _noclaim);
         hash.add("_ship", _ship.serialize());
         hash.add("_priceCargo", _priceCargo);
-        hash.add("_name", Name());
+        hash.add("_name", getName());
 
         return hash;
     }
@@ -127,9 +127,9 @@ public class Commander extends CrewMember {
         else if (netPrice > getCashToSpend())
             GuiFacade.alert(AlertType.ShipBuyIF);
         else if (specToBuy.getCrewQuarters() < getShip().SpecialCrew().length) {
-            String passengers = getShip().SpecialCrew()[1].Name();
+            String passengers = getShip().SpecialCrew()[1].getName();
             if (getShip().SpecialCrew().length > 2)
-                passengers += " and " + getShip().SpecialCrew()[2].Name();
+                passengers += " and " + getShip().SpecialCrew()[2].getName();
 
             GuiFacade.alert(AlertType.ShipBuyPassengerQuarters, passengers);
         } else if (specToBuy.getCrewQuarters() < getShip().CrewCount())

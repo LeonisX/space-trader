@@ -26,6 +26,7 @@ package spacetrader.game;
 
 public class Strings {
 
+    //TODO test FormMonster, ...
     public static String newline = "<br>";//String.format("%n");
 
     public static String AlertsCancel = "Cancel";

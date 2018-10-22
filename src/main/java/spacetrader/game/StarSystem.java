@@ -68,19 +68,19 @@ public class StarSystem extends STSerializableObject {
 
     public StarSystem(Hashtable hash) {
         super();
-        _id = StarSystemId.fromInt(GetValueFromHash(hash, "_id", _id, Integer.class));
-        _x = GetValueFromHash(hash, "_x", _x);
-        _y = GetValueFromHash(hash, "_y", _y);
-        _size = Size.fromInt(GetValueFromHash(hash, "_size", _size, Integer.class));
-        _techLevel = TechLevel.fromInt(GetValueFromHash(hash, "_techLevel", _techLevel, Integer.class));
-        _politicalSystemType = PoliticalSystemType.fromInt(GetValueFromHash(hash, "_politicalSystemType", _politicalSystemType, Integer.class));
-        _systemPressure = SystemPressure.fromInt(GetValueFromHash(hash, "_systemPressure", _systemPressure, Integer.class));
-        _specialResource = SpecialResource.fromInt(GetValueFromHash(hash, "_specialResource", _specialResource, Integer.class));
-        _specialEventType = SpecialEventType.fromInt(GetValueFromHash(hash, "_specialEventType", _specialEventType, Integer.class));
-        _tradeItems = GetValueFromHash(hash, "_tradeItems", _tradeItems, int[].class);
-        _countDown = GetValueFromHash(hash, "_countDown", _countDown);
-        _visited = GetValueFromHash(hash, "_visited", _visited);
-        _shipyardId = ShipyardId.fromInt(GetValueFromHash(hash, "_shipyardId", _shipyardId, Integer.class));
+        _id = StarSystemId.fromInt(getValueFromHash(hash, "_id", _id, Integer.class));
+        _x = getValueFromHash(hash, "_x", _x);
+        _y = getValueFromHash(hash, "_y", _y);
+        _size = Size.fromInt(getValueFromHash(hash, "_size", _size, Integer.class));
+        _techLevel = TechLevel.fromInt(getValueFromHash(hash, "_techLevel", _techLevel, Integer.class));
+        _politicalSystemType = PoliticalSystemType.fromInt(getValueFromHash(hash, "_politicalSystemType", _politicalSystemType, Integer.class));
+        _systemPressure = SystemPressure.fromInt(getValueFromHash(hash, "_systemPressure", _systemPressure, Integer.class));
+        _specialResource = SpecialResource.fromInt(getValueFromHash(hash, "_specialResource", _specialResource, Integer.class));
+        _specialEventType = SpecialEventType.fromInt(getValueFromHash(hash, "_specialEventType", _specialEventType, Integer.class));
+        _tradeItems = getValueFromHash(hash, "_tradeItems", _tradeItems, int[].class);
+        _countDown = getValueFromHash(hash, "_countDown", _countDown);
+        _visited = getValueFromHash(hash, "_visited", _visited);
+        _shipyardId = ShipyardId.fromInt(getValueFromHash(hash, "_shipyardId", _shipyardId, Integer.class));
     }
 
     void initializeTradeItems() {
@@ -97,9 +97,9 @@ public class StarSystem extends STSerializableObject {
                 if (i >= TradeItemType.Narcotics.castToInt())
                     _tradeItems[i] = ((_tradeItems[i] *
                             (5 - Game.getCurrentGame()
-                                    .Difficulty()
+                                    .getDifficulty()
                                     .castToInt())) /
-                            (6 - Game.getCurrentGame().Difficulty().castToInt())) + 1;
+                            (6 - Game.getCurrentGame().getDifficulty().castToInt())) + 1;
 
                 if (this.getSpecialResource() == Consts.TradeItems[i].ResourceLowPrice())
                     _tradeItems[i] = _tradeItems[i] * 4 / 3;
@@ -280,7 +280,7 @@ public class StarSystem extends STSerializableObject {
                 show = game.getCommander().getShip().getTribbles() > 0;
                 break;
             case WildGetsOut:
-                show = game.getCommander().getShip().WildOnBoard();
+                show = game.getCommander().getShip().isWildOnBoard();
                 break;
             default:
                 break;
@@ -309,17 +309,17 @@ public class StarSystem extends STSerializableObject {
         return Functions.distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
-    public StarSystemId Id() {
+    public StarSystemId getId() {
         return _id;
     }
 
     public CrewMember[] mercenariesForHire() {
         Commander cmdr = Game.getCurrentGame().getCommander();
-        CrewMember[] mercs = Game.getCurrentGame().Mercenaries();
+        CrewMember[] mercs = Game.getCurrentGame().getMercenaries();
         ArrayList forHire = new ArrayList(3);
 
         for (int i = 1; i < mercs.length; i++) {
-            if (mercs[i].getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().HasCrew(mercs[i].Id()))
+            if (mercs[i].getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().hasCrew(mercs[i].getId()))
                 forHire.add(mercs[i]);
         }
 

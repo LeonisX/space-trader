@@ -66,7 +66,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         Label[] lblScore = new Label[]{lblScore0, lblScore1, lblScore2};
         Label[] lblStatus = new Label[]{lblStatus0, lblStatus1, lblStatus2};
 
-        HighScoreRecord[] highScores = Functions.GetHighScores();
+        HighScoreRecord[] highScores = Functions.getHighScores();
         for (int i = highScores.length - 1; i >= 0 && highScores[i] != null; i--) {
             lblName[2 - i].setText(highScores[i].Name());
             lblScore[2 - i].setText(Functions.formatNumber(highScores[i].Score() / 10) + "." + highScores[i].Score() % 10);

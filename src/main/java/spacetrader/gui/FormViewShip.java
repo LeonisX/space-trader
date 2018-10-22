@@ -28,7 +28,6 @@ import spacetrader.controls.*;
 import spacetrader.game.enums.GadgetType;
 import spacetrader.game.*;
 import spacetrader.stub.ArrayList;
-import spacetrader.util.Util;
 
 import java.util.Arrays;
 
@@ -178,8 +177,8 @@ public class FormViewShip extends SpaceTraderForm {
 
         for (int i = 0; i < Consts.Weapons.length; i++) {
             int count = 0;
-            for (int j = 0; j < ship.Weapons().length; j++) {
-                if (ship.Weapons()[j] != null && ship.Weapons()[j].Type() == Consts.Weapons[i].Type())
+            for (int j = 0; j < ship.getWeapons().length; j++) {
+                if (ship.getWeapons()[j] != null && ship.getWeapons()[j].Type() == Consts.Weapons[i].Type())
                     count++;
             }
             if (count > 0) {
@@ -285,8 +284,8 @@ public class FormViewShip extends SpaceTraderForm {
         if (game.getCanSuperWarp())
             specialCargo.add(Strings.SpecialCargoExperiment);
 
-        lblSpecialCargo.setText(specialCargo.size() == 0 ? Strings.SpecialCargoNone : Util.StringsJoin(Strings.newline
-                + Strings.newline, Functions.ArrayListtoStringArray(specialCargo)));
+        lblSpecialCargo.setText(specialCargo.size() == 0 ? Strings.SpecialCargoNone : String.join(Strings.newline
+                + Strings.newline, Functions.arrayListToStringArray(specialCargo)));
     }
 
     //#endregion

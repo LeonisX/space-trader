@@ -50,9 +50,9 @@ public class Shield extends Equipment {
 
     public Shield(Hashtable hash) {
         super(hash);
-        _type = ShieldType.fromInt(GetValueFromHash(hash, "_type", Integer.class));
-        _power = GetValueFromHash(hash, "_power", Integer.class);
-        _charge = GetValueFromHash(hash, "_charge", Integer.class);
+        _type = ShieldType.fromInt(getValueFromHash(hash, "_type", Integer.class));
+        _power = getValueFromHash(hash, "_power", Integer.class);
+        _charge = getValueFromHash(hash, "_charge", Integer.class);
     }
 
     public Equipment Clone() {

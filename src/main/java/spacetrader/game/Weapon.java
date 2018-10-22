@@ -54,9 +54,9 @@ public class Weapon extends Equipment {
 
     public Weapon(Hashtable hash) {
         super(hash);
-        _type = WeaponType.fromInt(GetValueFromHash(hash, "_type", Integer.class));
-        _power = GetValueFromHash(hash, "_power", Integer.class);
-        _disabling = GetValueFromHash(hash, "_disabling", false);
+        _type = WeaponType.fromInt(getValueFromHash(hash, "_type", Integer.class));
+        _power = getValueFromHash(hash, "_power", Integer.class);
+        _disabling = getValueFromHash(hash, "_disabling", false);
     }
 
     public @Override

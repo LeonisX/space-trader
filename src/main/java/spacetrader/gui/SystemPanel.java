@@ -258,7 +258,7 @@ class SystemPanel extends Panel {
             hireMercenaryButton.setVisible(mercenaries.length > 0);
             if (hireMercenaryButton.isVisible()) {
                 setToolTip(hireMercenaryButton, Functions.stringVars(Strings.MercenariesForHire,
-                        mercenaries.length == 1 ? mercenaries[0].Name() : mercenaries.length + Strings.Mercenaries));
+                        mercenaries.length == 1 ? mercenaries[0].getName() : mercenaries.length + Strings.Mercenaries));
             }
             specialButton.setVisible(system.showSpecialButton());
             if (specialButton.isVisible()) {

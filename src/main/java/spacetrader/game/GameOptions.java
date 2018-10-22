@@ -100,23 +100,23 @@ public class GameOptions extends STSerializableObject {
 
     public GameOptions(Hashtable hash) {
         super();
-        _alwaysIgnorePirates = GetValueFromHash(hash, "_alwaysIgnorePirates", _alwaysIgnorePirates);
-        _alwaysIgnorePolice = GetValueFromHash(hash, "_alwaysIgnorePolice", _alwaysIgnorePolice);
-        _alwaysIgnoreTradeInOrbit = GetValueFromHash(hash, "_alwaysIgnoreTradeInOrbit",
+        _alwaysIgnorePirates = getValueFromHash(hash, "_alwaysIgnorePirates", _alwaysIgnorePirates);
+        _alwaysIgnorePolice = getValueFromHash(hash, "_alwaysIgnorePolice", _alwaysIgnorePolice);
+        _alwaysIgnoreTradeInOrbit = getValueFromHash(hash, "_alwaysIgnoreTradeInOrbit",
                 _alwaysIgnoreTradeInOrbit);
-        _alwaysIgnoreTraders = GetValueFromHash(hash, "_alwaysIgnoreTraders", _alwaysIgnoreTraders);
-        _autoFuel = GetValueFromHash(hash, "_autoFuel", _autoFuel);
-        _autoRepair = GetValueFromHash(hash, "_autoRepair", _autoRepair);
-        _continuousAttack = GetValueFromHash(hash, "_continuousAttack", _continuousAttack);
-        _continuousAttackFleeing = GetValueFromHash(hash, "_continuousAttackFleeing", _continuousAttackFleeing);
-        _disableOpponents = GetValueFromHash(hash, "_disableOpponents", _disableOpponents);
-        _newsAutoPay = GetValueFromHash(hash, "_newsAutoPay", _newsAutoPay);
-        _newsAutoShow = GetValueFromHash(hash, "_newsAutoShow", _newsAutoShow);
-        _remindLoans = GetValueFromHash(hash, "_remindLoans", _remindLoans);
-        _reserveMoney = GetValueFromHash(hash, "_reserveMoney", _reserveMoney);
-        _showTrackedRange = GetValueFromHash(hash, "_showTrackedRange", _showTrackedRange);
-        _trackAutoOff = GetValueFromHash(hash, "_trackAutoOff", _trackAutoOff);
-        _leaveEmpty = GetValueFromHash(hash, "_leaveEmpty", _leaveEmpty);
+        _alwaysIgnoreTraders = getValueFromHash(hash, "_alwaysIgnoreTraders", _alwaysIgnoreTraders);
+        _autoFuel = getValueFromHash(hash, "_autoFuel", _autoFuel);
+        _autoRepair = getValueFromHash(hash, "_autoRepair", _autoRepair);
+        _continuousAttack = getValueFromHash(hash, "_continuousAttack", _continuousAttack);
+        _continuousAttackFleeing = getValueFromHash(hash, "_continuousAttackFleeing", _continuousAttackFleeing);
+        _disableOpponents = getValueFromHash(hash, "_disableOpponents", _disableOpponents);
+        _newsAutoPay = getValueFromHash(hash, "_newsAutoPay", _newsAutoPay);
+        _newsAutoShow = getValueFromHash(hash, "_newsAutoShow", _newsAutoShow);
+        _remindLoans = getValueFromHash(hash, "_remindLoans", _remindLoans);
+        _reserveMoney = getValueFromHash(hash, "_reserveMoney", _reserveMoney);
+        _showTrackedRange = getValueFromHash(hash, "_showTrackedRange", _showTrackedRange);
+        _trackAutoOff = getValueFromHash(hash, "_trackAutoOff", _trackAutoOff);
+        _leaveEmpty = getValueFromHash(hash, "_leaveEmpty", _leaveEmpty);
     }
 
     public void CopyValues(GameOptions source) {

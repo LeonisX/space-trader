@@ -127,9 +127,9 @@ public class FormShipyard extends SpaceTraderForm {
     public FormShipyard() {
         initializeComponent();
 
-        this.setText(Functions.stringVars(Strings.ShipyardTitle, shipyard.Name()));
+        this.setText(Functions.stringVars(Strings.ShipyardTitle, shipyard.getName()));
         picLogo.setImage(ilShipyardLogos.getImages()[shipyard.Id().castToInt()]);
-        lblWelcome.setText(Functions.stringVars(Strings.ShipyardWelcome, shipyard.Name(), shipyard.Engineer()));
+        lblWelcome.setText(Functions.stringVars(Strings.ShipyardWelcome, shipyard.getName(), shipyard.Engineer()));
         lblSizeSpecialty.setText(Strings.Sizes[shipyard.SpecialtySize().castToInt()]);
         lblSkill.setText(Strings.ShipyardSkills[shipyard.Skill().castToInt()]);
         lblSkillDescription.setText(Strings.ShipyardSkillDescriptions[shipyard.Skill().castToInt()]);
@@ -1165,7 +1165,7 @@ public class FormShipyard extends SpaceTraderForm {
         shipyard.CalculateDependantVariables();
 
         lblUnitsUsed.setText(shipyard.UnitsUsed() + "");
-        lblPct.setText(Functions.FormatPercent(shipyard.PercentOfMaxUnits()));
+        lblPct.setText(Functions.formatPercent(shipyard.PercentOfMaxUnits()));
         if (shipyard.PercentOfMaxUnits() >= Shipyard.PENALTY_FIRST_PCT)
             lblPct.setFont(lblSkillLabel.getFont());
         else
@@ -1220,7 +1220,7 @@ public class FormShipyard extends SpaceTraderForm {
                     game.getCommander().getShip().UpdateCustomImageOffsetConstants();
                 }
 
-                GuiFacade.alert(AlertType.ShipDesignThanks, shipyard.Name());
+                GuiFacade.alert(AlertType.ShipDesignThanks, shipyard.getName());
                 close();
             }
         }

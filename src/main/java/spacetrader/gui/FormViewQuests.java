@@ -34,7 +34,6 @@ import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.*;
 import spacetrader.stub.ArrayList;
-import spacetrader.util.Util;
 
 import java.util.Arrays;
 
@@ -201,17 +200,17 @@ public class FormViewQuests extends SpaceTraderForm {
                     if (game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT)
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturningImpatient,
-                                game.Mercenaries()[CrewMemberId.Princess
-                                        .castToInt()].Name()));
+                                game.getMercenaries()[CrewMemberId.PRINCESS
+                                        .castToInt()].getName()));
                     else
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturning,
-                                game.Mercenaries()[CrewMemberId.Princess
-                                        .castToInt()].Name()));
+                                game.getMercenaries()[CrewMemberId.PRINCESS
+                                        .castToInt()].getName()));
                 } else
                     quests.add(Functions.stringVars(Strings.QuestPrincessReturn,
-                            game.Mercenaries()[CrewMemberId.Princess
-                                    .castToInt()].Name()));
+                            game.getMercenaries()[CrewMemberId.PRINCESS
+                                    .castToInt()].getName()));
                 break;
             case SpecialEvent.STATUS_PRINCESS_RETURNED:
                 quests.add(Strings.QuestPrincessQuantum);
@@ -253,7 +252,7 @@ public class FormViewQuests extends SpaceTraderForm {
                 quests.add(Strings.QuestJarek);
         }
 
-        if (game.getCommander().getShip().WildOnBoard()) {
+        if (game.getCommander().getShip().isWildOnBoard()) {
             if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT)
                 quests.add(Strings.QuestWildImpatient);
             else
@@ -266,7 +265,7 @@ public class FormViewQuests extends SpaceTraderForm {
         if (game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT)
             quests.add(Strings.QuestMoon);
 
-        return Functions.ArrayListtoStringArray(quests);
+        return Functions.arrayListToStringArray(quests);
     }
 
     private void UpdateAll() {
@@ -274,7 +273,7 @@ public class FormViewQuests extends SpaceTraderForm {
         if (quests.length == 0)
             lblQuests.setText(Strings.QuestNone);
         else {
-            lblQuests.setText(Util.StringsJoin(Strings.newline + Strings.newline, quests));
+            lblQuests.setText(String.join(Strings.newline + Strings.newline, quests));
 
             for (int i = 0; i < Strings.SystemNames.length; i++) {
                 String systemName = Strings.SystemNames[i];

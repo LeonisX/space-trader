@@ -96,18 +96,18 @@ public class GameCheats {
                     game.getCommander().setDebt(Math.max(0, num1));
                     break;
                 case Iron:
-                    if (num1 >= 0 && num1 < ship.Weapons().length && num2 >= 0 && num2 < Consts.Weapons.length)
-                        ship.Weapons()[num1] = (Weapon) Consts.Weapons[num2].Clone();
+                    if (num1 >= 0 && num1 < ship.getWeapons().length && num2 >= 0 && num2 < Consts.Weapons.length)
+                        ship.getWeapons()[num1] = (Weapon) Consts.Weapons[num2].Clone();
                     break;
                 case Juice:
                     ship.setFuel(Math.max(0, Math.min(ship.getFuelTanks(), num1)));
                     break;
                 case Knack:
-                    if (num1 >= 0 && num1 < game.Mercenaries().length) {
+                    if (num1 >= 0 && num1 < game.getMercenaries().length) {
                         String[] skills = third.split(",");
-                        for (int i = 0; i < game.Mercenaries()[num1].Skills().length && i < skills.length; i++) {
+                        for (int i = 0; i < game.getMercenaries()[num1].getSkills().length && i < skills.length; i++) {
                             if (Functions.isInt(skills[i]))
-                                game.Mercenaries()[num1].Skills()[i] = Math.max(1, Math.min(Consts.MaxSkill, Integer
+                                game.getMercenaries()[num1].getSkills()[i] = Math.max(1, Math.min(Consts.MaxSkill, Integer
                                         .parseInt(skills[i])));
                         }
                     }
@@ -125,12 +125,12 @@ public class GameCheats {
                     game.setAutoSave(true);
                     break;
                 case Posse:
-                    if (num1 > 0 && num1 < ship.Crew().length && num2 > 0 && num2 < game.Mercenaries().length
-                            && !Util.ArrayContains(Consts.SpecialCrewMemberIds, (CrewMemberId.fromInt(num2)))) {
-                        int skill = ship.Trader();
-                        ship.Crew()[num1] = game.Mercenaries()[num2];
-                        if (ship.Trader() != skill)
-                            game.RecalculateBuyPrices(game.getCommander().getCurrentSystem());
+                    if (num1 > 0 && num1 < ship.Crew().length && num2 > 0 && num2 < game.getMercenaries().length
+                            && !Util.arrayContains(Consts.SpecialCrewMemberIds, (CrewMemberId.fromInt(num2)))) {
+                        int skill = ship.getTrader();
+                        ship.Crew()[num1] = game.getMercenaries()[num2];
+                        if (ship.getTrader() != skill)
+                            game.recalculateBuyPrices(game.getCommander().getCurrentSystem());
                     }
                     break;
                 case RapSheet:

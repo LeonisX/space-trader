@@ -113,7 +113,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void dumpAll() {
-        Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
+        Game game = new Game("name", Difficulty.BEGINNER,8,8,8,8, this);
         game.getCommander().getShip().getCargo()[1] = 12;
         game.setSelectedSystemId(StarSystemId.Aldea);
         game.warpDirect();
@@ -489,7 +489,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         String settingValue = defaultValue;
 
         try {
-            RegistryKey key = Functions.GetRegistryKey();
+            RegistryKey key = Functions.getRegistryKey();
             Object ObjectValue = key.GetValue(settingName);
             if (ObjectValue != null) {
                 settingValue = ObjectValue.toString();
@@ -530,7 +530,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void SetRegistrySetting(String settingName, String settingValue) {
         try {
-            RegistryKey key = Functions.GetRegistryKey();
+            RegistryKey key = Functions.getRegistryKey();
             key.SetValue(settingName, settingValue);
             key.Close();
         } catch (NullPointerException ex) {

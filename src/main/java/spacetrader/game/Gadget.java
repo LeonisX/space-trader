@@ -51,8 +51,8 @@ public class Gadget extends Equipment {
 
     public Gadget(Hashtable hash) {
         super(hash);
-        _type = GadgetType.fromInt(GetValueFromHash(hash, "_type", Integer.class));
-        _skillBonus = (GetValueFromHash(hash, "_skillBonus", SkillType.NA, SkillType.class));
+        _type = GadgetType.fromInt(getValueFromHash(hash, "_type", Integer.class));
+        _skillBonus = (getValueFromHash(hash, "_skillBonus", SkillType.NA, SkillType.class));
     }
 
     public @Override

@@ -81,7 +81,7 @@ public class FormJettison extends SpaceTraderForm {
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException,
             InstantiationException, IllegalAccessException {
-        new Game("name", Difficulty.Beginner,8,8,8,8, null);
+        new Game("name", Difficulty.BEGINNER,8,8,8,8, null);
         Launcher.runForm(new FormJettison());
     }
 
