@@ -129,8 +129,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 new FormCosts(),
                 new FormEncounter(),
                 new FormEquipment(),
-                new FormFind(),*/
-                new FormGetLoan(25000)
+                new FormFind(),
+                new FormGetLoan(25000),*/
+                new FormJettison()
         );
         dumpAllDimensions(components);
         dumpAllStrings(components);
