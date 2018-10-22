@@ -5,22 +5,24 @@ import java.awt.*;
 
 public class ListBox extends BaseComponent {
 
-    private final MyListModel items = new MyListModel();
+    private final MyListModel<Object> items = new MyListModel<>();
 
     public ListBox() {
-        super(new JList());
+        super(new JList<>());
         asJList().setModel(items);
+        //TODO scale
+        asJList().setFixedCellHeight(14);
     }
 
-    public MyListModel getItems() {
+    public MyListModel<Object> getItems() {
         return items;
     }
 
     @Override
     public void setBorderStyle(BorderStyle borderStyle) {
-        if (borderStyle != BorderStyle.FIXED_SINGLE)
+        if (borderStyle != BorderStyle.FIXED_SINGLE) {
             throw new Error("Unknown border style");
-
+        }
         asJList().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
     }
 
@@ -28,8 +30,9 @@ public class ListBox extends BaseComponent {
         asJList().clearSelection();
     }
 
-    private JList asJList() {
-        return (JList) swingComponent;
+    @SuppressWarnings("unchecked")
+    private JList<Object> asJList() {
+        return (JList<Object>) swingComponent;
     }
 
     public void setSelectedIndexChanged(final EventHandler<Object, EventArgs> handler) {
@@ -41,7 +44,7 @@ public class ListBox extends BaseComponent {
     }
 
     public int getItemHeight() {
-        return 15;
+        return asJList().getFixedCellHeight();
     }
 
     public Object getSelectedItem() {
