@@ -991,7 +991,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         CargoSell(tradeItem, false, CargoSellOp.DUMP);
     }
 
-    public void CargoJettison(int tradeItem, boolean all) {
+    public void cargoJettison(int tradeItem, boolean all) {
         CargoSell(tradeItem, all, CargoSellOp.JETTISON);
     }
 
