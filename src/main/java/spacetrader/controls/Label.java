@@ -10,8 +10,8 @@ public class Label extends BaseComponent {
     private static final String START = "<HTML>";
     private static final String NEWLINE = "<br>";
 
-    public ContentAlignment textAlign;
-    public ContentAlignment imageAlign;
+    private ContentAlignment textAlign;
+    private ContentAlignment imageAlign;
     private boolean convertedToHtml;
 
     public Label() {
@@ -50,5 +50,21 @@ public class Label extends BaseComponent {
 
     public void setImage(Image image) {
         ((JLabel) swingComponent).setIcon(new ImageIcon(image.asSwingImage()));
+    }
+
+    public ContentAlignment getTextAlign() {
+        return textAlign;
+    }
+
+    public void setTextAlign(ContentAlignment textAlign) {
+        this.textAlign = textAlign;
+    }
+
+    public ContentAlignment getImageAlign() {
+        return imageAlign;
+    }
+
+    public void setImageAlign(ContentAlignment imageAlign) {
+        this.imageAlign = imageAlign;
     }
 }

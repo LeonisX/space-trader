@@ -37,6 +37,8 @@ The project is a Java port of the [Space Trader for Windows](https://sourceforge
 * Load game from scratch
 * High Score
 * When start game: 8->9->0->1!! & start
+* LinkLabel - not implemented sort
+* FormMonster - not correct columns order; bug in mercenariesPanel (systems); Links don't work
 
 ## Regressions:
 

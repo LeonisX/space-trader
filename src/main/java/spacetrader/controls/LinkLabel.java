@@ -23,10 +23,6 @@ public class LinkLabel extends Label {
         this.linkClicked = linkClicked;
     }
 
-    public LinkArea getLinkArea() {
-        return linkArea;
-    }
-
     public void setLinkArea(LinkArea linkArea) {
         this.linkArea = linkArea;
     }

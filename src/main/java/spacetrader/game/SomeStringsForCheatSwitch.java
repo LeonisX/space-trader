@@ -6,6 +6,7 @@ import java.util.Hashtable;
 
 @CheatCode
 public enum SomeStringsForCheatSwitch {
+
     Bazaar,
     Cover,
     DeLorean,
@@ -64,7 +65,7 @@ public enum SomeStringsForCheatSwitch {
 
     __void__;
 
-    static Hashtable<String, SomeStringsForCheatSwitch> specialStrings = new Hashtable<String, SomeStringsForCheatSwitch>();
+    static Hashtable<String, SomeStringsForCheatSwitch> specialStrings = new Hashtable<>();
 
     static {
         specialStrings.put("Monster.com", MonsterCom);
@@ -72,9 +73,10 @@ public enum SomeStringsForCheatSwitch {
     }
 
     static public SomeStringsForCheatSwitch find(String string) {
-        SomeStringsForCheatSwitch spacialvalue = specialStrings.get(string);
-        if (spacialvalue != null)
-            return spacialvalue;
+        SomeStringsForCheatSwitch specialValue = specialStrings.get(string);
+        if (specialValue != null) {
+            return specialValue;
+        }
         try {
             return valueOf(string);
         } catch (IllegalArgumentException e) {

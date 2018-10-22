@@ -294,7 +294,7 @@ public class FormViewQuests extends SpaceTraderForm {
 
     private void lblQuests_LinkClicked(Object sender,
                                        spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
-        Game.getCurrentGame().setSelectedSystemByName(e.Link.LinkData.toString());
+        Game.getCurrentGame().setSelectedSystemByName(e.getLink().getLinkData().toString());
         Game.getCurrentGame().getParentWindow().updateAll();
         close();
     }

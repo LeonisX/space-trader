@@ -528,19 +528,19 @@ class CargoPanel extends Panel {
         targetPercentageLabelValue9.setSize(new Size(37, 13));
         targetPercentageLabelValue9.setTabIndex(127);
         targetPercentageLabelValue9.setText(TARGET_PERCENTAGE_NA);
-        targetPercentageLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue9.setLocation(new Point(410, 276));
         targetDiffLabelValue9.setSize(new Size(52, 13));
         targetDiffLabelValue9.setTabIndex(126);
         targetDiffLabelValue9.setText(TARGET_DIFF_NA);
-        targetDiffLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue9.setLocation(new Point(358, 276));
         targetPriceLabelValue9.setSize(new Size(48, 13));
         targetPriceLabelValue9.setTabIndex(125);
         targetPriceLabelValue9.setText(TARGET_PRICE_NA);
-        targetPriceLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton9.setLocation(new Point(262, 272));
         buyMaxButton9.setSize(new Size(36, 22));
@@ -554,7 +554,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue9.setSize(new Size(48, 13));
         buyPriceLabelValue9.setTabIndex(122);
         buyPriceLabelValue9.setText("not sold");
-        buyPriceLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton9.setLocation(new Point(115, 272));
         sellAllButton9.setSize(new Size(44, 22));
@@ -569,25 +569,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue9.setSize(new Size(48, 13));
         sellPriceLabelValue9.setTabIndex(119);
         sellPriceLabelValue9.setText("no trade");
-        sellPriceLabelValue9.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue8.setLocation(new Point(466, 252));
         targetPercentageLabelValue8.setSize(new Size(37, 13));
         targetPercentageLabelValue8.setTabIndex(118);
         targetPercentageLabelValue8.setText("-888%");
-        targetPercentageLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue8.setLocation(new Point(410, 252));
         targetDiffLabelValue8.setSize(new Size(52, 13));
         targetDiffLabelValue8.setTabIndex(117);
         targetDiffLabelValue8.setText("-8,888 cr.");
-        targetDiffLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue8.setLocation(new Point(358, 252));
         targetPriceLabelValue8.setSize(new Size(48, 13));
         targetPriceLabelValue8.setTabIndex(116);
         targetPriceLabelValue8.setText("8,888 cr.");
-        targetPriceLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton8.setLocation(new Point(262, 248));
         buyMaxButton8.setSize(new Size(36, 22));
@@ -601,7 +601,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue8.setSize(new Size(48, 13));
         buyPriceLabelValue8.setTabIndex(113);
         buyPriceLabelValue8.setText("8,888 cr.");
-        buyPriceLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton8.setLocation(new Point(115, 248));
         sellAllButton8.setSize(new Size(44, 22));
@@ -615,26 +615,26 @@ class CargoPanel extends Panel {
         sellPriceLabelValue8.setSize(new Size(48, 13));
         sellPriceLabelValue8.setTabIndex(110);
         sellPriceLabelValue8.setText("8,888 cr.");
-        sellPriceLabelValue8.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue7.setLocation(new Point(466, 228));
         targetPercentageLabelValue7.setSize(new Size(37, 13));
         targetPercentageLabelValue7.setTabIndex(109);
         targetPercentageLabelValue7.setText("-888%");
-        targetPercentageLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue7.setFont(FontCollection.regular825);
         targetDiffLabelValue7.setLocation(new Point(410, 228));
         targetDiffLabelValue7.setSize(new Size(52, 13));
         targetDiffLabelValue7.setTabIndex(108);
         targetDiffLabelValue7.setText("-8,888 cr.");
-        targetDiffLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue7.setLocation(new Point(358, 228));
         targetPriceLabelValue7.setSize(new Size(48, 13));
         targetPriceLabelValue7.setTabIndex(107);
         targetPriceLabelValue7.setText("8,888 cr.");
-        targetPriceLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton7.setLocation(new Point(262, 224));
         buyMaxButton7.setSize(new Size(36, 22));
@@ -648,7 +648,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue7.setSize(new Size(48, 13));
         buyPriceLabelValue7.setTabIndex(104);
         buyPriceLabelValue7.setText("8,888 cr.");
-        buyPriceLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton7.setLocation(new Point(115, 224));
         sellAllButton7.setSize(new Size(44, 22));
@@ -662,25 +662,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue7.setSize(new Size(48, 13));
         sellPriceLabelValue7.setTabIndex(101);
         sellPriceLabelValue7.setText("8,888 cr.");
-        sellPriceLabelValue7.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue6.setLocation(new Point(466, 204));
         targetPercentageLabelValue6.setSize(new Size(37, 13));
         targetPercentageLabelValue6.setTabIndex(100);
         targetPercentageLabelValue6.setText("-888%");
-        targetPercentageLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue6.setLocation(new Point(410, 204));
         targetDiffLabelValue6.setSize(new Size(52, 13));
         targetDiffLabelValue6.setTabIndex(99);
         targetDiffLabelValue6.setText("-8,888 cr.");
-        targetDiffLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue6.setLocation(new Point(358, 204));
         targetPriceLabelValue6.setSize(new Size(48, 13));
         targetPriceLabelValue6.setTabIndex(98);
         targetPriceLabelValue6.setText("8,888 cr.");
-        targetPriceLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton6.setLocation(new Point(262, 200));
         buyMaxButton6.setSize(new Size(36, 22));
@@ -694,7 +694,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue6.setSize(new Size(48, 13));
         buyPriceLabelValue6.setTabIndex(95);
         buyPriceLabelValue6.setText("8,888 cr.");
-        buyPriceLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton6.setLocation(new Point(115, 200));
         sellAllButton6.setSize(new Size(44, 22));
@@ -708,25 +708,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue6.setSize(new Size(48, 13));
         sellPriceLabelValue6.setTabIndex(92);
         sellPriceLabelValue6.setText("8,888 cr.");
-        sellPriceLabelValue6.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue5.setLocation(new Point(466, 180));
         targetPercentageLabelValue5.setSize(new Size(37, 13));
         targetPercentageLabelValue5.setTabIndex(91);
         targetPercentageLabelValue5.setText("-888%");
-        targetPercentageLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue5.setLocation(new Point(410, 180));
         targetDiffLabelValue5.setSize(new Size(52, 13));
         targetDiffLabelValue5.setTabIndex(90);
         targetDiffLabelValue5.setText("-8,888 cr.");
-        targetDiffLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue5.setLocation(new Point(358, 180));
         targetPriceLabelValue5.setSize(new Size(48, 13));
         targetPriceLabelValue5.setTabIndex(89);
         targetPriceLabelValue5.setText("8,888 cr.");
-        targetPriceLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton5.setLocation(new Point(262, 176));
         buyMaxButton5.setSize(new Size(36, 22));
@@ -740,7 +740,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue5.setSize(new Size(48, 13));
         buyPriceLabelValue5.setTabIndex(86);
         buyPriceLabelValue5.setText("8,888 cr.");
-        buyPriceLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton5.setLocation(new Point(115, 176));
         sellAllButton5.setSize(new Size(44, 22));
@@ -754,25 +754,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue5.setSize(new Size(48, 13));
         sellPriceLabelValue5.setTabIndex(83);
         sellPriceLabelValue5.setText("8,888 cr.");
-        sellPriceLabelValue5.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue4.setLocation(new Point(466, 156));
         targetPercentageLabelValue4.setSize(new Size(37, 13));
         targetPercentageLabelValue4.setTabIndex(82);
         targetPercentageLabelValue4.setText("-888%");
-        targetPercentageLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue4.setLocation(new Point(410, 156));
         targetDiffLabelValue4.setSize(new Size(52, 13));
         targetDiffLabelValue4.setTabIndex(81);
         targetDiffLabelValue4.setText("-8,888 cr.");
-        targetDiffLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue4.setLocation(new Point(358, 156));
         targetPriceLabelValue4.setSize(new Size(48, 13));
         targetPriceLabelValue4.setTabIndex(80);
         targetPriceLabelValue4.setText("8,888 cr.");
-        targetPriceLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton4.setLocation(new Point(262, 152));
         buyMaxButton4.setSize(new Size(36, 22));
@@ -786,7 +786,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue4.setSize(new Size(48, 13));
         buyPriceLabelValue4.setTabIndex(77);
         buyPriceLabelValue4.setText("8,888 cr.");
-        buyPriceLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton4.setFlatStyle(FlatStyle.FLAT);
         sellAllButton4.setLocation(new Point(115, 152));
@@ -801,25 +801,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue4.setSize(new Size(48, 13));
         sellPriceLabelValue4.setTabIndex(74);
         sellPriceLabelValue4.setText("8,888 cr.");
-        sellPriceLabelValue4.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue3.setLocation(new Point(466, 132));
         targetPercentageLabelValue3.setSize(new Size(37, 13));
         targetPercentageLabelValue3.setTabIndex(73);
         targetPercentageLabelValue3.setText("-888%");
-        targetPercentageLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue3.setLocation(new Point(410, 132));
         targetDiffLabelValue3.setSize(new Size(52, 13));
         targetDiffLabelValue3.setTabIndex(72);
         targetDiffLabelValue3.setText("-8,888 cr.");
-        targetDiffLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue3.setLocation(new Point(358, 132));
         targetPriceLabelValue3.setSize(new Size(48, 13));
         targetPriceLabelValue3.setTabIndex(71);
         targetPriceLabelValue3.setText("8,888 cr.");
-        targetPriceLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton3.setLocation(new Point(262, 128));
         buyMaxButton3.setSize(new Size(36, 22));
@@ -833,7 +833,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue3.setSize(new Size(48, 13));
         buyPriceLabelValue3.setTabIndex(68);
         buyPriceLabelValue3.setText("8,888 cr.");
-        buyPriceLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton3.setLocation(new Point(115, 128));
         sellAllButton3.setSize(new Size(44, 22));
@@ -847,25 +847,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue3.setSize(new Size(48, 13));
         sellPriceLabelValue3.setTabIndex(65);
         sellPriceLabelValue3.setText("8,888 cr.");
-        sellPriceLabelValue3.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue2.setLocation(new Point(466, 108));
         targetPercentageLabelValue2.setSize(new Size(37, 13));
         targetPercentageLabelValue2.setTabIndex(64);
         targetPercentageLabelValue2.setText("-888%");
-        targetPercentageLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue2.setLocation(new Point(410, 108));
         targetDiffLabelValue2.setSize(new Size(52, 13));
         targetDiffLabelValue2.setTabIndex(63);
         targetDiffLabelValue2.setText("-8,888 cr.");
-        targetDiffLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue2.setLocation(new Point(358, 108));
         targetPriceLabelValue2.setSize(new Size(48, 13));
         targetPriceLabelValue2.setTabIndex(62);
         targetPriceLabelValue2.setText("8,888 cr.");
-        targetPriceLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton2.setLocation(new Point(262, 104));
         buyMaxButton2.setSize(new Size(36, 22));
@@ -879,7 +879,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue2.setSize(new Size(48, 13));
         buyPriceLabelValue2.setTabIndex(59);
         buyPriceLabelValue2.setText("8,888 cr.");
-        buyPriceLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton2.setLocation(new Point(115, 104));
         sellAllButton2.setSize(new Size(44, 22));
@@ -893,25 +893,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue2.setSize(new Size(48, 13));
         sellPriceLabelValue2.setTabIndex(56);
         sellPriceLabelValue2.setText("8,888 cr.");
-        sellPriceLabelValue2.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue1.setLocation(new Point(466, 84));
         targetPercentageLabelValue1.setSize(new Size(37, 13));
         targetPercentageLabelValue1.setTabIndex(55);
         targetPercentageLabelValue1.setText("-888%");
-        targetPercentageLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue1.setLocation(new Point(410, 84));
         targetDiffLabelValue1.setSize(new Size(52, 13));
         targetDiffLabelValue1.setTabIndex(54);
         targetDiffLabelValue1.setText("-8,888 cr.");
-        targetDiffLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue1.setLocation(new Point(358, 84));
         targetPriceLabelValue1.setSize(new Size(48, 13));
         targetPriceLabelValue1.setTabIndex(53);
         targetPriceLabelValue1.setText("8,888 cr.");
-        targetPriceLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton1.setLocation(new Point(262, 80));
         buyMaxButton1.setSize(new Size(36, 22));
@@ -925,7 +925,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue1.setSize(new Size(48, 13));
         buyPriceLabelValue1.setTabIndex(50);
         buyPriceLabelValue1.setText("8,888 cr.");
-        buyPriceLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton1.setLocation(new Point(115, 80));
         sellAllButton1.setSize(new Size(44, 22));
@@ -939,25 +939,25 @@ class CargoPanel extends Panel {
         sellPriceLabelValue1.setSize(new Size(48, 13));
         sellPriceLabelValue1.setTabIndex(38);
         sellPriceLabelValue1.setText("8,888 cr.");
-        sellPriceLabelValue1.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue0.setLocation(new Point(466, 60));
         targetPercentageLabelValue0.setSize(new Size(37, 13));
         targetPercentageLabelValue0.setTabIndex(46);
         targetPercentageLabelValue0.setText("-888%");
-        targetPercentageLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPercentageLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue0.setLocation(new Point(410, 60));
         targetDiffLabelValue0.setSize(new Size(52, 13));
         targetDiffLabelValue0.setTabIndex(45);
         targetDiffLabelValue0.setText("-8,888 cr.");
-        targetDiffLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
+        targetDiffLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue0.setLocation(new Point(358, 60));
         targetPriceLabelValue0.setSize(new Size(48, 13));
         targetPriceLabelValue0.setTabIndex(44);
         targetPriceLabelValue0.setText("8,888 cr.");
-        targetPriceLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
+        targetPriceLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyMaxButton0.setLocation(new Point(262, 56));
         buyMaxButton0.setSize(new Size(36, 22));
@@ -971,7 +971,7 @@ class CargoPanel extends Panel {
         buyPriceLabelValue0.setSize(new Size(48, 13));
         buyPriceLabelValue0.setTabIndex(41);
         buyPriceLabelValue0.setText("8,888 cr.");
-        buyPriceLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
+        buyPriceLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellAllButton0.setLocation(new Point(115, 56));
         sellAllButton0.setSize(new Size(44, 22));
@@ -986,7 +986,7 @@ class CargoPanel extends Panel {
         sellPriceLabelValue0.setSize(new Size(48, 13));
         sellPriceLabelValue0.setTabIndex(35);
         sellPriceLabelValue0.setText("8,888 cr.");
-        sellPriceLabelValue0.textAlign = ContentAlignment.TOP_RIGHT;
+        sellPriceLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         Arrays.stream(sellButtonArray).forEach(button -> {
             button.setFlatStyle(FlatStyle.FLAT);

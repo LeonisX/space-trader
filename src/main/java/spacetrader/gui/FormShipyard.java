@@ -413,7 +413,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblImage.setSize(new spacetrader.controls.Size(70, 13));
         lblImage.setTabIndex(61);
         lblImage.setText("Custom Ship");
-        lblImage.textAlign = ContentAlignment.TOP_CENTER;
+        lblImage.setTextAlign(ContentAlignment.TOP_CENTER);
         //
         // lblImageLabel
         //
@@ -519,7 +519,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblUnitsUsed.setSize(new spacetrader.controls.Size(23, 13));
         lblUnitsUsed.setTabIndex(17);
         lblUnitsUsed.setText("888");
-        lblUnitsUsed.textAlign = ContentAlignment.TOP_RIGHT;
+        lblUnitsUsed.setTextAlign(ContentAlignment.TOP_RIGHT);
         //
         // lblUnitsUsedLabel
         //
@@ -549,7 +549,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblTradeIn.setSize(new spacetrader.controls.Size(75, 16));
         lblTradeIn.setTabIndex(135);
         lblTradeIn.setText("-8,888,888 cr.");
-        lblTradeIn.textAlign = ContentAlignment.TOP_RIGHT;
+        lblTradeIn.setTextAlign(ContentAlignment.TOP_RIGHT);
         //
         // lblTradeInLabel
         //
@@ -576,7 +576,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblPenalty.setSize(new spacetrader.controls.Size(74, 16));
         lblPenalty.setTabIndex(21);
         lblPenalty.setText("8,888,888 cr.");
-        lblPenalty.textAlign = ContentAlignment.TOP_RIGHT;
+        lblPenalty.setTextAlign(ContentAlignment.TOP_RIGHT);
         //
         // lblPenaltyLabel
         //
@@ -594,7 +594,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblShipCost.setSize(new spacetrader.controls.Size(74, 16));
         lblShipCost.setTabIndex(19);
         lblShipCost.setText("8,888,888 cr.");
-        lblShipCost.textAlign = ContentAlignment.TOP_RIGHT;
+        lblShipCost.setTextAlign(ContentAlignment.TOP_RIGHT);
         //
         // lblTotalCost
         //
@@ -603,7 +603,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblTotalCost.setSize(new spacetrader.controls.Size(74, 16));
         lblTotalCost.setTabIndex(18);
         lblTotalCost.setText("8,888,888 cr.");
-        lblTotalCost.textAlign = ContentAlignment.TOP_RIGHT;
+        lblTotalCost.setTextAlign(ContentAlignment.TOP_RIGHT);
         //
         // lblTotalCostLabel
         //
@@ -630,7 +630,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblDesignFee.setSize(new spacetrader.controls.Size(74, 16));
         lblDesignFee.setTabIndex(15);
         lblDesignFee.setText("888,888 cr.");
-        lblDesignFee.textAlign = ContentAlignment.TOP_RIGHT;
+        lblDesignFee.setTextAlign(ContentAlignment.TOP_RIGHT);
         //
         // lblDesignFeeLabel
         //
@@ -701,7 +701,7 @@ public class FormShipyard extends SpaceTraderForm {
         lblPct.setSize(new spacetrader.controls.Size(34, 13));
         lblPct.setTabIndex(19);
         lblPct.setText("888%");
-        lblPct.textAlign = ContentAlignment.TOP_RIGHT;
+        lblPct.setTextAlign(ContentAlignment.TOP_RIGHT);
         //
         // lblPctLabel
         //
@@ -950,13 +950,13 @@ public class FormShipyard extends SpaceTraderForm {
         //
         lblDisabledPct.setBackground(SystemColors.INFO);
         lblDisabledPct.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
-        lblDisabledPct.imageAlign = ContentAlignment.MIDDLE_RIGHT;
+        lblDisabledPct.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
         lblDisabledPct.setLocation(new java.awt.Point(154, 182));
         lblDisabledPct.setName("lblDisabledPct");
         lblDisabledPct.setSize(new spacetrader.controls.Size(276, 20));
         lblDisabledPct.setTabIndex(8);
         lblDisabledPct.setText("Your % of Max must be less than or equal to 100%.");
-        lblDisabledPct.textAlign = ContentAlignment.MIDDLE_CENTER;
+        lblDisabledPct.setTextAlign(ContentAlignment.MIDDLE_CENTER);
         lblDisabledPct.setVisible(false);
         //
         // dlgSave
@@ -970,13 +970,13 @@ public class FormShipyard extends SpaceTraderForm {
         //
         lblDisabledName.setBackground(SystemColors.INFO);
         lblDisabledName.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
-        lblDisabledName.imageAlign = ContentAlignment.MIDDLE_LEFT;
+        lblDisabledName.setTextAlign(ContentAlignment.MIDDLE_LEFT);
         lblDisabledName.setLocation(new java.awt.Point(96, 222));
         lblDisabledName.setName("lblDisabledName");
         lblDisabledName.setSize(new spacetrader.controls.Size(170, 20));
         lblDisabledName.setTabIndex(7);
         lblDisabledName.setText("You must enter a Ship Name.");
-        lblDisabledName.textAlign = ContentAlignment.MIDDLE_RIGHT;
+        lblDisabledName.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
         lblDisabledName.setVisible(false);
         //
         // Form_Shipyard

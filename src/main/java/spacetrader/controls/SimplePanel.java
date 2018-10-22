@@ -1,6 +1,7 @@
 package spacetrader.controls;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 public class SimplePanel extends BaseComponent {
 
@@ -15,4 +16,7 @@ public class SimplePanel extends BaseComponent {
         ((JPanel) swingComponent).add(control.swingComponent);
     }
 
+    public void addAll(BaseComponent... controls) {
+        Arrays.stream(controls).forEach(control -> ((JPanel) swingComponent).add(control.swingComponent));
+    }
 }

@@ -89,7 +89,7 @@ class FormCosts extends SpaceTraderForm {
         mercenariesLabelValue.setSize(new Size(39, 13));
         mercenariesLabelValue.setTabIndex(36);
         //mercenariesLabelValue.setText("888 cr.");
-        mercenariesLabelValue.textAlign = ContentAlignment.TOP_RIGHT;
+        mercenariesLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         insuranceLabel.setAutoSize(true);
         insuranceLabel.setFont(FontCollection.bold825);
@@ -102,7 +102,7 @@ class FormCosts extends SpaceTraderForm {
         insuranceLabelValue.setSize(new Size(39, 13));
         insuranceLabelValue.setTabIndex(40);
         //insuranceLabelValue.setText("888 cr.");
-        insuranceLabelValue.textAlign = ContentAlignment.TOP_RIGHT;
+        insuranceLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         interestLabel.setAutoSize(true);
         interestLabel.setFont(FontCollection.bold825);
@@ -115,7 +115,7 @@ class FormCosts extends SpaceTraderForm {
         interestLabelValue.setSize(new Size(39, 13));
         interestLabelValue.setTabIndex(44);
         //interestLabelValue.setText("888 cr.");
-        interestLabelValue.textAlign = ContentAlignment.TOP_RIGHT;
+        interestLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         wormholeTaxLabel.setAutoSize(true);
         wormholeTaxLabel.setFont(FontCollection.bold825);
@@ -128,7 +128,7 @@ class FormCosts extends SpaceTraderForm {
         wormholeTaxLabelValue.setSize(new Size(39, 13));
         wormholeTaxLabelValue.setTabIndex(48);
         //wormholeTaxLabelValue.setText("888 cr.");
-        wormholeTaxLabelValue.textAlign = ContentAlignment.TOP_RIGHT;
+        wormholeTaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         //horizontalLine.setBackground(Color.darkGray);
         horizontalLine.setLocation(new Point(6, 73));
@@ -147,7 +147,7 @@ class FormCosts extends SpaceTraderForm {
         totalLabelValue.setSize(new Size(39, 13));
         totalLabelValue.setTabIndex(52);
         //totalLabelValue.setText("888 cr.");
-        totalLabelValue.textAlign = ContentAlignment.TOP_RIGHT;
+        totalLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setVisible(false);

@@ -51,12 +51,13 @@ public class GameCheats {
                     game.setCanSuperWarp(!game.getCanSuperWarp());
                     break;
                 case Events:
-                    if (second == "Reset")
+                    if (second.equals("Reset"))
                         game.ResetVeryRareEncounters();
                     else {
-                        String text = "";
-                        for (Iterator<VeryRareEncounter> list = game.VeryRareEncounters().iterator(); list.hasNext(); )
-                            text += Strings.VeryRareEncounters[list.next().castToInt()] + Strings.newline;
+                        StringBuilder textBuilder = new StringBuilder();
+                        for (VeryRareEncounter veryRareEncounter : game.VeryRareEncounters())
+                            textBuilder.append(Strings.VeryRareEncounters[veryRareEncounter.castToInt()]).append(Strings.newline);
+                        String text = textBuilder.toString();
                         text = text.trim();
 
                         GuiFacade.alert(AlertType.Alert, "Remaining Very Rare Encounters", text);

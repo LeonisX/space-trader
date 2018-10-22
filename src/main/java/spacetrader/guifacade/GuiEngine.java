@@ -19,7 +19,7 @@ public class GuiEngine {
         cheat = impl.getCheatGuiProvider();
     }
 
-    // note - internal interfaces are implicitlystatic. see section 8.5.2 in the spec.
+    // note - internal interfaces are implicitly static. see section 8.5.2 in the spec.
     public interface ImageProvider {
         ImageList getEquipmentImages();
 
