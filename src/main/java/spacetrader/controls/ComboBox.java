@@ -1,22 +1,33 @@
 package spacetrader.controls;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ComboBox extends BaseComponent {
+public class ComboBox<T> extends BaseComponent {
 
-    public final MyComboBoxModel items = new MyComboBoxModel();
+    private final MyComboBoxModel<T> items = new MyComboBoxModel<>();
     // probably don't care.
-    public ComboBoxStyle dropDownStyle;
+    private ComboBoxStyle dropDownStyle;
 
     public ComboBox() {
-        super(new JComboBox());
+        super(new JComboBox<T>());
         asJComboBox().setModel(items);
     }
 
-    private JComboBox asJComboBox() {
-        return (JComboBox) swingComponent;
+    public MyComboBoxModel<T> getItems() {
+        return items;
+    }
+
+    public ComboBoxStyle getDropDownStyle() {
+        return dropDownStyle;
+    }
+
+    public void setDropDownStyle(ComboBoxStyle dropDownStyle) {
+        this.dropDownStyle = dropDownStyle;
+    }
+
+    @SuppressWarnings("unchecked")
+    private JComboBox<T> asJComboBox() {
+        return (JComboBox<T>) swingComponent;
     }
 
     public int getSelectedIndex() {

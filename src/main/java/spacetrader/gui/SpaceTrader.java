@@ -131,8 +131,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 new FormEquipment(),
                 new FormFind(),
                 new FormGetLoan(25000),
-                new FormJettison(),*/
-                new FormMonster()
+                new FormJettison(),
+                new FormMonster(),*/
+                new FormNewCommander()
         );
         dumpAllDimensions(components);
         dumpAllStrings(components);
@@ -584,8 +585,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         FormNewCommander form = new FormNewCommander();
         if ((game == null || commander.getDays() == controller.SaveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
                 && form.showDialog(this) == DialogResult.OK) {
-            setGame(new Game(form.CommanderName(), form.Difficulty(), form.Pilot(), form.Fighter(), form.Trader(), form
-                    .Engineer(), this));
+            setGame(new Game(form.getCommanderName(), form.getDifficulty(), form.getPilot(), form.getFighter(), form.getTrader(), form
+                    .getEngineer(), this));
             //TODO
             controller.SaveGameFile = null;
             controller.SaveGameDays = 0;

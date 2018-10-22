@@ -426,7 +426,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // selTemplate
         //
-        selTemplate.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        selTemplate.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         selTemplate.setLocation(new java.awt.Point(80, 16));
         selTemplate.setName("selTemplate");
         selTemplate.setSize(new spacetrader.controls.Size(132, 21));
@@ -443,7 +443,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // selSize
         //
-        selSize.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        selSize.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         selSize.setLocation(new java.awt.Point(80, 63));
         selSize.setName("selSize");
         selSize.setSize(new spacetrader.controls.Size(180, 21));
@@ -1054,8 +1054,8 @@ public class FormShipyard extends SpaceTraderForm {
             UpdateShip();
             UpdateCalculatedFigures();
 
-            if (selTemplate.items.get(0).toString() == Strings.ShipNameModified)
-                selTemplate.items.remove(0);
+            if (selTemplate.getItems().get(0).toString() == Strings.ShipNameModified)
+                selTemplate.getItems().remove(0);
 
             loading = false;
         }
@@ -1067,31 +1067,31 @@ public class FormShipyard extends SpaceTraderForm {
 //			foreach (Size size in shipyard.AvailableSizes)
         for (Size size : shipyard.AvailableSizes()) {
             sizes.add(size);
-            selSize.items.add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()], Functions
+            selSize.getItems().add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()], Functions
                     .multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
         }
     }
 
     private void LoadTemplateList() {
         ShipTemplate currentShip = new ShipTemplate(game.getCommander().getShip(), Strings.ShipNameCurrentShip);
-        selTemplate.items.add(currentShip);
+        selTemplate.getItems().add(currentShip);
 
-        selTemplate.items.add(Consts.ShipTemplateSeparator);
+        selTemplate.getItems().add(Consts.ShipTemplateSeparator);
 
         // Add the minimal sizes templates.
         for (Size size : sizes)
-            selTemplate.items.add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
+            selTemplate.getItems().add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
                     + Strings.ShipNameTemplateSuffixMinimum));
 
-        selTemplate.items.add(Consts.ShipTemplateSeparator);
+        selTemplate.getItems().add(Consts.ShipTemplateSeparator);
 
         // Add the buyable ship spec templates.
         for (ShipSpec spec : Consts.ShipSpecs) {
             if (sizes.contains(spec.getSize()) && spec.Type().castToInt() <= Consts.MaxShip)
-                selTemplate.items.add(new ShipTemplate(spec, spec.getName() + Strings.ShipNameTemplateSuffixDefault));
+                selTemplate.getItems().add(new ShipTemplate(spec, spec.getName() + Strings.ShipNameTemplateSuffixDefault));
         }
 
-        selTemplate.items.add(Consts.ShipTemplateSeparator);
+        selTemplate.getItems().add(Consts.ShipTemplateSeparator);
 
         // Add the user-created templates.
         ArrayList userTemplates = new ArrayList();
@@ -1101,7 +1101,7 @@ public class FormShipyard extends SpaceTraderForm {
                 userTemplates.add(template);
         }
         userTemplates.Sort();
-        selTemplate.items.AddRange(userTemplates.toArray(new ShipTemplate[0]));
+        selTemplate.getItems().addRange(userTemplates.toArray(new ShipTemplate[0]));
 
         selTemplate.setSelectedIndex(0);
     }
@@ -1111,9 +1111,9 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void SetTemplateModified() {
-        if (!loading && selTemplate.items.getSize() > 0) {
-            if (selTemplate.items.get(0).toString() != Strings.ShipNameModified)
-                selTemplate.items.Insert(0, Strings.ShipNameModified);
+        if (!loading && selTemplate.getItems().getSize() > 0) {
+            if (selTemplate.getItems().get(0).toString() != Strings.ShipNameModified)
+                selTemplate.getItems().insert(0, Strings.ShipNameModified);
 
             selTemplate.setSelectedIndex(0);
         }

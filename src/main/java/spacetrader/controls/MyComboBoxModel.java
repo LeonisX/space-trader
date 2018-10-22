@@ -2,20 +2,20 @@ package spacetrader.controls;
 
 import javax.swing.*;
 
-public class MyComboBoxModel extends DefaultComboBoxModel {
+public class MyComboBoxModel<T> extends DefaultComboBoxModel<T> {
 
     // TODO inline methods, use super-class.
-    public void add(Object obj) {
+    public void add(T obj) {
         this.addElement(obj);
     }
 
-    public void AddRange(Object... objects) {
-        for (Object obj : objects) {
-            add(obj);
+    public void addRange(T[] objects) {
+        for (T object : objects) {
+            add(object);
         }
     }
 
-    public Object get(int index) {
+    public T get(int index) {
         return getElementAt(index);
     }
 
@@ -23,8 +23,8 @@ public class MyComboBoxModel extends DefaultComboBoxModel {
         removeElementAt(index);
     }
 
-    public void Insert(int index, Object obj) {
-        insertElementAt(obj, index);
+    public void insert(int index, T object) {
+        insertElementAt(object, index);
     }
 
 

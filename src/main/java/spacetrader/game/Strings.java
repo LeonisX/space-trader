@@ -711,8 +711,7 @@ public class Strings {
     // #endregion
 
     // #region DifficultyLevels
-    public static String[] DifficultyLevels = new String[]{"Beginner",
-            "Easy", "Normal", "Hard", "Impossible"};
+    public static String[] DifficultyLevels = new String[]{"Beginner", "Easy", "Normal", "Hard", "Impossible"};
     // #endregion
 
     // #region EquipmentDescriptions

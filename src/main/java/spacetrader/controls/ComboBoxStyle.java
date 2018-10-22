@@ -2,6 +2,6 @@ package spacetrader.controls;
 
 public enum ComboBoxStyle {
 
-    DropDownList
+    DROP_DOWN_LIST
 
 }

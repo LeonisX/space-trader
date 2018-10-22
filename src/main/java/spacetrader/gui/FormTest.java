@@ -68,13 +68,13 @@ public class FormTest extends SpaceTraderForm {
         AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.WildWontStayAboardReactor.ordinal());
 //			for (AlertType type = AlertType.Alert; type.castToInt() <= AlertType.WildWontStayAboardReactor.castToInt(); type++)
         for (AlertType type : alerts)
-            selAlertType.items.add(type);
+            selAlertType.getItems().add(type);
         selAlertType.setSelectedIndex(0);
 
         SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.Artifact.ordinal(), SpecialEventType.WildGetsOut.ordinal());
 //			for (SpecialEventType type = SpecialEventType.Artifact; type < SpecialEventType.WildGetsOut; type++)
         for (SpecialEventType type : events)
-            selSpecialEvent.items.add(type);
+            selSpecialEvent.getItems().add(type);
         selSpecialEvent.setSelectedIndex(0);
     }
 
@@ -171,7 +171,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // selAlertType
         //
-        this.selAlertType.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        this.selAlertType.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         this.selAlertType.setLocation(new java.awt.Point(72, 16));
         this.selAlertType.setName("selAlertType");
         this.selAlertType.setSize(new spacetrader.controls.Size(120, 21));
@@ -233,7 +233,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // selSpecialEvent
         //
-        this.selSpecialEvent.dropDownStyle = spacetrader.controls.ComboBoxStyle.DropDownList;
+        this.selSpecialEvent.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         this.selSpecialEvent.setLocation(new java.awt.Point(88, 16));
         this.selSpecialEvent.setName("selSpecialEvent");
         this.selSpecialEvent.setSize(new spacetrader.controls.Size(104, 21));
