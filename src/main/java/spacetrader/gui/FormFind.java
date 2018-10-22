@@ -22,115 +22,79 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
 package spacetrader.gui;
 
-import spacetrader.controls.DialogResult;
-import spacetrader.controls.FormStartPosition;
+import spacetrader.controls.*;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
+import spacetrader.util.ReflectionUtils;
 
-public class FormFind extends SpaceTraderForm {
-    // #region Control Declarations
+import java.awt.*;
 
-    private spacetrader.controls.Label lblText;
-    private spacetrader.controls.Button btnOk;
-    private spacetrader.controls.Button btnCancel;
-    private spacetrader.controls.TextBox txtSystem;
-    private spacetrader.controls.CheckBox chkTrack;
+class FormFind extends SpaceTraderForm {
 
-    // #endregion
+    private Label questionLabel = new Label();
+    private Button okButton = new Button();
+    private Button cancelButton = new Button();
+    private TextBox systemTextBox = new TextBox();
+    private CheckBox trackSystemCheckBox = new CheckBox();
 
-    // #region Methods
-
-    public FormFind() {
+    FormFind() {
         initializeComponent();
-
-        txtSystem.setText("");
-        chkTrack.setChecked(false);
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        lblText = new spacetrader.controls.Label();
-        btnOk = new spacetrader.controls.Button();
-        btnCancel = new spacetrader.controls.Button();
-        txtSystem = new spacetrader.controls.TextBox();
-        chkTrack = new spacetrader.controls.CheckBox();
+        ReflectionUtils.setAllComponentNames(this);
+        setName("formFind");
+        setText("Find System");
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setAutoScaleBaseSize(new Size(5, 13));
+        setClientSize(new Size(184, 97));
+        setControlBox(false);
+        setShowInTaskbar(false);
+        setAcceptButton(okButton);
+        setCancelButton(cancelButton);
+
         this.suspendLayout();
-        //
-        // lblText
-        //
-        lblText.setAutoSize(true);
-        lblText.setLocation(new java.awt.Point(8, 8));
-        lblText.setName("lblText");
-        lblText.setSize(new spacetrader.controls.Size(177, 13));
-        lblText.setTabIndex(3);
-        lblText.setText("Which system are you looking for?");
-        //
-        // btnOk
-        //
-        btnOk.setDialogResult(DialogResult.OK);
-        btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnOk.setLocation(new java.awt.Point(43, 68));
-        btnOk.setName("btnOk");
-        btnOk.setSize(new spacetrader.controls.Size(40, 22));
-        btnOk.setTabIndex(3);
-        btnOk.setText("Ok");
-        //
-        // btnCancel
-        //
-        btnCancel.setDialogResult(DialogResult.CANCEL);
-        btnCancel.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        btnCancel.setLocation(new java.awt.Point(91, 68));
-        btnCancel.setName("btnCancel");
-        btnCancel.setSize(new spacetrader.controls.Size(50, 22));
-        btnCancel.setTabIndex(4);
-        btnCancel.setText("Cancel");
-        //
-        // txtSystem
-        //
-        txtSystem.setLocation(new java.awt.Point(8, 24));
-        txtSystem.setName("txtSystem");
-        txtSystem.setSize(new spacetrader.controls.Size(168, 20));
-        txtSystem.setTabIndex(1);
-        txtSystem.setText("");
-        //
-        // chkTrack
-        //
-        chkTrack.setLocation(new java.awt.Point(8, 48));
-        chkTrack.setName("chkTrack");
-        chkTrack.setSize(new spacetrader.controls.Size(112, 16));
-        chkTrack.setTabIndex(2);
-        chkTrack.setText("Track this system");
-        //
-        // FormFind
-        //
-        this.setAcceptButton(btnOk);
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setCancelButton(btnCancel);
-        this.setClientSize(new spacetrader.controls.Size(184, 97));
-        this.setControlBox(false);
-        controls.addAll(chkTrack, txtSystem,
-                btnCancel, btnOk, lblText);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FIXED_DIALOG);
-        this.setName("FormFind");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Find System");
+
+        questionLabel.setAutoSize(true);
+        questionLabel.setLocation(new Point(8, 8));
+        questionLabel.setSize(new Size(177, 13));
+        questionLabel.setTabIndex(3);
+        questionLabel.setText("Which system are you looking for?");
+
+        systemTextBox.setLocation(new Point(8, 24));
+        systemTextBox.setSize(new Size(168, 20));
+        systemTextBox.setTabIndex(1);
+
+        trackSystemCheckBox.setLocation(new Point(8, 48));
+        trackSystemCheckBox.setSize(new Size(112, 16));
+        trackSystemCheckBox.setTabIndex(2);
+        trackSystemCheckBox.setText("Track this system");
+
+        okButton.setDialogResult(DialogResult.OK);
+        okButton.setFlatStyle(FlatStyle.FLAT);
+        okButton.setLocation(new Point(43, 68));
+        okButton.setSize(new Size(40, 22));
+        okButton.setTabIndex(3);
+        okButton.setText("Ok");
+
+        cancelButton.setDialogResult(DialogResult.CANCEL);
+        cancelButton.setFlatStyle(FlatStyle.FLAT);
+        cancelButton.setLocation(new Point(91, 68));
+        cancelButton.setSize(new Size(50, 22));
+        cancelButton.setTabIndex(4);
+        cancelButton.setText("Cancel");
+
+        controls.addAll(questionLabel, systemTextBox, trackSystemCheckBox, okButton, cancelButton);
     }
 
-    public String getSystemName() {
-        return txtSystem.getText();
+    String getSystemName() {
+        return systemTextBox.getText();
     }
 
-    public boolean isTrackSystem() {
-        return chkTrack.isChecked();
+    boolean isTrackSystem() {
+        return trackSystemCheckBox.isChecked();
     }
 }
