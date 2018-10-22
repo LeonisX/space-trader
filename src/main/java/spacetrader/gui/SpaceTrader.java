@@ -33,6 +33,8 @@ import spacetrader.stub.*;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 import static spacetrader.controls.MenuItem.separator;
 
@@ -103,99 +105,50 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         ReflectionUtils.setAllComponentNames(this);
 
-        dumpAllDimensions();
-        dumpAllStrings();
+        dumpAll();
 
         ReflectionUtils.loadControlsDimensions(getFrame(), this.getName(), dimensions);
         ReflectionUtils.loadControlsStrings(getFrame(), this.getName(), strings);
         ReflectionUtils.loadStrings(strings);
     }
 
-    private void dumpAllDimensions() {
+    private void dumpAll() {
         Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
         game.getCommander().getShip().getCargo()[1] = 12;
         game.setSelectedSystemId(StarSystemId.Aldea);
         game.warpDirect();
 
-        /*ReflectionUtils.dumpControlsDimensions(getFrame(), this.getName());
-        System.out.println();
-
-        FormAbout formAbout = new FormAbout();
-        ReflectionUtils.dumpControlsDimensions(formAbout.asSwingObject(), formAbout.getName());
-        System.out.println();
-
-        FormAlert formAlert = FormAlert.makeDialog(EncounterDrinkContents, new String[]{});
-        ReflectionUtils.dumpControlsDimensions(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
-        System.out.println();
-
-        FormBuyFuel formBuyFuel = new FormBuyFuel();
-        ReflectionUtils.dumpControlsDimensions(formBuyFuel.asSwingObject(), formBuyFuel.asSwingObject().getName());
-        System.out.println();
-
-        FormBuyRepairs formBuyRepairs = new FormBuyRepairs();
-        ReflectionUtils.dumpControlsDimensions(formBuyRepairs.asSwingObject(), formBuyRepairs.asSwingObject().getName());
-        System.out.println();
-
-        FormCargoBuy formCargoBuy = new FormCargoBuy(1, 1, CargoBuyOp.BUY_SYSTEM);
-        ReflectionUtils.dumpControlsDimensions(formCargoBuy.asSwingObject(), formCargoBuy.asSwingObject().getName());
-        System.out.println();
-
-        FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255);
-        ReflectionUtils.dumpControlsDimensions(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
-        System.out.println();
-
-        Component formCosts = new FormCosts().asSwingObject();
-        ReflectionUtils.dumpControlsDimensions(formCosts, formCosts.getName());
-        System.out.println();*/
-
-        Component formEncounter = new FormEncounter().asSwingObject();
-        ReflectionUtils.dumpControlsDimensions(formEncounter, formEncounter.getName());
-        System.out.println();
+        List<BaseComponent> components = Arrays.asList(
+                /*this,
+                new FormAbout(),
+                FormAlert.makeDialog(EncounterDrinkContents, new String[]{}),
+                new FormBuyFuel(),
+                new FormBuyRepairs(),
+                new FormCargoBuy(1, 1, CargoBuyOp.BUY_SYSTEM),
+                new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255),
+                new FormCosts(),
+                new FormEncounter(),*/
+                new FormEquipment()
+        );
+        dumpAllDimensions(components);
+        dumpAllStrings(components);
     }
 
-    private void dumpAllStrings() {
+    private void dumpAllDimensions(List<BaseComponent> components) {
+        components.forEach(baseComponent -> {
+            Component component = baseComponent.asSwingObject();
+            ReflectionUtils.dumpControlsDimensions(component, component.getName());
+            System.out.println();
+        });
+    }
+
+    private void dumpAllStrings(List<BaseComponent> components) {
         //ReflectionUtils.dumpAllAlertStrings();
-
-        Game game = new Game("name", Difficulty.Beginner,8,8,8,8, this);
-        game.getCommander().getShip().getCargo()[1] = 12;
-        game.setSelectedSystemId(StarSystemId.Aldea);
-        game.warpDirect();
-
-        /*ReflectionUtils.dumpControlsStrings(getFrame(), this.getName());
-        System.out.println();
-
-        FormAbout formAbout = new FormAbout();
-        ReflectionUtils.dumpControlsStrings(formAbout.asSwingObject(), formAbout.getName());
-        System.out.println();
-
-        FormAlert formAlert = FormAlert.makeDialog(EncounterDrinkContents, new String[]{});
-        ReflectionUtils.dumpControlsStrings(formAlert.asSwingObject(), formAlert.asSwingObject().getName());
-        System.out.println();
-
-        FormBuyFuel formBuyFuel = new FormBuyFuel();
-        ReflectionUtils.dumpControlsStrings(formBuyFuel.asSwingObject(), formBuyFuel.asSwingObject().getName());
-        System.out.println();
-
-        FormBuyRepairs formBuyRepairs = new FormBuyRepairs();
-        ReflectionUtils.dumpControlsStrings(formBuyRepairs.asSwingObject(), formBuyRepairs.asSwingObject().getName());
-        System.out.println();
-
-        FormCargoBuy formCargoBuy = new FormCargoBuy(1, 1, CargoBuyOp.BUY_SYSTEM);
-        ReflectionUtils.dumpControlsStrings(formCargoBuy.asSwingObject(), formCargoBuy.asSwingObject().getName());
-        System.out.println();
-
-        FormCargoSell formCargoSell = new FormCargoSell(1, 1, CargoSellOp.JETTISON,255);
-        ReflectionUtils.dumpControlsStrings(formCargoSell.asSwingObject(), formCargoSell.asSwingObject().getName());
-        System.out.println();
-
-        Component formCosts = new FormCosts().asSwingObject();
-        ReflectionUtils.dumpControlsStrings(formCosts, formCosts.getName());
-        System.out.println();*/
-
-        Component formEncounter = new FormEncounter().asSwingObject();
-        ReflectionUtils.dumpControlsStrings(formEncounter, formEncounter.getName());
-        System.out.println();
-
+        components.forEach(baseComponent -> {
+            Component component = baseComponent.asSwingObject();
+            ReflectionUtils.dumpControlsStrings(component, component.getName());
+            System.out.println();
+        });
         //ReflectionUtils.dumpStrings();
     }
 
