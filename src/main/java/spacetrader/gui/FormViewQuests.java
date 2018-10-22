@@ -77,7 +77,7 @@ public class FormViewQuests extends SpaceTraderForm {
         //
         // lblQuests
         //
-        this.lblQuests.LinkArea = new spacetrader.controls.LinkArea(0, 0);
+        this.lblQuests.setLinkArea(new LinkArea(0, 0));
         this.lblQuests.setLocation(new java.awt.Point(8, 8));
         this.lblQuests.setName("lblQuests");
         this.lblQuests.setSize(new spacetrader.controls.Size(368, 312));
@@ -103,12 +103,12 @@ public class FormViewQuests extends SpaceTraderForm {
                 + "Smuggle Jonathan Wild to Kravat.  Wild is getting impatient, and will no longer aid your crew along the way."
                 + "\n\n" + "Get rid of those pesky tribbles." + "\n\n"
                 + "Claim your moon at Utopia.");
-        this.lblQuests.LinkClicked = new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        this.lblQuests.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             public void handle(Object sender,
                                spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
                 lblQuests_LinkClicked(sender, e);
             }
-        };
+        });
         //
         // FormViewQuests
         //
@@ -281,7 +281,7 @@ public class FormViewQuests extends SpaceTraderForm {
                 int index = -1;
 
                 while ((index = lblQuests.getText().indexOf(systemName, start)) >= 0) {
-                    lblQuests.Links.add(index, systemName.length(), systemName);
+                    lblQuests.getLinks().add(index, systemName.length(), systemName);
                     start = index + systemName.length();
                 }
             }
