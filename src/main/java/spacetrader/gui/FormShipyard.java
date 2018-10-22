@@ -721,7 +721,7 @@ public class FormShipyard extends SpaceTraderForm {
         numHullStrength.setReadOnly(true);
         numHullStrength.setSize(new spacetrader.controls.Size(64, 20));
         numHullStrength.setTabIndex(1);
-        numHullStrength.TextAlign = spacetrader.controls.HorizontalAlignment.Right;
+        numHullStrength.setTextAlign(HorizontalAlignment.RIGHT);
         numHullStrength.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -753,7 +753,7 @@ public class FormShipyard extends SpaceTraderForm {
         numCargoBays.setReadOnly(true);
         numCargoBays.setSize(new spacetrader.controls.Size(64, 20));
         numCargoBays.setTabIndex(3);
-        numCargoBays.TextAlign = spacetrader.controls.HorizontalAlignment.Right;
+        numCargoBays.setTextAlign(HorizontalAlignment.RIGHT);
         numCargoBays.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -776,7 +776,7 @@ public class FormShipyard extends SpaceTraderForm {
         numCrewQuarters.setReadOnly(true);
         numCrewQuarters.setSize(new spacetrader.controls.Size(64, 20));
         numCrewQuarters.setTabIndex(4);
-        numCrewQuarters.TextAlign = spacetrader.controls.HorizontalAlignment.Right;
+        numCrewQuarters.setTextAlign(HorizontalAlignment.RIGHT);
         numCrewQuarters.setValue(1);
         numCrewQuarters.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
@@ -799,7 +799,7 @@ public class FormShipyard extends SpaceTraderForm {
         numFuelTanks.setReadOnly(true);
         numFuelTanks.setSize(new spacetrader.controls.Size(64, 20));
         numFuelTanks.setTabIndex(2);
-        numFuelTanks.TextAlign = spacetrader.controls.HorizontalAlignment.Right;
+        numFuelTanks.setTextAlign(HorizontalAlignment.RIGHT);
         numFuelTanks.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -821,7 +821,7 @@ public class FormShipyard extends SpaceTraderForm {
         numShieldSlots.setReadOnly(true);
         numShieldSlots.setSize(new spacetrader.controls.Size(64, 20));
         numShieldSlots.setTabIndex(6);
-        numShieldSlots.TextAlign = spacetrader.controls.HorizontalAlignment.Right;
+        numShieldSlots.setTextAlign(HorizontalAlignment.RIGHT);
         numShieldSlots.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -843,7 +843,7 @@ public class FormShipyard extends SpaceTraderForm {
         numGadgetSlots.setReadOnly(true);
         numGadgetSlots.setSize(new spacetrader.controls.Size(64, 20));
         numGadgetSlots.setTabIndex(7);
-        numGadgetSlots.TextAlign = spacetrader.controls.HorizontalAlignment.Right;
+        numGadgetSlots.setTextAlign(HorizontalAlignment.RIGHT);
         numGadgetSlots.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -865,7 +865,7 @@ public class FormShipyard extends SpaceTraderForm {
         numWeaponSlots.setReadOnly(true);
         numWeaponSlots.setSize(new spacetrader.controls.Size(64, 20));
         numWeaponSlots.setTabIndex(5);
-        numWeaponSlots.TextAlign = spacetrader.controls.HorizontalAlignment.Right;
+        numWeaponSlots.setTextAlign(HorizontalAlignment.RIGHT);
         numWeaponSlots.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -1306,7 +1306,7 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void num_ValueEnter(Object sender, EventArgs e) {
-        ((NumericUpDown) sender).Select(0, ("" + ((NumericUpDown) sender).getValue()).length());
+        ((NumericUpDown) sender).select(0, ("" + ((NumericUpDown) sender).getValue()).length());
     }
 
     private void selSize_SelectedIndexChanged(Object sender, EventArgs e) {

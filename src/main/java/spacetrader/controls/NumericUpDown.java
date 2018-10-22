@@ -1,8 +1,6 @@
 package spacetrader.controls;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.JTextComponent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -10,8 +8,8 @@ import java.awt.event.FocusEvent;
 public class NumericUpDown extends BaseComponent {
 
     private final SpinnerNumberModel model = new SpinnerNumberModel();
-    public boolean ThousandsSeparator;
-    public HorizontalAlignment TextAlign;
+    private boolean thousandsSeparator;
+    private HorizontalAlignment textAlign;
 
     public NumericUpDown() {
         super(new JSpinner());
@@ -24,26 +22,34 @@ public class NumericUpDown extends BaseComponent {
             public void focusGained(FocusEvent e) {
                 if (e.getSource() instanceof JTextComponent) {
                     final JTextComponent textComponent = ((JTextComponent) e.getSource());
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            textComponent.selectAll();
-                        }
-                    });
+                    SwingUtilities.invokeLater(textComponent::selectAll);
                 }
             }
         });
     }
 
-    public void Select(int i, int length) {
-        // TODO implement NumericUpDown.Select (text)
+    public boolean isThousandsSeparator() {
+        return thousandsSeparator;
+    }
+
+    public void setThousandsSeparator(boolean thousandsSeparator) {
+        this.thousandsSeparator = thousandsSeparator;
+    }
+
+    public HorizontalAlignment getTextAlign() {
+        return textAlign;
+    }
+
+    public void setTextAlign(HorizontalAlignment textAlign) {
+        this.textAlign = textAlign;
+    }
+
+    public void select(int i, int length) {
+        // TODO implement NumericUpDown.select (text)
     }
 
     public void setValueChanged(final EventHandler<Object, EventArgs> valueChanged) {
-        asJSpinner().addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                valueChanged.handle(NumericUpDown.this, null);
-            }
-        });
+        asJSpinner().addChangeListener(e -> valueChanged.handle(NumericUpDown.this, null));
     }
 
     private JSpinner asJSpinner() {
@@ -52,7 +58,7 @@ public class NumericUpDown extends BaseComponent {
 
     public int getMaximum() {
         Integer maximum = (Integer) model.getMaximum();
-        return maximum == null ? Integer.MAX_VALUE : maximum;
+        return (maximum == null) ? Integer.MAX_VALUE : maximum;
     }
 
     public void setMaximum(int maximum) {
@@ -61,7 +67,7 @@ public class NumericUpDown extends BaseComponent {
 
     public int getMinimum() {
         Integer minimum = (Integer) model.getMinimum();
-        return minimum == null ? 0 : minimum;
+        return (minimum == null) ? 0 : minimum;
     }
 
     public void setMinimum(int minimum) {

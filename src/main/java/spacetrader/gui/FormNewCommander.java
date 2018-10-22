@@ -197,7 +197,7 @@ public class FormNewCommander extends SpaceTraderForm {
         this.numPilot.setName("numPilot");
         this.numPilot.setSize(new spacetrader.controls.Size(36, 20));
         this.numPilot.setTabIndex(3);
-        this.numPilot.TextAlign = spacetrader.controls.HorizontalAlignment.Center;
+        this.numPilot.setTextAlign(HorizontalAlignment.CENTER);
         this.numPilot.setValue(1);
         this.numPilot.setEnter(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -223,7 +223,7 @@ public class FormNewCommander extends SpaceTraderForm {
         this.numFighter.setName("numFighter");
         this.numFighter.setSize(new spacetrader.controls.Size(36, 20));
         this.numFighter.setTabIndex(4);
-        this.numFighter.TextAlign = spacetrader.controls.HorizontalAlignment.Center;
+        this.numFighter.setTextAlign(HorizontalAlignment.CENTER);
         this.numFighter.setValue(1);
         this.numFighter.setEnter(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -249,7 +249,7 @@ public class FormNewCommander extends SpaceTraderForm {
         this.numTrader.setName("numTrader");
         this.numTrader.setSize(new spacetrader.controls.Size(36, 20));
         this.numTrader.setTabIndex(5);
-        this.numTrader.TextAlign = spacetrader.controls.HorizontalAlignment.Center;
+        this.numTrader.setTextAlign(HorizontalAlignment.CENTER);
         this.numTrader.setValue(1);
         this.numTrader.setEnter(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -275,7 +275,7 @@ public class FormNewCommander extends SpaceTraderForm {
         this.numEngineer.setName("numEngineer");
         this.numEngineer.setSize(new spacetrader.controls.Size(36, 20));
         this.numEngineer.setTabIndex(6);
-        this.numEngineer.TextAlign = spacetrader.controls.HorizontalAlignment.Center;
+        this.numEngineer.setTextAlign(HorizontalAlignment.CENTER);
         this.numEngineer.setValue(1);
         this.numEngineer.setEnter(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
@@ -369,7 +369,7 @@ public class FormNewCommander extends SpaceTraderForm {
     }
 
     private void num_ValueEnter(Object sender, EventArgs e) {
-        ((NumericUpDown) sender).Select(0, ("" + ((NumericUpDown) sender).getValue()).length());
+        ((NumericUpDown) sender).select(0, ("" + ((NumericUpDown) sender).getValue()).length());
     }
 
     private void txtName_TextChanged(Object sender, EventArgs e) {

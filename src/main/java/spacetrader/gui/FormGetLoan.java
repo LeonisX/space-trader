@@ -22,151 +22,104 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.game.Functions;
-import spacetrader.game.Strings;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
+import spacetrader.util.ReflectionUtils;
 
+import java.awt.*;
 import java.util.Arrays;
 
-public class FormGetLoan extends SpaceTraderForm {
-    // #region Control Declarations
+import static spacetrader.game.Functions.multiples;
+import static spacetrader.game.Functions.stringVars;
+import static spacetrader.game.Strings.BankLoanStatementBorrow;
+import static spacetrader.game.Strings.MoneyUnit;
 
-    private spacetrader.controls.Button btnOk;
-    private spacetrader.controls.Label lblQuestion;
-    private spacetrader.controls.Button btnMax;
-    private spacetrader.controls.Button btnNothing;
-    private spacetrader.controls.NumericUpDown numAmount;
-    private spacetrader.controls.Label lblStatement;
+class FormGetLoan extends SpaceTraderForm {
 
-    public FormGetLoan(int max) {
+    private Button okButton = new Button();
+    private Label questionLabel = new Label();
+    private Button maxButton = new Button();
+    private Button nothingButton = new Button();
+    private NumericUpDown numAmount = new NumericUpDown();
+    private Label statementLabelValue = new Label();
+
+    FormGetLoan(int max) {
         initializeComponent();
 
         numAmount.setMaximum(max);
         numAmount.setValue(numAmount.getMinimum());
-        lblStatement.setText(Functions.stringVars(Strings.BankLoanStatementBorrow, Functions.multiples(max,
-                Strings.MoneyUnit)));
+        statementLabelValue.setText(stringVars(BankLoanStatementBorrow, multiples(max, MoneyUnit)));
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        this.lblQuestion = new spacetrader.controls.Label();
-        this.numAmount = new spacetrader.controls.NumericUpDown();
-        this.btnOk = new spacetrader.controls.Button();
-        this.btnMax = new spacetrader.controls.Button();
-        this.btnNothing = new spacetrader.controls.Button();
-        this.lblStatement = new spacetrader.controls.Label();
-        ((ISupportInitialize) (this.numAmount)).beginInit();
-        this.suspendLayout();
-        //
-        // lblQuestion
-        //
-        this.lblQuestion.setAutoSize(true);
-        this.lblQuestion.setLocation(new java.awt.Point(8, 24));
-        this.lblQuestion.setName("lblQuestion");
-        this.lblQuestion.setSize(new spacetrader.controls.Size(178, 13));
-        this.lblQuestion.setTabIndex(3);
-        this.lblQuestion.setText("How much do you want to borrow?");
-        //
-        // numAmount
-        //
-        this.numAmount.setLocation(new java.awt.Point(184, 22));
-        this.numAmount.setMaximum(99999);
-        this.numAmount.setMinimum(1);
-        this.numAmount.setName("numAmount");
-        this.numAmount.setSize(new spacetrader.controls.Size(58, 20));
-        this.numAmount.setTabIndex(1);
-        this.numAmount.ThousandsSeparator = true;
-        this.numAmount.setValue(88888);
-        //
-        // btnOk
-        //
-        this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnOk.setLocation(new java.awt.Point(52, 48));
-        this.btnOk.setName("btnOk");
-        this.btnOk.setSize(new spacetrader.controls.Size(41, 22));
-        this.btnOk.setTabIndex(2);
-        this.btnOk.setText("Ok");
-        //
-        // btnMax
-        //
-        this.btnMax.setDialogResult(DialogResult.OK);
-        this.btnMax.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnMax.setLocation(new java.awt.Point(100, 48));
-        this.btnMax.setName("btnMax");
-        this.btnMax.setSize(new spacetrader.controls.Size(41, 22));
-        this.btnMax.setTabIndex(3);
-        this.btnMax.setText("Max");
-        this.btnMax.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnMax_Click(sender, e);
+        ReflectionUtils.setAllComponentNames(this);
+
+        setName("formGetLoan");
+        setText("Get Loan");
+        setAutoScaleBaseSize(new Size(5, 13));
+        setClientSize(new Size(252, 79));
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setControlBox(false);
+        setShowInTaskbar(false);
+        setAcceptButton(okButton);
+        setCancelButton(nothingButton);
+
+        ((ISupportInitialize) (numAmount)).beginInit();
+        suspendLayout();
+
+        statementLabelValue.setLocation(new Point(8, 8));
+        statementLabelValue.setSize(new Size(189, 13));
+        statementLabelValue.setTabIndex(5);
+        //statementLabelValue.setText("You can borrow up to 88,888 credits.");
+
+        questionLabel.setAutoSize(true);
+        questionLabel.setLocation(new Point(8, 24));
+        questionLabel.setSize(new Size(178, 13));
+        questionLabel.setTabIndex(3);
+        questionLabel.setText("How much do you want to borrow?");
+
+        numAmount.setLocation(new Point(184, 22));
+        numAmount.setMinimum(1);
+        numAmount.setSize(new Size(64, 20));
+        numAmount.setTabIndex(1);
+        numAmount.setThousandsSeparator(true);
+
+        okButton.setDialogResult(DialogResult.OK);
+        okButton.setFlatStyle(FlatStyle.FLAT);
+        okButton.setLocation(new Point(52, 48));
+        okButton.setSize(new Size(41, 22));
+        okButton.setTabIndex(2);
+        okButton.setText("Ok");
+
+        maxButton.setDialogResult(DialogResult.OK);
+        maxButton.setFlatStyle(FlatStyle.FLAT);
+        maxButton.setLocation(new Point(100, 48));
+        maxButton.setSize(new Size(41, 22));
+        maxButton.setTabIndex(3);
+        maxButton.setText("Max");
+        maxButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                numAmount.setValue(numAmount.getMaximum());
             }
         });
-        //
-        // btnNothing
-        //
-        this.btnNothing.setDialogResult(DialogResult.CANCEL);
-        this.btnNothing.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnNothing.setLocation(new java.awt.Point(148, 48));
-        this.btnNothing.setName("btnNothing");
-        this.btnNothing.setSize(new spacetrader.controls.Size(53, 22));
-        this.btnNothing.setTabIndex(4);
-        this.btnNothing.setText("Nothing");
-        //
-        // lblStatement
-        //
-        this.lblStatement.setLocation(new java.awt.Point(8, 8));
-        this.lblStatement.setName("lblStatement");
-        this.lblStatement.setSize(new spacetrader.controls.Size(189, 13));
-        this.lblStatement.setTabIndex(5);
-        this.lblStatement.setText("You can borrow up to 88,888 credits.");
-        //
-        // FormGetLoan
-        //
-        this.setAcceptButton(this.btnOk);
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setCancelButton(this.btnNothing);
-        this.setClientSize(new spacetrader.controls.Size(252, 79));
-        this.setControlBox(false);
-        this.controls.addAll(Arrays.asList(this.lblStatement, this.btnNothing, this.btnMax, this.btnOk, this.numAmount,
-                this.lblQuestion));
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FIXED_DIALOG);
-        this.setName("FormGetLoan");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Get Loan");
-        ((ISupportInitialize) (this.numAmount)).endInit();
+
+        nothingButton.setDialogResult(DialogResult.CANCEL);
+        nothingButton.setFlatStyle(FlatStyle.FLAT);
+        nothingButton.setLocation(new Point(148, 48));
+        nothingButton.setSize(new Size(53, 22));
+        nothingButton.setTabIndex(4);
+        nothingButton.setText("Nothing");
+
+        ((ISupportInitialize) (numAmount)).endInit();
+
+        controls.addAll(Arrays.asList(statementLabelValue, nothingButton, maxButton, okButton, numAmount, questionLabel));
     }
 
-    // #endregion
-
-    // #endregion
-
-    // #region Event Handlers
-
-    private void btnMax_Click(Object sender, EventArgs e) {
-        numAmount.setValue(numAmount.getMaximum());
-    }
-
-    // #endregion
-
-    // #region Properties
-
-
-    public int Amount() {
+    int getAmount() {
         return numAmount.getValue();
     }
-
-    // #endregion
 }

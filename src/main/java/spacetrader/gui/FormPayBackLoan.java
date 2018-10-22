@@ -88,7 +88,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         numAmount.setName("numAmount");
         numAmount.setSize(new spacetrader.controls.Size(58, 20));
         numAmount.setTabIndex(1);
-        numAmount.ThousandsSeparator = true;
+        numAmount.setThousandsSeparator(true);
         numAmount.setValue(88888);
         //
         // btnOk
