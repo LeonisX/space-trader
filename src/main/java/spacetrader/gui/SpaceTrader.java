@@ -20,23 +20,54 @@
 
 package spacetrader.gui;
 
-import spacetrader.controls.*;
-import spacetrader.controls.Container;
-import spacetrader.controls.Image;
-import spacetrader.controls.MenuItem;
-import spacetrader.controls.Size;
-import spacetrader.game.*;
-import spacetrader.game.enums.*;
-import spacetrader.guifacade.GuiFacade;
-import spacetrader.guifacade.MainWindow;
-import spacetrader.stub.*;
-import spacetrader.util.ReflectionUtils;
+import static spacetrader.controls.MenuItem.separator;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.List;
-
-import static spacetrader.controls.MenuItem.separator;
+import spacetrader.controls.BaseComponent;
+import spacetrader.controls.CancelEventArgs;
+import spacetrader.controls.Container;
+import spacetrader.controls.DialogResult;
+import spacetrader.controls.EventArgs;
+import spacetrader.controls.EventHandler;
+import spacetrader.controls.FormBorderStyle;
+import spacetrader.controls.FormStartPosition;
+import spacetrader.controls.HorizontalLine;
+import spacetrader.controls.IContainer;
+import spacetrader.controls.Icon;
+import spacetrader.controls.Image;
+import spacetrader.controls.ImageList;
+import spacetrader.controls.ImageListStreamer;
+import spacetrader.controls.MainMenu;
+import spacetrader.controls.MenuItem;
+import spacetrader.controls.OpenFileDialog;
+import spacetrader.controls.ResourceManager;
+import spacetrader.controls.SaveFileDialog;
+import spacetrader.controls.Shortcut;
+import spacetrader.controls.Size;
+import spacetrader.controls.SubMenu;
+import spacetrader.controls.WinformWindow;
+import spacetrader.game.Commander;
+import spacetrader.game.Consts;
+import spacetrader.game.Functions;
+import spacetrader.game.Game;
+import spacetrader.game.GameController;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.Difficulty;
+import spacetrader.game.enums.GameEndType;
+import spacetrader.game.enums.ShipType;
+import spacetrader.game.enums.StarSystemId;
+import spacetrader.guifacade.GuiFacade;
+import spacetrader.guifacade.MainWindow;
+import spacetrader.stub.Directory;
+import spacetrader.stub.PropertiesLoader;
+import spacetrader.stub.RegistryKey;
+import spacetrader.stub.StringsMap;
+import spacetrader.stub.ValuesMap;
+import spacetrader.util.ReflectionUtils;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
 
@@ -134,9 +165,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 new FormJettison(),
                 new FormMonster(),
                 new FormNewCommander(),
-                new FormOptions(),*/
-                new FormPayBackLoan()
-        );
+                new FormOptions(),
+                new FormPayBackLoan(),*/
+                new FormPlunder()
+                                                      );
         dumpAllDimensions(components);
         dumpAllStrings(components);
     }

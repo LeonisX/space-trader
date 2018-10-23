@@ -33,6 +33,7 @@ import spacetrader.controls.*;
 import spacetrader.game.*;
 
 import java.util.Arrays;
+import spacetrader.gui.debug.Launcher;
 
 public class FormViewCommander extends SpaceTraderForm {
     private spacetrader.controls.Button btnClose;

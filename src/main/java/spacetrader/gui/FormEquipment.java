@@ -32,6 +32,7 @@ import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.GadgetType;
+import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.ReflectionUtils;
 

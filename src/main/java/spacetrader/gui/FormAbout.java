@@ -29,6 +29,7 @@ import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
+import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
 import javax.swing.*;

@@ -44,6 +44,7 @@ import spacetrader.controls.Size;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
 import spacetrader.game.enums.Difficulty;
+import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
 public class FormPayBackLoan extends SpaceTraderForm {

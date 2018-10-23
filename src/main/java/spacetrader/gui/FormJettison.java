@@ -29,6 +29,7 @@ import spacetrader.controls.Label;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.Difficulty;
+import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
 

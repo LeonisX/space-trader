@@ -983,7 +983,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         cargoBuy(tradeItem, false, CargoBuyOp.BUY_TRADER);
     }
 
-    public void CargoPlunder(int tradeItem, boolean max) {
+    public void cargoPlunder(int tradeItem, boolean max) {
         cargoBuy(tradeItem, max, CargoBuyOp.PLUNDER);
     }
 

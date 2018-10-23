@@ -34,6 +34,7 @@ import spacetrader.controls.Button;
 import spacetrader.controls.Label;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
+import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
 import javax.swing.*;
