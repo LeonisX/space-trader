@@ -73,10 +73,10 @@ public class FormNewCommander extends SpaceTraderForm {
         setAcceptButton(okButton);
         setCancelButton(closeButton);
         
-        ((ISupportInitialize) (numPilot)).beginInit();
-        ((ISupportInitialize) (numFighter)).beginInit();
-        ((ISupportInitialize) (numTrader)).beginInit();
-        ((ISupportInitialize) (numEngineer)).beginInit();
+        numPilot.beginInit();
+        numFighter.beginInit();
+        numTrader.beginInit();
+        numEngineer.beginInit();
         suspendLayout();
 
         nameLabel.setAutoSize(true);
@@ -259,10 +259,10 @@ public class FormNewCommander extends SpaceTraderForm {
                 skillPointsLabelValue, skillPointsRemainingLabel, pilotLabel, numPilot, fighterLabel, numFighter,
                 traderLabel, numTrader, engineerLabel, numEngineer, okButton, closeButton);
         
-        ((ISupportInitialize) (numPilot)).endInit();
-        ((ISupportInitialize) (numFighter)).endInit();
-        ((ISupportInitialize) (numTrader)).endInit();
-        ((ISupportInitialize) (numEngineer)).endInit();
+        numPilot.endInit();
+        numFighter.endInit();
+        numTrader.endInit();
+        numEngineer.endInit();
     }
 
     private void updateOkEnabled() {
