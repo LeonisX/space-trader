@@ -25,10 +25,29 @@
 
 package spacetrader.gui.cheat;
 
-import spacetrader.controls.*;
+import java.awt.Point;
+import spacetrader.controls.BorderStyle;
 import spacetrader.controls.Button;
+import spacetrader.controls.ContentAlignment;
+import spacetrader.controls.DialogResult;
+import spacetrader.controls.EventHandler;
+import spacetrader.controls.FormBorderStyle;
+import spacetrader.controls.FormStartPosition;
+import spacetrader.controls.HorizontalLine;
 import spacetrader.controls.Label;
-import spacetrader.game.*;
+import spacetrader.controls.LinkArea;
+import spacetrader.controls.LinkLabel;
+import spacetrader.controls.LinkLabelLinkClickedEventArgs;
+import spacetrader.controls.SimplePanel;
+import spacetrader.controls.Size;
+import spacetrader.controls.VerticalLine;
+import spacetrader.game.Consts;
+import spacetrader.game.CrewMember;
+import spacetrader.game.Functions;
+import spacetrader.game.Game;
+import spacetrader.game.SomeStringsForCheatSwitch;
+import spacetrader.game.StarSystem;
+import spacetrader.game.Strings;
 import spacetrader.game.enums.ShipyardId;
 import spacetrader.gui.FontCollection;
 import spacetrader.gui.SpaceTraderForm;
@@ -36,8 +55,6 @@ import spacetrader.stub.ArrayList;
 import spacetrader.util.CheatCode;
 import spacetrader.util.ReflectionUtils;
 import spacetrader.util.Util;
-
-import java.awt.*;
 
 @CheatCode
 public class FormMonster extends SpaceTraderForm {
@@ -467,9 +484,9 @@ public class FormMonster extends SpaceTraderForm {
             }
 
             if (strCompare) {
-                compareVal = ((String) valA).compareTo((String) valB);
+                compareVal = Util.compareTo((String) valA, (String) valB);
             } else {
-                compareVal = ((Integer) valA).compareTo((Integer) valB);
+                compareVal = Util.compareTo((Integer) valA, (Integer) valB);
             }
 
             // Secondary sort by Name
@@ -573,7 +590,7 @@ public class FormMonster extends SpaceTraderForm {
     }
 
     private void sort(String sortWhat, String sortBy) {
-        Integer[] array = null;
+        Integer[] array;
         switch (SomeStringsForCheatSwitch.valueOf(sortWhat)) {
             case M:
                 array = mercIds;
@@ -584,6 +601,8 @@ public class FormMonster extends SpaceTraderForm {
             case S:
                 array = shipyardSystemIds;
                 break;
+            default:
+                return;
         }
 
         for (int i = 0; i < array.length - 1; i++) {
@@ -696,7 +715,7 @@ public class FormMonster extends SpaceTraderForm {
     }
 
     private void sortLinkClicked(Object sender) {
-        sort(((LinkLabel) sender).getName().substring(3, 1), ((LinkLabel) sender).getText().substring(0, 1));
+        sort(((LinkLabel) sender).getName().substring(0, 1).toUpperCase(), ((LinkLabel) sender).getText().substring(0, 1));
         updateAll();
     }
 }
