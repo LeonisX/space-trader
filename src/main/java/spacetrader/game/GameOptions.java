@@ -95,7 +95,7 @@ public class GameOptions extends STSerializableObject {
 
     public GameOptions(boolean loadFromDefaults) {
         if (loadFromDefaults)
-            LoadFromDefaults(false);
+            loadFromDefaults(false);
     }
 
     public GameOptions(Hashtable hash) {
@@ -119,7 +119,7 @@ public class GameOptions extends STSerializableObject {
         _leaveEmpty = getValueFromHash(hash, "_leaveEmpty", _leaveEmpty);
     }
 
-    public void CopyValues(GameOptions source) {
+    public void copyValues(GameOptions source) {
         setAlwaysIgnorePirates(source.getAlwaysIgnorePirates());
         setAlwaysIgnorePolice(source.getAlwaysIgnorePolice());
         setAlwaysIgnoreTradeInOrbit(source.getAlwaysIgnoreTradeInOrbit());
@@ -138,7 +138,7 @@ public class GameOptions extends STSerializableObject {
         setLeaveEmpty(source.getLeaveEmpty());
     }
 
-    public void LoadFromDefaults(boolean errorIfFileNotFound) {
+    public void loadFromDefaults(boolean errorIfFileNotFound) {
 
         GameOptions defaults = null;
 
@@ -148,10 +148,10 @@ public class GameOptions extends STSerializableObject {
         else
             defaults = new GameOptions((Hashtable) obj);
 
-        CopyValues(defaults);
+        copyValues(defaults);
     }
 
-    public void SaveAsDefaults() {
+    public void saveAsDefaults() {
         Functions.saveFile(Consts.DefaultSettingsFile, serialize());
     }
 

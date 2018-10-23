@@ -132,8 +132,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 new FormFind(),
                 new FormGetLoan(25000),
                 new FormJettison(),
-                new FormMonster(),*/
-                new FormNewCommander()
+                new FormMonster(),
+                new FormNewCommander(),*/
+                new FormOptions()
         );
         dumpAllDimensions(components);
         dumpAllStrings(components);
@@ -594,7 +595,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             setInGameControlsEnabled(true);
             updateAll();
 
-            if (game.Options().getNewsAutoShow()) {
+            if (game.getOptions().getNewsAutoShow()) {
                 game.showNewspaper();
             }
         }
@@ -634,7 +635,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private void mnuOptions_Click() {
         FormOptions form = new FormOptions();
         if (form.showDialog(this) == DialogResult.OK) {
-            game.Options().CopyValues(form.Options());
+            game.getOptions().copyValues(form.getOptions());
             updateAll();
         }
     }

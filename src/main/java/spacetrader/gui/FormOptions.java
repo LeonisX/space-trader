@@ -22,11 +22,6 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
@@ -38,502 +33,373 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
+import spacetrader.util.ReflectionUtils;
 
-public class FormOptions extends SpaceTraderForm {
-    // #region Control Declarations
+class FormOptions extends SpaceTraderForm {
 
-    private Button btnOk;
-    private Button btnCancel;
-    private Label lblEmpty;
-    private Label lblIgnore;
-    private CheckBox chkFuel;
-    private CheckBox chkContinuousAttack;
-    private CheckBox chkAttackFleeing;
-    private CheckBox chkDisable;
-    private CheckBox chkNewspaper;
-    private CheckBox chkNewspaperShow;
-    private CheckBox chkRange;
-    private CheckBox chkStopTracking;
-    private CheckBox chkLoan;
-    private CheckBox chkIgnoreTradersDealing;
-    private CheckBox chkReserveMoney;
-    private CheckBox chkIgnoreTraders;
-    private CheckBox chkIgnorePirates;
-    private CheckBox chkIgnorePolice;
-    private CheckBox chkRepair;
-    private NumericUpDown numEmpty;
-    private Button btnSave;
-    private Button btnLoad;
+    private Button okButton = new Button();
+    private Button cancelButton = new Button();
+    private Label emptyLabel = new Label();
+    private Label ignoreLabel = new Label();
+    private CheckBox fuelCheckBox = new CheckBox();
+    private CheckBox continuousAttackCheckBox = new CheckBox();
+    private CheckBox attackFleeingCheckBox = new CheckBox();
+    private CheckBox disableOpponentsCheckBox = new CheckBox();
+    private CheckBox newspaperCheckBox = new CheckBox();
+    private CheckBox showNewspaperCheckBox = new CheckBox();
+    private CheckBox rangeCheckBox = new CheckBox();
+    private CheckBox stopTrackingCheckBox = new CheckBox();
+    private CheckBox loanCheckBox = new CheckBox();
+    private CheckBox ignoreDealingTradersCheckBox = new CheckBox();
+    private CheckBox reserveMoneyCheckBox = new CheckBox();
+    private CheckBox ignoreTradersCheckBox = new CheckBox();
+    private CheckBox ignorePiratesCheckBox = new CheckBox();
+    private CheckBox ignorePoliceCheckBox = new CheckBox();
+    private CheckBox repairCheckBox = new CheckBox();
+    private NumericUpDown emptyNumericUpDown = new NumericUpDown();
+    private Button saveButton = new Button();
+    private Button loadButton = new Button();
 
-    // #endregion
-
-    // #region Member Declarations
-
-    private Game game = Game.getCurrentGame();
     private boolean initializing = true;
 
-    private GameOptions _options = new GameOptions(false);
+    private GameOptions options = new GameOptions(false);
 
-    // #endregion
-
-    // #region Methods
-
-    public FormOptions() {
+    FormOptions() {
         initializeComponent();
 
+        Game game = Game.getCurrentGame();
         if (game != null)
-            Options().CopyValues(game.Options());
+            getOptions().copyValues(game.getOptions());
         else {
-            Options().LoadFromDefaults(false);
-            btnOk.setEnabled(false);
+            getOptions().loadFromDefaults(false);
+            okButton.setEnabled(false);
             GuiFacade.alert(AlertType.OptionsNoGame);
         }
 
-        UpdateAll();
+        updateAll();
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        this.btnOk = new Button();
-        this.btnCancel = new Button();
-        this.lblEmpty = new Label();
-        this.chkFuel = new CheckBox();
-        this.chkContinuousAttack = new CheckBox();
-        this.chkAttackFleeing = new CheckBox();
-        this.chkNewspaper = new CheckBox();
-        this.chkRange = new CheckBox();
-        this.chkStopTracking = new CheckBox();
-        this.chkLoan = new CheckBox();
-        this.chkIgnoreTradersDealing = new CheckBox();
-        this.chkReserveMoney = new CheckBox();
-        this.chkIgnoreTraders = new CheckBox();
-        this.chkIgnorePirates = new CheckBox();
-        this.chkIgnorePolice = new CheckBox();
-        this.chkRepair = new CheckBox();
-        this.lblIgnore = new Label();
-        this.numEmpty = new NumericUpDown();
-        this.btnSave = new Button();
-        this.btnLoad = new Button();
-        this.chkNewspaperShow = new CheckBox();
-        this.chkDisable = new CheckBox();
-        ((ISupportInitialize) (this.numEmpty)).beginInit();
-        this.suspendLayout();
-        //
-        // btnOk
-        //
-        this.btnOk.setDialogResult(DialogResult.OK);
-        this.btnOk.setFlatStyle(FlatStyle.FLAT);
-        this.btnOk.setLocation(new Point(14, 240));
-        this.btnOk.setName("btnOk");
-        this.btnOk.setSize(new Size(40, 22));
-        this.btnOk.setTabIndex(15);
-        this.btnOk.setText("Ok");
-        //
-        // btnCancel
-        //
-        this.btnCancel.setDialogResult(DialogResult.CANCEL);
-        this.btnCancel.setFlatStyle(FlatStyle.FLAT);
-        this.btnCancel.setLocation(new Point(62, 240));
-        this.btnCancel.setName("btnCancel");
-        this.btnCancel.setSize(new Size(49, 22));
-        this.btnCancel.setTabIndex(16);
-        this.btnCancel.setText("Cancel");
-        //
-        // lblEmpty
-        //
-        this.lblEmpty.setAutoSize(true);
-        this.lblEmpty.setLocation(new Point(52, 90));
-        this.lblEmpty.setName("lblEmpty");
-        this.lblEmpty.setSize(new Size(292, 16));
-        this.lblEmpty.setTabIndex(38);
-        this.lblEmpty.setText("Cargo Bays to leave empty when buying goods in-system");
-        //
-        // chkFuel
-        //
-        this.chkFuel.setLocation(new Point(8, 8));
-        this.chkFuel.setName("chkFuel");
-        this.chkFuel.setSize(new Size(160, 16));
-        this.chkFuel.setTabIndex(1);
-        this.chkFuel.setText("Get full fuel tanks on arrival");
-        this.chkFuel.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkContinuousAttack
-        //
-        this.chkContinuousAttack.setLocation(new Point(8, 176));
-        this.chkContinuousAttack.setName("chkContinuousAttack");
-        this.chkContinuousAttack.setSize(new Size(163, 16));
-        this.chkContinuousAttack.setTabIndex(13);
-        this.chkContinuousAttack.setText("Continuous attack and flight");
-        this.chkContinuousAttack.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkAttackFleeing
-        //
-        this.chkAttackFleeing.setLocation(new Point(24, 192));
-        this.chkAttackFleeing.setName("chkAttackFleeing");
-        this.chkAttackFleeing.setSize(new Size(177, 16));
-        this.chkAttackFleeing.setTabIndex(14);
-        this.chkAttackFleeing.setText("Continue attacking fleeing ship");
-        this.chkAttackFleeing.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkNewspaper
-        //
-        this.chkNewspaper.setLocation(new Point(8, 40));
-        this.chkNewspaper.setName("chkNewspaper");
-        this.chkNewspaper.setSize(new Size(155, 16));
-        this.chkNewspaper.setTabIndex(3);
-        this.chkNewspaper.setText("Always pay for newspaper");
-        this.chkNewspaper.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkRange
-        //
-        this.chkRange.setLocation(new Point(184, 8));
-        this.chkRange.setName("chkRange");
-        this.chkRange.setSize(new Size(175, 16));
-        this.chkRange.setTabIndex(5);
-        this.chkRange.setText("Show range to tracked system");
-        this.chkRange.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkStopTracking
-        //
-        this.chkStopTracking.setLocation(new Point(184, 24));
-        this.chkStopTracking.setName("chkStopTracking");
-        this.chkStopTracking.setSize(new Size(139, 16));
-        this.chkStopTracking.setTabIndex(6);
-        this.chkStopTracking.setText("Stop tracking on arrival");
-        this.chkStopTracking.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkLoan
-        //
-        this.chkLoan.setLocation(new Point(184, 56));
-        this.chkLoan.setName("chkLoan");
-        this.chkLoan.setSize(new Size(124, 16));
-        this.chkLoan.setTabIndex(4);
-        this.chkLoan.setText("Remind about loans");
-        this.chkLoan.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkIgnoreTradersDealing
-        //
-        this.chkIgnoreTradersDealing.setLocation(new Point(152, 152));
-        this.chkIgnoreTradersDealing.setName("chkIgnoreTradersDealing");
-        this.chkIgnoreTradersDealing.setSize(new Size(133, 16));
-        this.chkIgnoreTradersDealing.setTabIndex(12);
-        this.chkIgnoreTradersDealing.setText("Ignore dealing traders");
-        this.chkIgnoreTradersDealing.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkReserveMoney
-        //
-        this.chkReserveMoney.setLocation(new Point(184, 40));
-        this.chkReserveMoney.setName("chkReserveMoney");
-        this.chkReserveMoney.setSize(new Size(176, 16));
-        this.chkReserveMoney.setTabIndex(7);
-        this.chkReserveMoney.setText("Reserve money for warp costs");
-        this.chkReserveMoney.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkIgnoreTraders
-        //
-        this.chkIgnoreTraders.setLocation(new Point(136, 136));
-        this.chkIgnoreTraders.setName("chkIgnoreTraders");
-        this.chkIgnoreTraders.setSize(new Size(62, 16));
-        this.chkIgnoreTraders.setTabIndex(11);
-        this.chkIgnoreTraders.setText("Traders");
-        this.chkIgnoreTraders.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkIgnorePirates
-        //
-        this.chkIgnorePirates.setLocation(new Point(8, 136));
-        this.chkIgnorePirates.setName("chkIgnorePirates");
-        this.chkIgnorePirates.setSize(new Size(58, 16));
-        this.chkIgnorePirates.setTabIndex(9);
-        this.chkIgnorePirates.setText("Pirates");
-        this.chkIgnorePirates.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkIgnorePolice
-        //
-        this.chkIgnorePolice.setLocation(new Point(74, 136));
-        this.chkIgnorePolice.setName("chkIgnorePolice");
-        this.chkIgnorePolice.setSize(new Size(54, 16));
-        this.chkIgnorePolice.setTabIndex(10);
-        this.chkIgnorePolice.setText("Police");
-        this.chkIgnorePolice.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkRepair
-        //
-        this.chkRepair.setLocation(new Point(8, 24));
-        this.chkRepair.setName("chkRepair");
-        this.chkRepair.setSize(new Size(167, 16));
-        this.chkRepair.setTabIndex(2);
-        this.chkRepair.setText("Get full hull repairs on arrival");
-        this.chkRepair.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // lblIgnore
-        //
-        this.lblIgnore.setAutoSize(true);
-        this.lblIgnore.setLocation(new Point(8, 120));
-        this.lblIgnore.setName("lblIgnore");
-        this.lblIgnore.setSize(new Size(152, 16));
-        this.lblIgnore.setTabIndex(52);
-        this.lblIgnore.setText("Always ignore when it is safe:");
-        //
-        // numEmpty
-        //
-        this.numEmpty.setLocation(new Point(8, 88));
-        this.numEmpty.setMaximum(99);
-        this.numEmpty.setName("numEmpty");
-        this.numEmpty.setSize(new Size(40, 20));
-        this.numEmpty.setTabIndex(8);
-        this.numEmpty.setValue(88);
-        this.numEmpty.setValueChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // btnSave
-        //
-        this.btnSave.setFlatStyle(FlatStyle.FLAT);
-        this.btnSave.setLocation(new Point(119, 240));
-        this.btnSave.setName("btnSave");
-        this.btnSave.setSize(new Size(107, 22));
-        this.btnSave.setTabIndex(17);
-        this.btnSave.setText("Save As Defaults");
-        this.btnSave.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnSave_Click(sender, e);
-            }
-        });
-        //
-        // btnLoad
-        //
-        this.btnLoad.setFlatStyle(FlatStyle.FLAT);
-        this.btnLoad.setLocation(new Point(234, 240));
-        this.btnLoad.setName("btnLoad");
-        this.btnLoad.setSize(new Size(114, 22));
-        this.btnLoad.setTabIndex(18);
-        this.btnLoad.setText("Load from Defaults");
-        this.btnLoad.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnLoad_Click(sender, e);
-            }
-        });
-        //
-        // chkNewspaperShow
-        //
-        this.chkNewspaperShow.setLocation(new Point(24, 56));
-        this.chkNewspaperShow.setName("chkNewspaperShow");
-        this.chkNewspaperShow.setSize(new Size(160, 16));
-        this.chkNewspaperShow.setTabIndex(53);
-        this.chkNewspaperShow.setText("Show newspaper on arrival");
-        this.chkNewspaperShow.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // chkDisable
-        //
-        this.chkDisable.setLocation(new Point(8, 208));
-        this.chkDisable.setName("chkDisable");
-        this.chkDisable.setSize(new Size(244, 16));
-        this.chkDisable.setTabIndex(54);
-        this.chkDisable.setText("Attempt to disable opponents when possible");
-        this.chkDisable.setCheckedChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                controlChanged(sender, e);
-            }
-        });
-        //
-        // FormOptions
-        //
-        this.setAcceptButton(this.btnOk);
-        this.setAutoScaleBaseSize(new Size(5, 13));
-        this.setCancelButton(this.btnCancel);
-        this.setClientSize(new Size(362, 271));
-        this.controls.add(this.chkDisable);
-        this.controls.add(this.chkLoan);
-        this.controls.add(this.chkNewspaperShow);
-        this.controls.add(this.btnLoad);
-        this.controls.add(this.btnSave);
-        this.controls.add(this.numEmpty);
-        this.controls.add(this.lblIgnore);
-        this.controls.add(this.lblEmpty);
-        this.controls.add(this.chkRepair);
-        this.controls.add(this.chkIgnorePolice);
-        this.controls.add(this.chkIgnorePirates);
-        this.controls.add(this.chkIgnoreTraders);
-        this.controls.add(this.chkReserveMoney);
-        this.controls.add(this.chkIgnoreTradersDealing);
-        this.controls.add(this.chkStopTracking);
-        this.controls.add(this.chkRange);
-        this.controls.add(this.chkNewspaper);
-        this.controls.add(this.chkAttackFleeing);
-        this.controls.add(this.chkContinuousAttack);
-        this.controls.add(this.chkFuel);
-        this.controls.add(this.btnCancel);
-        this.controls.add(this.btnOk);
-        this.setFormBorderStyle(spacetrader.controls.FormBorderStyle.FIXED_DIALOG);
-        this.setMaximizeBox(false);
-        this.setMinimizeBox(false);
-        this.setName("FormOptions");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Options");
-        ((ISupportInitialize) (this.numEmpty)).endInit();
+        ReflectionUtils.setAllComponentNames(this);
 
+        setName("formOptions");
+        setText("Options");
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setAutoScaleBaseSize(new Size(5, 13));
+        setClientSize(new Size(362, 271));
+        setMaximizeBox(false);
+        setMinimizeBox(false);
+        setShowInTaskbar(false);
+        setAcceptButton(okButton);
+        setCancelButton(cancelButton);
+        
+        emptyNumericUpDown.beginInit();
+        suspendLayout();
+
+        fuelCheckBox.setLocation(new Point(8, 8));
+        fuelCheckBox.setSize(new Size(160, 16));
+        fuelCheckBox.setTabIndex(1);
+        fuelCheckBox.setText("Get full fuel tanks on arrival");
+        fuelCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        repairCheckBox.setLocation(new Point(8, 24));
+        repairCheckBox.setSize(new Size(167, 16));
+        repairCheckBox.setTabIndex(2);
+        repairCheckBox.setText("Get full hull repairs on arrival");
+        repairCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        newspaperCheckBox.setLocation(new Point(8, 40));
+        newspaperCheckBox.setSize(new Size(155, 16));
+        newspaperCheckBox.setTabIndex(3);
+        newspaperCheckBox.setText("Always pay for newspaper");
+        newspaperCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        showNewspaperCheckBox.setLocation(new Point(24, 56));
+        showNewspaperCheckBox.setSize(new Size(160, 16));
+        showNewspaperCheckBox.setTabIndex(53);
+        showNewspaperCheckBox.setText("Show newspaper on arrival");
+        showNewspaperCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        rangeCheckBox.setLocation(new Point(184, 8));
+        rangeCheckBox.setSize(new Size(175, 16));
+        rangeCheckBox.setTabIndex(5);
+        rangeCheckBox.setText("Show range to tracked system");
+        rangeCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        stopTrackingCheckBox.setLocation(new Point(184, 24));
+        stopTrackingCheckBox.setSize(new Size(139, 16));
+        stopTrackingCheckBox.setTabIndex(6);
+        stopTrackingCheckBox.setText("Stop tracking on arrival");
+        stopTrackingCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        reserveMoneyCheckBox.setLocation(new Point(184, 40));
+        reserveMoneyCheckBox.setSize(new Size(176, 16));
+        reserveMoneyCheckBox.setTabIndex(7);
+        reserveMoneyCheckBox.setText("Reserve money for warp costs");
+        reserveMoneyCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        loanCheckBox.setLocation(new Point(184, 56));
+        loanCheckBox.setSize(new Size(124, 16));
+        loanCheckBox.setTabIndex(4);
+        loanCheckBox.setText("Remind about loans");
+        loanCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        emptyNumericUpDown.setLocation(new Point(8, 88));
+        emptyNumericUpDown.setMaximum(99);
+        emptyNumericUpDown.setSize(new Size(40, 20));
+        emptyNumericUpDown.setTabIndex(8);
+        emptyNumericUpDown.setValue(88);
+        emptyNumericUpDown.setValueChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        emptyLabel.setAutoSize(true);
+        emptyLabel.setLocation(new Point(52, 90));
+        emptyLabel.setSize(new Size(292, 16));
+        emptyLabel.setTabIndex(38);
+        emptyLabel.setText("Cargo Bays to leave empty when buying goods in-system");
+
+        ignoreLabel.setAutoSize(true);
+        ignoreLabel.setLocation(new Point(8, 120));
+        ignoreLabel.setSize(new Size(152, 16));
+        ignoreLabel.setTabIndex(52);
+        ignoreLabel.setText("Always ignore when it is safe:");
+
+        ignorePiratesCheckBox.setLocation(new Point(8, 136));
+        ignorePiratesCheckBox.setSize(new Size(63, 16));
+        ignorePiratesCheckBox.setTabIndex(9);
+        ignorePiratesCheckBox.setText("Pirates");
+        ignorePiratesCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        ignorePoliceCheckBox.setLocation(new Point(79, 136));
+        ignorePoliceCheckBox.setSize(new Size(59, 16));
+        ignorePoliceCheckBox.setTabIndex(10);
+        ignorePoliceCheckBox.setText("Police");
+        ignorePoliceCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        ignoreTradersCheckBox.setLocation(new Point(146, 136));
+        ignoreTradersCheckBox.setSize(new Size(67, 16));
+        ignoreTradersCheckBox.setTabIndex(11);
+        ignoreTradersCheckBox.setText("Traders");
+        ignoreTradersCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        ignoreDealingTradersCheckBox.setLocation(new Point(162, 152));
+        ignoreDealingTradersCheckBox.setSize(new Size(133, 16));
+        ignoreDealingTradersCheckBox.setTabIndex(12);
+        ignoreDealingTradersCheckBox.setText("Ignore dealing traders");
+        ignoreDealingTradersCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        continuousAttackCheckBox.setLocation(new Point(8, 176));
+        continuousAttackCheckBox.setSize(new Size(163, 16));
+        continuousAttackCheckBox.setTabIndex(13);
+        continuousAttackCheckBox.setText("Continuous attack and flight");
+        continuousAttackCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        attackFleeingCheckBox.setLocation(new Point(24, 192));
+        attackFleeingCheckBox.setSize(new Size(177, 16));
+        attackFleeingCheckBox.setTabIndex(14);
+        attackFleeingCheckBox.setText("Continue attacking fleeing ship");
+        attackFleeingCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        disableOpponentsCheckBox.setLocation(new Point(8, 208));
+        disableOpponentsCheckBox.setSize(new Size(244, 16));
+        disableOpponentsCheckBox.setTabIndex(54);
+        disableOpponentsCheckBox.setText("Attempt to disable opponents when possible");
+        disableOpponentsCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                controlChanged();
+            }
+        });
+
+        okButton.setDialogResult(DialogResult.OK);
+        okButton.setFlatStyle(FlatStyle.FLAT);
+        okButton.setLocation(new Point(14, 240));
+        okButton.setSize(new Size(40, 22));
+        okButton.setTabIndex(15);
+        okButton.setText("Ok");
+
+        cancelButton.setDialogResult(DialogResult.CANCEL);
+        cancelButton.setFlatStyle(FlatStyle.FLAT);
+        cancelButton.setLocation(new Point(62, 240));
+        cancelButton.setSize(new Size(49, 22));
+        cancelButton.setTabIndex(16);
+        cancelButton.setText("Cancel");
+
+        saveButton.setFlatStyle(FlatStyle.FLAT);
+        saveButton.setLocation(new Point(119, 240));
+        saveButton.setSize(new Size(107, 22));
+        saveButton.setTabIndex(17);
+        saveButton.setText("Save As Defaults");
+        saveButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                saveButtonClick();
+            }
+        });
+
+        loadButton.setFlatStyle(FlatStyle.FLAT);
+        loadButton.setLocation(new Point(234, 240));
+        loadButton.setSize(new Size(114, 22));
+        loadButton.setTabIndex(18);
+        loadButton.setText("Load from Defaults");
+        loadButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                loadButtonClick();
+            }
+        });
+
+        controls.addAll(fuelCheckBox, repairCheckBox, newspaperCheckBox, showNewspaperCheckBox, rangeCheckBox,
+                stopTrackingCheckBox, reserveMoneyCheckBox, loanCheckBox, emptyNumericUpDown, emptyLabel, ignoreLabel,
+                ignorePiratesCheckBox, ignorePoliceCheckBox, ignoreTradersCheckBox, ignoreDealingTradersCheckBox,
+                continuousAttackCheckBox, attackFleeingCheckBox, disableOpponentsCheckBox, okButton, cancelButton,
+                saveButton, loadButton);
+        
+        emptyNumericUpDown.endInit();
     }
 
-    // #endregion
-
-    private void UpdateAll() {
+    private void updateAll() {
         initializing = true;
 
-        chkFuel.setChecked(Options().getAutoFuel());
-        chkRepair.setChecked(Options().getAutoRepair());
-        chkNewspaper.setChecked(Options().getNewsAutoPay());
-        chkNewspaperShow.setChecked(Options().getNewsAutoShow());
-        chkLoan.setChecked(Options().getRemindLoans());
-        chkRange.setChecked(Options().getShowTrackedRange());
-        chkStopTracking.setChecked(Options().getTrackAutoOff());
-        chkReserveMoney.setChecked(Options().getReserveMoney());
-        numEmpty.setValue(Options().getLeaveEmpty());
-        chkIgnorePirates.setChecked(Options().getAlwaysIgnorePirates());
-        chkIgnorePolice.setChecked(Options().getAlwaysIgnorePolice());
-        chkIgnoreTraders.setChecked(Options().getAlwaysIgnoreTraders());
-        chkIgnoreTradersDealing.setChecked(Options().getAlwaysIgnoreTradeInOrbit());
-        chkContinuousAttack.setChecked(Options().getContinuousAttack());
-        chkAttackFleeing.setChecked(Options().getContinuousAttackFleeing());
-        chkDisable.setChecked(Options().getDisableOpponents());
+        fuelCheckBox.setChecked(getOptions().getAutoFuel());
+        repairCheckBox.setChecked(getOptions().getAutoRepair());
+        newspaperCheckBox.setChecked(getOptions().getNewsAutoPay());
+        showNewspaperCheckBox.setChecked(getOptions().getNewsAutoShow());
+        loanCheckBox.setChecked(getOptions().getRemindLoans());
+        rangeCheckBox.setChecked(getOptions().getShowTrackedRange());
+        stopTrackingCheckBox.setChecked(getOptions().getTrackAutoOff());
+        reserveMoneyCheckBox.setChecked(getOptions().getReserveMoney());
+        emptyNumericUpDown.setValue(getOptions().getLeaveEmpty());
+        ignorePiratesCheckBox.setChecked(getOptions().getAlwaysIgnorePirates());
+        ignorePoliceCheckBox.setChecked(getOptions().getAlwaysIgnorePolice());
+        ignoreTradersCheckBox.setChecked(getOptions().getAlwaysIgnoreTraders());
+        ignoreDealingTradersCheckBox.setChecked(getOptions().getAlwaysIgnoreTradeInOrbit());
+        continuousAttackCheckBox.setChecked(getOptions().getContinuousAttack());
+        attackFleeingCheckBox.setChecked(getOptions().getContinuousAttackFleeing());
+        disableOpponentsCheckBox.setChecked(getOptions().getDisableOpponents());
 
-        UpdateContinueAttackFleeing();
-        UpdateIgnoreTradersDealing();
-        UpdateNewsAutoShow();
+        updateContinueAttackFleeing();
+        updateIgnoreTradersDealing();
+        updateNewsAutoShow();
 
         initializing = false;
     }
 
-    private void UpdateContinueAttackFleeing() {
-        if (!chkContinuousAttack.isChecked())
-            chkAttackFleeing.setChecked(false);
-
-        chkAttackFleeing.setEnabled(chkContinuousAttack.isChecked());
+    private void updateContinueAttackFleeing() {
+        if (!continuousAttackCheckBox.isChecked()) {
+            attackFleeingCheckBox.setChecked(false);
+        }
+        attackFleeingCheckBox.setEnabled(continuousAttackCheckBox.isChecked());
     }
 
-    private void UpdateIgnoreTradersDealing() {
-        if (!chkIgnoreTraders.isChecked())
-            chkIgnoreTradersDealing.setChecked(false);
-
-        chkIgnoreTradersDealing.setEnabled(chkIgnoreTraders.isChecked());
+    private void updateIgnoreTradersDealing() {
+        if (!ignoreTradersCheckBox.isChecked()) {
+            ignoreDealingTradersCheckBox.setChecked(false);
+        }
+        ignoreDealingTradersCheckBox.setEnabled(ignoreTradersCheckBox.isChecked());
     }
 
-    private void UpdateNewsAutoShow() {
-        if (!chkNewspaper.isChecked())
-            chkNewspaperShow.setChecked(false);
-
-        chkNewspaperShow.setEnabled(chkNewspaper.isChecked());
+    private void updateNewsAutoShow() {
+        if (!newspaperCheckBox.isChecked()) {
+            showNewspaperCheckBox.setChecked(false);
+        }
+        showNewspaperCheckBox.setEnabled(newspaperCheckBox.isChecked());
     }
 
-    // #endregion
-
-    // #region Event Handlers
-
-    private void btnLoad_Click(Object sender, EventArgs e) {
-        Options().LoadFromDefaults(true);
-        UpdateAll();
+    private void loadButtonClick() {
+        getOptions().loadFromDefaults(true);
+        updateAll();
     }
 
-    private void btnSave_Click(Object sender, EventArgs e) {
-        Options().SaveAsDefaults();
+    private void saveButtonClick() {
+        getOptions().saveAsDefaults();
     }
 
-    private void controlChanged(Object sender, EventArgs e) {
+    private void controlChanged() {
         if (!initializing) {
             initializing = true;
-            UpdateContinueAttackFleeing();
-            UpdateIgnoreTradersDealing();
-            UpdateNewsAutoShow();
+            updateContinueAttackFleeing();
+            updateIgnoreTradersDealing();
+            updateNewsAutoShow();
             initializing = false;
 
-            Options().setAutoFuel(chkFuel.isChecked());
-            Options().setAutoRepair(chkRepair.isChecked());
-            Options().setNewsAutoPay(chkNewspaper.isChecked());
-            Options().setNewsAutoShow(chkNewspaperShow.isChecked());
-            Options().setRemindLoans(chkLoan.isChecked());
-            Options().setShowTrackedRange(chkRange.isChecked());
-            Options().setTrackAutoOff(chkStopTracking.isChecked());
-            Options().setReserveMoney(chkReserveMoney.isChecked());
-            Options().setLeaveEmpty(numEmpty.getValue());
-            Options().setAlwaysIgnorePirates(chkIgnorePirates.isChecked());
-            Options().setAlwaysIgnorePolice(chkIgnorePolice.isChecked());
-            Options().setAlwaysIgnoreTraders(chkIgnoreTraders.isChecked());
-            Options().setAlwaysIgnoreTradeInOrbit(chkIgnoreTradersDealing.isChecked());
-            Options().setContinuousAttack(chkContinuousAttack.isChecked());
-            Options().setContinuousAttackFleeing(chkAttackFleeing.isChecked());
-            Options().setDisableOpponents(chkDisable.isChecked());
+            getOptions().setAutoFuel(fuelCheckBox.isChecked());
+            getOptions().setAutoRepair(repairCheckBox.isChecked());
+            getOptions().setNewsAutoPay(newspaperCheckBox.isChecked());
+            getOptions().setNewsAutoShow(showNewspaperCheckBox.isChecked());
+            getOptions().setRemindLoans(loanCheckBox.isChecked());
+            getOptions().setShowTrackedRange(rangeCheckBox.isChecked());
+            getOptions().setTrackAutoOff(stopTrackingCheckBox.isChecked());
+            getOptions().setReserveMoney(reserveMoneyCheckBox.isChecked());
+            getOptions().setLeaveEmpty(emptyNumericUpDown.getValue());
+            getOptions().setAlwaysIgnorePirates(ignorePiratesCheckBox.isChecked());
+            getOptions().setAlwaysIgnorePolice(ignorePoliceCheckBox.isChecked());
+            getOptions().setAlwaysIgnoreTraders(ignoreTradersCheckBox.isChecked());
+            getOptions().setAlwaysIgnoreTradeInOrbit(ignoreDealingTradersCheckBox.isChecked());
+            getOptions().setContinuousAttack(continuousAttackCheckBox.isChecked());
+            getOptions().setContinuousAttackFleeing(attackFleeingCheckBox.isChecked());
+            getOptions().setDisableOpponents(disableOpponentsCheckBox.isChecked());
         }
     }
 
-    // #endregion
-
-    // #region Properties
-
-    public GameOptions Options() {
-        return _options;
+    GameOptions getOptions() {
+        return options;
     }
-
-    // #endregion
 }

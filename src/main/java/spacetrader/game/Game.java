@@ -375,7 +375,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         getCommander().getCurrentSystem().setVisited(true);
         setPaidForNewspaper(false);
 
-        if (getTrackedSystem() == getCommander().getCurrentSystem() && Options().getTrackAutoOff())
+        if (getTrackedSystem() == getCommander().getCurrentSystem() && getOptions().getTrackAutoOff())
             setTrackedSystemId(StarSystemId.NA);
 
         ArrivalCheckReactor();
@@ -388,7 +388,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         CalculatePrices(getCommander().getCurrentSystem());
         NewsAddEventsOnArrival();
 
-        if (Options().getNewsAutoShow())
+        if (getOptions().getNewsAutoShow())
             showNewspaper();
     }
 
@@ -396,7 +396,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // Check for Large Debt - 06/30/01 SRA
         if (getCommander().getDebt() >= Consts.DebtWarning)
             GuiFacade.alert(AlertType.DebtWarning);
-        else if (getCommander().getDebt() > 0 && Options().getRemindLoans() && getCommander().getDays() % 5 == 0)
+        else if (getCommander().getDebt() > 0 && getOptions().getRemindLoans() && getCommander().getDays() % 5 == 0)
             GuiFacade.alert(AlertType.DebtReminder, Functions.multiples(getCommander().getDebt(), Strings.MoneyUnit));
     }
 
@@ -511,7 +511,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         boolean fuelOk = true;
         int toAdd = ship.getFuelTanks() - ship.getFuel();
-        if (Options().getAutoFuel() && toAdd > 0) {
+        if (getOptions().getAutoFuel() && toAdd > 0) {
             if (getCommander().getCash() >= toAdd * ship.getFuelCost()) {
                 ship.setFuel(ship.getFuel() + toAdd);
                 getCommander().setCash(getCommander().getCash() - (toAdd * ship.getFuelCost()));
@@ -521,7 +521,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         boolean repairOk = true;
         toAdd = ship.getHullStrength() - ship.getHull();
-        if (Options().getAutoRepair() && toAdd > 0) {
+        if (getOptions().getAutoRepair() && toAdd > 0) {
             if (getCommander().getCash() >= toAdd * ship.getRepairCost()) {
                 ship.setHull(ship.getHull() + toAdd);
                 getCommander().setCash(getCommander().getCash() - (toAdd * ship.getRepairCost()));
@@ -926,7 +926,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         switch (op) {
             case BUY_SYSTEM:
-                freeBays = Math.max(0, getCommander().getShip().getFreeCargoBays() - Options().getLeaveEmpty());
+                freeBays = Math.max(0, getCommander().getShip().getFreeCargoBays() - getOptions().getLeaveEmpty());
                 items = getCommander().getCurrentSystem().getTradeItems();
                 unitPrice = getPriceCargoBuy()[tradeItem];
                 cashToSpend = getCommander().getCashToSpend();
@@ -1191,7 +1191,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // the
         // encounter may not take place
         if (getEncounterType() == spacetrader.game.enums.EncounterType.PIRATE_ATTACK
-                || !(getOpponent().Cloaked() || Options().getAlwaysIgnorePirates()))
+                || !(getOpponent().Cloaked() || getOptions().getAlwaysIgnorePirates()))
             showEncounter = true;
 
         return showEncounter;
@@ -1247,7 +1247,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // encounter may not take place. Otherwise it will - JAF
         if (getEncounterType() == spacetrader.game.enums.EncounterType.POLICE_ATTACK
                 || getEncounterType() == spacetrader.game.enums.EncounterType.POLICE_INSPECT
-                || !(getOpponent().Cloaked() || Options().getAlwaysIgnorePolice()))
+                || !(getOpponent().Cloaked() || getOptions().getAlwaysIgnorePolice()))
             showEncounter = true;
 
         return showEncounter;
@@ -1339,8 +1339,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // the
         // encounter may not take place; otherwise it will.
         if (!getOpponent().Cloaked()
-                && !(Options().getAlwaysIgnoreTraders() && (getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_IGNORE || getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_FLEE))
-                && !((getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_BUY || getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_SELL) && Options()
+                && !(getOptions().getAlwaysIgnoreTraders() && (getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_IGNORE || getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_FLEE))
+                && !((getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_BUY || getEncounterType() == spacetrader.game.enums.EncounterType.TRADER_SELL) && getOptions()
                 .getAlwaysIgnoreTradeInOrbit()))
             showEncounter = true;
 
@@ -1591,8 +1591,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         break;
                 }
 
-                if (Options().getContinuousAttack()
-                        && (getEncounterCmdrFleeing() || !getEncounterOppFleeing() || Options()
+                if (getOptions().getContinuousAttack()
+                        && (getEncounterCmdrFleeing() || !getEncounterOppFleeing() || getOptions()
                         .getContinuousAttackFleeing()
                         && (getEncounterType() == prevEncounter || getEncounterType() != spacetrader.game.enums.EncounterType.PIRATE_SURRENDER
                         && getEncounterType() != spacetrader.game.enums.EncounterType.TRADER_SURRENDER))) {
@@ -1645,7 +1645,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // disabled, their shields are down,
                 // we have disabling weapons, and the option is checked.
                 if (defender.Disableable() && defender.ShieldCharge() == 0 && !getOpponentDisabled()
-                        && Options().getDisableOpponents() && attackerDisruptors > 0) {
+                        && getOptions().getDisableOpponents() && attackerDisruptors > 0) {
                     disrupt = Functions.getRandom(attackerDisruptors * (100 + 2 * attacker.Fighter()) / 100);
                 } else {
                     int damage = attackerWeapons == 0 ? 0 : Functions.getRandom(attackerWeapons
@@ -3235,7 +3235,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             if (getCommander().getCash() < cost)
                 GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.multiples(cost, "credit"));
-            else if (Options().getNewsAutoPay()
+            else if (getOptions().getNewsAutoPay()
                     || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.multiples(cost, "credit")) == DialogResult.YES) {
                 getCommander().setCash(getCommander().getCash() - cost);
                 setPaidForNewspaper(true);
@@ -3836,7 +3836,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return String.join(Strings.newline + Strings.newline, Functions.arrayListToStringArray(items));
     }
 
-    public GameOptions Options() {
+    public GameOptions getOptions() {
         return _options;
     }
 
@@ -3951,7 +3951,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public boolean isShowTrackedRange() {
-        return Options().getShowTrackedRange();
+        return getOptions().getShowTrackedRange();
     }
 
     // #endregion
