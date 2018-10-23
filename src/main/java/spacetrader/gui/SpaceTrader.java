@@ -20,8 +20,6 @@
 
 package spacetrader.gui;
 
-import static spacetrader.SpaceTraderApp.getDimensions;
-import static spacetrader.SpaceTraderApp.getStrings;
 import static spacetrader.controls.MenuItem.separator;
 
 import java.awt.Color;
@@ -48,11 +46,7 @@ import spacetrader.controls.Shortcut;
 import spacetrader.controls.Size;
 import spacetrader.controls.SubMenu;
 import spacetrader.controls.WinformWindow;
-import spacetrader.game.Commander;
-import spacetrader.game.Consts;
-import spacetrader.game.Functions;
-import spacetrader.game.Game;
-import spacetrader.game.GameController;
+import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.game.enums.ShipType;
@@ -147,7 +141,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         ReflectionUtils.setAllComponentNames(this);
         //this.suspendLayout();
 
-        this.setClientSize(getDimensions().getSize(this.getName()));
+        this.setClientSize(GlobalAssets.getDimensions().getSize(this.getName()));
         controls.add(horizontalLine);
         controls.add(dockPanel);
         controls.add(cargoPanel);
@@ -165,7 +159,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         this.setIcon(((Icon) (resources.getObject("$this.Icon"))));
         this.setMaximizeBox(false);
         this.setStartPosition(FormStartPosition.MANUAL);
-        this.setText(getStrings().getTitle(this.getName()));
+        this.setText(GlobalAssets.getStrings().getTitle(this.getName()));
         this.setClosing(new spacetrader.controls.EventHandler<Object, CancelEventArgs>() {
             @Override
             public void handle(Object sender, CancelEventArgs e) {
@@ -185,7 +179,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 SpaceTrader_Load();
             }
         });
-
     }
 
     private void initializeComponents() {
@@ -421,14 +414,14 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         openFileDialog = new OpenFileDialog();
         saveFileDialog = new SaveFileDialog();
 
-        openFileDialog.setFilter(getStrings().get("mainWindow.fileDialogs.filter"));
-        openFileDialog.setTitle(getStrings().getTitle("mainWindow.openFileDialog"));
-        openFileDialog.setApproveButtonText(getStrings().getText("mainWindow.openFileDialog.approveButton"));
+        openFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
+        openFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.openFileDialog"));
+        openFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.openFileDialog.approveButton"));
 
-        saveFileDialog.setFileName(getStrings().get("mainWindow.saveFileDialog.fileName"));
-        saveFileDialog.setFilter(getStrings().get("mainWindow.fileDialogs.filter"));
-        saveFileDialog.setTitle(getStrings().getTitle("mainWindow.saveFileDialog"));
-        saveFileDialog.setApproveButtonText(getStrings().getText("mainWindow.saveFileDialog.approveButton"));
+        saveFileDialog.setFileName(GlobalAssets.getStrings().get("mainWindow.saveFileDialog.fileName"));
+        saveFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
+        saveFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.saveFileDialog"));
+        saveFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.saveFileDialog.approveButton"));
     }
 
     private void initializeImages(ResourceManager resources) {

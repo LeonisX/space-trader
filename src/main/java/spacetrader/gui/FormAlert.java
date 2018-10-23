@@ -78,7 +78,7 @@ public class FormAlert extends SpaceTraderForm {
         btnWidth = acceptButton.getWidth();
         if (cancelButtonText != null) {
             cancelButton.setText(cancelButtonText);
-            cancelButton.setWidth(Math.max((int) Math.ceil(g.measureString(cancelButton.getText(), cancelButton.getFont()).width) + 10, 40));
+            cancelButton.setWidth(Math.max((int) Math.ceil(g.measureString(cancelButton.getText(), cancelButton.getFont()).width) + 15, 40));
             cancelButton.setVisible(true);
             cancelButton.setDialogResult(cancelButtonResult);
             btnWidth += cancelButton.getWidth() + 6;

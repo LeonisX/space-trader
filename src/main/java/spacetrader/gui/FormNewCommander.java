@@ -27,6 +27,7 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
+import spacetrader.game.Consts;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.util.ReflectionUtils;
@@ -53,7 +54,7 @@ public class FormNewCommander extends SpaceTraderForm {
     private NumericUpDown numTrader = new NumericUpDown();
     private NumericUpDown numEngineer = new NumericUpDown();
 
-    FormNewCommander() {
+    public FormNewCommander() {
         initializeComponent();
         difficultyComboBox.setSelectedIndex(2);
     }
@@ -115,7 +116,7 @@ public class FormNewCommander extends SpaceTraderForm {
         skillPointsLabelValue.setLocation(new Point(73, 72));
         skillPointsLabelValue.setSize(new Size(17, 13));
         skillPointsLabelValue.setTabIndex(41);
-        //skillPointsLabelValue.setText("16");
+        skillPointsLabelValue.setText(Consts.SkillPointsOnStart);
         skillPointsLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         skillPointsRemainingLabel.setAutoSize(true);

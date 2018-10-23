@@ -25,9 +25,6 @@
 
 package spacetrader.gui;
 
-import static spacetrader.SpaceTraderApp.getDimensions;
-import static spacetrader.SpaceTraderApp.getStrings;
-
 import java.awt.Point;
 import java.util.Arrays;
 import spacetrader.controls.BorderStyle;
@@ -43,12 +40,7 @@ import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.controls.PictureBox;
 import spacetrader.controls.Size;
-import spacetrader.game.Consts;
-import spacetrader.game.Functions;
-import spacetrader.game.Game;
-import spacetrader.game.ShipSpec;
-import spacetrader.game.SpecialEvent;
-import spacetrader.game.Strings;
+import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.ReflectionUtils;
@@ -310,7 +302,6 @@ public class FormShipList extends SpaceTraderForm {
             button.setFlatStyle(FlatStyle.FLAT);
             button.setSize(new Size(34, 22));
             button.setText("Info");
-            button.setVisible(false);
             button.setClick(new EventHandler<Object, EventArgs>() {
                 @Override
                 public void handle(Object sender, EventArgs e) {
@@ -458,8 +449,8 @@ public class FormShipList extends SpaceTraderForm {
         controls.addAll(infoButtons);
         controls.addAll(shipInfoPanel, closeButton);
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), getStrings());
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 
     private void buy(int id) {

@@ -49,7 +49,7 @@ public class FormBuyRepairs extends WinformForm {
     private Button maxButton;
     private Button nothingButton;
 
-    FormBuyRepairs() {
+    public FormBuyRepairs() {
         initializeComponent();
 
         Game game = Game.getCurrentGame();

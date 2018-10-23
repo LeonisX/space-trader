@@ -31,7 +31,7 @@ import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
 
-class FormFind extends SpaceTraderForm {
+public class FormFind extends SpaceTraderForm {
 
     private Label questionLabel = new Label();
     private Button okButton = new Button();
@@ -39,7 +39,7 @@ class FormFind extends SpaceTraderForm {
     private TextBox systemTextBox = new TextBox();
     private CheckBox trackSystemCheckBox = new CheckBox();
 
-    FormFind() {
+    public FormFind() {
         initializeComponent();
     }
 

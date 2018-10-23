@@ -37,7 +37,7 @@ import static spacetrader.game.Functions.stringVars;
 import static spacetrader.game.Strings.BankLoanStatementBorrow;
 import static spacetrader.game.Strings.MoneyUnit;
 
-class FormGetLoan extends SpaceTraderForm {
+public class FormGetLoan extends SpaceTraderForm {
 
     private Button okButton = new Button();
     private Label questionLabel = new Label();
@@ -46,7 +46,7 @@ class FormGetLoan extends SpaceTraderForm {
     private NumericUpDown numAmount = new NumericUpDown();
     private Label statementLabelValue = new Label();
 
-    FormGetLoan(int max) {
+    public FormGetLoan(int max) {
         initializeComponent();
 
         numAmount.setMaximum(max);

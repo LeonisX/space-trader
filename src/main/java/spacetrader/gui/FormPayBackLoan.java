@@ -56,7 +56,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
     private NumericUpDown numAmount = new NumericUpDown();
     private Label statementLabelValue = new Label();
 
-    FormPayBackLoan() {
+    public FormPayBackLoan() {
         initializeComponent();
 
         Commander commander = Game.getCurrentGame().getCommander();

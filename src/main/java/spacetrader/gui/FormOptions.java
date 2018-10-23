@@ -35,7 +35,7 @@ import spacetrader.guifacade.GuiFacade;
 import java.awt.*;
 import spacetrader.util.ReflectionUtils;
 
-class FormOptions extends SpaceTraderForm {
+public class FormOptions extends SpaceTraderForm {
 
     private Button okButton = new Button();
     private Button cancelButton = new Button();
@@ -64,7 +64,7 @@ class FormOptions extends SpaceTraderForm {
 
     private GameOptions options = new GameOptions(false);
 
-    FormOptions() {
+    public FormOptions() {
         initializeComponent();
 
         Game game = Game.getCurrentGame();

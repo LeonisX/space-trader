@@ -25,8 +25,8 @@ The project is a Java port of the [Space Trader for Windows](https://sourceforge
 * SaveFileDialog - full localization
 * Full refactor
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
-* ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), SpaceTrader.getDimensions());
-* ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), SpaceTrader.getStrings());
+* ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+* ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
 
 ### Minor tasks
 

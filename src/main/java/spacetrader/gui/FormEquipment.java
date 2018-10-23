@@ -92,7 +92,7 @@ public class FormEquipment extends SpaceTraderForm {
     private boolean sellSideSelected = false;
     private boolean handlingSelect = false;
     
-    FormEquipment() {
+    public FormEquipment() {
         initializeComponent();
 
         updateBuy();

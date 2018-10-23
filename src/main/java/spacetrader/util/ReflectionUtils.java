@@ -140,7 +140,7 @@ public class ReflectionUtils {
         }
     }
 
-    public static String formatPropertyName(String prefix) {
+    private static String formatPropertyName(String prefix) {
         return prefix.replace(".JRootPane", "")
                 .replace(".null.glassPane", "")
                 .replace(".null.layeredPane", "")
@@ -182,7 +182,7 @@ public class ReflectionUtils {
     }
 
     private static void print(String key, String value) {
-        value = value.replace("<HTML>", "").replace("</HTML>", "");
+        value = (value == null) ? "" : value.replace("<HTML>", "").replace("</HTML>", "");
         if (!value.isEmpty() && !key.contains(".buyButton") && !key.contains(".sellButton") && !key.contains("LabelValue")) {
             System.out.println(key + "=" + value);
         } else {
@@ -218,24 +218,27 @@ public class ReflectionUtils {
 
     public static void loadControlsStrings(Component component, String prefix, StringsMap stringsMap) {
         prefix = formatPropertyName(prefix);
-        if (component instanceof JFrame) {
-            ((JFrame) component).setTitle(stringsMap.getTitle(prefix));
+        String title = stringsMap.getTitle(prefix);
+        String text = stringsMap.getText(prefix);
+        if (component instanceof JFrame && title != null && !title.isEmpty()) {
+            ((JFrame) component).setTitle(title);
         }
 
-        if (component instanceof AbstractButton) {
-            ((AbstractButton) component).setText(stringsMap.getText(prefix));
+        if (component instanceof AbstractButton && text != null && !text.isEmpty()) {
+            ((AbstractButton) component).setText(text);
         }
 
-        if (component instanceof JLabel) {
-            ((JLabel) component).setText(stringsMap.getText(prefix));
+        if (component instanceof JLabel && text != null && !text.isEmpty()) {
+            ((JLabel) component).setText(text);
         }
 
-        if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder) {
-            ((TitledBorder) ((JPanel) component).getBorder()).setTitle(stringsMap.getTitle(prefix));
+        if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder
+                && title != null && !title.isEmpty()) {
+            ((TitledBorder) ((JPanel) component).getBorder()).setTitle(title);
         }
 
-        if (component instanceof JDialog) {
-            ((JDialog) component).setTitle(stringsMap.getTitle(prefix));
+        if (component instanceof JDialog && title != null && !title.isEmpty()) {
+            ((JDialog) component).setTitle(title);
         }
 
         if (component instanceof JMenu) {

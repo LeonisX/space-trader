@@ -42,7 +42,7 @@ public class FormAbout extends WinformForm {
     private Label aboutLabel;
     private Button closeButton;
 
-    FormAbout() {
+    public FormAbout() {
         initializeComponent();
     }
 

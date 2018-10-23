@@ -33,7 +33,7 @@ import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
 
-class FormCosts extends SpaceTraderForm {
+public class FormCosts extends SpaceTraderForm {
 
     private Button closeButton = new Button();
     private Label mercenariesLabelValue = new Label();
@@ -48,7 +48,7 @@ class FormCosts extends SpaceTraderForm {
     private Label insuranceLabel = new Label();
     private HorizontalLine horizontalLine = new HorizontalLine();
 
-    FormCosts() {
+    public FormCosts() {
         initializeComponent();
 
         Game game = Game.getCurrentGame();

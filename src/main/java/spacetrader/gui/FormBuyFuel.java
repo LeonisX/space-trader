@@ -47,7 +47,7 @@ public class FormBuyFuel extends SpaceTraderForm {
     private Button maxButton;
     private Button nothingButton;
 
-    FormBuyFuel() {
+    public FormBuyFuel() {
         initializeComponent();
 
         Game game = Game.getCurrentGame();
