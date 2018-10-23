@@ -456,7 +456,7 @@ public class FormShipList extends SpaceTraderForm {
     private void buy(int id) {
         info(id);
 
-        if (game.getCommander().TradeShip(Consts.ShipSpecs[id], prices[id])) {
+        if (game.getCommander().isTradeShip(Consts.ShipSpecs[id], prices[id])) {
             if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
                 game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
             }

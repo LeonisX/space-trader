@@ -17,8 +17,7 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-// using System;
-// using System.Collections;
+
 package spacetrader.game;
 
 import spacetrader.game.enums.ShipType;
@@ -28,12 +27,7 @@ import spacetrader.game.enums.Size;
 
 import java.util.ArrayList;
 
-// / <summary>
-// / Represents a shipyard orbiting a solar system in the universe.
-// / In a shipyard, the player can design his own ship and have it finalructed, for a fee.
-// / </summary>
 public class Shipyard {
-    // #region Constants
 
     public static final int[] COST_FUEL = new int[]{1, 1, 1, 3, 5, 10};
     public static final int[] COST_HULL = new int[]{1, 5, 10, 15, 20, 40};
@@ -73,10 +67,6 @@ public class Shipyard {
     public static final int PENALTY_SECOND_PCT = 90;
     public static final int PENALTY_SECOND_FEE = 75;
 
-    // #endregion
-
-    // #region Member Variables
-
     private ShipyardId _id;
     private Size _specialtySize;
     private ShipyardSkill _skill;
@@ -88,16 +78,12 @@ public class Shipyard {
     private int modShield = 0;
     private int modWeapon = 0;
 
-    // #endregion
-
-    // #region Methods
-
     public Shipyard(ShipyardId id, Size specialtySize, ShipyardSkill skill) {
         _id = id;
         _specialtySize = specialtySize;
         _skill = skill;
 
-        switch (Skill()) {
+        switch (getSkill()) {
             case CrewQuarters:
                 modCrew = ADJUST_SKILL_CREW;
                 break;
@@ -118,51 +104,51 @@ public class Shipyard {
 
     // Calculate the ship's price (worth here, not the price paid), the fuel
     // cost, and the repair cost.
-    public void CalculateDependantVariables() {
-        ShipSpec().setPrice(BasePrice() + PenaltyCost());
-        ShipSpec().setFuelCost(CostFuel());
-        ShipSpec().setRepairCost(CostHull());
+    public void calculateDependantVariables() {
+        getShipSpec().setPrice(getBasePrice() + getPenaltyCost());
+        getShipSpec().setFuelCost(getCostFuel());
+        getShipSpec().setRepairCost(getCostHull());
     }
 
-    public int AdjustedDesignFee() {
-        return DESIGN_FEE[ShipSpec().getSize().castToInt()] * CostAdjustment() / ADJUST_SIZE_DEFAULT;
+    public int getAdjustedDesignFee() {
+        return DESIGN_FEE[getShipSpec().getSize().castToInt()] * getCostAdjustment() / ADJUST_SIZE_DEFAULT;
     }
 
-    public int AdjustedPenaltyCost() {
-        return PenaltyCost() * CostAdjustment() / ADJUST_SIZE_DEFAULT;
+    public int getAdjustedPenaltyCost() {
+        return getPenaltyCost() * getCostAdjustment() / ADJUST_SIZE_DEFAULT;
     }
 
-    public int AdjustedPrice() {
-        return BasePrice() * CostAdjustment() / ADJUST_SIZE_DEFAULT;
+    public int getAdjustedPrice() {
+        return getBasePrice() * getCostAdjustment() / ADJUST_SIZE_DEFAULT;
     }
 
-    public ArrayList<Size> AvailableSizes() {
-        ArrayList<Size> list = new ArrayList<Size>(6);
+    public ArrayList<Size> getAvailableSizes() {
+        ArrayList<Size> list = new ArrayList<>(6);
 
-        int begin = Math.max(Size.Tiny.castToInt(), SpecialtySize().castToInt() - 2);
-        int end = Math.min(Size.Gargantuan.castToInt(), SpecialtySize().castToInt() + 2);
+        int begin = Math.max(Size.Tiny.castToInt(), getSpecialtySize().castToInt() - 2);
+        int end = Math.min(Size.Gargantuan.castToInt(), getSpecialtySize().castToInt() + 2);
         for (int index = begin; index <= end; index++)
             list.add(Size.values()[index]);
 
         return list;
     }
 
-    public int BaseFuel() {
-        return BASE_FUEL[ShipSpec().getSize().castToInt()] + modFuel;
+    public int getBaseFuel() {
+        return BASE_FUEL[getShipSpec().getSize().castToInt()] + modFuel;
     }
 
-    public int BaseHull() {
-        return BASE_HULL[ShipSpec().getSize().castToInt()];
+    public int getBaseHull() {
+        return BASE_HULL[getShipSpec().getSize().castToInt()];
     }
 
-    public int BasePrice() {
-        return UnitsUsed() * PricePerUnit();
+    public int getBasePrice() {
+        return getUnitsUsed() * getPricePerUnit();
     }
 
-    public int CostAdjustment() {
+    public int getCostAdjustment() {
         int adjustment;
 
-        switch (Math.abs(SpecialtySize().castToInt() - ShipSpec().getSize().castToInt())) {
+        switch (Math.abs(getSpecialtySize().castToInt() - getShipSpec().getSize().castToInt())) {
             case 0:
                 adjustment = ADJUST_SIZE_SPECIALTY;
                 break;
@@ -177,110 +163,110 @@ public class Shipyard {
         return adjustment;
     }
 
-    public int CostFuel() {
-        return COST_FUEL[ShipSpec().getSize().castToInt()];
+    public int getCostFuel() {
+        return COST_FUEL[getShipSpec().getSize().castToInt()];
     }
 
-    public int CostHull() {
-        return COST_HULL[ShipSpec().getSize().castToInt()];
+    public int getCostHull() {
+        return COST_HULL[getShipSpec().getSize().castToInt()];
     }
 
-    public String Engineer() {
-        return Strings.ShipyardEngineers[Id().castToInt()];
+    public String getEngineer() {
+        return Strings.ShipyardEngineers[getId().castToInt()];
     }
 
-    public ShipyardId Id() {
+    public ShipyardId getId() {
         return _id;
     }
 
-    public int MaxUnits() {
-        return MAX_UNITS[ShipSpec().getSize().castToInt()];
+    public int getMaxUnits() {
+        return MAX_UNITS[getShipSpec().getSize().castToInt()];
     }
 
     public String getName() {
-        return Strings.ShipyardNames[Id().castToInt()];
+        return Strings.ShipyardNames[getId().castToInt()];
     }
 
-    public int PenaltyCost() {
+    public int getPenaltyCost() {
         int penalty = 0;
 
-        if (PercentOfMaxUnits() >= PENALTY_SECOND_PCT)
+        if (getPercentOfMaxUnits() >= PENALTY_SECOND_PCT)
             penalty = PENALTY_SECOND_FEE;
-        else if (PercentOfMaxUnits() >= PENALTY_FIRST_PCT)
+        else if (getPercentOfMaxUnits() >= PENALTY_FIRST_PCT)
             penalty = PENALTY_FIRST_FEE;
 
-        return BasePrice() * penalty / 100;
+        return getBasePrice() * penalty / 100;
     }
 
-    public int PercentOfMaxUnits() {
-        return UnitsUsed() * 100 / MaxUnits();
+    public int getPercentOfMaxUnits() {
+        return getUnitsUsed() * 100 / getMaxUnits();
     }
 
-    public int PerUnitFuel() {
-        return PER_UNIT_FUEL[ShipSpec().getSize().castToInt()];
+    public int getPerUnitFuel() {
+        return PER_UNIT_FUEL[getShipSpec().getSize().castToInt()];
     }
 
-    public int PerUnitHull() {
-        return PER_UNIT_HULL[ShipSpec().getSize().castToInt()] + modHull;
+    public int getPerUnitHull() {
+        return PER_UNIT_HULL[getShipSpec().getSize().castToInt()] + modHull;
     }
 
-    public int PricePerUnit() {
-        return PRICE_PER_UNIT[ShipSpec().getSize().castToInt()];
+    public int getPricePerUnit() {
+        return PRICE_PER_UNIT[getShipSpec().getSize().castToInt()];
     }
 
-    public ShipSpec ShipSpec() {
-        return Consts.ShipSpecs[ShipType.Custom.castToInt()];
+    public ShipSpec getShipSpec() {
+        return Consts.ShipSpecs[ShipType.CUSTOM.castToInt()];
     }
 
-    public ShipyardSkill Skill() {
+    public ShipyardSkill getSkill() {
         return _skill;
     }
 
-    public Size SpecialtySize() {
+    public Size getSpecialtySize() {
         return _specialtySize;
     }
 
-    public int TotalCost() {
-        return AdjustedPrice() + AdjustedPenaltyCost() + AdjustedDesignFee() - TradeIn();
+    public int getTotalCost() {
+        return getAdjustedPrice() + getAdjustedPenaltyCost() + getAdjustedDesignFee() - getTradeIn();
     }
 
-    public int TradeIn() {
+    public int getTradeIn() {
         return Game.getCurrentGame().getCommander().getShip().getWorth(false);
     }
 
 
-    public int UnitsCrew() {
-        return UNITS_CREW[ShipSpec().getSize().castToInt()] - modCrew;
+    public int getUnitsCrew() {
+        return UNITS_CREW[getShipSpec().getSize().castToInt()] - modCrew;
     }
 
-    public int UnitsFuel() {
-        return UNITS_FUEL[ShipSpec().getSize().castToInt()];
+    public int getUnitsFuel() {
+        return UNITS_FUEL[getShipSpec().getSize().castToInt()];
     }
 
-    public int UnitsGadgets() {
-        return UNITS_GADGET[ShipSpec().getSize().castToInt()];
+    public int getUnitsGadgets() {
+        return UNITS_GADGET[getShipSpec().getSize().castToInt()];
     }
 
-    public int UnitsHull() {
-        return UNITS_HULL[ShipSpec().getSize().castToInt()];
+    public int getUnitsHull() {
+        return UNITS_HULL[getShipSpec().getSize().castToInt()];
     }
 
-    public int UnitsShields() {
-        return UNITS_SHIELD[ShipSpec().getSize().castToInt()] - modShield;
+    public int getUnitsShields() {
+        return UNITS_SHIELD[getShipSpec().getSize().castToInt()] - modShield;
     }
 
-    public int UnitsWeapons() {
-        return UNITS_WEAPON[ShipSpec().getSize().castToInt()] - modWeapon;
+    public int getUnitsWeapons() {
+        return UNITS_WEAPON[getShipSpec().getSize().castToInt()] - modWeapon;
     }
 
-    public int UnitsUsed() {
-        int cargoBays = ShipSpec().getCargoBays();
-        int crew = ShipSpec().getCrewQuarters() * UnitsCrew();
-        int fuel = (int) Math.ceil((double) (ShipSpec().getFuelTanks() - BaseFuel()) / PerUnitFuel() * UnitsFuel());
-        int gadgets = ShipSpec().getGadgetSlots() * UnitsGadgets();
-        int hull = (ShipSpec().getHullStrength() - BaseHull()) / PerUnitHull() * UnitsHull();
-        int shield = ShipSpec().getShieldSlots() * UnitsShields();
-        int weapons = ShipSpec().getWeaponSlots() * UnitsWeapons();
+    public int getUnitsUsed() {
+        int cargoBays = getShipSpec().getCargoBays();
+        int crew = getShipSpec().getCrewQuarters() * getUnitsCrew();
+        int fuel = (int) Math.ceil((double) (getShipSpec().getFuelTanks() - getBaseFuel()) / getPerUnitFuel() * getUnitsFuel());
+        int gadgets = getShipSpec().getGadgetSlots() * getUnitsGadgets();
+        int hull = (getShipSpec().getHullStrength() - getBaseHull()) / getPerUnitHull() * getUnitsHull();
+        int shield = getShipSpec().getShieldSlots() * getUnitsShields();
+        int weapons = getShipSpec().getWeaponSlots() * getUnitsWeapons();
 
         return cargoBays + crew + fuel + gadgets + hull + shield + weapons;
     }

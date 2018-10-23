@@ -7,18 +7,20 @@ import java.util.List;
 
 public class Directory {
 
-    public static boolean Exists(String path) {
+    public static boolean exists(String path) {
         return new File(path).exists();
     }
 
-    public static void CreateDirectory(String path) {
-        if (!new File(path).mkdir())
+    public static void createDirectory(String path) {
+        if (!new File(path).mkdir()) {
             System.out.println("Couldn't make dir " + path);
+        }
     }
 
-    public static String[] GetFiles(String path, String filter) {
-        if (!filter.startsWith("*."))
+    public static String[] getFiles(String path, String filter) {
+        if (!filter.startsWith("*.")) {
             new Error("unsupported format").printStackTrace();
+        }
 
         final String suffix = filter.substring(2);
 
@@ -30,6 +32,6 @@ public class Directory {
         }
         List<String> names = Lisp.map(files, File::getPath);
 
-        return names.toArray(new String[names.size()]);
+        return names.toArray(new String[0]);
     }
 }

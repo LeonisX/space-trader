@@ -20,6 +20,7 @@ public class ResourceManager {
         }
     }
 
+    //TODO simplify
     public ResourceManager(Class<?> className) {
         this(classLoader.getResource(classToPath(className) + className.getSimpleName() + ".properties"),
                 classToPath(className));

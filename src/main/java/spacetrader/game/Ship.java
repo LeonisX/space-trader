@@ -71,7 +71,7 @@ public class Ship extends ShipSpec {
 
             Crew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
         } else if (oppType == OpponentType.Bottle) {
-            SetValues(ShipType.Bottle);
+            SetValues(ShipType.BOTTLE);
         } else {
             int tries = oppType == OpponentType.Mantis ? Game.getCurrentGame().getDifficulty().castToInt() + 1 : Math
                     .max(1, Game.getCurrentGame().getCommander().Worth() / 150000
@@ -421,7 +421,7 @@ public class Ship extends ShipSpec {
         PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().politicalSystem();
 
         if (oppType == OpponentType.Mantis)
-            SetValues(ShipType.Mantis);
+            SetValues(ShipType.MANTIS);
         else {
             ShipType oppShipType;
             int tries = 1;
@@ -451,9 +451,9 @@ public class Ship extends ShipSpec {
             }
 
             if (oppType == OpponentType.Trader)
-                oppShipType = ShipType.Flea;
+                oppShipType = ShipType.FLEA;
             else
-                oppShipType = ShipType.Gnat;
+                oppShipType = ShipType.GNAT;
 
             int total = 0;
             for (int i = 0; i < Consts.MaxShip; i++) {
@@ -826,8 +826,8 @@ public class Ship extends ShipSpec {
     }
 
     public boolean Disableable() {
-        return !CommandersShip() && getType() != ShipType.Bottle && getType() != ShipType.Mantis
-                && getType() != ShipType.SpaceMonster;
+        return !CommandersShip() && getType() != ShipType.BOTTLE && getType() != ShipType.MANTIS
+                && getType() != ShipType.SPACE_MONSTER;
     }
 
     public int Engineer() {
@@ -1053,8 +1053,8 @@ public class Ship extends ShipSpec {
             for (int count = 0; count < getCargo()[tradeItem]; count++)
                 tradeItems.add(tradeItem);
         }
-        tradeItems.Sort();
-        tradeItems.Reverse();
+        tradeItems.sort();
+        tradeItems.reverse();
 
         int hidden = HiddenCargoBays();
         if (PrincessOnBoard())
@@ -1063,7 +1063,7 @@ public class Ship extends ShipSpec {
             hidden--;
 
         if (hidden > 0)
-            tradeItems.RemoveRange(0, hidden);
+            tradeItems.removeRange(0, hidden);
 
         return tradeItems;
     }

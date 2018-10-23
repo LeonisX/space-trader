@@ -46,7 +46,7 @@ public class Commander extends CrewMember {
     private int _days = 0;
     private boolean _insurance = false;
     private int _noclaim = 0;
-    private Ship _ship = new Ship(ShipType.Gnat);
+    private Ship _ship = new Ship(ShipType.GNAT);
     private int[] _priceCargo = new int[10]; // Total price paid for trade goods
 
     // //#endregion
@@ -115,11 +115,11 @@ public class Commander extends CrewMember {
         return hash;
     }
 
-    public boolean TradeShip(ShipSpec specToBuy, int netPrice) {
-        return TradeShip(specToBuy, netPrice, specToBuy.getName());
+    public boolean isTradeShip(ShipSpec specToBuy, int netPrice) {
+        return isTradeShip(specToBuy, netPrice, specToBuy.getName());
     }
 
-    public boolean TradeShip(ShipSpec specToBuy, int netPrice, String newShipName) {
+    public boolean isTradeShip(ShipSpec specToBuy, int netPrice, String newShipName) {
         boolean traded = false;
 
         if (netPrice > 0 && getDebt() > 0)

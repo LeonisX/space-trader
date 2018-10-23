@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class ArrayList<T> extends java.util.ArrayList<T> {
-    private static final long serialVersionUID = -537394628993404338l;
+
+    private static final long serialVersionUID = -537394628993404338L;
 
     public ArrayList(int i) {
         super(i);
@@ -19,16 +20,16 @@ public class ArrayList<T> extends java.util.ArrayList<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public void Sort() {
+    public void sort() {
         Object ob = this;
         Collections.sort((java.util.List<Comparable>) ob);
     }
 
-    public void Reverse() {
+    public void reverse() {
         Collections.reverse(this);
     }
 
-    public void RemoveRange(int index, int count) {
-        removeRange(index, index + count);
+    public void removeRange(int index, int count) {
+        super.removeRange(index, index + count);
     }
 }

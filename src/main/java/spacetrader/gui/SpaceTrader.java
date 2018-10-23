@@ -53,10 +53,7 @@ import spacetrader.game.enums.ShipType;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
-import spacetrader.stub.PropertiesLoader;
 import spacetrader.stub.RegistryKey;
-import spacetrader.stub.StringsMap;
-import spacetrader.stub.ValuesMap;
 import spacetrader.util.ReflectionUtils;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
@@ -70,11 +67,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private TargetSystemPanel targetSystemPanel;
 
     private SpaceTraderStatusBar statusBar;
-
-    private ImageList ilChartImages;
-    private ImageList ilDirectionImages;
-    private ImageList ilEquipmentImages;
-    private ImageList ilShipImages;
 
     private MainMenu mainMenu;
 
@@ -124,8 +116,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void initializeComponent() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
-
-        initializeImages(resources);
 
         this.setName("mainWindow");
 
@@ -188,8 +178,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         dockPanel = new DockPanel(this);
         cargoPanel = new CargoPanel();
         shipyardPanel = new ShipyardPanel(this);
-        galacticChartPanel = new GalacticChartPanel(this, ilChartImages);
-        shortRangeChartPanel = new ShortRangeChartPanel(this, ilChartImages);
+        galacticChartPanel = new GalacticChartPanel(this, GlobalAssets.getChartImages());
+        shortRangeChartPanel = new ShortRangeChartPanel(this, GlobalAssets.getChartImages());
         targetSystemPanel = new TargetSystemPanel(this);
 
         systemPanel.suspendLayout();
@@ -424,30 +414,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         saveFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.saveFileDialog.approveButton"));
     }
 
-    private void initializeImages(ResourceManager resources) {
-        ilChartImages = new ImageList(components);
-        ilShipImages = new ImageList(components);
-        ilDirectionImages = new ImageList(components);
-        ilEquipmentImages = new ImageList(components);
 
-        ilChartImages.setImageSize(new Size(7, 7));
-        ilChartImages.setImageStream(((ImageListStreamer) (resources.getObject("ilChartImages.ImageStream"))));
-        ilChartImages.setTransparentColor(Color.white);
-
-        ilShipImages.setImageSize(new Size(64, 52));
-        ilShipImages.setImageStream(((ImageListStreamer) (resources.getObject("ilShipImages.ImageStream"))));
-        ilShipImages.setTransparentColor(Color.white);
-
-        ilDirectionImages.setImageSize(new Size(13, 13));
-        ilDirectionImages.setImageStream(((ImageListStreamer) (resources
-                .getObject("ilDirectionImages.ImageStream"))));
-        ilDirectionImages.setTransparentColor(Color.white);
-
-        ilEquipmentImages.setImageSize(new Size(64, 52));
-        ilEquipmentImages.setImageStream(((ImageListStreamer) (resources
-                .getObject("ilEquipmentImages.ImageStream"))));
-        ilEquipmentImages.setTransparentColor(Color.white);
-    }
 
 
     private String getRegistrySetting(String settingName, String defaultValue) {
@@ -473,8 +440,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 Consts.CustomTemplatesDirectory, Consts.DataDirectory, Consts.SaveDirectory};
 
         for (String path : paths) {
-            if (!Directory.Exists(path)) {
-                Directory.CreateDirectory(path);
+            if (!Directory.exists(path)) {
+                Directory.createDirectory(path);
             }
         }
 
@@ -635,49 +602,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         (new FormViewShip()).showDialog(this);
     }
 
-    Image[] customShipImages() {
-        Image[] images = new Image[Consts.ImagesPerShip];
-        int baseIndex = ShipType.Custom.castToInt() * Consts.ImagesPerShip;
-        for (int index = 0; index < Consts.ImagesPerShip; index++) {
-            images[index] = ilShipImages.getImages()[baseIndex + index];
-        }
-        return images;
-    }
 
-    public void customShipImages(Image[] value) {
-        int baseIndex = ShipType.Custom.castToInt() * Consts.ImagesPerShip;
-        for (int index = 0; index < Consts.ImagesPerShip; index++) {
-            ilShipImages.getImages()[baseIndex + index] = value[index];
-        }
-    }
-
-    ImageList directionImages() {
-        return ilDirectionImages;
-    }
-
-    ImageList equipmentImages() {
-        return ilEquipmentImages;
-    }
-
-    ImageList shipImages() {
-        return ilShipImages;
-    }
-
-    public Image[] getCustomShipImages() {
-        Image[] images = new Image[Consts.ImagesPerShip];
-        int baseIndex = ShipType.Custom.castToInt() * Consts.ImagesPerShip;
-        for (int index = 0; index < Consts.ImagesPerShip; index++) {
-            images[index] = ilShipImages.getImages()[baseIndex + index];
-        }
-        return images;
-    }
-
-    void setCustomShipImages(Image[] value) {
-        int baseIndex = ShipType.Custom.castToInt() * Consts.ImagesPerShip;
-        for (int index = 0; index < Consts.ImagesPerShip; index++) {
-            ilShipImages.getImages()[baseIndex + index] = value[index];
-        }
-    }
 
     public void setGame(Game game) {
         this.game = game;

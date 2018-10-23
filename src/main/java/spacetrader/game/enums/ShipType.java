@@ -2,23 +2,23 @@ package spacetrader.game.enums;
 
 public enum ShipType implements SpaceTraderEnum {
 
-    Flea,        // 0
-    Gnat,        // 1
-    Firefly,
-    Mosquito,
-    Bumblebee,
-    Beetle,        // 5
-    Hornet,
-    Grasshopper,//7
-    Termite,
-    Wasp,        // 9
-    SpaceMonster, //10
-    Dragonfly,    // 11
-    Mantis,        // 12
-    Scarab,        // 13
-    Bottle,        // 14
-    Custom,        // 15
-    Scorpion;    // 16
+    FLEA,        // 0
+    GNAT,        // 1
+    FIREFLY,
+    MOSQUITO,
+    BUMBLEBEE,
+    BEETLE,        // 5
+    HORNET,
+    GRASSHOPPER,//7
+    TERMITE,
+    WASP,        // 9
+    SPACE_MONSTER, //10
+    DRAGONFLY,    // 11
+    MANTIS,        // 12
+    SCARAB,        // 13
+    BOTTLE,        // 14
+    CUSTOM,        // 15
+    SCORPION;    // 16
 
     public static ShipType fromInt(int i) {
         return values()[i];

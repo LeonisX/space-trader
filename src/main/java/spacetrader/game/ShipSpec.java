@@ -33,7 +33,7 @@ import spacetrader.guifacade.GuiEngine;
 import spacetrader.util.Hashtable;
 
 public class ShipSpec extends STSerializableObject {
-    private ShipType _type = ShipType.Custom;
+    private ShipType _type = ShipType.CUSTOM;
     private Size _size = spacetrader.game.enums.Size.Tiny;
     private int _cargoBays = 0;
     private int _weaponSlots = 0;
@@ -101,19 +101,19 @@ public class ShipSpec extends STSerializableObject {
         _imageIndex = getValueFromHash(hash, "_imageIndex", Consts.ShipImgUseDefault);
 
         // Get the images if the ship uses the custom images.
-        if (getImageIndex() == ShipType.Custom.castToInt())
+        if (getImageIndex() == ShipType.CUSTOM.castToInt())
             GuiEngine.getImageProvider().setCustomShipImages(getValueFromHash(hash, "_images", GuiEngine.getImageProvider()
                     .getCustomShipImages()));
 
         // Get the name if the ship is a custom design.
-        if (getType() == ShipType.Custom) {
-            Strings.ShipNames[ShipType.Custom.castToInt()] = getValueFromHash(hash, "_name",
-                    Strings.ShipNames[ShipType.Custom.castToInt()]);
+        if (getType() == ShipType.CUSTOM) {
+            Strings.ShipNames[ShipType.CUSTOM.castToInt()] = getValueFromHash(hash, "_name",
+                    Strings.ShipNames[ShipType.CUSTOM.castToInt()]);
 
-            Consts.ShipSpecs[ShipType.Custom.castToInt()] = new ShipSpec(_type, _size, _cargoBays, _weaponSlots,
+            Consts.ShipSpecs[ShipType.CUSTOM.castToInt()] = new ShipSpec(_type, _size, _cargoBays, _weaponSlots,
                     _shieldSlots, _gadgetSlots, _crewQuarters, _fuelTanks, _fuelCost, _hullStrength, _repairCost,
                     _price, _occurrence, _police, _pirates, _traders, _minTech);
-            UpdateCustomImageOffsetConstants();
+            updateCustomImageOffsetConstants();
         }
     }
 
@@ -145,11 +145,11 @@ public class ShipSpec extends STSerializableObject {
             hash.add("_imageIndex", _imageIndex);
 
         // Save the name if the ship is a custom design.
-        if (getType() == ShipType.Custom)
+        if (getType() == ShipType.CUSTOM)
             hash.add("_name", getName());
 
         // Save the images if the ship uses the custom images.
-        if (getImageIndex() == ShipType.Custom.castToInt())
+        if (getImageIndex() == ShipType.CUSTOM.castToInt())
             hash.add("_images", GuiEngine.getImageProvider().getCustomShipImages());
 
         return hash;
@@ -197,9 +197,9 @@ public class ShipSpec extends STSerializableObject {
         return count;
     }
 
-    public void UpdateCustomImageOffsetConstants() {
+    public void updateCustomImageOffsetConstants() {
         Image image = GuiEngine.getImageProvider().getCustomShipImages()[0];
-        int custIndex = ShipType.Custom.castToInt();
+        int custIndex = ShipType.CUSTOM.castToInt();
 
         // Find the first column of pixels that has a non-white pixel for the X
         // value, and the last column for the width.
@@ -221,7 +221,7 @@ public class ShipSpec extends STSerializableObject {
         return _fuelTanks;
     }
 
-    public void FuelTanks(int value) {
+    public void setFuelTanks(int value) {
         _fuelTanks = value;
     }
 

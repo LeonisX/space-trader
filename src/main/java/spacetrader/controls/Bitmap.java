@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.net.URL;
 
@@ -41,7 +42,7 @@ public class Bitmap extends Image implements Icon, Serializable {
         }
     }
 
-    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         image = ImageIO.read(imageUrl);
         setTransparentColor(transparent);
@@ -49,12 +50,14 @@ public class Bitmap extends Image implements Icon, Serializable {
 
     @Override
     public void setTransparentColor(Color transparentColor) {
-        if (transSet)
+        if (transSet) {
             throw new Error("setTransparentColor called twice");
+        }
         transSet = true;
 
-        if (transparentColor == null)
+        if (transparentColor == null) {
             return;
+        }
 
         // Don't yet support all colors.
         if (!transparentColor.equals(Color.white)) {
@@ -89,7 +92,7 @@ public class Bitmap extends Image implements Icon, Serializable {
         image = newImage;
     }
 
-    public int ToArgb(int col, int row) {
+    public int toArgb(int col, int row) {
         // note that alpha is ignored.
         return image.getRGB(col, row);
     }

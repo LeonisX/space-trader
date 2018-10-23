@@ -133,7 +133,7 @@ class ShipyardPanel extends Panel {
             designButton.setVisible(false);
             tradeEquipmentButton.setVisible(false);
         } else {
-            boolean noTech = (commander.getCurrentSystem().getTechLevel().castToInt() < Consts.ShipSpecs[ShipType.Flea
+            boolean noTech = (commander.getCurrentSystem().getTechLevel().castToInt() < Consts.ShipSpecs[ShipType.FLEA
                     .castToInt()].getMinimumTechLevel().castToInt());
 
             shipsForSaleLabel.setText(noTech ? ShipyardShipNoSale : ShipyardShipForSale);

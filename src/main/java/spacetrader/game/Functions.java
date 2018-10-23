@@ -107,7 +107,7 @@ public class Functions {
 
         for (; col != stop; col += step) {
             for (int row = 0; row < bitmap.getHeight(); row++) {
-                if (bitmap.ToArgb(col, row) != 0)
+                if (bitmap.toArgb(col, row) != 0)
                     return col;
             }
         }

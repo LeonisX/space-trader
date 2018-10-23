@@ -2,39 +2,38 @@ package spacetrader.gui;
 
 import spacetrader.controls.Image;
 import spacetrader.controls.ImageList;
+import spacetrader.game.GlobalAssets;
 import spacetrader.gui.cheat.FormMonster;
 import spacetrader.guifacade.GuiEngine.CheatGui;
 import spacetrader.guifacade.GuiEngine.ImageProvider;
 import spacetrader.guifacade.GuiEngine.ImplementationProvider;
 
 public class OriginalGuiImplementationProvider implements ImplementationProvider {
-    private final SpaceTrader spaceTrader;
 
-    public OriginalGuiImplementationProvider(SpaceTrader spaceTrader) {
+    public OriginalGuiImplementationProvider() {
         super();
-        this.spaceTrader = spaceTrader;
     }
 
     public ImageProvider getImageProvider() {
         return new ImageProvider() {
             public ImageList getEquipmentImages() {
-                return spaceTrader.equipmentImages();
+                return GlobalAssets.getEquipmentImages();
             }
 
             public ImageList getShipImages() {
-                return spaceTrader.shipImages();
+                return GlobalAssets.getShipImages();
             }
 
             public Image[] getCustomShipImages() {
-                return spaceTrader.customShipImages();
+                return GlobalAssets.getCustomShipImages();
             }
 
             public void setCustomShipImages(Image[] value) {
-                spaceTrader.setCustomShipImages(value);
+                GlobalAssets.setCustomShipImages(value);
             }
 
             public Image[] getDirectionImages() {
-                return spaceTrader.directionImages().getImages();
+                return GlobalAssets.getDirectionImages().getImages();
             }
         };
     }
