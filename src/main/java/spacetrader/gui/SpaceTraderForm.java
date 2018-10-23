@@ -9,7 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Stack;
 
-abstract class SpaceTraderForm extends WinformForm {
+public abstract class SpaceTraderForm extends WinformForm {
 
     protected SpaceTraderForm() {
         ((Window) swingComponent).addWindowListener(new MyListener());

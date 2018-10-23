@@ -23,13 +23,15 @@
  *
  ******************************************************************************/
 
-package spacetrader.gui;
+package spacetrader.gui.cheat;
 
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
 import spacetrader.game.*;
 import spacetrader.game.enums.ShipyardId;
+import spacetrader.gui.FontCollection;
+import spacetrader.gui.SpaceTraderForm;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.CheatCode;
 import spacetrader.util.ReflectionUtils;
@@ -38,7 +40,7 @@ import spacetrader.util.Util;
 import java.awt.*;
 
 @CheatCode
-class FormMonster extends SpaceTraderForm {
+public class FormMonster extends SpaceTraderForm {
 
     private static final int SPLIT_SYSTEMS = 31;
 
@@ -83,7 +85,7 @@ class FormMonster extends SpaceTraderForm {
     private Integer[] questSystemIds;
     private Integer[] shipyardSystemIds;
 
-    FormMonster() {
+    public FormMonster() {
         initializeComponent();
 
         populateIdArrays();

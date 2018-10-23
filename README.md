@@ -7,7 +7,7 @@ The project is a Java port of the [Space Trader for Windows](https://sourceforge
 
 ## Whats new:
 
-* Multilanguage support
+* Multilingual support
 * Gradle
 * Full refactor, code clean-up
 * --Bug fixes
@@ -15,6 +15,7 @@ The project is a Java port of the [Space Trader for Windows](https://sourceforge
 
 ## TODO
 
+* Move cheats-only enums to cheat package
 * i18n for Swing
 * Russian for mnuGameSave/mnuGameLoad
 * Strings to file
