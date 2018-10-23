@@ -97,7 +97,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
     }
 
     final public Image getImage() {
-        return GuiEngine.imageProvider.getEquipmentImages().getImages()[BaseImageIndex()
+        return GuiEngine.getImageProvider().getEquipmentImages().getImages()[BaseImageIndex()
                 + getSubType().castToInt()];
     }
 

@@ -138,8 +138,8 @@ public class FormShipyard extends SpaceTraderForm {
 
         dlgOpen.setInitialDirectory(Consts.CustomImagesDirectory);
         dlgSave.setInitialDirectory(Consts.CustomTemplatesDirectory);
-        lblDisabledName.setImage(GuiEngine.imageProvider.getDirectionImages()[Consts.DirectionDown]);
-        lblDisabledPct.setImage(GuiEngine.imageProvider.getDirectionImages()[Consts.DirectionDown]);
+        lblDisabledName.setImage(GuiEngine.getImageProvider().getDirectionImages()[Consts.DirectionDown]);
+        lblDisabledPct.setImage(GuiEngine.getImageProvider().getDirectionImages()[Consts.DirectionDown]);
 
         LoadSizes();
         LoadTemplateList();
@@ -232,7 +232,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxWelcome
         //
-        boxWelcome.controls.addAll((new BaseComponent[]{lblSkillDescription, lblSkill, lblSizeSpecialty,
+        boxWelcome.getControls().addAll((new BaseComponent[]{lblSkillDescription, lblSkill, lblSizeSpecialty,
                 lblSkillLabel, lblSizeSpecialtyLabel, lblWarning, picLogo, lblWelcome}));
         boxWelcome.setLocation(new java.awt.Point(8, 0));
         boxWelcome.setName("boxWelcome");
@@ -315,7 +315,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxInfo
         //
-        boxInfo.controls.addAll((new BaseComponent[]{btnSave, btnLoad, picInfoLine, btnPrevImage, btnNextImage,
+        boxInfo.getControls().addAll((new BaseComponent[]{btnSave, btnLoad, picInfoLine, btnPrevImage, btnNextImage,
                 lblImage, lblImageLabel, selTemplate, lblTemplate, selSize, lblSize, btnSetCustomImage, picShip,
                 txtName, lblName}));
         boxInfo.setLocation(new java.awt.Point(8, 208));
@@ -532,7 +532,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxCosts
         //
-        boxCosts.controls.addAll((new BaseComponent[]{lblTradeIn, lblTradeInLabel, picCostsLine, lblPenalty,
+        boxCosts.getControls().addAll((new BaseComponent[]{lblTradeIn, lblTradeInLabel, picCostsLine, lblPenalty,
                 lblPenaltyLabel, lblShipCost, lblTotalCost, lblTotalCostLabel, lblShipCostLabel, lblDesignFee,
                 lblDesignFeeLabel}));
         boxCosts.setLocation(new java.awt.Point(286, 230));
@@ -681,7 +681,7 @@ public class FormShipyard extends SpaceTraderForm {
         //
         // boxAllocation
         //
-        boxAllocation.controls.addAll((new BaseComponent[]{lblPct, lblPctLabel, numHullStrength,
+        boxAllocation.getControls().addAll((new BaseComponent[]{lblPct, lblPctLabel, numHullStrength,
                 lblHullStrenghLabel, numCargoBays, numCrewQuarters, numFuelTanks, numShieldSlots, numGadgetSlots,
                 numWeaponSlots, lblCargoBays, lblFuelTanks, lblCrewQuarters, lblShieldSlots, lblGadgetSlots,
                 lblWeaponsSlots, lblUnitsUsedLabel, lblUnitsUsed}));
@@ -1039,7 +1039,7 @@ public class FormShipyard extends SpaceTraderForm {
             if (template.Images() != null)
                 customImages = template.Images();
             else
-                customImages = GuiEngine.imageProvider.getCustomShipImages();
+                customImages = GuiEngine.getImageProvider().getCustomShipImages();
 
             numCargoBays.setValue(template.CargoBays());
             numFuelTanks.setValue(Math.min(Math.max(numFuelTanks.getMinimum(), template.FuelTanks()), numFuelTanks
@@ -1087,7 +1087,7 @@ public class FormShipyard extends SpaceTraderForm {
 
         // Add the buyable ship spec templates.
         for (ShipSpec spec : Consts.ShipSpecs) {
-            if (sizes.contains(spec.getSize()) && spec.Type().castToInt() <= Consts.MaxShip)
+            if (sizes.contains(spec.getSize()) && spec.getType().castToInt() <= Consts.MaxShip)
                 selTemplate.getItems().add(new ShipTemplate(spec, spec.getName() + Strings.ShipNameTemplateSuffixDefault));
         }
 
@@ -1194,9 +1194,9 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void UpdateShip() {
-        shipyard.ShipSpec().ImageIndex(imgTypes[imgIndex].castToInt());
+        shipyard.ShipSpec().setImageIndex(imgTypes[imgIndex].castToInt());
         picShip.setImage((imgIndex > Consts.MaxShip ? customImages[0]
-                : Consts.ShipSpecs[imgTypes[imgIndex].castToInt()].Image()));
+                : Consts.ShipSpecs[imgTypes[imgIndex].castToInt()].getImage()));
         lblImage.setText((imgIndex > Consts.MaxShip ? Strings.ShipNameCustomShip : Consts.ShipSpecs[imgTypes[imgIndex]
                 .castToInt()].getName()));
     }
@@ -1214,8 +1214,8 @@ public class FormShipyard extends SpaceTraderForm {
                     game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
 
                 // Replace the current custom images with the new ones.
-                if (game.getCommander().getShip().ImageIndex() == ShipType.Custom.castToInt()) {
-                    GuiEngine.imageProvider.setCustomShipImages(customImages);
+                if (game.getCommander().getShip().getImageIndex() == ShipType.Custom.castToInt()) {
+                    GuiEngine.getImageProvider().setCustomShipImages(customImages);
 
                     game.getCommander().getShip().UpdateCustomImageOffsetConstants();
                 }

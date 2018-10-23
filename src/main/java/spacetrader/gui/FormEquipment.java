@@ -208,9 +208,9 @@ public class FormEquipment extends SpaceTraderForm {
         sellGadgetsNoSlotsLabel.setText("No slots");
         sellGadgetsNoSlotsLabel.setVisible(false);
 
-        currentInventoryPanel.controls.addAll(sellWeaponsLabel, sellWeaponsListBox, sellWeaponsNoSlotsLabel);
-        currentInventoryPanel.controls.addAll(sellShieldsLabel, sellShieldsListBox, sellShieldsNoSlotsLabel);
-        currentInventoryPanel.controls.addAll(sellGadgetsLabel, sellGadgetsListBox, sellGadgetsNoSlotsLabel);
+        currentInventoryPanel.getControls().addAll(sellWeaponsLabel, sellWeaponsListBox, sellWeaponsNoSlotsLabel);
+        currentInventoryPanel.getControls().addAll(sellShieldsLabel, sellShieldsListBox, sellShieldsNoSlotsLabel);
+        currentInventoryPanel.getControls().addAll(sellGadgetsLabel, sellGadgetsListBox, sellGadgetsNoSlotsLabel);
 
         equipmentForSalePanel.setLocation(new Point(156, 2));
         equipmentForSalePanel.setSize(new Size(144, 304));
@@ -298,9 +298,9 @@ public class FormEquipment extends SpaceTraderForm {
         buyGadgetsNoneLabel.setText("None for sale");
         buyGadgetsNoneLabel.setVisible(false);
 
-        equipmentForSalePanel.controls.addAll(buyWeaponsLabel, buyWeaponsListBox, buyWeaponNoneLabel);
-        equipmentForSalePanel.controls.addAll(buyShieldsLabel, buyShieldsListBox, buyShieldsNoneLabel);
-        equipmentForSalePanel.controls.addAll(buyGadgetsLabel, buyGadgetsListBox, buyGadgetsNoneLabel);
+        equipmentForSalePanel.getControls().addAll(buyWeaponsLabel, buyWeaponsListBox, buyWeaponNoneLabel);
+        equipmentForSalePanel.getControls().addAll(buyShieldsLabel, buyShieldsListBox, buyShieldsNoneLabel);
+        equipmentForSalePanel.getControls().addAll(buyGadgetsLabel, buyGadgetsListBox, buyGadgetsNoneLabel);
 
         equipmentInformationPanel.setLocation(new Point(308, 2));
         equipmentInformationPanel.setSize(new Size(208, 304));
@@ -412,7 +412,7 @@ public class FormEquipment extends SpaceTraderForm {
             }
         });
 
-        equipmentInformationPanel.controls.addAll(equipmentPictureBox, nameLabel, nameLabelValue, typeLabel,
+        equipmentInformationPanel.getControls().addAll(equipmentPictureBox, nameLabel, nameLabelValue, typeLabel,
                 typeLabelValue, buyPriceLabel, buyPriceLabelValue, sellPriceLabel, sellPriceLabelValue, powerLabel,
                 powerLabelValue, chargeLabel, chargeLabelValue, descriptionLabel, sellButton, buyButton);
 

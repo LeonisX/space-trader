@@ -58,7 +58,7 @@ public class Ship extends ShipSpec {
 
     public Ship(OpponentType oppType) {
         if (oppType == OpponentType.FamousCaptain) {
-            SetValues(Consts.ShipSpecs[Consts.MaxShip].Type());
+            SetValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
             for (int i = 0; i < Shields().length; i++)
                 addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
@@ -458,7 +458,7 @@ public class Ship extends ShipSpec {
             int total = 0;
             for (int i = 0; i < Consts.MaxShip; i++) {
                 ShipSpec spec = Consts.ShipSpecs[i];
-                if (polSys.ShipTypeLikely(spec.Type(), oppType))
+                if (polSys.ShipTypeLikely(spec.getType(), oppType))
                     total += spec.Occurrence();
             }
 
@@ -469,7 +469,7 @@ public class Ship extends ShipSpec {
 
                 do {
                     j++;
-                    if (polSys.ShipTypeLikely(Consts.ShipSpecs[j].Type(), oppType)) {
+                    if (polSys.ShipTypeLikely(Consts.ShipSpecs[j].getType(), oppType)) {
                         if (sum > 0)
                             sum += Consts.ShipSpecs[j].Occurrence();
                         else
@@ -478,7 +478,7 @@ public class Ship extends ShipSpec {
                 } while (sum < x && j < Consts.MaxShip);
 
                 if (j > oppShipType.castToInt())
-                    oppShipType = Consts.ShipSpecs[j].Type();
+                    oppShipType = Consts.ShipSpecs[j].getType();
             }
 
             SetValues(oppShipType);
@@ -748,7 +748,7 @@ public class Ship extends ShipSpec {
 
     // #region Properties
 
-    public int Worth(boolean forInsurance) {
+    public int getWorth(boolean forInsurance) {
         int price = BaseWorth(forInsurance);
         for (int i = 0; i < _cargo.length; i++)
             price += Game.getCurrentGame().getCommander().getPriceCargo()[i];
@@ -826,8 +826,8 @@ public class Ship extends ShipSpec {
     }
 
     public boolean Disableable() {
-        return !CommandersShip() && Type() != ShipType.Bottle && Type() != ShipType.Mantis
-                && Type() != ShipType.SpaceMonster;
+        return !CommandersShip() && getType() != ShipType.Bottle && getType() != ShipType.Mantis
+                && getType() != ShipType.SpaceMonster;
     }
 
     public int Engineer() {

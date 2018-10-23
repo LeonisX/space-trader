@@ -114,7 +114,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // boxAlert
         //
-        this.boxAlert.controls.addAll((new BaseComponent[]{
+        this.boxAlert.getControls().addAll((new BaseComponent[]{
                 this.btnTestAlert,
                 this.txtValue3,
                 this.txtValue2,
@@ -206,7 +206,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // panel1
         //
-        this.panel1.controls.addAll((new BaseComponent[]{
+        this.panel1.getControls().addAll((new BaseComponent[]{
                 this.btnTestSpecialEvent,
                 this.selSpecialEvent,
                 this.lblSpecialEvent}));

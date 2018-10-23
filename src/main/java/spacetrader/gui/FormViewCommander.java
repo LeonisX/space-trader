@@ -217,7 +217,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //
         // boxSkills
         //
-        this.boxSkills.controls.addAll((new BaseComponent[]{this.lblEngineer, this.lblTrader, this.lblFighter,
+        this.boxSkills.getControls().addAll((new BaseComponent[]{this.lblEngineer, this.lblTrader, this.lblFighter,
                 this.lblPilot, this.lblEngineerLabel, this.lblTraderLabel, this.lblFighterLabel, this.lblPilotLabel}));
         this.boxSkills.setLocation(new java.awt.Point(8, 64));
         this.boxSkills.setSize(new spacetrader.controls.Size(216, 56));
@@ -291,7 +291,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //
         // boxFinances
         //
-        this.boxFinances.controls.addAll(this.lblCash, this.lblDebt, this.lblNetWorth, this.lblNetWorthLabel,
+        this.boxFinances.getControls().addAll(this.lblCash, this.lblDebt, this.lblNetWorth, this.lblNetWorthLabel,
                 this.lblCashLabel, this.lblDebtLabel);
         this.boxFinances.setLocation(new java.awt.Point(8, 128));
         this.boxFinances.setSize(new spacetrader.controls.Size(216, 72));
@@ -325,7 +325,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //
         // boxNotoriety
         //
-        this.boxNotoriety.controls.addAll((new BaseComponent[]{this.lblBountyLabel, this.lblBounty,
+        this.boxNotoriety.getControls().addAll((new BaseComponent[]{this.lblBountyLabel, this.lblBounty,
                 this.lblPoliceLabel, this.lblReputationLabel, this.lblKillsLabel, this.lblKills, this.lblReputation,
                 this.lblRecord}));
         this.boxNotoriety.setLocation(new java.awt.Point(8, 208));

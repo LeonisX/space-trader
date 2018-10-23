@@ -20,14 +20,12 @@
 
 package spacetrader.gui;
 
+import static spacetrader.SpaceTraderApp.getDimensions;
+import static spacetrader.SpaceTraderApp.getStrings;
 import static spacetrader.controls.MenuItem.separator;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Point;
-import java.util.Arrays;
-import java.util.List;
-import spacetrader.controls.BaseComponent;
 import spacetrader.controls.CancelEventArgs;
 import spacetrader.controls.Container;
 import spacetrader.controls.DialogResult;
@@ -56,10 +54,8 @@ import spacetrader.game.Functions;
 import spacetrader.game.Game;
 import spacetrader.game.GameController;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.game.enums.ShipType;
-import spacetrader.game.enums.StarSystemId;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
@@ -120,9 +116,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private GameController controller;
     private Commander commander;
 
-    private StringsMap strings;
-    private ValuesMap dimensions;
-
     public SpaceTrader(String loadFileName) {
         initializeComponent();
 
@@ -133,69 +126,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
 
         updateAll();
-
-        ReflectionUtils.setAllComponentNames(this);
-
-        dumpAll();
-
-        ReflectionUtils.loadControlsDimensions(getFrame(), this.getName(), dimensions);
-        ReflectionUtils.loadControlsStrings(getFrame(), this.getName(), strings);
-        ReflectionUtils.loadStrings(strings);
-    }
-
-    private void dumpAll() {
-        Game game = new Game("name", Difficulty.BEGINNER,8,8,8,8, this);
-        game.getCommander().getShip().getCargo()[1] = 12;
-        game.setSelectedSystemId(StarSystemId.Aldea);
-        game.warpDirect();
-
-        List<BaseComponent> components = Arrays.asList(
-                /*this,
-                new FormAbout(),
-                FormAlert.makeDialog(EncounterDrinkContents, new String[]{}),
-                new FormBuyFuel(),
-                new FormBuyRepairs(),
-                new FormCargoBuy(1, 1, CargoBuyOp.BUY_SYSTEM),
-                new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255),
-                new FormCosts(),
-                new FormEncounter(),
-                new FormEquipment(),
-                new FormFind(),
-                new FormGetLoan(25000),
-                new FormJettison(),
-                new FormMonster(),
-                new FormNewCommander(),
-                new FormOptions(),
-                new FormPayBackLoan(),*/
-                new FormPlunder()
-                                                      );
-        dumpAllDimensions(components);
-        dumpAllStrings(components);
-    }
-
-    private void dumpAllDimensions(List<BaseComponent> components) {
-        components.forEach(baseComponent -> {
-            Component component = baseComponent.asSwingObject();
-            ReflectionUtils.dumpControlsDimensions(component, component.getName());
-            System.out.println();
-        });
-    }
-
-    private void dumpAllStrings(List<BaseComponent> components) {
-        //ReflectionUtils.dumpAllAlertStrings();
-        components.forEach(baseComponent -> {
-            Component component = baseComponent.asSwingObject();
-            ReflectionUtils.dumpControlsStrings(component, component.getName());
-            System.out.println();
-        });
-        //ReflectionUtils.dumpStrings();
     }
 
     private void initializeComponent() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
-
-        strings = PropertiesLoader.getStringsMap("strings/en.properties");
-        dimensions = PropertiesLoader.getValuesMap("dimensions/0768.properties");
 
         initializeImages(resources);
 
@@ -209,9 +143,11 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         initializePictureBox();
 
+
+        ReflectionUtils.setAllComponentNames(this);
         //this.suspendLayout();
 
-        this.setClientSize(dimensions.getSize(this.getName()));
+        this.setClientSize(getDimensions().getSize(this.getName()));
         controls.add(horizontalLine);
         controls.add(dockPanel);
         controls.add(cargoPanel);
@@ -229,7 +165,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         this.setIcon(((Icon) (resources.getObject("$this.Icon"))));
         this.setMaximizeBox(false);
         this.setStartPosition(FormStartPosition.MANUAL);
-        this.setText(strings.getTitle(this.getName()));
+        this.setText(getStrings().getTitle(this.getName()));
         this.setClosing(new spacetrader.controls.EventHandler<Object, CancelEventArgs>() {
             @Override
             public void handle(Object sender, CancelEventArgs e) {
@@ -485,14 +421,14 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         openFileDialog = new OpenFileDialog();
         saveFileDialog = new SaveFileDialog();
 
-        openFileDialog.setFilter(strings.get("mainWindow.fileDialogs.filter"));
-        openFileDialog.setTitle(strings.getTitle("mainWindow.openFileDialog"));
-        openFileDialog.setApproveButtonText(strings.getText("mainWindow.openFileDialog.approveButton"));
+        openFileDialog.setFilter(getStrings().get("mainWindow.fileDialogs.filter"));
+        openFileDialog.setTitle(getStrings().getTitle("mainWindow.openFileDialog"));
+        openFileDialog.setApproveButtonText(getStrings().getText("mainWindow.openFileDialog.approveButton"));
 
-        saveFileDialog.setFileName(strings.get("mainWindow.saveFileDialog.fileName"));
-        saveFileDialog.setFilter(strings.get("mainWindow.fileDialogs.filter"));
-        saveFileDialog.setTitle(strings.getTitle("mainWindow.saveFileDialog"));
-        saveFileDialog.setApproveButtonText(strings.getText("mainWindow.saveFileDialog.approveButton"));
+        saveFileDialog.setFileName(getStrings().get("mainWindow.saveFileDialog.fileName"));
+        saveFileDialog.setFilter(getStrings().get("mainWindow.fileDialogs.filter"));
+        saveFileDialog.setTitle(getStrings().getTitle("mainWindow.saveFileDialog"));
+        saveFileDialog.setApproveButtonText(getStrings().getText("mainWindow.saveFileDialog.approveButton"));
     }
 
     private void initializeImages(ResourceManager resources) {
@@ -770,7 +706,4 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         statusBar.update();
     }
 
-    public StringsMap getStrings() {
-        return strings;
-    }
 }

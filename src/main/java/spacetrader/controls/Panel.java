@@ -5,7 +5,7 @@ import javax.swing.border.TitledBorder;
 
 public class Panel extends BaseComponent {
 
-    public final WinformJPanel controls;
+    private final WinformJPanel controls;
     private final TitledBorder border;
     protected AnchorStyles anchor;
 
@@ -19,6 +19,10 @@ public class Panel extends BaseComponent {
     @Override
     public void suspendLayout() {
         // TODO Auto-generated method stub
+    }
+
+    public WinformJPanel getControls() {
+        return controls;
     }
 
     public String getText() {

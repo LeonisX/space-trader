@@ -133,7 +133,7 @@ public class FormViewShip extends SpaceTraderForm {
         //
         // boxSpecialCargo
         //
-        this.boxSpecialCargo.controls.addAll((new BaseComponent[]{this.lblSpecialCargo}));
+        this.boxSpecialCargo.getControls().addAll((new BaseComponent[]{this.lblSpecialCargo}));
         this.boxSpecialCargo.setLocation(new java.awt.Point(192, 8));
         this.boxSpecialCargo.setName("boxSpecialCargo");
         this.boxSpecialCargo.setSize(new spacetrader.controls.Size(200, 204));

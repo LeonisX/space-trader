@@ -46,13 +46,13 @@ class ShipyardPanel extends Panel {
 
         suspendLayout();
 
-        controls.add(shipsForSaleLabel);
-        controls.add(designButton);
-        controls.add(buyShipButton);
-        controls.add(equipForSaleLabel);
-        controls.add(tradeEquipmentButton);
-        controls.add(escapePodLabel);
-        controls.add(buyPodButton);
+        getControls().add(shipsForSaleLabel);
+        getControls().add(designButton);
+        getControls().add(buyShipButton);
+        getControls().add(equipForSaleLabel);
+        getControls().add(tradeEquipmentButton);
+        getControls().add(escapePodLabel);
+        getControls().add(buyPodButton);
 
         setSize(new spacetrader.controls.Size(168, 168));
         setTabIndex(4);

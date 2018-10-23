@@ -345,7 +345,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (getCommander().getCash() >= fine)
             getCommander().setCash(getCommander().getCash() - fine);
         else {
-            getCommander().setCash(Math.max(0, getCommander().getCash() + getCommander().getShip().Worth(true) - fine));
+            getCommander().setCash(Math.max(0, getCommander().getCash() + getCommander().getShip().getWorth(true) - fine));
 
             GuiFacade.alert(AlertType.JailShipSold);
 
@@ -1176,10 +1176,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // if Pirates are in a better ship, they won't flee, even if you
                 // have a very scary
                 // reputation.
-            else if (getOpponent().Type().castToInt() > getCommander().getShip().Type().castToInt()
-                    || getOpponent().Type().castToInt() >= ShipType.Grasshopper.castToInt()
+            else if (getOpponent().getType().castToInt() > getCommander().getShip().getType().castToInt()
+                    || getOpponent().getType().castToInt() >= ShipType.Grasshopper.castToInt()
                     || Functions.getRandom(Consts.ReputationScoreElite) > (getCommander().getReputationScore() * 4)
-                    / (1 + getOpponent().Type().castToInt()))
+                    / (1 + getOpponent().getType().castToInt()))
                 setEncounterType(spacetrader.game.enums.EncounterType.PIRATE_ATTACK);
             else
                 setEncounterType(spacetrader.game.enums.EncounterType.PIRATE_FLEE);
@@ -1214,8 +1214,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 if (getOpponent().WeaponStrength() > 0
                         && (getCommander().getReputationScore() < Consts.ReputationScoreAverage || Functions
                         .getRandom(Consts.ReputationScoreElite) > (getCommander().getReputationScore() / (1 + getOpponent()
-                        .Type().castToInt())))
-                        || getOpponent().Type().castToInt() > getCommander().getShip().Type().castToInt()) {
+                        .getType().castToInt())))
+                        || getOpponent().getType().castToInt() > getCommander().getShip().getType().castToInt()) {
                     if (getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreCriminal) {
                         getEncounterType();
                         setEncounterType(spacetrader.game.enums.EncounterType.POLICE_SURRENDER);
@@ -1270,7 +1270,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     getCommander().getPoliceRecordScore()).Type().castToInt());
 
             // encounters are half as likely if you're in a flea.
-            if (getCommander().getShip().Type() == ShipType.Flea)
+            if (getCommander().getShip().getType() == ShipType.Flea)
                 encounter *= 2;
 
             if (encounter < getWarpSystem().politicalSystem().activityPirates().castToInt())
@@ -1320,7 +1320,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             if (!getCommander().getShip().Cloaked()
                     && getCommander().getPoliceRecordScore() <= Consts.PoliceRecordScoreCriminal
                     && Functions.getRandom(Consts.ReputationScoreElite) <= (getCommander().getReputationScore() * 10)
-                    / (1 + getOpponent().Type().castToInt()))
+                    / (1 + getOpponent().getType().castToInt()))
                 setEncounterType(spacetrader.game.enums.EncounterType.TRADER_FLEE);
                 // Will there be trade in orbit?
             else if (Functions.getRandom(1000) < getChanceOfTradeInOrbit()) {
@@ -1522,11 +1522,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 result = EncounterResult.KILLED;
             }
         } else if (getOpponentDisabled()) {
-            if (getOpponent().Type() == ShipType.Dragonfly || getOpponent().Type() == ShipType.Scarab
-                    || getOpponent().Type() == ShipType.Scorpion) {
+            if (getOpponent().getType() == ShipType.Dragonfly || getOpponent().getType() == ShipType.Scarab
+                    || getOpponent().getType() == ShipType.Scorpion) {
                 String str2 = "";
 
-                switch (getOpponent().Type()) {
+                switch (getOpponent().getType()) {
                     case Dragonfly:
                         EncounterDefeatDragonfly();
                         break;
@@ -1542,7 +1542,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 GuiFacade.alert(AlertType.EncounterDisabledOpponent, EncounterShipText(), str2);
 
                 getCommander().setReputationScore(
-                        getCommander().getReputationScore() + (getOpponent().Type().castToInt() / 2 + 1));
+                        getCommander().getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
                 result = EncounterResult.NORMAL;
             } else {
                 EncounterUpdateEncounterType(prevCmdrHull, prevOppHull);
@@ -1631,7 +1631,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 int attackerDisruptors = attacker.WeaponStrength(WeaponType.PhotonDisruptor,
                         WeaponType.QuantumDisruptor);
 
-                if (defender.Type() == ShipType.Scarab) {
+                if (defender.getType() == ShipType.Scarab) {
                     attackerLasers -= attacker.WeaponStrength(WeaponType.BeamLaser, WeaponType.MilitaryLaser);
                     attackerDisruptors -= attacker.WeaponStrength(WeaponType.PhotonDisruptor,
                             WeaponType.PhotonDisruptor);
@@ -1712,7 +1712,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     setOpponentDisabled(true);
 
                 // Make sure the Scorpion doesn't get destroyed.
-                if (defender.Type() == ShipType.Scorpion && defender.getHull() == 0) {
+                if (defender.getType() == ShipType.Scorpion && defender.getHull() == 0) {
                     defender.setHull(1);
                     setOpponentDisabled(true);
                 }
@@ -1789,7 +1789,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         } else
             getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScorePlunderPirate);
 
-        getCommander().setReputationScore(getCommander().getReputationScore() + (getOpponent().Type().castToInt() / 2 + 1));
+        getCommander().setReputationScore(getCommander().getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
     }
 
     private void EncounterScoop() {
@@ -1861,7 +1861,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                                 setEncounterType(spacetrader.game.enums.EncounterType.PIRATE_FLEE);
                             }
                         } else {
-                            if (chance < 10 && getOpponent().Type() != ShipType.Mantis)
+                            if (chance < 10 && getOpponent().getType() != ShipType.Mantis)
                                 setEncounterType(spacetrader.game.enums.EncounterType.PIRATE_SURRENDER);
                             else
                                 setEncounterType(spacetrader.game.enums.EncounterType.PIRATE_FLEE);
@@ -1914,7 +1914,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 && getCommander().getShip().WeaponStrength(WeaponType.PulseLaser, WeaponType.MorgansLaser) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoLasers);
             attack = false;
-        } else if (getOpponent().Type() == ShipType.Scorpion
+        } else if (getOpponent().getType() == ShipType.Scorpion
                 && getCommander().getShip().WeaponStrength(WeaponType.PhotonDisruptor, WeaponType.QuantumDisruptor) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
             attack = false;
@@ -1973,7 +1973,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 case TRADER_ATTACK:
                 case TRADER_SURRENDER:
                     if (Functions.getRandom(Consts.ReputationScoreElite) <= getCommander().getReputationScore() * 10
-                            / (getOpponent().Type().castToInt() + 1)
+                            / (getOpponent().getType().castToInt() + 1)
                             || getOpponent().WeaponStrength() == 0)
                         setEncounterType(spacetrader.game.enums.EncounterType.TRADER_FLEE);
                     else
@@ -2136,7 +2136,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public EncounterResult getEncounterVerifySurrender() {
         EncounterResult result = EncounterResult.CONTINUE;
 
-        if (getOpponent().Type() == ShipType.Mantis) {
+        if (getOpponent().getType() == ShipType.Mantis) {
             if (getCommander().getShip().ArtifactOnBoard()) {
                 if (GuiFacade.alert(AlertType.EncounterAliensSurrender) == DialogResult.YES) {
                     GuiFacade.alert(AlertType.ArtifactRelinquished);
@@ -2247,7 +2247,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     private void EncounterWon() {
         if (getEncounterType().castToInt() >= spacetrader.game.enums.EncounterType.PIRATE_ATTACK.castToInt()
                 && getEncounterType().castToInt() <= spacetrader.game.enums.EncounterType.PIRATE_DISABLED.castToInt()
-                && getOpponent().Type() != ShipType.Mantis
+                && getOpponent().getType() != ShipType.Mantis
                 && getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious)
             GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDestroyed, "", Functions
                     .multiples(getOpponent().Bounty(), Strings.MoneyUnit));
@@ -2272,7 +2272,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case PIRATE_FLEE:
             case PIRATE_SURRENDER:
                 getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
-                if (getOpponent().Type() != ShipType.Mantis) {
+                if (getOpponent().getType() != ShipType.Mantis) {
                     if (getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious)
                         getCommander().setCash(getCommander().getCash() + getOpponent().Bounty());
                     getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
@@ -2303,7 +2303,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
         }
 
-        getCommander().setReputationScore(getCommander().getReputationScore() + (getOpponent().Type().castToInt() / 2 + 1));
+        getCommander().setReputationScore(getCommander().getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
     }
 
     public void EscapeWithPod() {
@@ -3567,7 +3567,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case PIRATE_ATTACK:
             case PIRATE_FLEE:
             case PIRATE_IGNORE:
-                if (getOpponent().Type() == ShipType.Mantis)
+                if (getOpponent().getType() == ShipType.Mantis)
                     encounterImage = Consts.EncounterImgAlien;
                 else
                     encounterImage = Consts.EncounterImgPirate;
@@ -3609,7 +3609,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case PIRATE_DISABLED:
             case PIRATE_FLEE:
             case PIRATE_SURRENDER:
-                shipText = getOpponent().Type() == ShipType.Mantis ? Strings.EncounterShipMantis
+                shipText = getOpponent().getType() == ShipType.Mantis ? Strings.EncounterShipMantis
                         : Strings.EncounterShipPirate;
                 break;
             case POLICE_ATTACK:
@@ -3688,7 +3688,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case PIRATE_ATTACK:
             case PIRATE_FLEE:
             case PIRATE_IGNORE:
-                if (getOpponent().Type() == ShipType.Mantis)
+                if (getOpponent().getType() == ShipType.Mantis)
                     encounterPretext = Strings.EncounterPretextAlien;
                 else
                     encounterPretext = Strings.EncounterPretextPirate;

@@ -1,6 +1,7 @@
 package spacetrader.game.enums;
 
 public enum ShipType implements SpaceTraderEnum {
+
     Flea,        // 0
     Gnat,        // 1
     Firefly,
@@ -23,6 +24,7 @@ public enum ShipType implements SpaceTraderEnum {
         return values()[i];
     }
 
+    @Override
     public int castToInt() {
         return ordinal();
     }

@@ -76,28 +76,28 @@ class TargetSystemPanel extends Panel {
         targetNameLabel = new Label();
 
         anchor = AnchorStyles.TOP_RIGHT;
-        
-        controls.add(trackButton);
-        controls.add(nextSystemButton);
-        controls.add(prevSystemButton);
-        controls.add(targetOutOfRangeLabel);
-        controls.add(warpButton);
-        controls.add(targetGovernmentLabelValue);
-        controls.add(targetSizeLabelValue);
-        controls.add(targetTechLevelLabelValue);
-        controls.add(targetDistanceLabelValue);
-        controls.add(targetPiratesLabelValue);
-        controls.add(targetPoliceLabelValue);
-        controls.add(targetResourceLabelValue);
-        controls.add(targetDistanceLabel);
-        controls.add(targetPiratesLabel);
-        controls.add(targetPoliceLabel);
-        controls.add(targetResourceLabel);
-        controls.add(targetGovernmentLabel);
-        controls.add(targetTechLevelLabel);
-        controls.add(targetSizeLabel);
-        controls.add(targetNameLabelValue);
-        controls.add(targetNameLabel);
+
+        getControls().add(trackButton);
+        getControls().add(nextSystemButton);
+        getControls().add(prevSystemButton);
+        getControls().add(targetOutOfRangeLabel);
+        getControls().add(warpButton);
+        getControls().add(targetGovernmentLabelValue);
+        getControls().add(targetSizeLabelValue);
+        getControls().add(targetTechLevelLabelValue);
+        getControls().add(targetDistanceLabelValue);
+        getControls().add(targetPiratesLabelValue);
+        getControls().add(targetPoliceLabelValue);
+        getControls().add(targetResourceLabelValue);
+        getControls().add(targetDistanceLabel);
+        getControls().add(targetPiratesLabel);
+        getControls().add(targetPoliceLabel);
+        getControls().add(targetResourceLabel);
+        getControls().add(targetGovernmentLabel);
+        getControls().add(targetTechLevelLabel);
+        getControls().add(targetSizeLabel);
+        getControls().add(targetNameLabelValue);
+        getControls().add(targetNameLabel);
         
         setSize(new Size(216, 168));
         setTabIndex(7);

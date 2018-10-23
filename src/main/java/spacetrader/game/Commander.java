@@ -192,7 +192,7 @@ public class Commander extends CrewMember {
                     || add[2] || addPod ? Strings.ShipBuyTransfer : "")) == DialogResult.YES) {
                 CrewMember[] oldCrew = getShip().Crew();
 
-                setShip(new Ship(specToBuy.Type()));
+                setShip(new Ship(specToBuy.getType()));
                 setCash(getCash() - (netPrice + extraCost));
 
                 for (int i = 0; i < Math.min(oldCrew.length, getShip().Crew().length); i++)

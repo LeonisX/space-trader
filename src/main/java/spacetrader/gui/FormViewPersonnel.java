@@ -111,8 +111,8 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // boxCurrentCrew
         //
-        this.boxCurrentCrew.controls.add(this.lblCrewNoQuarters);
-        this.boxCurrentCrew.controls.add(this.lstCrew);
+        this.boxCurrentCrew.getControls().add(this.lblCrewNoQuarters);
+        this.boxCurrentCrew.getControls().add(this.lstCrew);
         this.boxCurrentCrew.setLocation(new java.awt.Point(8, 8));
         this.boxCurrentCrew.setName("boxCurrentCrew");
         this.boxCurrentCrew.setSize(new spacetrader.controls.Size(144, 114));
@@ -140,8 +140,8 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // boxForHire
         //
-        this.boxForHire.controls.add(this.lblForHireNone);
-        this.boxForHire.controls.add(this.lstForHire);
+        this.boxForHire.getControls().add(this.lblForHireNone);
+        this.boxForHire.getControls().add(this.lstForHire);
         this.boxForHire.setLocation(new java.awt.Point(160, 8));
         this.boxForHire.setName("boxForHire");
         this.boxForHire.setSize(new spacetrader.controls.Size(144, 114));
@@ -169,17 +169,17 @@ public class FormViewPersonnel extends SpaceTraderForm {
         //
         // boxInfo
         //
-        this.boxInfo.controls.add(this.btnHireFire);
-        this.boxInfo.controls.add(this.lblRate);
-        this.boxInfo.controls.add(this.lblName);
-        this.boxInfo.controls.add(this.lblEngineer);
-        this.boxInfo.controls.add(this.lblTrader);
-        this.boxInfo.controls.add(this.lblFighter);
-        this.boxInfo.controls.add(this.lblPilot);
-        this.boxInfo.controls.add(this.lblEngineerLabel);
-        this.boxInfo.controls.add(this.lblTraderLabel);
-        this.boxInfo.controls.add(this.lblFighterLabel);
-        this.boxInfo.controls.add(this.lblPilotLabel);
+        this.boxInfo.getControls().add(this.btnHireFire);
+        this.boxInfo.getControls().add(this.lblRate);
+        this.boxInfo.getControls().add(this.lblName);
+        this.boxInfo.getControls().add(this.lblEngineer);
+        this.boxInfo.getControls().add(this.lblTrader);
+        this.boxInfo.getControls().add(this.lblFighter);
+        this.boxInfo.getControls().add(this.lblPilot);
+        this.boxInfo.getControls().add(this.lblEngineerLabel);
+        this.boxInfo.getControls().add(this.lblTraderLabel);
+        this.boxInfo.getControls().add(this.lblFighterLabel);
+        this.boxInfo.getControls().add(this.lblPilotLabel);
         this.boxInfo.setLocation(new java.awt.Point(312, 8));
         this.boxInfo.setName("boxInfo");
         this.boxInfo.setSize(new spacetrader.controls.Size(168, 114));

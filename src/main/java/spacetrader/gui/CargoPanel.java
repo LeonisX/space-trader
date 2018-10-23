@@ -363,39 +363,39 @@ class CargoPanel extends Panel {
 
         this.anchor = AnchorStyles.TOP_RIGHT;
 
-        controls.add(verticalLine0);
-        controls.add(verticalLine1);
-        controls.add(verticalLine2);
-        controls.add(horizontalLine);
+        getControls().add(verticalLine0);
+        getControls().add(verticalLine1);
+        getControls().add(verticalLine2);
+        getControls().add(horizontalLine);
 
-        controls.add(commodityLabel9);
-        controls.add(commodityLabel8);
-        controls.add(commodityLabel2);
-        controls.add(commodityLabel0);
-        controls.add(commodityLabel1);
-        controls.add(commodityLabel6);
-        controls.add(commodityLabel5);
-        controls.add(commodityLabel4);
-        controls.add(commodityLabel3);
-        controls.add(commodityLabel7);
+        getControls().add(commodityLabel9);
+        getControls().add(commodityLabel8);
+        getControls().add(commodityLabel2);
+        getControls().add(commodityLabel0);
+        getControls().add(commodityLabel1);
+        getControls().add(commodityLabel6);
+        getControls().add(commodityLabel5);
+        getControls().add(commodityLabel4);
+        getControls().add(commodityLabel3);
+        getControls().add(commodityLabel7);
 
-        controls.add(buyPriceLabel);
-        controls.add(sellPriceLabel);
-        controls.add(tradeTargetLabel);
-        controls.add(targetPriceLabel);
-        controls.add(targetDiffLabel);
-        controls.add(targetPercentageLabel);
+        getControls().add(buyPriceLabel);
+        getControls().add(sellPriceLabel);
+        getControls().add(tradeTargetLabel);
+        getControls().add(targetPriceLabel);
+        getControls().add(targetDiffLabel);
+        getControls().add(targetPercentageLabel);
 
-        controls.addAll(sellPriceArray);
-        controls.addAll(buyPriceArray);
-        controls.addAll(targetPriceArray);
-        controls.addAll(targetDiffArray);
-        controls.addAll(targetPercentageArray);
+        getControls().addAll(sellPriceArray);
+        getControls().addAll(buyPriceArray);
+        getControls().addAll(targetPriceArray);
+        getControls().addAll(targetDiffArray);
+        getControls().addAll(targetPercentageArray);
 
-        controls.addAll(sellButtonArray);
-        controls.addAll(sellAllButtonArray);
-        controls.addAll(buyButtonArray);
-        controls.addAll(buyMaxButtonArray);
+        getControls().addAll(sellButtonArray);
+        getControls().addAll(sellAllButtonArray);
+        getControls().addAll(buyButtonArray);
+        getControls().addAll(buyMaxButtonArray);
 
         setSize(new Size(512, 300));
         setTabIndex(8);

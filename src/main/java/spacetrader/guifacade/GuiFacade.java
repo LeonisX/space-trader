@@ -68,11 +68,11 @@ public class GuiFacade {
     }
 
     public static void performMonsterCom() {
-        GuiEngine.cheat.showMonsterForm();
+        GuiEngine.getCheat().showMonsterForm();
     }
 
     public static void performTestForm() {
-        GuiEngine.cheat.showTestForm();
+        GuiEngine.getCheat().showTestForm();
     }
 
 

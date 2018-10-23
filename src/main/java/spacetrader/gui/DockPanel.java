@@ -40,12 +40,12 @@ class DockPanel extends Panel {
         hullStatusLabel = new Label();
         repairCostLabel = new Label();
 
-        controls.add(repairButton);
-        controls.add(fuelUpButton);
-        controls.add(fuelStatusLabel);
-        controls.add(fuelCostLabel);
-        controls.add(hullStatusLabel);
-        controls.add(repairCostLabel);
+        getControls().add(repairButton);
+        getControls().add(fuelUpButton);
+        getControls().add(fuelStatusLabel);
+        getControls().add(fuelCostLabel);
+        getControls().add(hullStatusLabel);
+        getControls().add(repairCostLabel);
 
         setSize(new Size(240, 90));
         setTabIndex(2);

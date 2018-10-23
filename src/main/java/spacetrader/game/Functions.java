@@ -188,8 +188,8 @@ public class Functions {
     }
 
     public static void paintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
-        int x = Consts.ShipImageOffsets[ship.Type().castToInt()].X;
-        int width = Consts.ShipImageOffsets[ship.Type().castToInt()].Width;
+        int x = Consts.ShipImageOffsets[ship.getType().castToInt()].X;
+        int width = Consts.ShipImageOffsets[ship.getType().castToInt()].Width;
         int startDamage = x + width - ship.getHull() * width / ship.getHullStrength();
         int startShield = x + width + 2
                 - (ship.ShieldStrength() > 0 ? ship.ShieldCharge() * (width + 4) / ship.ShieldStrength() : 0);
@@ -205,7 +205,7 @@ public class Functions {
         }
 
         if (startShield > startDamage)
-            drawPartialImage(graphics, ship.Image(), startDamage, startShield);
+            drawPartialImage(graphics, ship.getImage(), startDamage, startShield);
 
         if (startShield < x + width + 2)
             drawPartialImage(graphics, ship.ImageWithShields(), startShield, x + width + 2);

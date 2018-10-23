@@ -61,7 +61,7 @@ public class ShortRangeChartPanel extends Panel {
 
         anchor = AnchorStyles.TOP_RIGHT;
 
-        controls.add(shortRangeChartPicture);
+        getControls().add(shortRangeChartPicture);
 
         setSize(new spacetrader.controls.Size(176, 168));
         setTabIndex(6);

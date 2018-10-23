@@ -47,13 +47,13 @@ public class ShipTemplate extends STSerializableObject implements Comparable<Shi
     public ShipTemplate(Size size, String name) {
         _name = name;
         _size = size;
-        _images = GuiEngine.imageProvider.getCustomShipImages();
+        _images = GuiEngine.getImageProvider().getCustomShipImages();
     }
 
     public ShipTemplate(ShipSpec spec, String name) {
         _name = name;
         _size = spec.getSize();
-        _imageIndex = spec.ImageIndex();
+        _imageIndex = spec.getImageIndex();
         _cargoBays = spec.getCargoBays();
         _weaponSlots = spec.getWeaponSlots();
         _shieldSlots = spec.getShieldSlots();
@@ -63,7 +63,7 @@ public class ShipTemplate extends STSerializableObject implements Comparable<Shi
         _hullStrength = spec.getHullStrength();
 
         if (ImageIndex() == Consts.ShipImgUseDefault)
-            _images = GuiEngine.imageProvider.getCustomShipImages();
+            _images = GuiEngine.getImageProvider().getCustomShipImages();
     }
 
     public ShipTemplate(Hashtable hash) {

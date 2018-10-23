@@ -57,11 +57,11 @@ public class GalacticChartPanel extends Panel {
         anchor = AnchorStyles.TOP_RIGHT;
         setBackground(SystemColors.CONTROL);
 
-        controls.add(wormholeLabelValue);
-        controls.add(wormholeLabel);
-        controls.add(jumpButton);
-        controls.add(findButton);
-        controls.add(galacticChartPicture);
+        getControls().add(wormholeLabelValue);
+        getControls().add(wormholeLabel);
+        getControls().add(jumpButton);
+        getControls().add(findButton);
+        getControls().add(galacticChartPicture);
 
         setSize(new Size(176, 168));
         setTabIndex(5);

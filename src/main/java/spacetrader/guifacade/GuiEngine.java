@@ -10,13 +10,21 @@ import spacetrader.controls.ImageList;
  */
 public class GuiEngine {
 
-    public static ImageProvider imageProvider;
-    public static CheatGui cheat;
+    private static ImageProvider imageProvider;
+    private static CheatGui cheat;
 
     // todo assert only called once by the user?
     static public void installImplementation(ImplementationProvider impl) {
         imageProvider = impl.getImageProvider();
         cheat = impl.getCheatGuiProvider();
+    }
+
+    public static ImageProvider getImageProvider() {
+        return imageProvider;
+    }
+
+    public static CheatGui getCheat() {
+        return cheat;
     }
 
     // note - internal interfaces are implicitly static. see section 8.5.2 in the spec.

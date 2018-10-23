@@ -101,12 +101,12 @@ public class ShipSpec extends STSerializableObject {
         _imageIndex = getValueFromHash(hash, "_imageIndex", Consts.ShipImgUseDefault);
 
         // Get the images if the ship uses the custom images.
-        if (ImageIndex() == ShipType.Custom.castToInt())
-            GuiEngine.imageProvider.setCustomShipImages(getValueFromHash(hash, "_images", GuiEngine.imageProvider
+        if (getImageIndex() == ShipType.Custom.castToInt())
+            GuiEngine.getImageProvider().setCustomShipImages(getValueFromHash(hash, "_images", GuiEngine.getImageProvider()
                     .getCustomShipImages()));
 
         // Get the name if the ship is a custom design.
-        if (Type() == ShipType.Custom) {
+        if (getType() == ShipType.Custom) {
             Strings.ShipNames[ShipType.Custom.castToInt()] = getValueFromHash(hash, "_name",
                     Strings.ShipNames[ShipType.Custom.castToInt()]);
 
@@ -145,12 +145,12 @@ public class ShipSpec extends STSerializableObject {
             hash.add("_imageIndex", _imageIndex);
 
         // Save the name if the ship is a custom design.
-        if (Type() == ShipType.Custom)
+        if (getType() == ShipType.Custom)
             hash.add("_name", getName());
 
         // Save the images if the ship uses the custom images.
-        if (ImageIndex() == ShipType.Custom.castToInt())
-            hash.add("_images", GuiEngine.imageProvider.getCustomShipImages());
+        if (getImageIndex() == ShipType.Custom.castToInt())
+            hash.add("_images", GuiEngine.getImageProvider().getCustomShipImages());
 
         return hash;
     }
@@ -198,7 +198,7 @@ public class ShipSpec extends STSerializableObject {
     }
 
     public void UpdateCustomImageOffsetConstants() {
-        Image image = GuiEngine.imageProvider.getCustomShipImages()[0];
+        Image image = GuiEngine.getImageProvider().getCustomShipImages()[0];
         int custIndex = ShipType.Custom.castToInt();
 
         // Find the first column of pixels that has a non-white pixel for the X
@@ -305,31 +305,31 @@ public class ShipSpec extends STSerializableObject {
         _hullStrength = value;
     }
 
-    public Image Image() {
-        return GuiEngine.imageProvider.getShipImages().getImages()[ImageIndex() * Consts.ImagesPerShip
+    public Image getImage() {
+        return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
                 + Consts.ShipImgOffsetNormal];
     }
 
     public Image ImageDamaged() {
-        return GuiEngine.imageProvider.getShipImages().getImages()[ImageIndex() * Consts.ImagesPerShip
+        return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
                 + Consts.ShipImgOffsetDamage];
     }
 
     public Image ImageDamagedWithShields() {
-        return GuiEngine.imageProvider.getShipImages().getImages()[ImageIndex() * Consts.ImagesPerShip
+        return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
                 + Consts.ShipImgOffsetSheildDamage];
     }
 
-    public int ImageIndex() {
-        return (_imageIndex == Consts.ShipImgUseDefault ? (int) Type().castToInt() : _imageIndex);
+    public int getImageIndex() {
+        return (_imageIndex == Consts.ShipImgUseDefault ? getType().castToInt() : _imageIndex);
     }
 
-    public void ImageIndex(int value) {
-        _imageIndex = (value == Type().castToInt() ? Consts.ShipImgUseDefault : value);
+    public void setImageIndex(int value) {
+        _imageIndex = (value == getType().castToInt() ? Consts.ShipImgUseDefault : value);
     }
 
     public Image ImageWithShields() {
-        return GuiEngine.imageProvider.getShipImages().getImages()[ImageIndex() * Consts.ImagesPerShip
+        return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
                 + Consts.ShipImgOffsetShield];
     }
 
@@ -338,7 +338,7 @@ public class ShipSpec extends STSerializableObject {
     }
 
     public String getName() {
-        return Strings.ShipNames[Type().castToInt()];
+        return Strings.ShipNames[getType().castToInt()];
     }
 
     public int Occurrence() {
@@ -357,7 +357,7 @@ public class ShipSpec extends STSerializableObject {
         return _traders;
     }
 
-    public ShipType Type() {
+    public ShipType getType() {
         return _type;
     }
 
