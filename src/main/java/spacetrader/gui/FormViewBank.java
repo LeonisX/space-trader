@@ -359,8 +359,8 @@ public class FormViewBank extends SpaceTraderForm {
         else {
             FormPayBackLoan form = new FormPayBackLoan();
             if (form.showDialog(this) == DialogResult.OK) {
-                cmdr.setCash(cmdr.getCash() - form.Amount());
-                cmdr.setDebt(cmdr.getDebt() - form.Amount());
+                cmdr.setCash(cmdr.getCash() - form.getAmount());
+                cmdr.setDebt(cmdr.getDebt() - form.getAmount());
 
                 UpdateAll();
                 game.getParentWindow().updateAll();

@@ -182,6 +182,7 @@ public class Functions {
         return null;
     }
 
+    //TODO plural
     public static String multiples(int num, String unit) {
         return formatNumber(num) + " " + unit + (num == 1 ? "" : "s");
     }
