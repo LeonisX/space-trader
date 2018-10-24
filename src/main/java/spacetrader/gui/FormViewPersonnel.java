@@ -423,7 +423,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         if (selectedCrewMember != null && btnHireFire.isVisible()) {
             if (game.getCommander().getShip().hasCrew(selectedCrewMember.getId())) {
                 if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.getName()) == DialogResult.YES) {
-                    game.getCommander().getShip().Fire(selectedCrewMember.getId());
+                    game.getCommander().getShip().fire(selectedCrewMember.getId());
 
                     UpdateAll();
                     game.getParentWindow().updateAll();

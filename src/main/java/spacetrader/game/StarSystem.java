@@ -225,7 +225,7 @@ public class StarSystem extends STSerializableObject {
                 break;
             case Moon:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
-                        && game.getCommander().Worth() > SpecialEvent.MOON_COST * .8;
+                        && game.getCommander().getWorth() > SpecialEvent.MOON_COST * .8;
                 break;
             case MoonRetirement:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;

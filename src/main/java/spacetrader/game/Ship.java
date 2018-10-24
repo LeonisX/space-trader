@@ -74,7 +74,7 @@ public class Ship extends ShipSpec {
             SetValues(ShipType.BOTTLE);
         } else {
             int tries = oppType == OpponentType.Mantis ? Game.getCurrentGame().getDifficulty().castToInt() + 1 : Math
-                    .max(1, Game.getCurrentGame().getCommander().Worth() / 150000
+                    .max(1, Game.getCurrentGame().getCommander().getWorth() / 150000
                             + Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
 
             GenerateOpponentShip(oppType);
@@ -111,7 +111,7 @@ public class Ship extends ShipSpec {
     }
 
     public void addEquipment(Equipment item) {
-        Equipment[] equip = getEquipmentByType(item.getEquipmentType());
+        Equipment[] equip = getEquipmentsByType(item.getEquipmentType());
 
         int slot = -1;
         for (int i = 0; i < equip.length && slot == -1; i++)
@@ -122,7 +122,7 @@ public class Ship extends ShipSpec {
             equip[slot] = item.Clone();
     }
 
-    public int BaseWorth(boolean forInsurance) {
+    public int getBaseWorth(boolean forInsurance) {
         int i;
         int price =
                 // Trade-in value is three-fourths the original price
@@ -145,7 +145,7 @@ public class Ship extends ShipSpec {
         return price;
     }
 
-    public int Bounty() {
+    public int getBounty() {
         int price = getPrice();
 
         for (int i = 0; i < getWeapons().length; i++)
@@ -168,7 +168,7 @@ public class Ship extends ShipSpec {
         return Math.max(25, Math.min(2500, bounty));
     }
 
-    public Equipment[] getEquipmentByType(EquipmentType type) {
+    public Equipment[] getEquipmentsByType(EquipmentType type) {
         Equipment[] equip = null;
         switch (type) {
             case WEAPON:
@@ -184,7 +184,7 @@ public class Ship extends ShipSpec {
         return equip;
     }
 
-    public void Fire(CrewMemberId crewId) {
+    public void fire(CrewMemberId crewId) {
         int skill = getTrader();
         boolean found = false;
         CrewMember merc = null;
@@ -429,7 +429,7 @@ public class Ship extends ShipSpec {
             switch (oppType) {
                 case Pirate:
                     // Pirates become better when you get richer
-                    tries = 1 + cmdr.Worth() / 100000;
+                    tries = 1 + cmdr.getWorth() / 100000;
                     tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
                             - Difficulty.NORMAL.castToInt());
                     break;
@@ -666,7 +666,7 @@ public class Ship extends ShipSpec {
     }
 
     public void removeEquipment(EquipmentType type, int slot) {
-        Equipment[] equip = getEquipmentByType(type);
+        Equipment[] equip = getEquipmentsByType(type);
 
         int last = equip.length - 1;
         for (int i = slot; i < last; i++)
@@ -676,7 +676,7 @@ public class Ship extends ShipSpec {
 
     public void removeEquipment(EquipmentType type, Object subType) {
         boolean found = false;
-        Equipment[] equip = getEquipmentByType(type);
+        Equipment[] equip = getEquipmentsByType(type);
 
         for (int i = 0; i < equip.length && !found; i++) {
             if (equip[i] != null && equip[i].TypeEquals(subType)) {
@@ -749,7 +749,7 @@ public class Ship extends ShipSpec {
     // #region Properties
 
     public int getWorth(boolean forInsurance) {
-        int price = BaseWorth(forInsurance);
+        int price = getBaseWorth(forInsurance);
         for (int i = 0; i < _cargo.length; i++)
             price += Game.getCurrentGame().getCommander().getPriceCargo()[i];
 

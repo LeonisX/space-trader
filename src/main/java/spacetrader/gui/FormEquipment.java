@@ -580,15 +580,15 @@ public class FormEquipment extends SpaceTraderForm {
 
         Ship ship = Game.getCurrentGame().getCommander().getShip();
 
-        for (Equipment equipment : ship.getEquipmentByType(EquipmentType.WEAPON)) {
+        for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.WEAPON)) {
             sellWeaponsListBox.getItems().add(equipment == null ? Strings.EquipmentFreeSlot : equipment);
         }
 
-        for (Equipment equipment : ship.getEquipmentByType(EquipmentType.SHIELD)) {
+        for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.SHIELD)) {
             sellShieldsListBox.getItems().add(equipment == null ? Strings.EquipmentFreeSlot : equipment);
         }
 
-        for (Equipment equipment : ship.getEquipmentByType(EquipmentType.GADGET)) {
+        for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.GADGET)) {
             sellGadgetsListBox.getItems().add(equipment == null ? Strings.EquipmentFreeSlot : equipment);
         }
 

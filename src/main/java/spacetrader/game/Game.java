@@ -148,7 +148,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     // Rare
     // encounters
     // not done yet.
-    private ArrayList<VeryRareEncounter> _veryRareEncounters = new ArrayList(6); // Array of Very
+    private ArrayList<VeryRareEncounter> _veryRareEncounters = new ArrayList<>(6); // Array of Very
     // Options
     private GameOptions _options = new GameOptions(true);
     // The rest of the member variables are not saved between games.
@@ -278,7 +278,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     private void Arrested() {
         int term = Math.max(30, -getCommander().getPoliceRecordScore());
-        int fine = (1 + getCommander().Worth() * Math.min(80, -getCommander().getPoliceRecordScore()) / 50000) * 500;
+        int fine = (1 + getCommander().getWorth() * Math.min(80, -getCommander().getPoliceRecordScore()) / 50000) * 500;
         if (getCommander().getShip().isWildOnBoard())
             fine = (int) (fine * 1.05);
 
@@ -318,7 +318,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (getCommander().getInsurance()) {
             GuiFacade.alert(AlertType.JailInsuranceLost);
             getCommander().setInsurance(false);
-            getCommander().NoClaim(0);
+            getCommander().setNoClaim(0);
         }
 
         if (getCommander().getShip().CrewCount() - getCommander().getShip().SpecialCrew().length > 1) {
@@ -1074,7 +1074,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         getCommander().setShip(new Ship(ShipType.FLEA));
         getCommander().getShip().Crew()[0] = getCommander();
         getCommander().setInsurance(false);
-        getCommander().NoClaim(0);
+        getCommander().setNoClaim(0);
     }
 
     private void CreateShips() {
@@ -1099,10 +1099,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         Scorpion().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         Scorpion().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-        SpaceMonster().Crew()[0] = getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()];
-        SpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        SpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        SpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        getSpaceMonster().Crew()[0] = getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()];
+        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
     }
 
     private boolean DetermineEncounter() {
@@ -1117,7 +1117,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // Encounter with space monster
         if (getClicks() == 1 && getWarpSystem().getId() == StarSystemId.Acamar
                 && getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
-            setOpponent(SpaceMonster());
+            setOpponent(getSpaceMonster());
             setEncounterType(getCommander().getShip().Cloaked() ? spacetrader.game.enums.EncounterType.SPACE_MONSTER_IGNORE
                     : spacetrader.game.enums.EncounterType.SPACE_MONSTER_ATTACK);
             showEncounter = true;
@@ -1301,7 +1301,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         else if (trader)
             showEncounter = DetermineTraderEncounter();
         else if (getCommander().getDays() > 10 && Functions.getRandom(1000) < getChanceOfVeryRareEncounter()
-                && VeryRareEncounters().size() > 0)
+                && getVeryRareEncounters().size() > 0)
             showEncounter = DetermineVeryRareEncounter();
 
         return showEncounter;
@@ -1363,7 +1363,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which
         // will invoke
         // IncreaseRandomSkill one or two times, depending on game difficulty.
-        switch (VeryRareEncounters().get(Functions.getRandom(VeryRareEncounters().size()))) {
+        switch (getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()))) {
             case MARIE_CELESTE:
                 // Marie Celeste cannot be at Acamar, Qonos, or Zalkon as it may
                 // cause problems with the
@@ -1371,7 +1371,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 if (getClicks() > 1 && getCommander().getCurrentSystemId() != StarSystemId.Acamar
                         && getCommander().getCurrentSystemId() != StarSystemId.Zalkon
                         && getCommander().getCurrentSystemId() != StarSystemId.Qonos) {
-                    VeryRareEncounters().remove(VeryRareEncounter.MARIE_CELESTE);
+                    getVeryRareEncounters().remove(VeryRareEncounter.MARIE_CELESTE);
                     setEncounterType(spacetrader.game.enums.EncounterType.MARIE_CELESTE);
                     GenerateOpponent(OpponentType.Trader);
                     for (int i = 0; i < getOpponent().getCargo().length; i++)
@@ -1384,7 +1384,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case CAPTAIN_AHAB:
                 if (getCommander().getShip().HasShield(ShieldType.Reflective) && getCommander().getPilot() < 10
                         && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    VeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_AHAB);
+                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_AHAB);
                     getEncounterType();
                     setEncounterType(spacetrader.game.enums.EncounterType.CAPTAIN_AHAB);
                     GenerateOpponent(OpponentType.FamousCaptain);
@@ -1395,7 +1395,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case CAPTAIN_CONRAD:
                 if (getCommander().getShip().HasWeapon(WeaponType.MilitaryLaser, true) && getCommander().getEngineer() < 10
                         && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    VeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_CONRAD);
+                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_CONRAD);
                     getEncounterType();
                     setEncounterType(spacetrader.game.enums.EncounterType.CAPTAIN_CONRAD);
                     GenerateOpponent(OpponentType.FamousCaptain);
@@ -1406,7 +1406,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             case CAPTAIN_HUIE:
                 if (getCommander().getShip().HasWeapon(WeaponType.MilitaryLaser, true) && getCommander().getTrader() < 10
                         && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    VeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_HUIE);
+                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_HUIE);
                     getEncounterType();
                     setEncounterType(spacetrader.game.enums.EncounterType.CAPTAIN_HUIE);
                     GenerateOpponent(OpponentType.FamousCaptain);
@@ -1415,14 +1415,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case BOTTLE_OLD:
-                VeryRareEncounters().remove(VeryRareEncounter.BOTTLE_OLD);
+                getVeryRareEncounters().remove(VeryRareEncounter.BOTTLE_OLD);
                 setEncounterType(spacetrader.game.enums.EncounterType.BOTTLE_OLD);
                 GenerateOpponent(OpponentType.Bottle);
 
                 showEncounter = true;
                 break;
             case BOTTLE_GOOD:
-                VeryRareEncounters().remove(VeryRareEncounter.BOTTLE_GOOD);
+                getVeryRareEncounters().remove(VeryRareEncounter.BOTTLE_GOOD);
                 setEncounterType(spacetrader.game.enums.EncounterType.BOTTLE_GOOD);
                 GenerateOpponent(OpponentType.Bottle);
 
@@ -1779,9 +1779,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         } else if (getOpponentDisabled()) {
             if (getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
                 GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDisabled, Strings.EncounterPiratesLocation, Functions
-                        .multiples(getOpponent().Bounty(), Strings.MoneyUnit));
+                        .multiples(getOpponent().getBounty(), Strings.MoneyUnit));
 
-                getCommander().setCash(getCommander().getCash() + getOpponent().Bounty());
+                getCommander().setCash(getCommander().getCash() + getOpponent().getBounty());
             }
 
             getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
@@ -2049,7 +2049,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     .castToInt() ? 2 : 3)
                     : 1;
 
-            int bribe = Math.max(100, Math.min(10000, (int) Math.ceil((double) getCommander().Worth()
+            int bribe = Math.max(100, Math.min(10000, (int) Math.ceil((double) getCommander().getWorth()
                     / getWarpSystem().politicalSystem().BribeLevel() / diffMod / 100)
                     * 100 * passMod));
 
@@ -2109,7 +2109,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
                     int fine = (int) Math.max(100, Math.min(10000,
                             Math
-                                    .ceil((double) getCommander().Worth()
+                                    .ceil((double) getCommander().getWorth()
                                             / ((spacetrader.game.enums.Difficulty.IMPOSSIBLE.castToInt()
                                             - getDifficulty().castToInt() + 2) * 10) / 50) * 50));
                     int cashPayment = Math.min(getCommander().getCash(), fine);
@@ -2176,7 +2176,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             ArrayList cargoToSteal = getCommander().getShip().StealableCargo();
             if (cargoToSteal.size() == 0) {
-                int blackmail = Math.min(25000, Math.max(500, getCommander().Worth() / 20));
+                int blackmail = Math.min(25000, Math.max(500, getCommander().getWorth() / 20));
                 int cashPayment = Math.min(getCommander().getCash(), blackmail);
                 getCommander().setDebt(getCommander().getDebt() + (blackmail - cashPayment));
                 getCommander().setCash(getCommander().getCash() - cashPayment);
@@ -2250,7 +2250,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 && getOpponent().getType() != ShipType.MANTIS
                 && getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious)
             GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDestroyed, "", Functions
-                    .multiples(getOpponent().Bounty(), Strings.MoneyUnit));
+                    .multiples(getOpponent().getBounty(), Strings.MoneyUnit));
         else
             GuiFacade.alert(AlertType.EncounterYouWin);
 
@@ -2274,7 +2274,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
                 if (getOpponent().getType() != ShipType.MANTIS) {
                     if (getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious)
-                        getCommander().setCash(getCommander().getCash() + getOpponent().Bounty());
+                        getCommander().setCash(getCommander().getCash() + getOpponent().getBounty());
                     getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
                     EncounterScoop();
                 }
@@ -2353,7 +2353,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (getCommander().getInsurance()) {
             GuiFacade.alert(AlertType.InsurancePayoff);
-            getCommander().setCash(getCommander().getCash() + getCommander().getShip().BaseWorth(true));
+            getCommander().setCash(getCommander().getCash() + getCommander().getShip().getBaseWorth(true));
         }
 
         if (getCommander().getCash() > Consts.FleaConversionCost)
@@ -2639,7 +2639,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
             case JarekGetsOut:
                 setQuestStatusJarek(SpecialEvent.STATUS_JAREK_DONE);
-                getCommander().getShip().Fire(CrewMemberId.JAREK);
+                getCommander().getShip().fire(CrewMemberId.JAREK);
                 break;
             case Lottery:
                 break;
@@ -2680,7 +2680,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case PrincessReturned:
-                getCommander().getShip().Fire(CrewMemberId.PRINCESS);
+                getCommander().getShip().fire(CrewMemberId.PRINCESS);
                 curSys.setSpecialEventType(SpecialEventType.PrincessQuantum);
                 setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_RETURNED);
                 remove = false;
@@ -2804,7 +2804,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
                 setQuestStatusWild(SpecialEvent.STATUS_WILD_DONE);
                 getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-                getCommander().getShip().Fire(CrewMemberId.WILD);
+                getCommander().getShip().fire(CrewMemberId.WILD);
                 RecalculateSellPrices(curSys);
                 break;
         }
@@ -2820,7 +2820,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         getCommander().setDays(getCommander().getDays() + num);
 
         if (getCommander().getInsurance())
-            getCommander().NoClaim(getCommander().NoClaim() + num);
+            getCommander().setNoClaim(getCommander().getNoClaim() + num);
 
         // Police Record will gravitate towards neutral (0).
         if (getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreClean)
@@ -2835,9 +2835,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         // The Space Monster's strength increases 5% per day until it is back to
         // full strength.
-        if (SpaceMonster().getHull() < SpaceMonster().getHullStrength())
-            SpaceMonster().setHull(
-                    Math.min(SpaceMonster().getHullStrength(), (int) (SpaceMonster().getHull() * Math.pow(1.05, num))));
+        if (getSpaceMonster().getHull() < getSpaceMonster().getHullStrength())
+            getSpaceMonster().setHull(
+                    Math.min(getSpaceMonster().getHullStrength(), (int) (getSpaceMonster().getHull() * Math.pow(1.05, num))));
 
         if (getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
                 && getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
@@ -3067,7 +3067,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     private void NormalDeparture(int fuel) {
-        getCommander().setCash(getCommander().getCash() - (MercenaryCosts() + InsuranceCosts() + WormholeCosts()));
+        getCommander().setCash(getCommander().getCash() - (getMercenaryCosts() + getInsuranceCosts() + getWormholeCosts()));
         getCommander().getShip().setFuel(getCommander().getShip().getFuel() - fuel);
         getCommander().PayInterest();
         IncDays(1);
@@ -3201,13 +3201,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public void ResetVeryRareEncounters() {
-        VeryRareEncounters().clear();
-        VeryRareEncounters().add(VeryRareEncounter.MARIE_CELESTE);
-        VeryRareEncounters().add(VeryRareEncounter.CAPTAIN_AHAB);
-        VeryRareEncounters().add(VeryRareEncounter.CAPTAIN_CONRAD);
-        VeryRareEncounters().add(VeryRareEncounter.CAPTAIN_HUIE);
-        VeryRareEncounters().add(VeryRareEncounter.BOTTLE_OLD);
-        VeryRareEncounters().add(VeryRareEncounter.BOTTLE_GOOD);
+        getVeryRareEncounters().clear();
+        getVeryRareEncounters().add(VeryRareEncounter.MARIE_CELESTE);
+        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_AHAB);
+        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_CONRAD);
+        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_HUIE);
+        getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_OLD);
+        getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_GOOD);
     }
 
     public void selectNextSystemWithinRange(boolean forward) {
@@ -3356,11 +3356,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public void setWarp(boolean viaSingularity) {
         if (getCommander().getDebt() > Consts.DebtTooLarge)
             GuiFacade.alert(AlertType.DebtTooLargeGrounded);
-        else if (getCommander().getCash() < MercenaryCosts())
+        else if (getCommander().getCash() < getMercenaryCosts())
             GuiFacade.alert(AlertType.LeavingIFMercenaries);
-        else if (getCommander().getCash() < MercenaryCosts() + InsuranceCosts())
+        else if (getCommander().getCash() < getMercenaryCosts() + getInsuranceCosts())
             GuiFacade.alert(AlertType.LeavingIFInsurance);
-        else if (getCommander().getCash() < MercenaryCosts() + InsuranceCosts() + WormholeCosts())
+        else if (getCommander().getCash() < getMercenaryCosts() + getInsuranceCosts() + getWormholeCosts())
             GuiFacade.alert(AlertType.LeavingIFWormholeTax);
         else {
             boolean wildOk = true;
@@ -3423,7 +3423,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public int getCurrentCosts() {
-        return InsuranceCosts() + InterestCosts() + MercenaryCosts() + WormholeCosts();
+        return getInsuranceCosts() + getInterestCosts() + getMercenaryCosts() + getWormholeCosts();
     }
 
     public int[] Destinations() {
@@ -3724,16 +3724,16 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getOpponent().getName().toLowerCase()});
     }
 
-    public int InsuranceCosts() {
-        return getCommander().getInsurance() ? (int) Math.max(1, getCommander().getShip().BaseWorth(true) * Consts.InsRate
-                * (100 - getCommander().NoClaim()) / 100) : 0;
+    public int getInsuranceCosts() {
+        return getCommander().getInsurance() ? (int) Math.max(1, getCommander().getShip().getBaseWorth(true) * Consts.InsRate
+                * (100 - getCommander().getNoClaim()) / 100) : 0;
     }
 
-    public int InterestCosts() {
+    public int getInterestCosts() {
         return getCommander().getDebt() > 0 ? (int) Math.max(1, getCommander().getDebt() * Consts.IntRate) : 0;
     }
 
-    public int MercenaryCosts() {
+    public int getMercenaryCosts() {
         int total = 0;
 
         for (int i = 1; i < getCommander().getShip().Crew().length && getCommander().getShip().Crew()[i] != null; i++)
@@ -3853,8 +3853,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public int Score() {
-        int worth = getCommander().Worth() < 1000000 ? getCommander().Worth()
-                : 1000000 + ((getCommander().Worth() - 1000000) / 10);
+        int worth = getCommander().getWorth() < 1000000 ? getCommander().getWorth()
+                : 1000000 + ((getCommander().getWorth() - 1000000) / 10);
         int daysMoon = 0;
         int modifier = 0;
 
@@ -3903,7 +3903,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         }
     }
 
-    public Ship SpaceMonster() {
+    public Ship getSpaceMonster() {
         return _spaceMonster;
     }
 
@@ -3928,7 +3928,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return _universe;
     }
 
-    public ArrayList<VeryRareEncounter> VeryRareEncounters() {
+    public ArrayList<VeryRareEncounter> getVeryRareEncounters() {
         return _veryRareEncounters;
     }
 
@@ -3941,7 +3941,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return _warpSystemId;
     }
 
-    public int WormholeCosts() {
+    public int getWormholeCosts() {
         return Functions.wormholeExists(getCommander().getCurrentSystem(), getWarpSystem()) ? Consts.WormDist
                 * getCommander().getShip().getFuelCost() : 0;
     }

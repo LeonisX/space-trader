@@ -263,22 +263,23 @@ public class Functions {
         return saveOk;
     }
 
-    // TODO replace w/String.format?
-    public static String stringVars(String toParse, String[] vars) {
-        String parsed = toParse;
-
-        for (int i = 0; i < vars.length; i++)
-            parsed = parsed.replaceAll("\\^" + (i + 1), vars[i]);
-
-        return parsed;
-    }
-
     public static String stringVars(String toParse, String var1) {
         return stringVars(toParse, new String[]{var1});
     }
 
     public static String stringVars(String toParse, String var1, String var2) {
         return stringVars(toParse, new String[]{var1, var2});
+    }
+
+    // TODO replace w/String.format?
+    public static String stringVars(String toParse, String[] vars) {
+        String parsed = toParse;
+
+        for (int i = 0; i < vars.length; i++) {
+            parsed = parsed.replaceAll("\\^" + (i + 1), vars[i]);
+        }
+
+        return parsed;
     }
 
     // *************************************************************************

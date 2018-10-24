@@ -432,7 +432,7 @@ public class FormViewCommander extends SpaceTraderForm {
 
         lblCash.setText(Functions.formatMoney(cmdr.getCash()));
         lblDebt.setText(Functions.formatMoney(cmdr.getDebt()));
-        lblNetWorth.setText(Functions.formatMoney(cmdr.Worth()));
+        lblNetWorth.setText(Functions.formatMoney(cmdr.getWorth()));
 
         lblKills.setText(Functions.formatNumber(cmdr.getKillsPirate() + cmdr.getKillsPolice() + cmdr.getKillsTrader()));
         lblRecord.setText(PoliceRecord.GetPoliceRecordFromScore(cmdr.getPoliceRecordScore()).Name());

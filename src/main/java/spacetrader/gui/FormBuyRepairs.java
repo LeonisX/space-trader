@@ -59,8 +59,7 @@ public class FormBuyRepairs extends WinformForm {
         numericUpDown.setValue(numericUpDown.getMaximum());
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException, UnsupportedLookAndFeelException {
+    public static void main(String[] args) {
         FormBuyRepairs form = new FormBuyRepairs();
         Launcher.runForm(form);
         System.out.println(form.getAmount());

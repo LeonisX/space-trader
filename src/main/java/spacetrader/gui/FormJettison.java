@@ -80,8 +80,7 @@ public class FormJettison extends SpaceTraderForm {
     private final Button[] jettisonButton = new Button[]{jettisonButton0, jettisonButton1, jettisonButton2, jettisonButton3,
             jettisonButton4, jettisonButton5, jettisonButton6, jettisonButton7, jettisonButton8, jettisonButton9};
 
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException,
-            InstantiationException, IllegalAccessException {
+    public static void main(String[] args) {
         new Game("name", Difficulty.BEGINNER,8,8,8,8, null);
         Launcher.runForm(new FormJettison());
     }

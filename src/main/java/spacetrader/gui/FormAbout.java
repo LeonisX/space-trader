@@ -46,8 +46,7 @@ public class FormAbout extends WinformForm {
         initializeComponent();
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException, UnsupportedLookAndFeelException {
+    public static void main(String[] args) {
         Launcher.runForm(new FormAbout());
     }
 

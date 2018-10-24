@@ -24,7 +24,6 @@
  ******************************************************************************/
 package spacetrader.gui.debug;
 
-import javax.swing.UnsupportedLookAndFeelException;
 import spacetrader.controls.*;
 import spacetrader.game.Consts;
 import spacetrader.game.SpecialEvent;
@@ -44,20 +43,17 @@ public class FormTest extends SpaceTraderForm {
     private spacetrader.controls.Label lblValue2;
     private spacetrader.controls.Label lblValue1;
     private spacetrader.controls.Label lblValue3;
-    private spacetrader.controls.ComboBox selAlertType;
+    private spacetrader.controls.ComboBox<AlertType> selAlertType;
     private spacetrader.controls.TextBox txtValue1;
     private spacetrader.controls.TextBox txtValue2;
     private spacetrader.controls.TextBox txtValue3;
     private Panel panel1;
     private spacetrader.controls.Button btnTestAlert;
     private spacetrader.controls.Button btnTestSpecialEvent;
-    private spacetrader.controls.ComboBox selSpecialEvent;
+    private spacetrader.controls.ComboBox<SpecialEventType> selSpecialEvent;
     private spacetrader.controls.Label lblSpecialEvent;
-    private Container components = null;
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException, UnsupportedLookAndFeelException {
-
+    public static void main(String[] args) {
         Launcher.runForm(new FormTest());
     }
 
@@ -66,23 +62,19 @@ public class FormTest extends SpaceTraderForm {
 
         AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.WildWontStayAboardReactor.ordinal());
 //			for (AlertType type = AlertType.Alert; type.castToInt() <= AlertType.WildWontStayAboardReactor.castToInt(); type++)
-        for (AlertType type : alerts)
+        for (AlertType type : alerts) {
             selAlertType.getItems().add(type);
+        }
         selAlertType.setSelectedIndex(0);
 
         SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.Artifact.ordinal(), SpecialEventType.WildGetsOut.ordinal());
 //			for (SpecialEventType type = SpecialEventType.Artifact; type < SpecialEventType.WildGetsOut; type++)
-        for (SpecialEventType type : events)
+        for (SpecialEventType type : events) {
             selSpecialEvent.getItems().add(type);
+        }
         selSpecialEvent.setSelectedIndex(0);
     }
 
-
-    //#region Windows Form Designer generated code
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
     private void initializeComponent() {
         this.lblAlertType = new spacetrader.controls.Label();
         this.boxAlert = new Panel();
@@ -90,13 +82,13 @@ public class FormTest extends SpaceTraderForm {
         this.txtValue3 = new spacetrader.controls.TextBox();
         this.txtValue2 = new spacetrader.controls.TextBox();
         this.txtValue1 = new spacetrader.controls.TextBox();
-        this.selAlertType = new spacetrader.controls.ComboBox();
+        this.selAlertType = new spacetrader.controls.ComboBox<>();
         this.lblValue3 = new spacetrader.controls.Label();
         this.lblValue1 = new spacetrader.controls.Label();
         this.lblValue2 = new spacetrader.controls.Label();
         this.panel1 = new Panel();
         this.btnTestSpecialEvent = new spacetrader.controls.Button();
-        this.selSpecialEvent = new spacetrader.controls.ComboBox();
+        this.selSpecialEvent = new spacetrader.controls.ComboBox<>();
         this.lblSpecialEvent = new spacetrader.controls.Label();
         this.boxAlert.suspendLayout();
         this.panel1.suspendLayout();
@@ -140,7 +132,7 @@ public class FormTest extends SpaceTraderForm {
         this.btnTestAlert.setText("Test");
         this.btnTestAlert.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnTestAlert_Click(sender, e);
+                btnTestAlert_Click();
             }
         });
         //
@@ -226,7 +218,7 @@ public class FormTest extends SpaceTraderForm {
         this.btnTestSpecialEvent.setText("Test");
         this.btnTestSpecialEvent.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                btnTestSpecialEvent_Click(sender, e);
+                btnTestSpecialEvent_Click();
             }
         });
         //
@@ -262,18 +254,13 @@ public class FormTest extends SpaceTraderForm {
         this.setStartPosition(FormStartPosition.CENTER_PARENT);
         this.setText("Test");
     }
-    //#endregion
 
-    //#endregion
-
-    //#region Event Handlers
-
-    private void btnTestAlert_Click(Object sender, EventArgs e) {
+    private void btnTestAlert_Click() {
         GuiFacade.alert(AlertType.Alert, "Result", ("The result was " +
                 GuiFacade.alert(((AlertType) selAlertType.getSelectedItem()), txtValue1.getText(), txtValue2.getText(), txtValue3.getText()).toString()));
     }
 
-    private void btnTestSpecialEvent_Click(Object sender, EventArgs e) {
+    private void btnTestSpecialEvent_Click() {
         SpecialEvent specEvent = Consts.SpecialEvents[((SpecialEventType) selSpecialEvent.getSelectedItem()).castToInt()];
         String btn1, btn2;
         DialogResult res1, res2;
@@ -292,6 +279,4 @@ public class FormTest extends SpaceTraderForm {
 
         (new FormAlert(specEvent.getTitle(), specEvent.getString(), btn1, res1, btn2, res2, null)).showDialog(this);
     }
-
-    //#endregion
 }

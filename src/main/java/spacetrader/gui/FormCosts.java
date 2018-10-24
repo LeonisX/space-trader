@@ -52,10 +52,10 @@ public class FormCosts extends SpaceTraderForm {
         initializeComponent();
 
         Game game = Game.getCurrentGame();
-        mercenariesLabelValue.setText(Functions.formatMoney(game.MercenaryCosts()));
-        insuranceLabelValue.setText(Functions.formatMoney(game.InsuranceCosts()));
-        interestLabelValue.setText(Functions.formatMoney(game.InterestCosts()));
-        wormholeTaxLabelValue.setText(Functions.formatMoney(game.WormholeCosts()));
+        mercenariesLabelValue.setText(Functions.formatMoney(game.getMercenaryCosts()));
+        insuranceLabelValue.setText(Functions.formatMoney(game.getInsuranceCosts()));
+        interestLabelValue.setText(Functions.formatMoney(game.getInterestCosts()));
+        wormholeTaxLabelValue.setText(Functions.formatMoney(game.getWormholeCosts()));
         totalLabelValue.setText(Functions.formatMoney(game.getCurrentCosts()));
     }
 

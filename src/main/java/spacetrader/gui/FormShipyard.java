@@ -125,8 +125,7 @@ public class FormShipyard extends SpaceTraderForm {
     private boolean loading = false;
     private ArrayList<spacetrader.game.enums.Size> sizes = null;
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException, UnsupportedLookAndFeelException {
+    public static void main(String[] args) {
         GlobalAssets.initializeImages();
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
         new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);

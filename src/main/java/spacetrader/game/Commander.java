@@ -207,7 +207,7 @@ public class Commander extends CrewMember {
                     getShip().setEscapePod(true);
                 else if (getInsurance()) {
                     setInsurance(false);
-                    NoClaim(0);
+                    setNoClaim(0);
                 }
 
                 traded = true;
@@ -230,11 +230,11 @@ public class Commander extends CrewMember {
         return Game.getCurrentGame().getCurrentCosts();
     }
 
-    public int NoClaim() {
+    public int getNoClaim() {
         return _noclaim;
     }
 
-    public void NoClaim(int value) {
+    public void setNoClaim(int value) {
         _noclaim = Math.max(0, Math.min(Consts.MaxNoClaim, value));
     }
 
@@ -242,7 +242,7 @@ public class Commander extends CrewMember {
         return _priceCargo;
     }
 
-    public int Worth() {
+    public int getWorth() {
         return getShip().getPrice() + _cash - _debt
                 + (Game.getCurrentGame().getQuestStatusMoon() > 0 ? SpecialEvent.MOON_COST : 0);
     }

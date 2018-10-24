@@ -7,8 +7,6 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.CheatCode;
 import spacetrader.util.Util;
 
-import java.util.Iterator;
-
 // TODO removes refs to gui...
 @CheatCode
 public class GameCheats {
@@ -55,7 +53,7 @@ public class GameCheats {
                         game.ResetVeryRareEncounters();
                     else {
                         StringBuilder textBuilder = new StringBuilder();
-                        for (VeryRareEncounter veryRareEncounter : game.VeryRareEncounters())
+                        for (VeryRareEncounter veryRareEncounter : game.getVeryRareEncounters())
                             textBuilder.append(Strings.VeryRareEncounters[veryRareEncounter.castToInt()]).append(Strings.newline);
                         String text = textBuilder.toString();
                         text = text.trim();
@@ -91,7 +89,7 @@ public class GameCheats {
                 }
                 break;
                 case Indemnity:
-                    game.getCommander().NoClaim(Math.max(0, num1));
+                    game.getCommander().setNoClaim(Math.max(0, num1));
                     break;
                 case IOU:
                     game.getCommander().setDebt(Math.max(0, num1));
