@@ -51,6 +51,7 @@ https://bitbucket.org/brucelet/space-trader/src
 * LinkLabel - not implemented sort
 * FormMonster - not correct columns order; bug in mercenariesPanel (systems); Links don't work
 * Many dialogs don't allow to close them from [x]
+* FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
 
 ## Regressions:
 
@@ -60,4 +61,3 @@ https://bitbucket.org/brucelet/space-trader/src
 
 * JavaFX UI
 * Full-windowed
-
