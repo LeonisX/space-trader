@@ -2,6 +2,6 @@ package spacetrader.controls;
 
 public enum ColorDepth {
 
-    Depth24Bit
+    DEPTH_24_BIT
 
 }

@@ -4,6 +4,11 @@ Deeply refactored and upgraded version of [Space Trader for Java](https://source
 
 The project is a Java port of the [Space Trader for Windows](https://sourceforge.net/projects/spacetraderwin) from [Jay French](http://web.archive.org/web/20040212092717/http://www.frenchfryz.com:80/jay/spacetrader/home.php) (08.12.2003-14.08.2008), which is a C# port of the [original](http://ticc.uvt.nl/~pspronck/spacetrader/STFrames.html) Palm version from Peter Spronk (2000-2002). [New site](https://www.spronck.net/spacetrader/).
 
+Useful Source Repositories:
+
+https://github.com/videogamepreservation/spacetrader
+https://github.com/SpaceTraderGame/SpaceTrader-Windows
+https://bitbucket.org/brucelet/space-trader/src
 
 ## Whats new:
 
@@ -27,6 +32,7 @@ The project is a Java port of the [Space Trader for Windows](https://sourceforge
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
 * ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
 * ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+* Fix 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
 
 ### Minor tasks
 

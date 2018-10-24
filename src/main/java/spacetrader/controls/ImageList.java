@@ -40,6 +40,11 @@ public class ImageList {
         }
     }
 
+    public void setImageSize(int width, int height) {
+        size = new Size(width, height);
+    }
+
+    //TODO replace with setImageSize(int width, int height)
     public void setImageSize(Size imageSize) {
         size = imageSize;
     }

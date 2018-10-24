@@ -719,8 +719,8 @@ public class Strings {
             new String[]{
                     "The Pulse Laser is the weakest weapon available. It's small size allows only enough energy to build up to emit pulses of light.",
                     "The Beam Laser is larger than the Pulse Laser, so can build up enough charge to power what are essentially two Pulse Lasers. The resulting effect appears more like a ant beam.",
-                    "The Military Laser is the largest commecially available weapon. It can build up enough charge to power three Pulse Lasers in series, resulting in a more dense and concentrated beam.",
-                    "Morgan's Laser has been ructed from a Beam Laser, which has been attached to an Ion Reactor that builds up an immense charge, resulting in the strongest weapon known to exist.",
+                    "The Military Laser is the largest commercially available weapon. It can build up enough charge to power three Pulse Lasers in series, resulting in a more dense and concentrated beam.",
+                    "Morgan's Laser has been constructed from a Beam Laser, which has been attached to an Ion Reactor that builds up an immense charge, resulting in the strongest weapon known to exist.",
                     "The Photon Disruptor is a relatively weak weapon, but has the ability to disable an opponent's electrical systems, rendering them helpless.",
                     "The Quantum Disruptor is a very powerful disabling weapon. Once an opponent's sheilds are down it will usually require only a single shot with the Quantum Disruptor to disable them."},
             new String[]{
@@ -981,11 +981,11 @@ public class Strings {
 
     // #region ShipyardSkillDescriptions
     public static String[] ShipyardSkillDescriptions = new String[]{
-            "All ships ructed at this shipyard use 2 fewer units per crew quarter.",
-            "All ships ructed at this shipyard have 2 extra base fuel tanks.",
-            "All ships ructed at this shipyard have the hull points increment by 5 more than usual.",
-            "All ships ructed at this shipyard get shield slots for 2 fewer units.",
-            "All ships ructed at this shipyard get weapon slots for 2 fewer units."};
+            "All ships constructed at this shipyard use 2 fewer units per crew quarter.",
+            "All ships constructed at this shipyard have 2 extra base fuel tanks.",
+            "All ships constructed at this shipyard have the hull points increment by 5 more than usual.",
+            "All ships constructed at this shipyard get shield slots for 2 fewer units.",
+            "All ships constructed at this shipyard get weapon slots for 2 fewer units."};
     // #endregion
 
     // #region ShipyardSkills

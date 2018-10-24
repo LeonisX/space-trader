@@ -404,14 +404,16 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         openFileDialog = new OpenFileDialog();
         saveFileDialog = new SaveFileDialog();
 
-        openFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
-        openFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.openFileDialog"));
-        openFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.openFileDialog.approveButton"));
+        if (!GlobalAssets.getStrings().isEmpty()) {
+            openFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
+            openFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.openFileDialog.title"));
+            openFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.openFileDialog.approveButton"));
 
-        saveFileDialog.setFileName(GlobalAssets.getStrings().get("mainWindow.saveFileDialog.fileName"));
-        saveFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
-        saveFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.saveFileDialog"));
-        saveFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.saveFileDialog.approveButton"));
+            saveFileDialog.setFileName(GlobalAssets.getStrings().get("mainWindow.saveFileDialog.fileName"));
+            saveFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
+            saveFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.saveFileDialog.title"));
+            saveFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.saveFileDialog.approveButton"));
+        }
     }
 
 

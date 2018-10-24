@@ -41,7 +41,6 @@ import spacetrader.util.ReflectionUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 class FormShipyard extends SpaceTraderForm {
 
@@ -54,72 +53,73 @@ class FormShipyard extends SpaceTraderForm {
 
     private IContainer components = new Container();
 
-    private Label lblWelcome = new Label();
-    private TextBox txtName = new TextBox();
-    private Label lblName = new Label();
-    private PictureBox picShip = new PictureBox();
-    private Label lblDesignFee = new Label();
-    private Button btnConstruct = new Button();
-    private Button btnCancel = new Button();
-    private PictureBox picLogo = new PictureBox();
-    private Panel boxCosts = new Panel();
-    private Panel boxAllocation = new Panel();
-    private NumericUpDown numHullStrength = new NumericUpDown();
-    private Label lblHullStrenghLabel = new Label();
-    private NumericUpDown numCargoBays = new NumericUpDown();
-    private NumericUpDown numCrewQuarters = new NumericUpDown();
-    private NumericUpDown numFuelTanks = new NumericUpDown();
-    private NumericUpDown numShieldSlots = new NumericUpDown();
-    private NumericUpDown numGadgetSlots = new NumericUpDown();
-    private NumericUpDown numWeaponSlots = new NumericUpDown();
-    private Label lblCargoBays = new Label();
-    private Label lblFuelTanks = new Label();
-    private Label lblCrewQuarters = new Label();
-    private Label lblShieldSlots = new Label();
-    private Label lblGadgetSlots = new Label();
-    private Label lblWeaponsSlots = new Label();
-    private Label lblShipCost = new Label();
-    private Label lblTotalCost = new Label();
-    private Label lblTotalCostLabel = new Label();
-    private Label lblShipCostLabel = new Label();
-    private Label lblDesignFeeLabel = new Label();
-    private Panel boxWelcome = new Panel();
-    private Panel boxInfo = new Panel();
-    private Label lblSize = new Label();
-    private ComboBox<String> selSize = new ComboBox<>();
-    private Label lblTemplate = new Label();
-    private ComboBox<Object> selTemplate = new ComboBox<>();
-    private Button btnSetCustomImage = new Button();
-    private Label lblImageLabel = new Label();
-    private Button btnNextImage = new Button();
-    private Button btnPrevImage = new Button();
-    private Label lblImage = new Label();
-    private Label lblUnitsUsedLabel = new Label();
-    private PictureBox picInfoLine = new PictureBox();
-    private Label lblPctLabel = new Label();
-    private Label lblPct = new Label();
-    private Label lblPenaltyLabel = new Label();
-    private Label lblPenalty = new Label();
-    private PictureBox picCostsLine = new PictureBox();
-    private Label lblSizeSpecialtyLabel = new Label();
-    private Label lblSkillLabel = new Label();
-    private Label lblSizeSpecialty = new Label();
-    private Label lblSkill = new Label();
-    private Label lblSkillDescription = new Label();
-    private Label lblWarning = new Label();
-    private Button btnLoad = new Button();
-    private Button btnSave = new Button();
-    private Label lblTradeInLabel = new Label();
-    private Label lblTradeIn = new Label();
-    private Label lblUnitsUsed = new Label();
-    private Label lblDisabledPct = new Label();
-    private Label lblDisabledName = new Label();
+    private PictureBox logoPictureBox = new PictureBox();
+    private Label welcomeLabelValue = new Label();
+    private TextBox shipNameTextBox = new TextBox();
+    private Label shipNameLabel = new Label();
+    private PictureBox shipPictureBox = new PictureBox();
+    private Label designFeeLabelValue = new Label();
+    private Button constructButton = new Button();
+    private Button cancelButton = new Button();
 
-    private OpenFileDialog dlgOpen = new OpenFileDialog();
-    private SaveFileDialog dlgSave = new SaveFileDialog();
+    private Panel costsPanel = new Panel();
+    private Panel allocationPanel = new Panel();
+    private NumericUpDown hullStrengthNum = new NumericUpDown();
+    private Label hullStrengthLabel = new Label();
+    private NumericUpDown cargoBaysNum = new NumericUpDown();
+    private NumericUpDown crewQuartersNum = new NumericUpDown();
+    private NumericUpDown fuelTanksNum = new NumericUpDown();
+    private NumericUpDown shieldSlotsNum = new NumericUpDown();
+    private NumericUpDown gadgetSlotsNum = new NumericUpDown();
+    private NumericUpDown weaponsSlotsNum = new NumericUpDown();
+    private Label cargoBaysLabel = new Label();
+    private Label fuelTanksLabel = new Label();
+    private Label crewQuartersLabel = new Label();
+    private Label shieldSlotsLabel = new Label();
+    private Label gadgetSlotsLabel = new Label();
+    private Label weaponsSlotsLabel = new Label();
+    private Label shipCostLabelValue = new Label();
+    private Label totalCostLabelValue = new Label();
+    private Label totalCostLabel = new Label();
+    private Label shipCostLabel = new Label();
+    private Label designFeeLabel = new Label();
+    private Panel welcomePanel = new Panel();
+    private Panel infoPanel = new Panel();
+    private Label sizeLabel = new Label();
+    private ComboBox<String> sizeComboBox = new ComboBox<>();
+    private Label templateLabel = new Label();
+    private ComboBox<Object> templateComboBox = new ComboBox<>();
+    private Button setCustomImageButton = new Button();
+    private Label imageLabel = new Label();
+    private Button nextImageButton = new Button();
+    private Button prevImageButton = new Button();
+    private Label imageLabelValue = new Label();
+    private Label unitsUsedLabel = new Label();
+    private HorizontalLine infoHorizontalLine = new HorizontalLine();
+    private Label pctOfMaxLabel = new Label();
+    private Label pctOfMaxLabelValue = new Label();
+    private Label penaltyLabel = new Label();
+    private Label penaltyLabelValue = new Label();
+    private HorizontalLine costsHorizontalLine = new HorizontalLine();
+    private Label sizeSpecialtyLabel = new Label();
+    private Label skillLabel = new Label();
+    private Label sizeSpecialtyLabelValue = new Label();
+    private Label skillLabelValue = new Label();
+    private Label skillDescriptionLabelValue = new Label();
+    private Label warningLabelValue = new Label();
+    private Button loadButton = new Button();
+    private Button saveButton = new Button();
+    private Label tradeInLabel = new Label();
+    private Label tradeInLabelValue = new Label();
+    private Label unitsUsedLabelValue = new Label();
+    private Label disabledPctTipLabel = new Label();
+    private Label disabledNameTipLabel = new Label();
+
+    private OpenFileDialog openDialog = new OpenFileDialog();
+    private SaveFileDialog saveDialog = new SaveFileDialog();
 
     private Image[] customImages = new Image[Consts.ImagesPerShip];
-    private ImageList ilShipyardLogos = new ImageList(components);
+    private ImageList shipyardLogosImageList = new ImageList(components);
 
     private int imgIndex = 0;
     private boolean loading = false;
@@ -140,18 +140,20 @@ class FormShipyard extends SpaceTraderForm {
         initializeComponent();
 
         this.setText(Functions.stringVars(Strings.ShipyardTitle, shipyard.getName()));
-        picLogo.setImage(ilShipyardLogos.getImages()[shipyard.getId().castToInt()]);
-        lblWelcome.setText(Functions.stringVars(Strings.ShipyardWelcome, shipyard.getName(), shipyard.getEngineer()));
-        lblSizeSpecialty.setText(Strings.Sizes[shipyard.getSpecialtySize().castToInt()]);
-        lblSkill.setText(Strings.ShipyardSkills[shipyard.getSkill().castToInt()]);
-        lblSkillDescription.setText(Strings.ShipyardSkillDescriptions[shipyard.getSkill().castToInt()]);
-        lblWarning.setText(Functions.stringVars(Strings.ShipyardWarning, Integer.toString(Shipyard.PENALTY_FIRST_PCT),
+        logoPictureBox.setImage(shipyardLogosImageList.getImages()[shipyard.getId().castToInt()]);
+        welcomeLabelValue
+                .setText(Functions.stringVars(Strings.ShipyardWelcome, shipyard.getName(), shipyard.getEngineer()));
+        sizeSpecialtyLabelValue.setText(Strings.Sizes[shipyard.getSpecialtySize().castToInt()]);
+        skillLabelValue.setText(Strings.ShipyardSkills[shipyard.getSkill().castToInt()]);
+        skillDescriptionLabelValue.setText(Strings.ShipyardSkillDescriptions[shipyard.getSkill().castToInt()]);
+        warningLabelValue
+                .setText(Functions.stringVars(Strings.ShipyardWarning, Integer.toString(Shipyard.PENALTY_FIRST_PCT),
                 Integer.toString(Shipyard.PENALTY_SECOND_PCT)));
 
-        dlgOpen.setInitialDirectory(Consts.CustomImagesDirectory);
-        dlgSave.setInitialDirectory(Consts.CustomTemplatesDirectory);
-        lblDisabledName.setImage(GuiEngine.getImageProvider().getDirectionImages()[Consts.DirectionDown]);
-        lblDisabledPct.setImage(GuiEngine.getImageProvider().getDirectionImages()[Consts.DirectionDown]);
+        openDialog.setInitialDirectory(Consts.CustomImagesDirectory);
+        saveDialog.setInitialDirectory(Consts.CustomTemplatesDirectory);
+        disabledNameTipLabel.setImage(GuiEngine.getImageProvider().getDirectionImages()[Consts.DirectionDown]);
+        disabledPctTipLabel.setImage(GuiEngine.getImageProvider().getDirectionImages()[Consts.DirectionDown]);
 
         loadSizes();
         loadTemplateList();
@@ -166,735 +168,605 @@ class FormShipyard extends SpaceTraderForm {
 
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(478, 375));
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(478, 375);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
-        setAcceptButton(btnConstruct);
-        setCancelButton(btnCancel);
+        setAcceptButton(constructButton);
+        setCancelButton(cancelButton);
 
         ResourceManager resources = new ResourceManager(FormShipyard.class);
 
-        boxWelcome.suspendLayout();
-        boxInfo.suspendLayout();
-        boxCosts.suspendLayout();
-        boxAllocation.suspendLayout();
-        ((ISupportInitialize) (numHullStrength)).beginInit();
-        ((ISupportInitialize) (numCargoBays)).beginInit();
-        ((ISupportInitialize) (numCrewQuarters)).beginInit();
-        ((ISupportInitialize) (numFuelTanks)).beginInit();
-        ((ISupportInitialize) (numShieldSlots)).beginInit();
-        ((ISupportInitialize) (numGadgetSlots)).beginInit();
-        ((ISupportInitialize) (numWeaponSlots)).beginInit();
+        welcomePanel.suspendLayout();
+        infoPanel.suspendLayout();
+        costsPanel.suspendLayout();
+        allocationPanel.suspendLayout();
+        hullStrengthNum.beginInit();
+        cargoBaysNum.beginInit();
+        crewQuartersNum.beginInit();
+        fuelTanksNum.beginInit();
+        shieldSlotsNum.beginInit();
+        gadgetSlotsNum.beginInit();
+        weaponsSlotsNum.beginInit();
         this.suspendLayout();
-        //
-        // boxWelcome
-        //
-        boxWelcome.getControls().addAll(lblSkillDescription, lblSkill, lblSizeSpecialty,
-                lblSkillLabel, lblSizeSpecialtyLabel, lblWarning, picLogo, lblWelcome);
-        boxWelcome.setLocation(new Point(8, 0));
-        boxWelcome.setSize(new Size(270, 204));
-        boxWelcome.setTabIndex(1);
-        boxWelcome.setTabStop(false);
-        //
-        // lblSkillDescription
-        //
-        lblSkillDescription.setLocation(new Point(8, 98));
-        lblSkillDescription.setSize(new Size(258, 26));
-        lblSkillDescription.setTabIndex(27);
-        lblSkillDescription.setText("All ships finalructed at this shipyard use 2 fewer units per crew quarter.");
-        //
-        // lblSkill
-        //
-        lblSkill.setLocation(new Point(180, 79));
-        lblSkill.setSize(new Size(87, 13));
-        lblSkill.setTabIndex(26);
-        lblSkill.setText("Crew Quartering");
-        //
-        // lblSizeSpecialty
-        //
-        lblSizeSpecialty.setLocation(new Point(180, 65));
-        lblSizeSpecialty.setSize(new Size(64, 13));
-        lblSizeSpecialty.setTabIndex(25);
-        lblSizeSpecialty.setText("Gargantuan");
-        //
-        // lblSkillLabel
-        //
-        lblSkillLabel.setAutoSize(true);
-        lblSkillLabel.setFont(FontCollection.bold825);
-        lblSkillLabel.setLocation(new Point(92, 79));
-        lblSkillLabel.setSize(new Size(72, 13));
-        lblSkillLabel.setTabIndex(24);
-        lblSkillLabel.setText("Special Skill:");
-        //
-        // lblSizeSpecialtyLabel
-        //
-        lblSizeSpecialtyLabel.setAutoSize(true);
-        lblSizeSpecialtyLabel.setFont(FontCollection.bold825);
-        lblSizeSpecialtyLabel.setLocation(new Point(92, 65));
-        lblSizeSpecialtyLabel.setSize(new Size(82, 13));
-        lblSizeSpecialtyLabel.setTabIndex(23);
-        lblSizeSpecialtyLabel.setText("Size Specialty:");
-        //
-        // lblWelcome
-        //
-        lblWelcome.setLocation(new Point(92, 12));
-        lblWelcome.setSize(new Size(176, 52));
-        lblWelcome.setTabIndex(3);
-        lblWelcome.setText("Welcome to Sorosuub Engineering Shipyards! Our best engineer, Obi-Wan, is at your"
-                + " service.");
-        //
-        // lblWarning
-        //
-        lblWarning.setLocation(new Point(8, 134));
-        lblWarning.setSize(new Size(258, 65));
-        lblWarning.setTabIndex(5);
-        lblWarning.setText("Bear in mind that getting too close to the maximum number of units will result in"
+
+        welcomePanel.setLocation(8, 0);
+        welcomePanel.setSize(270, 204);
+        welcomePanel.setTabStop(false);
+        welcomePanel.getControls().addAll(logoPictureBox, welcomeLabelValue, sizeSpecialtyLabel,
+                sizeSpecialtyLabelValue, skillLabel, skillLabelValue, skillDescriptionLabelValue, warningLabelValue);
+
+        logoPictureBox.setBackground(Color.BLACK);
+        logoPictureBox.setLocation(8, 12);
+        logoPictureBox.setSize(80, 80);
+        logoPictureBox.sizeMode = PictureBoxSizeMode.StretchImage;
+        logoPictureBox.setTabStop(false);
+
+        welcomeLabelValue.setLocation(92, 12);
+        welcomeLabelValue.setSize(176, 52);
+        welcomeLabelValue.setTabIndex(3);
+        welcomeLabelValue
+                .setText("Welcome to Sorosuub Engineering Shipyards! Our best engineer, Obi-Wan, is at your service.");
+
+        sizeSpecialtyLabel.setAutoSize(true);
+        sizeSpecialtyLabel.setFont(FontCollection.bold825);
+        sizeSpecialtyLabel.setLocation(92, 65);
+        sizeSpecialtyLabel.setSize(82, 13);
+        sizeSpecialtyLabel.setTabIndex(23);
+        sizeSpecialtyLabel.setText("Size Specialty:");
+
+        sizeSpecialtyLabelValue.setLocation(180, 65);
+        sizeSpecialtyLabelValue.setSize(64, 13);
+        sizeSpecialtyLabelValue.setTabIndex(25);
+        sizeSpecialtyLabelValue.setText("Gargantuan");
+
+        skillLabel.setAutoSize(true);
+        skillLabel.setFont(FontCollection.bold825);
+        skillLabel.setLocation(92, 79);
+        skillLabel.setSize(72, 13);
+        skillLabel.setTabIndex(24);
+        skillLabel.setText("Special Skill:");
+
+        skillLabelValue.setLocation(180, 79);
+        skillLabelValue.setSize(87, 13);
+        skillLabelValue.setTabIndex(26);
+        skillLabelValue.setText("Crew Quartering");
+
+        skillDescriptionLabelValue.setLocation(8, 98);
+        skillDescriptionLabelValue.setSize(258, 26);
+        skillDescriptionLabelValue.setTabIndex(27);
+        skillDescriptionLabelValue.setText("All ships constructed at this shipyard use 2 fewer units per crew quarter.");
+
+        warningLabelValue.setLocation(8, 134);
+        warningLabelValue.setSize(258, 65);
+        warningLabelValue.setTabIndex(5);
+        warningLabelValue.setText("Bear in mind that getting too close to the maximum number of units will result in"
                 + " a \"Crowding Penalty\" due to the engineering difficulty of squeezing everything "
                 + "in.  There is a modest penalty at 80%, and a more severe one at 90%.");
-        //
-        // picLogo
-        //
-        picLogo.setBackground(Color.BLACK);
-        picLogo.setLocation(new Point(8, 12));
-        picLogo.setSize(new Size(80, 80));
-        picLogo.sizeMode = PictureBoxSizeMode.StretchImage;
-        picLogo.setTabIndex(22);
-        picLogo.setTabStop(false);
-        //
-        // boxInfo
-        //
-        boxInfo.getControls().addAll((new BaseComponent[]{btnSave, btnLoad, picInfoLine, btnPrevImage, btnNextImage,
-                lblImage, lblImageLabel, selTemplate, lblTemplate, selSize, lblSize, btnSetCustomImage, picShip,
-                txtName, lblName}));
-        boxInfo.setLocation(new Point(8, 208));
-        boxInfo.setSize(new Size(270, 160));
-        boxInfo.setTabIndex(2);
-        boxInfo.setTabStop(false);
-        boxInfo.setText("Info");
-        //
-        // btnSave
-        //
-        btnSave.setFlatStyle(FlatStyle.FLAT);
-        btnSave.setLocation(new Point(216, 40));
-        btnSave.setSize(new Size(44, 20));
-        btnSave.setTabIndex(4);
-        btnSave.setText("Save");
-        btnSave.setClick(new EventHandler<Object, EventArgs>() {
+
+        
+        infoPanel.setLocation(8, 208);
+        infoPanel.setSize(270, 160);
+        infoPanel.setTabStop(false);
+        infoPanel.setText("Info");
+        
+        infoPanel.getControls().addAll(templateLabel, templateComboBox, loadButton, shipNameLabel,
+                shipNameTextBox, saveButton, sizeLabel, sizeComboBox, infoHorizontalLine, imageLabel,
+                shipPictureBox, prevImageButton, imageLabelValue, nextImageButton, setCustomImageButton);
+
+        templateLabel.setAutoSize(true);
+        templateLabel.setLocation(8, 19);
+        templateLabel.setSize(55, 13);
+        templateLabel.setTabIndex(20);
+        templateLabel.setText("Template:");
+
+        templateComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
+        templateComboBox.setLocation(80, 16);
+        templateComboBox.setSize(132, 21);
+        templateComboBox.setTabIndex(1);
+
+        loadButton.setFlatStyle(FlatStyle.FLAT);
+        loadButton.setLocation(216, 16);
+        loadButton.setSize(44, 20);
+        loadButton.setTabIndex(2);
+        loadButton.setText("Load");
+        loadButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnSave_Click();
+                loadButtonClick();
             }
         });
-        btnSave.setMouseEnter(new EventHandler<Object, EventArgs>() {
+
+        shipNameLabel.setAutoSize(true);
+        shipNameLabel.setLocation(8, 44);
+        shipNameLabel.setSize(63, 13);
+        shipNameLabel.setTabIndex(5);
+        shipNameLabel.setText("Ship Name:");
+
+        shipNameTextBox.setLocation(80, 40);
+        shipNameTextBox.setSize(132, 20);
+        shipNameTextBox.setTabIndex(3);
+        shipNameTextBox.setTextChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnSave_MouseEnter();
+                shipNameTextBoxTextChanged();
             }
         });
-        btnSave.setMouseLeave(new EventHandler<Object, EventArgs>() {
+
+        saveButton.setFlatStyle(FlatStyle.FLAT);
+        saveButton.setLocation(216, 40);
+        saveButton.setSize(44, 20);
+        saveButton.setTabIndex(4);
+        saveButton.setText("Save");
+        saveButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnSave_MouseLeave();
+                saveButtonClick();
             }
         });
-        //
-        // btnLoad
-        //
-        btnLoad.setFlatStyle(FlatStyle.FLAT);
-        btnLoad.setLocation(new Point(216, 16));
-        btnLoad.setSize(new Size(44, 20));
-        btnLoad.setTabIndex(2);
-        btnLoad.setText("Load");
-        btnLoad.setClick(new EventHandler<Object, EventArgs>() {
+        saveButton.setMouseEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnLoad_Click();
+                saveButtonMouseEnter();
             }
         });
-        //
-        // picInfoLine
-        //
-        picInfoLine.setBackground(Color.darkGray);
-        picInfoLine.setLocation(new Point(8, 89));
-        picInfoLine.setSize(new Size(254, 1));
-        picInfoLine.setTabIndex(132);
-        picInfoLine.setTabStop(false);
-        //
-        // btnPrevImage
-        //
-        btnPrevImage.setFlatStyle(FlatStyle.FLAT);
-        btnPrevImage.setLocation(new Point(154, 95));
-        btnPrevImage.setSize(new Size(18, 18));
-        btnPrevImage.setTabIndex(6);
-        btnPrevImage.setText("<");
-        btnPrevImage.setClick(new EventHandler<Object, EventArgs>() {
+        saveButton.setMouseLeave(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnPrevImage_Click();
+                saveButtonMouseLeave();
             }
         });
-        //
-        // btnNextImage
-        //
-        btnNextImage.setFlatStyle(FlatStyle.FLAT);
-        btnNextImage.setLocation(new Point(242, 95));
-        btnNextImage.setSize(new Size(18, 18));
-        btnNextImage.setTabIndex(7);
-        btnNextImage.setText(">");
-        btnNextImage.setClick(new EventHandler<Object, EventArgs>() {
+
+        sizeLabel.setAutoSize(true);
+        sizeLabel.setLocation(8, 66);
+        sizeLabel.setSize(29, 13);
+        sizeLabel.setTabIndex(18);
+        sizeLabel.setText("Size:");
+
+        sizeComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
+        sizeComboBox.setLocation(80, 63);
+        sizeComboBox.setSize(180, 21);
+        sizeComboBox.setTabIndex(5);
+        sizeComboBox.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnNextImage_Click();
+                sizeComboBoxSelectedIndexChanged();
             }
         });
-        //
-        // lblImage
-        //
-        lblImage.setLocation(new Point(174, 98));
-        lblImage.setSize(new Size(70, 13));
-        lblImage.setTabIndex(61);
-        lblImage.setText("Custom Ship");
-        lblImage.setTextAlign(ContentAlignment.TOP_CENTER);
-        //
-        // lblImageLabel
-        //
-        lblImageLabel.setAutoSize(true);
-        lblImageLabel.setLocation(new Point(8, 95));
-        lblImageLabel.setSize(new Size(39, 13));
-        lblImageLabel.setTabIndex(22);
-        lblImageLabel.setText("Image:");
-        //
-        // selTemplate
-        //
-        selTemplate.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        selTemplate.setLocation(new Point(80, 16));
-        selTemplate.setSize(new Size(132, 21));
-        selTemplate.setTabIndex(1);
-        //
-        // lblTemplate
-        //
-        lblTemplate.setAutoSize(true);
-        lblTemplate.setLocation(new Point(8, 19));
-        lblTemplate.setSize(new Size(55, 13));
-        lblTemplate.setTabIndex(20);
-        lblTemplate.setText("Template:");
-        //
-        // selSize
-        //
-        selSize.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        selSize.setLocation(new Point(80, 63));
-        selSize.setSize(new Size(180, 21));
-        selSize.setTabIndex(5);
-        selSize.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
+
+        infoHorizontalLine.setLocation(8, 89);
+        infoHorizontalLine.setWidth(254);
+        infoHorizontalLine.setTabStop(false);
+
+        imageLabel.setAutoSize(true);
+        imageLabel.setLocation(8, 95);
+        imageLabel.setSize(39, 13);
+        imageLabel.setTabIndex(22);
+        imageLabel.setText("Image:");
+
+        shipPictureBox.setBackground(Color.WHITE);
+        shipPictureBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        shipPictureBox.setLocation(80, 95);
+        shipPictureBox.setSize(66, 54);
+        shipPictureBox.setTabIndex(14);
+        shipPictureBox.setTabStop(false);
+
+        prevImageButton.setFlatStyle(FlatStyle.FLAT);
+        prevImageButton.setLocation(154, 95);
+        prevImageButton.setSize(20, 18);
+        prevImageButton.setTabIndex(6);
+        prevImageButton.setText("<");
+        prevImageButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                selSize_SelectedIndexChanged();
+                prevImageButtonClick();
             }
         });
-        //
-        // lblSize
-        //
-        lblSize.setAutoSize(true);
-        lblSize.setLocation(new Point(8, 66));
-        lblSize.setSize(new Size(29, 13));
-        lblSize.setTabIndex(18);
-        lblSize.setText("Size:");
-        //
-        // btnSetCustomImage
-        //
-        btnSetCustomImage.setFlatStyle(FlatStyle.FLAT);
-        btnSetCustomImage.setLocation(new Point(154, 121));
-        btnSetCustomImage.setSize(new Size(106, 22));
-        btnSetCustomImage.setTabIndex(8);
-        btnSetCustomImage.setText("Set Custom...");
-        btnSetCustomImage.setClick(new EventHandler<Object, EventArgs>() {
+
+        imageLabelValue.setLocation(174, 98);
+        imageLabelValue.setSize(70, 13);
+        imageLabelValue.setTabIndex(61);
+        imageLabelValue.setText("Custom Ship");
+        imageLabelValue.setTextAlign(ContentAlignment.TOP_CENTER);
+
+        nextImageButton.setFlatStyle(FlatStyle.FLAT);
+        nextImageButton.setLocation(240, 95);
+        nextImageButton.setSize(20, 18);
+        nextImageButton.setTabIndex(7);
+        nextImageButton.setText(">");
+        nextImageButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnSetCustomImage_Click();
+                nextImageButtonClick();
             }
         });
-        //
-        // picShip
-        //
-        picShip.setBackground(Color.white);
-        picShip.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        picShip.setLocation(new Point(80, 95));
-        picShip.setSize(new Size(66, 54));
-        picShip.setTabIndex(14);
-        picShip.setTabStop(false);
-        //
-        // txtName
-        //
-        txtName.setLocation(new Point(80, 40));
-        txtName.setSize(new Size(132, 20));
-        txtName.setTabIndex(3);
-        txtName.setText("");
-        txtName.setTextChanged(new EventHandler<Object, EventArgs>() {
+
+        setCustomImageButton.setFlatStyle(FlatStyle.FLAT);
+        setCustomImageButton.setLocation(158, 121);
+        setCustomImageButton.setSize(106, 22);
+        setCustomImageButton.setTabIndex(8);
+        setCustomImageButton.setText("Set Custom...");
+        setCustomImageButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                txtName_TextChanged();
+                setCustomImageButtonClick();
             }
         });
-        //
-        // lblName
-        //
-        lblName.setAutoSize(true);
-        lblName.setLocation(new Point(8, 44));
-        lblName.setSize(new Size(63, 13));
-        lblName.setTabIndex(5);
-        lblName.setText("Ship Name:");
-        //
-        // lblUnitsUsed
-        //
-        lblUnitsUsed.setLocation(new Point(110, 186));
-        lblUnitsUsed.setSize(new Size(23, 13));
-        lblUnitsUsed.setTabIndex(17);
-        lblUnitsUsed.setText("888");
-        lblUnitsUsed.setTextAlign(ContentAlignment.TOP_RIGHT);
-        //
-        // lblUnitsUsedLabel
-        //
-        lblUnitsUsedLabel.setAutoSize(true);
-        lblUnitsUsedLabel.setLocation(new Point(8, 186));
-        lblUnitsUsedLabel.setSize(new Size(63, 13));
-        lblUnitsUsedLabel.setTabIndex(16);
-        lblUnitsUsedLabel.setText("Units Used:");
-        //
-        // boxCosts
-        //
-        boxCosts.getControls().addAll((new BaseComponent[]{lblTradeIn, lblTradeInLabel, picCostsLine, lblPenalty,
-                lblPenaltyLabel, lblShipCost, lblTotalCost, lblTotalCostLabel, lblShipCostLabel, lblDesignFee,
-                lblDesignFeeLabel}));
-        boxCosts.setLocation(new Point(286, 230));
-        boxCosts.setSize(new Size(184, 106));
-        boxCosts.setTabIndex(4);
-        boxCosts.setTabStop(false);
-        boxCosts.setText("Costs");
-        //
-        // lblTradeIn
-        //
-        lblTradeIn.setLocation(new Point(106, 64));
-        lblTradeIn.setSize(new Size(75, 16));
-        lblTradeIn.setTabIndex(135);
-        lblTradeIn.setText("-8,888,888 cr.");
-        lblTradeIn.setTextAlign(ContentAlignment.TOP_RIGHT);
-        //
-        // lblTradeInLabel
-        //
-        lblTradeInLabel.setAutoSize(true);
-        lblTradeInLabel.setLocation(new Point(8, 64));
-        lblTradeInLabel.setSize(new Size(77, 13));
-        lblTradeInLabel.setTabIndex(134);
-        lblTradeInLabel.setText("Less Trade-In:");
-        //
-        // picCostsLine
-        //
-        picCostsLine.setBackground(Color.darkGray);
-        picCostsLine.setLocation(new Point(8, 80));
-        picCostsLine.setSize(new Size(168, 1));
-        picCostsLine.setTabIndex(133);
-        picCostsLine.setTabStop(false);
-        //
-        // lblPenalty
-        //
-        lblPenalty.setLocation(new Point(106, 32));
-        lblPenalty.setSize(new Size(74, 16));
-        lblPenalty.setTabIndex(21);
-        lblPenalty.setText("8,888,888 cr.");
-        lblPenalty.setTextAlign(ContentAlignment.TOP_RIGHT);
-        //
-        // lblPenaltyLabel
-        //
-        lblPenaltyLabel.setAutoSize(true);
-        lblPenaltyLabel.setLocation(new Point(8, 32));
-        lblPenaltyLabel.setSize(new Size(96, 13));
-        lblPenaltyLabel.setTabIndex(20);
-        lblPenaltyLabel.setText("Crowding Penalty:");
-        //
-        // lblShipCost
-        //
-        lblShipCost.setLocation(new Point(106, 16));
-        lblShipCost.setSize(new Size(74, 16));
-        lblShipCost.setTabIndex(19);
-        lblShipCost.setText("8,888,888 cr.");
-        lblShipCost.setTextAlign(ContentAlignment.TOP_RIGHT);
-        //
-        // lblTotalCost
-        //
-        lblTotalCost.setLocation(new Point(106, 84));
-        lblTotalCost.setSize(new Size(74, 16));
-        lblTotalCost.setTabIndex(18);
-        lblTotalCost.setText("8,888,888 cr.");
-        lblTotalCost.setTextAlign(ContentAlignment.TOP_RIGHT);
-        //
-        // lblTotalCostLabel
-        //
-        lblTotalCostLabel.setAutoSize(true);
-        lblTotalCostLabel.setLocation(new Point(8, 84));
-        lblTotalCostLabel.setSize(new Size(59, 13));
-        lblTotalCostLabel.setTabIndex(17);
-        lblTotalCostLabel.setText("Total Cost:");
-        //
-        // lblShipCostLabel
-        //
-        lblShipCostLabel.setAutoSize(true);
-        lblShipCostLabel.setLocation(new Point(8, 16));
-        lblShipCostLabel.setSize(new Size(56, 13));
-        lblShipCostLabel.setTabIndex(16);
-        lblShipCostLabel.setText("Ship Cost:");
-        //
-        // lblDesignFee
-        //
-        lblDesignFee.setLocation(new Point(106, 48));
-        lblDesignFee.setSize(new Size(74, 16));
-        lblDesignFee.setTabIndex(15);
-        lblDesignFee.setText("888,888 cr.");
-        lblDesignFee.setTextAlign(ContentAlignment.TOP_RIGHT);
-        //
-        // lblDesignFeeLabel
-        //
-        lblDesignFeeLabel.setAutoSize(true);
-        lblDesignFeeLabel.setLocation(new Point(8, 48));
-        lblDesignFeeLabel.setSize(new Size(65, 13));
-        lblDesignFeeLabel.setTabIndex(14);
-        lblDesignFeeLabel.setText("Design Fee:");
-        //
-        // btnConstruct
-        //
-        btnConstruct.setFlatStyle(FlatStyle.FLAT);
-        btnConstruct.setForeground(SystemColors.CONTROL_TEXT);
-        btnConstruct.setLocation(new Point(382, 344));
-        btnConstruct.setSize(new Size(88, 22));
-        btnConstruct.setTabIndex(6);
-        btnConstruct.setText("Construct Ship");
-        btnConstruct.setClick(new EventHandler<Object, EventArgs>() {
+
+        allocationPanel.setLocation(286, 0);
+        allocationPanel.setSize(184, 226);
+        allocationPanel.setTabStop(false);
+        allocationPanel.setText("Space Allocation");
+
+        allocationPanel.getControls().addAll(cargoBaysLabel, cargoBaysNum, fuelTanksLabel, fuelTanksNum,
+                hullStrengthLabel, hullStrengthNum, weaponsSlotsLabel, weaponsSlotsNum, shieldSlotsLabel,
+                shieldSlotsNum, gadgetSlotsLabel, gadgetSlotsNum, crewQuartersLabel, crewQuartersNum, unitsUsedLabel,
+                unitsUsedLabelValue, pctOfMaxLabel, pctOfMaxLabelValue);
+
+        cargoBaysLabel.setAutoSize(true);
+        cargoBaysLabel.setLocation(8, 18);
+        cargoBaysLabel.setSize(66, 13);
+        cargoBaysLabel.setTabIndex(5);
+        cargoBaysLabel.setText("Cargo Bays:");
+
+        cargoBaysNum.setBackground(Color.WHITE);
+        cargoBaysNum.setLocation(110, 16);
+        cargoBaysNum.setMaximum(999);
+        cargoBaysNum.setReadOnly(true);
+        cargoBaysNum.setSize(64, 20);
+        cargoBaysNum.setTabIndex(3);
+        cargoBaysNum.setTextAlign(HorizontalAlignment.RIGHT);
+        cargoBaysNum.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnConstruct_Click();
+                numValueEnter(sender);
             }
         });
-        btnConstruct.setMouseEnter(new EventHandler<Object, EventArgs>() {
+        cargoBaysNum.setValueChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnConstruct_MouseEnter();
+                numValueChanged();
             }
         });
-        btnConstruct.setMouseLeave(new EventHandler<Object, EventArgs>() {
+
+        fuelTanksLabel.setAutoSize(true);
+        fuelTanksLabel.setLocation(8, 42);
+        fuelTanksLabel.setSize(41, 13);
+        fuelTanksLabel.setTabIndex(4);
+        fuelTanksLabel.setText("Range:");
+
+        fuelTanksNum.setBackground(Color.WHITE);
+        fuelTanksNum.setLocation(110, 40);
+        fuelTanksNum.setReadOnly(true);
+        fuelTanksNum.setSize(64, 20);
+        fuelTanksNum.setTabIndex(2);
+        fuelTanksNum.setTextAlign(HorizontalAlignment.RIGHT);
+        fuelTanksNum.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                btnConstruct_MouseLeave();
+                numValueEnter(sender);
             }
         });
-        //
-        // btnCancel
-        //
-        btnCancel.setDialogResult(DialogResult.CANCEL);
-        btnCancel.setFlatStyle(FlatStyle.FLAT);
-        btnCancel.setLocation(new Point(286, 344));
-        btnCancel.setSize(new Size(88, 22));
-        btnCancel.setTabIndex(5);
-        btnCancel.setText("Cancel Design");
-        //
-        // boxAllocation
-        //
-        boxAllocation.getControls().addAll((new BaseComponent[]{lblPct, lblPctLabel, numHullStrength,
-                lblHullStrenghLabel, numCargoBays, numCrewQuarters, numFuelTanks, numShieldSlots, numGadgetSlots,
-                numWeaponSlots, lblCargoBays, lblFuelTanks, lblCrewQuarters, lblShieldSlots, lblGadgetSlots,
-                lblWeaponsSlots, lblUnitsUsedLabel, lblUnitsUsed}));
-        boxAllocation.setLocation(new Point(286, 0));
-        boxAllocation.setSize(new Size(184, 226));
-        boxAllocation.setTabIndex(3);
-        boxAllocation.setTabStop(false);
-        boxAllocation.setText("Space Allocation");
-        //
-        // lblPct
-        //
-        lblPct.setFont(FontCollection.bold825);
-        lblPct.setForeground(Color.red);
-        lblPct.setLocation(new Point(110, 204));
-        lblPct.setSize(new Size(34, 13));
-        lblPct.setTabIndex(19);
-        lblPct.setText("888%");
-        lblPct.setTextAlign(ContentAlignment.TOP_RIGHT);
-        //
-        // lblPctLabel
-        //
-        lblPctLabel.setAutoSize(true);
-        lblPctLabel.setLocation(new Point(8, 204));
-        lblPctLabel.setSize(new Size(54, 13));
-        lblPctLabel.setTabIndex(18);
-        lblPctLabel.setText("% of Max:");
-        //
-        // numHullStrength
-        //
-        numHullStrength.setBackground(Color.white);
-        numHullStrength.setLocation(new Point(110, 64));
-        numHullStrength.setMaximum(9999);
-        numHullStrength.setReadOnly(true);
-        numHullStrength.setSize(new Size(64, 20));
-        numHullStrength.setTabIndex(1);
-        numHullStrength.setTextAlign(HorizontalAlignment.RIGHT);
-        numHullStrength.setEnter(new EventHandler<Object, EventArgs>() {
+        fuelTanksNum.setValueChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueEnter(sender);
+                numValueChanged();
             }
         });
-        numHullStrength.setValueChanged(new EventHandler<Object, EventArgs>() {
+
+        hullStrengthLabel.setAutoSize(true);
+        hullStrengthLabel.setLocation(8, 66);
+        hullStrengthLabel.setSize(70, 13);
+        hullStrengthLabel.setTabIndex(13);
+        hullStrengthLabel.setText("Hull Strength:");
+
+        hullStrengthNum.setBackground(Color.WHITE);
+        hullStrengthNum.setLocation(110, 64);
+        hullStrengthNum.setMaximum(9999);
+        hullStrengthNum.setReadOnly(true);
+        hullStrengthNum.setSize(64, 20);
+        hullStrengthNum.setTabIndex(1);
+        hullStrengthNum.setTextAlign(HorizontalAlignment.RIGHT);
+        hullStrengthNum.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueChanged();
+                numValueEnter(sender);
             }
         });
-        //
-        // lblHullStrenghLabel
-        //
-        lblHullStrenghLabel.setAutoSize(true);
-        lblHullStrenghLabel.setLocation(new Point(8, 66));
-        lblHullStrenghLabel.setSize(new Size(70, 13));
-        lblHullStrenghLabel.setTabIndex(13);
-        lblHullStrenghLabel.setText("Hull Strengh:");
-        //
-        // numCargoBays
-        //
-        numCargoBays.setBackground(Color.white);
-        numCargoBays.setLocation(new Point(110, 16));
-        numCargoBays.setMaximum(999);
-        numCargoBays.setReadOnly(true);
-        numCargoBays.setSize(new Size(64, 20));
-        numCargoBays.setTabIndex(3);
-        numCargoBays.setTextAlign(HorizontalAlignment.RIGHT);
-        numCargoBays.setEnter(new EventHandler<Object, EventArgs>() {
+        hullStrengthNum.setValueChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueEnter(sender);
+                numValueChanged();
             }
         });
-        numCargoBays.setValueChanged(new EventHandler<Object, EventArgs>() {
+
+        weaponsSlotsLabel.setAutoSize(true);
+        weaponsSlotsLabel.setLocation(8, 90);
+        weaponsSlotsLabel.setSize(78, 13);
+        weaponsSlotsLabel.setTabIndex(0);
+        weaponsSlotsLabel.setText("Weapon Slots:");
+
+        weaponsSlotsNum.setBackground(Color.WHITE);
+        weaponsSlotsNum.setLocation(110, 88);
+        weaponsSlotsNum.setReadOnly(true);
+        weaponsSlotsNum.setSize(64, 20);
+        weaponsSlotsNum.setTabIndex(5);
+        weaponsSlotsNum.setTextAlign(HorizontalAlignment.RIGHT);
+        weaponsSlotsNum.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueChanged();
+                numValueEnter(sender);
             }
         });
-        //
-        // numCrewQuarters
-        //
-        numCrewQuarters.setBackground(Color.white);
-        numCrewQuarters.setLocation(new Point(110, 160));
-        numCrewQuarters.setMinimum(1);
-        numCrewQuarters.setReadOnly(true);
-        numCrewQuarters.setSize(new Size(64, 20));
-        numCrewQuarters.setTabIndex(4);
-        numCrewQuarters.setTextAlign(HorizontalAlignment.RIGHT);
-        numCrewQuarters.setValue(1);
-        numCrewQuarters.setEnter(new EventHandler<Object, EventArgs>() {
+        weaponsSlotsNum.setValueChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueEnter(sender);
+                numValueChanged();
             }
         });
-        numCrewQuarters.setValueChanged(new EventHandler<Object, EventArgs>() {
+
+        shieldSlotsLabel.setAutoSize(true);
+        shieldSlotsLabel.setLocation(8, 114);
+        shieldSlotsLabel.setSize(67, 13);
+        shieldSlotsLabel.setTabIndex(2);
+        shieldSlotsLabel.setText("Shield Slots:");
+
+        shieldSlotsNum.setBackground(Color.WHITE);
+        shieldSlotsNum.setLocation(110, 112);
+        shieldSlotsNum.setReadOnly(true);
+        shieldSlotsNum.setSize(64, 20);
+        shieldSlotsNum.setTabIndex(6);
+        shieldSlotsNum.setTextAlign(HorizontalAlignment.RIGHT);
+        shieldSlotsNum.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueChanged();
+                numValueEnter(sender);
             }
         });
-        //
-        // numFuelTanks
-        //
-        numFuelTanks.setBackground(Color.white);
-        numFuelTanks.setLocation(new Point(110, 40));
-        numFuelTanks.setReadOnly(true);
-        numFuelTanks.setSize(new Size(64, 20));
-        numFuelTanks.setTabIndex(2);
-        numFuelTanks.setTextAlign(HorizontalAlignment.RIGHT);
-        numFuelTanks.setEnter(new EventHandler<Object, EventArgs>() {
+        shieldSlotsNum.setValueChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueEnter(sender);
+                numValueChanged();
             }
         });
-        numFuelTanks.setValueChanged(new EventHandler<Object, EventArgs>() {
+
+        gadgetSlotsLabel.setAutoSize(true);
+        gadgetSlotsLabel.setLocation(8, 138);
+        gadgetSlotsLabel.setSize(73, 13);
+        gadgetSlotsLabel.setTabIndex(1);
+        gadgetSlotsLabel.setText("Gadget Slots:");
+
+        gadgetSlotsNum.setBackground(Color.WHITE);
+        gadgetSlotsNum.setLocation(110, 136);
+        gadgetSlotsNum.setReadOnly(true);
+        gadgetSlotsNum.setSize(64, 20);
+        gadgetSlotsNum.setTabIndex(7);
+        gadgetSlotsNum.setTextAlign(HorizontalAlignment.RIGHT);
+        gadgetSlotsNum.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueChanged();
+                numValueEnter(sender);
             }
         });
-        //
-        // numShieldSlots
-        //
-        numShieldSlots.setBackground(Color.white);
-        numShieldSlots.setLocation(new Point(110, 112));
-        numShieldSlots.setReadOnly(true);
-        numShieldSlots.setSize(new Size(64, 20));
-        numShieldSlots.setTabIndex(6);
-        numShieldSlots.setTextAlign(HorizontalAlignment.RIGHT);
-        numShieldSlots.setEnter(new EventHandler<Object, EventArgs>() {
+        gadgetSlotsNum.setValueChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueEnter(sender);
+                numValueChanged();
             }
         });
-        numShieldSlots.setValueChanged(new EventHandler<Object, EventArgs>() {
+
+        crewQuartersLabel.setAutoSize(true);
+        crewQuartersLabel.setLocation(8, 162);
+        crewQuartersLabel.setSize(81, 13);
+        crewQuartersLabel.setTabIndex(3);
+        crewQuartersLabel.setText("Crew Quarters:");
+
+        crewQuartersNum.setBackground(Color.WHITE);
+        crewQuartersNum.setLocation(110, 160);
+        crewQuartersNum.setMinimum(1);
+        crewQuartersNum.setReadOnly(true);
+        crewQuartersNum.setSize(64, 20);
+        crewQuartersNum.setTabIndex(4);
+        crewQuartersNum.setTextAlign(HorizontalAlignment.RIGHT);
+        crewQuartersNum.setValue(1);
+        crewQuartersNum.setEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueChanged();
+                numValueEnter(sender);
             }
         });
-        //
-        // numGadgetSlots
-        //
-        numGadgetSlots.setBackground(Color.white);
-        numGadgetSlots.setLocation(new Point(110, 136));
-        numGadgetSlots.setReadOnly(true);
-        numGadgetSlots.setSize(new Size(64, 20));
-        numGadgetSlots.setTabIndex(7);
-        numGadgetSlots.setTextAlign(HorizontalAlignment.RIGHT);
-        numGadgetSlots.setEnter(new EventHandler<Object, EventArgs>() {
+        crewQuartersNum.setValueChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueEnter(sender);
+                numValueChanged();
             }
         });
-        numGadgetSlots.setValueChanged(new EventHandler<Object, EventArgs>() {
+
+        unitsUsedLabel.setAutoSize(true);
+        unitsUsedLabel.setLocation(8, 186);
+        unitsUsedLabel.setSize(63, 13);
+        unitsUsedLabel.setTabIndex(16);
+        unitsUsedLabel.setText("Units Used:");
+
+        unitsUsedLabelValue.setLocation(110, 186);
+        unitsUsedLabelValue.setSize(34, 13);
+        unitsUsedLabelValue.setTabIndex(17);
+        unitsUsedLabelValue.setText("888");
+        unitsUsedLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+
+        pctOfMaxLabel.setAutoSize(true);
+        pctOfMaxLabel.setLocation(8, 204);
+        pctOfMaxLabel.setSize(60, 13);
+        pctOfMaxLabel.setTabIndex(18);
+        pctOfMaxLabel.setText("% of Max:");
+
+        pctOfMaxLabelValue.setFont(FontCollection.bold825);
+        pctOfMaxLabelValue.setForeground(Color.red);
+        pctOfMaxLabelValue.setLocation(110, 204);
+        pctOfMaxLabelValue.setSize(34, 13);
+        pctOfMaxLabelValue.setTabIndex(19);
+        pctOfMaxLabelValue.setText("888%");
+        pctOfMaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+
+        costsPanel.setLocation(286, 230);
+        costsPanel.setSize(184, 106);
+        costsPanel.setTabStop(false);
+        costsPanel.setText("Costs");
+
+        costsPanel.getControls().addAll(shipCostLabel, shipCostLabelValue, penaltyLabel,
+                penaltyLabelValue, designFeeLabel, designFeeLabelValue, tradeInLabel,
+                tradeInLabelValue, costsHorizontalLine, totalCostLabel, totalCostLabelValue);
+
+        shipCostLabel.setAutoSize(true);
+        shipCostLabel.setLocation(8, 16);
+        shipCostLabel.setSize(56, 13);
+        shipCostLabel.setTabIndex(16);
+        shipCostLabel.setText("Ship Cost:");
+
+        shipCostLabelValue.setLocation(106, 16);
+        shipCostLabelValue.setSize(74, 16);
+        shipCostLabelValue.setTabIndex(19);
+        shipCostLabelValue.setText("8,888,888 cr.");
+        shipCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+
+        penaltyLabel.setAutoSize(true);
+        penaltyLabel.setLocation(8, 32);
+        penaltyLabel.setSize(96, 13);
+        penaltyLabel.setTabIndex(20);
+        penaltyLabel.setText("Crowding Penalty:");
+
+        penaltyLabelValue.setLocation(106, 32);
+        penaltyLabelValue.setSize(74, 16);
+        penaltyLabelValue.setTabIndex(21);
+        penaltyLabelValue.setText("8,888,888 cr.");
+        penaltyLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+
+        designFeeLabel.setAutoSize(true);
+        designFeeLabel.setLocation(8, 48);
+        designFeeLabel.setSize(65, 13);
+        designFeeLabel.setTabIndex(14);
+        designFeeLabel.setText("Design Fee:");
+
+        designFeeLabelValue.setLocation(106, 48);
+        designFeeLabelValue.setSize(74, 16);
+        designFeeLabelValue.setTabIndex(15);
+        designFeeLabelValue.setText("888,888 cr.");
+        designFeeLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+
+        tradeInLabel.setAutoSize(true);
+        tradeInLabel.setLocation(8, 64);
+        tradeInLabel.setSize(77, 13);
+        tradeInLabel.setTabIndex(134);
+        tradeInLabel.setText("Less Trade-In:");
+
+        tradeInLabelValue.setLocation(106, 64);
+        tradeInLabelValue.setSize(75, 16);
+        tradeInLabelValue.setTabIndex(135);
+        tradeInLabelValue.setText("-8,888,888 cr.");
+        tradeInLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+
+        costsHorizontalLine.setLocation(8, 80);
+        costsHorizontalLine.setWidth(168);
+        costsHorizontalLine.setTabStop(false);
+
+        totalCostLabel.setAutoSize(true);
+        totalCostLabel.setLocation(8, 84);
+        totalCostLabel.setSize(59, 13);
+        totalCostLabel.setTabIndex(17);
+        totalCostLabel.setText("Total Cost:");
+
+        totalCostLabelValue.setLocation(106, 84);
+        totalCostLabelValue.setSize(74, 16);
+        totalCostLabelValue.setTabIndex(18);
+        totalCostLabelValue.setText("8,888,888 cr.");
+        totalCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+
+        cancelButton.setDialogResult(DialogResult.CANCEL);
+        cancelButton.setFlatStyle(FlatStyle.FLAT);
+        cancelButton.setLocation(286, 344);
+        cancelButton.setSize(88, 22);
+        cancelButton.setTabIndex(5);
+        cancelButton.setText("Cancel Design");
+
+        constructButton.setFlatStyle(FlatStyle.FLAT);
+        constructButton.setForeground(SystemColors.CONTROL_TEXT);
+        constructButton.setLocation(382, 344);
+        constructButton.setSize(88, 22);
+        constructButton.setTabIndex(6);
+        constructButton.setText("Construct Ship");
+        constructButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueChanged();
+                constructButtonClick();
             }
         });
-        //
-        // numWeaponSlots
-        //
-        numWeaponSlots.setBackground(Color.white);
-        numWeaponSlots.setLocation(new Point(110, 88));
-        numWeaponSlots.setReadOnly(true);
-        numWeaponSlots.setSize(new Size(64, 20));
-        numWeaponSlots.setTabIndex(5);
-        numWeaponSlots.setTextAlign(HorizontalAlignment.RIGHT);
-        numWeaponSlots.setEnter(new EventHandler<Object, EventArgs>() {
+        constructButton.setMouseEnter(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueEnter(sender);
+                constructButtonMouseEnter();
             }
         });
-        numWeaponSlots.setValueChanged(new EventHandler<Object, EventArgs>() {
+        constructButton.setMouseLeave(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                num_ValueChanged();
+                constructButtonMouseLeave();
             }
         });
-        //
-        // lblCargoBays
-        //
-        lblCargoBays.setAutoSize(true);
-        lblCargoBays.setLocation(new Point(8, 18));
-        lblCargoBays.setSize(new Size(66, 13));
-        lblCargoBays.setTabIndex(5);
-        lblCargoBays.setText("Cargo Bays:");
-        //
-        // lblFuelTanks
-        //
-        lblFuelTanks.setAutoSize(true);
-        lblFuelTanks.setLocation(new Point(8, 42));
-        lblFuelTanks.setSize(new Size(41, 13));
-        lblFuelTanks.setTabIndex(4);
-        lblFuelTanks.setText("Range:");
-        //
-        // lblCrewQuarters
-        //
-        lblCrewQuarters.setAutoSize(true);
-        lblCrewQuarters.setLocation(new Point(8, 162));
-        lblCrewQuarters.setSize(new Size(81, 13));
-        lblCrewQuarters.setTabIndex(3);
-        lblCrewQuarters.setText("Crew Quarters:");
-        //
-        // lblShieldSlots
-        //
-        lblShieldSlots.setAutoSize(true);
-        lblShieldSlots.setLocation(new Point(8, 114));
-        lblShieldSlots.setSize(new Size(67, 13));
-        lblShieldSlots.setTabIndex(2);
-        lblShieldSlots.setText("Shield Slots:");
-        //
-        // lblGadgetSlots
-        //
-        lblGadgetSlots.setAutoSize(true);
-        lblGadgetSlots.setLocation(new Point(8, 138));
-        lblGadgetSlots.setSize(new Size(73, 13));
-        lblGadgetSlots.setTabIndex(1);
-        lblGadgetSlots.setText("Gadget Slots:");
-        //
-        // lblWeaponsSlots
-        //
-        lblWeaponsSlots.setAutoSize(true);
-        lblWeaponsSlots.setLocation(new Point(8, 90));
-        lblWeaponsSlots.setSize(new Size(78, 13));
-        lblWeaponsSlots.setTabIndex(0);
-        lblWeaponsSlots.setText("Weapon Slots:");
-        //
-        // ilShipyardLogos
-        //
-        ilShipyardLogos.setColorDepth(ColorDepth.Depth24Bit);
-        ilShipyardLogos.setImageSize(new Size(80, 80));
-        ilShipyardLogos.setImageStream(((ImageListStreamer) (resources
+
+        shipyardLogosImageList.setColorDepth(ColorDepth.DEPTH_24_BIT);
+        shipyardLogosImageList.setImageSize(80, 80);
+        shipyardLogosImageList.setImageStream(((ImageListStreamer) (resources
                 .getObject("ilShipyardLogos.ImageStream"))));
-        ilShipyardLogos.setTransparentColor(Color.black);
-        //
-        // dlgOpen
-        //
-        dlgOpen.setFilter("Windows Bitmaps (*.bmp)|*bmp");
-        dlgOpen.setTitle("Open Ship Image");
-        //
-        // lblDisabledPct
-        //
-        lblDisabledPct.setBackground(SystemColors.INFO);
-        lblDisabledPct.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        lblDisabledPct.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
-        lblDisabledPct.setLocation(new Point(154, 182));
-        lblDisabledPct.setSize(new Size(276, 20));
-        lblDisabledPct.setTabIndex(8);
-        lblDisabledPct.setText("Your % of Max must be less than or equal to 100%.");
-        lblDisabledPct.setTextAlign(ContentAlignment.MIDDLE_CENTER);
-        lblDisabledPct.setVisible(false);
-        //
-        // dlgSave
-        //
-        dlgSave.setDefaultExt("sst");
-        dlgSave.setFileName("CustomShip.sst");
-        dlgSave.setFilter("SpaceTrader Ship Template Files (*.sst)|*.sst");
-        dlgSave.setTitle("Save Ship Template");
-        //
-        // lblDisabledName
-        //
-        lblDisabledName.setBackground(SystemColors.INFO);
-        lblDisabledName.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        lblDisabledName.setTextAlign(ContentAlignment.MIDDLE_LEFT);
-        lblDisabledName.setLocation(new Point(96, 222));
-        lblDisabledName.setSize(new Size(170, 20));
-        lblDisabledName.setTabIndex(7);
-        lblDisabledName.setText("You must enter a Ship Name.");
-        lblDisabledName.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
-        lblDisabledName.setVisible(false);
+        shipyardLogosImageList.setTransparentColor(Color.BLACK);
 
-        controls.addAll(Arrays.asList(lblDisabledPct, boxWelcome, lblDisabledName, boxAllocation, boxCosts, boxInfo,
-                btnCancel, btnConstruct));
+        if (!GlobalAssets.getStrings().isEmpty()) {
+            openDialog.setFilter(GlobalAssets.getStrings().get("formShipyard.openDialog.filter"));
+            openDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.openDialog.title"));
 
-        ((ISupportInitialize) (numHullStrength)).endInit();
-        ((ISupportInitialize) (numCargoBays)).endInit();
-        ((ISupportInitialize) (numCrewQuarters)).endInit();
-        ((ISupportInitialize) (numFuelTanks)).endInit();
-        ((ISupportInitialize) (numShieldSlots)).endInit();
-        ((ISupportInitialize) (numGadgetSlots)).endInit();
-        ((ISupportInitialize) (numWeaponSlots)).endInit();
+            saveDialog.setDefaultExt(GlobalAssets.getStrings().get("formShipyard.saveDialog.defaultExt"));
+            saveDialog.setFileName(GlobalAssets.getStrings().get("formShipyard.saveDialog.fileName"));
+            saveDialog.setFilter(GlobalAssets.getStrings().get("formShipyard.saveDialog.filter"));
+            saveDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.saveDialog.title"));
+        }
+
+        disabledNameTipLabel.setBackground(SystemColors.INFO);
+        disabledNameTipLabel.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        disabledNameTipLabel.setTextAlign(ContentAlignment.MIDDLE_LEFT);
+        disabledNameTipLabel.setLocation(96, 222);
+        disabledNameTipLabel.setSize(170, 20);
+        disabledNameTipLabel.setTabIndex(7);
+        disabledNameTipLabel.setText("You must enter a Ship Name.");
+        disabledNameTipLabel.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
+        disabledNameTipLabel.setVisible(false);
+
+        disabledPctTipLabel.setBackground(SystemColors.INFO);
+        disabledPctTipLabel.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        disabledPctTipLabel.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
+        disabledPctTipLabel.setLocation(154, 182);
+        disabledPctTipLabel.setSize(276, 20);
+        disabledPctTipLabel.setTabIndex(8);
+        disabledPctTipLabel.setText("Your % of Max must be less than or equal to 100%.");
+        disabledPctTipLabel.setTextAlign(ContentAlignment.MIDDLE_CENTER);
+        disabledPctTipLabel.setVisible(false);
+
+        controls.addAll(welcomePanel, infoPanel, allocationPanel, costsPanel, cancelButton, constructButton,
+                disabledNameTipLabel, disabledPctTipLabel);
+
+        hullStrengthNum.endInit();
+        cargoBaysNum.endInit();
+        crewQuartersNum.endInit();
+        fuelTanksNum.endInit();
+        shieldSlotsNum.endInit();
+        gadgetSlotsNum.endInit();
+        weaponsSlotsNum.endInit();
 
         ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
         ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 
     private boolean constructButtonEnabled() {
-        return (shipyard.getPercentOfMaxUnits() <= 100 && txtName.getText().length() > 0);
+        return (shipyard.getPercentOfMaxUnits() <= 100 && shipNameTextBox.getText().length() > 0);
     }
 
     private Bitmap getImageFile(String fileName) {
@@ -907,21 +779,21 @@ class FormShipyard extends SpaceTraderForm {
     }
 
     private void loadSelectedTemplate() {
-        if (selTemplate.getSelectedItem() instanceof ShipTemplate) {
+        if (templateComboBox.getSelectedItem() instanceof ShipTemplate) {
             loading = true;
 
-            ShipTemplate template = (ShipTemplate) selTemplate.getSelectedItem();
+            ShipTemplate template = (ShipTemplate) templateComboBox.getSelectedItem();
 
             if (template.getName().equals(Strings.ShipNameCurrentShip)) {
-                txtName.setText(game.getCommander().getShip().getName());
+                shipNameTextBox.setText(game.getCommander().getShip().getName());
             } else if (template.getName().endsWith(Strings.ShipNameTemplateSuffixDefault)
                     || template.getName().endsWith(Strings.ShipNameTemplateSuffixMinimum)) {
-                txtName.setText("");
+                shipNameTextBox.setText("");
             } else {
-                txtName.setText(template.getName());
+                shipNameTextBox.setText(template.getName());
             }
 
-            selSize.setSelectedIndex(Math.max(0, sizes.indexOf(template.getSize())));
+            sizeComboBox.setSelectedIndex(Math.max(0, sizes.indexOf(template.getSize())));
             imgIndex = (template.getImageIndex() == ShipType.CUSTOM.castToInt())
                     ? imgTypes.length - 1 : template.getImageIndex();
 
@@ -931,21 +803,21 @@ class FormShipyard extends SpaceTraderForm {
                 customImages = GuiEngine.getImageProvider().getCustomShipImages();
             }
 
-            numCargoBays.setValue(template.getCargoBays());
-            numFuelTanks.setValue(Math.min(Math.max(numFuelTanks.getMinimum(), template.getFuelTanks()), numFuelTanks
+            cargoBaysNum.setValue(template.getCargoBays());
+            fuelTanksNum.setValue(Math.min(Math.max(fuelTanksNum.getMinimum(), template.getFuelTanks()), fuelTanksNum
                     .getMaximum()));
-            numHullStrength.setValue(Math.min(Math.max(numHullStrength.getMinimum(), template.getHullStrength()),
-                    numHullStrength.getMaximum()));
-            numWeaponSlots.setValue(template.getWeaponSlots());
-            numShieldSlots.setValue(template.getShieldSlots());
-            numGadgetSlots.setValue(template.getGadgetSlots());
-            numCrewQuarters.setValue(Math.max(numCrewQuarters.getMinimum(), template.getCrewQuarters()));
+            hullStrengthNum.setValue(Math.min(Math.max(hullStrengthNum.getMinimum(), template.getHullStrength()),
+                    hullStrengthNum.getMaximum()));
+            weaponsSlotsNum.setValue(template.getWeaponSlots());
+            shieldSlotsNum.setValue(template.getShieldSlots());
+            gadgetSlotsNum.setValue(template.getGadgetSlots());
+            crewQuartersNum.setValue(Math.max(crewQuartersNum.getMinimum(), template.getCrewQuarters()));
 
             updateShip();
             updateCalculatedFigures();
 
-            if (selTemplate.getItems().get(0).toString().equals(Strings.ShipNameModified)) {
-                selTemplate.getItems().remove(0);
+            if (templateComboBox.getItems().get(0).toString().equals(Strings.ShipNameModified)) {
+                templateComboBox.getItems().remove(0);
             }
 
             loading = false;
@@ -957,32 +829,33 @@ class FormShipyard extends SpaceTraderForm {
 
         for (spacetrader.game.enums.Size size : shipyard.getAvailableSizes()) {
             sizes.add(size);
-            selSize.getItems().add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()],
+            sizeComboBox.getItems().add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()],
                     Functions.multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
         }
     }
 
     private void loadTemplateList() {
         ShipTemplate currentShip = new ShipTemplate(game.getCommander().getShip(), Strings.ShipNameCurrentShip);
-        selTemplate.getItems().add(currentShip);
+        templateComboBox.getItems().add(currentShip);
 
-        selTemplate.getItems().add(Consts.ShipTemplateSeparator);
+        templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
 
         // Add the minimal sizes templates.
         for (spacetrader.game.enums.Size size : sizes)
-            selTemplate.getItems().add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
+            templateComboBox.getItems().add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
                     + Strings.ShipNameTemplateSuffixMinimum));
 
-        selTemplate.getItems().add(Consts.ShipTemplateSeparator);
+        templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
 
         // Add the buyable ship spec templates.
         for (ShipSpec spec : Consts.ShipSpecs) {
             if (sizes.contains(spec.getSize()) && spec.getType().castToInt() <= Consts.MaxShip) {
-                selTemplate.getItems().add(new ShipTemplate(spec, spec.getName() + Strings.ShipNameTemplateSuffixDefault));
+                templateComboBox
+                        .getItems().add(new ShipTemplate(spec, spec.getName() + Strings.ShipNameTemplateSuffixDefault));
             }
         }
 
-        selTemplate.getItems().add(Consts.ShipTemplateSeparator);
+        templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
 
         // Add the user-created templates.
         ArrayList<ShipTemplate> userTemplates = new ArrayList<>();
@@ -993,116 +866,117 @@ class FormShipyard extends SpaceTraderForm {
             }
         }
         userTemplates.sort();
-        selTemplate.getItems().addRange(userTemplates.toArray(new ShipTemplate[0]));
+        templateComboBox.getItems().addRange(userTemplates.toArray(new ShipTemplate[0]));
 
-        selTemplate.setSelectedIndex(0);
+        templateComboBox.setSelectedIndex(0);
     }
 
     private boolean isSaveButtonEnabled() {
-        return txtName.getText().length() > 0;
+        return shipNameTextBox.getText().length() > 0;
     }
 
     private void setTemplateModified() {
-        if (!loading && selTemplate.getItems().getSize() > 0) {
-            if (!selTemplate.getItems().get(0).toString().equals(Strings.ShipNameModified)) {
-                selTemplate.getItems().insert(0, Strings.ShipNameModified);
+        if (!loading && templateComboBox.getItems().getSize() > 0) {
+            if (!templateComboBox.getItems().get(0).toString().equals(Strings.ShipNameModified)) {
+                templateComboBox.getItems().insert(0, Strings.ShipNameModified);
             }
-            selTemplate.setSelectedIndex(0);
+            templateComboBox.setSelectedIndex(0);
         }
     }
 
     private void updateAllocation() {
-        boolean fuelMinimum = numFuelTanks.getValue() == numFuelTanks.getMinimum();
-        boolean hullMinimum = numHullStrength.getValue() == numHullStrength.getMinimum();
+        boolean fuelMinimum = (fuelTanksNum.getValue() == fuelTanksNum.getMinimum());
+        boolean hullMinimum = (hullStrengthNum.getValue() == hullStrengthNum.getMinimum());
 
-        numFuelTanks.setMinimum(shipyard.getBaseFuel());
-        numFuelTanks.setIncrement(shipyard.getPerUnitFuel());
-        numFuelTanks.setMaximum(Consts.MaxFuelTanks);
+        fuelTanksNum.setMinimum(shipyard.getBaseFuel());
+        fuelTanksNum.setIncrement(shipyard.getPerUnitFuel());
+        fuelTanksNum.setMaximum(Consts.MaxFuelTanks);
         if (fuelMinimum) {
-            numFuelTanks.setValue(numFuelTanks.getMinimum());
+            fuelTanksNum.setValue(fuelTanksNum.getMinimum());
         }
 
-        numHullStrength.setMinimum(shipyard.getBaseHull());
-        numHullStrength.setIncrement(shipyard.getPerUnitHull());
+        hullStrengthNum.setMinimum(shipyard.getBaseHull());
+        hullStrengthNum.setIncrement(shipyard.getPerUnitHull());
         if (hullMinimum) {
-            numHullStrength.setValue(numHullStrength.getMinimum());
+            hullStrengthNum.setValue(hullStrengthNum.getMinimum());
         }
 
-        numWeaponSlots.setMaximum(Consts.MaxSlots);
-        numShieldSlots.setMaximum(Consts.MaxSlots);
-        numGadgetSlots.setMaximum(Consts.MaxSlots);
-        numCrewQuarters.setMaximum(Consts.MaxSlots);
+        weaponsSlotsNum.setMaximum(Consts.MaxSlots);
+        shieldSlotsNum.setMaximum(Consts.MaxSlots);
+        gadgetSlotsNum.setMaximum(Consts.MaxSlots);
+        crewQuartersNum.setMaximum(Consts.MaxSlots);
     }
 
     private void updateCalculatedFigures() {
         // Fix the fuel value to be a multiple of the per unit value less the super.
-        int extraFuel = numFuelTanks.getValue() - shipyard.getBaseFuel();
-        if (extraFuel % shipyard.getPerUnitFuel() > 0 && numFuelTanks.getValue() < numFuelTanks.getMaximum()) {
-            numFuelTanks.setValue(Math.max(numFuelTanks.getMinimum(), Math.min(numFuelTanks.getMaximum(),
+        int extraFuel = fuelTanksNum.getValue() - shipyard.getBaseFuel();
+        if (extraFuel % shipyard.getPerUnitFuel() > 0 && fuelTanksNum.getValue() < fuelTanksNum.getMaximum()) {
+            fuelTanksNum.setValue(Math.max(fuelTanksNum.getMinimum(), Math.min(fuelTanksNum.getMaximum(),
                     (extraFuel + shipyard.getPerUnitFuel()) / shipyard.getPerUnitFuel() * shipyard.getPerUnitFuel()
                             + shipyard.getBaseFuel())));
         }
 
-        // Fix the hull value to be a multiple of the unit value value less the super.
-        int extraHull = numHullStrength.getValue() - shipyard.getBaseHull();
+        // Fix the hull value to be a multiple of the unit value less the super.
+        int extraHull = hullStrengthNum.getValue() - shipyard.getBaseHull();
         if (extraHull % shipyard.getPerUnitHull() > 0) {
-            numHullStrength.setValue(Math.max(numHullStrength.getMinimum(), (extraHull + shipyard.getPerUnitHull())
+            hullStrengthNum.setValue(Math.max(hullStrengthNum.getMinimum(), (extraHull + shipyard.getPerUnitHull())
                     / shipyard.getPerUnitHull() * shipyard.getPerUnitHull() + shipyard.getBaseHull()));
         }
 
-        shipyard.getShipSpec().setCargoBays(numCargoBays.getValue());
-        shipyard.getShipSpec().setFuelTanks(numFuelTanks.getValue());
-        shipyard.getShipSpec().setHullStrength(numHullStrength.getValue());
-        shipyard.getShipSpec().setWeaponSlots(numWeaponSlots.getValue());
-        shipyard.getShipSpec().setShieldSlots(numShieldSlots.getValue());
-        shipyard.getShipSpec().setGadgetSlots(numGadgetSlots.getValue());
-        shipyard.getShipSpec().setCrewQuarters(numCrewQuarters.getValue());
+        shipyard.getShipSpec().setCargoBays(cargoBaysNum.getValue());
+        shipyard.getShipSpec().setFuelTanks(fuelTanksNum.getValue());
+        shipyard.getShipSpec().setHullStrength(hullStrengthNum.getValue());
+        shipyard.getShipSpec().setWeaponSlots(weaponsSlotsNum.getValue());
+        shipyard.getShipSpec().setShieldSlots(shieldSlotsNum.getValue());
+        shipyard.getShipSpec().setGadgetSlots(gadgetSlotsNum.getValue());
+        shipyard.getShipSpec().setCrewQuarters(crewQuartersNum.getValue());
 
         shipyard.calculateDependantVariables();
 
-        lblUnitsUsed.setText(shipyard.getUnitsUsed());
-        lblPct.setText(Functions.formatPercent(shipyard.getPercentOfMaxUnits()));
+        unitsUsedLabelValue.setText(shipyard.getUnitsUsed());
+        pctOfMaxLabelValue.setText(Functions.formatPercent(shipyard.getPercentOfMaxUnits()));
         if (shipyard.getPercentOfMaxUnits() >= Shipyard.PENALTY_FIRST_PCT) {
-            lblPct.setFont(lblSkillLabel.getFont());
+            pctOfMaxLabelValue.setFont(skillLabel.getFont());
         } else {
-            lblPct.setFont(lblPctLabel.getFont());
+            pctOfMaxLabelValue.setFont(pctOfMaxLabel.getFont());
         }
         if (shipyard.getUnitsUsed() > shipyard.getMaxUnits()) {
-            lblPct.setForeground(Color.RED);
+            pctOfMaxLabelValue.setForeground(Color.RED);
         } else if (shipyard.getPercentOfMaxUnits() >= Shipyard.PENALTY_SECOND_PCT) {
-            lblPct.setForeground(Color.ORANGE);
+            pctOfMaxLabelValue.setForeground(Color.ORANGE);
         } else if (shipyard.getPercentOfMaxUnits() >= Shipyard.PENALTY_FIRST_PCT) {
-            lblPct.setForeground(Color.YELLOW);
+            pctOfMaxLabelValue.setForeground(Color.YELLOW);
         } else {
-            lblPct.setForeground(lblPctLabel.getForeground());
+            pctOfMaxLabelValue.setForeground(pctOfMaxLabel.getForeground());
         }
 
-        lblShipCost.setText(Functions.formatMoney(shipyard.getAdjustedPrice()));
-        lblDesignFee.setText(Functions.formatMoney(shipyard.getAdjustedDesignFee()));
-        lblPenalty.setText(Functions.formatMoney(shipyard.getAdjustedPenaltyCost()));
-        lblTradeIn.setText(Functions.formatMoney(-shipyard.getTradeIn()));
-        lblTotalCost.setText(Functions.formatMoney(shipyard.getTotalCost()));
+        shipCostLabelValue.setText(Functions.formatMoney(shipyard.getAdjustedPrice()));
+        designFeeLabelValue.setText(Functions.formatMoney(shipyard.getAdjustedDesignFee()));
+        penaltyLabelValue.setText(Functions.formatMoney(shipyard.getAdjustedPenaltyCost()));
+        tradeInLabelValue.setText(Functions.formatMoney(-shipyard.getTradeIn()));
+        totalCostLabelValue.setText(Functions.formatMoney(shipyard.getTotalCost()));
 
         updateButtonEnabledState();
     }
 
     private void updateButtonEnabledState() {
-        btnConstruct.setForeground(constructButtonEnabled() ? Color.BLACK : Color.GRAY);
-        btnSave.setForeground(isSaveButtonEnabled() ? Color.BLACK : Color.GRAY);
+        constructButton.setForeground(constructButtonEnabled() ? Color.BLACK : Color.GRAY);
+        saveButton.setForeground(isSaveButtonEnabled() ? Color.BLACK : Color.GRAY);
     }
 
     private void updateShip() {
         shipyard.getShipSpec().setImageIndex(imgTypes[imgIndex].castToInt());
-        picShip.setImage((imgIndex > Consts.MaxShip
+        shipPictureBox.setImage((imgIndex > Consts.MaxShip
                 ? customImages[0] : Consts.ShipSpecs[imgTypes[imgIndex].castToInt()].getImage()));
-        lblImage.setText((imgIndex > Consts.MaxShip
+        imageLabelValue.setText((imgIndex > Consts.MaxShip
                 ? Strings.ShipNameCustomShip : Consts.ShipSpecs[imgTypes[imgIndex].castToInt()].getName()));
     }
 
-    private void btnConstruct_Click() {
+    private void constructButtonClick() {
         if (constructButtonEnabled()) {
-            if (game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), txtName.getText())) {
-                Strings.ShipNames[ShipType.CUSTOM.castToInt()] = txtName.getText();
+            if (game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
+                    .getText())) {
+                Strings.ShipNames[ShipType.CUSTOM.castToInt()] = shipNameTextBox.getText();
 
                 if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
                     game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
@@ -1121,36 +995,36 @@ class FormShipyard extends SpaceTraderForm {
         }
     }
 
-    private void btnConstruct_MouseEnter() {
-        lblDisabledName.setVisible(txtName.getText().length() == 0);
-        lblDisabledPct.setVisible(shipyard.getPercentOfMaxUnits() > 100);
+    private void constructButtonMouseEnter() {
+        disabledNameTipLabel.setVisible(shipNameTextBox.getText().length() == 0);
+        disabledPctTipLabel.setVisible(shipyard.getPercentOfMaxUnits() > 100);
     }
 
-    private void btnConstruct_MouseLeave() {
-        lblDisabledName.setVisible(false);
-        lblDisabledPct.setVisible(false);
+    private void constructButtonMouseLeave() {
+        disabledNameTipLabel.setVisible(false);
+        disabledPctTipLabel.setVisible(false);
     }
 
-    private void btnLoad_Click() {
+    private void loadButtonClick() {
         loadSelectedTemplate();
     }
 
-    private void btnNextImage_Click() {
+    private void nextImageButtonClick() {
         setTemplateModified();
         imgIndex = (imgIndex + 1) % imgTypes.length;
         updateShip();
     }
 
-    private void btnPrevImage_Click() {
+    private void prevImageButtonClick() {
         setTemplateModified();
         imgIndex = (imgIndex + imgTypes.length - 1) % imgTypes.length;
         updateShip();
     }
 
-    private void btnSave_Click() {
+    private void saveButtonClick() {
         if (isSaveButtonEnabled()) {
-            if (dlgSave.showDialog(this) == DialogResult.OK) {
-                ShipTemplate template = new ShipTemplate(shipyard.getShipSpec(), txtName.getText());
+            if (saveDialog.showDialog(this) == DialogResult.OK) {
+                ShipTemplate template = new ShipTemplate(shipyard.getShipSpec(), shipNameTextBox.getText());
 
                 if (imgIndex > Consts.MaxShip) {
                     template.setImageIndex(ShipType.CUSTOM.castToInt());
@@ -1159,25 +1033,25 @@ class FormShipyard extends SpaceTraderForm {
                     template.setImageIndex(imgIndex);
                 }
 
-                Functions.saveFile(dlgSave.getFileName(), template.serialize());
+                Functions.saveFile(saveDialog.getFileName(), template.serialize());
 
                 loadTemplateList();
             }
         }
     }
 
-    private void btnSave_MouseEnter() {
-        lblDisabledName.setVisible(txtName.getText().length() == 0);
+    private void saveButtonMouseEnter() {
+        disabledNameTipLabel.setVisible(shipNameTextBox.getText().length() == 0);
     }
 
-    private void btnSave_MouseLeave() {
-        lblDisabledName.setVisible(false);
+    private void saveButtonMouseLeave() {
+        disabledNameTipLabel.setVisible(false);
     }
 
-    private void btnSetCustomImage_Click() {
-        if (dlgOpen.showDialog(this) == DialogResult.OK) {
-            String baseFileName = Path.removeExtension(dlgOpen.getFileName());
-            String ext = Path.getExtension(dlgOpen.getFileName());
+    private void setCustomImageButtonClick() {
+        if (openDialog.showDialog(this) == DialogResult.OK) {
+            String baseFileName = Path.removeExtension(openDialog.getFileName());
+            String ext = Path.getExtension(openDialog.getFileName());
 
             Bitmap image = getImageFile(baseFileName + ext);
             Bitmap imageDamaged = getImageFile(baseFileName + "d" + ext);
@@ -1196,23 +1070,23 @@ class FormShipyard extends SpaceTraderForm {
         }
     }
 
-    private void num_ValueChanged() {
+    private void numValueChanged() {
         setTemplateModified();
         updateCalculatedFigures();
     }
 
-    private void num_ValueEnter(Object sender) {
-        ((NumericUpDown) sender).select(0, ("" + ((NumericUpDown) sender).getValue()).length());
+    private void numValueEnter(Object sender) {
+        ((NumericUpDown) sender).select(0, Integer.toString(((NumericUpDown) sender).getValue()).length());
     }
 
-    private void selSize_SelectedIndexChanged() {
+    private void sizeComboBoxSelectedIndexChanged() {
         setTemplateModified();
-        shipyard.getShipSpec().setSize(sizes.get(selSize.getSelectedIndex()));
+        shipyard.getShipSpec().setSize(sizes.get(sizeComboBox.getSelectedIndex()));
         updateAllocation();
         updateCalculatedFigures();
     }
 
-    private void txtName_TextChanged() {
+    private void shipNameTextBoxTextChanged() {
         setTemplateModified();
         updateButtonEnabledState();
     }

@@ -95,15 +95,27 @@ public class BaseComponent implements ISupportInitialize, IName {
         setSize(size);
     }
 
+    //TODO replace to (x, y) version
     public void setLocation(Point location) {
         swingComponent.setLocation(location);
+    }
+
+    public void setLocation(int x, int y) {
+        swingComponent.setLocation(new Point(x, y));
     }
 
     Dimension getSize() {
         return swingComponent.getPreferredSize();
     }
 
+    //TODO replace with setSize(int width, int height) {
     public void setSize(Dimension size) {
+        swingComponent.setPreferredSize(size);
+        swingComponent.setSize(size);
+    }
+
+    public void setSize(int width, int height) {
+        Size size = new Size(width, height);
         swingComponent.setPreferredSize(size);
         swingComponent.setSize(size);
     }

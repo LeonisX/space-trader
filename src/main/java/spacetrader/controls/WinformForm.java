@@ -82,8 +82,13 @@ public class WinformForm extends WinformPane {
         return autoScaleBaseSize;
     }
 
+    //TODO replace with setAutoScaleBaseSize(int width, int height)
     public void setAutoScaleBaseSize(Size autoScaleBaseSize) {
         this.autoScaleBaseSize = autoScaleBaseSize;
+    }
+
+    public void setAutoScaleBaseSize(int width, int height) {
+        this.autoScaleBaseSize = new Size(width, height);
     }
 
     public String getTitle() {
@@ -159,6 +164,10 @@ public class WinformForm extends WinformPane {
             default:
                 throw new Error("Unknown border style: " + style);
         }
+    }
+
+    public void setClientSize(int width, int height) {
+        setClientSize(new Dimension(width, height));
     }
 
     public void setClientSize(Dimension clientSize) {

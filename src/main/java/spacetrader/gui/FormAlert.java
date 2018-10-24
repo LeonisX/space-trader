@@ -762,7 +762,7 @@ public class FormAlert extends SpaceTraderForm {
         cancelButton.setVisible(false);
         cancelButton.setFont(FontCollection.regular825);
 
-        ilImages.setColorDepth(ColorDepth.Depth24Bit);
+        ilImages.setColorDepth(ColorDepth.DEPTH_24_BIT);
         ilImages.setImageSize(new Size(160, 160));
         ilImages.setImageStream((ImageListStreamer) (resources.getObject("ilImages.ImageStream")));
         ilImages.setTransparentColor(null);
