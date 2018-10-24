@@ -54,8 +54,8 @@ public class FormAlert extends SpaceTraderForm {
         initializeComponent();
     }
 
-    FormAlert(String title, String text, String acceptButtonText, DialogResult acceptButtonResult,
-              String cancelButtonText, DialogResult cancelButtonResult, String[] args) {
+    public FormAlert(String title, String text, String acceptButtonText, DialogResult acceptButtonResult,
+            String cancelButtonText, DialogResult cancelButtonResult, String[] args) {
         this();
         Graphics g = this.createGraphics();
 

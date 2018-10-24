@@ -22,25 +22,22 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
+package spacetrader.gui.debug;
 
-package spacetrader.gui;
-
+import javax.swing.UnsupportedLookAndFeelException;
 import spacetrader.controls.*;
 import spacetrader.game.Consts;
 import spacetrader.game.SpecialEvent;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SpecialEventType;
+import spacetrader.gui.FormAlert;
+import spacetrader.gui.SpaceTraderForm;
 import spacetrader.guifacade.GuiFacade;
 
 import java.util.Arrays;
 
+//TODO untranslated, unrefactored, untested
 public class FormTest extends SpaceTraderForm {
-    //#region Control Declarations
 
     private spacetrader.controls.Label lblAlertType;
     private Panel boxAlert;
@@ -58,9 +55,11 @@ public class FormTest extends SpaceTraderForm {
     private spacetrader.controls.Label lblSpecialEvent;
     private Container components = null;
 
-    //#endregion
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, UnsupportedLookAndFeelException {
 
-    //#region Methods
+        Launcher.runForm(new FormTest());
+    }
 
     public FormTest() {
         initializeComponent();

@@ -6,6 +6,7 @@ import spacetrader.game.GlobalAssets;
 import spacetrader.game.enums.CargoBuyOp;
 import spacetrader.game.enums.CargoSellOp;
 import spacetrader.game.enums.Difficulty;
+import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.gui.*;
 import spacetrader.gui.cheat.FormMonster;
@@ -52,9 +53,10 @@ public class SpaceTraderDevApp {
         game.getCommander().getShip().getCargo()[1] = 12;
         game.setSelectedSystemId(StarSystemId.Aldea);
         game.warpDirect();
+        Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
 
         List<BaseComponent> components = Arrays.asList(
-                spaceTrader,
+                /*spaceTrader,
                 new FormAbout(),
                 FormAlert.makeDialog(EncounterDrinkContents, new String[]{}),
                 new FormBuyFuel(),
@@ -72,7 +74,8 @@ public class SpaceTraderDevApp {
                 new FormOptions(),
                 new FormPayBackLoan(),
                 new FormPlunder(),
-                new FormShipList()
+                new FormShipList(),*/
+                new FormShipyard()
         );
         dumpAllDimensions(components);
         dumpAllStrings(components);

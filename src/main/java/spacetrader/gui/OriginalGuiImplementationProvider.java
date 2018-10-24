@@ -4,6 +4,7 @@ import spacetrader.controls.Image;
 import spacetrader.controls.ImageList;
 import spacetrader.game.GlobalAssets;
 import spacetrader.gui.cheat.FormMonster;
+import spacetrader.gui.debug.FormTest;
 import spacetrader.guifacade.GuiEngine.CheatGui;
 import spacetrader.guifacade.GuiEngine.ImageProvider;
 import spacetrader.guifacade.GuiEngine.ImplementationProvider;

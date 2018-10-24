@@ -32,6 +32,7 @@ https://bitbucket.org/brucelet/space-trader/src
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
 * ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
 * ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+* setSize, setClientSize, setLocation
 * Fix 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
 
 ### Minor tasks

@@ -42,7 +42,7 @@ import spacetrader.util.ReflectionUtils;
 import javax.swing.*;
 import java.awt.*;
 
-class FormShipyard extends SpaceTraderForm {
+public class FormShipyard extends SpaceTraderForm {
 
     private final Game game = Game.getCurrentGame();
     private final Shipyard shipyard = Game.getCurrentGame().getCommander().getCurrentSystem().getShipyard();
@@ -127,7 +127,6 @@ class FormShipyard extends SpaceTraderForm {
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, UnsupportedLookAndFeelException {
-        //SpaceTrader spaceTrader = new SpaceTrader(args.length > 0 ? args[0] : null);
         GlobalAssets.initializeImages();
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
         new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
@@ -136,7 +135,7 @@ class FormShipyard extends SpaceTraderForm {
         Launcher.runForm(new FormShipyard());
     }
 
-    FormShipyard() {
+    public FormShipyard() {
         initializeComponent();
 
         this.setText(Functions.stringVars(Strings.ShipyardTitle, shipyard.getName()));
