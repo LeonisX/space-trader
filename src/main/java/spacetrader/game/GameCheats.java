@@ -211,8 +211,8 @@ public class GameCheats {
                     GuiFacade.performTestForm();
                     break;
                 case Tool:
-                    if (num1 >= 0 && num1 < ship.Gadgets().length && num2 >= 0 && num2 < Consts.Gadgets.length)
-                        ship.Gadgets()[num1] = (Gadget) Consts.Gadgets[num2].Clone();
+                    if (num1 >= 0 && num1 < ship.getGadgets().length && num2 >= 0 && num2 < Consts.Gadgets.length)
+                        ship.getGadgets()[num1] = (Gadget) Consts.Gadgets[num2].Clone();
                     break;
                 case Varmints:
                     ship.setTribbles(Math.max(0, num1));

@@ -178,7 +178,7 @@ public class Ship extends ShipSpec {
                 equip = getShields();
                 break;
             case GADGET:
-                equip = Gadgets();
+                equip = getGadgets();
                 break;
         }
         return equip;
@@ -354,7 +354,7 @@ public class Ship extends ShipSpec {
                         shieldType++;
                         sum += Consts.Shields[shieldType].Chance();
                     }
-                    if (!HasShield(Consts.Shields[shieldType].Type()) && shieldType > bestShieldType)
+                    if (!HasShield(Consts.Shields[shieldType].getType()) && shieldType > bestShieldType)
                         bestShieldType = shieldType;
                 }
 
@@ -514,10 +514,10 @@ public class Ship extends ShipSpec {
         boolean found = false;
         switch (item.getEquipmentType()) {
             case WEAPON:
-                found = HasWeapon(((Weapon) item).Type(), true);
+                found = HasWeapon(((Weapon) item).getType(), true);
                 break;
             case SHIELD:
-                found = HasShield(((Shield) item).Type());
+                found = HasShield(((Shield) item).getType());
                 break;
             case GADGET:
                 found = hasGadget(((Gadget) item).getType());
@@ -528,8 +528,8 @@ public class Ship extends ShipSpec {
 
     public boolean hasGadget(GadgetType gadgetType) {
         boolean found = false;
-        for (int i = 0; i < Gadgets().length && !found; i++) {
-            if (Gadgets()[i] != null && Gadgets()[i].getType() == gadgetType)
+        for (int i = 0; i < getGadgets().length && !found; i++) {
+            if (getGadgets()[i] != null && getGadgets()[i].getType() == gadgetType)
                 found = true;
         }
         return found;
@@ -538,7 +538,7 @@ public class Ship extends ShipSpec {
     public boolean HasShield(ShieldType shieldType) {
         boolean found = false;
         for (int i = 0; i < getShields().length && !found; i++) {
-            if (getShields()[i] != null && getShields()[i].Type() == shieldType)
+            if (getShields()[i] != null && getShields()[i].getType() == shieldType)
                 found = true;
         }
         return found;
@@ -579,8 +579,8 @@ public class Ship extends ShipSpec {
         boolean found = false;
         for (int i = 0; i < getWeapons().length && !found; i++) {
             if (getWeapons()[i] != null
-                    && (getWeapons()[i].Type() == weaponType || !exactCompare
-                    && getWeapons()[i].Type().castToInt() > weaponType.castToInt()))
+                    && (getWeapons()[i].getType() == weaponType || !exactCompare
+                    && getWeapons()[i].getType().castToInt() > weaponType.castToInt()))
                 found = true;
         }
         return found;
@@ -737,8 +737,8 @@ public class Ship extends ShipSpec {
         int total = 0;
 
         for (int i = 0; i < getWeapons().length; i++)
-            if (getWeapons()[i] != null && getWeapons()[i].Type().castToInt() >= min.castToInt()
-                    && getWeapons()[i].Type().castToInt() <= max.castToInt())
+            if (getWeapons()[i] != null && getWeapons()[i].getType().castToInt() >= min.castToInt()
+                    && getWeapons()[i].getType().castToInt() <= max.castToInt())
                 total += getWeapons()[i].getPower();
 
         return total;
@@ -766,7 +766,7 @@ public class Ship extends ShipSpec {
         return illegalCargo > 0;
     }
 
-    public boolean ArtifactOnBoard() {
+    public boolean isArtifactOnBoard() {
         return isCommandersShip() && Game.getCurrentGame().getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD;
     }
 
@@ -781,12 +781,12 @@ public class Ship extends ShipSpec {
     int getCargoBays() {
         int bays = super.getCargoBays();
 
-        for (int i = 0; i < Gadgets().length; i++)
-            if (Gadgets()[i] != null
-                    && (Gadgets()[i].getType() == GadgetType.EXTRA_CARGO_BAYS || Gadgets()[i].getType() == GadgetType.HIDDEN_CARGO_BAYS))
+        for (int i = 0; i < getGadgets().length; i++)
+            if (getGadgets()[i] != null
+                    && (getGadgets()[i].getType() == GadgetType.EXTRA_CARGO_BAYS || getGadgets()[i].getType() == GadgetType.HIDDEN_CARGO_BAYS))
                 bays += 5;
 
-        return super.getCargoBays() + ExtraCargoBays() + HiddenCargoBays();
+        return super.getCargoBays() + ExtraCargoBays() + getHiddenCargoBays();
     }
 
     public boolean Cloaked() {
@@ -818,7 +818,7 @@ public class Ship extends ShipSpec {
                 illegalCargo += getCargo()[i];
         }
 
-        return (illegalCargo - HiddenCargoBays()) > 0;
+        return (illegalCargo - getHiddenCargoBays()) > 0;
     }
 
     public boolean DetectableIllegalCargoOrPassengers() {
@@ -837,8 +837,8 @@ public class Ship extends ShipSpec {
     public int ExtraCargoBays() {
         int bays = 0;
 
-        for (int i = 0; i < Gadgets().length; i++)
-            if (Gadgets()[i] != null && Gadgets()[i].getType() == GadgetType.EXTRA_CARGO_BAYS)
+        for (int i = 0; i < getGadgets().length; i++)
+            if (getGadgets()[i] != null && getGadgets()[i].getType() == GadgetType.EXTRA_CARGO_BAYS)
                 bays += 5;
 
         return bays;
@@ -892,8 +892,8 @@ public class Ship extends ShipSpec {
 
     public int getFreeGadgetSlots() {
         int count = 0;
-        for (int i = 0; i < Gadgets().length; i++) {
-            if (Gadgets()[i] == null)
+        for (int i = 0; i < getGadgets().length; i++) {
+            if (getGadgets()[i] == null)
                 count++;
         }
         return count;
@@ -918,24 +918,24 @@ public class Ship extends ShipSpec {
         return count;
     }
 
-    public @Override
-    int getFuelTanks() {
+    @Override
+    public int getFuelTanks() {
         return super.getFuelTanks() + (hasGadget(GadgetType.FUEL_COMPACTOR) ? Consts.FuelCompactorTanks : 0);
     }
 
-    public Gadget[] Gadgets() {
+    public Gadget[] getGadgets() {
         return _gadgets;
     }
 
-    public boolean HagglingComputerOnBoard() {
+    public boolean isHagglingComputerOnBoard() {
         return isCommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
     }
 
-    public int HiddenCargoBays() {
+    public int getHiddenCargoBays() {
         int bays = 0;
 
-        for (int i = 0; i < Gadgets().length; i++)
-            if (Gadgets()[i] != null && Gadgets()[i].getType() == GadgetType.HIDDEN_CARGO_BAYS)
+        for (int i = 0; i < getGadgets().length; i++)
+            if (getGadgets()[i] != null && getGadgets()[i].getType() == GadgetType.HIDDEN_CARGO_BAYS)
                 bays += 5;
 
         return bays;
@@ -1019,9 +1019,9 @@ public class Ship extends ShipSpec {
         }
 
         // Adjust skills based on any gadgets on board.
-        for (int i = 0; i < Gadgets().length; i++) {
-            if (Gadgets()[i] != null && Gadgets()[i].SkillBonus() != SkillType.NA)
-                skills[Gadgets()[i].SkillBonus().castToInt()] += Consts.SkillBonus;
+        for (int i = 0; i < getGadgets().length; i++) {
+            if (getGadgets()[i] != null && getGadgets()[i].SkillBonus() != SkillType.NA)
+                skills[getGadgets()[i].SkillBonus().castToInt()] += Consts.SkillBonus;
         }
 
         return skills;
@@ -1056,7 +1056,7 @@ public class Ship extends ShipSpec {
         tradeItems.sort();
         tradeItems.reverse();
 
-        int hidden = HiddenCargoBays();
+        int hidden = getHiddenCargoBays();
         if (isPrincessOnBoard())
             hidden--;
         if (isSculptureOnBoard())
@@ -1073,7 +1073,7 @@ public class Ship extends ShipSpec {
     }
 
     public int getTrader() {
-        return getSkills()[SkillType.TRADER.castToInt()] + (HagglingComputerOnBoard() ? 1 : 0);
+        return getSkills()[SkillType.TRADER.castToInt()] + (isHagglingComputerOnBoard() ? 1 : 0);
     }
 
     public Weapon[] getWeapons() {

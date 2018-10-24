@@ -608,6 +608,16 @@ public class Strings {
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = ", and transfer your unique equipment to the new ship";
 
+    public static String ShipBay = "bay";
+    public static String ShipEquipment = "Equipment:";
+    public static String ShipGadgetSlot = "weapon slot";
+    public static String ShipHardened = "Hardened";
+    public static String ShipHull = "Hull:";
+    public static String ShipShiedSlot = "shield slot";
+    public static String ShipWeaponSlot = "weapon slot";
+    public static String ShipUnfilled = "Unfilled:";
+
+
     public static String ShipInfoEscapePod = "Escape Pod";
 
     public static String ShipNameCurrentShip = "<current ship>";

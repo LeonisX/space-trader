@@ -73,7 +73,7 @@ public class Shield extends Equipment {
 
     public boolean TypeEquals(Object type) {
         try {
-            return (Type() == (ShieldType) type);
+            return (getType() == (ShieldType) type);
         } catch (Exception e) {
             Log.write("Ignored exception: " + e);
             return false;
@@ -89,12 +89,12 @@ public class Shield extends Equipment {
     }
 
 
-    public ShieldType Type() {
+    public ShieldType getType() {
         return _type;
     }
 
     public EquipmentSubType getSubType() {
-        return Type();
+        return getType();
     }
 
     public int getCharge() {

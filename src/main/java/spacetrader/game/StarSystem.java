@@ -168,7 +168,7 @@ public class StarSystem extends STSerializableObject {
                 show = game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
                 break;
             case ArtifactDelivery:
-                show = game.getCommander().getShip().ArtifactOnBoard();
+                show = game.getCommander().getShip().isArtifactOnBoard();
                 break;
             case CargoForSale:
                 show = game.getCommander().getShip().getFreeCargoBays() >= 3;

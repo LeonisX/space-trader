@@ -79,8 +79,9 @@ public class SpaceTraderDevApp {
                 new FormViewBank(),
                 new FormViewCommander(),
                 new FormViewHighScores(),
-                new FormViewPersonnel(),*/
-                new FormViewQuests()
+                new FormViewPersonnel(),
+                new FormViewQuests(),*/
+                new FormViewShip()
         );
         dumpAllDimensions(components);
         dumpAllStrings(components);

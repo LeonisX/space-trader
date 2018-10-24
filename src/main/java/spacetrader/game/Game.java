@@ -1290,7 +1290,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // if you're coming in to Kravat & you have Wild onboard,
                 // there'll be swarms o' cops.
                 police = Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - getDifficulty().castToInt()));
-            else if (getCommander().getShip().ArtifactOnBoard() && Functions.getRandom(20) <= 3)
+            else if (getCommander().getShip().isArtifactOnBoard() && Functions.getRandom(20) <= 3)
                 mantis = true;
         }
 
@@ -2137,7 +2137,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         EncounterResult result = EncounterResult.CONTINUE;
 
         if (getOpponent().getType() == ShipType.MANTIS) {
-            if (getCommander().getShip().ArtifactOnBoard()) {
+            if (getCommander().getShip().isArtifactOnBoard()) {
                 if (GuiFacade.alert(AlertType.EncounterAliensSurrender) == DialogResult.YES) {
                     GuiFacade.alert(AlertType.ArtifactRelinquished);
                     setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_NOT_STARTED);
@@ -2329,7 +2329,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_NOT_STARTED);
         }
 
-        if (getCommander().getShip().ArtifactOnBoard()) {
+        if (getCommander().getShip().isArtifactOnBoard()) {
             GuiFacade.alert(AlertType.ArtifactLost);
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
         }
@@ -2947,7 +2947,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (getCommander().getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
             switch (getCommander().getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
-                    if (getCommander().getShip().ArtifactOnBoard())
+                    if (getCommander().getShip().isArtifactOnBoard())
                         NewsAddEvent(NewsEvent.ArtifactDelivery);
                     break;
                 case Dragonfly:

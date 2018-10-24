@@ -80,7 +80,7 @@ public class Weapon extends Equipment {
         boolean equal = false;
 
         try {
-            if (Type() == (WeaponType) type)
+            if (getType() == (WeaponType) type)
                 equal = true;
         } catch (Exception e) {
             Log.write("Ignored exeption " + e);
@@ -109,11 +109,11 @@ public class Weapon extends Equipment {
 
     public @Override
     EquipmentSubType getSubType() {
-        return Type();
+        return getType();
     }
 
 
-    public WeaponType Type() {
+    public WeaponType getType() {
         return _type;
     }
 
