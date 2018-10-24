@@ -7,7 +7,9 @@ The project is a Java port of the [Space Trader for Windows](https://sourceforge
 Useful Source Repositories:
 
 https://github.com/videogamepreservation/spacetrader
+
 https://github.com/SpaceTraderGame/SpaceTrader-Windows
+
 https://bitbucket.org/brucelet/space-trader/src
 
 ## Whats new:
@@ -22,7 +24,6 @@ https://bitbucket.org/brucelet/space-trader/src
 
 * Move cheats-only enums to cheat package
 * i18n for Swing
-* Russian for mnuGameSave/mnuGameLoad
 * Strings to file
 * Language selector
 * Different image sizes, font sizes (config)
@@ -37,8 +38,6 @@ https://bitbucket.org/brucelet/space-trader/src
 
 ### Minor tasks
 
-* All main window strings and sizes to file
-* Automatic update main window
 * Find all languages in resources
 * Need to update font sizes. Dump all too
 * Show in Cargo planet names (target)
@@ -47,7 +46,6 @@ https://bitbucket.org/brucelet/space-trader/src
 
 * Load game from scratch
 * High Score
-* When start game: 8->9->0->1!! & start
 * LinkLabel - not implemented sort
 * FormMonster - not correct columns order; bug in mercenariesPanel (systems); Links don't work
 * Many dialogs don't allow to close them from [x]
