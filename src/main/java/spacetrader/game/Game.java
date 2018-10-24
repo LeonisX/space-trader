@@ -321,10 +321,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             getCommander().setNoClaim(0);
         }
 
-        if (getCommander().getShip().CrewCount() - getCommander().getShip().SpecialCrew().length > 1) {
+        if (getCommander().getShip().getCrewCount() - getCommander().getShip().SpecialCrew().length > 1) {
             GuiFacade.alert(AlertType.JailMercenariesLeave);
-            for (int i = 1; i < getCommander().getShip().Crew().length; i++)
-                getCommander().getShip().Crew()[i] = null;
+            for (int i = 1; i < getCommander().getShip().getCrew().length; i++)
+                getCommander().getShip().getCrew()[i] = null;
         }
 
         if (getCommander().getShip().JarekOnBoard()) {
@@ -1072,13 +1072,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     public void CreateFlea() {
         getCommander().setShip(new Ship(ShipType.FLEA));
-        getCommander().getShip().Crew()[0] = getCommander();
+        getCommander().getShip().getCrew()[0] = getCommander();
         getCommander().setInsurance(false);
         getCommander().setNoClaim(0);
     }
 
     private void CreateShips() {
-        Dragonfly().Crew()[0] = getMercenaries()[CrewMemberId.DRAGONFLY.castToInt()];
+        Dragonfly().getCrew()[0] = getMercenaries()[CrewMemberId.DRAGONFLY.castToInt()];
         Dragonfly().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
         Dragonfly().addEquipment(Consts.Weapons[WeaponType.PulseLaser.castToInt()]);
         Dragonfly().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
@@ -1087,11 +1087,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         Dragonfly().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         Dragonfly().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-        Scarab().Crew()[0] = getMercenaries()[CrewMemberId.SCARAB.castToInt()];
+        Scarab().getCrew()[0] = getMercenaries()[CrewMemberId.SCARAB.castToInt()];
         Scarab().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
         Scarab().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
 
-        Scorpion().Crew()[0] = getMercenaries()[CrewMemberId.SCORPION.castToInt()];
+        Scorpion().getCrew()[0] = getMercenaries()[CrewMemberId.SCORPION.castToInt()];
         Scorpion().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
         Scorpion().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
         Scorpion().addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
@@ -1099,7 +1099,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         Scorpion().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         Scorpion().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-        getSpaceMonster().Crew()[0] = getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()];
+        getSpaceMonster().getCrew()[0] = getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()];
         getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
         getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
         getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
@@ -1617,14 +1617,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // smaller
         // JAF - if the opponent is disabled and attacker has targeting system,
         // they WILL be hit.
-        if (!(getDifficulty() == spacetrader.game.enums.Difficulty.BEGINNER && defender.CommandersShip() && fleeing)
-                && (attacker.CommandersShip() && getOpponentDisabled()
+        if (!(getDifficulty() == spacetrader.game.enums.Difficulty.BEGINNER && defender.isCommandersShip() && fleeing)
+                && (attacker.isCommandersShip() && getOpponentDisabled()
                 && attacker.hasGadget(GadgetType.TARGETING_SYSTEM) || Functions.getRandom(attacker.getFighter()
                 + defender.getSize().castToInt()) >= (fleeing ? 2 : 1)
                 * Functions.getRandom(5 + defender.getPilot() / 2))) {
             // If the defender is disabled, it only takes one shot to destroy it
             // completely.
-            if (attacker.CommandersShip() && getOpponentDisabled())
+            if (attacker.isCommandersShip() && getOpponentDisabled())
                 defender.setHull(0);
             else {
                 int attackerLasers = attacker.WeaponStrength(WeaponType.PulseLaser, WeaponType.MorgansLaser);
@@ -1689,7 +1689,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                             // Impossible). For opponents,
                             // it is always 2.
                             damage = Math.min(damage, defender.getHullStrength()
-                                    / (defender.CommandersShip() ? Math.max(1, spacetrader.game.enums.Difficulty.IMPOSSIBLE
+                                    / (defender.isCommandersShip() ? Math.max(1, spacetrader.game.enums.Difficulty.IMPOSSIBLE
                                     .castToInt()
                                     - getDifficulty().castToInt()) : 2));
 
@@ -2627,7 +2627,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getCommander().increaseRandomSkill();
                 break;
             case Jarek:
-                if (getCommander().getShip().FreeCrewQuarters() == 0) {
+                if (getCommander().getShip().getFreeCrewQuartersCount() == 0) {
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                     remove = false;
                 } else {
@@ -2660,7 +2660,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 setQuestStatusPrincess(getQuestStatusPrincess() + 1);
                 break;
             case PrincessQonos:
-                if (getCommander().getShip().FreeCrewQuarters() == 0) {
+                if (getCommander().getShip().getFreeCrewQuartersCount() == 0) {
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                     remove = false;
                 } else {
@@ -2773,7 +2773,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getCommander().getShip().setTribbles(0);
                 break;
             case Wild:
-                if (getCommander().getShip().FreeCrewQuarters() == 0) {
+                if (getCommander().getShip().getFreeCrewQuartersCount() == 0) {
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                     remove = false;
                 } else if (!getCommander().getShip().HasWeapon(WeaponType.BeamLaser, false)) {
@@ -3736,8 +3736,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public int getMercenaryCosts() {
         int total = 0;
 
-        for (int i = 1; i < getCommander().getShip().Crew().length && getCommander().getShip().Crew()[i] != null; i++)
-            total += getCommander().getShip().Crew()[i].getRate();
+        for (int i = 1; i < getCommander().getShip().getCrew().length && getCommander().getShip().getCrew()[i] != null; i++)
+            total += getCommander().getShip().getCrew()[i].getRate();
 
         return total;
     }

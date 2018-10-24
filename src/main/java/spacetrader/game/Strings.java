@@ -561,8 +561,6 @@ public class Strings {
     public static String NewsShipyard = "Shipyard in ^1 System offers to design custom ships.";
     public static String NewsTribbleBuyer = "Collector in ^1 System seeks to purchase Tribbles.";
 
-    public static String PersonnelNoMercenaries = "No one for hire";
-    public static String PersonnelNoQuarters = "No quarters available";
     public static String PersonnelVacancy = "Vacancy";
 
     public static String QuestNone = "There are no open quests.";

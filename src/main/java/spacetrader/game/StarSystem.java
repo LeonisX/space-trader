@@ -30,6 +30,7 @@ import spacetrader.game.enums.*;
 import spacetrader.util.Hashtable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StarSystem extends STSerializableObject {
 
@@ -313,17 +314,17 @@ public class StarSystem extends STSerializableObject {
         return _id;
     }
 
-    public CrewMember[] mercenariesForHire() {
+    public List<CrewMember> getMercenariesForHire() {
         Commander cmdr = Game.getCurrentGame().getCommander();
         CrewMember[] mercs = Game.getCurrentGame().getMercenaries();
-        ArrayList forHire = new ArrayList(3);
+        ArrayList<CrewMember> forHire = new ArrayList<>(3);
 
         for (int i = 1; i < mercs.length; i++) {
             if (mercs[i].getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().hasCrew(mercs[i].getId()))
                 forHire.add(mercs[i]);
         }
 
-        return (CrewMember[]) forHire.toArray(new CrewMember[0]);
+        return forHire;
     }
 
     public String getName() {

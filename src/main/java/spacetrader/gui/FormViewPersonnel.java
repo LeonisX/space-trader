@@ -17,447 +17,343 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-// using System;
-// using System.Drawing;
-// using System.Collections;
-// using System.ComponentModel;
-// using System.Windows.Forms;
+
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.game.CrewMember;
-import spacetrader.game.Functions;
-import spacetrader.game.Game;
-import spacetrader.game.Strings;
+import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.CrewMemberId;
+import spacetrader.game.enums.Difficulty;
+import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.ReflectionUtils;
+
+import java.util.List;
 
 public class FormViewPersonnel extends SpaceTraderForm {
-    //#region Control Declarations
 
-    private spacetrader.controls.Button btnClose;
-    private Panel boxForHire;
-    private Panel boxInfo;
-    private Panel boxCurrentCrew;
-    private spacetrader.controls.Button btnHireFire;
-    private spacetrader.controls.Label lblRate;
-    private spacetrader.controls.Label lblName;
-    private spacetrader.controls.Label lblEngineer;
-    private spacetrader.controls.Label lblTrader;
-    private spacetrader.controls.Label lblFighter;
-    private spacetrader.controls.Label lblPilot;
-    private spacetrader.controls.Label lblEngineerLabel;
-    private spacetrader.controls.Label lblTraderLabel;
-    private spacetrader.controls.Label lblFighterLabel;
-    private spacetrader.controls.Label lblPilotLabel;
-    private spacetrader.controls.ListBox lstForHire;
-    private spacetrader.controls.ListBox lstCrew;
-    private spacetrader.controls.Label lblCrewNoQuarters;
-    private spacetrader.controls.Label lblForHireNone;
     private Game game = Game.getCurrentGame();
+
+    private Button closeButton = new Button();
+    private Panel mercenariesForHirePanel = new Panel();
+    private Panel mercenaryInfoPanel = new Panel();
+    private Panel currentCrewPanel = new Panel();
+    private Button hireFireButton = new Button();
+    private Label rateLabelValue = new Label();
+    private Label nameLabelValue = new Label();
+    private Label engineerLabelValue = new Label();
+    private Label traderLabelValue = new Label();
+    private Label fighterLabelValue = new Label();
+    private Label pilotLabelValue = new Label();
+    private Label engineerLabel = new Label();
+    private Label traderLabel = new Label();
+    private Label fighterLabel = new Label();
+    private Label pilotLabel = new Label();
+    private ListBox forHireListBox = new ListBox();
+    private ListBox crewListBox = new ListBox();
+    private Label crewNoQuartersLabel = new Label();
+    private Label forHireNoneLabel = new Label();
+
     private CrewMember selectedCrewMember = null;
     private boolean handlingSelect = false;
 
-    //#endregion
-
-    //#region Methods
+    public static void main(String[] args) {
+        new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
+        Launcher.runForm(new FormViewPersonnel());
+    }
 
     public FormViewPersonnel() {
         initializeComponent();
-
-        UpdateAll();
+        updateAll();
     }
 
-    //#region Windows Form Designer generated code
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
     private void initializeComponent() {
-        this.btnClose = new spacetrader.controls.Button();
-        this.boxCurrentCrew = new Panel();
-        this.lstCrew = new spacetrader.controls.ListBox();
-        this.boxForHire = new Panel();
-        this.lstForHire = new spacetrader.controls.ListBox();
-        this.boxInfo = new Panel();
-        this.btnHireFire = new spacetrader.controls.Button();
-        this.lblRate = new spacetrader.controls.Label();
-        this.lblName = new spacetrader.controls.Label();
-        this.lblEngineer = new spacetrader.controls.Label();
-        this.lblTrader = new spacetrader.controls.Label();
-        this.lblFighter = new spacetrader.controls.Label();
-        this.lblPilot = new spacetrader.controls.Label();
-        this.lblEngineerLabel = new spacetrader.controls.Label();
-        this.lblTraderLabel = new spacetrader.controls.Label();
-        this.lblFighterLabel = new spacetrader.controls.Label();
-        this.lblPilotLabel = new spacetrader.controls.Label();
-        this.lblCrewNoQuarters = new spacetrader.controls.Label();
-        this.lblForHireNone = new spacetrader.controls.Label();
-        this.boxCurrentCrew.suspendLayout();
-        this.boxForHire.suspendLayout();
-        this.boxInfo.suspendLayout();
-        this.suspendLayout();
-        //
-        // btnClose
-        //
-        this.btnClose.setDialogResult(DialogResult.CANCEL);
-        this.btnClose.setLocation(new java.awt.Point(-32, -32));
-        this.btnClose.setName("btnClose");
-        this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
-        this.btnClose.setTabIndex(32);
-        this.btnClose.setTabStop(false);
-        this.btnClose.setText("X");
-        //
-        // boxCurrentCrew
-        //
-        this.boxCurrentCrew.getControls().add(this.lblCrewNoQuarters);
-        this.boxCurrentCrew.getControls().add(this.lstCrew);
-        this.boxCurrentCrew.setLocation(new java.awt.Point(8, 8));
-        this.boxCurrentCrew.setName("boxCurrentCrew");
-        this.boxCurrentCrew.setSize(new spacetrader.controls.Size(144, 114));
-        this.boxCurrentCrew.setTabIndex(33);
-        this.boxCurrentCrew.setTabStop(false);
-        this.boxCurrentCrew.setText("Current Crew");
-        //
-        // lstCrew
-        //
-        this.lstCrew.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
-        this.lstCrew.setLocation(new java.awt.Point(8, 24));
-        this.lstCrew.setName("lstCrew");
-        this.lstCrew.setSize(new spacetrader.controls.Size(126, 80));
-        this.lstCrew.setTabIndex(6);
-        this.lstCrew.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                HireFire(sender, e);
+        ReflectionUtils.setAllComponentNames(this);
+
+        setName("formViewPersonnel");
+        setText("Personnel");
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(488, 129);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setMaximizeBox(false);
+        setMinimizeBox(false);
+        setShowInTaskbar(false);
+        setCancelButton(closeButton);
+
+        suspendLayout();
+
+        currentCrewPanel.setLocation(8, 8);
+        currentCrewPanel.setSize(144, 114);
+        currentCrewPanel.setTabStop(false);
+        currentCrewPanel.setText("Current Crew");
+
+        currentCrewPanel.getControls().addAll(crewListBox, crewNoQuartersLabel);
+
+        crewListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        crewListBox.setLocation(8, 24);
+        crewListBox.setSize(126, 80);
+        crewListBox.setTabIndex(6);
+        crewListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                hireFireClick();
             }
         });
-        this.lstCrew.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                SelectedIndexChanged(sender, e);
+        crewListBox.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                selectedIndexChanged(sender);
             }
         });
-        //
-        // boxForHire
-        //
-        this.boxForHire.getControls().add(this.lblForHireNone);
-        this.boxForHire.getControls().add(this.lstForHire);
-        this.boxForHire.setLocation(new java.awt.Point(160, 8));
-        this.boxForHire.setName("boxForHire");
-        this.boxForHire.setSize(new spacetrader.controls.Size(144, 114));
-        this.boxForHire.setTabIndex(34);
-        this.boxForHire.setTabStop(false);
-        this.boxForHire.setText("Mercenaries For Hire");
-        //
-        // lstForHire
-        //
-        this.lstForHire.setBorderStyle(spacetrader.controls.BorderStyle.FIXED_SINGLE);
-        this.lstForHire.setLocation(new java.awt.Point(8, 24));
-        this.lstForHire.setName("lstForHire");
-        this.lstForHire.setSize(new spacetrader.controls.Size(126, 80));
-        this.lstForHire.setTabIndex(5);
-        this.lstForHire.setDoubleClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                HireFire(sender, e);
+
+        crewNoQuartersLabel.setLocation(16, 24);
+        crewNoQuartersLabel.setSize(120, 16);
+        crewNoQuartersLabel.setTabIndex(7);
+        crewNoQuartersLabel.setText("No quarters available");
+        crewNoQuartersLabel.setVisible(false);
+
+        mercenariesForHirePanel.setLocation(160, 8);
+        mercenariesForHirePanel.setSize(144, 114);
+        mercenariesForHirePanel.setTabStop(false);
+        mercenariesForHirePanel.setText("Mercenaries For Hire");
+
+        mercenariesForHirePanel.getControls().addAll(forHireListBox, forHireNoneLabel);
+
+        forHireListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        forHireListBox.setLocation(8, 24);
+        forHireListBox.setSize(126, 80);
+        forHireListBox.setTabIndex(5);
+        forHireListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                hireFireClick();
             }
         });
-        this.lstForHire.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                SelectedIndexChanged(sender, e);
+        forHireListBox.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                selectedIndexChanged(sender);
             }
         });
-        //
-        // boxInfo
-        //
-        this.boxInfo.getControls().add(this.btnHireFire);
-        this.boxInfo.getControls().add(this.lblRate);
-        this.boxInfo.getControls().add(this.lblName);
-        this.boxInfo.getControls().add(this.lblEngineer);
-        this.boxInfo.getControls().add(this.lblTrader);
-        this.boxInfo.getControls().add(this.lblFighter);
-        this.boxInfo.getControls().add(this.lblPilot);
-        this.boxInfo.getControls().add(this.lblEngineerLabel);
-        this.boxInfo.getControls().add(this.lblTraderLabel);
-        this.boxInfo.getControls().add(this.lblFighterLabel);
-        this.boxInfo.getControls().add(this.lblPilotLabel);
-        this.boxInfo.setLocation(new java.awt.Point(312, 8));
-        this.boxInfo.setName("boxInfo");
-        this.boxInfo.setSize(new spacetrader.controls.Size(168, 114));
-        this.boxInfo.setTabIndex(35);
-        this.boxInfo.setTabStop(false);
-        this.boxInfo.setText("Mercenary Information");
-        //
-        // btnHireFire
-        //
-        this.btnHireFire.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
-        this.btnHireFire.setLocation(new java.awt.Point(120, 80));
-        this.btnHireFire.setName("btnHireFire");
-        this.btnHireFire.setSize(new spacetrader.controls.Size(36, 22));
-        this.btnHireFire.setTabIndex(4);
-        this.btnHireFire.setText("Hire");
-        this.btnHireFire.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                HireFire(sender, e);
+
+        forHireNoneLabel.setLocation(16, 24);
+        forHireNoneLabel.setSize(120, 16);
+        forHireNoneLabel.setTabIndex(8);
+        forHireNoneLabel.setText("No one for hire");
+        forHireNoneLabel.setVisible(false);
+
+        mercenaryInfoPanel.setLocation(312, 8);
+        mercenaryInfoPanel.setSize(168, 114);
+        mercenaryInfoPanel.setTabStop(false);
+        mercenaryInfoPanel.setText("Mercenary Information");
+
+        mercenaryInfoPanel.getControls().addAll(nameLabelValue, pilotLabel, pilotLabelValue,
+                fighterLabel, fighterLabelValue, traderLabel, traderLabelValue, engineerLabel,
+                engineerLabelValue, rateLabelValue, hireFireButton);
+
+        nameLabelValue.setFont(FontCollection.bold825);
+        nameLabelValue.setLocation(12, 18);
+        nameLabelValue.setSize(72, 13);
+        nameLabelValue.setTabIndex(96);
+        nameLabelValue.setText("Alexey Leonov");
+
+        pilotLabel.setAutoSize(true);
+        pilotLabel.setLocation(12, 40);
+        pilotLabel.setSize(29, 16);
+        pilotLabel.setTabIndex(88);
+        pilotLabel.setText("Pilot:");
+
+        pilotLabelValue.setLocation(64, 40);
+        pilotLabelValue.setSize(17, 13);
+        pilotLabelValue.setTabIndex(92);
+        pilotLabelValue.setText("88");
+
+        fighterLabel.setAutoSize(true);
+        fighterLabel.setLocation(12, 56);
+        fighterLabel.setSize(43, 16);
+        fighterLabel.setTabIndex(89);
+        fighterLabel.setText("Fighter:");
+
+        traderLabel.setAutoSize(true);
+        traderLabel.setLocation(12, 72);
+        traderLabel.setSize(41, 16);
+        traderLabel.setTabIndex(90);
+        traderLabel.setText("Trader:");
+
+        traderLabelValue.setLocation(64, 72);
+        traderLabelValue.setSize(17, 13);
+        traderLabelValue.setTabIndex(94);
+        traderLabelValue.setText("88");
+
+        fighterLabelValue.setLocation(64, 56);
+        fighterLabelValue.setSize(17, 13);
+        fighterLabelValue.setTabIndex(93);
+        fighterLabelValue.setText("88");
+
+        engineerLabel.setAutoSize(true);
+        engineerLabel.setLocation(12, 88);
+        engineerLabel.setSize(53, 16);
+        engineerLabel.setTabIndex(91);
+        engineerLabel.setText("Engineer:");
+
+        engineerLabelValue.setLocation(64, 88);
+        engineerLabelValue.setSize(17, 13);
+        engineerLabelValue.setTabIndex(95);
+        engineerLabelValue.setText("88");
+
+        rateLabelValue.setLocation(104, 40);
+        rateLabelValue.setSize(59, 13);
+        rateLabelValue.setTabIndex(97);
+        rateLabelValue.setText("88 cr. daily");
+
+        hireFireButton.setFlatStyle(FlatStyle.FLAT);
+        hireFireButton.setLocation(120, 80);
+        hireFireButton.setSize(36, 22);
+        hireFireButton.setTabIndex(4);
+        hireFireButton.setText("Hire");
+        hireFireButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                hireFireClick();
             }
         });
-        //
-        // lblRate
-        //
-        this.lblRate.setLocation(new java.awt.Point(104, 40));
-        this.lblRate.setName("lblRate");
-        this.lblRate.setSize(new spacetrader.controls.Size(59, 13));
-        this.lblRate.setTabIndex(97);
-        this.lblRate.setText("88 cr. daily");
-        //
-        // lblName
-        //
-        this.lblName.setFont(FontCollection.bold825);
-        this.lblName.setLocation(new java.awt.Point(12, 18));
-        this.lblName.setName("lblName");
-        this.lblName.setSize(new spacetrader.controls.Size(72, 13));
-        this.lblName.setTabIndex(96);
-        this.lblName.setText("Xxxxxxxxxxx");
-        //
-        // lblEngineer
-        //
-        this.lblEngineer.setLocation(new java.awt.Point(64, 88));
-        this.lblEngineer.setName("lblEngineer");
-        this.lblEngineer.setSize(new spacetrader.controls.Size(17, 13));
-        this.lblEngineer.setTabIndex(95);
-        this.lblEngineer.setText("88");
-        //
-        // lblTrader
-        //
-        this.lblTrader.setLocation(new java.awt.Point(64, 72));
-        this.lblTrader.setName("lblTrader");
-        this.lblTrader.setSize(new spacetrader.controls.Size(17, 13));
-        this.lblTrader.setTabIndex(94);
-        this.lblTrader.setText("88");
-        //
-        // lblFighter
-        //
-        this.lblFighter.setLocation(new java.awt.Point(64, 56));
-        this.lblFighter.setName("lblFighter");
-        this.lblFighter.setSize(new spacetrader.controls.Size(17, 13));
-        this.lblFighter.setTabIndex(93);
-        this.lblFighter.setText("88");
-        //
-        // lblPilot
-        //
-        this.lblPilot.setLocation(new java.awt.Point(64, 40));
-        this.lblPilot.setName("lblPilot");
-        this.lblPilot.setSize(new spacetrader.controls.Size(17, 13));
-        this.lblPilot.setTabIndex(92);
-        this.lblPilot.setText("88");
-        //
-        // lblEngineerLabel
-        //
-        this.lblEngineerLabel.setAutoSize(true);
-        this.lblEngineerLabel.setLocation(new java.awt.Point(12, 88));
-        this.lblEngineerLabel.setName("lblEngineerLabel");
-        this.lblEngineerLabel.setSize(new spacetrader.controls.Size(53, 16));
-        this.lblEngineerLabel.setTabIndex(91);
-        this.lblEngineerLabel.setText("Engineer:");
-        //
-        // lblTraderLabel
-        //
-        this.lblTraderLabel.setAutoSize(true);
-        this.lblTraderLabel.setLocation(new java.awt.Point(12, 72));
-        this.lblTraderLabel.setName("lblTraderLabel");
-        this.lblTraderLabel.setSize(new spacetrader.controls.Size(41, 16));
-        this.lblTraderLabel.setTabIndex(90);
-        this.lblTraderLabel.setText("Trader:");
-        //
-        // lblFighterLabel
-        //
-        this.lblFighterLabel.setAutoSize(true);
-        this.lblFighterLabel.setLocation(new java.awt.Point(12, 56));
-        this.lblFighterLabel.setName("lblFighterLabel");
-        this.lblFighterLabel.setSize(new spacetrader.controls.Size(43, 16));
-        this.lblFighterLabel.setTabIndex(89);
-        this.lblFighterLabel.setText("Fighter:");
-        //
-        // lblPilotLabel
-        //
-        this.lblPilotLabel.setAutoSize(true);
-        this.lblPilotLabel.setLocation(new java.awt.Point(12, 40));
-        this.lblPilotLabel.setName("lblPilotLabel");
-        this.lblPilotLabel.setSize(new spacetrader.controls.Size(29, 16));
-        this.lblPilotLabel.setTabIndex(88);
-        this.lblPilotLabel.setText("Pilot:");
-        //
-        // lblCrewNoQuarters
-        //
-        this.lblCrewNoQuarters.setLocation(new java.awt.Point(16, 24));
-        this.lblCrewNoQuarters.setName("lblCrewNoQuarters");
-        this.lblCrewNoQuarters.setSize(new spacetrader.controls.Size(120, 16));
-        this.lblCrewNoQuarters.setTabIndex(7);
-        this.lblCrewNoQuarters.setText("No quarters available");
-        this.lblCrewNoQuarters.setVisible(false);
-        //
-        // lblForHireNone
-        //
-        this.lblForHireNone.setLocation(new java.awt.Point(16, 24));
-        this.lblForHireNone.setName("lblForHireNone");
-        this.lblForHireNone.setSize(new spacetrader.controls.Size(120, 16));
-        this.lblForHireNone.setTabIndex(8);
-        this.lblForHireNone.setText("No one for hire");
-        this.lblForHireNone.setVisible(false);
-        //
-        // FormViewPersonnel
-        //
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setCancelButton(this.btnClose);
-        this.setClientSize(new spacetrader.controls.Size(488, 129));
-        this.controls.add(this.boxInfo);
-        this.controls.add(this.boxForHire);
-        this.controls.add(this.boxCurrentCrew);
-        this.controls.add(this.btnClose);
-        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
-        this.setMaximizeBox(false);
-        this.setMinimizeBox(false);
-        this.setName("FormViewPersonnel");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Personnel");
+
+        closeButton.setDialogResult(DialogResult.CANCEL);
+        closeButton.setLocation(-32, -32);
+        closeButton.setSize(32, 32);
+        closeButton.setTabIndex(32);
+        closeButton.setTabStop(false);
+        closeButton.setText("X");
+
+        controls.addAll(currentCrewPanel, mercenariesForHirePanel, mercenaryInfoPanel, closeButton);
+
+        ReflectionUtils.loadControlsDimensions(asSwingObject(), getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
     }
 
-    //#endregion
-
-    private void DeselectAll() {
-        lstForHire.clearSelected();
-        lstCrew.clearSelected();
+    private void deselectAll() {
+        forHireListBox.clearSelected();
+        crewListBox.clearSelected();
     }
 
-    private void UpdateAll() {
+    private void updateAll() {
         selectedCrewMember = null;
 
-        UpdateForHire();
-        UpdateCurrentCrew();
-        UpdateInfo();
+        updateForHire();
+        updateCurrentCrew();
+        updateInfo();
     }
 
-    private void UpdateCurrentCrew() {
-        CrewMember[] crew = game.getCommander().getShip().Crew();
+    private void updateCurrentCrew() {
+        CrewMember[] crewMembers = game.getCommander().getShip().getCrew();
 
-        lstCrew.getItems().clear();
-        for (int i = 1; i < crew.length; i++) {
-            if (crew[i] == null)
-                lstCrew.getItems().add(Strings.PersonnelVacancy);
-            else
-                lstCrew.getItems().add(crew[i]);
+        crewListBox.getItems().clear();
+        for (int i = 1; i < crewMembers.length; i++) {
+            if (crewMembers[i] == null) {
+                crewListBox.getItems().add(Strings.PersonnelVacancy);
+            } else {
+                crewListBox.getItems().add(crewMembers[i]);
+            }
         }
 
-        boolean entries = (lstCrew.getItems().size() > 0);
+        boolean isEntries = (crewListBox.getItems().size() > 0);
 
-        lstCrew.setVisible(entries);
-        lblCrewNoQuarters.setVisible(!entries);
+        crewListBox.setVisible(isEntries);
+        crewNoQuartersLabel.setVisible(!isEntries);
 
-        if (entries)
-            lstCrew.setHeight(lstCrew.getItemHeight() * Math.min(lstCrew.getItems().size(), 6) + 2);
-        else
-            // TODO: remove this when Strings are moved to resource.
-            lblCrewNoQuarters.setText(Strings.PersonnelNoQuarters);
+        if (isEntries) {
+            crewListBox.setHeight(crewListBox.getItemHeight() * Math.min(crewListBox.getItems().size(), 6) + 2);
+        }
     }
 
-    private void UpdateForHire() {
-        CrewMember[] mercs = game.getCommander().getCurrentSystem().mercenariesForHire();
+    private void updateForHire() {
+        List<CrewMember> mercs = game.getCommander().getCurrentSystem().getMercenariesForHire();
 
-        lstForHire.getItems().clear();
-        for (int i = 0; i < mercs.length; i++)
-            lstForHire.getItems().add(mercs[i]);
+        forHireListBox.getItems().clear();
+        forHireListBox.getItems().addAll(mercs);
 
-        boolean entries = (lstForHire.getItems().size() > 0);
+        boolean isEntries = !mercs.isEmpty();
 
-        lstForHire.setVisible(entries);
-        lblForHireNone.setVisible(!entries);
+        forHireListBox.setVisible(isEntries);
+        forHireNoneLabel.setVisible(!isEntries);
 
-        if (entries)
-            lstForHire.setHeight(lstForHire.getItemHeight() * Math.min(lstForHire.getItems().size(), 6) + 2);
-        else
-            // TODO: remove this when Strings are moved to resource.
-            lblForHireNone.setText(Strings.PersonnelNoMercenaries);
+        if (isEntries) {
+            forHireListBox.setHeight(forHireListBox.getItemHeight() * Math.min(forHireListBox.getItems().size(), 6) + 2);
+        }
     }
 
-    private void UpdateInfo() {
+    private void updateInfo() {
         boolean visible = false;
         boolean rateVisible = false;
         boolean hireFireVisible = false;
 
         if (selectedCrewMember != null) {
             visible = true;
-            if (selectedCrewMember.getRate() > 0)
+            if (selectedCrewMember.getRate() > 0) {
                 rateVisible = true;
+            }
 
-            lblName.setText(selectedCrewMember.getName());
-            lblRate.setText(Functions.stringVars(Strings.MoneyRateSuffix, Functions.formatMoney(selectedCrewMember
+            nameLabelValue.setText(selectedCrewMember.getName());
+            rateLabelValue.setText(Functions.stringVars(Strings.MoneyRateSuffix, Functions.formatMoney(selectedCrewMember
                     .getRate())));
-            lblPilot.setText(selectedCrewMember.getPilot() + "");
-            lblFighter.setText(selectedCrewMember.getFighter() + "");
-            lblTrader.setText(selectedCrewMember.getTrader() + "");
-            lblEngineer.setText(selectedCrewMember.getEngineer() + "");
+            pilotLabelValue.setText(selectedCrewMember.getPilot());
+            fighterLabelValue.setText(selectedCrewMember.getFighter());
+            traderLabelValue.setText(selectedCrewMember.getTrader());
+            engineerLabelValue.setText(selectedCrewMember.getEngineer());
 
-            btnHireFire.setText(game.getCommander().getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
+            hireFireButton.setText(game.getCommander().getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
                     : Strings.MercenaryHire);
-            hireFireVisible = rateVisible || selectedCrewMember.getId() == CrewMemberId.ZEETHIBAL;
+            hireFireVisible = rateVisible || (selectedCrewMember.getId() == CrewMemberId.ZEETHIBAL);
         }
 
-        lblName.setVisible(visible);
-        lblRate.setVisible(rateVisible);
-        lblPilotLabel.setVisible(visible);
-        lblFighterLabel.setVisible(visible);
-        lblTraderLabel.setVisible(visible);
-        lblEngineerLabel.setVisible(visible);
-        lblPilot.setVisible(visible);
-        lblFighter.setVisible(visible);
-        lblTrader.setVisible(visible);
-        lblEngineer.setVisible(visible);
-        btnHireFire.setVisible(hireFireVisible);
+        nameLabelValue.setVisible(visible);
+        rateLabelValue.setVisible(rateVisible);
+        pilotLabel.setVisible(visible);
+        fighterLabel.setVisible(visible);
+        traderLabel.setVisible(visible);
+        engineerLabel.setVisible(visible);
+        pilotLabelValue.setVisible(visible);
+        fighterLabelValue.setVisible(visible);
+        traderLabelValue.setVisible(visible);
+        engineerLabelValue.setVisible(visible);
+        hireFireButton.setVisible(hireFireVisible);
     }
 
-    //#endregion
-
-    //#region Event Handlers
-
-    private void HireFire(Object sender, EventArgs e) {
-        if (selectedCrewMember != null && btnHireFire.isVisible()) {
+    private void hireFireClick() {
+        if (selectedCrewMember != null && hireFireButton.isVisible()) {
             if (game.getCommander().getShip().hasCrew(selectedCrewMember.getId())) {
                 if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.getName()) == DialogResult.YES) {
                     game.getCommander().getShip().fire(selectedCrewMember.getId());
 
-                    UpdateAll();
+                    updateAll();
                     game.getParentWindow().updateAll();
                 }
             } else {
-                if (game.getCommander().getShip().FreeCrewQuarters() == 0)
+                if (game.getCommander().getShip().getFreeCrewQuartersCount() == 0)
                     GuiFacade.alert(AlertType.CrewNoQuarters, selectedCrewMember.getName());
                 else {
                     game.getCommander().getShip().Hire(selectedCrewMember);
 
-                    UpdateAll();
+                    updateAll();
                     game.getParentWindow().updateAll();
                 }
             }
         }
     }
 
-    private void SelectedIndexChanged(Object sender, EventArgs e) {
+    private void selectedIndexChanged(Object sender) {
         if (!handlingSelect) {
             handlingSelect = true;
 
             Object obj = ((ListBox) sender).getSelectedItem();
-            DeselectAll();
+            deselectAll();
 
             if (obj instanceof CrewMember) {
                 ((ListBox) sender).setSelectedItem(obj);
                 selectedCrewMember = (CrewMember) obj;
-            } else
+            } else {
                 selectedCrewMember = null;
+            }
 
             handlingSelect = false;
-            UpdateInfo();
+            updateInfo();
         }
     }
-
-    //#endregion
 }

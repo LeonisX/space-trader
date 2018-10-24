@@ -57,7 +57,7 @@ public class Commander extends CrewMember {
     {
         super(baseCrewMember);
         // Start off with a crew of only the commander and a Pulse Laser.
-        getShip().Crew()[0] = this;
+        getShip().getCrew()[0] = this;
         getShip().addEquipment(Consts.Weapons[WeaponType.PulseLaser.castToInt()]);
     }
 
@@ -132,7 +132,7 @@ public class Commander extends CrewMember {
                 passengers += " and " + getShip().SpecialCrew()[2].getName();
 
             GuiFacade.alert(AlertType.ShipBuyPassengerQuarters, passengers);
-        } else if (specToBuy.getCrewQuarters() < getShip().CrewCount())
+        } else if (specToBuy.getCrewQuarters() < getShip().getCrewCount())
             GuiFacade.alert(AlertType.ShipBuyCrewQuarters);
         else if (getShip().ReactorOnBoard())
             GuiFacade.alert(AlertType.ShipBuyReactor);
@@ -190,13 +190,13 @@ public class Commander extends CrewMember {
 
             if (GuiFacade.alert(AlertType.ShipBuyConfirm, getShip().getName(), newShipName, (add[0] || add[1]
                     || add[2] || addPod ? Strings.ShipBuyTransfer : "")) == DialogResult.YES) {
-                CrewMember[] oldCrew = getShip().Crew();
+                CrewMember[] oldCrew = getShip().getCrew();
 
                 setShip(new Ship(specToBuy.getType()));
                 setCash(getCash() - (netPrice + extraCost));
 
-                for (int i = 0; i < Math.min(oldCrew.length, getShip().Crew().length); i++)
-                    getShip().Crew()[i] = oldCrew[i];
+                for (int i = 0; i < Math.min(oldCrew.length, getShip().getCrew().length); i++)
+                    getShip().getCrew()[i] = oldCrew[i];
 
                 for (int i = 0; i < special.length; i++) {
                     if (add[i])

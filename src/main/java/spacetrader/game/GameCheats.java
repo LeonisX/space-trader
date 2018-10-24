@@ -124,10 +124,10 @@ public class GameCheats {
                     game.setAutoSave(true);
                     break;
                 case Posse:
-                    if (num1 > 0 && num1 < ship.Crew().length && num2 > 0 && num2 < game.getMercenaries().length
+                    if (num1 > 0 && num1 < ship.getCrew().length && num2 > 0 && num2 < game.getMercenaries().length
                             && !Util.arrayContains(Consts.SpecialCrewMemberIds, (CrewMemberId.fromInt(num2)))) {
                         int skill = ship.getTrader();
-                        ship.Crew()[num1] = game.getMercenaries()[num2];
+                        ship.getCrew()[num1] = game.getMercenaries()[num2];
                         if (ship.getTrader() != skill)
                             game.recalculateBuyPrices(game.getCommander().getCurrentSystem());
                     }

@@ -9,6 +9,7 @@ import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
 
 import java.awt.*;
+import java.util.List;
 
 class SystemPanel extends Panel {
 
@@ -243,7 +244,7 @@ class SystemPanel extends Panel {
             specialButton.setVisible(false);
         } else {
             StarSystem system = commander.getCurrentSystem();
-            CrewMember[] mercenaries = system.mercenariesForHire();
+            List<CrewMember> mercenaries = system.getMercenariesForHire();
 
             systemNameLabelValue.setText(system.getName());
             systemSizeLabelValue.setText(Strings.Sizes[system.size().castToInt()]);
@@ -255,10 +256,10 @@ class SystemPanel extends Panel {
             systemPressureLabelValue.setText(Strings.SystemPressures[system.getSystemPressure().castToInt()]);
             systemPressureLabel.setVisible(true);
             newsButton.setVisible(true);
-            hireMercenaryButton.setVisible(mercenaries.length > 0);
+            hireMercenaryButton.setVisible(!mercenaries.isEmpty());
             if (hireMercenaryButton.isVisible()) {
                 setToolTip(hireMercenaryButton, Functions.stringVars(Strings.MercenariesForHire,
-                        mercenaries.length == 1 ? mercenaries[0].getName() : mercenaries.length + Strings.Mercenaries));
+                        mercenaries.size() == 1 ? mercenaries.get(0).getName() : mercenaries.size() + Strings.Mercenaries));
             }
             specialButton.setVisible(system.showSpecialButton());
             if (specialButton.isVisible()) {

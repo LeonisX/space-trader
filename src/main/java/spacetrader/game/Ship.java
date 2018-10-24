@@ -69,7 +69,7 @@ public class Ship extends ShipSpec {
             addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
             addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-            Crew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
+            getCrew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
         } else if (oppType == OpponentType.Bottle) {
             SetValues(ShipType.BOTTLE);
         } else {
@@ -188,14 +188,14 @@ public class Ship extends ShipSpec {
         int skill = getTrader();
         boolean found = false;
         CrewMember merc = null;
-        for (int i = 0; i < Crew().length; i++) {
-            if (Crew()[i] != null && Crew()[i].getId() == crewId) {
+        for (int i = 0; i < getCrew().length; i++) {
+            if (getCrew()[i] != null && getCrew()[i].getId() == crewId) {
                 found = true;
-                merc = Crew()[i];
+                merc = getCrew()[i];
             }
 
             if (found)
-                Crew()[i] = (i < Crew().length - 1) ? Crew()[i + 1] : null;
+                getCrew()[i] = (i < getCrew().length - 1) ? getCrew()[i + 1] : null;
         }
 
         if (getTrader() != skill)
@@ -241,16 +241,16 @@ public class Ship extends ShipSpec {
         CrewMember[] mercs = Game.getCurrentGame().getMercenaries();
         Difficulty diff = Game.getCurrentGame().getDifficulty();
 
-        Crew()[0] = mercs[CrewMemberId.OPPONENT.castToInt()];
-        Crew()[0].setPilot(1 + Functions.getRandom(Consts.MaxSkill));
-        Crew()[0].setFighter(1 + Functions.getRandom(Consts.MaxSkill));
-        Crew()[0].setTrader(1 + Functions.getRandom(Consts.MaxSkill));
+        getCrew()[0] = mercs[CrewMemberId.OPPONENT.castToInt()];
+        getCrew()[0].setPilot(1 + Functions.getRandom(Consts.MaxSkill));
+        getCrew()[0].setFighter(1 + Functions.getRandom(Consts.MaxSkill));
+        getCrew()[0].setTrader(1 + Functions.getRandom(Consts.MaxSkill));
 
         if (Game.getCurrentGame().getWarpSystem().getId() == StarSystemId.Kravat && isWildOnBoard()
                 && Functions.getRandom(10) < diff.castToInt() + 1)
-            Crew()[0].setEngineer(Consts.MaxSkill);
+            getCrew()[0].setEngineer(Consts.MaxSkill);
         else
-            Crew()[0].setEngineer(1 + Functions.getRandom(Consts.MaxSkill));
+            getCrew()[0].setEngineer(1 + Functions.getRandom(Consts.MaxSkill));
 
         int numCrew = 0;
         if (diff == Difficulty.IMPOSSIBLE)
@@ -264,8 +264,8 @@ public class Ship extends ShipSpec {
         for (int i = 1; i < numCrew; i++) {
             // Keep getting a new random mercenary until we have a non-special
             // one.
-            while (Crew()[i] == null || Util.arrayContains(Consts.SpecialCrewMemberIds, Crew()[i].getId()))
-                Crew()[i] = mercs[Functions.getRandom(mercs.length)];
+            while (getCrew()[i] == null || Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId()))
+                getCrew()[i] = mercs[Functions.getRandom(mercs.length)];
         }
     }
 
@@ -503,8 +503,8 @@ public class Ship extends ShipSpec {
 
     public boolean hasCrew(CrewMemberId id) {
         boolean found = false;
-        for (int i = 0; i < Crew().length && !found; i++) {
-            if (Crew()[i] != null && Crew()[i].getId() == id)
+        for (int i = 0; i < getCrew().length && !found; i++) {
+            if (getCrew()[i] != null && getCrew()[i].getId() == id)
                 found = true;
         }
         return found;
@@ -565,7 +565,7 @@ public class Ship extends ShipSpec {
             // Simplified this - JAF
             if (getCargo()[i] > 0
                     && !(criminal ^ Consts.TradeItems[i].Illegal())
-                    && ((!CommandersShip() && Game.getCurrentGame().getPriceCargoBuy()[i] > 0) || (CommandersShip() && Game
+                    && ((!isCommandersShip() && Game.getCurrentGame().getPriceCargoBuy()[i] > 0) || (isCommandersShip() && Game
                     .getCurrentGame().getPriceCargoSell()[i] > 0))) {
                 found = true;
                 getTradeableItems()[i] = true;
@@ -590,12 +590,12 @@ public class Ship extends ShipSpec {
         int skill = getTrader();
 
         int slot = -1;
-        for (int i = 0; i < Crew().length && slot == -1; i++)
-            if (Crew()[i] == null)
+        for (int i = 0; i < getCrew().length && slot == -1; i++)
+            if (getCrew()[i] == null)
                 slot = i;
 
         if (slot >= 0)
-            Crew()[slot] = merc;
+            getCrew()[slot] = merc;
 
         if (getTrader() != skill)
             Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
@@ -641,7 +641,7 @@ public class Ship extends ShipSpec {
 
     public void PerformRepairs() {
         // A disabled ship cannot be repaired.
-        if (CommandersShip() || !Game.getCurrentGame().getOpponentDisabled()) {
+        if (isCommandersShip() || !Game.getCurrentGame().getOpponentDisabled()) {
             // Engineer may do some repairs
             int repairs = Functions.getRandom(getEngineer());
             if (repairs > 0) {
@@ -767,7 +767,7 @@ public class Ship extends ShipSpec {
     }
 
     public boolean ArtifactOnBoard() {
-        return CommandersShip() && Game.getCurrentGame().getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD;
+        return isCommandersShip() && Game.getCurrentGame().getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD;
     }
 
     public int[] getCargo() {
@@ -790,23 +790,23 @@ public class Ship extends ShipSpec {
     }
 
     public boolean Cloaked() {
-        int oppEng = CommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCurrentGame().getCommander()
+        int oppEng = isCommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCurrentGame().getCommander()
                 .getShip().getEngineer();
         return hasGadget(GadgetType.CLOAKING_DEVICE) && getEngineer() > oppEng;
     }
 
-    public boolean CommandersShip() {
+    public boolean isCommandersShip() {
         return this == Game.getCurrentGame().getCommander().getShip();
     }
 
-    public CrewMember[] Crew() {
+    public CrewMember[] getCrew() {
         return _crew;
     }
 
-    public int CrewCount() {
+    public int getCrewCount() {
         int total = 0;
-        for (int i = 0; i < Crew().length; i++)
-            if (Crew()[i] != null)
+        for (int i = 0; i < getCrew().length; i++)
+            if (getCrew()[i] != null)
                 total++;
         return total;
     }
@@ -826,7 +826,7 @@ public class Ship extends ShipSpec {
     }
 
     public boolean Disableable() {
-        return !CommandersShip() && getType() != ShipType.BOTTLE && getType() != ShipType.MANTIS
+        return !isCommandersShip() && getType() != ShipType.BOTTLE && getType() != ShipType.MANTIS
                 && getType() != ShipType.SPACE_MONSTER;
     }
 
@@ -855,7 +855,7 @@ public class Ship extends ShipSpec {
     public int getFilledCargoBays() {
         int filled = FilledNormalCargoBays();
 
-        if (CommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT)
+        if (isCommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT)
             filled += 10;
 
         if (ReactorOnBoard())
@@ -877,10 +877,10 @@ public class Ship extends ShipSpec {
         return getCargoBays() - getFilledCargoBays();
     }
 
-    public int FreeCrewQuarters() {
+    public int getFreeCrewQuartersCount() {
         int count = 0;
-        for (int i = 0; i < Crew().length; i++) {
-            if (Crew()[i] == null)
+        for (int i = 0; i < getCrew().length; i++) {
+            if (getCrew()[i] == null)
                 count++;
         }
         return count;
@@ -928,7 +928,7 @@ public class Ship extends ShipSpec {
     }
 
     public boolean HagglingComputerOnBoard() {
-        return CommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
+        return isCommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
     }
 
     public int HiddenCargoBays() {
@@ -964,12 +964,12 @@ public class Ship extends ShipSpec {
 
     public boolean ReactorOnBoard() {
         int status = Game.getCurrentGame().getQuestStatusReactor();
-        return CommandersShip() && status > SpecialEvent.STATUS_REACTOR_NOT_STARTED
+        return isCommandersShip() && status > SpecialEvent.STATUS_REACTOR_NOT_STARTED
                 && status < SpecialEvent.STATUS_REACTOR_DELIVERED;
     }
 
     public boolean SculptureOnBoard() {
-        return CommandersShip()
+        return isCommandersShip()
                 && Game.getCurrentGame().getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
     }
 
@@ -1010,9 +1010,9 @@ public class Ship extends ShipSpec {
         for (int skill = 0; skill < skills.length; skill++) {
             int max = 1;
 
-            for (int crew = 0; crew < Crew().length; crew++) {
-                if (Crew()[crew] != null && Crew()[crew].getSkills()[skill] > max)
-                    max = Crew()[crew].getSkills()[skill];
+            for (int crew = 0; crew < getCrew().length; crew++) {
+                if (getCrew()[crew] != null && getCrew()[crew].getSkills()[skill] > max)
+                    max = getCrew()[crew].getSkills()[skill];
             }
 
             skills[skill] = Math.max(1, Functions.adjustSkillForDifficulty(max));
@@ -1031,9 +1031,9 @@ public class Ship extends ShipSpec {
     // Wild - JAF
     public CrewMember[] SpecialCrew() {
         ArrayList<CrewMember> list = new ArrayList<CrewMember>();
-        for (int i = 0; i < Crew().length; i++) {
-            if (Crew()[i] != null && Util.arrayContains(Consts.SpecialCrewMemberIds, Crew()[i].getId()))
-                list.add(Crew()[i]);
+        for (int i = 0; i < getCrew().length; i++) {
+            if (getCrew()[i] != null && Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId()))
+                list.add(getCrew()[i]);
         }
 
         CrewMember[] crew = new CrewMember[list.size()];
