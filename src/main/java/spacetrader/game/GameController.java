@@ -78,7 +78,7 @@ public class GameController {
 
         HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.Score(), game.getEndStatus(),
                 game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
-        if (candidate.CompareTo(Functions.getHighScores()[0]) > 0) {
+        if (candidate.compareTo(Functions.getHighScores()[0]) > 0) {
             if (game.getCheats().cheatMode)
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
             else {

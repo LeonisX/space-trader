@@ -117,8 +117,9 @@ public class Functions {
 
     public static HighScoreRecord[] getHighScores() {
         Object obj = loadFile(Consts.HighScoreFile, true);
-        if (obj == null)
+        if (obj == null) {
             return new HighScoreRecord[3];
+        }
 
         return (HighScoreRecord[]) STSerializableObject.ArrayListToArray((List<Hashtable>) obj, "HighScoreRecord");
     }
