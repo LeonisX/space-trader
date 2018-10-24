@@ -160,7 +160,7 @@ public class Ship extends ShipSpec {
         // into account in
         // the skill adjustment of the price.
 
-        price = price * (2 * Pilot() + Engineer() + 3 * Fighter()) / 60;
+        price = price * (2 * getPilot() + getEngineer() + 3 * getFighter()) / 60;
 
         // Divide by 200 to get the bounty, then round down to the nearest 25.
         int bounty = price / 200 / 25 * 25;
@@ -643,7 +643,7 @@ public class Ship extends ShipSpec {
         // A disabled ship cannot be repaired.
         if (CommandersShip() || !Game.getCurrentGame().getOpponentDisabled()) {
             // Engineer may do some repairs
-            int repairs = Functions.getRandom(Engineer());
+            int repairs = Functions.getRandom(getEngineer());
             if (repairs > 0) {
                 int used = Math.min(repairs, getHullStrength() - getHull());
                 setHull(getHull() + used);
@@ -790,9 +790,9 @@ public class Ship extends ShipSpec {
     }
 
     public boolean Cloaked() {
-        int oppEng = CommandersShip() ? Game.getCurrentGame().getOpponent().Engineer() : Game.getCurrentGame().getCommander()
-                .getShip().Engineer();
-        return hasGadget(GadgetType.CLOAKING_DEVICE) && Engineer() > oppEng;
+        int oppEng = CommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCurrentGame().getCommander()
+                .getShip().getEngineer();
+        return hasGadget(GadgetType.CLOAKING_DEVICE) && getEngineer() > oppEng;
     }
 
     public boolean CommandersShip() {
@@ -830,7 +830,7 @@ public class Ship extends ShipSpec {
                 && getType() != ShipType.SPACE_MONSTER;
     }
 
-    public int Engineer() {
+    public int getEngineer() {
         return Skills()[SkillType.ENGINEER.castToInt()];
     }
 
@@ -844,7 +844,7 @@ public class Ship extends ShipSpec {
         return bays;
     }
 
-    public int Fighter() {
+    public int getFighter() {
         return Skills()[SkillType.FIGHTER.castToInt()];
     }
 
@@ -954,7 +954,7 @@ public class Ship extends ShipSpec {
         return hasCrew(CrewMemberId.JAREK);
     }
 
-    public int Pilot() {
+    public int getPilot() {
         return Skills()[SkillType.PILOT.castToInt()];
     }
 

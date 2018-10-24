@@ -37,7 +37,7 @@ public class PoliceRecord {
         _minScore = minScore;
     }
 
-    public static PoliceRecord GetPoliceRecordFromScore(int PoliceRecordScore) {
+    public static PoliceRecord getPoliceRecordFromScore(int PoliceRecordScore) {
         int i;
         for (i = 0; i < Consts.PoliceRecords.length
                 && Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecords[i].MinScore(); i++)
@@ -55,7 +55,7 @@ public class PoliceRecord {
     }
 
 
-    public String Name() {
+    public String getName() {
         return _type.getName();
     }
 

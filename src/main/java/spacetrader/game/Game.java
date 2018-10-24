@@ -503,7 +503,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (ship.getHull() < ship.getHullStrength())
             ship.setHull(ship.getHull()
-                    + Math.min(ship.getHullStrength() - ship.getHull(), Functions.getRandom(ship.Engineer())));
+                    + Math.min(ship.getHullStrength() - ship.getHull(), Functions.getRandom(ship.getEngineer())));
 
         for (int i = 0; i < ship.Shields().length; ++i)
             if (ship.Shields()[i] != null)
@@ -1266,7 +1266,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         } else {
             // Check if it is time for an encounter
             int encounter = Functions.getRandom(44 - (2 * getDifficulty().castToInt()));
-            int policeModifier = Math.max(1, 3 - PoliceRecord.GetPoliceRecordFromScore(
+            int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore(
                     getCommander().getPoliceRecordScore()).Type().castToInt());
 
             // encounters are half as likely if you're in a flea.
@@ -1558,13 +1558,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             // Determine whether someone gets away.
             if (getEncounterCmdrFleeing()
                     && (getDifficulty() == spacetrader.game.enums.Difficulty.BEGINNER || (Functions.getRandom(7) + getCommander()
-                    .getShip().Pilot() / 3) * 2 >= Functions.getRandom(getOpponent().Pilot())
+                    .getShip().getPilot() / 3) * 2 >= Functions.getRandom(getOpponent().getPilot())
                     * (2 + getDifficulty().castToInt()))) {
                 GuiFacade.alert((getEncounterCmdrHit() ? AlertType.EncounterEscapedHit : AlertType.EncounterEscaped));
                 escaped = true;
             } else if (getEncounterOppFleeing()
-                    && Functions.getRandom(getCommander().getShip().Pilot()) * 4 <= Functions.getRandom(7 + getOpponent()
-                    .Pilot() / 3) * 2) {
+                    && Functions.getRandom(getCommander().getShip().getPilot()) * 4 <= Functions.getRandom(7 + getOpponent()
+                    .getPilot() / 3) * 2) {
                 GuiFacade.alert(AlertType.EncounterOpponentEscaped);
                 escaped = true;
             }
@@ -1619,9 +1619,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // they WILL be hit.
         if (!(getDifficulty() == spacetrader.game.enums.Difficulty.BEGINNER && defender.CommandersShip() && fleeing)
                 && (attacker.CommandersShip() && getOpponentDisabled()
-                && attacker.hasGadget(GadgetType.TARGETING_SYSTEM) || Functions.getRandom(attacker.Fighter()
+                && attacker.hasGadget(GadgetType.TARGETING_SYSTEM) || Functions.getRandom(attacker.getFighter()
                 + defender.getSize().castToInt()) >= (fleeing ? 2 : 1)
-                * Functions.getRandom(5 + defender.Pilot() / 2))) {
+                * Functions.getRandom(5 + defender.getPilot() / 2))) {
             // If the defender is disabled, it only takes one shot to destroy it
             // completely.
             if (attacker.CommandersShip() && getOpponentDisabled())
@@ -1646,10 +1646,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // we have disabling weapons, and the option is checked.
                 if (defender.Disableable() && defender.ShieldCharge() == 0 && !getOpponentDisabled()
                         && getOptions().getDisableOpponents() && attackerDisruptors > 0) {
-                    disrupt = Functions.getRandom(attackerDisruptors * (100 + 2 * attacker.Fighter()) / 100);
+                    disrupt = Functions.getRandom(attackerDisruptors * (100 + 2 * attacker.getFighter()) / 100);
                 } else {
                     int damage = attackerWeapons == 0 ? 0 : Functions.getRandom(attackerWeapons
-                            * (100 + 2 * attacker.Fighter()) / 100);
+                            * (100 + 2 * attacker.getFighter()) / 100);
 
                     if (damage > 0) {
                         hit = true;
@@ -1675,7 +1675,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         // JAF - If the player only has disabling weapons, no
                         // damage will be done to the hull.
                         if (damage > 0) {
-                            damage = Math.max(1, damage - Functions.getRandom(defender.Engineer()));
+                            damage = Math.max(1, damage - Functions.getRandom(defender.getEngineer()));
 
                             disrupt = damage * attackerDisruptors / attackerWeapons;
 

@@ -38,7 +38,7 @@ public class Reputation {
         _minScore = minScore;
     }
 
-    public static Reputation GetReputationFromScore(int ReputationScore) {
+    public static Reputation getReputationFromScore(int ReputationScore) {
         int i;
         for (i = 0; i < Consts.Reputations.length
                 && Game.getCurrentGame().getCommander().getReputationScore() >= Consts.Reputations[i].MinScore(); i++)
@@ -56,7 +56,7 @@ public class Reputation {
     }
 
 
-    public String Name() {
+    public String getName() {
         return _type.getName();
     }
 
