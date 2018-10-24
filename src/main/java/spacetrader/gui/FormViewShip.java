@@ -192,8 +192,8 @@ public class FormViewShip extends SpaceTraderForm {
 
         for (int i = 0; i < Consts.Shields.length; i++) {
             int count = 0;
-            for (int j = 0; j < ship.Shields().length; j++) {
-                if (ship.Shields()[j] != null && ship.Shields()[j].Type() == Consts.Shields[i].Type())
+            for (int j = 0; j < ship.getShields().length; j++) {
+                if (ship.getShields()[j] != null && ship.getShields()[j].Type() == Consts.Shields[i].Type())
                     count++;
             }
             if (count > 0) {
@@ -272,13 +272,13 @@ public class FormViewShip extends SpaceTraderForm {
         if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE)
             specialCargo.add(Strings.SpecialCargoJarek);
 
-        if (ship.ReactorOnBoard()) {
+        if (ship.isReactorOnBoard()) {
             specialCargo.add(Strings.SpecialCargoReactor);
             specialCargo.add(Functions.multiples(10 - ((game.getQuestStatusReactor() - 1) / 2), "bay")
                     + Strings.SpecialCargoReactorBays);
         }
 
-        if (ship.SculptureOnBoard())
+        if (ship.isSculptureOnBoard())
             specialCargo.add(Strings.SpecialCargoSculpture);
 
         if (game.getCanSuperWarp())

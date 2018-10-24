@@ -134,7 +134,7 @@ public class Commander extends CrewMember {
             GuiFacade.alert(AlertType.ShipBuyPassengerQuarters, passengers);
         } else if (specToBuy.getCrewQuarters() < getShip().getCrewCount())
             GuiFacade.alert(AlertType.ShipBuyCrewQuarters);
-        else if (getShip().ReactorOnBoard())
+        else if (getShip().isReactorOnBoard())
             GuiFacade.alert(AlertType.ShipBuyReactor);
         else {
             Equipment[] special = new Equipment[]{Consts.Weapons[WeaponType.MorgansLaser.castToInt()],

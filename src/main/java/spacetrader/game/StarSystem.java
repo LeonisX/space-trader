@@ -222,7 +222,7 @@ public class StarSystem extends STSerializableObject {
                 show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT;
                 break;
             case JarekGetsOut:
-                show = game.getCommander().getShip().JarekOnBoard();
+                show = game.getCommander().getShip().isJarekOnBoard();
                 break;
             case Moon:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
@@ -245,10 +245,10 @@ public class StarSystem extends STSerializableObject {
                 break;
             case PrincessQonos:
                 show = game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RESCUED
-                        && !game.getCommander().getShip().PrincessOnBoard();
+                        && !game.getCommander().getShip().isPrincessOnBoard();
                 break;
             case PrincessReturned:
-                show = game.getCommander().getShip().PrincessOnBoard();
+                show = game.getCommander().getShip().isPrincessOnBoard();
                 break;
             case Reactor:
                 show = game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_NOT_STARTED
@@ -256,7 +256,7 @@ public class StarSystem extends STSerializableObject {
                         && game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
             case ReactorDelivered:
-                show = game.getCommander().getShip().ReactorOnBoard();
+                show = game.getCommander().getShip().isReactorOnBoard();
                 break;
             case Scarab:
                 show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_NOT_STARTED

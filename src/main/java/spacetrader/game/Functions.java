@@ -193,7 +193,7 @@ public class Functions {
         int width = Consts.ShipImageOffsets[ship.getType().castToInt()].Width;
         int startDamage = x + width - ship.getHull() * width / ship.getHullStrength();
         int startShield = x + width + 2
-                - (ship.ShieldStrength() > 0 ? ship.ShieldCharge() * (width + 4) / ship.ShieldStrength() : 0);
+                - (ship.getShieldStrength() > 0 ? ship.getShieldCharge() * (width + 4) / ship.getShieldStrength() : 0);
 
         graphics.clear(backgroundColor);
 

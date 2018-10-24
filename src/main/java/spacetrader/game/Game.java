@@ -294,12 +294,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             GuiFacade.alert(AlertType.JailHiddenCargoBaysRemoved);
         }
 
-        if (getCommander().getShip().ReactorOnBoard()) {
+        if (getCommander().getShip().isReactorOnBoard()) {
             GuiFacade.alert(AlertType.ReactorConfiscated);
             setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_NOT_STARTED);
         }
 
-        if (getCommander().getShip().SculptureOnBoard()) {
+        if (getCommander().getShip().isSculptureOnBoard()) {
             GuiFacade.alert(AlertType.SculptureConfiscated);
             setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
         }
@@ -327,12 +327,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getCommander().getShip().getCrew()[i] = null;
         }
 
-        if (getCommander().getShip().JarekOnBoard()) {
+        if (getCommander().getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
             setQuestStatusJarek(SpecialEvent.STATUS_JAREK_NOT_STARTED);
         }
 
-        if (getCommander().getShip().PrincessOnBoard()) {
+        if (getCommander().getShip().isPrincessOnBoard()) {
             GuiFacade.alert(AlertType.PrincessTakenHome);
             setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_NOT_STARTED);
         }
@@ -449,7 +449,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             int narc = TradeItemType.Narcotics.castToInt();
             int food = TradeItemType.Food.castToInt();
 
-            if (ship.ReactorOnBoard()) {
+            if (ship.isReactorOnBoard()) {
                 if (ship.getTribbles() < 20) {
                     ship.setTribbles(0);
                     GuiFacade.alert(AlertType.TribblesAllDied);
@@ -505,9 +505,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             ship.setHull(ship.getHull()
                     + Math.min(ship.getHullStrength() - ship.getHull(), Functions.getRandom(ship.getEngineer())));
 
-        for (int i = 0; i < ship.Shields().length; ++i)
-            if (ship.Shields()[i] != null)
-                ship.Shields()[i].setCharge(ship.Shields()[i].getPower());
+        for (int i = 0; i < ship.getShields().length; ++i)
+            if (ship.getShields()[i] != null)
+                ship.getShields()[i].setCharge(ship.getShields()[i].getPower());
 
         boolean fuelOk = true;
         int toAdd = ship.getFuelTanks() - ship.getFuel();
@@ -1644,7 +1644,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // Attempt to disable the opponent if they're not already
                 // disabled, their shields are down,
                 // we have disabling weapons, and the option is checked.
-                if (defender.Disableable() && defender.ShieldCharge() == 0 && !getOpponentDisabled()
+                if (defender.Disableable() && defender.getShieldCharge() == 0 && !getOpponentDisabled()
                         && getOptions().getDisableOpponents() && attackerDisruptors > 0) {
                     disrupt = Functions.getRandom(attackerDisruptors * (100 + 2 * attacker.getFighter()) / 100);
                 } else {
@@ -1655,15 +1655,15 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         hit = true;
 
                         // Reactor on board -- damage is boosted!
-                        if (defender.ReactorOnBoard())
+                        if (defender.isReactorOnBoard())
                             damage *= (int) (1 + (getDifficulty().castToInt() + 1)
                                     * (getDifficulty().castToInt() < spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 0.25
                                     : 0.33));
 
                         // First, shields are depleted
-                        for (int i = 0; i < defender.Shields().length && defender.Shields()[i] != null && damage > 0; i++) {
-                            int applied = Math.min(defender.Shields()[i].getCharge(), damage);
-                            defender.Shields()[i].setCharge(defender.Shields()[i].getCharge() - applied);
+                        for (int i = 0; i < defender.getShields().length && defender.getShields()[i] != null && damage > 0; i++) {
+                            int applied = Math.min(defender.getShields()[i].getCharge(), damage);
+                            defender.getShields()[i].setCharge(defender.getShields()[i].getCharge() - applied);
                             damage -= applied;
                         }
 
@@ -2154,7 +2154,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     getCommander().getShip().IllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
                             false), getCommander().getShip().IllegalSpecialCargoActions()})) == DialogResult.YES)
                 result = EncounterResult.ARRESTED;
-        } else if (getCommander().getShip().PrincessOnBoard()
+        } else if (getCommander().getShip().isPrincessOnBoard()
                 && !getCommander().getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             GuiFacade.alert(AlertType.EncounterPiratesSurrenderPrincess);
         } else {
@@ -2162,14 +2162,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             if (getCommander().getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
                 ArrayList precious = new ArrayList();
-                if (getCommander().getShip().PrincessOnBoard())
+                if (getCommander().getShip().isPrincessOnBoard())
                     precious.add(Strings.EncounterHidePrincess);
-                if (getCommander().getShip().SculptureOnBoard())
+                if (getCommander().getShip().isSculptureOnBoard())
                     precious.add(Strings.EncounterHideSculpture);
 
                 GuiFacade.alert(AlertType.PreciousHidden, Functions.stringVars(Strings.ListStrings[precious.size()],
                         (String[]) precious.toArray(new String[0])));
-            } else if (getCommander().getShip().SculptureOnBoard()) {
+            } else if (getCommander().getShip().isSculptureOnBoard()) {
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
                 GuiFacade.alert(AlertType.EncounterPiratesTakeSculpture);
             }
@@ -2210,7 +2210,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             }
 
             // pirates puzzled by reactor
-            if (getCommander().getShip().ReactorOnBoard())
+            if (getCommander().getShip().isReactorOnBoard())
                 GuiFacade.alert(AlertType.EncounterPiratesExamineReactor);
 
             result = EncounterResult.NORMAL;
@@ -2309,10 +2309,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public void EscapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
 
-        if (getCommander().getShip().SculptureOnBoard())
+        if (getCommander().getShip().isSculptureOnBoard())
             GuiFacade.alert(AlertType.SculptureSaved);
 
-        if (getCommander().getShip().ReactorOnBoard()) {
+        if (getCommander().getShip().isReactorOnBoard()) {
             GuiFacade.alert(AlertType.ReactorDestroyed);
             setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
         }
@@ -2334,12 +2334,12 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
         }
 
-        if (getCommander().getShip().JarekOnBoard()) {
+        if (getCommander().getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
             setQuestStatusJarek(SpecialEvent.STATUS_JAREK_NOT_STARTED);
         }
 
-        if (getCommander().getShip().PrincessOnBoard()) {
+        if (getCommander().getShip().isPrincessOnBoard()) {
             GuiFacade.alert(AlertType.PrincessTakenHome);
             setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_NOT_STARTED);
         }
@@ -2779,7 +2779,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 } else if (!getCommander().getShip().HasWeapon(WeaponType.BeamLaser, false)) {
                     GuiFacade.alert(AlertType.WildWontBoardLaser);
                     remove = false;
-                } else if (getCommander().getShip().ReactorOnBoard()) {
+                } else if (getCommander().getShip().isReactorOnBoard()) {
                     GuiFacade.alert(AlertType.WildWontBoardReactor);
                     remove = false;
                 } else {
@@ -2788,7 +2788,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     getCommander().getShip().Hire(wild);
                     setQuestStatusWild(SpecialEvent.STATUS_WILD_STARTED);
 
-                    if (getCommander().getShip().SculptureOnBoard())
+                    if (getCommander().getShip().isSculptureOnBoard())
                         GuiFacade.alert(AlertType.WildSculpture);
                 }
                 break;
@@ -2850,7 +2850,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             }
         }
 
-        if (getCommander().getShip().ReactorOnBoard())
+        if (getCommander().getShip().isReactorOnBoard())
             setQuestStatusReactor(Math.min(getQuestStatusReactor() + num, SpecialEvent.STATUS_REACTOR_DATE));
 
         if (getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
@@ -2866,7 +2866,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 && getFabricRipProbability() > 0)
             setFabricRipProbability(getFabricRipProbability() - num);
 
-        if (getCommander().getShip().JarekOnBoard()) {
+        if (getCommander().getShip().isJarekOnBoard()) {
             if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT / 2)
                 GuiFacade.alert(AlertType.SpecialPassengerConcernedJarek);
             else if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT - 1) {
@@ -2881,7 +2881,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 setQuestStatusJarek(getQuestStatusJarek() + 1);
         }
 
-        if (getCommander().getShip().PrincessOnBoard()) {
+        if (getCommander().getShip().isPrincessOnBoard()) {
             if (getQuestStatusPrincess() == (SpecialEvent.STATUS_PRINCESS_IMPATIENT + SpecialEvent.STATUS_PRINCESS_RESCUED) / 2)
                 GuiFacade.alert(AlertType.SpecialPassengerConcernedPrincess);
             else if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT - 1) {
@@ -2999,7 +2999,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         NewsAddEvent(NewsEvent.JaporiDelivery);
                     break;
                 case JarekGetsOut:
-                    if (getCommander().getShip().JarekOnBoard())
+                    if (getCommander().getShip().isJarekOnBoard())
                         NewsAddEvent(NewsEvent.JarekGetsOut);
                     break;
                 case Princess:

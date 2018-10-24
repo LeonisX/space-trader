@@ -36,8 +36,8 @@ public class GameCheats {
                     game.setChanceOfTradeInOrbit(Math.max(0, Math.min(1000, num1)));
                     break;
                 case Cover:
-                    if (num1 >= 0 && num1 < ship.Shields().length && num2 >= 0 && num2 < Consts.Shields.length)
-                        ship.Shields()[num1] = (Shield) Consts.Shields[num2].Clone();
+                    if (num1 >= 0 && num1 < ship.getShields().length && num2 >= 0 && num2 < Consts.Shields.length)
+                        ship.getShields()[num1] = (Shield) Consts.Shields[num2].Clone();
                     break;
                 case DeLorean:
                     game.getCommander().setDays(Math.max(0, num1));

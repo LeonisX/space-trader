@@ -60,7 +60,7 @@ public class Ship extends ShipSpec {
         if (oppType == OpponentType.FamousCaptain) {
             SetValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
-            for (int i = 0; i < Shields().length; i++)
+            for (int i = 0; i < getShields().length; i++)
                 addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
 
             for (int i = 0; i < getWeapons().length; i++)
@@ -152,9 +152,9 @@ public class Ship extends ShipSpec {
             if (getWeapons()[i] != null)
                 price += getWeapons()[i].getPrice();
 
-        for (int i = 0; i < Shields().length; i++)
-            if (Shields()[i] != null)
-                price += Shields()[i].getPrice();
+        for (int i = 0; i < getShields().length; i++)
+            if (getShields()[i] != null)
+                price += getShields()[i].getPrice();
 
         // Gadgets aren't counted in the price, because they are already taken
         // into account in
@@ -175,7 +175,7 @@ public class Ship extends ShipSpec {
                 equip = getWeapons();
                 break;
             case SHIELD:
-                equip = Shields();
+                equip = getShields();
                 break;
             case GADGET:
                 equip = Gadgets();
@@ -360,11 +360,11 @@ public class Ship extends ShipSpec {
 
                 addEquipment(Consts.Shields[bestShieldType]);
 
-                Shields()[i].setCharge(0);
+                getShields()[i].setCharge(0);
                 for (int j = 0; j < 5; j++) {
-                    int charge = 1 + Functions.getRandom(Shields()[i].getPower());
-                    if (charge > Shields()[i].getCharge())
-                        Shields()[i].setCharge(charge);
+                    int charge = 1 + Functions.getRandom(getShields()[i].getPower());
+                    if (charge > getShields()[i].getCharge())
+                        getShields()[i].setCharge(charge);
                 }
             }
         }
@@ -405,7 +405,7 @@ public class Ship extends ShipSpec {
 
     private void GenerateOpponentSetHullStrength() {
         // If there are shields, the hull will probably be stronger
-        if (ShieldStrength() == 0 || Functions.getRandom(5) == 0) {
+        if (getShieldStrength() == 0 || Functions.getRandom(5) == 0) {
             setHull(0);
 
             for (int i = 0; i < 5; i++) {
@@ -537,8 +537,8 @@ public class Ship extends ShipSpec {
 
     public boolean HasShield(ShieldType shieldType) {
         boolean found = false;
-        for (int i = 0; i < Shields().length && !found; i++) {
-            if (Shields()[i] != null && Shields()[i].Type() == shieldType)
+        for (int i = 0; i < getShields().length && !found; i++) {
+            if (getShields()[i] != null && getShields()[i].Type() == shieldType)
                 found = true;
         }
         return found;
@@ -604,12 +604,12 @@ public class Ship extends ShipSpec {
     public String IllegalSpecialCargoActions() {
         ArrayList<String> actions = new ArrayList<String>();
 
-        if (ReactorOnBoard())
+        if (isReactorOnBoard())
             actions.add(Strings.EncounterPoliceSurrenderReactor);
         else if (isWildOnBoard())
             actions.add(Strings.EncounterPoliceSurrenderWild);
 
-        if (SculptureOnBoard())
+        if (isSculptureOnBoard())
             actions.add(Strings.EncounterPoliceSurrenderSculpt);
 
         return actions.size() == 0 ? "" : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions
@@ -622,10 +622,10 @@ public class Ship extends ShipSpec {
         if (includePassengers && isWildOnBoard())
             items.add(Strings.EncounterPoliceSubmitWild);
 
-        if (ReactorOnBoard())
+        if (isReactorOnBoard())
             items.add(Strings.EncounterPoliceSubmitReactor);
 
-        if (SculptureOnBoard())
+        if (isSculptureOnBoard())
             items.add(Strings.EncounterPoliceSubmitSculpture);
 
         if (includeTradeItems && DetectableIllegalCargo())
@@ -654,10 +654,10 @@ public class Ship extends ShipSpec {
             if (repairs > 0) {
                 repairs *= 2;
 
-                for (int i = 0; i < Shields().length && repairs > 0; i++) {
-                    if (Shields()[i] != null) {
-                        int used = Math.min(repairs, Shields()[i].getPower() - Shields()[i].getCharge());
-                        Shields()[i].setCharge(Shields()[i].getCharge() + used);
+                for (int i = 0; i < getShields().length && repairs > 0; i++) {
+                    if (getShields()[i] != null) {
+                        int used = Math.min(repairs, getShields()[i].getPower() - getShields()[i].getCharge());
+                        getShields()[i].setCharge(getShields()[i].getCharge() + used);
                         repairs -= used;
                     }
                 }
@@ -831,7 +831,7 @@ public class Ship extends ShipSpec {
     }
 
     public int getEngineer() {
-        return Skills()[SkillType.ENGINEER.castToInt()];
+        return getSkills()[SkillType.ENGINEER.castToInt()];
     }
 
     public int ExtraCargoBays() {
@@ -845,7 +845,7 @@ public class Ship extends ShipSpec {
     }
 
     public int getFighter() {
-        return Skills()[SkillType.FIGHTER.castToInt()];
+        return getSkills()[SkillType.FIGHTER.castToInt()];
     }
 
     // Changed the semantics of Filled versus total Cargo Bays. Bays used for
@@ -858,7 +858,7 @@ public class Ship extends ShipSpec {
         if (isCommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT)
             filled += 10;
 
-        if (ReactorOnBoard())
+        if (isReactorOnBoard())
             filled += 5 + 10 - (Game.getCurrentGame().getQuestStatusReactor() - 1) / 2;
 
         return filled;
@@ -902,8 +902,8 @@ public class Ship extends ShipSpec {
 
     public int getFreeShieldSlots() {
         int count = 0;
-        for (int i = 0; i < Shields().length; i++) {
-            if (Shields()[i] == null)
+        for (int i = 0; i < getShields().length; i++) {
+            if (getShields()[i] == null)
                 count++;
         }
         return count;
@@ -947,63 +947,63 @@ public class Ship extends ShipSpec {
     }
 
     public boolean isIllegalSpecialCargo() {
-        return isWildOnBoard() || ReactorOnBoard() || SculptureOnBoard();
+        return isWildOnBoard() || isReactorOnBoard() || isSculptureOnBoard();
     }
 
-    public boolean JarekOnBoard() {
+    public boolean isJarekOnBoard() {
         return hasCrew(CrewMemberId.JAREK);
     }
 
     public int getPilot() {
-        return Skills()[SkillType.PILOT.castToInt()];
+        return getSkills()[SkillType.PILOT.castToInt()];
     }
 
-    public boolean PrincessOnBoard() {
+    public boolean isPrincessOnBoard() {
         return hasCrew(CrewMemberId.PRINCESS);
     }
 
-    public boolean ReactorOnBoard() {
+    public boolean isReactorOnBoard() {
         int status = Game.getCurrentGame().getQuestStatusReactor();
         return isCommandersShip() && status > SpecialEvent.STATUS_REACTOR_NOT_STARTED
                 && status < SpecialEvent.STATUS_REACTOR_DELIVERED;
     }
 
-    public boolean SculptureOnBoard() {
+    public boolean isSculptureOnBoard() {
         return isCommandersShip()
                 && Game.getCurrentGame().getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
     }
 
-    public int ShieldCharge() {
+    public int getShieldCharge() {
         int total = 0;
 
-        for (int i = 0; i < Shields().length; i++)
-            if (Shields()[i] != null)
-                total += Shields()[i].getCharge();
+        for (int i = 0; i < getShields().length; i++)
+            if (getShields()[i] != null)
+                total += getShields()[i].getCharge();
 
         return total;
     }
 
-    public Shield[] Shields() {
+    public Shield[] getShields() {
         return _shields;
     }
 
-    public int ShieldStrength() {
+    public int getShieldStrength() {
         int total = 0;
 
-        for (int i = 0; i < Shields().length; i++)
-            if (Shields()[i] != null)
-                total += Shields()[i].getPower();
+        for (int i = 0; i < getShields().length; i++)
+            if (getShields()[i] != null)
+                total += getShields()[i].getPower();
 
         return total;
     }
 
     public String getShieldText() {
-        return (Shields().length > 0 && Shields()[0] != null) ? Functions.stringVars(Strings.EncounterShieldStrength,
-                Functions.formatNumber((int) Math.floor((double) 100 * ShieldCharge() / ShieldStrength())))
+        return (getShields().length > 0 && getShields()[0] != null) ? Functions.stringVars(Strings.EncounterShieldStrength,
+                Functions.formatNumber((int) Math.floor((double) 100 * getShieldCharge() / getShieldStrength())))
                 : Strings.EncounterShieldNone;
     }
 
-    public int[] Skills() {
+    public int[] getSkills() {
         int[] skills = new int[4];
 
         // Get the best skill value among the crew for each skill.
@@ -1057,9 +1057,9 @@ public class Ship extends ShipSpec {
         tradeItems.reverse();
 
         int hidden = HiddenCargoBays();
-        if (PrincessOnBoard())
+        if (isPrincessOnBoard())
             hidden--;
-        if (SculptureOnBoard())
+        if (isSculptureOnBoard())
             hidden--;
 
         if (hidden > 0)
@@ -1073,7 +1073,7 @@ public class Ship extends ShipSpec {
     }
 
     public int getTrader() {
-        return Skills()[SkillType.TRADER.castToInt()] + (HagglingComputerOnBoard() ? 1 : 0);
+        return getSkills()[SkillType.TRADER.castToInt()] + (HagglingComputerOnBoard() ? 1 : 0);
     }
 
     public Weapon[] getWeapons() {

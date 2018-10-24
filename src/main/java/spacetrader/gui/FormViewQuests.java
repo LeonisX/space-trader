@@ -22,67 +22,58 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
+
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.game.enums.CrewMemberId;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.*;
+import spacetrader.game.enums.CrewMemberId;
+import spacetrader.game.enums.Difficulty;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.gui.debug.Launcher;
 import spacetrader.stub.ArrayList;
+import spacetrader.util.ReflectionUtils;
 
-import java.util.Arrays;
+import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class FormViewQuests extends SpaceTraderForm {
-    // #region Control Declarations
 
-    private spacetrader.controls.Button btnClose;
-    private spacetrader.controls.LinkLabel lblQuests;
-    private Container components = null;
+    Game game = Game.getCurrentGame();
 
-    // #endregion
+    private Button closeButton = new Button();
+    private LinkLabel questsLabelValue = new LinkLabel();
 
-    // #region Methods
+    public static void main(String[] args) {
+        new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
+        Launcher.runForm(new FormViewQuests());
+    }
 
     public FormViewQuests() {
         initializeComponent();
-
-        UpdateAll();
+        updateAll();
     }
 
-    // #region Windows Form Designer generated code
-    // / <summary>
-    // / Required method for Designer support - do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void initializeComponent() {
-        this.btnClose = new spacetrader.controls.Button();
-        this.lblQuests = new spacetrader.controls.LinkLabel();
-        this.suspendLayout();
-        //
-        // btnClose
-        //
-        this.btnClose.setDialogResult(DialogResult.CANCEL);
-        this.btnClose.setLocation(new java.awt.Point(-32, -32));
-        this.btnClose.setName("btnClose");
-        this.btnClose.setSize(new spacetrader.controls.Size(32, 32));
-        this.btnClose.setTabIndex(32);
-        this.btnClose.setTabStop(false);
-        this.btnClose.setText("X");
-        //
-        // lblQuests
-        //
-        this.lblQuests.setLinkArea(new LinkArea(0, 0));
-        this.lblQuests.setLocation(new java.awt.Point(8, 8));
-        this.lblQuests.setName("lblQuests");
-        this.lblQuests.setSize(new spacetrader.controls.Size(368, 312));
-        this.lblQuests.setTabIndex(44);
-        this.lblQuests.setText("Kill the space monster at Acamar."
+        ReflectionUtils.setAllComponentNames(this);
+
+        setName("formViewQuests");
+        setText("Quests");
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(378, 325);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setMaximizeBox(false);
+        setMinimizeBox(false);
+        setShowInTaskbar(false);
+        setCancelButton(closeButton);
+
+        suspendLayout();
+
+        questsLabelValue.setLinkArea(new LinkArea(0, 0));
+        questsLabelValue.setLocation(8, 8);
+        questsLabelValue.setSize(368, 312);
+        questsLabelValue.setTabIndex(44);
+        /*questsLabelValue.setText("Kill the space monster at Acamar."
                 + "\n\n"
                 + "Get your lightning shield at Zalkon."
                 + "\n\n"
@@ -102,70 +93,91 @@ public class FormViewQuests extends SpaceTraderForm {
                 + "\n\n"
                 + "Smuggle Jonathan Wild to Kravat.  Wild is getting impatient, and will no longer aid your crew along the way."
                 + "\n\n" + "Get rid of those pesky tribbles." + "\n\n"
-                + "Claim your moon at Utopia.");
-        this.lblQuests.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
-            public void handle(Object sender,
-                               spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
-                lblQuests_LinkClicked(sender, e);
+                + "Claim your moon at Utopia.");*/
+        questsLabelValue.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
+                questsLabelValueClicked(e);
             }
         });
-        //
-        // FormViewQuests
-        //
-        this.setAutoScaleBaseSize(new spacetrader.controls.Size(5, 13));
-        this.setCancelButton(this.btnClose);
-        this.setClientSize(new spacetrader.controls.Size(378, 325));
-        this.controls.addAll(Arrays.asList(this.btnClose, this.lblQuests));
-        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
-        this.setMaximizeBox(false);
-        this.setMinimizeBox(false);
-        this.setName("FormViewQuests");
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setText("Quests");
+
+        closeButton.setDialogResult(DialogResult.CANCEL);
+        closeButton.setLocation(-32, -32);
+        closeButton.setSize(32, 32);
+        closeButton.setTabStop(false);
+        //closeButton.setText("X");
+
+        controls.addAll(questsLabelValue, closeButton);
+
+        ReflectionUtils.loadControlsDimensions(asSwingObject(), getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
     }
 
-    // #endregion
+    private void updateAll() {
+        List<String> quests = getQuestStrings();
+        if (quests.isEmpty()) {
+            questsLabelValue.setText(Strings.QuestNone);
+        } else {
+            questsLabelValue.setText(String.join(Strings.newline + Strings.newline, quests));
 
-    private String[] GetQuestStrings() {
-        Game game = Game.getCurrentGame();
-        ArrayList quests = new ArrayList(12);
+            for (int i = 0; i < Strings.SystemNames.length; i++) {
+                String systemName = Strings.SystemNames[i];
+                int start = 0;
+                int index;
+
+                //TODO simplify
+                while ((index = questsLabelValue.getText().indexOf(systemName, start)) >= 0) {
+                    questsLabelValue.getLinks().add(index, systemName.length(), systemName);
+                    start = index + systemName.length();
+                }
+            }
+        }
+    }
+
+    private List<String> getQuestStrings() {
+        ArrayList<String> quests = new ArrayList<>(12);
 
         if (game.getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
                 && game.getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_DATE) {
-            if (game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_DATE - 1)
+            if (game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_DATE - 1) {
                 quests.add(Strings.QuestGemulonInformTomorrow);
-            else
+            } else {
                 quests.add(Functions.stringVars(Strings.QuestGemulonInformDays,
                         Functions.multiples(SpecialEvent.STATUS_GEMULON_DATE
-                                - game.getQuestStatusGemulon(), "day")));
-        } else if (game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_FUEL)
+                                - game.getQuestStatusGemulon(), Strings.TimeUnit)));
+            }
+        } else if (game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_FUEL) {
             quests.add(Strings.QuestGemulonFuel);
+        }
 
         if (game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
                 && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_DATE) {
-            if (game.getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_DATE - 1)
+            if (game.getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_DATE - 1) {
                 quests.add(Strings.QuestExperimentInformTomorrow);
-            else
+            } else {
                 quests.add(Functions.stringVars(
                         Strings.QuestExperimentInformDays, Functions.multiples(
                                 SpecialEvent.STATUS_EXPERIMENT_DATE
-                                        - game.getQuestStatusExperiment(), "day")));
+                                        - game.getQuestStatusExperiment(), Strings.TimeUnit)));
+            }
         }
 
-        if (game.getCommander().getShip().ReactorOnBoard()) {
-            if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_FUEL_OK)
+        if (game.getCommander().getShip().isReactorOnBoard()) {
+            if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_FUEL_OK) {
                 quests.add(Strings.QuestReactor);
-            else
+            } else {
                 quests.add(Strings.QuestReactorFuel);
-        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED)
+            }
+        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
             quests.add(Strings.QuestReactorLaser);
+        }
 
-        if (game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR)
+        if (game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
             quests.add(Strings.QuestSpaceMonsterKill);
+        }
 
-        if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT)
+        if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             quests.add(Strings.QuestJaporiDeliver);
+        }
 
         switch (game.getQuestStatusDragonfly()) {
             case SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS:
@@ -196,108 +208,78 @@ public class FormViewQuests extends SpaceTraderForm {
                 quests.add(Strings.QuestPrincessQonos);
                 break;
             case SpecialEvent.STATUS_PRINCESS_RESCUED:
-                if (game.getCommander().getShip().PrincessOnBoard()) {
-                    if (game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT)
+                if (game.getCommander().getShip().isPrincessOnBoard()) {
+                    if (game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT) {
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturningImpatient,
-                                game.getMercenaries()[CrewMemberId.PRINCESS
-                                        .castToInt()].getName()));
-                    else
+                                game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
+                    } else {
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturning,
-                                game.getMercenaries()[CrewMemberId.PRINCESS
-                                        .castToInt()].getName()));
-                } else
+                                game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
+                    }
+                } else {
                     quests.add(Functions.stringVars(Strings.QuestPrincessReturn,
-                            game.getMercenaries()[CrewMemberId.PRINCESS
-                                    .castToInt()].getName()));
+                            game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
+                }
                 break;
             case SpecialEvent.STATUS_PRINCESS_RETURNED:
                 quests.add(Strings.QuestPrincessQuantum);
                 break;
         }
 
-        if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING)
+        if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
             quests.add(Strings.QuestScarabFind);
-        else if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED) {
-            if (Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull
-                    .castToInt()].getLocation() == null)
-                quests
-                        .add(Functions
-                                .stringVars(
-                                        Strings.QuestScarabNotify,
-                                        Consts.SpecialEvents[SpecialEventType.ScarabDestroyed
-                                                .castToInt()].getLocation().getName()));
-            else
-                quests
-                        .add(Functions
-                                .stringVars(
-                                        Strings.QuestScarabHull,
-                                        Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull
-                                                .castToInt()].getLocation().getName()));
+        } else if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED) {
+            if (Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull.castToInt()].getLocation() == null) {
+                quests.add(Functions.stringVars(Strings.QuestScarabNotify,
+                        Consts.SpecialEvents[SpecialEventType.ScarabDestroyed.castToInt()].getLocation().getName()));
+            } else {
+                quests.add(Functions.stringVars(Strings.QuestScarabHull,
+                        Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull.castToInt()].getLocation().getName()));
+            }
         }
 
-        if (game.getCommander().getShip().SculptureOnBoard())
+        if (game.getCommander().getShip().isSculptureOnBoard()) {
             quests.add(Strings.QuestSculpture);
-        else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED)
+        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
             quests.add(Strings.QuestSculptureHiddenBays);
+        }
 
-        if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD)
+        if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD) {
             quests.add(Strings.QuestArtifact);
+        }
 
-        if (game.getCommander().getShip().JarekOnBoard()) {
-            if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT)
+        if (game.getCommander().getShip().isJarekOnBoard()) {
+            if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT) {
                 quests.add(Strings.QuestJarekImpatient);
-            else
+            } else {
                 quests.add(Strings.QuestJarek);
+            }
         }
 
         if (game.getCommander().getShip().isWildOnBoard()) {
-            if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT)
+            if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT) {
                 quests.add(Strings.QuestWildImpatient);
-            else
+            } else {
                 quests.add(Strings.QuestWild);
-        }
-
-        if (game.getCommander().getShip().getTribbles() > 0)
-            quests.add(Strings.QuestTribbles);
-
-        if (game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT)
-            quests.add(Strings.QuestMoon);
-
-        return Functions.arrayListToStringArray(quests);
-    }
-
-    private void UpdateAll() {
-        String[] quests = GetQuestStrings();
-        if (quests.length == 0)
-            lblQuests.setText(Strings.QuestNone);
-        else {
-            lblQuests.setText(String.join(Strings.newline + Strings.newline, quests));
-
-            for (int i = 0; i < Strings.SystemNames.length; i++) {
-                String systemName = Strings.SystemNames[i];
-                int start = 0;
-                int index = -1;
-
-                while ((index = lblQuests.getText().indexOf(systemName, start)) >= 0) {
-                    lblQuests.getLinks().add(index, systemName.length(), systemName);
-                    start = index + systemName.length();
-                }
             }
         }
+
+        if (game.getCommander().getShip().getTribbles() > 0) {
+            quests.add(Strings.QuestTribbles);
+        }
+
+        if (game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT) {
+            quests.add(Strings.QuestMoon);
+        }
+
+        return quests;
     }
 
-    // #endregion
-
-    // #region Event Handlers
-
-    private void lblQuests_LinkClicked(Object sender,
-                                       spacetrader.controls.LinkLabelLinkClickedEventArgs e) {
-        Game.getCurrentGame().setSelectedSystemByName(e.getLink().getLinkData().toString());
-        Game.getCurrentGame().getParentWindow().updateAll();
+    private void questsLabelValueClicked(LinkLabelLinkClickedEventArgs e) {
+        game.setSelectedSystemByName(e.getLink().getLinkData().toString());
+        game.getParentWindow().updateAll();
         close();
     }
-
-    // #endregion
 }
