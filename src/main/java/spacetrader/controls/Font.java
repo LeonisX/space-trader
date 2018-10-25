@@ -37,7 +37,7 @@ public class Font extends java.awt.Font {
     private final String name;
 
     public Font(String name, float size) {
-        this(name, size, FontStyle.Regular, GraphicsUnit.Point);
+        this(name, size, FontStyle.Regular, GraphicsUnit.POINT);
     }
 
     public Font(String name, float size, FontStyle style, GraphicsUnit unit) {

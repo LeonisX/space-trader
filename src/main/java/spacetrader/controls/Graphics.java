@@ -1,6 +1,8 @@
 package spacetrader.controls;
 
 import java.awt.*;
+import spacetrader.game.Consts;
+import spacetrader.game.Ship;
 
 public class Graphics {
 
@@ -11,37 +13,36 @@ public class Graphics {
     }
 
     public void drawEllipse(Pen pen, int x, int y, int width, int height) {
-        graphics.setColor(pen.color);
+        graphics.setColor(pen.getColor());
         graphics.drawOval(x, y, width, height);
     }
 
     public void drawLine(Pen pen, int x1, int y1, int x2, int y2) {
-        graphics.setColor(pen.color);
+        graphics.setColor(pen.getColor());
         graphics.drawLine(x1, y1, x2, y2);
     }
 
     public void fillRectangle(Brush brush, int x, int y, int width, int height) {
-        graphics.setColor(brush.color);
+        graphics.setColor(brush.getColor());
         graphics.fillRect(x, y, width, height);
     }
 
     public void fillPolygon(Brush brush, Point[] points) {
-        graphics.setColor(brush.color);
+        graphics.setColor(brush.getColor());
 
         int[] xs = new int[points.length];
         int[] ys = new int[points.length];
 
         for (int i = 0; i < points.length; i++) {
-            Point point = points[i];
-            xs[i] = point.x;
-            ys[i] = point.y;
+            xs[i] = points[i].x;
+            ys[i] = points[i].y;
         }
 
         graphics.fillPolygon(xs, ys, points.length);
     }
 
-    public void drawString(String text, Font font, Brush Brush, int x, int y) {
-        graphics.setColor(Brush.color);
+    public void drawString(String text, Font font, Brush brush, int x, int y) {
+        graphics.setColor(brush.getColor());
         graphics.setFont(font);
         graphics.drawString(text, x, y);
     }
@@ -55,14 +56,15 @@ public class Graphics {
         graphics.setColor(bk);
     }
 
-    public void drawImage(Image img, int x, int y, Rectangle rect, GraphicsUnit pixel) {
-        graphics.drawImage(img.asSwingImage(), x, y, x + rect.Width, y + rect.Height,
-                rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height, null);
+    void drawImage(Image img, int x, int y, Rectangle rect, GraphicsUnit pixel) {
+        graphics.drawImage(img.asSwingImage(), x, y, x + rect.getWidth(), y + rect.getHeight(),
+                rect.getX(), rect.getY(), rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight(), null);
     }
 
     public SizeF measureString(String text, java.awt.Font font) {
-        if (graphics == null)
+        if (graphics == null) {
             return new SizeF(30, text.length() * 5);
+        }
 
         FontMetrics metrics = graphics.getFontMetrics(font);
         int w = metrics.stringWidth(text);
@@ -70,4 +72,50 @@ public class Graphics {
         return new SizeF(h, w);
     }
 
+    public static void paintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
+        int x = Consts.ShipImageOffsets[ship.getType().castToInt()].getX();
+        int width = Consts.ShipImageOffsets[ship.getType().castToInt()].getWidth();
+
+        int startDamage = x + width - ship.getHull() * width / ship.getHullStrength();
+        int startShield = x + width + 2
+                - (ship.getShieldStrength() > 0 ? ship.getShieldCharge() * (width + 4) / ship.getShieldStrength() : 0);
+
+        graphics.clear(backgroundColor);
+
+        if (startDamage > x) {
+            if (startShield > x) {
+                drawPartialImage(graphics, ship.getImageDamaged(), x, Math.min(startDamage, startShield));
+            }
+            if (startShield < startDamage) {
+                drawPartialImage(graphics, ship.getImageDamagedWithShields(), startShield, startDamage);
+            }
+        }
+
+        if (startShield > startDamage) {
+            drawPartialImage(graphics, ship.getImage(), startDamage, startShield);
+        }
+        if (startShield < x + width + 2) {
+            drawPartialImage(graphics, ship.getImageWithShields(), startShield, x + width + 2);
+        }
+    }
+
+    private static void drawPartialImage(Graphics g, Image img, int start, int stop) {
+        g.drawImage(img, 2 + start, 2, new Rectangle(start, 0, stop - start, img.getHeight()), GraphicsUnit.PIXEL);
+    }
+
+    public static int getColumnOfFirstNonWhitePixel(Image image, int direction) {
+        Bitmap bitmap = new Bitmap(image);
+        int step = (direction < 0) ? -1 : 1;
+        int col = (step > 0) ? 0 : bitmap.getWidth() - 1;
+        int stop = (step > 0) ? bitmap.getWidth() : -1;
+
+        for (; col != stop; col += step) {
+            for (int row = 0; row < bitmap.getHeight(); row++) {
+                if (bitmap.toArgb(col, row) != 0) {
+                    return col;
+                }
+            }
+        }
+        return -1;
+    }
 }

@@ -25,10 +25,33 @@
 
 package spacetrader.gui;
 
-import spacetrader.controls.*;
+import static java.lang.Math.ceil;
+import static java.lang.Math.min;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
+import java.awt.Color;
+import java.awt.Point;
+import java.util.Arrays;
+import spacetrader.controls.BorderStyle;
 import spacetrader.controls.Button;
 import spacetrader.controls.Container;
+import spacetrader.controls.EventArgs;
+import spacetrader.controls.EventHandler;
+import spacetrader.controls.FlatStyle;
+import spacetrader.controls.FormBorderStyle;
+import spacetrader.controls.FormStartPosition;
+import spacetrader.controls.Graphics;
+import spacetrader.controls.IContainer;
+import spacetrader.controls.ImageList;
+import spacetrader.controls.ImageListStreamer;
 import spacetrader.controls.Label;
+import spacetrader.controls.PaintEventArgs;
+import spacetrader.controls.PictureBox;
+import spacetrader.controls.ResourceManager;
+import spacetrader.controls.Size;
+import spacetrader.controls.SystemColors;
+import spacetrader.controls.Timer;
 import spacetrader.game.Consts;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
@@ -38,11 +61,6 @@ import spacetrader.game.enums.EncounterResult;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.ReflectionUtils;
-
-import java.awt.*;
-import java.util.Arrays;
-
-import static java.lang.Math.*;
 
 @Facaded
 public class FormEncounter extends SpaceTraderForm {
@@ -804,11 +822,11 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void opponentsShipPicturePaint(PaintEventArgs e) {
-        Functions.paintShipImage(opponent, e.getGraphics(), opponentsShipPicture.getBackground());
+        Graphics.paintShipImage(opponent, e.getGraphics(), opponentsShipPicture.getBackground());
     }
 
     private void yourShipPicturePaint(PaintEventArgs e) {
-        Functions.paintShipImage(commanderShip, e.getGraphics(), yourShipPicture.getBackground());
+        Graphics.paintShipImage(commanderShip, e.getGraphics(), yourShipPicture.getBackground());
     }
 
     private void tribblePictureClick() {

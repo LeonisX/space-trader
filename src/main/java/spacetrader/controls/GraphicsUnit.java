@@ -4,52 +4,55 @@ public enum GraphicsUnit {
     /**
      * Specifies the world coordinate system unit as the unit of measure.
      */
-    World,
+    WORLD,
     /**
      * Specifies the unit of measure of the display device. Typically pixels for video displays, and 1/100 inch for printers.
      */
-    Display,
+    DISPLAY,
     /**
      * Specifies a device pixel as the unit of measure.
      */
-    Pixel,
+    PIXEL,
     /**
      * Specifies a printer's point (1/72 inch) as the unit of measure.
      */
-    Point,
+    POINT,
     /**
      * Specifies the inch as the unit of measure.
      */
-    Inch,
+    INCH,
     /**
      * Specifies the document unit (1/300 inch) as the unit of measure.
      */
-    Document,
+    DOCUMENT,
     /**
      * Specifies the millimeter as the unit of measure.
      */
-    Millimeter;
+    MILLIMETER;
 
-    private final static int dpi = java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
+    private final static int DPI = java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
 
     static float toPixels(GraphicsUnit sourceUnit) {
         switch (sourceUnit) {
-            case Display:
-            case Pixel:
+            case DISPLAY:
+            case PIXEL:
                 return 1;
 
-            case Inch:
-                return dpi;
-            case Millimeter:
-                return dpi / 254f;
+            case INCH:
+                return DPI;
 
-            case Point:
-                return dpi / 72f;
-            case Document:
-                return dpi / 300f;
+            case MILLIMETER:
+                return DPI / 254f;
 
-            case World:
-                throw new Error("Unsupported unit: I don't know what \"World\" means.");
+            case POINT:
+                return DPI / 72f;
+
+            case DOCUMENT:
+                return DPI / 300f;
+
+            case WORLD:
+                throw new Error("Unsupported unit: I don't know what \"WORLD\" means.");
+
             default:
                 throw new Error("Unsupported unit: " + sourceUnit);
         }

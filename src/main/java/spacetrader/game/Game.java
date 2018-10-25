@@ -211,9 +211,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (version.compareTo(Consts.CurrentVersion) > 0)
             throw new FutureVersionException();
 
-        _universe = (StarSystem[]) ArrayListToArray(getValueFromHash(hash, "_universe", ArrayList.class), "StarSystem");
+        _universe = (StarSystem[]) arrayListToArray(getValueFromHash(hash, "_universe", ArrayList.class), "StarSystem");
         _wormholes = getValueFromHash(hash, "_wormholes", _wormholes, int[].class);
-        _mercenaries = (CrewMember[]) ArrayListToArray(getValueFromHash(hash, "_mercenaries", ArrayList.class),
+        _mercenaries = (CrewMember[]) arrayListToArray(getValueFromHash(hash, "_mercenaries", ArrayList.class),
                 "CrewMember");
         _commander = new Commander(getValueFromHash(hash, "_commander", Hashtable.class));
         _dragonfly = new Ship(getValueFromHash(hash, "_dragonfly", _dragonfly.serialize(), Hashtable.class));
@@ -3760,7 +3760,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     public String getNewspaperText() {
         StarSystem curSys = getCommander().getCurrentSystem();
-        List items = new ArrayList();
+        List<String> items = new ArrayList<>();
 
         // We're //using the getRandom2 function so that the same number is
         // generated each time for the same
@@ -3834,7 +3834,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             }
         }
 
-        return String.join(Strings.newline + Strings.newline, Functions.arrayListToStringArray(items));
+        return String.join(Strings.newline + Strings.newline, items);
     }
 
     public GameOptions getOptions() {

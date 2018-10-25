@@ -97,9 +97,9 @@ public class Ship extends ShipSpec {
         _hull = getValueFromHash(hash, "_hull", Integer.class);
         _tribbles = getValueFromHash(hash, "_tribbles", _tribbles);
         _cargo = getValueFromHash(hash, "_cargo", _cargo, int[].class);
-        _weapons = (Weapon[]) ArrayListToArray(getValueFromHash(hash, "_weapons", ArrayList.class), "Weapon");
-        _shields = (Shield[]) ArrayListToArray(getValueFromHash(hash, "_shields", ArrayList.class), "Shield");
-        _gadgets = (Gadget[]) ArrayListToArray(getValueFromHash(hash, "_gadgets", ArrayList.class), "Gadget");
+        _weapons = (Weapon[]) arrayListToArray(getValueFromHash(hash, "_weapons", ArrayList.class), "Weapon");
+        _shields = (Shield[]) arrayListToArray(getValueFromHash(hash, "_shields", ArrayList.class), "Shield");
+        _gadgets = (Gadget[]) arrayListToArray(getValueFromHash(hash, "_gadgets", ArrayList.class), "Gadget");
         _pod = getValueFromHash(hash, "_pod", _pod);
 
         int[] crewIds = getValueFromHash(hash, "_crewIds", (new int[0]), int[].class);
@@ -612,8 +612,7 @@ public class Ship extends ShipSpec {
         if (isSculptureOnBoard())
             actions.add(Strings.EncounterPoliceSurrenderSculpt);
 
-        return actions.size() == 0 ? "" : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions
-                .formatList(Functions.arrayListToStringArray(actions)));
+        return actions.size() == 0 ? "" : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions.formatList(actions));
     }
 
     public String IllegalSpecialCargoDescription(String wrapper, boolean includePassengers, boolean includeTradeItems) {
@@ -631,7 +630,7 @@ public class Ship extends ShipSpec {
         if (includeTradeItems && DetectableIllegalCargo())
             items.add(Strings.EncounterPoliceSubmitGoods);
 
-        String allItems = Functions.formatList(Functions.arrayListToStringArray(items));
+        String allItems = Functions.formatList(items);
 
         if (allItems.length() > 0 && wrapper.length() > 0)
             allItems = Functions.stringVars(wrapper, allItems);
@@ -1015,7 +1014,7 @@ public class Ship extends ShipSpec {
                     max = getCrew()[crew].getSkills()[skill];
             }
 
-            skills[skill] = Math.max(1, Functions.adjustSkillForDifficulty(max));
+            skills[skill] = Math.max(1, Game.getCurrentGame().getDifficulty().adjustSkill(max));
         }
 
         // Adjust skills based on any gadgets on board.

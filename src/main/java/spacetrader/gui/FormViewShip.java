@@ -253,6 +253,6 @@ public class FormViewShip extends SpaceTraderForm {
         }
 
         specialCargoLabelValue.setText(specialCargo.size() == 0 ? Strings.SpecialCargoNone
-                : String.join(Strings.newline + Strings.newline, Functions.arrayListToStringArray(specialCargo)));
+                : String.join(Strings.newline + Strings.newline, specialCargo));
     }
 }

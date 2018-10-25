@@ -231,7 +231,7 @@ public class Consts {
             new Shield(ShieldType.LIGHTNING, 350, 45000, TechLevel.UNAVAILABLE, 0)
     };
 
-    static Rectangle[] ShipImageOffsets = new Rectangle[]{
+    public static Rectangle[] ShipImageOffsets = new Rectangle[]{
             // We only care about X and Width, so set Y and Height to 0.
             new Rectangle(22, 0, 19, 0), // Flea
             new Rectangle(18, 0, 27, 0), // Gnat

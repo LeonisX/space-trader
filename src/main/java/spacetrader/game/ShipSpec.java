@@ -27,6 +27,7 @@
 //using System.Drawing;
 package spacetrader.game;
 
+import spacetrader.controls.Graphics;
 import spacetrader.controls.Image;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiEngine;
@@ -194,10 +195,10 @@ public class ShipSpec extends STSerializableObject {
 
         // Find the first column of pixels that has a non-white pixel for the X
         // value, and the last column for the width.
-        int x = Functions.getColumnOfFirstNonWhitePixel(image, 1);
-        int width = Functions.getColumnOfFirstNonWhitePixel(image, -1) - x + 1;
-        Consts.ShipImageOffsets[custIndex].X = Math.max(2, x);
-        Consts.ShipImageOffsets[custIndex].Width = Math.min(62 - Consts.ShipImageOffsets[custIndex].X, width);
+        int x = Graphics.getColumnOfFirstNonWhitePixel(image, 1);
+        int width = Graphics.getColumnOfFirstNonWhitePixel(image, -1) - x + 1;
+        Consts.ShipImageOffsets[custIndex].setX(Math.max(2, x));
+        Consts.ShipImageOffsets[custIndex].setWidth(Math.min(62 - Consts.ShipImageOffsets[custIndex].getX(), width));
     }
 
     public int getCargoBays() {
@@ -301,12 +302,12 @@ public class ShipSpec extends STSerializableObject {
                 + Consts.ShipImgOffsetNormal];
     }
 
-    public Image ImageDamaged() {
+    public Image getImageDamaged() {
         return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
                 + Consts.ShipImgOffsetDamage];
     }
 
-    public Image ImageDamagedWithShields() {
+    public Image getImageDamagedWithShields() {
         return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
                 + Consts.ShipImgOffsetShieldDamage];
     }
@@ -319,7 +320,7 @@ public class ShipSpec extends STSerializableObject {
         _imageIndex = (value == getType().castToInt() ? Consts.ShipImgUseDefault : value);
     }
 
-    public Image ImageWithShields() {
+    public Image getImageWithShields() {
         return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
                 + Consts.ShipImgOffsetShield];
     }

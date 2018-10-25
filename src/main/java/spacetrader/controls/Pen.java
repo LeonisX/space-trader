@@ -4,9 +4,13 @@ import java.awt.*;
 
 public class Pen {
 
-    public final Color color;
+    private final Color color;
 
     public Pen(Color color) {
         this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

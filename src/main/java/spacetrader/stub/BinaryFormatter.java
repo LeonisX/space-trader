@@ -4,7 +4,7 @@ import java.io.*;
 
 public class BinaryFormatter {
 
-    public Object Deserialize(FileInputStream inStream) throws SerializationException, IOException {
+    public Object deserialize(FileInputStream inStream) throws SerializationException, IOException {
         try {
             return new ObjectInputStream(inStream).readObject();
         } catch (ClassNotFoundException e) {
@@ -12,7 +12,7 @@ public class BinaryFormatter {
         }
     }
 
-    public void Serialize(FileOutputStream outStream, Object toSerialize) throws IOException {
+    public void serialize(FileOutputStream outStream, Object toSerialize) throws IOException {
         new ObjectOutputStream(outStream).writeObject(toSerialize);
     }
 
