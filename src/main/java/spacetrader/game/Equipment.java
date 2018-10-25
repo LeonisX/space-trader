@@ -68,7 +68,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
         return getName();
     }
 
-    public abstract boolean TypeEquals(Object type);
+    public abstract boolean isTypeEquals(Object type);
 
     private int getBaseImageIndex() {
         switch (getEquipmentType()) {

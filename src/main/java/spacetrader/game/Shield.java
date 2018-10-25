@@ -71,7 +71,7 @@ public class Shield extends Equipment {
         return hash;
     }
 
-    public boolean TypeEquals(Object type) {
+    public boolean isTypeEquals(Object type) {
         try {
             return (getType() == (ShieldType) type);
         } catch (Exception e) {

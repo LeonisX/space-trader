@@ -678,7 +678,7 @@ public class Ship extends ShipSpec {
         Equipment[] equip = getEquipmentsByType(type);
 
         for (int i = 0; i < equip.length && !found; i++) {
-            if (equip[i] != null && equip[i].TypeEquals(subType)) {
+            if (equip[i] != null && equip[i].isTypeEquals(subType)) {
                 removeEquipment(type, i);
                 found = true;
             }
@@ -1019,8 +1019,8 @@ public class Ship extends ShipSpec {
 
         // Adjust skills based on any gadgets on board.
         for (int i = 0; i < getGadgets().length; i++) {
-            if (getGadgets()[i] != null && getGadgets()[i].SkillBonus() != SkillType.NA)
-                skills[getGadgets()[i].SkillBonus().castToInt()] += Consts.SkillBonus;
+            if (getGadgets()[i] != null && getGadgets()[i].getSkillBonus() != SkillType.NA)
+                skills[getGadgets()[i].getSkillBonus().castToInt()] += Consts.SkillBonus;
         }
 
         return skills;

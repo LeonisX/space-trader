@@ -77,7 +77,7 @@ public class Weapon extends Equipment {
     }
 
     public @Override
-    boolean TypeEquals(Object type) {
+    boolean isTypeEquals(Object type) {
         boolean equal = false;
 
         try {

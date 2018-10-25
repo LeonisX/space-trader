@@ -208,8 +208,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         _parentWin = parentWin;
 
         String version = getValueFromHash(hash, "_version", String.class);
-        if (version.compareTo(Consts.CurrentVersion) > 0)
+        if (version.compareTo(Consts.CurrentVersion) > 0) {
             throw new FutureVersionException();
+        }
 
         _universe = (StarSystem[]) arrayListToArray(getValueFromHash(hash, "_universe", ArrayList.class), "StarSystem");
         _wormholes = getValueFromHash(hash, "_wormholes", _wormholes, int[].class);
