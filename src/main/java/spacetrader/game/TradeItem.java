@@ -134,8 +134,8 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
     // #region Properties
 
     public boolean Illegal() {
-        return Type() == TradeItemType.Firearms
-                || Type() == TradeItemType.Narcotics;
+        return Type() == TradeItemType.FIREARMS
+                || Type() == TradeItemType.NARCOTICS;
 
     }
 

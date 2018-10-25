@@ -95,7 +95,7 @@ public class StarSystem extends STSerializableObject {
 
                 // Because of the enormous profits possible, there shouldn't be
                 // too many robots or narcotics available.
-                if (i >= TradeItemType.Narcotics.castToInt())
+                if (i >= TradeItemType.NARCOTICS.castToInt())
                     _tradeItems[i] = ((_tradeItems[i] *
                             (5 - Game.getCurrentGame()
                                     .getDifficulty()
@@ -124,14 +124,16 @@ public class StarSystem extends STSerializableObject {
     }
 
     public boolean itemTraded(TradeItem item) {
-        return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
+        return ((item.Type() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
+                && (item.Type() != TradeItemType.FIREARMS
+                || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
                 .TechProduction().castToInt());
     }
 
     boolean itemUsed(TradeItem item) {
-        return ((item.Type() != TradeItemType.Narcotics || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.Firearms || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
+        return ((item.Type() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
+                && (item.Type() != TradeItemType.FIREARMS
+                || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
                 .TechUsage().castToInt());
     }
 
@@ -375,7 +377,7 @@ public class StarSystem extends STSerializableObject {
     }
 
     public SpecialResource getSpecialResource() {
-        return isVisited() ? _specialResource : SpecialResource.Nothing;
+        return isVisited() ? _specialResource : SpecialResource.NOTHING;
     }
 
     public SystemPressure getSystemPressure() {

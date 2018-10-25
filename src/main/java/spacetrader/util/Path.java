@@ -4,7 +4,7 @@ package spacetrader.util;
 import java.io.File;
 
 public class Path {
-    public static String Combine(String baseDirectory, String subdir) {
+    public static String combine(String baseDirectory, String subdir) {
         return baseDirectory + File.separator + subdir;
     }
 

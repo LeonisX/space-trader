@@ -308,7 +308,7 @@ public class ShipSpec extends STSerializableObject {
 
     public Image ImageDamagedWithShields() {
         return GuiEngine.getImageProvider().getShipImages().getImages()[getImageIndex() * Consts.ImagesPerShip
-                + Consts.ShipImgOffsetSheildDamage];
+                + Consts.ShipImgOffsetShieldDamage];
     }
 
     public int getImageIndex() {

@@ -446,8 +446,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (ship.getTribbles() > 0) {
             int previousTribbles = ship.getTribbles();
-            int narc = TradeItemType.Narcotics.castToInt();
-            int food = TradeItemType.Food.castToInt();
+            int narc = TradeItemType.NARCOTICS.castToInt();
+            int food = TradeItemType.FOOD.castToInt();
 
             if (ship.isReactorOnBoard()) {
                 if (ship.getTribbles() < 20) {
@@ -462,7 +462,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 getCommander().getPriceCargo()[narc] = getCommander().getPriceCargo()[narc] * (ship.getCargo()[narc] - dead)
                         / ship.getCargo()[narc];
                 ship.getCargo()[narc] -= dead;
-                ship.getCargo()[TradeItemType.Furs.castToInt()] += dead;
+                ship.getCargo()[TradeItemType.FURS.castToInt()] += dead;
                 ship.setTribbles(ship.getTribbles()
                         - Math.min(dead * (Functions.getRandom(5) + 98), ship.getTribbles() - 1));
                 GuiFacade.alert(AlertType.TribblesMostDied);
@@ -541,9 +541,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         for (int i = 0; i < getUniverse().length; i++) {
             if (Functions.getRandom(100) < 15)
                 getUniverse()[i].setSystemPressure((SystemPressure
-                        .fromInt(getUniverse()[i].getSystemPressure() == SystemPressure.None ? Functions.getRandom(
-                                SystemPressure.War.castToInt(), SystemPressure.Employment.castToInt() + 1)
-                                : SystemPressure.None.castToInt())));
+                        .fromInt(getUniverse()[i].getSystemPressure() == SystemPressure.NONE ? Functions.getRandom(
+                                SystemPressure.WAR.castToInt(), SystemPressure.EMPLOYMENT.castToInt() + 1)
+                                : SystemPressure.NONE.castToInt())));
 
             if (getUniverse()[i].CountDown() > 0) {
                 getUniverse()[i].CountDown(getUniverse()[i].CountDown() - 1);
@@ -1376,7 +1376,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     GenerateOpponent(OpponentType.Trader);
                     for (int i = 0; i < getOpponent().getCargo().length; i++)
                         getOpponent().getCargo()[i] = 0;
-                    getOpponent().getCargo()[TradeItemType.Narcotics.castToInt()] = Math.min(getOpponent().getCargoBays(), 5);
+                    getOpponent().getCargo()[TradeItemType.NARCOTICS
+                            .castToInt()] = Math.min(getOpponent().getCargoBays(), 5);
 
                     showEncounter = true;
                 }
@@ -2022,11 +2023,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (GuiFacade.alert(AlertType.EncounterMarieCeleste) == DialogResult.YES) {
             board = true;
 
-            int narcs = getCommander().getShip().getCargo()[TradeItemType.Narcotics.castToInt()];
+            int narcs = getCommander().getShip().getCargo()[TradeItemType.NARCOTICS.castToInt()];
 
             GuiFacade.performPlundering();
 
-            if (getCommander().getShip().getCargo()[TradeItemType.Narcotics.castToInt()] > narcs)
+            if (getCommander().getShip().getCargo()[TradeItemType.NARCOTICS.castToInt()] > narcs)
                 setJustLootedMarie(true);
         }
 
@@ -2454,8 +2455,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         for (i = 0; i < getUniverse().length; i++) {
             StarSystemId id = (StarSystemId.fromInt(i));
-            SystemPressure pressure = SystemPressure.None;
-            SpecialResource specRes = SpecialResource.Nothing;
+            SystemPressure pressure = SystemPressure.NONE;
+            SpecialResource specRes = SpecialResource.NOTHING;
             Size size = Size.fromInt(Functions.getRandom(Size.Huge.castToInt() + 1));
             PoliticalSystem polSys = Consts.PoliticalSystems[Functions.getRandom(Consts.PoliticalSystems.length)];
             TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.MinimumTechLevel().castToInt(), polSys
@@ -2464,16 +2465,16 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             // Galvon must be a Monarchy.
             if (id == StarSystemId.Galvon) {
                 size = Size.Large;
-                polSys = Consts.PoliticalSystems[PoliticalSystemType.Monarchy.castToInt()];
+                polSys = Consts.PoliticalSystems[PoliticalSystemType.MONARCHY.castToInt()];
                 tech = TechLevel.HI_TECH;
             }
 
             if (Functions.getRandom(100) < 15)
-                pressure = SystemPressure.fromInt(Functions.getRandom(SystemPressure.War.castToInt(),
-                        SystemPressure.Employment.castToInt() + 1));
+                pressure = SystemPressure.fromInt(Functions.getRandom(SystemPressure.WAR.castToInt(),
+                        SystemPressure.EMPLOYMENT.castToInt() + 1));
             if (Functions.getRandom(5) >= 3)
-                specRes = SpecialResource.fromInt(Functions.getRandom(SpecialResource.MineralRich.castToInt(),
-                        SpecialResource.Warlike.castToInt() + 1));
+                specRes = SpecialResource.fromInt(Functions.getRandom(SpecialResource.MINERAL_RICH.castToInt(),
+                        SpecialResource.WARLIKE.castToInt() + 1));
 
             int x = 0;
             int y = 0;
@@ -2846,7 +2847,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 StarSystem gemulon = getUniverse()[StarSystemId.Gemulon.castToInt()];
                 gemulon.setSpecialEventType(SpecialEventType.GemulonInvaded);
                 gemulon.setTechLevel(TechLevel.PRE_AGRICULTURAL);
-                gemulon.PoliticalSystemType(PoliticalSystemType.Anarchy);
+                gemulon.PoliticalSystemType(PoliticalSystemType.ANARCHY);
             }
         }
 
@@ -3771,7 +3772,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     new String[]{getCommander().getName(), getCommander().getCurrentSystem().getName(),
                             getCommander().getShip().getName()}));
 
-        if (curSys.getSystemPressure() != SystemPressure.None)
+        if (curSys.getSystemPressure() != SystemPressure.NONE)
             items.add(Strings.NewsPressureInternal[curSys.getSystemPressure().castToInt()]);
 
         if (getCommander().getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
@@ -3805,7 +3806,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     items.add(Functions.stringVars(Strings.NewsShipyard, getUniverse()[i].getName()));
 
                 // And not-always-shown stories
-                if (getUniverse()[i].getSystemPressure() != SystemPressure.None
+                if (getUniverse()[i].getSystemPressure() != SystemPressure.NONE
                         && Functions.getRandom2(100) <= Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10
                         * (5 - getDifficulty().castToInt())) {
                     int index = Functions.getRandom2(Strings.NewsPressureExternal.length);

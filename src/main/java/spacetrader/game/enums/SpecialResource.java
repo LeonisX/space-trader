@@ -1,27 +1,27 @@
 package spacetrader.game.enums;
 
-public enum SpecialResource implements SpaceTraderEnum// : int
-{
+public enum SpecialResource implements SpaceTraderEnum {
+
     NA, // = -1,
-    Nothing, // = 0,
-    MineralRich, // = 1,
-    MineralPoor, // = 2,
-    Desert, // = 3,
-    SweetOceans, // = 4,
-    RichSoil, // = 5,
-    PoorSoil, // = 6,
-    RichFauna, // = 7,
-    Lifeless, // = 8,
-    WeirdMushrooms, // = 9,
-    SpecialHerbs, // = 10,
-    Artistic, // = 11,
-    Warlike, // = 12
-    ;
+    NOTHING, // = 0,
+    MINERAL_RICH, // = 1,
+    MINERAL_POOR, // = 2,
+    DESERT, // = 3,
+    SWEET_OCEANS, // = 4,
+    RICH_SOIL, // = 5,
+    POOR_SOIL, // = 6,
+    RICH_FAUNA, // = 7,
+    LIFELESS, // = 8,
+    WEIRD_MUSHROOMS, // = 9,
+    SPECIAL_HERBS, // = 10,
+    ARTISTIC, // = 11,
+    WARLIKE; // = 12
 
     public static SpecialResource fromInt(int i) {
         return values()[i + 1];
     }
 
+    @Override
     public int castToInt() {
         return ordinal() - 1;
     }

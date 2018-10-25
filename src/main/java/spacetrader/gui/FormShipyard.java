@@ -39,7 +39,6 @@ import spacetrader.util.Hashtable;
 import spacetrader.util.Path;
 import spacetrader.util.ReflectionUtils;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class FormShipyard extends SpaceTraderForm {
@@ -1060,7 +1059,7 @@ public class FormShipyard extends SpaceTraderForm {
                 customImages[Consts.ShipImgOffsetNormal] = image;
                 customImages[Consts.ShipImgOffsetDamage] = imageDamaged;
                 customImages[Consts.ShipImgOffsetShield] = imageShields;
-                customImages[Consts.ShipImgOffsetSheildDamage] = imageShieldsDamaged;
+                customImages[Consts.ShipImgOffsetShieldDamage] = imageShieldsDamaged;
             }
 
             imgIndex = imgTypes.length - 1;

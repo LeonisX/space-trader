@@ -2,14 +2,14 @@ package spacetrader.game.enums;
 
 public enum Activity implements SpaceTraderEnum {
 
-    Absent, // = 0,
-    Minimal, // = 1,
-    Few, // = 2,
-    Some, // = 3,
-    Moderate, // = 4,
-    Many, // = 5,
-    Abundant, // = 6,
-    Swarms, // = 7,
+    ABSENT, // = 0,
+    MINIMAL, // = 1,
+    FEW, // = 2,
+    SOME, // = 3,
+    MODERATE, // = 4,
+    MANY, // = 5,
+    ABUNDANT, // = 6,
+    SWARMS, // = 7,
     NA;// = 100
 
     public static Activity fromInt(int i) {

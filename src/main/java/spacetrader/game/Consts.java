@@ -25,11 +25,27 @@
 package spacetrader.game;
 
 import spacetrader.controls.Rectangle;
-import spacetrader.game.enums.*;
+import spacetrader.game.enums.Activity;
+import spacetrader.game.enums.CrewMemberId;
+import spacetrader.game.enums.GadgetType;
+import spacetrader.game.enums.PoliceRecordType;
+import spacetrader.game.enums.PoliticalSystemType;
+import spacetrader.game.enums.ReputationType;
+import spacetrader.game.enums.ShieldType;
+import spacetrader.game.enums.ShipType;
+import spacetrader.game.enums.ShipyardId;
+import spacetrader.game.enums.ShipyardSkill;
+import spacetrader.game.enums.Size;
+import spacetrader.game.enums.SkillType;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.enums.SpecialResource;
+import spacetrader.game.enums.SystemPressure;
+import spacetrader.game.enums.TechLevel;
+import spacetrader.game.enums.TradeItemType;
+import spacetrader.game.enums.WeaponType;
 import spacetrader.util.Path;
 
 public class Consts {
-    // #region Individual Constants
 
     public static final String CurrentVersion = "2.00";
     // Price paid by government for each negative PoliceScore point
@@ -57,25 +73,31 @@ public class Consts {
     public static final int MaxSlots = 5;
     public static final int FleaConversionCost = 500;
     public static final int PodTransferCost = 200;
+
     public static final int ImagesPerShip = 4;
     public static final int ShipImgOffsetNormal = 0;
     public static final int ShipImgOffsetDamage = 1;
     public static final int ShipImgOffsetShield = 2;
-    public static final int ShipImgOffsetSheildDamage = 3;
+    public static final int ShipImgOffsetShieldDamage = 3;
     public static final int ShipImgUseDefault = -1;
+
     public static final int EncounterImgAlien = 0;
     public static final int EncounterImgPirate = 1;
     public static final int EncounterImgPolice = 2;
     public static final int EncounterImgSpecial = 3;
     public static final int EncounterImgTrader = 4;
+
     public static final int StoryProbability = 50 / 8;
     public static final int FabricRipInitialProbability = 25;
+
     public static final int DirectionUp = 0;
     public static final int DirectionDown = 1;
     public static final int DirectionLeft = 2;
     public static final int DirectionRight = 3;
+
     public static final int DisruptorSystemsMultiplier = 3;
     public static final int MaxTribbles = 100000;
+
     public static final int PoliceRecordScorePsychopath = -100;
     public static final int PoliceRecordScoreVillain = -70;
     public static final int PoliceRecordScoreCriminal = -30;
@@ -86,6 +108,7 @@ public class Consts {
     public static final int PoliceRecordScoreTrusted = 10;
     public static final int PoliceRecordScoreLiked = 25;
     public static final int PoliceRecordScoreHero = 75;
+
     public static final int ReputationScoreHarmless = 0;
     public static final int ReputationScoreMostlyHarmless = 10;
     public static final int ReputationScorePoor = 20;
@@ -95,6 +118,7 @@ public class Consts {
     public static final int ReputationScoreDangerous = 300;
     public static final int ReputationScoreDeadly = 600;
     public static final int ReputationScoreElite = 1500;
+
     public static final int ScoreAttackPirate = 0;
     public static final int ScoreAttackPolice = -3;
     public static final int ScoreAttackTrader = -2;
@@ -107,162 +131,107 @@ public class Consts {
     public static final int ScorePlunderPirate = -1;
     public static final int ScorePlunderTrader = -2;
     public static final int ScoreTrafficking = -1;
+
     public static final String ShipTemplateSeparator = "----------------------------";
+
     // Directory structure and File Constants.
     public static String BaseDirectory = System.getProperty("user.dir");
-    public static String CustomDirectory = Path
-            .Combine(BaseDirectory, "custom");
-    public static String DataDirectory = Path.Combine(BaseDirectory, "data");
-    public static String SaveDirectory = Path.Combine(BaseDirectory, "save");
-    public static String CustomImagesDirectory = Path.Combine(CustomDirectory,
-            "images");
-    public static String CustomTemplatesDirectory = Path.Combine(
-            CustomDirectory, "templates");
-    public static String HighScoreFile = Path.Combine(DataDirectory,
-            "HighScores.bin");
-    public static String DefaultSettingsFile = Path.Combine(DataDirectory,
-            "DefaultSettings.bin");
-    // #endregion
+    public static String CustomDirectory = Path.combine(BaseDirectory, "custom");
+    public static String DataDirectory = Path.combine(BaseDirectory, "data");
+    public static String SaveDirectory = Path.combine(BaseDirectory, "save");
+    public static String CustomImagesDirectory = Path.combine(CustomDirectory, "images");
+    public static String CustomTemplatesDirectory = Path.combine(CustomDirectory, "templates");
+    public static String HighScoreFile = Path.combine(DataDirectory, "HighScores.bin");
+    public static String DefaultSettingsFile = Path.combine(DataDirectory, "DefaultSettings.bin");
 
-    // #region Constant Arrays
     // TODO many of these can become enums.
-    // #region Gadgets
     public static Gadget[] Gadgets = new Gadget[]{
-            new Gadget(GadgetType.EXTRA_CARGO_BAYS, SkillType.NA, 2500,
-                    TechLevel.EARLY_INDUSTRIAL, 35), // 5 extra holds
-            new Gadget(GadgetType.AUTO_REPAIR_SYSTEM, SkillType.ENGINEER, 7500,
-                    TechLevel.INDUSTRIAL, 20), // Increases engineer's
-            // effectivity
-            new Gadget(GadgetType.NAVIGATING_SYSTEM, SkillType.PILOT, 15000,
-                    TechLevel.POST_INDUSTRIAL, 20), // Increases pilot's
-            // effectivity
-            new Gadget(GadgetType.TARGETING_SYSTEM, SkillType.FIGHTER, 25000,
-                    TechLevel.POST_INDUSTRIAL, 20), // Increases fighter's
-            // effectivity
-            new Gadget(GadgetType.CLOAKING_DEVICE, SkillType.PILOT, 100000,
-                    TechLevel.HI_TECH, 5), // If you have a good engineer,
-            // neither pirates nor police will
-            // notice you
+            // 5 extra holds
+            new Gadget(GadgetType.EXTRA_CARGO_BAYS, SkillType.NA, 2500, TechLevel.EARLY_INDUSTRIAL, 35),
+            // Increases engineer's efficiency
+            new Gadget(GadgetType.AUTO_REPAIR_SYSTEM, SkillType.ENGINEER, 7500, TechLevel.INDUSTRIAL, 20),
+            // Increases pilot's efficiency
+            new Gadget(GadgetType.NAVIGATING_SYSTEM, SkillType.PILOT, 15000, TechLevel.POST_INDUSTRIAL, 20),
+            // Increases fighter's efficiency
+            new Gadget(GadgetType.TARGETING_SYSTEM, SkillType.FIGHTER, 25000, TechLevel.POST_INDUSTRIAL, 20),
+            // If you have a good engineer, neither pirates nor police will notice you
+            new Gadget(GadgetType.CLOAKING_DEVICE, SkillType.PILOT, 100000, TechLevel.HI_TECH, 5),
             // The gadgets below can't be bought
-            new Gadget(GadgetType.FUEL_COMPACTOR, SkillType.NA, 30000,
-                    TechLevel.UNAVAILABLE, 0),
-            new Gadget(GadgetType.HIDDEN_CARGO_BAYS, SkillType.NA, 60000,
-                    TechLevel.UNAVAILABLE, 0)};
-    // #endregion
+            new Gadget(GadgetType.FUEL_COMPACTOR, SkillType.NA, 30000, TechLevel.UNAVAILABLE, 0),
+            new Gadget(GadgetType.HIDDEN_CARGO_BAYS, SkillType.NA, 60000, TechLevel.UNAVAILABLE, 0)
+    };
 
-    // #region PoliceRecords
-    public static PoliceRecord[] PoliceRecords = new PoliceRecord[]{
-            new PoliceRecord(PoliceRecordType.Psychopath,
-                    PoliceRecordScorePsychopath),
+    static PoliceRecord[] PoliceRecords = new PoliceRecord[]{
+            new PoliceRecord(PoliceRecordType.Psychopath, PoliceRecordScorePsychopath),
             new PoliceRecord(PoliceRecordType.Villain, PoliceRecordScoreVillain),
-            new PoliceRecord(PoliceRecordType.Criminal,
-                    PoliceRecordScoreCriminal),
+            new PoliceRecord(PoliceRecordType.Criminal, PoliceRecordScoreCriminal),
             new PoliceRecord(PoliceRecordType.Crook, PoliceRecordScoreCrook),
             new PoliceRecord(PoliceRecordType.Dubious, PoliceRecordScoreDubious),
             new PoliceRecord(PoliceRecordType.Clean, PoliceRecordScoreClean),
             new PoliceRecord(PoliceRecordType.Lawful, PoliceRecordScoreLawful),
             new PoliceRecord(PoliceRecordType.Trusted, PoliceRecordScoreTrusted),
             new PoliceRecord(PoliceRecordType.Liked, PoliceRecordScoreLiked),
-            new PoliceRecord(PoliceRecordType.Hero, PoliceRecordScoreHero)};
-    // #endregion
+            new PoliceRecord(PoliceRecordType.Hero, PoliceRecordScoreHero)
+    };
 
-    // #region PoliticalSystems
-    public static PoliticalSystem[] PoliticalSystems = new PoliticalSystem[]{
-            new PoliticalSystem(PoliticalSystemType.Anarchy, 0,
-                    Activity.Absent, Activity.Swarms, Activity.Minimal,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.INDUSTRIAL, 7, true,
-                    true, TradeItemType.Food),
-            new PoliticalSystem(PoliticalSystemType.Capitalist, 2,
-                    Activity.Some, Activity.Few, Activity.Swarms,
-                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 1, true, true,
-                    TradeItemType.Ore),
-            new PoliticalSystem(PoliticalSystemType.Communist, 6,
-                    Activity.Abundant, Activity.Moderate, Activity.Moderate,
-                    TechLevel.AGRICULTURAL, TechLevel.INDUSTRIAL, 5, true,
-                    true, TradeItemType.NA),
-            new PoliticalSystem(PoliticalSystemType.Confederacy, 5,
-                    Activity.Moderate, Activity.Some, Activity.Many,
-                    TechLevel.AGRICULTURAL, TechLevel.POST_INDUSTRIAL, 3, true,
-                    true, TradeItemType.Games),
-            new PoliticalSystem(PoliticalSystemType.Corporate, 2,
-                    Activity.Abundant, Activity.Few, Activity.Swarms,
-                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 2, true, true,
-                    TradeItemType.Robots),
-            new PoliticalSystem(PoliticalSystemType.Cybernetic, 0,
-                    Activity.Swarms, Activity.Swarms, Activity.Many,
-                    TechLevel.POST_INDUSTRIAL, TechLevel.HI_TECH, 0, false,
-                    false, TradeItemType.Ore),
-            new PoliticalSystem(PoliticalSystemType.Democracy, 4,
-                    Activity.Some, Activity.Few, Activity.Many,
-                    TechLevel.RENAISSANCE, TechLevel.HI_TECH, 2, true, true,
-                    TradeItemType.Games),
-            new PoliticalSystem(PoliticalSystemType.Dictatorship, 3,
-                    Activity.Moderate, Activity.Many, Activity.Some,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.HI_TECH, 2, true, true,
-                    TradeItemType.NA),
-            new PoliticalSystem(PoliticalSystemType.Fascist, 7,
-                    Activity.Swarms, Activity.Swarms, Activity.Minimal,
-                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 0, false,
-                    true, TradeItemType.Machines),
-            new PoliticalSystem(PoliticalSystemType.Feudal, 1,
-                    Activity.Minimal, Activity.Abundant, Activity.Few,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.RENAISSANCE, 6, true,
-                    true, TradeItemType.Firearms),
-            new PoliticalSystem(PoliticalSystemType.Military, 7,
-                    Activity.Swarms, Activity.Absent, Activity.Abundant,
-                    TechLevel.MEDIEVAL, TechLevel.HI_TECH, 0, false, true,
-                    TradeItemType.Robots),
-            new PoliticalSystem(PoliticalSystemType.Monarchy, 3,
-                    Activity.Moderate, Activity.Some, Activity.Moderate,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.INDUSTRIAL, 4, true,
-                    true, TradeItemType.Medicine),
-            new PoliticalSystem(PoliticalSystemType.Pacifist, 7, Activity.Few,
-                    Activity.Minimal, Activity.Many, TechLevel.PRE_AGRICULTURAL,
-                    TechLevel.RENAISSANCE, 1, true, false, TradeItemType.NA),
-            new PoliticalSystem(PoliticalSystemType.Socialist, 4, Activity.Few,
-                    Activity.Many, Activity.Some, TechLevel.PRE_AGRICULTURAL,
-                    TechLevel.INDUSTRIAL, 6, true, true, TradeItemType.NA),
-            new PoliticalSystem(PoliticalSystemType.Satori, 0,
-                    Activity.Minimal, Activity.Minimal, Activity.Minimal,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.AGRICULTURAL, 0,
-                    false, false, TradeItemType.NA),
-            new PoliticalSystem(PoliticalSystemType.Technocracy, 1,
-                    Activity.Abundant, Activity.Some, Activity.Abundant,
-                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 2, true, true,
-                    TradeItemType.Water),
-            new PoliticalSystem(PoliticalSystemType.Theocracy, 5,
-                    Activity.Abundant, Activity.Minimal, Activity.Moderate,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.EARLY_INDUSTRIAL, 0,
-                    true, true, TradeItemType.Narcotics)};
-    // #endregion
+    static PoliticalSystem[] PoliticalSystems = new PoliticalSystem[]{
+            new PoliticalSystem(PoliticalSystemType.ANARCHY, 0, Activity.ABSENT, Activity.SWARMS, Activity.MINIMAL,
+                    TechLevel.PRE_AGRICULTURAL, TechLevel.INDUSTRIAL, 7, true, true, TradeItemType.FOOD),
+            new PoliticalSystem(PoliticalSystemType.CAPITALIST, 2, Activity.SOME, Activity.FEW, Activity.SWARMS,
+                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 1, true, true, TradeItemType.ORE),
+            new PoliticalSystem(PoliticalSystemType.COMMUNIST, 6, Activity.ABUNDANT, Activity.MODERATE,
+                    Activity.MODERATE, TechLevel.AGRICULTURAL, TechLevel.INDUSTRIAL, 5, true, true, TradeItemType.NA),
+            new PoliticalSystem(PoliticalSystemType.CONFEDERACY, 5, Activity.MODERATE, Activity.SOME, Activity.MANY,
+                    TechLevel.AGRICULTURAL, TechLevel.POST_INDUSTRIAL, 3, true, true, TradeItemType.Games),
+            new PoliticalSystem(PoliticalSystemType.CORPORATE, 2, Activity.ABUNDANT, Activity.FEW, Activity.SWARMS,
+                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 2, true, true, TradeItemType.ROBOTS),
+            new PoliticalSystem(PoliticalSystemType.CYBERNETIC, 0, Activity.SWARMS, Activity.SWARMS, Activity.MANY,
+                    TechLevel.POST_INDUSTRIAL, TechLevel.HI_TECH, 0, false, false, TradeItemType.ORE),
+            new PoliticalSystem(PoliticalSystemType.DEMOCRACY, 4, Activity.SOME, Activity.FEW, Activity.MANY,
+                    TechLevel.RENAISSANCE, TechLevel.HI_TECH, 2, true, true, TradeItemType.Games),
+            new PoliticalSystem(PoliticalSystemType.DICTATORSHIP, 3, Activity.MODERATE, Activity.MANY, Activity.SOME,
+                    TechLevel.PRE_AGRICULTURAL, TechLevel.HI_TECH, 2, true, true, TradeItemType.NA),
+            new PoliticalSystem(PoliticalSystemType.FASCIST, 7, Activity.SWARMS, Activity.SWARMS, Activity.MINIMAL,
+                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 0, false, true, TradeItemType.MACHINES),
+            new PoliticalSystem(PoliticalSystemType.FEUDAL, 1, Activity.MINIMAL, Activity.ABUNDANT, Activity.FEW,
+                    TechLevel.PRE_AGRICULTURAL, TechLevel.RENAISSANCE, 6, true, true, TradeItemType.FIREARMS),
+            new PoliticalSystem(PoliticalSystemType.MILITARY, 7, Activity.SWARMS, Activity.ABSENT, Activity.ABUNDANT,
+                    TechLevel.MEDIEVAL, TechLevel.HI_TECH, 0, false, true, TradeItemType.ROBOTS),
+            new PoliticalSystem(PoliticalSystemType.MONARCHY, 3, Activity.MODERATE, Activity.SOME, Activity.MODERATE,
+                    TechLevel.PRE_AGRICULTURAL, TechLevel.INDUSTRIAL, 4, true, true, TradeItemType.MEDICINE),
+            new PoliticalSystem(PoliticalSystemType.PACIFIST, 7, Activity.FEW, Activity.MINIMAL, Activity.MANY,
+                    TechLevel.PRE_AGRICULTURAL, TechLevel.RENAISSANCE, 1, true, false, TradeItemType.NA),
+            new PoliticalSystem(PoliticalSystemType.SOCIALIST, 4, Activity.FEW, Activity.MANY, Activity.SOME,
+                    TechLevel.PRE_AGRICULTURAL, TechLevel.INDUSTRIAL, 6, true, true, TradeItemType.NA),
+            new PoliticalSystem(PoliticalSystemType.SATORI, 0, Activity.MINIMAL, Activity.MINIMAL, Activity.MINIMAL,
+                    TechLevel.PRE_AGRICULTURAL, TechLevel.AGRICULTURAL, 0, false, false, TradeItemType.NA),
+            new PoliticalSystem(PoliticalSystemType.TECHNOCRACY, 1, Activity.ABUNDANT, Activity.SOME, Activity.ABUNDANT,
+                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 2, true, true, TradeItemType.WATER),
+            new PoliticalSystem(PoliticalSystemType.THEOCRACY, 5, Activity.ABUNDANT, Activity.MINIMAL,
+                    Activity.MODERATE, TechLevel.PRE_AGRICULTURAL, TechLevel.EARLY_INDUSTRIAL, 0, true, true,
+                    TradeItemType.NARCOTICS)
+    };
 
-    // #region Reputations
-    public static Reputation[] Reputations = new Reputation[]{
-            new Reputation(ReputationType.Harmless, ReputationScoreHarmless),
-            new Reputation(ReputationType.MostlyHarmless,
-                    ReputationScoreMostlyHarmless),
-            new Reputation(ReputationType.Poor, ReputationScorePoor),
-            new Reputation(ReputationType.Average, ReputationScoreAverage),
-            new Reputation(ReputationType.AboveAverage,
-                    ReputationScoreAboveAverage),
-            new Reputation(ReputationType.Competent, ReputationScoreCompetent),
-            new Reputation(ReputationType.Dangerous, ReputationScoreDangerous),
-            new Reputation(ReputationType.Deadly, ReputationScoreDeadly),
-            new Reputation(ReputationType.Elite, ReputationScoreElite)};
-    // #endregion
+    static Reputation[] Reputations = new Reputation[]{
+            new Reputation(ReputationType.HARMLESS, ReputationScoreHarmless),
+            new Reputation(ReputationType.MOSTLY_HARMLESS, ReputationScoreMostlyHarmless),
+            new Reputation(ReputationType.POOR, ReputationScorePoor),
+            new Reputation(ReputationType.AVERAGE, ReputationScoreAverage),
+            new Reputation(ReputationType.ABOVE_AVERAGE, ReputationScoreAboveAverage),
+            new Reputation(ReputationType.COMPETENT, ReputationScoreCompetent),
+            new Reputation(ReputationType.DANGEROUS, ReputationScoreDangerous),
+            new Reputation(ReputationType.DEADLY, ReputationScoreDeadly),
+            new Reputation(ReputationType.ELITE, ReputationScoreElite)
+    };
 
-    // #region Shields
     public static Shield[] Shields = new Shield[]{
             new Shield(ShieldType.ENERGY, 100, 5000, TechLevel.INDUSTRIAL, 70),
-            new Shield(ShieldType.REFLECTIVE, 200, 20000,
-                    TechLevel.POST_INDUSTRIAL, 30),
-            // The weapons below cannot be bought
-            new Shield(ShieldType.LIGHTNING, 350, 45000, TechLevel.UNAVAILABLE,
-                    0)};
-    // #endregion
+            new Shield(ShieldType.REFLECTIVE, 200, 20000, TechLevel.POST_INDUSTRIAL, 30),
+            // The shields below cannot be bought
+            new Shield(ShieldType.LIGHTNING, 350, 45000, TechLevel.UNAVAILABLE, 0)
+    };
 
-    // #region ShipImageOffsets
-    public static Rectangle[] ShipImageOffsets = new Rectangle[]{
+    static Rectangle[] ShipImageOffsets = new Rectangle[]{
             // We only care about X and Width, so set Y and Height to 0.
             new Rectangle(22, 0, 19, 0), // Flea
             new Rectangle(18, 0, 27, 0), // Gnat
@@ -282,85 +251,60 @@ public class Consts {
             new Rectangle(2, 0, 60, 0), // Custom
             new Rectangle(2, 0, 60, 0) // Scorpion
     };
-    // #endregion
 
-    // #region ShipSpecs
     public static ShipSpec[] ShipSpecs = new ShipSpec[]{
             // Type Size Bays W S G Cr F FC Hull RC Price % Police Pirates
             // Traders MinTechLevel
-            new ShipSpec(ShipType.FLEA, Size.Tiny, 10, 0, 0, 0, 1, 20, 1, 25,
-                    1, 2000, 2, Activity.NA, Activity.NA, Activity.Absent,
-                    TechLevel.EARLY_INDUSTRIAL),
-            new ShipSpec(ShipType.GNAT, Size.Small, 15, 1, 0, 1, 1, 14, 1, 100,
-                    2, 10000, 28, Activity.Absent, Activity.Absent,
-                    Activity.Absent, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.FIREFLY, Size.Small, 20, 1, 1, 1, 1, 17, 1,
-                    100, 3, 25000, 20, Activity.Absent, Activity.Absent,
-                    Activity.Absent, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.MOSQUITO, Size.Small, 15, 2, 1, 1, 1, 13, 1,
-                    100, 5, 30000, 20, Activity.Absent, Activity.Minimal,
-                    Activity.Absent, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.BUMBLEBEE, Size.Medium, 25, 1, 2, 2, 2, 15,
-                    1, 100, 7, 60000, 15, Activity.Minimal, Activity.Minimal,
-                    Activity.Absent, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.BEETLE, Size.Medium, 50, 0, 1, 1, 3, 14, 1,
-                    50, 10, 80000, 3, Activity.NA, Activity.NA,
-                    Activity.Absent, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.HORNET, Size.Large, 20, 3, 2, 1, 2, 16, 2,
-                    150, 15, 100000, 6, Activity.Few, Activity.Some,
-                    Activity.Minimal, TechLevel.POST_INDUSTRIAL),
-            new ShipSpec(ShipType.GRASSHOPPER, Size.Large, 30, 2, 2, 3, 3, 15,
-                    3, 150, 15, 150000, 2, Activity.Some, Activity.Moderate,
-                    Activity.Few, TechLevel.POST_INDUSTRIAL),
-            new ShipSpec(ShipType.TERMITE, Size.Huge, 60, 1, 3, 2, 3, 13, 4,
-                    200, 20, 225000, 2, Activity.Moderate, Activity.Many,
-                    Activity.Some, TechLevel.HI_TECH),
-            new ShipSpec(ShipType.WASP, Size.Huge, 35, 3, 2, 2, 3, 14, 5, 200,
-                    20, 300000, 2, Activity.Many, Activity.Abundant,
-                    Activity.Moderate, TechLevel.HI_TECH),
+            new ShipSpec(ShipType.FLEA, Size.Tiny, 10, 0, 0, 0, 1, 20, 1, 25, 1, 2000, 2, Activity.NA, Activity.NA,
+                    Activity.ABSENT, TechLevel.EARLY_INDUSTRIAL),
+            new ShipSpec(ShipType.GNAT, Size.Small, 15, 1, 0, 1, 1, 14, 1, 100, 2, 10000, 28, Activity.ABSENT,
+                    Activity.ABSENT, Activity.ABSENT, TechLevel.INDUSTRIAL),
+            new ShipSpec(ShipType.FIREFLY, Size.Small, 20, 1, 1, 1, 1, 17, 1, 100, 3, 25000, 20, Activity.ABSENT,
+                    Activity.ABSENT, Activity.ABSENT, TechLevel.INDUSTRIAL),
+            new ShipSpec(ShipType.MOSQUITO, Size.Small, 15, 2, 1, 1, 1, 13, 1, 100, 5, 30000, 20, Activity.ABSENT,
+                    Activity.MINIMAL, Activity.ABSENT, TechLevel.INDUSTRIAL),
+            new ShipSpec(ShipType.BUMBLEBEE, Size.Medium, 25, 1, 2, 2, 2, 15, 1, 100, 7, 60000, 15, Activity.MINIMAL,
+                    Activity.MINIMAL, Activity.ABSENT, TechLevel.INDUSTRIAL),
+            new ShipSpec(ShipType.BEETLE, Size.Medium, 50, 0, 1, 1, 3, 14, 1, 50, 10, 80000, 3, Activity.NA,
+                    Activity.NA, Activity.ABSENT, TechLevel.INDUSTRIAL),
+            new ShipSpec(ShipType.HORNET, Size.Large, 20, 3, 2, 1, 2, 16, 2, 150, 15, 100000, 6, Activity.FEW,
+                    Activity.SOME, Activity.MINIMAL, TechLevel.POST_INDUSTRIAL),
+            new ShipSpec(ShipType.GRASSHOPPER, Size.Large, 30, 2, 2, 3, 3, 15, 3, 150, 15, 150000, 2, Activity.SOME,
+                    Activity.MODERATE, Activity.FEW, TechLevel.POST_INDUSTRIAL),
+            new ShipSpec(ShipType.TERMITE, Size.Huge, 60, 1, 3, 2, 3, 13, 4, 200, 20, 225000, 2, Activity.MODERATE,
+                    Activity.MANY, Activity.SOME, TechLevel.HI_TECH),
+            new ShipSpec(ShipType.WASP, Size.Huge, 35, 3, 2, 2, 3, 14, 5, 200, 20, 300000, 2, Activity.MANY,
+                    Activity.ABUNDANT, Activity.MODERATE, TechLevel.HI_TECH),
             // The ships below can't be bought (mostly)
-            new ShipSpec(ShipType.SPACE_MONSTER, Size.Huge, 0, 3, 0, 0, 1, 1, 1,
-                    500, 1, 500000, 0, Activity.NA, Activity.NA, Activity.NA,
-                    TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.DRAGONFLY, Size.Small, 0, 2, 3, 2, 1, 1, 1,
-                    10, 1, 500000, 0, Activity.NA, Activity.NA, Activity.NA,
-                    TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.MANTIS, Size.Medium, 0, 3, 1, 3, 3, 1, 1,
-                    300, 1, 500000, 0, Activity.NA, Activity.NA, Activity.NA,
-                    TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.SCARAB, Size.Large, 20, 2, 0, 0, 2, 1, 1,
-                    400, 1, 500000, 0, Activity.NA, Activity.NA, Activity.NA,
-                    TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.BOTTLE, Size.Small, 0, 0, 0, 0, 0, 1, 1, 10,
-                    1, 100, 0, Activity.NA, Activity.NA, Activity.NA,
-                    TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.CUSTOM, Size.Huge, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, Activity.NA, Activity.NA, Activity.NA,
-                    TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.SCORPION, Size.Huge, 30, 2, 2, 2, 2, 1, 1,
-                    300, 1, 500000, 0, Activity.NA, Activity.NA, Activity.NA,
-                    TechLevel.UNAVAILABLE)};
-    // #endregion
+            new ShipSpec(ShipType.SPACE_MONSTER, Size.Huge, 0, 3, 0, 0, 1, 1, 1, 500, 1, 500000, 0, Activity.NA,
+                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
+            new ShipSpec(ShipType.DRAGONFLY, Size.Small, 0, 2, 3, 2, 1, 1, 1, 10, 1, 500000, 0, Activity.NA,
+                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
+            new ShipSpec(ShipType.MANTIS, Size.Medium, 0, 3, 1, 3, 3, 1, 1, 300, 1, 500000, 0, Activity.NA, Activity.NA,
+                    Activity.NA, TechLevel.UNAVAILABLE),
+            new ShipSpec(ShipType.SCARAB, Size.Large, 20, 2, 0, 0, 2, 1, 1, 400, 1, 500000, 0, Activity.NA, Activity.NA,
+                    Activity.NA, TechLevel.UNAVAILABLE),
+            new ShipSpec(ShipType.BOTTLE, Size.Small, 0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0, Activity.NA, Activity.NA,
+                    Activity.NA, TechLevel.UNAVAILABLE),
+            new ShipSpec(ShipType.CUSTOM, Size.Huge, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
+                    Activity.NA, TechLevel.UNAVAILABLE),
+            new ShipSpec(ShipType.SCORPION, Size.Huge, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
+                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE)
+    };
 
-    // #region Shipyards
-    public static Shipyard[] Shipyards = new Shipyard[]{
-            new Shipyard(ShipyardId.CORELLIAN, Size.Large,
-                    ShipyardSkill.CrewQuarters),
-            new Shipyard(ShipyardId.INCOM, Size.Medium,
-                    ShipyardSkill.ShieldSlotUnits),
+    static Shipyard[] Shipyards = new Shipyard[]{
+            new Shipyard(ShipyardId.CORELLIAN, Size.Large, ShipyardSkill.CrewQuarters),
+            new Shipyard(ShipyardId.INCOM, Size.Medium, ShipyardSkill.ShieldSlotUnits),
             new Shipyard(ShipyardId.KUAT, Size.Huge, ShipyardSkill.HullPerUnit),
-            new Shipyard(ShipyardId.SIENAR, Size.Tiny,
-                    ShipyardSkill.WeaponSlotUnits),
-            new Shipyard(ShipyardId.SOROSUUB, Size.Small,
-                    ShipyardSkill.FuelBase)};
+            new Shipyard(ShipyardId.SIENAR, Size.Tiny, ShipyardSkill.WeaponSlotUnits),
+            new Shipyard(ShipyardId.SOROSUUB, Size.Small, ShipyardSkill.FuelBase)
+    };
+
     //TODO was ArrayList
-    public static CrewMemberId[] SpecialCrewMemberIds =// new ArrayList(
-            new CrewMemberId[]{CrewMemberId.COMMANDER,
-                    CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN,
-                    CrewMemberId.JAREK, CrewMemberId.OPPONENT,
-                    CrewMemberId.PRINCESS, CrewMemberId.SCARAB,
-                    CrewMemberId.SCORPION, CrewMemberId.SPACE_MONSTER,
-                    CrewMemberId.WILD};
+    public static CrewMemberId[] SpecialCrewMemberIds = new CrewMemberId[]{ // new ArrayList(
+            CrewMemberId.COMMANDER, CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN, CrewMemberId.JAREK,
+            CrewMemberId.OPPONENT, CrewMemberId.PRINCESS, CrewMemberId.SCARAB, CrewMemberId.SCORPION,
+            CrewMemberId.SPACE_MONSTER, CrewMemberId.WILD};
 
     public static SpecialEvent[] SpecialEvents = new SpecialEvent[]{
             new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),
@@ -395,8 +339,7 @@ public class Consts {
             new SpecialEvent(SpecialEventType.ScarabUpgradeHull, 0, 0, false),
             new SpecialEvent(SpecialEventType.Skill, 3000, 3, false),
             new SpecialEvent(SpecialEventType.SpaceMonster, 0, 1, true),
-            new SpecialEvent(SpecialEventType.SpaceMonsterKilled, -15000, 0,
-                    true),
+            new SpecialEvent(SpecialEventType.SpaceMonsterKilled, -15000, 0, true),
             new SpecialEvent(SpecialEventType.Tribble, 1000, 1, false),
             new SpecialEvent(SpecialEventType.TribbleBuyer, 0, 3, false),
             new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
@@ -409,85 +352,54 @@ public class Consts {
             new SpecialEvent(SpecialEventType.PrincessInthara, 0, 0, true),
             new SpecialEvent(SpecialEventType.PrincessQonos, 0, 0, false),
             new SpecialEvent(SpecialEventType.PrincessQuantum, 0, 0, false),
-            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true)};
-    // #endregion
+            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true)
+    };
 
-    // #region TradeItems
     public static TradeItem[] TradeItems = new TradeItem[]{
-            new TradeItem(TradeItemType.Water, TechLevel.PRE_AGRICULTURAL,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.MEDIEVAL, 30, 3, 4,
-                    SystemPressure.Drought, SpecialResource.SweetOceans,
-                    SpecialResource.Desert, 30, 50, 1),
-            new TradeItem(TradeItemType.Furs, TechLevel.PRE_AGRICULTURAL,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.PRE_AGRICULTURAL, 250,
-                    10, 10, SystemPressure.Cold, SpecialResource.RichFauna,
-                    SpecialResource.Lifeless, 230, 280, 5),
-            new TradeItem(TradeItemType.Food, TechLevel.AGRICULTURAL,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.AGRICULTURAL, 100, 5,
-                    5, SystemPressure.CropFailure, SpecialResource.RichSoil,
-                    SpecialResource.PoorSoil, 90, 160, 5),
-            new TradeItem(TradeItemType.Ore, TechLevel.MEDIEVAL,
-                    TechLevel.MEDIEVAL, TechLevel.RENAISSANCE, 350, 20, 10,
-                    SystemPressure.War, SpecialResource.MineralRich,
-                    SpecialResource.MineralPoor, 350, 420, 10),
-            new TradeItem(TradeItemType.Games, TechLevel.RENAISSANCE,
-                    TechLevel.AGRICULTURAL, TechLevel.POST_INDUSTRIAL, 250, -10,
-                    5, SystemPressure.Boredom, SpecialResource.Artistic,
-                    SpecialResource.NA, 160, 270, 5),
-            new TradeItem(TradeItemType.Firearms, TechLevel.RENAISSANCE,
-                    TechLevel.AGRICULTURAL, TechLevel.INDUSTRIAL, 1250, -75,
-                    100, SystemPressure.War, SpecialResource.Warlike,
-                    SpecialResource.NA, 600, 1100, 25),
-            new TradeItem(TradeItemType.Medicine, TechLevel.EARLY_INDUSTRIAL,
-                    TechLevel.AGRICULTURAL, TechLevel.POST_INDUSTRIAL, 650, -20,
-                    10, SystemPressure.Plague, SpecialResource.SpecialHerbs,
+            new TradeItem(TradeItemType.WATER, TechLevel.PRE_AGRICULTURAL, TechLevel.PRE_AGRICULTURAL,
+                    TechLevel.MEDIEVAL, 30, 3, 4, SystemPressure.DROUGHT, SpecialResource.SWEET_OCEANS,
+                    SpecialResource.DESERT, 30, 50, 1),
+            new TradeItem(TradeItemType.FURS, TechLevel.PRE_AGRICULTURAL, TechLevel.PRE_AGRICULTURAL,
+                    TechLevel.PRE_AGRICULTURAL, 250, 10, 10, SystemPressure.COLD, SpecialResource.RICH_FAUNA,
+                    SpecialResource.LIFELESS, 230, 280, 5),
+            new TradeItem(TradeItemType.FOOD, TechLevel.AGRICULTURAL, TechLevel.PRE_AGRICULTURAL,
+                    TechLevel.AGRICULTURAL, 100, 5, 5, SystemPressure.CROP_FAILURE, SpecialResource.RICH_SOIL,
+                    SpecialResource.POOR_SOIL, 90, 160, 5),
+            new TradeItem(TradeItemType.ORE, TechLevel.MEDIEVAL, TechLevel.MEDIEVAL, TechLevel.RENAISSANCE, 350, 20, 10,
+                    SystemPressure.WAR, SpecialResource.MINERAL_RICH, SpecialResource.MINERAL_POOR, 350, 420, 10),
+            new TradeItem(TradeItemType.Games, TechLevel.RENAISSANCE, TechLevel.AGRICULTURAL, TechLevel.POST_INDUSTRIAL,
+                    250, -10, 5, SystemPressure.BOREDOM, SpecialResource.ARTISTIC, SpecialResource.NA, 160, 270, 5),
+            new TradeItem(TradeItemType.FIREARMS, TechLevel.RENAISSANCE, TechLevel.AGRICULTURAL, TechLevel.INDUSTRIAL,
+                    1250, -75, 100, SystemPressure.WAR, SpecialResource.WARLIKE, SpecialResource.NA, 600, 1100, 25),
+            new TradeItem(TradeItemType.MEDICINE, TechLevel.EARLY_INDUSTRIAL, TechLevel.AGRICULTURAL,
+                    TechLevel.POST_INDUSTRIAL, 650, -20, 10, SystemPressure.PLAGUE, SpecialResource.SPECIAL_HERBS,
                     SpecialResource.NA, 400, 700, 25),
-            new TradeItem(TradeItemType.Machines, TechLevel.EARLY_INDUSTRIAL,
-                    TechLevel.RENAISSANCE, TechLevel.INDUSTRIAL, 900, -30, 5,
-                    SystemPressure.Employment, SpecialResource.NA,
+            new TradeItem(TradeItemType.MACHINES, TechLevel.EARLY_INDUSTRIAL, TechLevel.RENAISSANCE,
+                    TechLevel.INDUSTRIAL, 900, -30, 5, SystemPressure.EMPLOYMENT, SpecialResource.NA,
                     SpecialResource.NA, 600, 800, 25),
-            new TradeItem(TradeItemType.Narcotics, TechLevel.INDUSTRIAL,
-                    TechLevel.PRE_AGRICULTURAL, TechLevel.INDUSTRIAL, 3500,
-                    -125, 150, SystemPressure.Boredom,
-                    SpecialResource.WeirdMushrooms, SpecialResource.NA, 2000,
-                    3000, 50),
-            new TradeItem(TradeItemType.Robots, TechLevel.POST_INDUSTRIAL,
-                    TechLevel.EARLY_INDUSTRIAL, TechLevel.HI_TECH, 5000, -150,
-                    100, SystemPressure.Employment, SpecialResource.NA,
-                    SpecialResource.NA, 3500, 5000, 100)};
-    // #endregion
+            new TradeItem(TradeItemType.NARCOTICS, TechLevel.INDUSTRIAL, TechLevel.PRE_AGRICULTURAL,
+                    TechLevel.INDUSTRIAL, 3500, -125, 150, SystemPressure.BOREDOM, SpecialResource.WEIRD_MUSHROOMS,
+                    SpecialResource.NA, 2000, 3000, 50),
+            new TradeItem(TradeItemType.ROBOTS, TechLevel.POST_INDUSTRIAL, TechLevel.EARLY_INDUSTRIAL,
+                    TechLevel.HI_TECH, 5000, -150, 100, SystemPressure.EMPLOYMENT, SpecialResource.NA,
+                    SpecialResource.NA, 3500, 5000, 100)
+    };
 
-    // #region Weapons
     public static Weapon[] Weapons = new Weapon[]{
-            new Weapon(WeaponType.PULSE_LASER, 15, false, 2000,
-                    TechLevel.INDUSTRIAL, 50),
-            new Weapon(WeaponType.BEAM_LASER, 25, false, 12500,
-                    TechLevel.POST_INDUSTRIAL, 35),
-            new Weapon(WeaponType.MILITARY_LASER, 35, false, 35000,
-                    TechLevel.HI_TECH, 15),
-            new Weapon(WeaponType.MORGANS_LASER, 85, false, 50000,
-                    TechLevel.UNAVAILABLE, 0),
-            new Weapon(WeaponType.PHOTON_DISRUPTOR, 20, true, 15000,
-                    TechLevel.POST_INDUSTRIAL, 0),
-            new Weapon(WeaponType.QUANTUM_DISRUPTOR, 60, true, 50000,
-                    TechLevel.UNAVAILABLE, 0)};
-    // #endregion
+            new Weapon(WeaponType.PULSE_LASER, 15, false, 2000, TechLevel.INDUSTRIAL, 50),
+            new Weapon(WeaponType.BEAM_LASER, 25, false, 12500, TechLevel.POST_INDUSTRIAL, 35),
+            new Weapon(WeaponType.MILITARY_LASER, 35, false, 35000, TechLevel.HI_TECH, 15),
+            new Weapon(WeaponType.MORGANS_LASER, 85, false, 50000, TechLevel.UNAVAILABLE, 0),
+            new Weapon(WeaponType.PHOTON_DISRUPTOR, 20, true, 15000, TechLevel.POST_INDUSTRIAL, 0),
+            new Weapon(WeaponType.QUANTUM_DISRUPTOR, 60, true, 50000, TechLevel.UNAVAILABLE, 0)
+    };
 
-    // #region EquipmentForSale (This comes at the end because it depends on
-    // other Constant Arrays)
-    public static Equipment[] EquipmentForSale = new Equipment[]{
-            Weapons[WeaponType.PULSE_LASER.castToInt()],
-            Weapons[WeaponType.BEAM_LASER.castToInt()],
-            Weapons[WeaponType.MILITARY_LASER.castToInt()],
-            Weapons[WeaponType.PHOTON_DISRUPTOR.castToInt()],
-            Shields[ShieldType.ENERGY.castToInt()],
-            Shields[ShieldType.REFLECTIVE.castToInt()],
-            Gadgets[GadgetType.EXTRA_CARGO_BAYS.castToInt()],
-            Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()],
-            Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()],
-            Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()],
-            Gadgets[GadgetType.CLOAKING_DEVICE.castToInt()]};
-    // #endregion
-
-    // #endregion
+    // This comes at the end because it depends on other Constant Arrays
+    public static Equipment[] EquipmentForSale = new Equipment[]{Weapons[WeaponType.PULSE_LASER.castToInt()],
+            Weapons[WeaponType.BEAM_LASER.castToInt()], Weapons[WeaponType.MILITARY_LASER.castToInt()],
+            Weapons[WeaponType.PHOTON_DISRUPTOR.castToInt()], Shields[ShieldType.ENERGY.castToInt()],
+            Shields[ShieldType.REFLECTIVE.castToInt()], Gadgets[GadgetType.EXTRA_CARGO_BAYS.castToInt()],
+            Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()], Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()],
+            Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()], Gadgets[GadgetType.CLOAKING_DEVICE.castToInt()]
+    };
 }
