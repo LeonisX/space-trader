@@ -42,7 +42,7 @@ public abstract class STSerializableObject {
      * <li>Weapon</li>
      * </ul>
      * <p>
-     * If an array of a type not listed is converted using {@link #ArrayToArrayList(STSerializableObject[]) ArrayToArrayList}, the
+     * If an array of a type not listed is converted using {@link #arrayToArrayList(STSerializableObject[]) arrayToArrayList}, the
      * type needs to be added here.
      */
     static STSerializableObject[] arrayListToArray(List<Hashtable> list, String typeName) {
@@ -134,7 +134,7 @@ public abstract class STSerializableObject {
         return array;
     }
 
-    static ArrayList<Hashtable> ArrayToArrayList(STSerializableObject[] array) {
+    static ArrayList<Hashtable> arrayToArrayList(STSerializableObject[] array) {
         ArrayList<Hashtable> list = null;
 
         if (array != null) {

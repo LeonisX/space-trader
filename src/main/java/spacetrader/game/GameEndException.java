@@ -4,7 +4,7 @@ import spacetrader.game.enums.GameEndType;
 
 public class GameEndException extends RuntimeException {
 
-    public GameEndException(GameEndType endType) {
+    GameEndException(GameEndType endType) {
         Game.getCurrentGame().setEndStatus(endType);
     }
 

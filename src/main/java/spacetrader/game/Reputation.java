@@ -17,53 +17,41 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-// using System;
 
 package spacetrader.game;
 
 import spacetrader.game.enums.ReputationType;
 
 public class Reputation {
-    //#region Member Declarations
 
-    private final ReputationType _type;
-    private final int _minScore;
+    private final ReputationType type;
+    private final int minScore;
 
-    //#endregion
-
-    //#region Methods
-
-    public Reputation(ReputationType type, int minScore) {
-        _type = type;
-        _minScore = minScore;
+    Reputation(ReputationType type, int minScore) {
+        this.type = type;
+        this.minScore = minScore;
     }
 
     public static Reputation getReputationFromScore(int ReputationScore) {
         int i;
         for (i = 0; i < Consts.Reputations.length
-                && Game.getCurrentGame().getCommander().getReputationScore() >= Consts.Reputations[i].MinScore(); i++)
-            ;
+                && Game.getCurrentGame().getCommander().getReputationScore() >= Consts.Reputations[i].getMinScore(); i++) {
+        }
         return Consts.Reputations[Math.max(0, i - 1)];
     }
 
-    //#endregion
-
-    //#region Properties
-
-
-    public int MinScore() {
-        return _minScore;
+    private int getMinScore() {
+        return minScore;
     }
 
 
     public String getName() {
-        return _type.getName();
+        return type.getName();
     }
 
 
-    public ReputationType Type() {
-        return _type;
+    public ReputationType getType() {
+        return type;
     }
 
-    //#endregion
 }

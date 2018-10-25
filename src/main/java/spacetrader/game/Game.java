@@ -21,6 +21,7 @@
 package spacetrader.game;
 
 import spacetrader.controls.DialogResult;
+import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
@@ -30,7 +31,6 @@ import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class Game extends STSerializableObject implements SpaceTraderGame, SystemTracker, CurrentSystemMgr {
@@ -323,7 +323,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         commander.getCurrentSystem().setVisited(true);
         setPaidForNewspaper(false);
 
-        if (getTrackedSystem() == commander.getCurrentSystem() && getOptions().getTrackAutoOff()) {
+        if (getTrackedSystem() == commander.getCurrentSystem() && getOptions().isTrackAutoOff()) {
             setTrackedSystemId(StarSystemId.NA);
         }
 
@@ -343,7 +343,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         newsAddEventsOnArrival();
 
-        if (getOptions().getNewsAutoShow()) {
+        if (getOptions().isNewsAutoShow()) {
             showNewspaper();
         }
     }
@@ -352,7 +352,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // Check for Large Debt - 06/30/01 SRA
         if (commander.getDebt() >= Consts.DebtWarning) {
             GuiFacade.alert(AlertType.DebtWarning);
-        } else if (commander.getDebt() > 0 && getOptions().getRemindLoans() && commander.getDays() % 5 == 0) {
+        } else if (commander.getDebt() > 0 && getOptions().isRemindLoans() && commander.getDays() % 5 == 0) {
             GuiFacade.alert(AlertType.DebtReminder, Functions.multiples(commander.getDebt(), Strings.MoneyUnit));
         }
     }
@@ -472,7 +472,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         boolean fuelOk = true;
         int toAdd = ship.getFuelTanks() - ship.getFuel();
-        if (getOptions().getAutoFuel() && toAdd > 0) {
+        if (getOptions().isAutoFuel() && toAdd > 0) {
             if (commander.getCash() >= toAdd * ship.getFuelCost()) {
                 ship.setFuel(ship.getFuel() + toAdd);
                 commander.setCash(commander.getCash() - (toAdd * ship.getFuelCost()));
@@ -483,7 +483,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         boolean repairOk = true;
         toAdd = ship.getHullStrength() - ship.getHull();
-        if (getOptions().getAutoRepair() && toAdd > 0) {
+        if (getOptions().isAutoRepair() && toAdd > 0) {
             if (commander.getCash() >= toAdd * ship.getRepairCost()) {
                 ship.setHull(ship.getHull() + toAdd);
                 commander.setCash(commander.getCash() - (toAdd * ship.getRepairCost()));
@@ -583,7 +583,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusWild;
     }
 
-    void setQuestStatusWild(int questStatusWild) {
+    public void setQuestStatusWild(int questStatusWild) {
         this.questStatusWild = questStatusWild;
     }
 
@@ -591,15 +591,15 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusSpaceMonster;
     }
 
-    void setQuestStatusSpaceMonster(int questStatusSpaceMonster) {
+    public void setQuestStatusSpaceMonster(int questStatusSpaceMonster) {
         this.questStatusSpaceMonster = questStatusSpaceMonster;
     }
 
-    int getQuestStatusSculpture() {
+    public int getQuestStatusSculpture() {
         return questStatusSculpture;
     }
 
-    void setQuestStatusSculpture(int questStatusSculpture) {
+    public void setQuestStatusSculpture(int questStatusSculpture) {
         this.questStatusSculpture = questStatusSculpture;
     }
 
@@ -615,7 +615,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusReactor;
     }
 
-    void setQuestStatusReactor(int questStatusReactor) {
+    public void setQuestStatusReactor(int questStatusReactor) {
         this.questStatusReactor = questStatusReactor;
     }
 
@@ -623,7 +623,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusPrincess;
     }
 
-    void setQuestStatusPrincess(int questStatusPrincess) {
+    public void setQuestStatusPrincess(int questStatusPrincess) {
         this.questStatusPrincess = questStatusPrincess;
     }
 
@@ -631,7 +631,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusMoon;
     }
 
-    void setQuestStatusMoon(int questStatusMoon) {
+    public void setQuestStatusMoon(int questStatusMoon) {
         this.questStatusMoon = questStatusMoon;
     }
 
@@ -639,7 +639,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusJarek;
     }
 
-    void setQuestStatusJarek(int questStatusJarek) {
+    public void setQuestStatusJarek(int questStatusJarek) {
         this.questStatusJarek = questStatusJarek;
     }
 
@@ -647,7 +647,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusJapori;
     }
 
-    void setQuestStatusJapori(int questStatusJapori) {
+    public void setQuestStatusJapori(int questStatusJapori) {
         this.questStatusJapori = questStatusJapori;
     }
 
@@ -655,7 +655,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusGemulon;
     }
 
-    void setQuestStatusGemulon(int questStatusGemulon) {
+    public void setQuestStatusGemulon(int questStatusGemulon) {
         this.questStatusGemulon = questStatusGemulon;
     }
 
@@ -663,7 +663,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusExperiment;
     }
 
-    void setQuestStatusExperiment(int questStatusExperiment) {
+    public void setQuestStatusExperiment(int questStatusExperiment) {
         this.questStatusExperiment = questStatusExperiment;
     }
 
@@ -671,7 +671,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusDragonfly;
     }
 
-    void setQuestStatusDragonfly(int questStatusDragonfly) {
+    public void setQuestStatusDragonfly(int questStatusDragonfly) {
         this.questStatusDragonfly = questStatusDragonfly;
     }
 
@@ -679,7 +679,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return questStatusArtifact;
     }
 
-    void setQuestStatusArtifact(int questStatusArtifact) {
+    public void setQuestStatusArtifact(int questStatusArtifact) {
         this.questStatusArtifact = questStatusArtifact;
     }
 
@@ -747,7 +747,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return fabricRipProbability;
     }
 
-    void setFabricRipProbability(int fabricRipProbability) {
+    public void setFabricRipProbability(int fabricRipProbability) {
         this.fabricRipProbability = fabricRipProbability;
     }
 
@@ -828,7 +828,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return easyEncounters;
     }
 
-    void setEasyEncounters(boolean easyEncounters) {
+    public void setEasyEncounters(boolean easyEncounters) {
         this.easyEncounters = easyEncounters;
     }
 
@@ -848,7 +848,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return chanceOfVeryRareEncounter;
     }
 
-    void setChanceOfVeryRareEncounter(int chanceOfVeryRareEncounter) {
+    public void setChanceOfVeryRareEncounter(int chanceOfVeryRareEncounter) {
         this.chanceOfVeryRareEncounter = chanceOfVeryRareEncounter;
     }
 
@@ -856,7 +856,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return chanceOfTradeInOrbit;
     }
 
-    void setChanceOfTradeInOrbit(int chanceOfTradeInOrbit) {
+    public void setChanceOfTradeInOrbit(int chanceOfTradeInOrbit) {
         this.chanceOfTradeInOrbit = chanceOfTradeInOrbit;
     }
 
@@ -872,7 +872,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return autoSave;
     }
 
-    void setAutoSave(boolean autoSave) {
+    public void setAutoSave(boolean autoSave) {
         this.autoSave = autoSave;
     }
 
@@ -1148,7 +1148,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // the
         // encounter may not take place
         return getEncounterType() == EncounterType.PIRATE_ATTACK || !(getOpponent().isCloaked() || getOptions()
-                .getAlwaysIgnorePirates());
+                .isAlwaysIgnorePirates());
 
     }
 
@@ -1200,7 +1200,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // the
         // encounter may not take place. Otherwise it will - JAF
         return getEncounterType() == EncounterType.POLICE_ATTACK || getEncounterType() == EncounterType.POLICE_INSPECT
-                || !(getOpponent().isCloaked() || getOptions().getAlwaysIgnorePolice());
+                || !(getOpponent().isCloaked() || getOptions().isAlwaysIgnorePolice());
     }
 
     private boolean isDetermineRandomEncounter() {
@@ -1224,17 +1224,17 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 encounter *= 2;
             }
 
-            if (encounter < getWarpSystem().getPoliticalSystem().activityPirates().castToInt()) {
+            if (encounter < getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()) {
                 // When you are already raided, other pirates have little to gain
                 pirate = !getRaided();
-            } else if (encounter < getWarpSystem().getPoliticalSystem().activityPirates().castToInt()
-                    + getWarpSystem().getPoliticalSystem().activityPolice().castToInt() * policeModifier) {
+            } else if (encounter < getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
+                    + getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier) {
                 // policeModifier adapts itself to your criminal record: you'll
                 // encounter more police if you are a hardened criminal.
                 police = true;
-            } else if (encounter < getWarpSystem().getPoliticalSystem().activityPirates().castToInt()
-                    + getWarpSystem().getPoliticalSystem().activityPolice().castToInt() * policeModifier
-                    + getWarpSystem().getPoliticalSystem().ActivityTraders().castToInt()) {
+            } else if (encounter < getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
+                    + getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier
+                    + getWarpSystem().getPoliticalSystem().getActivityTraders().castToInt()) {
                 trader = true;
             } else if (commander.getShip().isWildOnBoard() && getWarpSystem().getId() == StarSystemId.Kravat) {
                 // if you're coming in to Kravat & you have Wild onboard, there'll be swarms o' cops.
@@ -1284,10 +1284,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // If they ignore you or flee and you can't see them, the encounter doesn't take place
         // If you automatically don't want to confront someone who ignores you, the
         // encounter may not take place; otherwise it will.
-        return !getOpponent().isCloaked() && !(getOptions().getAlwaysIgnoreTraders() && (
+        return !getOpponent().isCloaked() && !(getOptions().isAlwaysIgnoreTraders() && (
                 getEncounterType() == EncounterType.TRADER_IGNORE || getEncounterType() == EncounterType.TRADER_FLEE))
                 && !((getEncounterType() == EncounterType.TRADER_BUY || getEncounterType() == EncounterType.TRADER_SELL)
-                && getOptions().getAlwaysIgnoreTradeInOrbit());
+                && getOptions().isAlwaysIgnoreTradeInOrbit());
     }
 
     private boolean isDetermineVeryRareEncounter() {
@@ -1523,9 +1523,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         setEncounterOppFleeing(false);
                 }
 
-                if (getOptions().getContinuousAttack()
+                if (getOptions().isContinuousAttack()
                         && (getEncounterCmdrFleeing() || !getEncounterOppFleeing() || getOptions()
-                        .getContinuousAttackFleeing()
+                        .isContinuousAttackFleeing()
                         && (getEncounterType() == prevEncounter || getEncounterType() != EncounterType.PIRATE_SURRENDER
                         && getEncounterType() != EncounterType.TRADER_SURRENDER))) {
                     if (getEncounterCmdrFleeing()) {
@@ -1575,7 +1575,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // Attempt to disable the opponent if they're not already disabled, their shields are down,
                 // we have disabling weapons, and the option is checked.
                 if (defender.isDisableable() && defender.getShieldCharge() == 0 && !getOpponentDisabled()
-                        && getOptions().getDisableOpponents() && attackerDisruptors > 0) {
+                        && getOptions().isDisableOpponents() && attackerDisruptors > 0) {
                     disrupt = Functions.getRandom(attackerDisruptors * (100 + 2 * attacker.getFighter()) / 100);
                 } else {
                     int damage = (attackerWeapons == 0)
@@ -1974,7 +1974,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         if (getEncounterType() == EncounterType.MARIE_CELESTE_POLICE) {
             GuiFacade.alert(AlertType.EncounterMarieCelesteNoBribe);
-        } else if (getWarpSystem().getPoliticalSystem().BribeLevel() <= 0) {
+        } else if (getWarpSystem().getPoliticalSystem().getBribeLevel() <= 0) {
             GuiFacade.alert(AlertType.EncounterPoliceBribeCant);
         } else if (commander.getShip().isDetectableIllegalCargoOrPassengers()
                 || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
@@ -1985,7 +1985,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     : 1;
 
             int bribe = Math.max(100, Math.min(10000, (int) Math.ceil((double) commander.getWorth()
-                    / getWarpSystem().getPoliticalSystem().BribeLevel() / diffMod / 100) * 100 * passMod));
+                    / getWarpSystem().getPoliticalSystem().getBribeLevel() / diffMod / 100) * 100 * passMod));
 
             if (GuiFacade.alert(AlertType.EncounterPoliceBribe, Functions.multiples(bribe, Strings.MoneyUnit)) == DialogResult.YES) {
                 if (commander.getCash() >= bribe) {
@@ -2394,8 +2394,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             SpecialResource specRes = SpecialResource.NOTHING;
             Size size = Size.fromInt(Functions.getRandom(Size.Huge.castToInt() + 1));
             PoliticalSystem polSys = Consts.PoliticalSystems[Functions.getRandom(Consts.PoliticalSystems.length)];
-            TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.MinimumTechLevel().castToInt(), polSys
-                    .MaximumTechLevel().castToInt() + 1));
+            TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.getMinimumTechLevel().castToInt(), polSys
+                    .getMaximumTechLevel().castToInt() + 1));
 
             // Galvon must be a Monarchy.
             if (id == StarSystemId.Galvon) {
@@ -3140,7 +3140,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return goodUniverse;
     }
 
-    void recalculateBuyPrices(StarSystem system) {
+    public void recalculateBuyPrices(StarSystem system) {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (!system.itemTraded(Consts.TradeItems[i])) {
                 priceCargoBuy[i] = 0;
@@ -3170,7 +3170,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         }
     }
 
-    void resetVeryRareEncounters() {
+    public void resetVeryRareEncounters() {
         getVeryRareEncounters().clear();
         getVeryRareEncounters().add(VeryRareEncounter.MARIE_CELESTE);
         getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_AHAB);
@@ -3207,7 +3207,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             if (commander.getCash() < cost) {
                 GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.multiples(cost, "credit"));
-            } else if (getOptions().getNewsAutoPay()
+            } else if (getOptions().isNewsAutoPay()
                     || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.multiples(cost, "credit")) == DialogResult.YES) {
                 commander.setCash(commander.getCash() - cost);
                 setPaidForNewspaper(true);
@@ -3224,10 +3224,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         Hashtable hash = super.serialize();
 
         hash.add("_version", "2.00");
-        hash.add("_universe", ArrayToArrayList(universe));
+        hash.add("_universe", arrayToArrayList(universe));
         hash.add("commander", commander.serialize());
         hash.add("_wormholes", wormholes);
-        hash.add("_mercenaries", ArrayToArrayList(mercenaries));
+        hash.add("_mercenaries", arrayToArrayList(mercenaries));
         hash.add("_dragonfly", dragonfly.serialize());
         hash.add("_scarab", scarab.serialize());
         hash.add("_scorpion", scorpion.serialize());
@@ -3896,7 +3896,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return universe;
     }
 
-    ArrayList<VeryRareEncounter> getVeryRareEncounters() {
+    public ArrayList<VeryRareEncounter> getVeryRareEncounters() {
         return veryRareEncounters;
     }
 
@@ -3919,6 +3919,6 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     }
 
     public boolean isShowTrackedRange() {
-        return getOptions().getShowTrackedRange();
+        return getOptions().isShowTrackedRange();
     }
 }

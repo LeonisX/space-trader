@@ -124,16 +124,16 @@ public class StarSystem extends STSerializableObject {
     }
 
     public boolean itemTraded(TradeItem item) {
-        return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().DrugsOk())
+        return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().isDrugsOk())
                 && (item.getType() != TradeItemType.FIREARMS
-                || getPoliticalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
+                || getPoliticalSystem().isFirearmsOk()) && getTechLevel().castToInt() >= item
                 .getTechProduction().castToInt());
     }
 
     boolean itemUsed(TradeItem item) {
-        return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().DrugsOk())
+        return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().isDrugsOk())
                 && (item.getType() != TradeItemType.FIREARMS
-                || getPoliticalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
+                || getPoliticalSystem().isFirearmsOk()) && getTechLevel().castToInt() >= item
                 .getTechUsage().castToInt());
     }
 

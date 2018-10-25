@@ -121,7 +121,7 @@ public class Functions {
         return new RegistryKey(new File("registryKey.properties"));
     }
 
-    static boolean isInt(String toParse) {
+    public static boolean isInt(String toParse) {
         try {
             Integer.parseInt(toParse);
             return true;

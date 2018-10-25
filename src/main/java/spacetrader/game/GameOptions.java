@@ -22,131 +22,127 @@ package spacetrader.game;
 import spacetrader.util.Hashtable;
 
 public class GameOptions extends STSerializableObject {
-//	 #region Member Declarations
 
     /**
      * Automatically ignores pirates when it is safe to do so
      */
-    private boolean _alwaysIgnorePirates = false;
+    private boolean alwaysIgnorePirates = false;
     /**
      * Automatically ignores police when it is safe to do so
      */
-    private boolean _alwaysIgnorePolice = false;
+    private boolean alwaysIgnorePolice = false;
     /**
      * Automatically ignores Trade in Orbit when it is safe to do so
      */
-    private boolean _alwaysIgnoreTradeInOrbit = false;
+    private boolean alwaysIgnoreTradeInOrbit = false;
     /**
      * Automatically ignores traders when it is safe to do so
      */
-    private boolean _alwaysIgnoreTraders = true;
+    private boolean alwaysIgnoreTraders = true;
     /**
      * Automatically get a full tank when arriving in a new system
      */
-    private boolean _autoFuel = false;
+    private boolean autoFuel = false;
     /**
      * Automatically get a full hull repair when arriving in a new system
      */
-    private boolean _autoRepair = false;
+    private boolean autoRepair = false;
     /**
      * Continuous attack/flee mode
      */
-    private boolean _continuousAttack = false;
+    private boolean continuousAttack = false;
     /**
      * Continue attack on fleeing ship
      */
-    private boolean _continuousAttackFleeing = false;
+    private boolean continuousAttackFleeing = false;
     /**
      * Disable opponents when possible (when you have disabling weapons and the opponent is a pirate, trader, or mantis)
      */
-    private boolean _disableOpponents = false;
+    private boolean disableOpponents = false;
     /**
      * by default, ask each time someone buys a newspaper
      */
-    private boolean _newsAutoPay = false;
+    private boolean newsAutoPay = false;
     /**
      * by default, don't show newspaper
      */
-    private boolean _newsAutoShow = false;
+    private boolean newsAutoShow = false;
     /**
      * remind you every five days about outstanding loan balances
      */
-    private boolean _remindLoans = true;
+    private boolean remindLoans = true;
     /**
      * Keep enough money for insurance and mercenaries
      */
-    private boolean _reserveMoney = false;
+    private boolean reserveMoney = false;
     /**
      * display range when tracking a system on Short Range Chart
      */
-    private boolean _showTrackedRange = true;
+    private boolean showTrackedRange = true;
     /**
      * Automatically stop tracking a system when you get to it?
      */
-    private boolean _trackAutoOff = true;
+    private boolean trackAutoOff = true;
     /**
      * Number of cargo bays to leave empty when buying goods
      */
-    private int _leaveEmpty = 0;
-
-//	 #endregion
-
-//	 #region Methods
+    private int leaveEmpty = 0;
 
     public GameOptions(boolean loadFromDefaults) {
-        if (loadFromDefaults)
+        if (loadFromDefaults) {
             loadFromDefaults(false);
+        }
     }
 
-    public GameOptions(Hashtable hash) {
+    GameOptions(Hashtable hash) {
         super();
-        _alwaysIgnorePirates = getValueFromHash(hash, "_alwaysIgnorePirates", _alwaysIgnorePirates);
-        _alwaysIgnorePolice = getValueFromHash(hash, "_alwaysIgnorePolice", _alwaysIgnorePolice);
-        _alwaysIgnoreTradeInOrbit = getValueFromHash(hash, "_alwaysIgnoreTradeInOrbit",
-                _alwaysIgnoreTradeInOrbit);
-        _alwaysIgnoreTraders = getValueFromHash(hash, "_alwaysIgnoreTraders", _alwaysIgnoreTraders);
-        _autoFuel = getValueFromHash(hash, "_autoFuel", _autoFuel);
-        _autoRepair = getValueFromHash(hash, "_autoRepair", _autoRepair);
-        _continuousAttack = getValueFromHash(hash, "_continuousAttack", _continuousAttack);
-        _continuousAttackFleeing = getValueFromHash(hash, "_continuousAttackFleeing", _continuousAttackFleeing);
-        _disableOpponents = getValueFromHash(hash, "_disableOpponents", _disableOpponents);
-        _newsAutoPay = getValueFromHash(hash, "_newsAutoPay", _newsAutoPay);
-        _newsAutoShow = getValueFromHash(hash, "_newsAutoShow", _newsAutoShow);
-        _remindLoans = getValueFromHash(hash, "_remindLoans", _remindLoans);
-        _reserveMoney = getValueFromHash(hash, "_reserveMoney", _reserveMoney);
-        _showTrackedRange = getValueFromHash(hash, "_showTrackedRange", _showTrackedRange);
-        _trackAutoOff = getValueFromHash(hash, "_trackAutoOff", _trackAutoOff);
-        _leaveEmpty = getValueFromHash(hash, "_leaveEmpty", _leaveEmpty);
+        alwaysIgnorePirates = getValueFromHash(hash, "_alwaysIgnorePirates", alwaysIgnorePirates);
+        alwaysIgnorePolice = getValueFromHash(hash, "_alwaysIgnorePolice", alwaysIgnorePolice);
+        alwaysIgnoreTradeInOrbit = getValueFromHash(hash, "_alwaysIgnoreTradeInOrbit",
+                alwaysIgnoreTradeInOrbit);
+        alwaysIgnoreTraders = getValueFromHash(hash, "_alwaysIgnoreTraders", alwaysIgnoreTraders);
+        autoFuel = getValueFromHash(hash, "_autoFuel", autoFuel);
+        autoRepair = getValueFromHash(hash, "_autoRepair", autoRepair);
+        continuousAttack = getValueFromHash(hash, "_continuousAttack", continuousAttack);
+        continuousAttackFleeing = getValueFromHash(hash, "_continuousAttackFleeing", continuousAttackFleeing);
+        disableOpponents = getValueFromHash(hash, "_disableOpponents", disableOpponents);
+        newsAutoPay = getValueFromHash(hash, "_newsAutoPay", newsAutoPay);
+        newsAutoShow = getValueFromHash(hash, "_newsAutoShow", newsAutoShow);
+        remindLoans = getValueFromHash(hash, "_remindLoans", remindLoans);
+        reserveMoney = getValueFromHash(hash, "_reserveMoney", reserveMoney);
+        showTrackedRange = getValueFromHash(hash, "_showTrackedRange", showTrackedRange);
+        trackAutoOff = getValueFromHash(hash, "_trackAutoOff", trackAutoOff);
+        leaveEmpty = getValueFromHash(hash, "_leaveEmpty", leaveEmpty);
     }
 
     public void copyValues(GameOptions source) {
-        setAlwaysIgnorePirates(source.getAlwaysIgnorePirates());
-        setAlwaysIgnorePolice(source.getAlwaysIgnorePolice());
-        setAlwaysIgnoreTradeInOrbit(source.getAlwaysIgnoreTradeInOrbit());
-        setAlwaysIgnoreTraders(source.getAlwaysIgnoreTraders());
-        setAutoFuel(source.getAutoFuel());
-        setAutoRepair(source.getAutoRepair());
-        setContinuousAttack(source.getContinuousAttack());
-        setContinuousAttackFleeing(source.getContinuousAttackFleeing());
-        setDisableOpponents(source.getDisableOpponents());
-        setNewsAutoPay(source.getNewsAutoPay());
-        setNewsAutoShow(source.getNewsAutoShow());
-        setRemindLoans(source.getRemindLoans());
-        setReserveMoney(source.getReserveMoney());
-        setShowTrackedRange(source.getShowTrackedRange());
-        setTrackAutoOff(source.getTrackAutoOff());
+        setAlwaysIgnorePirates(source.isAlwaysIgnorePirates());
+        setAlwaysIgnorePolice(source.isAlwaysIgnorePolice());
+        setAlwaysIgnoreTradeInOrbit(source.isAlwaysIgnoreTradeInOrbit());
+        setAlwaysIgnoreTraders(source.isAlwaysIgnoreTraders());
+        setAutoFuel(source.isAutoFuel());
+        setAutoRepair(source.isAutoRepair());
+        setContinuousAttack(source.isContinuousAttack());
+        setContinuousAttackFleeing(source.isContinuousAttackFleeing());
+        setDisableOpponents(source.isDisableOpponents());
+        setNewsAutoPay(source.isNewsAutoPay());
+        setNewsAutoShow(source.isNewsAutoShow());
+        setRemindLoans(source.isRemindLoans());
+        setReserveMoney(source.isReserveMoney());
+        setShowTrackedRange(source.isShowTrackedRange());
+        setTrackAutoOff(source.isTrackAutoOff());
         setLeaveEmpty(source.getLeaveEmpty());
     }
 
     public void loadFromDefaults(boolean errorIfFileNotFound) {
-
-        GameOptions defaults = null;
+        GameOptions defaults;
 
         Object obj = Functions.loadFile(Consts.DefaultSettingsFile, !errorIfFileNotFound);
-        if (obj == null)
+        if (obj == null) {
             defaults = new GameOptions(false);
-        else
+        } else {
             defaults = new GameOptions((Hashtable) obj);
+        }
 
         copyValues(defaults);
     }
@@ -159,156 +155,151 @@ public class GameOptions extends STSerializableObject {
     Hashtable serialize() {
         Hashtable hash = super.serialize();
 
-        hash.add("_alwaysIgnorePirates", _alwaysIgnorePirates);
-        hash.add("_alwaysIgnorePolice", _alwaysIgnorePolice);
-        hash.add("_alwaysIgnoreTradeInOrbit", _alwaysIgnoreTradeInOrbit);
-        hash.add("_alwaysIgnoreTraders", _alwaysIgnoreTraders);
-        hash.add("_autoFuel", _autoFuel);
-        hash.add("_autoRepair", _autoRepair);
-        hash.add("_continuousAttack", _continuousAttack);
-        hash.add("_continuousAttackFleeing", _continuousAttackFleeing);
-        hash.add("_disableOpponents", _disableOpponents);
-        hash.add("_newsAutoPay", _newsAutoPay);
-        hash.add("_newsAutoShow", _newsAutoShow);
-        hash.add("_remindLoans", _remindLoans);
-        hash.add("_reserveMoney", _reserveMoney);
-        hash.add("_showTrackedRange", _showTrackedRange);
-        hash.add("_trackAutoOff", _trackAutoOff);
-        hash.add("_leaveEmpty", _leaveEmpty);
+        hash.add("_alwaysIgnorePirates", alwaysIgnorePirates);
+        hash.add("_alwaysIgnorePolice", alwaysIgnorePolice);
+        hash.add("_alwaysIgnoreTradeInOrbit", alwaysIgnoreTradeInOrbit);
+        hash.add("_alwaysIgnoreTraders", alwaysIgnoreTraders);
+        hash.add("_autoFuel", autoFuel);
+        hash.add("_autoRepair", autoRepair);
+        hash.add("_continuousAttack", continuousAttack);
+        hash.add("_continuousAttackFleeing", continuousAttackFleeing);
+        hash.add("_disableOpponents", disableOpponents);
+        hash.add("_newsAutoPay", newsAutoPay);
+        hash.add("_newsAutoShow", newsAutoShow);
+        hash.add("_remindLoans", remindLoans);
+        hash.add("_reserveMoney", reserveMoney);
+        hash.add("_showTrackedRange", showTrackedRange);
+        hash.add("_trackAutoOff", trackAutoOff);
+        hash.add("_leaveEmpty", leaveEmpty);
 
         return hash;
     }
 
-//	 #endregion
-
-//	 #region Properties
-
-    public boolean getAlwaysIgnorePirates() {
-        return _alwaysIgnorePirates;
+    public boolean isAlwaysIgnorePirates() {
+        return alwaysIgnorePirates;
     }
 
-    public void setAlwaysIgnorePirates(boolean value) {
-        _alwaysIgnorePirates = value;
+    public void setAlwaysIgnorePirates(boolean alwaysIgnorePirates) {
+        this.alwaysIgnorePirates = alwaysIgnorePirates;
     }
 
-    public boolean getAlwaysIgnorePolice() {
-        return _alwaysIgnorePolice;
+    public boolean isAlwaysIgnorePolice() {
+        return alwaysIgnorePolice;
     }
 
-    public void setAlwaysIgnorePolice(boolean value) {
-        _alwaysIgnorePolice = value;
+    public void setAlwaysIgnorePolice(boolean alwaysIgnorePolice) {
+        this.alwaysIgnorePolice = alwaysIgnorePolice;
     }
 
-    public boolean getAlwaysIgnoreTradeInOrbit() {
-        return _alwaysIgnoreTradeInOrbit;
+    public boolean isAlwaysIgnoreTradeInOrbit() {
+        return alwaysIgnoreTradeInOrbit;
     }
 
-    public void setAlwaysIgnoreTradeInOrbit(boolean value) {
-        _alwaysIgnoreTradeInOrbit = value;
+    public void setAlwaysIgnoreTradeInOrbit(boolean alwaysIgnoreTradeInOrbit) {
+        this.alwaysIgnoreTradeInOrbit = alwaysIgnoreTradeInOrbit;
     }
 
-    public boolean getAlwaysIgnoreTraders() {
-        return _alwaysIgnoreTraders;
+    public boolean isAlwaysIgnoreTraders() {
+        return alwaysIgnoreTraders;
     }
 
-    public void setAlwaysIgnoreTraders(boolean value) {
-        _alwaysIgnoreTraders = value;
+    public void setAlwaysIgnoreTraders(boolean alwaysIgnoreTraders) {
+        this.alwaysIgnoreTraders = alwaysIgnoreTraders;
     }
 
-    public boolean getAutoFuel() {
-        return _autoFuel;
+    public boolean isAutoFuel() {
+        return autoFuel;
     }
 
-    public void setAutoFuel(boolean value) {
-        _autoFuel = value;
+    public void setAutoFuel(boolean autoFuel) {
+        this.autoFuel = autoFuel;
     }
 
-    public boolean getAutoRepair() {
-        return _autoRepair;
+    public boolean isAutoRepair() {
+        return autoRepair;
     }
 
-    public void setAutoRepair(boolean value) {
-        _autoRepair = value;
+    public void setAutoRepair(boolean autoRepair) {
+        this.autoRepair = autoRepair;
     }
 
-    public boolean getContinuousAttack() {
-        return _continuousAttack;
+    public boolean isContinuousAttack() {
+        return continuousAttack;
     }
 
-    public void setContinuousAttack(boolean value) {
-        _continuousAttack = value;
+    public void setContinuousAttack(boolean continuousAttack) {
+        this.continuousAttack = continuousAttack;
     }
 
-    public boolean getContinuousAttackFleeing() {
-        return _continuousAttackFleeing;
+    public boolean isContinuousAttackFleeing() {
+        return continuousAttackFleeing;
     }
 
-    public void setContinuousAttackFleeing(boolean value) {
-        _continuousAttackFleeing = value;
+    public void setContinuousAttackFleeing(boolean continuousAttackFleeing) {
+        this.continuousAttackFleeing = continuousAttackFleeing;
     }
 
-    public boolean getDisableOpponents() {
-        return _disableOpponents;
+    public boolean isDisableOpponents() {
+        return disableOpponents;
     }
 
-    public void setDisableOpponents(boolean value) {
-        _disableOpponents = value;
+    public void setDisableOpponents(boolean disableOpponents) {
+        this.disableOpponents = disableOpponents;
+    }
+
+    public boolean isNewsAutoPay() {
+        return newsAutoPay;
+    }
+
+    public void setNewsAutoPay(boolean newsAutoPay) {
+        this.newsAutoPay = newsAutoPay;
+    }
+
+    public boolean isNewsAutoShow() {
+        return newsAutoShow;
+    }
+
+    public void setNewsAutoShow(boolean newsAutoShow) {
+        this.newsAutoShow = newsAutoShow;
+    }
+
+    public boolean isRemindLoans() {
+        return remindLoans;
+    }
+
+    public void setRemindLoans(boolean remindLoans) {
+        this.remindLoans = remindLoans;
+    }
+
+    public boolean isReserveMoney() {
+        return reserveMoney;
+    }
+
+    public void setReserveMoney(boolean reserveMoney) {
+        this.reserveMoney = reserveMoney;
+    }
+
+    public boolean isShowTrackedRange() {
+        return showTrackedRange;
+    }
+
+    public void setShowTrackedRange(boolean showTrackedRange) {
+        this.showTrackedRange = showTrackedRange;
+    }
+
+    public boolean isTrackAutoOff() {
+        return trackAutoOff;
+    }
+
+    public void setTrackAutoOff(boolean trackAutoOff) {
+        this.trackAutoOff = trackAutoOff;
     }
 
     public int getLeaveEmpty() {
-        return _leaveEmpty;
+        return leaveEmpty;
     }
 
-    public void setLeaveEmpty(int value) {
-        _leaveEmpty = value;
+    public void setLeaveEmpty(int leaveEmpty) {
+        this.leaveEmpty = leaveEmpty;
     }
-
-    public boolean getNewsAutoPay() {
-        return _newsAutoPay;
-    }
-
-    public void setNewsAutoPay(boolean value) {
-        _newsAutoPay = value;
-    }
-
-    public boolean getNewsAutoShow() {
-        return _newsAutoShow;
-    }
-
-    public void setNewsAutoShow(boolean value) {
-        _newsAutoShow = value;
-    }
-
-    public boolean getRemindLoans() {
-        return _remindLoans;
-    }
-
-    public void setRemindLoans(boolean value) {
-        _remindLoans = value;
-    }
-
-    public boolean getReserveMoney() {
-        return _reserveMoney;
-    }
-
-    public void setReserveMoney(boolean value) {
-        _reserveMoney = value;
-    }
-
-    public boolean getShowTrackedRange() {
-        return _showTrackedRange;
-    }
-
-    public void setShowTrackedRange(boolean value) {
-        _showTrackedRange = value;
-    }
-
-    public boolean getTrackAutoOff() {
-        return _trackAutoOff;
-    }
-
-    public void setTrackAutoOff(boolean value) {
-        _trackAutoOff = value;
-    }
-//	 #endregion
 }

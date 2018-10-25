@@ -333,19 +333,19 @@ public class ShipSpec extends STSerializableObject {
         return Strings.ShipNames[getType().castToInt()];
     }
 
-    public int Occurrence() {
+    public int getOccurrence() {
         return _occurrence;
     }
 
-    public Activity Police() {
+    public Activity getPolice() {
         return _police;
     }
 
-    public Activity Pirates() {
+    public Activity getPirates() {
         return _pirates;
     }
 
-    public Activity Traders() {
+    public Activity getTraders() {
         return _traders;
     }
 

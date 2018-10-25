@@ -1,5 +1,6 @@
-package spacetrader.game;
+package spacetrader.game.cheat;
 
+import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.VeryRareEncounter;
@@ -14,15 +15,15 @@ public class GameCheats {
     private final Game game;
     private boolean cheatMode = false;
 
-    GameCheats(Game game) {
+    public GameCheats(Game game) {
         this.game = game;
     }
 
-    boolean isCheatMode() {
+    public boolean isCheatMode() {
         return cheatMode;
     }
 
-    void setCheatMode(boolean cheatMode) {
+    public void setCheatMode(boolean cheatMode) {
         this.cheatMode = cheatMode;
     }
 

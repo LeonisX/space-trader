@@ -459,7 +459,7 @@ public class Ship extends ShipSpec {
             for (int i = 0; i < Consts.MaxShip; i++) {
                 ShipSpec spec = Consts.ShipSpecs[i];
                 if (polSys.ShipTypeLikely(spec.getType(), oppType))
-                    total += spec.Occurrence();
+                    total += spec.getOccurrence();
             }
 
             for (int i = 0; i < tries; i++) {
@@ -471,9 +471,9 @@ public class Ship extends ShipSpec {
                     j++;
                     if (polSys.ShipTypeLikely(Consts.ShipSpecs[j].getType(), oppType)) {
                         if (sum > 0)
-                            sum += Consts.ShipSpecs[j].Occurrence();
+                            sum += Consts.ShipSpecs[j].getOccurrence();
                         else
-                            sum = Consts.ShipSpecs[j].Occurrence();
+                            sum = Consts.ShipSpecs[j].getOccurrence();
                     }
                 } while (sum < x && j < Consts.MaxShip);
 
@@ -707,9 +707,9 @@ public class Ship extends ShipSpec {
         hash.add("_hull", _hull);
         hash.add("_tribbles", _tribbles);
         hash.add("_cargo", _cargo);
-        hash.add("_weapons", ArrayToArrayList(_weapons));
-        hash.add("_shields", ArrayToArrayList(_shields));
-        hash.add("_gadgets", ArrayToArrayList(_gadgets));
+        hash.add("_weapons", arrayToArrayList(_weapons));
+        hash.add("_shields", arrayToArrayList(_shields));
+        hash.add("_gadgets", arrayToArrayList(_gadgets));
         hash.add("_crewIds", crewIds);
         hash.add("_pod", _pod);
 

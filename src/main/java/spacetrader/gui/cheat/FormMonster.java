@@ -45,7 +45,7 @@ import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
-import spacetrader.game.SomeStringsForCheatSwitch;
+import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.ShipyardId;

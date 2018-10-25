@@ -17,51 +17,39 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-// using System;
+
 package spacetrader.game;
 
 import spacetrader.game.enums.PoliceRecordType;
 
 public class PoliceRecord {
-    // #region Member Declarations
 
-    private final PoliceRecordType _type;
-    private final int _minScore;
+    private final PoliceRecordType type;
+    private final int minScore;
 
-    // #endregion
-
-    // #region Methods
-
-    public PoliceRecord(PoliceRecordType type, int minScore) {
-        _type = type;
-        _minScore = minScore;
+    PoliceRecord(PoliceRecordType type, int minScore) {
+        this.type = type;
+        this.minScore = minScore;
     }
 
     public static PoliceRecord getPoliceRecordFromScore(int PoliceRecordScore) {
         int i;
         for (i = 0; i < Consts.PoliceRecords.length
-                && Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecords[i].MinScore(); i++)
-            ;
+                && Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecords[i].getMinScore(); i++) {
+        }
         return Consts.PoliceRecords[Math.max(0, i - 1)];
     }
 
-    // #endregion
-
-    // #region Properties
-
-
-    public int MinScore() {
-        return _minScore;
+    private int getMinScore() {
+        return minScore;
     }
 
-
     public String getName() {
-        return _type.getName();
+        return type.getName();
     }
 
     public PoliceRecordType getType() {
-        return _type;
+        return type;
     }
 
-    // #endregion
 }

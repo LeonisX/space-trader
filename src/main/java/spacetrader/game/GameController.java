@@ -21,8 +21,8 @@ public class GameController {
     private static final String SAVE_DEPARTURE = "autosave_departure.sav";
     private final Game game;
     private final MainWindow mainWindow;
-    public String SaveGameFile = null;
-    public int SaveGameDays = -1;
+    public String saveGameFile = null;
+    public int saveGameDays = -1;
 
     public GameController(Game game, MainWindow spaceTrader) {
         this.game = game;
@@ -35,16 +35,18 @@ public class GameController {
     }
 
     public void cargoSell(int tradeItem, boolean all) {
-        if (game.getPriceCargoSell()[tradeItem] > 0)
+        if (game.getPriceCargoSell()[tradeItem] > 0) {
             game.cargoSellSystem(tradeItem, all);
-        else
+        } else {
             game.cargoDump(tradeItem);
+        }
         mainWindow.updateAll();
     }
 
+    //TODO ???
     public void clearHighScores() {
         HighScoreRecord[] highScores = new HighScoreRecord[3];
-        Functions.saveFile(Consts.HighScoreFile, STSerializableObject.ArrayToArrayList(highScores));
+        Functions.saveFile(Consts.HighScoreFile, STSerializableObject.arrayToArrayList(highScores));
     }
 
     private void addHighScore(HighScoreRecord highScore) {
@@ -52,7 +54,7 @@ public class GameController {
         highScores[0] = highScore;
         Util.sort(highScores);
 
-        Functions.saveFile(Consts.HighScoreFile, STSerializableObject.ArrayToArrayList(highScores));
+        Functions.saveFile(Consts.HighScoreFile, STSerializableObject.arrayToArrayList(highScores));
     }
 
     public void gameEnd() {
@@ -85,8 +87,9 @@ public class GameController {
                 addHighScore(candidate);
                 GuiFacade.alert(AlertType.GameEndHighScoreAchieved);
             }
-        } else
+        } else {
             GuiFacade.alert(AlertType.GameEndHighScoreMissed);
+        }
 
         Game.setCurrentGame(null);
         mainWindow.setGame(null);
@@ -97,8 +100,8 @@ public class GameController {
             Object obj = Functions.loadFile(fileName, false);
             if (obj != null) {
                 mainWindow.setGame(new Game((Hashtable) obj, mainWindow));
-                SaveGameFile = fileName;
-                SaveGameDays = game.getCommander().getDays();
+                saveGameFile = fileName;
+                saveGameDays = game.getCommander().getDays();
 
                 mainWindow.setInGameControlsEnabled(true);
                 mainWindow.updateAll();
@@ -110,9 +113,9 @@ public class GameController {
 
     public void saveGame(String fileName, boolean saveFileName) {
         if (Functions.saveFile(fileName, game.serialize()) && saveFileName)
-            SaveGameFile = fileName;
+            saveGameFile = fileName;
 
-        SaveGameDays = game.getCommander().getDays();
+        saveGameDays = game.getCommander().getDays();
     }
 
     public void autoSaveOnArrival() {

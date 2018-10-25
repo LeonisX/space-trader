@@ -1,4 +1,4 @@
-package spacetrader.game;
+package spacetrader.game.cheat;
 
 import spacetrader.util.CheatCode;
 

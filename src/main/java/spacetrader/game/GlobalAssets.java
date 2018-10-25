@@ -18,12 +18,10 @@ public class GlobalAssets {
     private static final String STRINGS_TEMPLATE = "strings/%s.properties";
     private static final String DIMENSIONS_TEMPLATE = "dimensions/%s.properties";
 
-
     private static ImageList ilChartImages;
     private static ImageList ilDirectionImages;
     private static ImageList ilEquipmentImages;
     private static ImageList ilShipImages;
-
 
     private static StringsMap strings = new StringsMap();
     private static ValuesMap dimensions = new ValuesMap();
@@ -63,6 +61,14 @@ public class GlobalAssets {
         dimensions = PropertiesLoader.getValuesMap(String.format(DIMENSIONS_TEMPLATE, fileName));
     }
 
+    public static StringsMap getStrings() {
+        return strings;
+    }
+
+    public static ValuesMap getDimensions() {
+        return dimensions;
+    }
+
     public static ImageList getChartImages() {
         return ilChartImages;
     }
@@ -95,11 +101,4 @@ public class GlobalAssets {
         }
     }
 
-    public static StringsMap getStrings() {
-        return strings;
-    }
-
-    public static ValuesMap getDimensions() {
-        return dimensions;
-    }
 }

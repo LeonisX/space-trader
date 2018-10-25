@@ -318,22 +318,22 @@ public class FormOptions extends SpaceTraderForm {
     private void updateAll() {
         initializing = true;
 
-        fuelCheckBox.setChecked(getOptions().getAutoFuel());
-        repairCheckBox.setChecked(getOptions().getAutoRepair());
-        newspaperCheckBox.setChecked(getOptions().getNewsAutoPay());
-        showNewspaperCheckBox.setChecked(getOptions().getNewsAutoShow());
-        loanCheckBox.setChecked(getOptions().getRemindLoans());
-        rangeCheckBox.setChecked(getOptions().getShowTrackedRange());
-        stopTrackingCheckBox.setChecked(getOptions().getTrackAutoOff());
-        reserveMoneyCheckBox.setChecked(getOptions().getReserveMoney());
+        fuelCheckBox.setChecked(getOptions().isAutoFuel());
+        repairCheckBox.setChecked(getOptions().isAutoRepair());
+        newspaperCheckBox.setChecked(getOptions().isNewsAutoPay());
+        showNewspaperCheckBox.setChecked(getOptions().isNewsAutoShow());
+        loanCheckBox.setChecked(getOptions().isRemindLoans());
+        rangeCheckBox.setChecked(getOptions().isShowTrackedRange());
+        stopTrackingCheckBox.setChecked(getOptions().isTrackAutoOff());
+        reserveMoneyCheckBox.setChecked(getOptions().isReserveMoney());
         emptyNumericUpDown.setValue(getOptions().getLeaveEmpty());
-        ignorePiratesCheckBox.setChecked(getOptions().getAlwaysIgnorePirates());
-        ignorePoliceCheckBox.setChecked(getOptions().getAlwaysIgnorePolice());
-        ignoreTradersCheckBox.setChecked(getOptions().getAlwaysIgnoreTraders());
-        ignoreDealingTradersCheckBox.setChecked(getOptions().getAlwaysIgnoreTradeInOrbit());
-        continuousAttackCheckBox.setChecked(getOptions().getContinuousAttack());
-        attackFleeingCheckBox.setChecked(getOptions().getContinuousAttackFleeing());
-        disableOpponentsCheckBox.setChecked(getOptions().getDisableOpponents());
+        ignorePiratesCheckBox.setChecked(getOptions().isAlwaysIgnorePirates());
+        ignorePoliceCheckBox.setChecked(getOptions().isAlwaysIgnorePolice());
+        ignoreTradersCheckBox.setChecked(getOptions().isAlwaysIgnoreTraders());
+        ignoreDealingTradersCheckBox.setChecked(getOptions().isAlwaysIgnoreTradeInOrbit());
+        continuousAttackCheckBox.setChecked(getOptions().isContinuousAttack());
+        attackFleeingCheckBox.setChecked(getOptions().isContinuousAttackFleeing());
+        disableOpponentsCheckBox.setChecked(getOptions().isDisableOpponents());
 
         updateContinueAttackFleeing();
         updateIgnoreTradersDealing();

@@ -5,6 +5,7 @@ import spacetrader.controls.Button;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
+import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;

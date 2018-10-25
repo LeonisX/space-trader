@@ -22,7 +22,6 @@ package spacetrader.gui;
 
 import static spacetrader.controls.MenuItem.separator;
 
-import java.awt.Color;
 import java.awt.Point;
 import spacetrader.controls.CancelEventArgs;
 import spacetrader.controls.Container;
@@ -34,9 +33,6 @@ import spacetrader.controls.FormStartPosition;
 import spacetrader.controls.HorizontalLine;
 import spacetrader.controls.IContainer;
 import spacetrader.controls.Icon;
-import spacetrader.controls.Image;
-import spacetrader.controls.ImageList;
-import spacetrader.controls.ImageListStreamer;
 import spacetrader.controls.MainMenu;
 import spacetrader.controls.MenuItem;
 import spacetrader.controls.OpenFileDialog;
@@ -49,7 +45,6 @@ import spacetrader.controls.WinformWindow;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
-import spacetrader.game.enums.ShipType;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
@@ -485,7 +480,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void SpaceTrader_Closing(spacetrader.controls.CancelEventArgs e) {
-        if (game == null || commander.getDays() == controller.SaveGameDays
+        if (game == null || commander.getDays() == controller.saveGameDays
                 || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES) {
             if (windowState == FormWindowState.Normal) {
                 SetRegistrySetting("X", left.toString());
@@ -515,25 +510,25 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void mnuGameNew_Click() {
         FormNewCommander form = new FormNewCommander();
-        if ((game == null || commander.getDays() == controller.SaveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
+        if ((game == null || commander.getDays() == controller.saveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
                 && form.showDialog(this) == DialogResult.OK) {
             setGame(new Game(form.getCommanderName(), form.getDifficulty(), form.getPilot(), form.getFighter(), form.getTrader(), form
                     .getEngineer(), this));
             //TODO
-            controller.SaveGameFile = null;
-            controller.SaveGameDays = 0;
+            controller.saveGameFile = null;
+            controller.saveGameDays = 0;
 
             setInGameControlsEnabled(true);
             updateAll();
 
-            if (game.getOptions().getNewsAutoShow()) {
+            if (game.getOptions().isNewsAutoShow()) {
                 game.showNewspaper();
             }
         }
     }
 
     private void mnuGameLoad_Click() {
-        if ((game == null || commander.getDays() == controller.SaveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
+        if ((game == null || commander.getDays() == controller.saveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
                 && openFileDialog.showDialog(this) == DialogResult.OK) {
             controller.loadGame(openFileDialog.getFileName());
         }
@@ -541,8 +536,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void mnuGameSave_Click() {
         if (Game.getCurrentGame() != null) {
-            if (controller.SaveGameFile != null) {
-                controller.saveGame(controller.SaveGameFile, false);
+            if (controller.saveGameFile != null) {
+                controller.saveGame(controller.saveGameFile, false);
             } else {
                 mnuGameSaveAs_Click();
             }
