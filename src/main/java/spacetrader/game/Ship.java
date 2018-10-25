@@ -61,10 +61,10 @@ public class Ship extends ShipSpec {
             SetValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
             for (int i = 0; i < getShields().length; i++)
-                addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
+                addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
 
             for (int i = 0; i < getWeapons().length; i++)
-                addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+                addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
 
             addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
             addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
@@ -510,7 +510,7 @@ public class Ship extends ShipSpec {
         return found;
     }
 
-    public boolean HasEquipment(Equipment item) {
+    public boolean hasEquipment(Equipment item) {
         boolean found = false;
         switch (item.getEquipmentType()) {
             case WEAPON:
@@ -730,7 +730,7 @@ public class Ship extends ShipSpec {
     }
 
     public int WeaponStrength() {
-        return WeaponStrength(WeaponType.PulseLaser, WeaponType.QuantumDisruptor);
+        return WeaponStrength(WeaponType.PULSE_LASER, WeaponType.QUANTUM_DISRUPTOR);
     }
 
     public int WeaponStrength(WeaponType min, WeaponType max) {
@@ -1029,7 +1029,7 @@ public class Ship extends ShipSpec {
 
     // Crew members that are not hired/fired - Commander, Jarek, Princess, and
     // Wild - JAF
-    public CrewMember[] SpecialCrew() {
+    public CrewMember[] getSpecialCrew() {
         ArrayList<CrewMember> list = new ArrayList<CrewMember>();
         for (int i = 0; i < getCrew().length; i++) {
             if (getCrew()[i] != null && Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId()))

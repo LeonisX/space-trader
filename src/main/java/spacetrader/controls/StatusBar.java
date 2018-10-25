@@ -18,8 +18,8 @@ public class StatusBar extends BaseComponent {
         super(new JStatusBar());
     }
 
-    public void addAll(Iterable<StatusBarPanel> asList) {
-        for (StatusBarPanel panel : asList) {
+    public void addAll(StatusBarPanel... panels) {
+        for (StatusBarPanel panel : panels) {
             add(panel);
         }
     }

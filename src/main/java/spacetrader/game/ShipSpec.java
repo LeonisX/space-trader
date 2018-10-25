@@ -49,7 +49,7 @@ public class ShipSpec extends STSerializableObject {
     private Activity _police = Activity.NA;
     private Activity _pirates = Activity.NA;
     private Activity _traders = Activity.NA;
-    private TechLevel _minTech = TechLevel.Unavailable;
+    private TechLevel _minTech = TechLevel.UNAVAILABLE;
     private boolean _hullUpgraded = false;
     private int _imageIndex = Consts.ShipImgUseDefault;
 
@@ -179,22 +179,13 @@ public class ShipSpec extends STSerializableObject {
         _imageIndex = Consts.ShipSpecs[typeInt]._imageIndex;
     }
 
-    public int Slots(EquipmentType type) {
-        int count = 0;
-
+    public int getSlotsCount(EquipmentType type) {
         switch (type) {
-            case WEAPON:
-                count = getWeaponSlots();
-                break;
-            case SHIELD:
-                count = getShieldSlots();
-                break;
-            case GADGET:
-                count = getGadgetSlots();
-                break;
+            case WEAPON: return getWeaponSlots();
+            case SHIELD: return getShieldSlots();
+            case GADGET: return getGadgetSlots();
+            default: return 0;
         }
-
-        return count;
     }
 
     public void updateCustomImageOffsetConstants() {

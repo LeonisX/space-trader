@@ -28,7 +28,7 @@ class SpaceTraderStatusBar extends StatusBar {
     }
 
     public void initializeComponent() {
-        panels.addAll(Arrays.asList(statusBarPanelCash, statusBarPanelBays, statusBarPanelCosts, statusBarPanelExtra));
+        panels.addAll(statusBarPanelCash, statusBarPanelBays, statusBarPanelCosts, statusBarPanelExtra);
         showPanels = true;
         setSize(new Size(768, 24));
         sizingGrip = false;
@@ -63,10 +63,10 @@ class SpaceTraderStatusBar extends StatusBar {
         statusBarPanelCosts = new StatusBarPanel();
         statusBarPanelExtra = new StatusBarPanel(StatusBarPanelAutoSize.SPRING);
 
-        ((ISupportInitialize) (statusBarPanelCash)).beginInit();
-        ((ISupportInitialize) (statusBarPanelBays)).beginInit();
-        ((ISupportInitialize) (statusBarPanelCosts)).beginInit();
-        ((ISupportInitialize) (statusBarPanelExtra)).beginInit();
+        statusBarPanelCash.beginInit();
+        statusBarPanelBays.beginInit();
+        statusBarPanelCosts.beginInit();
+        statusBarPanelExtra.beginInit();
     }
 
     @Override

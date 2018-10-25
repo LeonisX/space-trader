@@ -127,7 +127,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
         return null;
     }
 
-    int TransferPrice() {
+    int getTransferPrice() {
         // The cost to transfer is 10% of the item worth. This is changed
         // from actually PAYING the buyer about 8% to transfer items. - JAF
         return getSellPrice() * 110 / 90;

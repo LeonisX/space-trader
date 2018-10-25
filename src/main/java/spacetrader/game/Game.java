@@ -321,7 +321,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             getCommander().setNoClaim(0);
         }
 
-        if (getCommander().getShip().getCrewCount() - getCommander().getShip().SpecialCrew().length > 1) {
+        if (getCommander().getShip().getCrewCount() - getCommander().getShip().getSpecialCrew().length > 1) {
             GuiFacade.alert(AlertType.JailMercenariesLeave);
             for (int i = 1; i < getCommander().getShip().getCrew().length; i++)
                 getCommander().getShip().getCrew()[i] = null;
@@ -363,7 +363,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
             if (getCommander().getDebt() > 0)
                 for (int i = 0; i < term; i++)
-                    getCommander().PayInterest();
+                    getCommander().payInterest();
         }
 
         getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
@@ -410,7 +410,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     return;
 
             GuiFacade.alert(AlertType.Egg);
-            getCommander().getShip().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+            getCommander().getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
             for (int i = 0; i < getCommander().getShip().getCargo().length; i++) {
                 getCommander().getShip().getCargo()[i] = 0;
                 getCommander().getPriceCargo()[i] = 0;
@@ -1079,30 +1079,30 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     private void CreateShips() {
         Dragonfly().getCrew()[0] = getMercenaries()[CrewMemberId.DRAGONFLY.castToInt()];
-        Dragonfly().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Dragonfly().addEquipment(Consts.Weapons[WeaponType.PulseLaser.castToInt()]);
-        Dragonfly().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
-        Dragonfly().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
-        Dragonfly().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+        Dragonfly().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        Dragonfly().addEquipment(Consts.Weapons[WeaponType.PULSE_LASER.castToInt()]);
+        Dragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
+        Dragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
+        Dragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
         Dragonfly().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         Dragonfly().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
         Scarab().getCrew()[0] = getMercenaries()[CrewMemberId.SCARAB.castToInt()];
-        Scarab().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Scarab().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        Scarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        Scarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
 
         Scorpion().getCrew()[0] = getMercenaries()[CrewMemberId.SCORPION.castToInt()];
-        Scorpion().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Scorpion().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        Scorpion().addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
-        Scorpion().addEquipment(Consts.Shields[ShieldType.Reflective.castToInt()]);
+        Scorpion().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        Scorpion().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        Scorpion().addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
+        Scorpion().addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
         Scorpion().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         Scorpion().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
         getSpaceMonster().getCrew()[0] = getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()];
-        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
-        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MilitaryLaser.castToInt()]);
+        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        getSpaceMonster().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
     }
 
     private boolean DetermineEncounter() {
@@ -1382,7 +1382,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case CAPTAIN_AHAB:
-                if (getCommander().getShip().HasShield(ShieldType.Reflective) && getCommander().getPilot() < 10
+                if (getCommander().getShip().HasShield(ShieldType.REFLECTIVE) && getCommander().getPilot() < 10
                         && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
                     getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_AHAB);
                     getEncounterType();
@@ -1393,7 +1393,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case CAPTAIN_CONRAD:
-                if (getCommander().getShip().HasWeapon(WeaponType.MilitaryLaser, true) && getCommander().getEngineer() < 10
+                if (getCommander().getShip().HasWeapon(WeaponType.MILITARY_LASER, true) && getCommander().getEngineer() < 10
                         && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
                     getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_CONRAD);
                     getEncounterType();
@@ -1404,7 +1404,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 }
                 break;
             case CAPTAIN_HUIE:
-                if (getCommander().getShip().HasWeapon(WeaponType.MilitaryLaser, true) && getCommander().getTrader() < 10
+                if (getCommander().getShip().HasWeapon(WeaponType.MILITARY_LASER, true) && getCommander().getTrader() < 10
                         && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
                     getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_HUIE);
                     getEncounterType();
@@ -1627,14 +1627,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             if (attacker.isCommandersShip() && getOpponentDisabled())
                 defender.setHull(0);
             else {
-                int attackerLasers = attacker.WeaponStrength(WeaponType.PulseLaser, WeaponType.MorgansLaser);
-                int attackerDisruptors = attacker.WeaponStrength(WeaponType.PhotonDisruptor,
-                        WeaponType.QuantumDisruptor);
+                int attackerLasers = attacker.WeaponStrength(WeaponType.PULSE_LASER, WeaponType.MORGANS_LASER);
+                int attackerDisruptors = attacker.WeaponStrength(WeaponType.PHOTON_DISRUPTOR,
+                        WeaponType.QUANTUM_DISRUPTOR);
 
                 if (defender.getType() == ShipType.SCARAB) {
-                    attackerLasers -= attacker.WeaponStrength(WeaponType.BeamLaser, WeaponType.MilitaryLaser);
-                    attackerDisruptors -= attacker.WeaponStrength(WeaponType.PhotonDisruptor,
-                            WeaponType.PhotonDisruptor);
+                    attackerLasers -= attacker.WeaponStrength(WeaponType.BEAM_LASER, WeaponType.MILITARY_LASER);
+                    attackerDisruptors -= attacker.WeaponStrength(WeaponType.PHOTON_DISRUPTOR,
+                            WeaponType.PHOTON_DISRUPTOR);
                 }
 
                 int attackerWeapons = attackerLasers + attackerDisruptors;
@@ -1733,7 +1733,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // Trade a reflective shield for skill points in piloting?
                 initialAlert = AlertType.MeetCaptainAhab;
                 equipType = EquipmentType.SHIELD;
-                equipSubType = ShieldType.Reflective;
+                equipSubType = ShieldType.REFLECTIVE;
                 skill = SkillType.PILOT.castToInt();
 
                 break;
@@ -1741,7 +1741,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // Trade a military laser for skill points in engineering?
                 initialAlert = AlertType.MeetCaptainConrad;
                 equipType = EquipmentType.WEAPON;
-                equipSubType = WeaponType.MilitaryLaser;
+                equipSubType = WeaponType.MILITARY_LASER;
                 skill = SkillType.ENGINEER.castToInt();
 
                 break;
@@ -1749,7 +1749,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 // Trade a military laser for skill points in trading?
                 initialAlert = AlertType.MeetCaptainHuie;
                 equipType = EquipmentType.WEAPON;
-                equipSubType = WeaponType.MilitaryLaser;
+                equipSubType = WeaponType.MILITARY_LASER;
                 skill = SkillType.TRADER.castToInt();
 
                 break;
@@ -1911,11 +1911,11 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             GuiFacade.alert(AlertType.EncounterAttackNoWeapons);
             attack = false;
         } else if (!getOpponent().Disableable()
-                && getCommander().getShip().WeaponStrength(WeaponType.PulseLaser, WeaponType.MorgansLaser) == 0) {
+                && getCommander().getShip().WeaponStrength(WeaponType.PULSE_LASER, WeaponType.MORGANS_LASER) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoLasers);
             attack = false;
         } else if (getOpponent().getType() == ShipType.SCORPION
-                && getCommander().getShip().WeaponStrength(WeaponType.PhotonDisruptor, WeaponType.QuantumDisruptor) == 0) {
+                && getCommander().getShip().WeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
             attack = false;
         } else {
@@ -2465,7 +2465,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             if (id == StarSystemId.Galvon) {
                 size = Size.Large;
                 polSys = Consts.PoliticalSystems[PoliticalSystemType.Monarchy.castToInt()];
-                tech = TechLevel.HiTech;
+                tech = TechLevel.HI_TECH;
             }
 
             if (Functions.getRandom(100) < 15)
@@ -2573,7 +2573,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentLightningShield);
-                    getCommander().getShip().addEquipment(Consts.Shields[ShieldType.Lightning.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
                     setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DONE);
                 }
                 break;
@@ -2675,7 +2675,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentQuantumDisruptor);
-                    getCommander().getShip().addEquipment(Consts.Weapons[WeaponType.QuantumDisruptor.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
                     setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_DONE);
                 }
                 break;
@@ -2715,7 +2715,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentMorgansLaser);
-                    getCommander().getShip().addEquipment(Consts.Weapons[WeaponType.MorgansLaser.castToInt()]);
+                    getCommander().getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
                     setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
                 }
                 break;
@@ -2776,7 +2776,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 if (getCommander().getShip().getFreeCrewQuartersCount() == 0) {
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                     remove = false;
-                } else if (!getCommander().getShip().HasWeapon(WeaponType.BeamLaser, false)) {
+                } else if (!getCommander().getShip().HasWeapon(WeaponType.BEAM_LASER, false)) {
                     GuiFacade.alert(AlertType.WildWontBoardLaser);
                     remove = false;
                 } else if (getCommander().getShip().isReactorOnBoard()) {
@@ -2845,7 +2845,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             if (getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_TOO_LATE) {
                 StarSystem gemulon = getUniverse()[StarSystemId.Gemulon.castToInt()];
                 gemulon.setSpecialEventType(SpecialEventType.GemulonInvaded);
-                gemulon.setTechLevel(TechLevel.PreAgricultural);
+                gemulon.setTechLevel(TechLevel.PRE_AGRICULTURAL);
                 gemulon.PoliticalSystemType(PoliticalSystemType.Anarchy);
             }
         }
@@ -2920,8 +2920,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         while (commander.getCurrentSystem() == null) {
             StarSystem system = getUniverse()[Functions.getRandom(getUniverse().length)];
             if (system.getSpecialEventType() == SpecialEventType.NA
-                    && system.getTechLevel().castToInt() > TechLevel.PreAgricultural.castToInt()
-                    && system.getTechLevel().castToInt() < TechLevel.HiTech.castToInt()) {
+                    && system.getTechLevel().castToInt() > TechLevel.PRE_AGRICULTURAL.castToInt()
+                    && system.getTechLevel().castToInt() < TechLevel.HI_TECH.castToInt()) {
                 // Make sure at least three other systems can be reached
                 int close = 0;
                 for (int i = 0; i < getUniverse().length && close < 3; i++) {
@@ -3069,7 +3069,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     private void NormalDeparture(int fuel) {
         getCommander().setCash(getCommander().getCash() - (getMercenaryCosts() + getInsuranceCosts() + getWormholeCosts()));
         getCommander().getShip().setFuel(getCommander().getShip().getFuel() - fuel);
-        getCommander().PayInterest();
+        getCommander().payInterest();
         IncDays(1);
     }
 
@@ -3078,7 +3078,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         ArrayList systemIdList = new ArrayList();
         for (int system = 0; system < getUniverse().length; system++) {
-            if (getUniverse()[system].getTechLevel() == TechLevel.HiTech)
+            if (getUniverse()[system].getTechLevel() == TechLevel.HI_TECH)
                 systemIdList.add(system);
         }
 
@@ -3128,7 +3128,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         // Find a Hi-Tech system without a special event.
         if (goodUniverse) {
             for (system = 0; system < getUniverse().length
-                    && !(getUniverse()[system].getSpecialEventType() == SpecialEventType.NA && getUniverse()[system].getTechLevel() == TechLevel.HiTech); system++)
+                    && !(getUniverse()[system].getSpecialEventType() == SpecialEventType.NA && getUniverse()[system].getTechLevel() == TechLevel.HI_TECH); system++)
                 ;
             if (system < getUniverse().length)
                 getUniverse()[system].setSpecialEventType(SpecialEventType.ArtifactDelivery);
@@ -3366,7 +3366,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             boolean wildOk = true;
 
             // if Wild is aboard, make sure ship is armed!
-            if (getCommander().getShip().isWildOnBoard() && !getCommander().getShip().HasWeapon(WeaponType.BeamLaser, false)) {
+            if (getCommander().getShip().isWildOnBoard() && !getCommander().getShip().HasWeapon(WeaponType.BEAM_LASER, false)) {
                 if (GuiFacade.alert(AlertType.WildWontStayAboardLaser, getCommander().getCurrentSystem().getName()) == DialogResult.CANCEL)
                     wildOk = false;
                 else {

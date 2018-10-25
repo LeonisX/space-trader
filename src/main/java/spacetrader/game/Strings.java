@@ -465,6 +465,8 @@ public class Strings {
     public static String CargoTitle = "^1 ^2";
     public static String CargoUnit = "unit";
 
+    public static String CommanderAnd = "and";
+
     public static String DistanceUnit = "parsec";
     public static String DistanceSubunit = "click";
 
@@ -676,8 +678,7 @@ public class Strings {
     // #endregion
 
     // #region CargoSellOps
-    public static String[] CargoSellOps = new String[]{"Sell", "Sell",
-            "Dump", "Jettison"};
+    public static String[] CargoSellOps = new String[]{"Sell", "Sell", "Dump", "Jettison"};
     // #endregion
 
     // #region CrewMemberNames
