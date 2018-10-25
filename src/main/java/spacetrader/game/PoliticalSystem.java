@@ -140,7 +140,7 @@ public class PoliticalSystem {
         return _reactionIllegal;
     }
 
-    public PoliticalSystemType Type() {
+    public PoliticalSystemType getType() {
         return _type;
     }
 

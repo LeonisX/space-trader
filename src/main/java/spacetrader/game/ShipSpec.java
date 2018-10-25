@@ -156,7 +156,7 @@ public class ShipSpec extends STSerializableObject {
         return hash;
     }
 
-    protected void SetValues(ShipType type) {
+    protected void setValues(ShipType type) {
         int typeInt = type.castToInt();
 
         _type = type;

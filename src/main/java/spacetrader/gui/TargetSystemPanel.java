@@ -283,12 +283,12 @@ class TargetSystemPanel extends Panel {
             targetNameLabelValue.setText(system.getName());
             targetSizeLabelValue.setText(Sizes[system.size().castToInt()]);
             targetTechLevelLabelValue.setText(TechLevelNames[system.getTechLevel().castToInt()]);
-            targetGovernmentLabelValue.setText(system.politicalSystem().name());
+            targetGovernmentLabelValue.setText(system.getPoliticalSystem().name());
             targetResourceLabelValue.setText(system.isVisited()
                     ? SpecialResources[system.getSpecialResource().castToInt()]
                     : Unknown);
-            targetPoliceLabelValue.setText(ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
-            targetPiratesLabelValue.setText(ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
+            targetPoliceLabelValue.setText(ActivityLevels[system.getPoliticalSystem().activityPolice().castToInt()]);
+            targetPiratesLabelValue.setText(ActivityLevels[system.getPoliticalSystem().activityPirates().castToInt()]);
             targetDistanceLabelValue.setText(distance);
             targetOutOfRangeLabel.setVisible(!system.destIsOk() && system != commander.getCurrentSystem());
             warpButton.setVisible(system.destIsOk());

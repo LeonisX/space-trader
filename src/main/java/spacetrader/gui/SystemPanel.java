@@ -249,10 +249,10 @@ class SystemPanel extends Panel {
             systemNameLabelValue.setText(system.getName());
             systemSizeLabelValue.setText(Strings.Sizes[system.size().castToInt()]);
             systemTechLevelLabelValue.setText(Strings.TechLevelNames[system.getTechLevel().castToInt()]);
-            systemGovernmentLabelValue.setText(system.politicalSystem().name());
+            systemGovernmentLabelValue.setText(system.getPoliticalSystem().name());
             systemResourcesLabelValue.setText(Strings.SpecialResources[system.getSpecialResource().castToInt()]);
-            systemPoliceLabelValue.setText(Strings.ActivityLevels[system.politicalSystem().activityPolice().castToInt()]);
-            systemPiratesLabelValue.setText(Strings.ActivityLevels[system.politicalSystem().activityPirates().castToInt()]);
+            systemPoliceLabelValue.setText(Strings.ActivityLevels[system.getPoliticalSystem().activityPolice().castToInt()]);
+            systemPiratesLabelValue.setText(Strings.ActivityLevels[system.getPoliticalSystem().activityPirates().castToInt()]);
             systemPressureLabelValue.setText(Strings.SystemPressures[system.getSystemPressure().castToInt()]);
             systemPressureLabel.setVisible(true);
             newsButton.setVisible(true);

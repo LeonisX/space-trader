@@ -108,12 +108,12 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
             price = getPriceLowTech() + target.getTechLevel().castToInt() * getPriceInc();
 
             // If a good is highly requested, increase the price
-            if (target.politicalSystem().Wanted() == getType())
+            if (target.getPoliticalSystem().Wanted() == getType())
                 price = price * 4 / 3;
 
             // High trader activity decreases prices
             price = price
-                    * (100 - 2 * target.politicalSystem().ActivityTraders().castToInt())
+                    * (100 - 2 * target.getPoliticalSystem().ActivityTraders().castToInt())
                     / 100;
 
             // Large system = high production decreases prices

@@ -53,12 +53,12 @@ public class Ship extends ShipSpec {
     private boolean EscapePod;
 
     public Ship(ShipType type) {
-        SetValues(type);
+        setValues(type);
     }
 
     public Ship(OpponentType oppType) {
         if (oppType == OpponentType.FAMOUS_CAPTAIN) {
-            SetValues(Consts.ShipSpecs[Consts.MaxShip].getType());
+            setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
             for (int i = 0; i < getShields().length; i++)
                 addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
@@ -71,7 +71,7 @@ public class Ship extends ShipSpec {
 
             getCrew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
         } else if (oppType == OpponentType.BOTTLE) {
-            SetValues(ShipType.BOTTLE);
+            setValues(ShipType.BOTTLE);
         } else {
             int tries = oppType == OpponentType.MANTIS ? Game.getCurrentGame().getDifficulty().castToInt() + 1 : Math
                     .max(1, Game.getCurrentGame().getCommander().getWorth() / 150000
@@ -418,10 +418,10 @@ public class Ship extends ShipSpec {
 
     private void GenerateOpponentShip(OpponentType oppType) {
         Commander cmdr = Game.getCurrentGame().getCommander();
-        PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().politicalSystem();
+        PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().getPoliticalSystem();
 
         if (oppType == OpponentType.MANTIS)
-            SetValues(ShipType.MANTIS);
+            setValues(ShipType.MANTIS);
         else {
             ShipType oppShipType;
             int tries = 1;
@@ -481,7 +481,7 @@ public class Ship extends ShipSpec {
                     oppShipType = Consts.ShipSpecs[j].getType();
             }
 
-            SetValues(oppShipType);
+            setValues(oppShipType);
         }
     }
 
@@ -492,7 +492,7 @@ public class Ship extends ShipSpec {
     // indicating
     // the tradeable goods when HasTradeableItem is called.
     // *************************************************************************
-    public int GetRandomTradeableItem() {
+    public int getRandomTradeableItem() {
         int index = Functions.getRandom(getTradeableItems().length);
 
         while (!getTradeableItems()[index])
@@ -586,7 +586,7 @@ public class Ship extends ShipSpec {
         return found;
     }
 
-    public void Hire(CrewMember merc) {
+    public void hire(CrewMember merc) {
         int skill = getTrader();
 
         int slot = -1;
@@ -615,7 +615,7 @@ public class Ship extends ShipSpec {
         return actions.size() == 0 ? "" : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions.formatList(actions));
     }
 
-    public String IllegalSpecialCargoDescription(String wrapper, boolean includePassengers, boolean includeTradeItems) {
+    public String getIllegalSpecialCargoDescription(String wrapper, boolean includePassengers, boolean includeTradeItems) {
         ArrayList<String> items = new ArrayList<String>();
 
         if (includePassengers && isWildOnBoard())
@@ -627,7 +627,7 @@ public class Ship extends ShipSpec {
         if (isSculptureOnBoard())
             items.add(Strings.EncounterPoliceSubmitSculpture);
 
-        if (includeTradeItems && DetectableIllegalCargo())
+        if (includeTradeItems && isDetectableIllegalCargo())
             items.add(Strings.EncounterPoliceSubmitGoods);
 
         String allItems = Functions.formatList(items);
@@ -717,8 +717,8 @@ public class Ship extends ShipSpec {
     }
 
     protected @Override
-    void SetValues(ShipType type) {
-        super.SetValues(type);
+    void setValues(ShipType type) {
+        super.setValues(type);
 
         _weapons = new Weapon[getWeaponSlots()];
         _shields = new Shield[getShieldSlots()];
@@ -728,11 +728,11 @@ public class Ship extends ShipSpec {
         _hull = getHullStrength();
     }
 
-    public int WeaponStrength() {
-        return WeaponStrength(WeaponType.PULSE_LASER, WeaponType.QUANTUM_DISRUPTOR);
+    public int getWeaponStrength() {
+        return getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.QUANTUM_DISRUPTOR);
     }
 
-    public int WeaponStrength(WeaponType min, WeaponType max) {
+    public int getWeaponStrength(WeaponType min, WeaponType max) {
         int total = 0;
 
         for (int i = 0; i < getWeapons().length; i++)
@@ -810,7 +810,7 @@ public class Ship extends ShipSpec {
         return total;
     }
 
-    public boolean DetectableIllegalCargo() {
+    public boolean isDetectableIllegalCargo() {
         int illegalCargo = 0;
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (Consts.TradeItems[i].isIllegal())
@@ -820,11 +820,11 @@ public class Ship extends ShipSpec {
         return (illegalCargo - getHiddenCargoBays()) > 0;
     }
 
-    public boolean DetectableIllegalCargoOrPassengers() {
-        return DetectableIllegalCargo() || isIllegalSpecialCargo();
+    public boolean isDetectableIllegalCargoOrPassengers() {
+        return isDetectableIllegalCargo() || isIllegalSpecialCargo();
     }
 
-    public boolean Disableable() {
+    public boolean isDisableable() {
         return !isCommandersShip() && getType() != ShipType.BOTTLE && getType() != ShipType.MANTIS
                 && getType() != ShipType.SPACE_MONSTER;
     }
@@ -1044,7 +1044,7 @@ public class Ship extends ShipSpec {
 
     // Sort all cargo based on value and put some of it in hidden bays, if they
     // are present.
-    public ArrayList<Integer> StealableCargo() {
+    public ArrayList<Integer> getStealableCargo() {
         // Put all of the cargo items in a list and sort it. Reverse it so the
         // most expensive items are first.
         ArrayList<Integer> tradeItems = new ArrayList<Integer>();

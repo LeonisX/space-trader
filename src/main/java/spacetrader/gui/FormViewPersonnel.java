@@ -329,7 +329,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
                 if (game.getCommander().getShip().getFreeCrewQuartersCount() == 0)
                     GuiFacade.alert(AlertType.CrewNoQuarters, selectedCrewMember.getName());
                 else {
-                    game.getCommander().getShip().Hire(selectedCrewMember);
+                    game.getCommander().getShip().hire(selectedCrewMember);
 
                     updateAll();
                     game.getParentWindow().updateAll();

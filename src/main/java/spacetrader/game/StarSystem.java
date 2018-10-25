@@ -124,16 +124,16 @@ public class StarSystem extends STSerializableObject {
     }
 
     public boolean itemTraded(TradeItem item) {
-        return ((item.getType() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
+        return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().DrugsOk())
                 && (item.getType() != TradeItemType.FIREARMS
-                || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
+                || getPoliticalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
                 .getTechProduction().castToInt());
     }
 
     boolean itemUsed(TradeItem item) {
-        return ((item.getType() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
+        return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().DrugsOk())
                 && (item.getType() != TradeItemType.FIREARMS
-                || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
+                || getPoliticalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
                 .getTechUsage().castToInt());
     }
 
@@ -333,21 +333,21 @@ public class StarSystem extends STSerializableObject {
         return Strings.SystemNames[_id.castToInt()];
     }
 
-    public PoliticalSystem politicalSystem() {
+    public PoliticalSystem getPoliticalSystem() {
         return Consts.PoliticalSystems[_politicalSystemType.castToInt()];
     }
 
-    public PoliticalSystemType PoliticalSystemType() {
+    public PoliticalSystemType getPoliticalSystemType() {
         return _politicalSystemType;
     }
 
-    public void PoliticalSystemType(PoliticalSystemType value) {
+    public void setPoliticalSystemType(PoliticalSystemType value) {
         _politicalSystemType = value;
     }
 
     public Shipyard getShipyard() {
         //getShipyardId();
-        return (_shipyardId == spacetrader.game.enums.ShipyardId.NA ? null : Consts.Shipyards[_shipyardId.castToInt()]);
+        return (_shipyardId == ShipyardId.NA) ? null : Consts.Shipyards[_shipyardId.castToInt()];
     }
 
     public ShipyardId getShipyardId() {

@@ -73,10 +73,10 @@ public class GameController {
 
         GuiFacade.alert(alertType);
 
-        GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.Score() / 10), Functions
-                .formatNumber(game.Score() % 10));
+        GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10), Functions
+                .formatNumber(game.getScore() % 10));
 
-        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.Score(), game.getEndStatus(),
+        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.getScore(), game.getEndStatus(),
                 game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
         if (candidate.compareTo(Functions.getHighScores()[0]) > 0) {
             if (game.getCheats().isCheatMode()) {
