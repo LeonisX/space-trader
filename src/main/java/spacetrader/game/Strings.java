@@ -465,6 +465,22 @@ public class Strings {
     public static String CargoTitle = "^1 ^2";
     public static String CargoUnit = "unit";
 
+    public static String CheatsVeryRareEncountersRemaining = "Remaining Very Rare Encounters";
+    public static String CheatsArtifact = "Artifact";
+    public static String CheatsDragonfly = "Dragonfly";
+    public static String CheatsExperiment = "Experiment";
+    public static String CheatsGemulon = "Gemulon";
+    public static String CheatsJapori = "Japori";
+    public static String CheatsJarek = "Jarek";
+    public static String CheatsMoon = "Moon";
+    public static String CheatsPrincess = "Princess";
+    public static String CheatsReactor = "Reactor";
+    public static String CheatsScarab = "Scarab";
+    public static String CheatsSculpture = "Sculpture";
+    public static String CheatsSpaceMonster = "SpaceMonster";
+    public static String CheatsWild = "Wild";
+    public static String CheatsStatusOfQuests = "Status of Quests";
+
     public static String CommanderAnd = "and";
 
     public static String DistanceUnit = "parsec";

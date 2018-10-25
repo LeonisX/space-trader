@@ -18,18 +18,18 @@ public class GameCheats {
         this.game = game;
     }
 
-    public boolean isCheatMode() {
+    boolean isCheatMode() {
         return cheatMode;
     }
 
-    public void setCheatMode(boolean cheatMode) {
+    void setCheatMode(boolean cheatMode) {
         this.cheatMode = cheatMode;
     }
 
     /**
      * @return false if did anything, true if didn't recognized word (i.e., need to search for a system).
      */
-    public boolean considerCheat(String[] words, GameController controller) {
+    public boolean isConsiderCheat(String[] words, GameController controller) {
         Ship ship = game.getCommander().getShip();
 
         String first = words.length > 0 ? words[0] : "";
@@ -39,7 +39,6 @@ public class GameCheats {
         int num2 = Functions.isInt(third) ? Integer.parseInt(third) : 0;
 
         if (cheatMode) {
-
             switch (SomeStringsForCheatSwitch.find(first)) {
                 case Bazaar:
                     game.setChanceOfTradeInOrbit(Math.max(0, Math.min(1000, num1)));
@@ -58,16 +57,16 @@ public class GameCheats {
                     game.setCanSuperWarp(!game.getCanSuperWarp());
                     break;
                 case Events:
-                    if (second.equals("Reset"))
+                    if (second.equals("Reset")) {
                         game.resetVeryRareEncounters();
-                    else {
+                    } else {
                         StringBuilder textBuilder = new StringBuilder();
-                        for (VeryRareEncounter veryRareEncounter : game.getVeryRareEncounters())
+                        for (VeryRareEncounter veryRareEncounter : game.getVeryRareEncounters()) {
                             textBuilder.append(Strings.VeryRareEncounters[veryRareEncounter.castToInt()]).append(Strings.newline);
-                        String text = textBuilder.toString();
-                        text = text.trim();
+                        }
+                        String text = textBuilder.toString().trim();
 
-                        GuiFacade.alert(AlertType.Alert, "Remaining Very Rare Encounters", text);
+                        GuiFacade.alert(AlertType.Alert, Strings.CheatsVeryRareEncountersRemaining, text);
                     }
                     break;
                 case Fame:
@@ -104,8 +103,9 @@ public class GameCheats {
                     game.getCommander().setDebt(Math.max(0, num1));
                     break;
                 case Iron:
-                    if (num1 >= 0 && num1 < ship.getWeapons().length && num2 >= 0 && num2 < Consts.Weapons.length)
+                    if (num1 >= 0 && num1 < ship.getWeapons().length && num2 >= 0 && num2 < Consts.Weapons.length) {
                         ship.getWeapons()[num1] = (Weapon) Consts.Weapons[num2].clone();
+                    }
                     break;
                 case Juice:
                     ship.setFuel(Math.max(0, Math.min(ship.getFuelTanks(), num1)));
@@ -114,9 +114,10 @@ public class GameCheats {
                     if (num1 >= 0 && num1 < game.getMercenaries().length) {
                         String[] skills = third.split(",");
                         for (int i = 0; i < game.getMercenaries()[num1].getSkills().length && i < skills.length; i++) {
-                            if (Functions.isInt(skills[i]))
+                            if (Functions.isInt(skills[i])) {
                                 game.getMercenaries()[num1].getSkills()[i] = Math.max(1, Math.min(Consts.MaxSkill, Integer
                                         .parseInt(skills[i])));
+                            }
                         }
                     }
                     break;
@@ -137,8 +138,9 @@ public class GameCheats {
                             && !Util.arrayContains(Consts.SpecialCrewMemberIds, (CrewMemberId.fromInt(num2)))) {
                         int skill = ship.getTrader();
                         ship.getCrew()[num1] = game.getMercenaries()[num2];
-                        if (ship.getTrader() != skill)
+                        if (ship.getTrader() != skill) {
                             game.recalculateBuyPrices(game.getCommander().getCurrentSystem());
+                        }
                     }
                     break;
                 case RapSheet:
@@ -195,33 +197,37 @@ public class GameCheats {
                             game.setQuestStatusWild(Math.max(0, num2));
                             break;
                         default:
-                            String text = "Artifact: " + game.getQuestStatusArtifact() + Strings.newline + "Dragonfly: "
-                                    + game.getQuestStatusDragonfly() + Strings.newline + "Experiment: "
-                                    + game.getQuestStatusExperiment() + Strings.newline + "Gemulon: "
-                                    + game.getQuestStatusGemulon() + Strings.newline + "Japori: " + game.getQuestStatusJapori()
-                                    + Strings.newline + "Jarek: " + game.getQuestStatusJarek() + Strings.newline + "Moon: "
-                                    + game.getQuestStatusMoon() + Strings.newline + "Princess: "
-                                    + game.getQuestStatusPrincess() + Strings.newline + "Reactor: "
-                                    + game.getQuestStatusReactor() + Strings.newline + "Scarab: " + game.getQuestStatusScarab()
-                                    + Strings.newline + "Sculpture: " + game.getQuestStatusSculpture() + Strings.newline
-                                    + "SpaceMonster: " + game.getQuestStatusSpaceMonster() + Strings.newline + "Wild: "
-                                    + game.getQuestStatusWild();
+                            String text = Strings.CheatsArtifact + ": " + game.getQuestStatusArtifact() + Strings.newline
+                                    + Strings.CheatsDragonfly + ": " + game.getQuestStatusDragonfly() + Strings.newline
+                                    + Strings.CheatsExperiment + ": " + game.getQuestStatusExperiment() + Strings.newline
+                                    + Strings.CheatsGemulon + ": " + game.getQuestStatusGemulon() + Strings.newline
+                                    + Strings.CheatsJapori + ": " + game.getQuestStatusJapori() + Strings.newline
+                                    + Strings.CheatsJarek + ": " + game.getQuestStatusJarek() + Strings.newline
+                                    + Strings.CheatsMoon + ": " + game.getQuestStatusMoon() + Strings.newline
+                                    + Strings.CheatsPrincess + ": " + game.getQuestStatusPrincess() + Strings.newline
+                                    + Strings.CheatsReactor + ": " + game.getQuestStatusReactor() + Strings.newline
+                                    + Strings.CheatsScarab + ": " + game.getQuestStatusScarab() + Strings.newline
+                                    + Strings.CheatsSculpture + ": " + game.getQuestStatusSculpture() + Strings.newline
+                                    + Strings.CheatsSpaceMonster + ": " + game.getQuestStatusSpaceMonster() + Strings.newline
+                                    + Strings.CheatsWild + ": " + game.getQuestStatusWild();
 
-                            GuiFacade.alert(AlertType.Alert, "Status of Quests", text);
+                            GuiFacade.alert(AlertType.Alert, Strings.CheatsStatusOfQuests, text);
                             break;
                     }
                 }
                 break;
                 case Swag:
-                    if (num1 >= 0 && num1 < ship.getCargo().length)
+                    if (num1 >= 0 && num1 < ship.getCargo().length) {
                         ship.getCargo()[num1] = Math.max(0, Math.min(ship.getFreeCargoBays() + ship.getCargo()[num1], num2));
+                    }
                     break;
                 case Test:
                     GuiFacade.performTestForm();
                     break;
                 case Tool:
-                    if (num1 >= 0 && num1 < ship.getGadgets().length && num2 >= 0 && num2 < Consts.Gadgets.length)
+                    if (num1 >= 0 && num1 < ship.getGadgets().length && num2 >= 0 && num2 < Consts.Gadgets.length) {
                         ship.getGadgets()[num1] = (Gadget) Consts.Gadgets[num2].clone();
+                    }
                     break;
                 case Varmints:
                     ship.setTribbles(Math.max(0, num1));

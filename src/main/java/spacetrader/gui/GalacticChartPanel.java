@@ -223,7 +223,7 @@ public class GalacticChartPanel extends Panel {
         if (form.showDialog(mainWindow) == DialogResult.OK) {
             String[] words = form.getSystemName().split(" ");
 
-            boolean tryToFind = cheats.considerCheat(words, controller);
+            boolean tryToFind = cheats.isConsiderCheat(words, controller);
 
             if (tryToFind) {
                 game.setSelectedSystemByName(form.getSystemName());
