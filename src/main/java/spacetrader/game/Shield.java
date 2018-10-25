@@ -22,8 +22,7 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Collections;
+
 package spacetrader.game;
 
 
@@ -35,45 +34,43 @@ import spacetrader.util.Hashtable;
 import spacetrader.util.Log;
 
 public class Shield extends Equipment {
-    private ShieldType _type;
-    private int _power;
-    private int _charge;
-    private int Charge;
+    private ShieldType type;
+    private int power;
+    private int charge;
 
     public Shield(ShieldType type, int power, int price, TechLevel minTechLevel, int chance) {
         super(EquipmentType.SHIELD, price, minTechLevel, chance);
-        _type = type;
-        _power = power;
-
-        _charge = _power;
+        this.type = type;
+        this.power = power;
+        this.charge = chance;
     }
 
     public Shield(Hashtable hash) {
         super(hash);
-        _type = ShieldType.fromInt(getValueFromHash(hash, "_type", Integer.class));
-        _power = getValueFromHash(hash, "_power", Integer.class);
-        _charge = getValueFromHash(hash, "_charge", Integer.class);
+        type = ShieldType.fromInt(getValueFromHash(hash, "_type", Integer.class));
+        power = getValueFromHash(hash, "_power", Integer.class);
+        charge = getValueFromHash(hash, "_charge", Integer.class);
     }
 
     public Equipment clone() {
-        Shield shield = new Shield(_type, _power, getPrice(), getMinimumTechLevel(), getChance());
-        shield.setCharge(Charge);
+        Shield shield = new Shield(type, power, getPrice(), getMinimumTechLevel(), getChance());
+        shield.setCharge(charge);
         return shield;
     }
 
     public Hashtable serialize() {
         Hashtable hash = super.serialize();
 
-        hash.put("_type", _type);
-        hash.put("_power", _power);
-        hash.put("_charge", _charge);
+        hash.put("_type", type);
+        hash.put("_power", power);
+        hash.put("_charge", charge);
 
         return hash;
     }
 
     public boolean isTypeEquals(Object type) {
         try {
-            return (getType() == (ShieldType) type);
+            return (getType() == type);
         } catch (Exception e) {
             Log.write("Ignored exception: " + e);
             return false;
@@ -81,16 +78,15 @@ public class Shield extends Equipment {
     }
 
     public String getName() {
-        return Strings.ShieldNames[_type.castToInt()];
+        return Strings.ShieldNames[type.castToInt()];
     }
 
     public int getPower() {
-        return _power;
+        return power;
     }
 
-
     public ShieldType getType() {
-        return _type;
+        return type;
     }
 
     public EquipmentSubType getSubType() {
@@ -98,12 +94,10 @@ public class Shield extends Equipment {
     }
 
     public int getCharge() {
-        return Charge;
+        return charge;
     }
 
-    public void setCharge(int charge) {
-        Charge = charge;
+    void setCharge(int charge) {
+        this.charge = charge;
     }
-
-
 }
