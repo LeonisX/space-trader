@@ -56,8 +56,8 @@ public class Gadget extends Equipment {
     }
 
     public @Override
-    Equipment Clone() {
-        return new Gadget(_type, _skillBonus, _price, _minTech, _chance);
+    Equipment clone() {
+        return new Gadget(_type, _skillBonus, getPrice(), getMinimumTechLevel(), getChance());
     }
 
     public @Override
@@ -75,7 +75,7 @@ public class Gadget extends Equipment {
         boolean equal = false;
 
         try {
-            if (getType() == (GadgetType) type)
+            if (getType() == type)
                 equal = true;
         } catch (Exception e) {
             Log.write("Ignored Exception " + e);

@@ -27,6 +27,7 @@
 package spacetrader.game;
 
 
+import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.ShieldType;
 import spacetrader.game.enums.TechLevel;
 import spacetrader.game.enums.EquipmentSubType;
@@ -39,9 +40,8 @@ public class Shield extends Equipment {
     private int _charge;
     private int Charge;
 
-    public Shield(ShieldType type, int power, int price,
-                  TechLevel minTechLevel, int chance) {
-        super(spacetrader.game.enums.EquipmentType.SHIELD, price, minTechLevel, chance);
+    public Shield(ShieldType type, int power, int price, TechLevel minTechLevel, int chance) {
+        super(EquipmentType.SHIELD, price, minTechLevel, chance);
         _type = type;
         _power = power;
 
@@ -55,8 +55,8 @@ public class Shield extends Equipment {
         _charge = getValueFromHash(hash, "_charge", Integer.class);
     }
 
-    public Equipment Clone() {
-        Shield shield = new Shield(_type, _power, _price, _minTech, _chance);
+    public Equipment clone() {
+        Shield shield = new Shield(_type, _power, getPrice(), getMinimumTechLevel(), getChance());
         shield.setCharge(Charge);
         return shield;
     }

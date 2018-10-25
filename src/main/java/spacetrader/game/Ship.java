@@ -119,7 +119,7 @@ public class Ship extends ShipSpec {
                 slot = i;
 
         if (slot >= 0)
-            equip[slot] = item.Clone();
+            equip[slot] = item.clone();
     }
 
     public int getBaseWorth(boolean forInsurance) {
@@ -285,11 +285,11 @@ public class Ship extends ShipSpec {
                 int bestGadgetType = 0;
                 for (int j = 0; j < tries; j++) {
                     int x = Functions.getRandom(100);
-                    int sum = Consts.Gadgets[0].Chance();
+                    int sum = Consts.Gadgets[0].getChance();
                     int gadgetType = 0;
                     while (sum < x && gadgetType <= Consts.Gadgets.length - 1) {
                         gadgetType++;
-                        sum += Consts.Gadgets[gadgetType].Chance();
+                        sum += Consts.Gadgets[gadgetType].getChance();
                     }
                     if (!hasGadget(Consts.Gadgets[gadgetType].getType()) && gadgetType > bestGadgetType)
                         bestGadgetType = gadgetType;
@@ -348,11 +348,11 @@ public class Ship extends ShipSpec {
                 int bestShieldType = 0;
                 for (int j = 0; j < tries; j++) {
                     int x = Functions.getRandom(100);
-                    int sum = Consts.Shields[0].Chance();
+                    int sum = Consts.Shields[0].getChance();
                     int shieldType = 0;
                     while (sum < x && shieldType <= Consts.Shields.length - 1) {
                         shieldType++;
-                        sum += Consts.Shields[shieldType].Chance();
+                        sum += Consts.Shields[shieldType].getChance();
                     }
                     if (!HasShield(Consts.Shields[shieldType].getType()) && shieldType > bestShieldType)
                         bestShieldType = shieldType;
@@ -388,11 +388,11 @@ public class Ship extends ShipSpec {
                 int bestWeaponType = 0;
                 for (int j = 0; j < tries; j++) {
                     int x = Functions.getRandom(100);
-                    int sum = Consts.Weapons[0].Chance();
+                    int sum = Consts.Weapons[0].getChance();
                     int weaponType = 0;
                     while (sum < x && weaponType <= Consts.Weapons.length - 1) {
                         weaponType++;
-                        sum += Consts.Weapons[weaponType].Chance();
+                        sum += Consts.Weapons[weaponType].getChance();
                     }
                     if (!HasWeapon(WeaponType.fromInt(weaponType), true) && weaponType > bestWeaponType)
                         bestWeaponType = weaponType;

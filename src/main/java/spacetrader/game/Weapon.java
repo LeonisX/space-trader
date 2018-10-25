@@ -27,6 +27,7 @@
 
 package spacetrader.game;
 
+import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.TechLevel;
 import spacetrader.game.enums.WeaponType;
 import spacetrader.game.enums.EquipmentSubType;
@@ -46,7 +47,7 @@ public class Weapon extends Equipment {
 
     public Weapon(WeaponType type, int power, boolean disabling, int price,
                   TechLevel minTechLevel, int chance) {
-        super(spacetrader.game.enums.EquipmentType.WEAPON, price, minTechLevel, chance);
+        super(EquipmentType.WEAPON, price, minTechLevel, chance);
         _type = type;
         _power = power;
         _disabling = disabling;
@@ -60,8 +61,8 @@ public class Weapon extends Equipment {
     }
 
     public @Override
-    Equipment Clone() {
-        return new Weapon(_type, _power, _disabling, _price, _minTech, _chance);
+    Equipment clone() {
+        return new Weapon(_type, _power, _disabling, getPrice(), getMinimumTechLevel(), getChance());
     }
 
     public @Override

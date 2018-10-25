@@ -37,7 +37,7 @@ public class GameCheats {
                     break;
                 case Cover:
                     if (num1 >= 0 && num1 < ship.getShields().length && num2 >= 0 && num2 < Consts.Shields.length)
-                        ship.getShields()[num1] = (Shield) Consts.Shields[num2].Clone();
+                        ship.getShields()[num1] = (Shield) Consts.Shields[num2].clone();
                     break;
                 case DeLorean:
                     game.getCommander().setDays(Math.max(0, num1));
@@ -96,7 +96,7 @@ public class GameCheats {
                     break;
                 case Iron:
                     if (num1 >= 0 && num1 < ship.getWeapons().length && num2 >= 0 && num2 < Consts.Weapons.length)
-                        ship.getWeapons()[num1] = (Weapon) Consts.Weapons[num2].Clone();
+                        ship.getWeapons()[num1] = (Weapon) Consts.Weapons[num2].clone();
                     break;
                 case Juice:
                     ship.setFuel(Math.max(0, Math.min(ship.getFuelTanks(), num1)));
@@ -212,7 +212,7 @@ public class GameCheats {
                     break;
                 case Tool:
                     if (num1 >= 0 && num1 < ship.getGadgets().length && num2 >= 0 && num2 < Consts.Gadgets.length)
-                        ship.getGadgets()[num1] = (Gadget) Consts.Gadgets[num2].Clone();
+                        ship.getGadgets()[num1] = (Gadget) Consts.Gadgets[num2].clone();
                     break;
                 case Varmints:
                     ship.setTribbles(Math.max(0, num1));

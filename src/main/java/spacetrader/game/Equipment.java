@@ -28,37 +28,37 @@ import spacetrader.util.Hashtable;
 
 public abstract class Equipment extends STSerializableObject implements Cloneable {
 
-    protected EquipmentType _equipType;
-    protected int _price;
-    protected TechLevel _minTech;
-    protected int _chance;
+    private EquipmentType equipType;
+    private int price;
+    private TechLevel minTech;
+    private int chance;
 
-    public Equipment(EquipmentType type, int price, TechLevel minTechLevel, int chance) {
-        _equipType = type;
-        _price = price;
-        _minTech = minTechLevel;
-        _chance = chance;
+    public Equipment(EquipmentType equipType, int price, TechLevel minTechLevel, int chance) {
+        this.equipType = equipType;
+        this.price = price;
+        this.minTech = minTechLevel;
+        this.chance = chance;
     }
 
-    public Equipment(Hashtable hash)// : base(hash)
-    {
+    public Equipment(Hashtable hash) {
         super();
-        _equipType = EquipmentType.fromInt(getValueFromHash(hash, "_equipType", Integer.class));
-        _price = getValueFromHash(hash, "_price", Integer.class);
-        _minTech = TechLevel.fromInt(getValueFromHash(hash, "_minTech", Integer.class));
-        _chance = getValueFromHash(hash, "_chance", Integer.class);
+        equipType = EquipmentType.fromInt(getValueFromHash(hash, "_equipType", Integer.class));
+        price = getValueFromHash(hash, "_price", Integer.class);
+        minTech = TechLevel.fromInt(getValueFromHash(hash, "_minTech", Integer.class));
+        chance = getValueFromHash(hash, "_chance", Integer.class);
     }
 
-    public abstract Equipment Clone();
+    //TODO was Clone. This implements Object.clone. Need to test
+    public abstract Equipment clone();
 
     @Override
     public Hashtable serialize() {
         Hashtable hash = super.serialize();
 
-        hash.put("_equipType", _equipType.castToInt());
-        hash.put("_price", _price);
-        hash.put("_minTech", _minTech.castToInt());
-        hash.put("_chance", _chance);
+        hash.put("_equipType", equipType.castToInt());
+        hash.put("_price", price);
+        hash.put("_minTech", minTech.castToInt());
+        hash.put("_chance", chance);
 
         return hash;
     }
@@ -70,39 +70,32 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
 
     public abstract boolean TypeEquals(Object type);
 
-    private int BaseImageIndex() {
-        int baseImageIndex = 0;
-
+    private int getBaseImageIndex() {
         switch (getEquipmentType()) {
             case GADGET:
-                baseImageIndex = Strings.WeaponNames.length + Strings.ShieldNames.length;
-                break;
+                return Strings.WeaponNames.length + Strings.ShieldNames.length;
             case SHIELD:
-                baseImageIndex = Strings.WeaponNames.length;
-                break;
+                return Strings.WeaponNames.length;
             case WEAPON:
-                // baseImageIndex should be 0
-                break;
+                return 0;
         }
-
-        return baseImageIndex;
+        return 0;
     }
 
-    int Chance() {
-        return _chance;
+    int getChance() {
+        return chance;
     }
 
     public EquipmentType getEquipmentType() {
-        return _equipType;
+        return equipType;
     }
 
     final public Image getImage() {
-        return GuiEngine.getImageProvider().getEquipmentImages().getImages()[BaseImageIndex()
-                + getSubType().castToInt()];
+        return GuiEngine.getImageProvider().getEquipmentImages().getImages()[getBaseImageIndex() + getSubType().castToInt()];
     }
 
-    private TechLevel MinimumTechLevel() {
-        return _minTech;
+    public TechLevel getMinimumTechLevel() {
+        return minTech;
     }
 
     public String getName() {
@@ -111,16 +104,16 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
 
     public int getPrice() {
         Commander cmdr = Game.getCurrentGame().getCommander();
-        int price = 0;
 
-        if (cmdr != null && cmdr.getCurrentSystem().getTechLevel().castToInt() >= MinimumTechLevel().castToInt())
-            price = (_price * (100 - cmdr.getShip().getTrader())) / 100;
-
-        return price;
+        if (cmdr != null && cmdr.getCurrentSystem().getTechLevel().castToInt() >= getMinimumTechLevel().castToInt()) {
+            return (price * (100 - cmdr.getShip().getTrader())) / 100;
+        } else {
+            return 0;
+        }
     }
 
     public int getSellPrice() {
-        return _price * 3 / 4;
+        return price * 3 / 4;
     }
 
     public EquipmentSubType getSubType() {
