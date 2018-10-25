@@ -255,49 +255,49 @@ public class Consts {
     public static ShipSpec[] ShipSpecs = new ShipSpec[]{
             // Type Size Bays W S G Cr F FC Hull RC Price % Police Pirates
             // Traders MinTechLevel
-            new ShipSpec(ShipType.FLEA, Size.Tiny, 10, 0, 0, 0, 1, 20, 1, 25, 1, 2000, 2, Activity.NA, Activity.NA,
+            new ShipSpec(ShipType.FLEA, Size.TINY, 10, 0, 0, 0, 1, 20, 1, 25, 1, 2000, 2, Activity.NA, Activity.NA,
                     Activity.ABSENT, TechLevel.EARLY_INDUSTRIAL),
-            new ShipSpec(ShipType.GNAT, Size.Small, 15, 1, 0, 1, 1, 14, 1, 100, 2, 10000, 28, Activity.ABSENT,
+            new ShipSpec(ShipType.GNAT, Size.SMALL, 15, 1, 0, 1, 1, 14, 1, 100, 2, 10000, 28, Activity.ABSENT,
                     Activity.ABSENT, Activity.ABSENT, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.FIREFLY, Size.Small, 20, 1, 1, 1, 1, 17, 1, 100, 3, 25000, 20, Activity.ABSENT,
+            new ShipSpec(ShipType.FIREFLY, Size.SMALL, 20, 1, 1, 1, 1, 17, 1, 100, 3, 25000, 20, Activity.ABSENT,
                     Activity.ABSENT, Activity.ABSENT, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.MOSQUITO, Size.Small, 15, 2, 1, 1, 1, 13, 1, 100, 5, 30000, 20, Activity.ABSENT,
+            new ShipSpec(ShipType.MOSQUITO, Size.SMALL, 15, 2, 1, 1, 1, 13, 1, 100, 5, 30000, 20, Activity.ABSENT,
                     Activity.MINIMAL, Activity.ABSENT, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.BUMBLEBEE, Size.Medium, 25, 1, 2, 2, 2, 15, 1, 100, 7, 60000, 15, Activity.MINIMAL,
+            new ShipSpec(ShipType.BUMBLEBEE, Size.MEDIUM, 25, 1, 2, 2, 2, 15, 1, 100, 7, 60000, 15, Activity.MINIMAL,
                     Activity.MINIMAL, Activity.ABSENT, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.BEETLE, Size.Medium, 50, 0, 1, 1, 3, 14, 1, 50, 10, 80000, 3, Activity.NA,
+            new ShipSpec(ShipType.BEETLE, Size.MEDIUM, 50, 0, 1, 1, 3, 14, 1, 50, 10, 80000, 3, Activity.NA,
                     Activity.NA, Activity.ABSENT, TechLevel.INDUSTRIAL),
-            new ShipSpec(ShipType.HORNET, Size.Large, 20, 3, 2, 1, 2, 16, 2, 150, 15, 100000, 6, Activity.FEW,
+            new ShipSpec(ShipType.HORNET, Size.LARGE, 20, 3, 2, 1, 2, 16, 2, 150, 15, 100000, 6, Activity.FEW,
                     Activity.SOME, Activity.MINIMAL, TechLevel.POST_INDUSTRIAL),
-            new ShipSpec(ShipType.GRASSHOPPER, Size.Large, 30, 2, 2, 3, 3, 15, 3, 150, 15, 150000, 2, Activity.SOME,
+            new ShipSpec(ShipType.GRASSHOPPER, Size.LARGE, 30, 2, 2, 3, 3, 15, 3, 150, 15, 150000, 2, Activity.SOME,
                     Activity.MODERATE, Activity.FEW, TechLevel.POST_INDUSTRIAL),
-            new ShipSpec(ShipType.TERMITE, Size.Huge, 60, 1, 3, 2, 3, 13, 4, 200, 20, 225000, 2, Activity.MODERATE,
+            new ShipSpec(ShipType.TERMITE, Size.HUGE, 60, 1, 3, 2, 3, 13, 4, 200, 20, 225000, 2, Activity.MODERATE,
                     Activity.MANY, Activity.SOME, TechLevel.HI_TECH),
-            new ShipSpec(ShipType.WASP, Size.Huge, 35, 3, 2, 2, 3, 14, 5, 200, 20, 300000, 2, Activity.MANY,
+            new ShipSpec(ShipType.WASP, Size.HUGE, 35, 3, 2, 2, 3, 14, 5, 200, 20, 300000, 2, Activity.MANY,
                     Activity.ABUNDANT, Activity.MODERATE, TechLevel.HI_TECH),
             // The ships below can't be bought (mostly)
-            new ShipSpec(ShipType.SPACE_MONSTER, Size.Huge, 0, 3, 0, 0, 1, 1, 1, 500, 1, 500000, 0, Activity.NA,
+            new ShipSpec(ShipType.SPACE_MONSTER, Size.HUGE, 0, 3, 0, 0, 1, 1, 1, 500, 1, 500000, 0, Activity.NA,
                     Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.DRAGONFLY, Size.Small, 0, 2, 3, 2, 1, 1, 1, 10, 1, 500000, 0, Activity.NA,
+            new ShipSpec(ShipType.DRAGONFLY, Size.SMALL, 0, 2, 3, 2, 1, 1, 1, 10, 1, 500000, 0, Activity.NA,
                     Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.MANTIS, Size.Medium, 0, 3, 1, 3, 3, 1, 1, 300, 1, 500000, 0, Activity.NA, Activity.NA,
+            new ShipSpec(ShipType.MANTIS, Size.MEDIUM, 0, 3, 1, 3, 3, 1, 1, 300, 1, 500000, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.SCARAB, Size.Large, 20, 2, 0, 0, 2, 1, 1, 400, 1, 500000, 0, Activity.NA, Activity.NA,
+            new ShipSpec(ShipType.SCARAB, Size.LARGE, 20, 2, 0, 0, 2, 1, 1, 400, 1, 500000, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.BOTTLE, Size.Small, 0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0, Activity.NA, Activity.NA,
+            new ShipSpec(ShipType.BOTTLE, Size.SMALL, 0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.CUSTOM, Size.Huge, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
+            new ShipSpec(ShipType.CUSTOM, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.SCORPION, Size.Huge, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
+            new ShipSpec(ShipType.SCORPION, Size.HUGE, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
                     Activity.NA, Activity.NA, TechLevel.UNAVAILABLE)
     };
 
     static Shipyard[] Shipyards = new Shipyard[]{
-            new Shipyard(ShipyardId.CORELLIAN, Size.Large, ShipyardSkill.CrewQuarters),
-            new Shipyard(ShipyardId.INCOM, Size.Medium, ShipyardSkill.ShieldSlotUnits),
-            new Shipyard(ShipyardId.KUAT, Size.Huge, ShipyardSkill.HullPerUnit),
-            new Shipyard(ShipyardId.SIENAR, Size.Tiny, ShipyardSkill.WeaponSlotUnits),
-            new Shipyard(ShipyardId.SOROSUUB, Size.Small, ShipyardSkill.FuelBase)
+            new Shipyard(ShipyardId.CORELLIAN, Size.LARGE, ShipyardSkill.CrewQuarters),
+            new Shipyard(ShipyardId.INCOM, Size.MEDIUM, ShipyardSkill.ShieldSlotUnits),
+            new Shipyard(ShipyardId.KUAT, Size.HUGE, ShipyardSkill.HullPerUnit),
+            new Shipyard(ShipyardId.SIENAR, Size.TINY, ShipyardSkill.WeaponSlotUnits),
+            new Shipyard(ShipyardId.SOROSUUB, Size.SMALL, ShipyardSkill.FuelBase)
     };
 
     //TODO was ArrayList

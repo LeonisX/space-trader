@@ -34,19 +34,19 @@ import java.util.List;
 
 public class StarSystem extends STSerializableObject {
 
-    private StarSystemId _id;
-    private int _x;
-    private int _y;
-    private Size _size;
-    private TechLevel _techLevel;
-    private PoliticalSystemType _politicalSystemType;
-    private SystemPressure _systemPressure;
-    private SpecialResource _specialResource;
-    private SpecialEventType _specialEventType = SpecialEventType.NA;
-    private int[] _tradeItems = new int[10];
-    private int _countDown = 0;
-    private boolean _visited = false;
-    private ShipyardId _shipyardId = ShipyardId.NA;
+    private StarSystemId id;
+    private int x;
+    private int y;
+    private Size size;
+    private TechLevel techLevel;
+    private PoliticalSystemType politicalSystemType;
+    private SystemPressure systemPressure;
+    private SpecialResource specialResource;
+    private SpecialEventType specialEventType = SpecialEventType.NA;
+    private int[] tradeItems = new int[10];
+    private int countDown = 0;
+    private boolean visited = false;
+    private ShipyardId shipyardId = ShipyardId.NA;
 
     // #endregion
 
@@ -55,75 +55,73 @@ public class StarSystem extends STSerializableObject {
     public StarSystem(StarSystemId id, int x, int y, Size size, TechLevel techLevel,
                       PoliticalSystemType politicalSystemType, SystemPressure systemPressure,
                       SpecialResource specialResource) {
-        _id = id;
-        _x = x;
-        _y = y;
-        _size = size;
-        _techLevel = techLevel;
-        _politicalSystemType = politicalSystemType;
-        _systemPressure = systemPressure;
-        _specialResource = specialResource;
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.techLevel = techLevel;
+        this.politicalSystemType = politicalSystemType;
+        this.systemPressure = systemPressure;
+        this.specialResource = specialResource;
 
         initializeTradeItems();
     }
 
     public StarSystem(Hashtable hash) {
         super();
-        _id = StarSystemId.fromInt(getValueFromHash(hash, "_id", _id, Integer.class));
-        _x = getValueFromHash(hash, "_x", _x);
-        _y = getValueFromHash(hash, "_y", _y);
-        _size = Size.fromInt(getValueFromHash(hash, "_size", _size, Integer.class));
-        _techLevel = TechLevel.fromInt(getValueFromHash(hash, "_techLevel", _techLevel, Integer.class));
-        _politicalSystemType = PoliticalSystemType.fromInt(getValueFromHash(hash, "_politicalSystemType", _politicalSystemType, Integer.class));
-        _systemPressure = SystemPressure.fromInt(getValueFromHash(hash, "_systemPressure", _systemPressure, Integer.class));
-        _specialResource = SpecialResource.fromInt(getValueFromHash(hash, "_specialResource", _specialResource, Integer.class));
-        _specialEventType = SpecialEventType.fromInt(getValueFromHash(hash, "_specialEventType", _specialEventType, Integer.class));
-        _tradeItems = getValueFromHash(hash, "_tradeItems", _tradeItems, int[].class);
-        _countDown = getValueFromHash(hash, "_countDown", _countDown);
-        _visited = getValueFromHash(hash, "_visited", _visited);
-        _shipyardId = ShipyardId.fromInt(getValueFromHash(hash, "_shipyardId", _shipyardId, Integer.class));
+        id = StarSystemId.fromInt(getValueFromHash(hash, "_id", id, Integer.class));
+        x = getValueFromHash(hash, "_x", x);
+        y = getValueFromHash(hash, "_y", y);
+        size = Size.fromInt(getValueFromHash(hash, "_size", size, Integer.class));
+        techLevel = TechLevel.fromInt(getValueFromHash(hash, "_techLevel", techLevel, Integer.class));
+        politicalSystemType = PoliticalSystemType.fromInt(getValueFromHash(hash, "_politicalSystemType", politicalSystemType, Integer.class));
+        systemPressure = SystemPressure.fromInt(getValueFromHash(hash, "_systemPressure", systemPressure, Integer.class));
+        specialResource = SpecialResource.fromInt(getValueFromHash(hash, "_specialResource", specialResource, Integer.class));
+        specialEventType = SpecialEventType.fromInt(getValueFromHash(hash, "_specialEventType", specialEventType, Integer.class));
+        tradeItems = getValueFromHash(hash, "_tradeItems", tradeItems, int[].class);
+        countDown = getValueFromHash(hash, "_countDown", countDown);
+        visited = getValueFromHash(hash, "_visited", visited);
+        shipyardId = ShipyardId.fromInt(getValueFromHash(hash, "_shipyardId", shipyardId, Integer.class));
     }
 
     void initializeTradeItems() {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
-            if (!itemTraded(Consts.TradeItems[i])) {
-                _tradeItems[i] = 0;
+            if (!isItemTraded(Consts.TradeItems[i])) {
+                tradeItems[i] = 0;
             } else {
-                _tradeItems[i] = (this.size().castToInt() + 1)
+                tradeItems[i] = (this.getSize().castToInt() + 1)
                         * (Functions.getRandom(9, 14) - Math.abs(Consts.TradeItems[i].getTechTopProduction().castToInt()
                         - this.getTechLevel().castToInt()));
 
                 // Because of the enormous profits possible, there shouldn't be
                 // too many robots or narcotics available.
-                if (i >= TradeItemType.NARCOTICS.castToInt())
-                    _tradeItems[i] = ((_tradeItems[i] *
-                            (5 - Game.getCurrentGame()
-                                    .getDifficulty()
-                                    .castToInt())) /
+                if (i >= TradeItemType.NARCOTICS.castToInt()) {
+                    tradeItems[i] = ((tradeItems[i] * (5 - Game.getCurrentGame().getDifficulty().castToInt())) /
                             (6 - Game.getCurrentGame().getDifficulty().castToInt())) + 1;
+                }
 
-                if (this.getSpecialResource() == Consts.TradeItems[i].getResourceLowPrice())
-                    _tradeItems[i] = _tradeItems[i] * 4 / 3;
+                if (this.getSpecialResource() == Consts.TradeItems[i].getResourceLowPrice()) {
+                    tradeItems[i] = tradeItems[i] * 4 / 3;
+                }
 
-                if (this.getSpecialResource() == Consts.TradeItems[i].getResourceHighPrice())
-                    _tradeItems[i] = _tradeItems[i] * 3 / 4;
+                if (this.getSpecialResource() == Consts.TradeItems[i].getResourceHighPrice()) {
+                    tradeItems[i] = tradeItems[i] * 3 / 4;
+                }
 
-                if (this.getSystemPressure() == Consts.TradeItems[i].getPressurePriceHike())
-                    _tradeItems[i] = _tradeItems[i] / 5;
+                if (this.getSystemPressure() == Consts.TradeItems[i].getPressurePriceHike()) {
+                    tradeItems[i] = tradeItems[i] / 5;
+                }
 
-                _tradeItems[i] = _tradeItems[i] - Functions.getRandom(10) + Functions.getRandom(10);
+                tradeItems[i] = tradeItems[i] - Functions.getRandom(10) + Functions.getRandom(10);
 
-                if (_tradeItems[i] < 0)
-                    _tradeItems[i] = 0;
+                if (tradeItems[i] < 0) {
+                    tradeItems[i] = 0;
+                }
             }
         }
     }
 
-    public boolean itemTraded() {
-        return itemTraded();
-    }
-
-    public boolean itemTraded(TradeItem item) {
+    boolean isItemTraded(TradeItem item) {
         return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().isDrugsOk())
                 && (item.getType() != TradeItemType.FIREARMS
                 || getPoliticalSystem().isFirearmsOk()) && getTechLevel().castToInt() >= item
@@ -137,23 +135,23 @@ public class StarSystem extends STSerializableObject {
                 .getTechUsage().castToInt());
     }
 
-    public @Override
-    Hashtable serialize() {
+    @Override
+    public Hashtable serialize() {
         Hashtable hash = super.serialize();
 
-        hash.add("_id", _id.castToInt());
-        hash.add("_x", _x);
-        hash.add("_y", _y);
-        hash.add("_size", _size.castToInt());
-        hash.add("_techLevel", _techLevel.castToInt());
-        hash.add("_politicalSystemType", _politicalSystemType.castToInt());
-        hash.add("_systemPressure", _systemPressure.castToInt());
-        hash.add("_specialResource", _specialResource.castToInt());
-        hash.add("_specialEventType", _specialEventType.castToInt());
-        hash.add("_tradeItems", _tradeItems);
-        hash.add("_countDown", _countDown);
-        hash.add("_visited", _visited);
-        hash.add("_shipyardId", _shipyardId.castToInt());
+        hash.add("_id", id.castToInt());
+        hash.add("_x", x);
+        hash.add("_y", y);
+        hash.add("_size", size.castToInt());
+        hash.add("_techLevel", techLevel.castToInt());
+        hash.add("_politicalSystemType", politicalSystemType.castToInt());
+        hash.add("_systemPressure", systemPressure.castToInt());
+        hash.add("_specialResource", specialResource.castToInt());
+        hash.add("_specialEventType", specialEventType.castToInt());
+        hash.add("_tradeItems", tradeItems);
+        hash.add("_countDown", countDown);
+        hash.add("_visited", visited);
+        hash.add("_shipyardId", shipyardId.castToInt());
 
         return hash;
     }
@@ -285,35 +283,31 @@ public class StarSystem extends STSerializableObject {
             case WildGetsOut:
                 show = game.getCommander().getShip().isWildOnBoard();
                 break;
-            default:
-                break;
         }
 
         return show;
     }
 
-    public int getCountDown() {
-        return _countDown;
+    int getCountDown() {
+        return countDown;
     }
 
-    public void setCountDown(int value) {
-        _countDown = value;
+    void setCountDown(int value) {
+        countDown = value;
     }
 
     public boolean destIsOk() {
         Commander comm = Game.getCurrentGame().getCommander();
         return this != comm.getCurrentSystem()
-                && (Distance() <= comm.getShip().getFuel() || Functions.wormholeExists(comm.getCurrentSystem(), this));
+                && (getDistance() <= comm.getShip().getFuel() || Functions.wormholeExists(comm.getCurrentSystem(), this));
     }
 
-    //TODO create normal getters/setters
-
-    public int Distance() {
+    private int getDistance() {
         return Functions.distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
     public StarSystemId getId() {
-        return _id;
+        return id;
     }
 
     public List<CrewMember> getMercenariesForHire() {
@@ -322,107 +316,103 @@ public class StarSystem extends STSerializableObject {
         ArrayList<CrewMember> forHire = new ArrayList<>(3);
 
         for (int i = 1; i < mercs.length; i++) {
-            if (mercs[i].getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().hasCrew(mercs[i].getId()))
+            if (mercs[i].getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().hasCrew(mercs[i].getId())) {
                 forHire.add(mercs[i]);
+            }
         }
 
         return forHire;
     }
 
     public String getName() {
-        return Strings.SystemNames[_id.castToInt()];
+        return Strings.SystemNames[id.castToInt()];
     }
 
     public PoliticalSystem getPoliticalSystem() {
-        return Consts.PoliticalSystems[_politicalSystemType.castToInt()];
+        return Consts.PoliticalSystems[politicalSystemType.castToInt()];
     }
 
-    public PoliticalSystemType getPoliticalSystemType() {
-        return _politicalSystemType;
+    PoliticalSystemType getPoliticalSystemType() {
+        return politicalSystemType;
     }
 
-    public void setPoliticalSystemType(PoliticalSystemType value) {
-        _politicalSystemType = value;
+    void setPoliticalSystemType(PoliticalSystemType value) {
+        politicalSystemType = value;
     }
 
     public Shipyard getShipyard() {
-        //getShipyardId();
-        return (_shipyardId == ShipyardId.NA) ? null : Consts.Shipyards[_shipyardId.castToInt()];
+        return (shipyardId == ShipyardId.NA) ? null : Consts.Shipyards[shipyardId.castToInt()];
     }
 
     public ShipyardId getShipyardId() {
-        return _shipyardId;
+        return shipyardId;
     }
 
     public void setShipyardId(ShipyardId value) {
-        _shipyardId = value;
+        shipyardId = value;
     }
 
-    public Size size() {
-        return _size;
+    public Size getSize() {
+        return size;
     }
 
     public SpecialEvent specialEvent() {
-        //SpecialEventType();
-        return (_specialEventType == SpecialEventType.NA ? null
-                : Consts.SpecialEvents[_specialEventType.castToInt()]);
+        return (specialEventType == SpecialEventType.NA ? null : Consts.SpecialEvents[specialEventType.castToInt()]);
     }
 
-    public SpecialEventType getSpecialEventType() {
-        return _specialEventType;
+    SpecialEventType getSpecialEventType() {
+        return specialEventType;
     }
 
-    public void setSpecialEventType(SpecialEventType value) {
-        _specialEventType = value;
+    void setSpecialEventType(SpecialEventType value) {
+        specialEventType = value;
     }
 
     public SpecialResource getSpecialResource() {
-        return isVisited() ? _specialResource : SpecialResource.NOTHING;
+        return isVisited() ? specialResource : SpecialResource.NOTHING;
     }
 
     public SystemPressure getSystemPressure() {
-        return _systemPressure;
+        return systemPressure;
     }
 
-    public void setSystemPressure(SystemPressure value) {
-        _systemPressure = value;
+    void setSystemPressure(SystemPressure value) {
+        systemPressure = value;
     }
 
     public TechLevel getTechLevel() {
-        return _techLevel;
+        return techLevel;
     }
 
-    public void setTechLevel(TechLevel value) {
-        _techLevel = value;
+    void setTechLevel(TechLevel value) {
+        techLevel = value;
     }
 
     public int[] getTradeItems() {
-        return _tradeItems;
+        return tradeItems;
     }
 
     public boolean isVisited() {
-        return _visited;
+        return visited;
     }
 
-    public void setVisited(boolean value) {
-        _visited = value;
+    void setVisited(boolean value) {
+        visited = value;
     }
 
     public int getX() {
-        return _x;
+        return x;
     }
 
     public void setX(int value) {
-        _x = value;
+        x = value;
     }
 
     public int getY() {
-        return _y;
+        return y;
     }
 
     public void setY(int value) {
-        _y = value;
+        y = value;
     }
-
-    // #endregion
 }

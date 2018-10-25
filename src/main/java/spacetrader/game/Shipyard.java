@@ -125,8 +125,8 @@ public class Shipyard {
     public ArrayList<Size> getAvailableSizes() {
         ArrayList<Size> list = new ArrayList<>(6);
 
-        int begin = Math.max(Size.Tiny.castToInt(), getSpecialtySize().castToInt() - 2);
-        int end = Math.min(Size.Gargantuan.castToInt(), getSpecialtySize().castToInt() + 2);
+        int begin = Math.max(Size.TINY.castToInt(), getSpecialtySize().castToInt() - 2);
+        int end = Math.min(Size.GARGANTUAN.castToInt(), getSpecialtySize().castToInt() + 2);
         for (int index = begin; index <= end; index++)
             list.add(Size.values()[index]);
 

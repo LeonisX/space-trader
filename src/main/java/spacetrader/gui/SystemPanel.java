@@ -247,7 +247,7 @@ class SystemPanel extends Panel {
             List<CrewMember> mercenaries = system.getMercenariesForHire();
 
             systemNameLabelValue.setText(system.getName());
-            systemSizeLabelValue.setText(Strings.Sizes[system.size().castToInt()]);
+            systemSizeLabelValue.setText(Strings.Sizes[system.getSize().castToInt()]);
             systemTechLevelLabelValue.setText(Strings.TechLevelNames[system.getTechLevel().castToInt()]);
             systemGovernmentLabelValue.setText(system.getPoliticalSystem().getName());
             systemResourcesLabelValue.setText(Strings.SpecialResources[system.getSpecialResource().castToInt()]);

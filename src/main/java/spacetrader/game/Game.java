@@ -519,7 +519,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                     getUniverse()[i].initializeTradeItems();
                 } else {
                     for (int j = 0; j < Consts.TradeItems.length; j++) {
-                        if (getWarpSystem().itemTraded(Consts.TradeItems[j])) {
+                        if (getWarpSystem().isItemTraded(Consts.TradeItems[j])) {
                             getUniverse()[i].getTradeItems()[j] = Math
                                     .max(0, getUniverse()[i].getTradeItems()[j] + Functions.getRandom(-4, 5));
                         }
@@ -2085,7 +2085,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 GuiFacade.alert(AlertType.EncounterSurrenderRefused);
             } else if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
                     commander.getShip().getIllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            false), commander.getShip().IllegalSpecialCargoActions()})) == DialogResult.YES) {
+                            false), commander.getShip().illegalSpecialCargoActions()})) == DialogResult.YES) {
                 result = EncounterResult.ARRESTED;
             }
         } else if (commander.getShip().isPrincessOnBoard() && !commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
@@ -2161,7 +2161,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (commander.getShip().isIllegalSpecialCargo()) {
             if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
                     commander.getShip().getIllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            true), commander.getShip().IllegalSpecialCargoActions()})) == DialogResult.YES) {
+                            true), commander.getShip().illegalSpecialCargoActions()})) == DialogResult.YES) {
                 result = EncounterResult.ARRESTED;
             }
         } else {
@@ -2392,14 +2392,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             StarSystemId id = (StarSystemId.fromInt(i));
             SystemPressure pressure = SystemPressure.NONE;
             SpecialResource specRes = SpecialResource.NOTHING;
-            Size size = Size.fromInt(Functions.getRandom(Size.Huge.castToInt() + 1));
+            Size size = Size.fromInt(Functions.getRandom(Size.HUGE.castToInt() + 1));
             PoliticalSystem polSys = Consts.PoliticalSystems[Functions.getRandom(Consts.PoliticalSystems.length)];
             TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.getMinimumTechLevel().castToInt(), polSys
                     .getMaximumTechLevel().castToInt() + 1));
 
             // Galvon must be a Monarchy.
             if (id == StarSystemId.Galvon) {
-                size = Size.Large;
+                size = Size.LARGE;
                 polSys = Consts.PoliticalSystems[PoliticalSystemType.MONARCHY.castToInt()];
                 tech = TechLevel.HI_TECH;
             }
@@ -3142,7 +3142,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     public void recalculateBuyPrices(StarSystem system) {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
-            if (!system.itemTraded(Consts.TradeItems[i])) {
+            if (!system.isItemTraded(Consts.TradeItems[i])) {
                 priceCargoBuy[i] = 0;
             } else {
                 priceCargoBuy[i] = priceCargoSell[i];
@@ -3241,7 +3241,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         hash.add("_arrivedViaWormhole", arrivedViaWormhole);
         hash.add("_paidForNewspaper", paidForNewspaper);
         hash.add("_litterWarning", litterWarning);
-        hash.add("_newsEvents", ArrayListToIntArray(newsEvents));
+        hash.add("_newsEvents", arrayListToIntArray(newsEvents));
         hash.add("difficulty", difficulty.castToInt());
         hash.add("_cheatEnabled", cheats.isCheatMode());
         hash.add("_autoSave", autoSave);
@@ -3271,7 +3271,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         hash.add("_justLootedMarie", justLootedMarie);
         hash.add("_canSuperWarp", canSuperWarp);
         hash.add("_chanceOfVeryRareEncounter", chanceOfVeryRareEncounter);
-        hash.add("_veryRareEncounters", ArrayListToIntArray(veryRareEncounters));
+        hash.add("_veryRareEncounters", arrayListToIntArray(veryRareEncounters));
         hash.add("_options", options.serialize());
 
         return hash;
@@ -3294,7 +3294,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
         setClicks(Consts.StartClicks);
         while (getClicks() > 0) {
-            commander.getShip().PerformRepairs();
+            commander.getShip().performRepairs();
 
             if (isDetermineEncounter()) {
                 uneventful = false;

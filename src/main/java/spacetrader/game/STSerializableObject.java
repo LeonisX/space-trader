@@ -50,8 +50,9 @@ public abstract class STSerializableObject {
 
         SupportedTypesOfSomethingST type = SupportedTypesOfSomethingST.valueOf(typeName);
 
-        if (list == null)
+        if (list == null) {
             return null;
+        }
 
         switch (type) {
             case CrewMember:
@@ -112,15 +113,15 @@ public abstract class STSerializableObject {
         return array;
     }
 
-    private static enum SupportedTypesOfSomethingST {
+    private enum SupportedTypesOfSomethingST {
         CrewMember, Gadget, HighScoreRecord, Shield, StarSystem, Weapon
     }
 
-    @SuppressWarnings("cast")
-    static Integer[] ArrayListToIntArray(ArrayList<? extends SpaceTraderEnum> list) {
+    static Integer[] arrayListToIntArray(ArrayList<? extends SpaceTraderEnum> list) {
         Integer[] array = new Integer[list.size()];
-        if (list.size() == 0)
+        if (list.size() == 0) {
             return array;
+        }
 
         {
             // Sometimes weird stuff happens when you mess with casts & generics.
@@ -128,8 +129,9 @@ public abstract class STSerializableObject {
                 return list.toArray(array);
         }
 
-        for (int index = 0; index < array.length; index++)
+        for (int index = 0; index < array.length; index++) {
             array[index] = list.get(index).castToInt();
+        }
 
         return array;
     }
@@ -140,8 +142,9 @@ public abstract class STSerializableObject {
         if (array != null) {
             list = new ArrayList<>();
 
-            for (STSerializableObject obj : array)
+            for (STSerializableObject obj : array) {
                 list.add(obj == null ? null : obj.serialize());
+            }
         }
 
         return list;
@@ -149,51 +152,59 @@ public abstract class STSerializableObject {
 
     @SuppressWarnings("unchecked")
     public static <U> U getValueFromHash(Hashtable hash, String key, Class<U> requestedType) {
-        if (!hash.containsKey(key))
+        if (!hash.containsKey(key)) {
             return null;
+        }
 
         Object object = hash.get(key);
-        if (object instanceof SpaceTraderEnum)
+        if (object instanceof SpaceTraderEnum) {
             return (U) (Integer) ((SpaceTraderEnum) object).castToInt();
-        else
+        } else {
             return (U) object;
+        }
     }
 
     @SuppressWarnings("unchecked")
-    public static <U extends SpaceTraderEnum> U getValueFromHash2(Hashtable hash, String key, Class<U> requstedType) {
-        if (!hash.containsKey(key))
+    public static <U extends SpaceTraderEnum> U getValueFromHash2(Hashtable hash, String key, Class<U> requestedType) {
+        if (!hash.containsKey(key)) {
             return null;
+        }
 
         Object object = hash.get(key);
-        if (object instanceof Integer)
-            return DWIM.dwim(object, requstedType);
-        else
+        if (object instanceof Integer) {
+            return DWIM.dwim(object, requestedType);
+        } else {
             return (U) object;
+        }
     }
 
     @SuppressWarnings("unchecked")
-    public static <U, T extends U> U getValueFromHash(Hashtable hash, String key, T defaultValue, Class<U> requstedType) {
-        if (!hash.containsKey(key))
+    public static <U, T extends U> U getValueFromHash(Hashtable hash, String key, T defaultValue, Class<U> requestedType) {
+        if (!hash.containsKey(key)) {
             return defaultValue;
+        }
 
-        if (SpaceTraderEnum.class.isAssignableFrom(requstedType))
-            return (U) DWIM.dwim(hash.get(key), (Class<? extends SpaceTraderEnum>) requstedType);
-        else
+        if (SpaceTraderEnum.class.isAssignableFrom(requestedType)) {
+            return (U) DWIM.dwim(hash.get(key), (Class<? extends SpaceTraderEnum>) requestedType);
+        } else {
             return (U) hash.get(key);
+        }
     }
 
     //TODO many of calls to this method then cast it back to the enum type; fix them to call generic form.
     public static int getValueFromHash(Hashtable hash, String key, SpaceTraderEnum defaultValue,
-                                       Class<Integer> requstedType) {
-        if (!hash.containsKey(key))
+                                       Class<Integer> requestedType) {
+        if (!hash.containsKey(key)) {
             return defaultValue.castToInt();
+        }
 
         Object saved = hash.get(key);
-        if (saved instanceof Integer)
+        if (saved instanceof Integer) {
             return (Integer) saved;
-        else
+        } else {
             //Assume its the enum
             return ((SpaceTraderEnum) saved).castToInt();
+        }
     }
 
     @SuppressWarnings("unchecked")

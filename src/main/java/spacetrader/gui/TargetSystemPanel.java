@@ -281,7 +281,7 @@ class TargetSystemPanel extends Panel {
             int distance = Functions.distance(commander.getCurrentSystem(), system);
 
             targetNameLabelValue.setText(system.getName());
-            targetSizeLabelValue.setText(Sizes[system.size().castToInt()]);
+            targetSizeLabelValue.setText(Sizes[system.getSize().castToInt()]);
             targetTechLevelLabelValue.setText(TechLevelNames[system.getTechLevel().castToInt()]);
             targetGovernmentLabelValue.setText(system.getPoliticalSystem().getName());
             targetResourceLabelValue.setText(system.isVisited()

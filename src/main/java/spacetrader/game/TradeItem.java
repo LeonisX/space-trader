@@ -117,7 +117,7 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
                     / 100;
 
             // Large system = high production decreases prices
-            price = price * (100 - target.size().castToInt()) / 100;
+            price = price * (100 - target.getSize().castToInt()) / 100;
 
             // Special resources price adaptation
             if (target.getSpecialResource() == getResourceLowPrice())

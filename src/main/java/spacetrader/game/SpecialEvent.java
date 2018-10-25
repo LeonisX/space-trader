@@ -22,8 +22,7 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Collections;
+
 package spacetrader.game;
 
 import spacetrader.game.enums.SpecialEventType;
@@ -122,9 +121,11 @@ public class SpecialEvent {
         StarSystem location = null;
         StarSystem[] universe = Game.getCurrentGame().getUniverse();
 
-        for (int i = 0; i < universe.length && location == null; i++)
-            if (universe[i].getSpecialEventType() == getType())
+        for (int i = 0; i < universe.length && location == null; i++) {
+            if (universe[i].getSpecialEventType() == getType()) {
                 location = universe[i];
+            }
+        }
 
         return location;
     }

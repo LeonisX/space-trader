@@ -532,8 +532,7 @@ public class Strings {
     public static String EncounterPretextSpaceMonster = "a horrifying";
     public static String EncounterPretextStolen = "a stolen";
     public static String EncounterPretextTrader = "a trader";
-    public static String EncounterPrincessRescued = newline
-            + newline
+    public static String EncounterPrincessRescued = newline + newline
             + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\"";
     public static String EncounterShieldStrength = "Shields at ^1%";
     public static String EncounterShieldNone = "No Shields";
@@ -594,8 +593,7 @@ public class Strings {
     public static String QuestGemulonInformDays = "Inform Gemulon about alien invasion within ^1.";
     public static String QuestGemulonInformTomorrow = "Inform Gemulon about alien invasion by tomorrow.";
     public static String QuestJarek = "Take ambassador Jarek to Devidia.";
-    public static String QuestJarekImpatient = QuestJarek
-            + newline
+    public static String QuestJarekImpatient = QuestJarek + newline
             + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.";
     public static String QuestJaporiDeliver = "Deliver antidote to Japori.";
     public static String QuestMoon = "Claim your moon at Utopia.";
@@ -605,8 +603,7 @@ public class Strings {
     public static String QuestPrincessQuantum = "Get your Quantum Disruptor at Galvon.";
     public static String QuestPrincessReturn = "Transport ^1 from Qonos to Galvon.";
     public static String QuestPrincessReturning = "Return ^1 to Galvon.";
-    public static String QuestPrincessReturningImpatient = QuestPrincessReturning
-            + newline
+    public static String QuestPrincessReturningImpatient = QuestPrincessReturning + newline
             + "She is becoming anxious to arrive at home, and is no longer of any help in engineering functions.";
     public static String QuestReactor = "Deliver the unstable reactor to Nix for Henry Morgan.";
     public static String QuestReactorFuel = "Deliver the unstable reactor to Nix before it consumes all its fuel.";
@@ -619,8 +616,7 @@ public class Strings {
     public static String QuestSpaceMonsterKill = "Kill the space monster at Acamar.";
     public static String QuestTribbles = "Get rid of those pesky tribbles.";
     public static String QuestWild = "Smuggle Jonathan Wild to Kravat.";
-    public static String QuestWildImpatient = QuestWild
-            + newline
+    public static String QuestWildImpatient = QuestWild + newline
             + "Wild is getting impatient, and will no longer aid your crew along the way.";
 
     public static String ShipBuyGotOne = "got one";
@@ -634,7 +630,6 @@ public class Strings {
     public static String ShipShiedSlot = "shield slot";
     public static String ShipWeaponSlot = "weapon slot";
     public static String ShipUnfilled = "Unfilled:";
-
 
     public static String ShipInfoEscapePod = "Escape Pod";
 
@@ -680,24 +675,19 @@ public class Strings {
 
     public static String Unknown = "Unknown";
 
-    // #endregion
+    // String Arrays
 
-    // #region String Arrays
-
-    // #region ActivityLevels
+    // ActivityLevels
     public static String[] ActivityLevels = new String[]{"Absent", "Minimal",
             "Few", "Some", "Moderate", "Many", "Abundant", "Swarms"};
-    // #endregion
 
-    // #region CargoBuyOps
+    // CargoBuyOps
     public static String[] CargoBuyOps = new String[]{"Buy", "Buy", "Steal"};
-    // #endregion
 
-    // #region CargoSellOps
+    // CargoSellOps
     public static String[] CargoSellOps = new String[]{"Sell", "Sell", "Dump", "Jettison"};
-    // #endregion
 
-    // #region CrewMemberNames
+    // CrewMemberNames
     public static String[] CrewMemberNames = new String[]{"Commander",
             "Alyssa", "Armatur", "Bentos", "C2U2", "Chi'Ti", "Crystal", "Dane",
             "Deirdre", "Doc", "Draco", "Iranda", "Jeremiah", "Jujubal",
@@ -706,8 +696,7 @@ public class Strings {
             "Wesley", "Wonton", "Yorvick", "Zeethibal", // anagram for Elizabeth
 
             // The rest are mercenaries I added - JAF
-            "Opponent", // crew of opponent mantis, pirate, police, and trader
-            // ships
+            "Opponent", // crew of opponent mantis, pirate, police, and trader ships
             "Wild", // now earns his keep!
             "Jarek", // now earns his keep!
             "Captain", // crew of famous captain ships
@@ -715,8 +704,7 @@ public class Strings {
             "Scarab", // dummy crew member used in opponent ship
             "SpaceMonster", // dummy crew member used in opponent ship
             "Aragorn", // My first son's middle name, and from Lord of the Rings
-            "Brady", // My third son's middle name, and QB of the New England
-            // Patriots
+            "Brady", // My third son's middle name, and QB of the New England Patriots
             "Eight of Nine", // From Star Trek - Seven's younger sibling ;)
             "Fangorn", // From Lord of the Rings
             "Gagarin", // The first man in space
@@ -733,13 +721,11 @@ public class Strings {
             "Ziyal", // From ST: Deep Space 9
             "Scorpion" // dummy crew member used in opponent ship
     };
-    // #endregion
 
-    // #region DifficultyLevels
+    // DifficultyLevels
     public static String[] DifficultyLevels = new String[]{"Beginner", "Easy", "Normal", "Hard", "Impossible"};
-    // #endregion
 
-    // #region EquipmentDescriptions
+    // EquipmentDescriptions
     public static String[][] EquipmentDescriptions = new String[][]{
             new String[]{
                     "The Pulse Laser is the weakest weapon available. It's small size allows only enough energy to build up to emit pulses of light.",
@@ -760,28 +746,23 @@ public class Strings {
                     "The Cloaking Device can enable your ship to evade detection by an opponent, but only if the Engineer skill of your ship is greater than that of your opponent. It also makes your ship harder to hit in battle.",
                     "The Fuel Compactor that you got as a reward for warning Gemulon of the invasion will increase the range of your ship by 3 parsecs.",
                     "These extra bays will not be detected during routine police searches. They may be detected if you are arrested and the police perform a more thorough search."}};
-    // #endregion
 
-    // #region EquipmentTypes
+    // EquipmentTypes
     public static String[] EquipmentTypes = new String[]{"Weapon", "Shield", "Gadget"};
-    // #endregion
 
-    // #region GadgetNames
+    // GadgetNames
     public static String[] GadgetNames = new String[]{"5 Extra Cargo Bays",
             "Auto-Repair System", "Navigating System", "Targeting System",
             "Cloaking Device", "Fuel Compactor", "5 Hidden Cargo Bays"};
-    // #endregion
 
-    // #region GameCompletionTypes
+    // GameCompletionTypes
     public static String[] GameCompletionTypes = new String[]{"Was killed", "Retired", "Claimed moon"};
-    // #endregion
 
-    // #region ListStrings
+    // ListStrings
     public static String[] ListStrings = new String[]{"", "^1", "^1 and ^2",
             "^1, ^2, and ^3", "^1, ^2, ^3, and ^4"};
-    // #endregion
 
-    // #region NewsEvent
+    // NewsEvent
     /*
      * In News Events, the following variables can be used: ^1 Commander Name ^2
      * Current System ^3 Commander's Ship Type
@@ -826,9 +807,8 @@ public class Strings {
             "Kidnappers Holding Out at Qonos",
             "Scorpion Defeated! Kidnapped Member of Galvon Royal Family Freed!",
             "Beloved Royal Returns Home!"};
-    // #endregion
 
-    // #region NewsHeadlines
+    // NewsHeadlines
     public static String[][] NewsHeadlines = new String[][]{
             new String[]{"Riots, Looting Mar Factional Negotiations.",
                     "Communities Seek Consensus.",
@@ -897,132 +877,110 @@ public class Strings {
                     "Temple Restoration Fund at 81%.",
                     "Sacred Texts on Public Display.",
                     "Dozen Blasphemers Excommunicated!"}};
-    // #endregion
 
-    // #region NewsMastheads
+
+    // NewsMastheads
     public static String[][] NewsMastheads = new String[][]{
             new String[]{"The ^1 Arsenal", "The Grassroot", "Kick It!"},
-            new String[]{"The Objectivist", "The ^1 Market",
-                    "The Invisible Hand"},
-            new String[]{"The Daily Worker", "The People's Voice",
-                    "The ^1 Proletariat"},
+            new String[]{"The Objectivist", "The ^1 Market", "The Invisible Hand"},
+            new String[]{"The Daily Worker", "The People's Voice", "The ^1 Proletariat"},
             new String[]{"Planet News", "The ^1 Times", "Interstate Update"},
             new String[]{"^1 Memo", "News From The Board", "Status Report"},
             new String[]{"Pulses", "Binary Stream", "The System Clock"},
             new String[]{"The Daily Planet", "The ^1 Majority", "Unanimity"},
             new String[]{"The Command", "Leader's Voice", "The ^1 Mandate"},
-            new String[]{"State Tribune", "Motherland News",
-                    "Homeland Report"},
-            new String[]{"News from the Keep", "The Town Crier",
-                    "The ^1 Herald"},
+            new String[]{"State Tribune", "Motherland News", "Homeland Report"},
+            new String[]{"News from the Keep", "The Town Crier", "The ^1 Herald"},
             new String[]{"General Report", "^1 Dispatch", "The ^1 Sentry"},
             new String[]{"Royal Times", "The Loyal Subject", "The Fanfare"},
             new String[]{"Pax Humani", "Principle", "The ^1 Chorus"},
-            new String[]{"All for One", "Brotherhood",
-                    "The People's Syndicate"},
+            new String[]{"All for One", "Brotherhood", "The People's Syndicate"},
             new String[]{"The Daily Koan", "Haiku", "One Hand Clapping"},
             new String[]{"The Future", "Hardware Dispatch", "TechNews"},
-            new String[]{"The Spiritual Advisor", "Church Tidings",
-                    "The Temple Tribune"}};
-    // #endregion
+            new String[]{"The Spiritual Advisor", "Church Tidings", "The Temple Tribune"}};
 
-    // #region NewsPoliceRecordHero
+    // NewsPoliceRecordHero
     public static String[] NewsPoliceRecordHero = new String[]{
             "Locals Welcome Visiting Hero ^1!",
             "Famed Hero ^1 to Visit System!",
             "Large Turnout At Spaceport to Welcome ^1!"};
-    // #endregion
 
-    // #region NewsPoliceRecordPsychopath
+    // NewsPoliceRecordPsychopath
     public static String[] NewsPoliceRecordPsychopath = new String[]{
             "Police Warning: ^1 Will Dock At ^2!",
             "Notorious Criminal ^1 Sighted in ^2!",
             "Locals Rally to Deny Spaceport Access to ^1!",
             "Terror Strikes Locals on Arrival of ^1!"};
-    // #endregion
 
-    // #region NewsPressureExternal
+    // NewsPressureExternal
     public static String[] NewsPressureExternal = new String[]{
             "Reports of ^1 in the ^2 System.", "News of ^1 in the ^2 System.",
             "New Rumors of ^1 in the ^2 System.",
             "Sources report ^1 in the ^2 System.",
             "Notice: ^1 in the ^2 System.",
             "Evidence Suggests ^1 in the ^2 System."};
-    // #endregion
 
-    // #region NewsPressureExternalPressures
+    // NewsPressureExternalPressures
     public static String[] NewsPressureExternalPressures = new String[]{"",
             "Strife and War", "Plague Outbreaks", "Severe Drought",
             "Terrible Boredom", "Cold Weather", "Crop Failures", "Labor Shortages"};
-    // #endregion
 
-    // #region NewsPressureInternal
+    // NewsPressureInternal
     public static String[] NewsPressureInternal = new String[]{"",
             "War News: Offensives Continue!", "Plague Spreads! Outlook Grim.",
             "No Rain in Sight!", "Editors: Won't Someone Entertain Us?",
             "Cold Snap Continues!", "Serious Crop Failure! Must We Ration?",
             "Jobless Rate at All-Time Low!"};
-    // #endregion
 
-    // #region PoliceRecordNames
+    // PoliceRecordNames
     public static String[] PoliceRecordNames = new String[]{"Psychopath",
             "Villain", "Criminal", "Crook", "Dubious", "Clean", "Lawful", "Trusted", "Liked", "Hero"};
-    // #endregion
 
-    // #region PoliticalSystemNames
+    // PoliticalSystemNames
     public static String[] PoliticalSystemNames = new String[]{"Anarchy",
             "Capitalist State", "Communist State", "Confederacy",
             "Corporate State", "Cybernetic State", "Democracy", "Dictatorship",
             "Fascist State", "Feudal State", "Military State", "Monarchy",
             "Pacifist State", "Socialist State", "State of Satori",
             "Technocracy", "Theocracy"};
-    // #endregion
 
-    // #region ReputationNames
+    // ReputationNames
     public static String[] ReputationNames = new String[]{"Harmless",
             "Mostly harmless", "Poor", "Average", "Above average", "Competent", "Dangerous", "Deadly", "Elite"};
-    // #endregion
 
-    // #region ShieldNames
+    // ShieldNames
     public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
-    // #endregion
 
-    // #region ShipNames
+    // ShipNames
     public static String[] ShipNames = new String[]{"Flea", "Gnat",
             "Firefly", "Mosquito", "Bumblebee", "Beetle", "Hornet",
             "Grasshopper", "Termite", "Wasp", "Space Monster", "Dragonfly",
             "Mantis", "Scarab", "Bottle", ShipNameCustomShip, "Scorpion"};
-    // #endregion
 
-    // #region ShipyardEngineers
+    // ShipyardEngineers
     public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};
-    // #endregion
 
-    // #region ShipyardNames
+    // ShipyardNames
     public static String[] ShipyardNames = new String[]{
             "Corellian Engineering", "Incom Corporation", "Kuat Drive Yards",
             "Sienar Fleet Systems", "Sorosuub Engineering"};
-    // #endregion
 
-    // #region ShipyardSkillDescriptions
+    // ShipyardSkillDescriptions
     public static String[] ShipyardSkillDescriptions = new String[]{
             "All ships constructed at this shipyard use 2 fewer units per crew quarter.",
             "All ships constructed at this shipyard have 2 extra base fuel tanks.",
             "All ships constructed at this shipyard have the hull points increment by 5 more than usual.",
             "All ships constructed at this shipyard get shield slots for 2 fewer units.",
             "All ships constructed at this shipyard get weapon slots for 2 fewer units."};
-    // #endregion
 
-    // #region ShipyardSkills
+    // ShipyardSkills
     public static String[] ShipyardSkills = new String[]{"Crew Quartering",
-            "Fuel Efficienty", "Hull Strength", "Shielding", "Weaponry"};
-    // #endregion
+            "Fuel Efficiency", "Hull Strength", "Shielding", "Weaponry"};
 
-    // #region Sizes
+    // Sizes
     public static String[] Sizes = new String[]{"Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"};
-    // #endregion
 
-    // #region SpecialEventStrings
+    // SpecialEventStrings
     public static String[] SpecialEventStrings = new String[]{
             "This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?",
             "This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.",
@@ -1070,9 +1028,8 @@ public class Strings {
             "The Galvonian Ambassador to Qonos approaches you. The Princess needs a ride home. Will you take her? I don't think she'll feel safe with anyone else.",
             "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?",
             "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\""};
-    // #endregion
 
-    // #region SpecialEventTitles
+    // SpecialEventTitles
     public static String[] SpecialEventTitles = new String[]{
             "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
             "Dragonfly", "Dragonfly Destroyed", "Weird Ship", "Lightning Ship",
@@ -1090,27 +1047,22 @@ public class Strings {
             "Install Hidden Compartments", "Kidnapped", "Aggressive Ship",
             "Dangerous Scorpion", "Royal Rescue", "Quantum Disruptor",
             "Royal Return"};
-    // #endregion
 
-    // #region SpecialResources
+    // SpecialResources
     public static String[] SpecialResources = new String[]{"Nothing Special",
             "Mineral Rich", "Mineral Poor", "Desert", "Sweetwater Oceans",
             "Rich Soil", "Poor Soil", "Rich Fauna", "Lifeless",
             "Weird Mushrooms", "Special Herbs", "Artistic Populace",
             "Warlike Populace"};
-    // #endregion
 
     // *************************************************************************
     // Many of these names are from Star Trek: The Next Generation, or are small
-    // changes
-    // to names of this series. A few have different origins.
+    // changes to names of this series. A few have different origins.
     // JAF - Except where noted these comments are the previous author's.
     // *************************************************************************
-    // #region SystemNames
-    public static String[] SystemNames = new String[]{"Acamar", // JAF - TNG
-            // "The Vengeance Factor (Acamar III)"
-            "Adahn", // The alternate personality for The Nameless One in
-            // "Planescape: Torment"
+    // SystemNames
+    public static String[] SystemNames = new String[]{"Acamar", // JAF - TNG "The Vengeance Factor (Acamar III)"
+            "Adahn", // The alternate personality for The Nameless One in "Planescape: Torment"
             "Aldea", // JAF - TNG "When the Bough Breaks"
             "Andevian", // JAF - ST Andoria?
             "Antedi", // JAF - TNG "Manhunt" (Antede III)
@@ -1118,8 +1070,7 @@ public class Strings {
             "Brax", // One of the heroes in Master of Magic
             "Bretel", // This is a Dutch device for keeping your pants up.
             "Calondia", // JAF - TNG "The Price" (Caldonia)
-            "Campor", // JAF - TNG "Bloodlines" (Camor V) or DS9 "Defiant"
-            // (Campa III)
+            "Campor", // JAF - TNG "Bloodlines" (Camor V) or DS9 "Defiant" (Campa III)
             "Capelle", // The city I lived in while programming this game
             "Carzon", // JAF - Character from DS9 (Kurzon)?
             "Castor", // A Greek demi-god
@@ -1127,11 +1078,9 @@ public class Strings {
             "Cheron", // JAF - TOS "Let That Be Your Last Battlefield"
             "Courteney", // After Courteney Cox...
             "Daled", // JAF - TNG "The Dauphin" (Daled IV)
-            "Damast", "Davlos", // JAF - DS9 "Time's Orphan" (Davlos Prime) or
-            // DS9 "Visionary" (Davlos III)
+            "Damast", "Davlos", // JAF - DS9 "Time's Orphan" (Davlos Prime) or DS9 "Visionary" (Davlos III)
             "Deneb", // JAF - TOS "Wolf in the Fold" (Deneb II) or TOS
-            // "Where No Man Has Gone Before" and TNG
-            // "Encounter at Farpoint" (Deneb IV)
+            // "Where No Man Has Gone Before" and TNG "Encounter at Farpoint" (Deneb IV)
             "Deneva", // JAF - TOS "Operation -- Annihilate!"
             "Devidia", // JAF - TNG "Time's Arrow" (Devidia II)
             "Draylon", // JAF - DS9 "Sanctuary" (Draylon II)
@@ -1143,8 +1092,7 @@ public class Strings {
             "Festen", // A great Scandinavian movie
             "Fourmi", // An ant, in French
             "Frolix", // A solar system in one of Philip K. Dick's novels
-            "Gemulon", // JAF - TNG " Mission" (Gamalon V) or DS9
-            // "Paradise" (Germulon V)
+            "Gemulon", // JAF - TNG " Mission" (Gamalon V) or DS9 "Paradise" (Germulon V)
             "Guinifer", // One way of writing the name of king Arthur's wife
             "Hades", // The underworld
             "Hamlet", // From Shakespeare
@@ -1178,8 +1126,7 @@ public class Strings {
             "Mordan", // JAF - TNG "Too Short a Season" (Mordan IV)
             "Myrthe", // The name of my daughter
             "Nelvana", // JAF - TNG "The Defector" (Nelvana III)
-            "Nix", // An interesting spelling of a word meaning "nothing" in
-            // Dutch
+            "Nix", // An interesting spelling of a word meaning "nothing" in Dutch
             "Nyle", // An interesting spelling of the great river
             "Odet", "Og", // The last of the witches in Pratchett's Discworld
             "Omega", // The end of it all
@@ -1193,30 +1140,23 @@ public class Strings {
             "Rakhar", // JAF - DS9 "Vortex"
             "Ran", // A film by Akira Kurosawa
             "Regulas", // JAF - "Star Trek II: The Wrath of Khan" (Regula) or
-            // DS9 "Fascination" (Regulus III) or TOS "Amok Time"
-            // (Regulus V)
+            // DS9 "Fascination" (Regulus III) or TOS "Amok Time" (Regulus V)
             "Relva", // JAF - TNG "Coming of Age" (Relva VII)
             "Rhymus", "Rochani", // JAF - DS9 "Dramatis Personae" (Rochanie III)
             "Rubicum", // The river Ceasar crossed to get into Rome
             "Rutia", // JAF - TNG "The High Ground" (Ruteeya IV)
-            "Sarpeidon", // JAF - DS9 "Tacking into the Wind" (Sarpeidon V) or
-            // TOS "All Our Yesterdays" (Sarpeidon)
-            "Sefalla", "Seltrice", "Sigma", "Sol", // That's our own solar
-            // system
-            "Somari", "Stakoron", "Styris", // JAF - TNG "Code of Honor" (Styrus
-            // IV)
-            "Talani", // JAF - DS9 "Armageddon Game" (T'Lani III and T'Lani
-            // Prime)
+            "Sarpeidon", // JAF - DS9 "Tacking into the Wind" (Sarpeidon V) or TOS "All Our Yesterdays" (Sarpeidon)
+            "Sefalla", "Seltrice", "Sigma", "Sol", // That's our own solar system
+            "Somari", "Stakoron", "Styris", // JAF - TNG "Code of Honor" (Styrus IV)
+            "Talani", // JAF - DS9 "Armageddon Game" (T'Lani III and T'Lani Prime)
             "Tamus", "Tantalos", // A king from a Greek tragedy
-            "Tanuga", "Tarchannen", "Terosa", // JAF - DS9 "Second Sight"
-            // (Terosa Prime)
+            "Tanuga", "Tarchannen", "Terosa", // JAF - DS9 "Second Sight" (Terosa Prime)
             "Thera", // A seldom encountered Dutch girl's name
             "Titan", // The largest moon of Jupiter
             "Torin", // A hero from Master of Magic
             "Triacus", // JAF - TOS "And the Children Shall Lead"
             "Turkana", // JAF - TNG "Legacy" (Turkana IV)
-            "Tyrus", "Umberlee", // A god from AD&D, which has a prominent role
-            // in Baldur's Gate
+            "Tyrus", "Umberlee", // A god from AD&D, which has a prominent role in Baldur's Gate
             "Utopia", // The ultimate goal
             "Vadera", "Vagra", // JAF - TNG "Skin of Evil" (Vagra II)
             "Vandor", // JAF - TNG "We'll Always Have Paris" (Vando VI)?
@@ -1228,20 +1168,17 @@ public class Strings {
             "Zuul", // From the first Ghostbusters movie
 
             // The rest are systems I added - JAF
-            "Centauri", // As in Alpha Centauri - the closest star outside our
-            // solar system
+            "Centauri", // As in Alpha Centauri - the closest star outside our solar system
             "Galvon", // Star Trek: The Next Generation "Data's Day"
             "Inthara", // Star Trek: Voyager "Retrospect"
             "Meridian", // Star Trek: Deep Space Nine "Meridian"
             "Qonos", // Star Trek - Klinon Homeworld (QonoS - Kronos)
             "Rae", // My wife's middle name
             "Weytahn", // Star Trek: Enterprise "Cease Fire"
-            "Zonama" // From the Star Wars: New Jedi Order series (and Rogue
-            // Planet)
+            "Zonama" // From the Star Wars: New Jedi Order series (and Rogue Planet)
     };
-    // #endregion
 
-    // #region SystemPressures
+    // SystemPressures
     public static String[] SystemPressures = new String[]{
             "under no particular pressure", // Uneventful
             "at war", // Ore and Weapons in demand
@@ -1252,24 +1189,20 @@ public class Strings {
             "suffering from a crop failure", // Food in demand
             "lacking enough workers" // Machinery and Robots in demand
     };
-    // #endregion
 
-    // #region TechLevelNames
+    // TechLevelNames
     public static String[] TechLevelNames = new String[]{"Pre-Agricultural",
             "Agricultural", "Medieval", "Renaissance", "Early Industrial", "Industrial", "Post-Industrial", "Hi-Tech"};
-    // #endregion
 
-    // #region TradeItemNames
+    // TradeItemNames
     public static String[] TradeItemNames = new String[]{"Water", "Furs",
             "Food", "Ore", "Games", "Firearms", "Medicine", "Machines", "Narcotics", "Robots"};
-    // #endregion
 
-    // #region VeryRareEncounters
+    // VeryRareEncounters
     public static String[] VeryRareEncounters = new String[]{"Marie Celeste",
             "Captain Ahab", "Captain Conrad", "Captain Huie", "Dated Tonic", "Good Tonic"};
-    // #endregion
 
-    // #region WeaponNames
+    // WeaponNames
     public static String[] WeaponNames = new String[]{"Pulse Laser",
             "Beam Laser", "Military Laser", "Morgan's Laser", "Photon Disruptor", "Quantum Disruptor"};
 
