@@ -214,7 +214,7 @@ public class Functions {
     }
 
     static boolean wormholeExists(StarSystem a, StarSystem b) {
-        return wormholeExists(a.getId().castToInt(), b.getId().castToInt());
+        return wormholeExists(a.getId().castToInt(), (b == null) ? -1 : b.getId().castToInt());
     }
 
     // *************************************************************************

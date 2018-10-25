@@ -1,7 +1,7 @@
 package spacetrader.game.enums;
 
-public enum NewsEvent implements SpaceTraderEnum// : int
-{
+public enum NewsEvent implements SpaceTraderEnum {
+
     ArtifactDelivery, // = 0,
     CaughtLittering, // = 1,
     Dragonfly, // = 2,
@@ -46,6 +46,7 @@ public enum NewsEvent implements SpaceTraderEnum// : int
         return values()[i];
     }
 
+    @Override
     public int castToInt() {
         return ordinal();
     }

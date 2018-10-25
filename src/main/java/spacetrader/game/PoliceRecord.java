@@ -59,8 +59,7 @@ public class PoliceRecord {
         return _type.getName();
     }
 
-
-    public PoliceRecordType Type() {
+    public PoliceRecordType getType() {
         return _type;
     }
 

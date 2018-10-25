@@ -90,7 +90,7 @@ public class StarSystem extends STSerializableObject {
                 _tradeItems[i] = 0;
             } else {
                 _tradeItems[i] = (this.size().castToInt() + 1)
-                        * (Functions.getRandom(9, 14) - Math.abs(Consts.TradeItems[i].TechTopProduction().castToInt()
+                        * (Functions.getRandom(9, 14) - Math.abs(Consts.TradeItems[i].getTechTopProduction().castToInt()
                         - this.getTechLevel().castToInt()));
 
                 // Because of the enormous profits possible, there shouldn't be
@@ -102,13 +102,13 @@ public class StarSystem extends STSerializableObject {
                                     .castToInt())) /
                             (6 - Game.getCurrentGame().getDifficulty().castToInt())) + 1;
 
-                if (this.getSpecialResource() == Consts.TradeItems[i].ResourceLowPrice())
+                if (this.getSpecialResource() == Consts.TradeItems[i].getResourceLowPrice())
                     _tradeItems[i] = _tradeItems[i] * 4 / 3;
 
-                if (this.getSpecialResource() == Consts.TradeItems[i].ResourceHighPrice())
+                if (this.getSpecialResource() == Consts.TradeItems[i].getResourceHighPrice())
                     _tradeItems[i] = _tradeItems[i] * 3 / 4;
 
-                if (this.getSystemPressure() == Consts.TradeItems[i].PressurePriceHike())
+                if (this.getSystemPressure() == Consts.TradeItems[i].getPressurePriceHike())
                     _tradeItems[i] = _tradeItems[i] / 5;
 
                 _tradeItems[i] = _tradeItems[i] - Functions.getRandom(10) + Functions.getRandom(10);
@@ -124,17 +124,17 @@ public class StarSystem extends STSerializableObject {
     }
 
     public boolean itemTraded(TradeItem item) {
-        return ((item.Type() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.FIREARMS
+        return ((item.getType() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
+                && (item.getType() != TradeItemType.FIREARMS
                 || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
-                .TechProduction().castToInt());
+                .getTechProduction().castToInt());
     }
 
     boolean itemUsed(TradeItem item) {
-        return ((item.Type() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
-                && (item.Type() != TradeItemType.FIREARMS
+        return ((item.getType() != TradeItemType.NARCOTICS || politicalSystem().DrugsOk())
+                && (item.getType() != TradeItemType.FIREARMS
                 || politicalSystem().FirearmsOk()) && getTechLevel().castToInt() >= item
-                .TechUsage().castToInt());
+                .getTechUsage().castToInt());
     }
 
     public @Override
@@ -292,21 +292,21 @@ public class StarSystem extends STSerializableObject {
         return show;
     }
 
-    //TODO create normal getters/setters
-
-    public int CountDown() {
+    public int getCountDown() {
         return _countDown;
     }
 
-    public void CountDown(int value) {
+    public void setCountDown(int value) {
         _countDown = value;
     }
 
-    public boolean destOk() {
+    public boolean destIsOk() {
         Commander comm = Game.getCurrentGame().getCommander();
         return this != comm.getCurrentSystem()
                 && (Distance() <= comm.getShip().getFuel() || Functions.wormholeExists(comm.getCurrentSystem(), this));
     }
+
+    //TODO create normal getters/setters
 
     public int Distance() {
         return Functions.distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());

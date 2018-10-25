@@ -57,7 +57,7 @@ public class Ship extends ShipSpec {
     }
 
     public Ship(OpponentType oppType) {
-        if (oppType == OpponentType.FamousCaptain) {
+        if (oppType == OpponentType.FAMOUS_CAPTAIN) {
             SetValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
             for (int i = 0; i < getShields().length; i++)
@@ -70,10 +70,10 @@ public class Ship extends ShipSpec {
             addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
             getCrew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
-        } else if (oppType == OpponentType.Bottle) {
+        } else if (oppType == OpponentType.BOTTLE) {
             SetValues(ShipType.BOTTLE);
         } else {
-            int tries = oppType == OpponentType.Mantis ? Game.getCurrentGame().getDifficulty().castToInt() + 1 : Math
+            int tries = oppType == OpponentType.MANTIS ? Game.getCurrentGame().getDifficulty().castToInt() + 1 : Math
                     .max(1, Game.getCurrentGame().getCommander().getWorth() / 150000
                             + Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
 
@@ -83,11 +83,11 @@ public class Ship extends ShipSpec {
             GenerateOpponentAddShields(tries);
             GenerateOpponentAddWeapons(tries);
 
-            if (oppType != OpponentType.Mantis)
+            if (oppType != OpponentType.MANTIS)
                 GenerateOpponentSetHullStrength();
 
-            if (oppType != OpponentType.Police)
-                GenerateOpponentAddCargo(oppType == OpponentType.Pirate);
+            if (oppType != OpponentType.POLICE)
+                GenerateOpponentAddCargo(oppType == OpponentType.PIRATE);
         }
     }
 
@@ -354,7 +354,7 @@ public class Ship extends ShipSpec {
                         shieldType++;
                         sum += Consts.Shields[shieldType].getChance();
                     }
-                    if (!HasShield(Consts.Shields[shieldType].getType()) && shieldType > bestShieldType)
+                    if (!hasShield(Consts.Shields[shieldType].getType()) && shieldType > bestShieldType)
                         bestShieldType = shieldType;
                 }
 
@@ -394,7 +394,7 @@ public class Ship extends ShipSpec {
                         weaponType++;
                         sum += Consts.Weapons[weaponType].getChance();
                     }
-                    if (!HasWeapon(WeaponType.fromInt(weaponType), true) && weaponType > bestWeaponType)
+                    if (!hasWeapon(WeaponType.fromInt(weaponType), true) && weaponType > bestWeaponType)
                         bestWeaponType = weaponType;
                 }
 
@@ -420,20 +420,20 @@ public class Ship extends ShipSpec {
         Commander cmdr = Game.getCurrentGame().getCommander();
         PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().politicalSystem();
 
-        if (oppType == OpponentType.Mantis)
+        if (oppType == OpponentType.MANTIS)
             SetValues(ShipType.MANTIS);
         else {
             ShipType oppShipType;
             int tries = 1;
 
             switch (oppType) {
-                case Pirate:
+                case PIRATE:
                     // Pirates become better when you get richer
                     tries = 1 + cmdr.getWorth() / 100000;
                     tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
                             - Difficulty.NORMAL.castToInt());
                     break;
-                case Police:
+                case POLICE:
                     // The police will try to hunt you down with better ships if you
                     // are
                     // a villain, and they will try even harder when you are
@@ -450,7 +450,7 @@ public class Ship extends ShipSpec {
                     break;
             }
 
-            if (oppType == OpponentType.Trader)
+            if (oppType == OpponentType.TRADER)
                 oppShipType = ShipType.FLEA;
             else
                 oppShipType = ShipType.GNAT;
@@ -514,10 +514,10 @@ public class Ship extends ShipSpec {
         boolean found = false;
         switch (item.getEquipmentType()) {
             case WEAPON:
-                found = HasWeapon(((Weapon) item).getType(), true);
+                found = hasWeapon(((Weapon) item).getType(), true);
                 break;
             case SHIELD:
-                found = HasShield(((Shield) item).getType());
+                found = hasShield(((Shield) item).getType());
                 break;
             case GADGET:
                 found = hasGadget(((Gadget) item).getType());
@@ -535,7 +535,7 @@ public class Ship extends ShipSpec {
         return found;
     }
 
-    public boolean HasShield(ShieldType shieldType) {
+    public boolean hasShield(ShieldType shieldType) {
         boolean found = false;
         for (int i = 0; i < getShields().length && !found; i++) {
             if (getShields()[i] != null && getShields()[i].getType() == shieldType)
@@ -548,7 +548,7 @@ public class Ship extends ShipSpec {
     // Determines if a given ship is carrying items that can be bought or sold
     // in the current system.
     // *************************************************************************
-    public boolean HasTradeableItems() {
+    public boolean hasTradeableItems() {
         boolean found = false;
         boolean criminal = Game.getCurrentGame().getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
         _tradeableItems = new boolean[10];
@@ -564,7 +564,7 @@ public class Ship extends ShipSpec {
             // or sell such items.
             // Simplified this - JAF
             if (getCargo()[i] > 0
-                    && !(criminal ^ Consts.TradeItems[i].Illegal())
+                    && !(criminal ^ Consts.TradeItems[i].isIllegal())
                     && ((!isCommandersShip() && Game.getCurrentGame().getPriceCargoBuy()[i] > 0) || (isCommandersShip() && Game
                     .getCurrentGame().getPriceCargoSell()[i] > 0))) {
                 found = true;
@@ -575,7 +575,7 @@ public class Ship extends ShipSpec {
         return found;
     }
 
-    public boolean HasWeapon(WeaponType weaponType, boolean exactCompare) {
+    public boolean hasWeapon(WeaponType weaponType, boolean exactCompare) {
         boolean found = false;
         for (int i = 0; i < getWeapons().length && !found; i++) {
             if (getWeapons()[i] != null
@@ -685,9 +685,9 @@ public class Ship extends ShipSpec {
         }
     }
 
-    public void RemoveIllegalGoods() {
+    public void removeIllegalGoods() {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
-            if (Consts.TradeItems[i].Illegal()) {
+            if (Consts.TradeItems[i].isIllegal()) {
                 getCargo()[i] = 0;
                 Game.getCurrentGame().getCommander().getPriceCargo()[i] = 0;
             }
@@ -755,10 +755,10 @@ public class Ship extends ShipSpec {
         return price;
     }
 
-    public boolean AnyIllegalCargo() {
+    public boolean isAnyIllegalCargo() {
         int illegalCargo = 0;
         for (int i = 0; i < Consts.TradeItems.length; i++) {
-            if (Consts.TradeItems[i].Illegal())
+            if (Consts.TradeItems[i].isIllegal())
                 illegalCargo += getCargo()[i];
         }
 
@@ -788,7 +788,7 @@ public class Ship extends ShipSpec {
         return super.getCargoBays() + ExtraCargoBays() + getHiddenCargoBays();
     }
 
-    public boolean Cloaked() {
+    public boolean isCloaked() {
         int oppEng = isCommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCurrentGame().getCommander()
                 .getShip().getEngineer();
         return hasGadget(GadgetType.CLOAKING_DEVICE) && getEngineer() > oppEng;
@@ -813,7 +813,7 @@ public class Ship extends ShipSpec {
     public boolean DetectableIllegalCargo() {
         int illegalCargo = 0;
         for (int i = 0; i < Consts.TradeItems.length; i++) {
-            if (Consts.TradeItems[i].Illegal())
+            if (Consts.TradeItems[i].isIllegal())
                 illegalCargo += getCargo()[i];
         }
 

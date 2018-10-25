@@ -57,7 +57,7 @@ public class FormCargoSell extends SpaceTraderForm {
 
         numericUpDown.setMaximum(maxAmount);
         numericUpDown.setValue(numericUpDown.getMinimum());
-        setText(stringVars(Strings.CargoTitle, Strings.CargoSellOps[op.castToInt()], Consts.TradeItems[item].Name()));
+        setText(stringVars(Strings.CargoTitle, Strings.CargoSellOps[op.castToInt()], Consts.TradeItems[item].getName()));
         questionLabel.setText(stringVars(Strings.CargoSellQuestion, Strings.CargoSellOps[op.castToInt()].toLowerCase()));
         paidLabelValue.setText(stringVars(op == CargoSellOp.SELL_TRADER ? Strings.CargoSellPaidTrader
                         : Strings.CargoSellPaid, formatMoney(cost), multiples(maxAmount, Strings.CargoUnit)));
@@ -80,7 +80,7 @@ public class FormCargoSell extends SpaceTraderForm {
                 break;
             case SELL_TRADER:
                 statementLabelValue.setText(stringVars(Strings.CargoSellStatementTrader,
-                        Consts.TradeItems[item].Name(), formatMoney(price)));
+                        Consts.TradeItems[item].getName(), formatMoney(price)));
                 break;
         }
     }

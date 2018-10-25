@@ -79,15 +79,15 @@ public class PoliticalSystem {
                 .max(0, Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
 
         switch (oppType) {
-            case Pirate:
+            case PIRATE:
                 likely = activityPirates().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
                         .Pirates().castToInt();
                 break;
-            case Police:
+            case POLICE:
                 likely = activityPolice().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
                         .Police().castToInt();
                 break;
-            case Trader:
+            case TRADER:
                 likely = ActivityTraders().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
                         .Traders().castToInt();
                 break;

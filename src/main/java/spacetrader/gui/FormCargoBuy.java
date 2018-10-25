@@ -57,7 +57,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         Commander cmdr = game.getCommander();
         numericUpDown.setMaximum(maxAmount);
         numericUpDown.setValue(numericUpDown.getMinimum());
-        setText(stringVars(Strings.CargoTitle, Strings.CargoBuyOps[op.castToInt()], Consts.TradeItems[item].Name()));
+        setText(stringVars(Strings.CargoTitle, Strings.CargoBuyOps[op.castToInt()], Consts.TradeItems[item].getName()));
         questionLabel.setText(stringVars(Strings.CargoBuyQuestion, Strings.CargoBuyOps[op.castToInt()].toLowerCase()));
 
         switch (op) {
@@ -73,7 +73,7 @@ public class FormCargoBuy extends SpaceTraderForm {
                 if (afford < maxAmount) {
                     numericUpDown.setMaximum(afford);
                 }
-                statementLabelValue.setText(stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].Name(),
+                statementLabelValue.setText(stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].getName(),
                         formatMoney(game.getPriceCargoBuy()[item])));
                 availableLabelValue.setText(stringVars(Strings.CargoBuyAvailable, Functions.multiples(game.getOpponent()
                         .getCargo()[item], Strings.CargoUnit)));

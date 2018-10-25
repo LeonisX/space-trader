@@ -1094,13 +1094,13 @@ class CargoPanel extends Panel {
                 sellPriceArray[i].setFont(sellPriceLabel.getFont());
             }
 
-            if (warpSystem != null && warpSystem.destOk() && price > 0) {
+            if (warpSystem != null && warpSystem.destIsOk() && price > 0) {
                 targetPriceArray[i].setText(formatMoney(price));
             } else {
                 targetPriceArray[i].setText(TARGET_PRICE_NA);
             }
 
-            if (warpSystem != null && warpSystem.destOk() && price > 0 && buy[i] > 0) {
+            if (warpSystem != null && warpSystem.destIsOk() && price > 0 && buy[i] > 0) {
                 int diff = price - buy[i];
                 targetDiffArray[i].setText((diff > 0 ? "+" : "")  + formatMoney(diff));
                 targetPercentageArray[i].setText((diff > 0 ? "+" : "") + formatNumber(100 * diff / buy[i]) + "%");

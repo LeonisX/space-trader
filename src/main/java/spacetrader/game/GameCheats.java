@@ -10,11 +10,20 @@ import spacetrader.util.Util;
 // TODO removes refs to gui...
 @CheatCode
 public class GameCheats {
-    private final Game game;
-    boolean cheatMode = false;
 
-    public GameCheats(Game game) {
+    private final Game game;
+    private boolean cheatMode = false;
+
+    GameCheats(Game game) {
         this.game = game;
+    }
+
+    public boolean isCheatMode() {
+        return cheatMode;
+    }
+
+    public void setCheatMode(boolean cheatMode) {
+        this.cheatMode = cheatMode;
     }
 
     /**
@@ -50,7 +59,7 @@ public class GameCheats {
                     break;
                 case Events:
                     if (second.equals("Reset"))
-                        game.ResetVeryRareEncounters();
+                        game.resetVeryRareEncounters();
                     else {
                         StringBuilder textBuilder = new StringBuilder();
                         for (VeryRareEncounter veryRareEncounter : game.getVeryRareEncounters())

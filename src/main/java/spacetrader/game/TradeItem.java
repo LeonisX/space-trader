@@ -90,11 +90,11 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
         if (value == null)
             compared = 1;
         else {
-            compared = ((Integer) PriceLowTech()).compareTo(((TradeItem) value)
-                    .PriceLowTech());
+            compared = ((Integer) getPriceLowTech()).compareTo(((TradeItem) value)
+                    .getPriceLowTech());
             if (compared == 0)
-                compared = -((Integer) PriceInc())
-                        .compareTo(((TradeItem) value).PriceInc());
+                compared = -((Integer) getPriceInc())
+                        .compareTo(((TradeItem) value).getPriceInc());
         }
 
         return compared;
@@ -105,10 +105,10 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
 
         if (target.itemUsed(this)) {
             // Determine base price on techlevel of system
-            price = PriceLowTech() + target.getTechLevel().castToInt() * PriceInc();
+            price = getPriceLowTech() + target.getTechLevel().castToInt() * getPriceInc();
 
             // If a good is highly requested, increase the price
-            if (target.politicalSystem().Wanted() == Type())
+            if (target.politicalSystem().Wanted() == getType())
                 price = price * 4 / 3;
 
             // High trader activity decreases prices
@@ -120,9 +120,9 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
             price = price * (100 - target.size().castToInt()) / 100;
 
             // Special resources price adaptation
-            if (target.getSpecialResource() == ResourceLowPrice())
+            if (target.getSpecialResource() == getResourceLowPrice())
                 price = price * 3 / 4;
-            else if (target.getSpecialResource() == ResourceHighPrice())
+            else if (target.getSpecialResource() == getResourceHighPrice())
                 price = price * 4 / 3;
         }
 
@@ -133,82 +133,72 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
 
     // #region Properties
 
-    public boolean Illegal() {
-        return Type() == TradeItemType.FIREARMS
-                || Type() == TradeItemType.NARCOTICS;
-
+    public boolean isIllegal() {
+        return getType() == TradeItemType.FIREARMS || getType() == TradeItemType.NARCOTICS;
     }
 
-    public int MaxTradePrice() {
+    public int getMaxTradePrice() {
         return _maxTradePrice;
 
     }
 
-    public int MinTradePrice() {
+    public int getMinTradePrice() {
         return _minTradePrice;
     }
 
 
-    public String Name() {
+    public String getName() {
         return Strings.TradeItemNames[_type.castToInt()];
 
     }
 
 
-    public SystemPressure PressurePriceHike() {
+    public SystemPressure getPressurePriceHike() {
         return _pressurePriceHike;
 
     }
 
-    public int PriceInc() {
+    public int getPriceInc() {
         return _priceInc;
     }
 
-    public int PriceLowTech() {
+    public int getPriceLowTech() {
         return _piceLowTech;
 
     }
 
-
-    public int PriceVariance() {
+    public int getPriceVariance() {
         return _priceVariance;
 
     }
 
-
-    public SpecialResource ResourceHighPrice() {
+    public SpecialResource getResourceHighPrice() {
         return _resourceHighPrice;
 
     }
 
-
-    public SpecialResource ResourceLowPrice() {
+    public SpecialResource getResourceLowPrice() {
         return _resourceLowPrice;
     }
 
-    public int RoundOff() {
+    public int getRoundOff() {
         return _roundOff;
-
     }
 
-
-    public TechLevel TechProduction() {
+    public TechLevel getTechProduction() {
         return _techProduction;
     }
 
-
-    public TechLevel TechTopProduction() {
+    public TechLevel getTechTopProduction() {
         return _techTopProduction;
 
     }
 
-
-    public TechLevel TechUsage() {
+    public TechLevel getTechUsage() {
         return _techUsage;
     }
 
-
-    public TradeItemType Type() {
+    public TradeItemType getType() {
         return _type;
     }
 }

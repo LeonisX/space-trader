@@ -36,9 +36,9 @@ public class GameController {
 
     public void cargoSell(int tradeItem, boolean all) {
         if (game.getPriceCargoSell()[tradeItem] > 0)
-            game.CargoSellSystem(tradeItem, all);
+            game.cargoSellSystem(tradeItem, all);
         else
-            game.CargoDump(tradeItem);
+            game.cargoDump(tradeItem);
         mainWindow.updateAll();
     }
 
@@ -79,9 +79,9 @@ public class GameController {
         HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.Score(), game.getEndStatus(),
                 game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
         if (candidate.compareTo(Functions.getHighScores()[0]) > 0) {
-            if (game.getCheats().cheatMode)
+            if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
-            else {
+            } else {
                 addHighScore(candidate);
                 GuiFacade.alert(AlertType.GameEndHighScoreAchieved);
             }
