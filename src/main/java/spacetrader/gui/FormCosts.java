@@ -33,11 +33,10 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
+import spacetrader.game.GlobalAssets;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.*;
-
-public class FormCosts extends SpaceTraderForm {
+class FormCosts extends SpaceTraderForm {
 
     private Button closeButton = new Button();
     private Label mercenariesLabelValue = new Label();
@@ -52,7 +51,7 @@ public class FormCosts extends SpaceTraderForm {
     private Label insuranceLabel = new Label();
     private HorizontalLine horizontalLine = new HorizontalLine();
 
-    public FormCosts() {
+    FormCosts() {
         initializeComponent();
 
         Game game = Game.getCurrentGame();
@@ -64,91 +63,88 @@ public class FormCosts extends SpaceTraderForm {
     }
 
     private void initializeComponent() {
+        ReflectionUtils.setAllComponentNames(this);
+        
         setName("formCosts");
         setText("Cost Specification");
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(164, 99));
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(164, 99);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        controls.addAll(mercenariesLabel, mercenariesLabelValue, insuranceLabel, insuranceLabelValue, interestLabel,
-                interestLabelValue, wormholeTaxLabel, wormholeTaxLabelValue, horizontalLine, totalLabel,
-                totalLabelValue, closeButton);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
         setCancelButton(closeButton);
-
-        ReflectionUtils.setAllComponentNames(this);
-
+        
         suspendLayout();
 
         mercenariesLabel.setAutoSize(true);
         mercenariesLabel.setFont(FontCollection.bold825);
-        mercenariesLabel.setLocation(new Point(8, 8));
-        mercenariesLabel.setSize(new Size(72, 13));
+        mercenariesLabel.setLocation(8, 8);
+        mercenariesLabel.setSize(72, 13);
         mercenariesLabel.setTabIndex(4);
         mercenariesLabel.setText("Mercenaries:");
 
-        mercenariesLabelValue.setLocation(new Point(104, 8));
-        mercenariesLabelValue.setSize(new Size(39, 13));
+        mercenariesLabelValue.setLocation(104, 8);
+        mercenariesLabelValue.setSize(39, 13);
         mercenariesLabelValue.setTabIndex(36);
         //mercenariesLabelValue.setText("888 cr.");
         mercenariesLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         insuranceLabel.setAutoSize(true);
         insuranceLabel.setFont(FontCollection.bold825);
-        insuranceLabel.setLocation(new Point(8, 24));
-        insuranceLabel.setSize(new Size(59, 13));
+        insuranceLabel.setLocation(8, 24);
+        insuranceLabel.setSize(59, 13);
         insuranceLabel.setTabIndex(3);
         insuranceLabel.setText("Insurance:");
 
-        insuranceLabelValue.setLocation(new Point(104, 24));
-        insuranceLabelValue.setSize(new Size(39, 13));
+        insuranceLabelValue.setLocation(104, 24);
+        insuranceLabelValue.setSize(39, 13);
         insuranceLabelValue.setTabIndex(40);
         //insuranceLabelValue.setText("888 cr.");
         insuranceLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         interestLabel.setAutoSize(true);
         interestLabel.setFont(FontCollection.bold825);
-        interestLabel.setLocation(new Point(8, 40));
-        interestLabel.setSize(new Size(47, 13));
+        interestLabel.setLocation(8, 40);
+        interestLabel.setSize(47, 13);
         interestLabel.setTabIndex(5);
         interestLabel.setText("Interest:");
 
-        interestLabelValue.setLocation(new Point(104, 40));
-        interestLabelValue.setSize(new Size(39, 13));
+        interestLabelValue.setLocation(104, 40);
+        interestLabelValue.setSize(39, 13);
         interestLabelValue.setTabIndex(44);
         //interestLabelValue.setText("888 cr.");
         interestLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         wormholeTaxLabel.setAutoSize(true);
         wormholeTaxLabel.setFont(FontCollection.bold825);
-        wormholeTaxLabel.setLocation(new Point(8, 56));
-        wormholeTaxLabel.setSize(new Size(84, 13));
+        wormholeTaxLabel.setLocation(8, 56);
+        wormholeTaxLabel.setSize(84, 13);
         wormholeTaxLabel.setTabIndex(6);
         wormholeTaxLabel.setText("Wormhole Tax:");
 
-        wormholeTaxLabelValue.setLocation(new Point(104, 56));
-        wormholeTaxLabelValue.setSize(new Size(39, 13));
+        wormholeTaxLabelValue.setLocation(104, 56);
+        wormholeTaxLabelValue.setSize(39, 13);
         wormholeTaxLabelValue.setTabIndex(48);
         //wormholeTaxLabelValue.setText("888 cr.");
         wormholeTaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         //horizontalLine.setBackground(Color.darkGray);
-        horizontalLine.setLocation(new Point(6, 73));
-        horizontalLine.setSize(new Size(138, 1));
+        horizontalLine.setLocation(6, 73);
+        horizontalLine.setSize(138, 1);
         horizontalLine.setTabIndex(134);
         horizontalLine.setTabStop(false);
 
         totalLabel.setAutoSize(true);
         totalLabel.setFont(FontCollection.bold825);
-        totalLabel.setLocation(new Point(8, 79));
-        totalLabel.setSize(new Size(34, 13));
+        totalLabel.setLocation(8, 79);
+        totalLabel.setSize(34, 13);
         totalLabel.setTabIndex(7);
         totalLabel.setText("Total:");
 
-        totalLabelValue.setLocation(new Point(104, 79));
-        totalLabelValue.setSize(new Size(39, 13));
+        totalLabelValue.setLocation(104, 79);
+        totalLabelValue.setSize(39, 13);
         totalLabelValue.setTabIndex(52);
         //totalLabelValue.setText("888 cr.");
         totalLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
@@ -156,5 +152,12 @@ public class FormCosts extends SpaceTraderForm {
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setVisible(false);
         closeButton.setTabStop(false);
+
+        controls.addAll(mercenariesLabel, mercenariesLabelValue, insuranceLabel, insuranceLabelValue, 
+                interestLabel, interestLabelValue, wormholeTaxLabel, wormholeTaxLabelValue, horizontalLine, 
+                totalLabel, totalLabelValue, closeButton);
+
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 }
