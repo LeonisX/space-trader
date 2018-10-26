@@ -36,21 +36,19 @@ import spacetrader.game.*;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.*;
-
 import static spacetrader.game.Functions.*;
 
 @Facaded
 public class FormCargoSell extends SpaceTraderForm {
 
-    private Label statementLabelValue;
-    private Label questionLabel;
-    private NumericUpDown numericUpDown;
-    private Label paidLabelValue;
-    private Label profitLabelValue;
-    private Button okButton;
-    private Button allButton;
-    private Button noneButton;
+    private Label statementLabelValue = new Label();
+    private Label questionLabel = new Label();
+    private NumericUpDown numericUpDown = new NumericUpDown();
+    private Label paidLabelValue = new Label();
+    private Label profitLabelValue = new Label();
+    private Button okButton = new Button();
+    private Button allButton = new Button();
+    private Button noneButton = new Button();
 
     public FormCargoSell(int item, int maxAmount, CargoSellOp op, int price) {
         initializeComponent();
@@ -90,59 +88,58 @@ public class FormCargoSell extends SpaceTraderForm {
     }
     
     private void initializeComponent() {
-        questionLabel = new Label();
-        statementLabelValue = new Label();
-        numericUpDown = new NumericUpDown();
-        okButton = new Button();
-        allButton = new Button();
-        noneButton = new Button();
-        paidLabelValue = new Label();
-        profitLabelValue = new Label();
-
-        ((ISupportInitialize) (numericUpDown)).beginInit();
-
-        setName("formCargoSell");
         ReflectionUtils.setAllComponentNames(this);
 
+        setName("formCargoSell");
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(302, 105);
+        setControlBox(false);
+        setShowInTaskbar(false);
+        setAcceptButton(okButton);
+        setCancelButton(noneButton);
+        
+        numericUpDown.beginInit();
         suspendLayout();
 
-        statementLabelValue.setLocation(new Point(8, 8));
-        statementLabelValue.setSize(new Size(302, 13));
+        statementLabelValue.setLocation(8, 8);
+        statementLabelValue.setSize(302, 13);
         statementLabelValue.setTabIndex(3);
         //statementLabelValue.setText("The trader wants to by Machines, and offers 8,888 cr. each.");
 
-        paidLabelValue.setLocation(new Point(8, 21));
-        paidLabelValue.setSize(new Size(280, 13));
+        paidLabelValue.setLocation(8, 21);
+        paidLabelValue.setSize(280, 13);
         paidLabelValue.setTabIndex(5);
         //paidLabelValue.setText("You paid about 8,888 cr. per unit, and can sell 88 units.");
 
-        profitLabelValue.setLocation(new Point(8, 34));
-        profitLabelValue.setSize(new Size(200, 13));
+        profitLabelValue.setLocation(8, 34);
+        profitLabelValue.setSize(200, 13);
         profitLabelValue.setTabIndex(6);
         //profitLabelValue.setText("It costs 8,888 cr. per unit for disposal.");
 
-        questionLabel.setLocation(new Point(8, 50));
-        questionLabel.setSize(new Size(160, 13));
+        questionLabel.setLocation(8, 50);
+        questionLabel.setSize(160, 13);
         questionLabel.setTabIndex(1);
         questionLabel.setText("How many do you want to sell?");
 
-        numericUpDown.setLocation(new Point(168, 48));
+        numericUpDown.setLocation(168, 48);
         numericUpDown.setMinimum(1);
-        numericUpDown.setSize(new Size(38, 20));
+        numericUpDown.setSize(38, 20);
         numericUpDown.setTabIndex(1);
         numericUpDown.setValue(88);
         
         okButton.setDialogResult(DialogResult.OK);
         okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(new Point(83, 74));
-        okButton.setSize(new Size(41, 22));
+        okButton.setLocation(83, 74);
+        okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
         
         allButton.setDialogResult(DialogResult.OK);
         allButton.setFlatStyle(FlatStyle.FLAT);
-        allButton.setLocation(new Point(131, 74));
-        allButton.setSize(new Size(41, 22));
+        allButton.setLocation(131, 74);
+        allButton.setSize(41, 22);
         allButton.setTabIndex(3);
         allButton.setText("All");
         allButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -154,32 +151,18 @@ public class FormCargoSell extends SpaceTraderForm {
         
         noneButton.setDialogResult(DialogResult.CANCEL);
         noneButton.setFlatStyle(FlatStyle.FLAT);
-        noneButton.setLocation(new java.awt.Point(179, 74));
-        noneButton.setSize(new Size(41, 22));
+        noneButton.setLocation(179, 74);
+        noneButton.setSize(41, 22);
         noneButton.setTabIndex(4);
         noneButton.setText("None");
 
-        setAcceptButton(okButton);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setCancelButton(noneButton);
-        setClientSize(new Size(302, 105));
-        setControlBox(false);
+        controls.addAll(statementLabelValue, paidLabelValue, profitLabelValue, questionLabel, numericUpDown,
+                okButton, allButton, noneButton);
 
-        controls.add(statementLabelValue);
-        controls.add(paidLabelValue);
-        controls.add(profitLabelValue);
-        controls.add(questionLabel);
-        controls.add(numericUpDown);
-        controls.add(okButton);
-        controls.add(allButton);
-        controls.add(noneButton);
+        numericUpDown.endInit();
 
-        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
-        setShowInTaskbar(false);
-        setStartPosition(FormStartPosition.CENTER_PARENT);
-        //setText("Sell Xxxxxxxxxx");
-        ((ISupportInitialize) (numericUpDown)).endInit();
-
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 
     public int Amount() {
