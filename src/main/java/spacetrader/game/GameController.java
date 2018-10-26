@@ -62,13 +62,13 @@ public class GameController {
 
         AlertType alertType = AlertType.Alert;
         switch (game.getEndStatus()) {
-            case Killed:
+            case KILLED:
                 alertType = AlertType.GameEndKilled;
                 break;
-            case Retired:
+            case RETIRED:
                 alertType = AlertType.GameEndRetired;
                 break;
-            case BoughtMoon:
+            case BOUGHT_MOON:
                 alertType = AlertType.GameEndBoughtMoon;
                 break;
         }

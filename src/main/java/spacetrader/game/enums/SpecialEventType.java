@@ -54,6 +54,7 @@ public enum SpecialEventType implements SpaceTraderEnum {
         return values()[i + 1];
     }
 
+    @Override
     public int castToInt() {
         return ordinal() - 1;
     }

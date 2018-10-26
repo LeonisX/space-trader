@@ -568,7 +568,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void mnuRetire_Click() {
         if (GuiFacade.alert(AlertType.GameRetire) == DialogResult.YES) {
-            game.setEndStatus(GameEndType.Retired);
+            game.setEndStatus(GameEndType.RETIRED);
             controller.gameEnd();
             updateAll();
         }

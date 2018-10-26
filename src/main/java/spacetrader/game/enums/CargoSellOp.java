@@ -7,6 +7,7 @@ public enum CargoSellOp implements SpaceTraderEnum {
     DUMP,
     JETTISON;
 
+    @Override
     public int castToInt() {
         return ordinal();
     }

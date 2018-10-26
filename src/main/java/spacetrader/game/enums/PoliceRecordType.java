@@ -2,19 +2,20 @@ package spacetrader.game.enums;
 
 import spacetrader.game.Strings;
 
-public enum PoliceRecordType implements SpaceTraderEnum// : int
-{
-    Psychopath, // = 0,
-    Villain, // = 1,
-    Criminal, // = 2,
-    Crook, // = 3,
-    Dubious, // = 4,
-    Clean, // = 5,
-    Lawful, // = 6,
-    Trusted, // = 7,
-    Liked, // = 8,
-    Hero; // = 9
+public enum PoliceRecordType implements SpaceTraderEnum {
 
+    PSYCHOPATH, // = 0,
+    VILLAIN, // = 1,
+    CRIMINAL, // = 2,
+    CROOK, // = 3,
+    DUBIOUS, // = 4,
+    CLEAN, // = 5,
+    LAWFUL, // = 6,
+    TRUSTED, // = 7,
+    LIKED, // = 8,
+    HERO; // = 9
+
+    @Override
     public int castToInt() {
         return ordinal();
     }

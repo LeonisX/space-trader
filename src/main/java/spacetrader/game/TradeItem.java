@@ -22,7 +22,7 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
+
 package spacetrader.game;
 
 import spacetrader.game.enums.SpecialResource;
@@ -30,71 +30,49 @@ import spacetrader.game.enums.SystemPressure;
 import spacetrader.game.enums.TechLevel;
 import spacetrader.game.enums.TradeItemType;
 
-public class TradeItem implements Comparable<TradeItem> // : IComparable
-{
-    // #region Member Declarations
+public class TradeItem implements Comparable<TradeItem> {
 
-    private final TradeItemType _type;
-    private final TechLevel _techProduction; // Tech level needed for production
-    private final TechLevel _techUsage; // Tech level needed to use
-    private final TechLevel _techTopProduction; // Tech level which produces this item
-    // the most
-    private final int _piceLowTech; // Medium price at lowest tech level
-    private final int _priceInc; // Price increase per tech level
-    private final int _priceVariance; // Max percentage above or below calculated
-    // price
-    private final SystemPressure _pressurePriceHike; // Price increases considerably
-    // when this event occurs
-    private final SpecialResource _resourceLowPrice; // When this resource is
-    // available, this trade item is
-    // cheap
-    private final SpecialResource _resourceHighPrice; // When this resource is
-    // available, this trade item is
-    // expensive
-    private final int _minTradePrice; // Minimum price to buy/sell in orbit
-    private final int _maxTradePrice; // Minimum price to buy/sell in orbit
-    private final int _roundOff; // Roundoff price for trade in orbit
+    private final TradeItemType type;
+    private final TechLevel techProduction; // Tech level needed for production
+    private final TechLevel techUsage; // Tech level needed to use
+    private final TechLevel techTopProduction; // Tech level which produces this item the most
+    private final int priceLowTech; // Medium price at lowest tech level
+    private final int priceInc; // Price increase per tech level
+    private final int priceVariance; // Max percentage above or below calculated/ price
+    private final SystemPressure pressurePriceHike; // Price increases considerably when this event occurs
+    private final SpecialResource resourceLowPrice; // When this resource is available, this trade item is cheap
+    private final SpecialResource resourceHighPrice; // When this resource is available, this trade item is expensive
+    private final int minTradePrice; // Minimum price to buy/sell in orbit
+    private final int maxTradePrice; // Minimum price to buy/sell in orbit
+    private final int roundOff; // Roundoff price for trade in orbit
 
-    // #endregion
-
-    // #region Methods
-
-    public TradeItem(TradeItemType type, TechLevel techProduction,
-                     TechLevel techUsage, TechLevel techTopProduction, int piceLowTech,
-                     int priceInc, int priceVariance, SystemPressure pressurePriceHike,
-                     SpecialResource resourceLowPrice,
-                     SpecialResource resourceHighPrice, int minTradePrice,
-                     int maxTradePrice, int roundOff) {
-        _type = type;
-        _techProduction = techProduction;
-        _techUsage = techUsage;
-        _techTopProduction = techTopProduction;
-        _piceLowTech = piceLowTech;
-        _priceInc = priceInc;
-        _priceVariance = priceVariance;
-        _pressurePriceHike = pressurePriceHike;
-        _resourceLowPrice = resourceLowPrice;
-        _resourceHighPrice = resourceHighPrice;
-        _minTradePrice = minTradePrice;
-        _maxTradePrice = maxTradePrice;
-        _roundOff = roundOff;
+    TradeItem(TradeItemType type, TechLevel techProduction, TechLevel techUsage, TechLevel techTopProduction,
+            int priceLowTech, int priceInc, int priceVariance, SystemPressure pressurePriceHike,
+            SpecialResource resourceLowPrice, SpecialResource resourceHighPrice, int minTradePrice, int maxTradePrice,
+            int roundOff) {
+        this.type = type;
+        this.techProduction = techProduction;
+        this.techUsage = techUsage;
+        this.techTopProduction = techTopProduction;
+        this.priceLowTech = priceLowTech;
+        this.priceInc = priceInc;
+        this.priceVariance = priceVariance;
+        this.pressurePriceHike = pressurePriceHike;
+        this.resourceLowPrice = resourceLowPrice;
+        this.resourceHighPrice = resourceHighPrice;
+        this.minTradePrice = minTradePrice;
+        this.maxTradePrice = maxTradePrice;
+        this.roundOff = roundOff;
     }
 
-    public int compareTo(TradeItem o) {
-        return CompareTo(o);
-    }
+    public int compareTo(TradeItem value) {
+        int compared = 1;
 
-    public int CompareTo(Object value) {
-        int compared = 0;
-
-        if (value == null)
-            compared = 1;
-        else {
-            compared = ((Integer) getPriceLowTech()).compareTo(((TradeItem) value)
-                    .getPriceLowTech());
-            if (compared == 0)
-                compared = -((Integer) getPriceInc())
-                        .compareTo(((TradeItem) value).getPriceInc());
+        if (value != null) {
+            compared = Integer.compare(priceLowTech, value.getPriceLowTech());
+            if (compared == 0) {
+                compared = -Integer.compare(priceInc, value.getPriceInc());
+            }
         }
 
         return compared;
@@ -105,100 +83,94 @@ public class TradeItem implements Comparable<TradeItem> // : IComparable
 
         if (target.itemUsed(this)) {
             // Determine base price on techlevel of system
-            price = getPriceLowTech() + target.getTechLevel().castToInt() * getPriceInc();
+            price = priceLowTech + target.getTechLevel().castToInt() * priceInc;
 
             // If a good is highly requested, increase the price
-            if (target.getPoliticalSystem().getWanted() == getType())
+            if (target.getPoliticalSystem().getWanted() == type) {
                 price = price * 4 / 3;
+            }
 
             // High trader activity decreases prices
-            price = price
-                    * (100 - 2 * target.getPoliticalSystem().getActivityTraders().castToInt())
-                    / 100;
+            price = price * (100 - 2 * target.getPoliticalSystem().getActivityTraders().castToInt()) / 100;
 
             // Large system = high production decreases prices
             price = price * (100 - target.getSize().castToInt()) / 100;
 
             // Special resources price adaptation
-            if (target.getSpecialResource() == getResourceLowPrice())
+            if (target.getSpecialResource() == resourceLowPrice) {
                 price = price * 3 / 4;
-            else if (target.getSpecialResource() == getResourceHighPrice())
+            } else if (target.getSpecialResource() == resourceHighPrice) {
                 price = price * 4 / 3;
+            }
         }
 
         return price;
     }
 
-    // #endregion
-
-    // #region Properties
-
     public boolean isIllegal() {
-        return getType() == TradeItemType.FIREARMS || getType() == TradeItemType.NARCOTICS;
+        return type == TradeItemType.FIREARMS || type == TradeItemType.NARCOTICS;
     }
 
-    public int getMaxTradePrice() {
-        return _maxTradePrice;
+    int getMaxTradePrice() {
+        return maxTradePrice;
 
     }
 
-    public int getMinTradePrice() {
-        return _minTradePrice;
+    int getMinTradePrice() {
+        return minTradePrice;
     }
-
 
     public String getName() {
-        return Strings.TradeItemNames[_type.castToInt()];
+        return Strings.TradeItemNames[type.castToInt()];
 
     }
 
-
-    public SystemPressure getPressurePriceHike() {
-        return _pressurePriceHike;
-
-    }
-
-    public int getPriceInc() {
-        return _priceInc;
-    }
-
-    public int getPriceLowTech() {
-        return _piceLowTech;
+    SystemPressure getPressurePriceHike() {
+        return pressurePriceHike;
 
     }
 
-    public int getPriceVariance() {
-        return _priceVariance;
+     private int getPriceInc() {
+        return priceInc;
+    }
+
+     private int getPriceLowTech() {
+        return priceLowTech;
 
     }
 
-    public SpecialResource getResourceHighPrice() {
-        return _resourceHighPrice;
+     int getPriceVariance() {
+        return priceVariance;
 
     }
 
-    public SpecialResource getResourceLowPrice() {
-        return _resourceLowPrice;
-    }
-
-    public int getRoundOff() {
-        return _roundOff;
-    }
-
-    public TechLevel getTechProduction() {
-        return _techProduction;
-    }
-
-    public TechLevel getTechTopProduction() {
-        return _techTopProduction;
+     SpecialResource getResourceHighPrice() {
+        return resourceHighPrice;
 
     }
 
-    public TechLevel getTechUsage() {
-        return _techUsage;
+     SpecialResource getResourceLowPrice() {
+        return resourceLowPrice;
+    }
+
+     int getRoundOff() {
+        return roundOff;
+    }
+
+     TechLevel getTechProduction() {
+        return techProduction;
+    }
+
+     TechLevel getTechTopProduction() {
+        return techTopProduction;
+
+    }
+
+     TechLevel getTechUsage() {
+        return techUsage;
     }
 
     public TradeItemType getType() {
-        return _type;
+        return type;
     }
 }

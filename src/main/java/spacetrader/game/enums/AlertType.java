@@ -25,6 +25,7 @@
 package spacetrader.game.enums;
 
 public enum AlertType implements SpaceTraderEnum {
+
     Alert,
     AntidoteOnBoard,
     AntidoteDestroyed,
@@ -214,6 +215,7 @@ public enum AlertType implements SpaceTraderEnum {
     WildWontStayAboardLaser,
     WildWontStayAboardReactor;
 
+    @Override
     public int castToInt() {
         return ordinal();
     }

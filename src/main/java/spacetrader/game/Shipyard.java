@@ -84,19 +84,19 @@ public class Shipyard {
         _skill = skill;
 
         switch (getSkill()) {
-            case CrewQuarters:
+            case CREW_QUARTERS:
                 modCrew = ADJUST_SKILL_CREW;
                 break;
-            case FuelBase:
+            case FUEL_BASE:
                 modFuel = ADJUST_SKILL_FUEL;
                 break;
-            case HullPerUnit:
+            case HULL_PER_UNIT:
                 modHull = ADJUST_SKILL_HULL;
                 break;
-            case ShieldSlotUnits:
+            case SHIELD_SLOT_UNITS:
                 modShield = ADJUST_SKILL_SHIELD;
                 break;
-            case WeaponSlotUnits:
+            case WEAPON_SLOT_UNITS:
                 modWeapon = ADJUST_SKILL_WEAPON;
                 break;
         }

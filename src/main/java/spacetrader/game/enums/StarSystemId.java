@@ -1,7 +1,6 @@
 package spacetrader.game.enums;
 
-public enum StarSystemId implements SpaceTraderEnum// : int
-{
+public enum StarSystemId implements SpaceTraderEnum {
     NA, // = -1,
     Acamar, // = 0,
     Adahn, // = 1,
@@ -136,6 +135,7 @@ public enum StarSystemId implements SpaceTraderEnum// : int
         return values()[i + 1];
     }
 
+    @Override
     public int castToInt() {
         return ordinal() - 1;
     }

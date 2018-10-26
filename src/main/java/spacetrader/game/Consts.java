@@ -162,16 +162,16 @@ public class Consts {
     };
 
     static PoliceRecord[] PoliceRecords = new PoliceRecord[]{
-            new PoliceRecord(PoliceRecordType.Psychopath, PoliceRecordScorePsychopath),
-            new PoliceRecord(PoliceRecordType.Villain, PoliceRecordScoreVillain),
-            new PoliceRecord(PoliceRecordType.Criminal, PoliceRecordScoreCriminal),
-            new PoliceRecord(PoliceRecordType.Crook, PoliceRecordScoreCrook),
-            new PoliceRecord(PoliceRecordType.Dubious, PoliceRecordScoreDubious),
-            new PoliceRecord(PoliceRecordType.Clean, PoliceRecordScoreClean),
-            new PoliceRecord(PoliceRecordType.Lawful, PoliceRecordScoreLawful),
-            new PoliceRecord(PoliceRecordType.Trusted, PoliceRecordScoreTrusted),
-            new PoliceRecord(PoliceRecordType.Liked, PoliceRecordScoreLiked),
-            new PoliceRecord(PoliceRecordType.Hero, PoliceRecordScoreHero)
+            new PoliceRecord(PoliceRecordType.PSYCHOPATH, PoliceRecordScorePsychopath),
+            new PoliceRecord(PoliceRecordType.VILLAIN, PoliceRecordScoreVillain),
+            new PoliceRecord(PoliceRecordType.CRIMINAL, PoliceRecordScoreCriminal),
+            new PoliceRecord(PoliceRecordType.CROOK, PoliceRecordScoreCrook),
+            new PoliceRecord(PoliceRecordType.DUBIOUS, PoliceRecordScoreDubious),
+            new PoliceRecord(PoliceRecordType.CLEAN, PoliceRecordScoreClean),
+            new PoliceRecord(PoliceRecordType.LAWFUL, PoliceRecordScoreLawful),
+            new PoliceRecord(PoliceRecordType.TRUSTED, PoliceRecordScoreTrusted),
+            new PoliceRecord(PoliceRecordType.LIKED, PoliceRecordScoreLiked),
+            new PoliceRecord(PoliceRecordType.HERO, PoliceRecordScoreHero)
     };
 
     static PoliticalSystem[] PoliticalSystems = new PoliticalSystem[]{
@@ -293,11 +293,11 @@ public class Consts {
     };
 
     static Shipyard[] Shipyards = new Shipyard[]{
-            new Shipyard(ShipyardId.CORELLIAN, Size.LARGE, ShipyardSkill.CrewQuarters),
-            new Shipyard(ShipyardId.INCOM, Size.MEDIUM, ShipyardSkill.ShieldSlotUnits),
-            new Shipyard(ShipyardId.KUAT, Size.HUGE, ShipyardSkill.HullPerUnit),
-            new Shipyard(ShipyardId.SIENAR, Size.TINY, ShipyardSkill.WeaponSlotUnits),
-            new Shipyard(ShipyardId.SOROSUUB, Size.SMALL, ShipyardSkill.FuelBase)
+            new Shipyard(ShipyardId.CORELLIAN, Size.LARGE, ShipyardSkill.CREW_QUARTERS),
+            new Shipyard(ShipyardId.INCOM, Size.MEDIUM, ShipyardSkill.SHIELD_SLOT_UNITS),
+            new Shipyard(ShipyardId.KUAT, Size.HUGE, ShipyardSkill.HULL_PER_UNIT),
+            new Shipyard(ShipyardId.SIENAR, Size.TINY, ShipyardSkill.WEAPON_SLOT_UNITS),
+            new Shipyard(ShipyardId.SOROSUUB, Size.SMALL, ShipyardSkill.FUEL_BASE)
     };
 
     //TODO was ArrayList

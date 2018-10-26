@@ -386,7 +386,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 escapeWithPod();
             } else {
                 GuiFacade.alert(AlertType.ReactorDestroyed);
-                throw new GameEndException(GameEndType.Killed);
+                throw new GameEndException(GameEndType.KILLED);
             }
         } else {
             // Reactor warnings: now they know the quest has a time constraint!
@@ -2583,7 +2583,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
             case MoonRetirement:
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
-                throw new GameEndException(GameEndType.BoughtMoon);
+                throw new GameEndException(GameEndType.BOUGHT_MOON);
             case Princess:
                 curSys.setSpecialEventType(SpecialEventType.PrincessReturned);
                 remove = false;
@@ -3311,7 +3311,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         escapeWithPod();
                         break;
                     case KILLED:
-                        throw new GameEndException(GameEndType.Killed);
+                        throw new GameEndException(GameEndType.KILLED);
                 }
             }
 
@@ -3835,13 +3835,13 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         int modifier = 0;
 
         switch (getEndStatus()) {
-            case Killed:
+            case KILLED:
                 modifier = 90;
                 break;
-            case Retired:
+            case RETIRED:
                 modifier = 95;
                 break;
-            case BoughtMoon:
+            case BOUGHT_MOON:
                 daysMoon = Math.max(0, (getDifficulty().castToInt() + 1) * 100 - commander.getDays());
                 modifier = 100;
                 break;

@@ -8,5 +8,4 @@ public enum EncounterResult implements SpaceTraderEnum {
     public int castToInt() {
         return ordinal();
     }
-
 }

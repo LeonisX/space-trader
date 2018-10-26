@@ -437,9 +437,9 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsGameClearHighScoresTitle, AlertsGameClearHighScoresMessage, AlertsYes,
                         DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case GameEndBoughtMoon:
-                return new FormAlert(AlertsGameEndBoughtMoonTitle, GameEndType.BoughtMoon.castToInt());
+                return new FormAlert(AlertsGameEndBoughtMoonTitle, GameEndType.BOUGHT_MOON.castToInt());
             case GameEndBoughtMoonGirl:
-                return new FormAlert(AlertsGameEndBoughtMoonGirlTitle, GameEndType.BoughtMoonGirl.castToInt());
+                return new FormAlert(AlertsGameEndBoughtMoonGirlTitle, GameEndType.BOUGHT_MOON_GIRL.castToInt());
             case GameEndHighScoreAchieved:
                 return new FormAlert(AlertsGameEndHighScoreAchievedTitle, AlertsGameEndHighScoreAchievedMessage, AlertsOk, DialogResult.OK,
                         null, DialogResult.NONE, args);
@@ -450,9 +450,9 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsGameEndHighScoreMissedTitle, AlertsGameEndHighScoreMissedMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
             case GameEndKilled:
-                return new FormAlert(AlertsGameEndKilledTitle, GameEndType.Killed.castToInt());
+                return new FormAlert(AlertsGameEndKilledTitle, GameEndType.KILLED.castToInt());
             case GameEndRetired:
-                return new FormAlert(AlertsGameEndRetiredTitle, GameEndType.Retired.castToInt());
+                return new FormAlert(AlertsGameEndRetiredTitle, GameEndType.RETIRED.castToInt());
             case GameEndScore:
                 return new FormAlert(AlertsGameEndScoreTitle, AlertsGameEndScoreMessage, AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);

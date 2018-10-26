@@ -12,5 +12,4 @@ public enum EquipmentType implements SpaceTraderEnum {
     public int castToInt() {
         return ordinal();
     }
-
 }

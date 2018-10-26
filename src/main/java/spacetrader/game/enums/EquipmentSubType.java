@@ -8,5 +8,4 @@ package spacetrader.game.enums;
 public interface EquipmentSubType {
 
     int castToInt();
-
 }

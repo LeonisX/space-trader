@@ -18,5 +18,4 @@ public enum GadgetType implements EquipmentSubType, SpaceTraderEnum {
     public int castToInt() {
         return ordinal();
     }
-
 }

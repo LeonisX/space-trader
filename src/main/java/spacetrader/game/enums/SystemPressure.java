@@ -1,6 +1,7 @@
 package spacetrader.game.enums;
 
 public enum SystemPressure implements SpaceTraderEnum {
+
     NONE,//= 0,
     WAR,//= 1,
     PLAGUE,//= 2,

@@ -9,8 +9,8 @@ public enum VeryRareEncounter implements SpaceTraderEnum {
     BOTTLE_OLD, // = 4,
     BOTTLE_GOOD; // = 5
 
+    @Override
     public int castToInt() {
         return ordinal();
     }
-
 }
