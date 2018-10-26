@@ -37,7 +37,7 @@ import spacetrader.game.enums.CargoSellOp;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
 
-import static spacetrader.game.Functions.*;
+import static spacetrader.util.Functions.*;
 
 @Facaded
 public class FormCargoSell extends SpaceTraderForm {

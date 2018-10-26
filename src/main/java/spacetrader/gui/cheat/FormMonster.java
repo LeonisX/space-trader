@@ -43,7 +43,7 @@ import spacetrader.controls.Size;
 import spacetrader.controls.VerticalLine;
 import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
-import spacetrader.game.Functions;
+import spacetrader.util.Functions;
 import spacetrader.game.Game;
 import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.StarSystem;

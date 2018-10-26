@@ -32,6 +32,7 @@ import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.GadgetType;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.stub.ArrayList;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 public class FormViewShip extends SpaceTraderForm {
@@ -246,7 +247,7 @@ public class FormViewShip extends SpaceTraderForm {
         if (ship.isReactorOnBoard()) {
             specialCargo.add(Strings.SpecialCargoReactor);
             specialCargo.add(Functions.multiples(10 - ((game.getQuestStatusReactor() - 1) / 2), Strings.ShipBay)
-                    + Strings.SpecialCargoReactorBays);
+                    + " " + Strings.SpecialCargoReactorBays);
         }
 
         if (ship.isSculptureOnBoard()) {

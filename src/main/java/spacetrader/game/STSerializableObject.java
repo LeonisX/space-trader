@@ -45,7 +45,7 @@ public abstract class STSerializableObject {
      * If an array of a type not listed is converted using {@link #arrayToArrayList(STSerializableObject[]) arrayToArrayList}, the
      * type needs to be added here.
      */
-    static STSerializableObject[] arrayListToArray(List<Hashtable> list, String typeName) {
+    public static STSerializableObject[] arrayListToArray(List<Hashtable> list, String typeName) {
         STSerializableObject[] array;
 
         SupportedTypesOfSomethingST type = SupportedTypesOfSomethingST.valueOf(typeName);

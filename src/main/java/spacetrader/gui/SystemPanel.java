@@ -9,7 +9,7 @@ import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
-import spacetrader.util.ReflectionUtils;
+import spacetrader.util.Functions;
 
 import java.awt.*;
 import java.util.List;
@@ -54,101 +54,92 @@ class SystemPanel extends Panel {
     public void initializeComponent() {
         setSize(240, 206);
         setTabStop(false);
-        setName("systemPanel");
         setText("System Info");
 
-        systemNameLabel.setAutoSize(true);
         systemNameLabel.setFont(FontCollection.bold825);
         systemNameLabel.setLocation(8, 16);
-        systemNameLabel.setSize(39, 16);
+        systemNameLabel.setSize(90, 16);
         systemNameLabel.setTabIndex(0);
         systemNameLabel.setText("Name:");
 
         systemNameLabelValue.setLocation(88, 16);
-        systemNameLabelValue.setSize(65, 13);
+        systemNameLabelValue.setSize(110, 13);
         systemNameLabelValue.setTabIndex(1);
         //systemNameLabelValue.setText("Tarchannen");
 
-        systemSizeLabel.setAutoSize(true);
         systemSizeLabel.setFont(FontCollection.bold825);
         systemSizeLabel.setLocation(8, 32);
-        systemSizeLabel.setSize(31, 16);
+        systemSizeLabel.setSize(90, 16);
         systemSizeLabel.setTabIndex(2);
         systemSizeLabel.setText("Size:");
 
         systemSizeLabelValue.setLocation(88, 32);
-        systemSizeLabelValue.setSize(45, 13);
+        systemSizeLabelValue.setSize(110, 13);
         systemSizeLabelValue.setTabIndex(14);
         //systemSizeLabelValue.setText("Medium");
 
-        systemTechLevelLabel.setAutoSize(true);
         systemTechLevelLabel.setFont(FontCollection.bold825);
         systemTechLevelLabel.setLocation(8, 48);
-        systemTechLevelLabel.setSize(65, 16);
+        systemTechLevelLabel.setSize(90, 16);
         systemTechLevelLabel.setTabIndex(3);
         systemTechLevelLabel.setText("Tech Level:");
 
         systemTechLevelLabelValue.setLocation(88, 48);
-        systemTechLevelLabelValue.setSize(82, 13);
+        systemTechLevelLabelValue.setSize(110, 13);
         systemTechLevelLabelValue.setTabIndex(13);
         //systemTechLevelLabelValue.setText("Pre-Agricultural");
 
-        systemGovernmentLabel.setAutoSize(true);
         systemGovernmentLabel.setFont(FontCollection.bold825);
         systemGovernmentLabel.setLocation(8, 64);
-        systemGovernmentLabel.setSize(72, 16);
+        systemGovernmentLabel.setSize(90, 16);
         systemGovernmentLabel.setTabIndex(4);
         systemGovernmentLabel.setText("Government:");
 
         systemGovernmentLabelValue.setLocation(88, 64);
-        systemGovernmentLabelValue.setSize(91, 13);
+        systemGovernmentLabelValue.setSize(110, 13);
         systemGovernmentLabelValue.setTabIndex(15);
         //systemGovernmentLabelValue.setText("Cybernetic State");
 
-        systemResourcesLabel.setAutoSize(true);
         systemResourcesLabel.setFont(FontCollection.bold825);
-        systemResourcesLabel.setLocation(8, 80);
-        systemResourcesLabel.setSize(58, 16);
+        systemResourcesLabel.setLocation(8, 90);
+        systemResourcesLabel.setSize(90, 16);
         systemResourcesLabel.setTabIndex(5);
         systemResourcesLabel.setText("Resource:");
 
         systemResourcesLabelValue.setLocation(88, 80);
-        systemResourcesLabelValue.setSize(105, 13);
+        systemResourcesLabelValue.setSize(110, 13);
         systemResourcesLabelValue.setTabIndex(9);
         //systemResourcesLabelValue.setText("Sweetwater Oceans");
 
-        systemPoliceLabel.setAutoSize(true);
         systemPoliceLabel.setFont(FontCollection.bold825);
         systemPoliceLabel.setLocation(8, 96);
-        systemPoliceLabel.setSize(40, 16);
+        systemPoliceLabel.setSize(90, 16);
         systemPoliceLabel.setTabIndex(6);
         systemPoliceLabel.setText("Police:");
 
         systemPoliceLabelValue.setLocation(88, 96);
-        systemPoliceLabelValue.setSize(53, 13);
+        systemPoliceLabelValue.setSize(110, 13);
         systemPoliceLabelValue.setTabIndex(10);
         //systemPoliceLabelValue.setText("Moderate");
 
-        systemPiratesLabel.setAutoSize(true);
         systemPiratesLabel.setFont(FontCollection.bold825);
         systemPiratesLabel.setLocation(8, 112);
-        systemPiratesLabel.setSize(44, 16);
+        systemPiratesLabel.setSize(90, 16);
         systemPiratesLabel.setTabIndex(7);
         systemPiratesLabel.setText("Pirates:");
 
         systemPiratesLabelValue.setLocation(88, 112);
-        systemPiratesLabelValue.setSize(53, 13);
+        systemPiratesLabelValue.setSize(110, 13);
         systemPiratesLabelValue.setTabIndex(11);
         //systemPiratesLabelValue.setText("Abundant");
 
-        systemPressureLabel.setAutoSize(true);
         systemPressureLabel.setLocation(8, 134);
-        systemPressureLabel.setSize(122, 16);
+        systemPressureLabel.setSize(140, 16);
         systemPressureLabel.setTabIndex(17);
         systemPressureLabel.setText("This system is currently");
 
         systemPressureLabelValue.setLocation(8, 147);
-        systemPressureLabelValue.setSize(168, 16);
+        systemPressureLabelValue.setSize(180, 16);
         systemPressureLabelValue.setTabIndex(18);
         //systemPressureLabelValue.setText("suffering from extreme bordom.");
 
@@ -195,9 +186,6 @@ class SystemPanel extends Panel {
                 systemResourcesLabel, systemResourcesLabelValue, systemPoliceLabel, systemPoliceLabelValue,
                 systemPiratesLabel, systemPiratesLabelValue, systemPressureLabel, systemPressureLabelValue,
                 newsButton, specialButton, hireMercenaryButton);
-
-        //TODO for all panels - need???
-        ReflectionUtils.loadControlsData(this);
     }
 
     void update() {
@@ -231,7 +219,7 @@ class SystemPanel extends Panel {
             hireMercenaryButton.setVisible(!mercenaries.isEmpty());
             if (hireMercenaryButton.isVisible()) {
                 setToolTip(hireMercenaryButton, Functions.stringVars(Strings.MercenariesForHire,
-                        mercenaries.size() == 1 ? mercenaries.get(0).getName() : mercenaries.size() + Strings.Mercenaries));
+                        mercenaries.size() == 1 ? mercenaries.get(0).getName() : mercenaries.size() + " " + Strings.Mercenaries));
             }
             specialButton.setVisible(system.showSpecialButton());
             if (specialButton.isVisible()) {

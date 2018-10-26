@@ -1,27 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.game;
 
 public class Strings {
@@ -509,7 +485,7 @@ public class Strings {
     public static String EncounterHullStrength = "Hull at ^1%";
     public static String EncounterPiratesDestroyed = "destroyed";
     public static String EncounterPiratesDisabled = "disabled";
-    public static String EncounterPiratesLocation = " (informing the police of the pirate's location)";
+    public static String EncounterPiratesLocation = "(informing the police of the pirate's location)";
     public static String EncounterPoliceSubmitArrested = "You will be arrested!";
     public static String EncounterPoliceSubmitGoods = "illegal goods";
     public static String EncounterPoliceSubmitReactor = "an illegal Ion Reactor";
@@ -557,7 +533,7 @@ public class Strings {
 
     public static String EquipmentNoneForSale = "None for sale";
     public static String EquipmentNoSlots = "No slots";
-    public static String EquipmentFreeSlot = " - FREE SLOT - ";
+    public static String EquipmentFreeSlot = "FREE SLOT";
 
     public static String FileFormatBad = "The file is not a Space Trader for Windows file, or is the wrong version or has been corrupted.";
     public static String FileFutureVersion = "The version of the file is greater than the current version. You should upgrade to the latest version of Space Trader for Windows.";
@@ -566,7 +542,7 @@ public class Strings {
 
     public static String JettisonAll = "All";
 
-    public static String Mercenaries = " mercenaries";
+    public static String Mercenaries = "mercenaries";
     public static String MercenariesForHire = "^1 available for hire.";
     public static String MercenaryFire = "Fire";
     public static String MercenaryHire = "Hire";
@@ -627,7 +603,7 @@ public class Strings {
 
     public static String ShipBay = "bay";
     public static String ShipEquipment = "Equipment:";
-    public static String ShipGadgetSlot = "weapon slot";
+    public static String ShipGadgetSlot = "gadget slot";
     public static String ShipHardened = "Hardened";
     public static String ShipHull = "Hull:";
     public static String ShipShiedSlot = "shield slot";
@@ -642,8 +618,8 @@ public class Strings {
     public static String ShipNameCurrentShip = "<current ship>";
     public static String ShipNameCustomShip = "Custom Ship";
     public static String ShipNameModified = "<modified>";
-    public static String ShipNameTemplateSuffixDefault = " (Default)";
-    public static String ShipNameTemplateSuffixMinimum = " (Minimum)";
+    public static String ShipNameTemplateSuffixDefault = "(Default)";
+    public static String ShipNameTemplateSuffixMinimum = "(Minimum)";
 
     public static String ShipyardEquipForSale = "There is equipment for sale.";
     public static String ShipyardEquipNoSale = "No equipment for sale.";
@@ -666,7 +642,7 @@ public class Strings {
     public static String SpecialCargoNone = "No special items.";
     public static String SpecialCargoReactor = "An unstable reactor taking up 5 bays.";
     public static String SpecialCargoSculpture = "A stolen plastic sculpture of a man holding some kind of light sword.";
-    public static String SpecialCargoReactorBays = " of enriched fuel.";
+    public static String SpecialCargoReactorBays = "of enriched fuel.";
     public static String SpecialCargoTribblesInfest = "An infestation of tribbles.";
     public static String SpecialCargoTribblesCute = "cute, furry tribble";
 
@@ -683,17 +659,13 @@ public class Strings {
 
     // String Arrays
 
-    // ActivityLevels
     public static String[] ActivityLevels = new String[]{"Absent", "Minimal",
             "Few", "Some", "Moderate", "Many", "Abundant", "Swarms"};
 
-    // CargoBuyOps
     public static String[] CargoBuyOps = new String[]{"Buy", "Buy", "Steal"};
 
-    // CargoSellOps
     public static String[] CargoSellOps = new String[]{"Sell", "Sell", "Dump", "Jettison"};
 
-    // CrewMemberNames
     public static String[] CrewMemberNames = new String[]{"Commander",
             "Alyssa", "Armatur", "Bentos", "C2U2", "Chi'Ti", "Crystal", "Dane",
             "Deirdre", "Doc", "Draco", "Iranda", "Jeremiah", "Jujubal",
@@ -701,7 +673,7 @@ public class Strings {
             "Nandi", "Orestes", "Pancho", "PS37", "Quarck", "Sosumi", "Uma",
             "Wesley", "Wonton", "Yorvick", "Zeethibal", // anagram for Elizabeth
 
-            // The rest are mercenaries I added - JAF
+            // The rest are mercenaries added JAF
             "Opponent", // crew of opponent mantis, pirate, police, and trader ships
             "Wild", // now earns his keep!
             "Jarek", // now earns his keep!
@@ -728,10 +700,8 @@ public class Strings {
             "Scorpion" // dummy crew member used in opponent ship
     };
 
-    // DifficultyLevels
     public static String[] DifficultyLevels = new String[]{"Beginner", "Easy", "Normal", "Hard", "Impossible"};
 
-    // EquipmentDescriptions
     public static String[][] EquipmentDescriptions = new String[][]{
             new String[]{
                     "The Pulse Laser is the weakest weapon available. It's small size allows only enough energy to build up to emit pulses of light.",
@@ -753,22 +723,15 @@ public class Strings {
                     "The Fuel Compactor that you got as a reward for warning Gemulon of the invasion will increase the range of your ship by 3 parsecs.",
                     "These extra bays will not be detected during routine police searches. They may be detected if you are arrested and the police perform a more thorough search."}};
 
-    // EquipmentTypes
     public static String[] EquipmentTypes = new String[]{"Weapon", "Shield", "Gadget"};
 
-    // GadgetNames
-    public static String[] GadgetNames = new String[]{"5 Extra Cargo Bays",
-            "Auto-Repair System", "Navigating System", "Targeting System",
-            "Cloaking Device", "Fuel Compactor", "5 Hidden Cargo Bays"};
+    public static String[] GadgetNames = new String[]{"5 Extra Cargo Bays", "Auto-Repair System", "Navigating System",
+            "Targeting System", "Cloaking Device", "Fuel Compactor", "5 Hidden Cargo Bays"};
 
-    // GameCompletionTypes
     public static String[] GameCompletionTypes = new String[]{"Was killed", "Retired", "Claimed moon"};
 
-    // ListStrings
-    public static String[] ListStrings = new String[]{"", "^1", "^1 and ^2",
-            "^1, ^2, and ^3", "^1, ^2, ^3, and ^4"};
+    public static String[] ListStrings = new String[]{"", "^1", "^1 and ^2", "^1, ^2, and ^3", "^1, ^2, ^3, and ^4"};
 
-    // NewsEvent
     /*
      * In News Events, the following variables can be used: ^1 Commander Name ^2
      * Current System ^3 Commander's Ship Type
@@ -814,7 +777,6 @@ public class Strings {
             "Scorpion Defeated! Kidnapped Member of Galvon Royal Family Freed!",
             "Beloved Royal Returns Home!"};
 
-    // NewsHeadlines
     public static String[][] NewsHeadlines = new String[][]{
             new String[]{"Riots, Looting Mar Factional Negotiations.",
                     "Communities Seek Consensus.",
@@ -884,8 +846,6 @@ public class Strings {
                     "Sacred Texts on Public Display.",
                     "Dozen Blasphemers Excommunicated!"}};
 
-
-    // NewsMastheads
     public static String[][] NewsMastheads = new String[][]{
             new String[]{"The ^1 Arsenal", "The Grassroot", "Kick It!"},
             new String[]{"The Objectivist", "The ^1 Market", "The Invisible Hand"},
@@ -905,20 +865,17 @@ public class Strings {
             new String[]{"The Future", "Hardware Dispatch", "TechNews"},
             new String[]{"The Spiritual Advisor", "Church Tidings", "The Temple Tribune"}};
 
-    // NewsPoliceRecordHero
     public static String[] NewsPoliceRecordHero = new String[]{
             "Locals Welcome Visiting Hero ^1!",
             "Famed Hero ^1 to Visit System!",
             "Large Turnout At Spaceport to Welcome ^1!"};
 
-    // NewsPoliceRecordPsychopath
     public static String[] NewsPoliceRecordPsychopath = new String[]{
             "Police Warning: ^1 Will Dock At ^2!",
             "Notorious Criminal ^1 Sighted in ^2!",
             "Locals Rally to Deny Spaceport Access to ^1!",
             "Terror Strikes Locals on Arrival of ^1!"};
 
-    // NewsPressureExternal
     public static String[] NewsPressureExternal = new String[]{
             "Reports of ^1 in the ^2 System.", "News of ^1 in the ^2 System.",
             "New Rumors of ^1 in the ^2 System.",
@@ -926,23 +883,18 @@ public class Strings {
             "Notice: ^1 in the ^2 System.",
             "Evidence Suggests ^1 in the ^2 System."};
 
-    // NewsPressureExternalPressures
-    public static String[] NewsPressureExternalPressures = new String[]{"",
-            "Strife and War", "Plague Outbreaks", "Severe Drought",
-            "Terrible Boredom", "Cold Weather", "Crop Failures", "Labor Shortages"};
+    public static String[] NewsPressureExternalPressures = new String[]{"", "Strife and War", "Plague Outbreaks",
+            "Severe Drought", "Terrible Boredom", "Cold Weather", "Crop Failures", "Labor Shortages"};
 
-    // NewsPressureInternal
     public static String[] NewsPressureInternal = new String[]{"",
             "War News: Offensives Continue!", "Plague Spreads! Outlook Grim.",
             "No Rain in Sight!", "Editors: Won't Someone Entertain Us?",
             "Cold Snap Continues!", "Serious Crop Failure! Must We Ration?",
             "Jobless Rate at All-Time Low!"};
 
-    // PoliceRecordNames
-    public static String[] PoliceRecordNames = new String[]{"Psychopath",
-            "Villain", "Criminal", "Crook", "Dubious", "Clean", "Lawful", "Trusted", "Liked", "Hero"};
+    public static String[] PoliceRecordNames = new String[]{"Psychopath", "Villain", "Criminal", "Crook", "Dubious",
+            "Clean", "Lawful", "Trusted", "Liked", "Hero"};
 
-    // PoliticalSystemNames
     public static String[] PoliticalSystemNames = new String[]{"Anarchy",
             "Capitalist State", "Communist State", "Confederacy",
             "Corporate State", "Cybernetic State", "Democracy", "Dictatorship",
@@ -950,28 +902,21 @@ public class Strings {
             "Pacifist State", "Socialist State", "State of Satori",
             "Technocracy", "Theocracy"};
 
-    // ReputationNames
-    public static String[] ReputationNames = new String[]{"Harmless",
-            "Mostly harmless", "Poor", "Average", "Above average", "Competent", "Dangerous", "Deadly", "Elite"};
+    public static String[] ReputationNames = new String[]{"Harmless", "Mostly harmless", "Poor", "Average",
+            "Above average", "Competent", "Dangerous", "Deadly", "Elite"};
 
-    // ShieldNames
     public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
 
-    // ShipNames
-    public static String[] ShipNames = new String[]{"Flea", "Gnat",
-            "Firefly", "Mosquito", "Bumblebee", "Beetle", "Hornet",
-            "Grasshopper", "Termite", "Wasp", "Space Monster", "Dragonfly",
-            "Mantis", "Scarab", "Bottle", ShipNameCustomShip, "Scorpion"};
+    public static String[] ShipNames = new String[]{"Flea", "Gnat", "Firefly", "Mosquito", "Bumblebee", "Beetle",
+            "Hornet", "Grasshopper", "Termite", "Wasp", "Space Monster", "Dragonfly", "Mantis", "Scarab", "Bottle",
+            ShipNameCustomShip, "Scorpion"};
 
-    // ShipyardEngineers
     public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};
 
-    // ShipyardNames
     public static String[] ShipyardNames = new String[]{
             "Corellian Engineering", "Incom Corporation", "Kuat Drive Yards",
             "Sienar Fleet Systems", "Sorosuub Engineering"};
 
-    // ShipyardSkillDescriptions
     public static String[] ShipyardSkillDescriptions = new String[]{
             "All ships constructed at this shipyard use 2 fewer units per crew quarter.",
             "All ships constructed at this shipyard have 2 extra base fuel tanks.",
@@ -979,14 +924,11 @@ public class Strings {
             "All ships constructed at this shipyard get shield slots for 2 fewer units.",
             "All ships constructed at this shipyard get weapon slots for 2 fewer units."};
 
-    // ShipyardSkills
-    public static String[] ShipyardSkills = new String[]{"Crew Quartering",
-            "Fuel Efficiency", "Hull Strength", "Shielding", "Weaponry"};
+    public static String[] ShipyardSkills = new String[]{"Crew Quartering", "Fuel Efficiency", "Hull Strength",
+            "Shielding", "Weaponry"};
 
-    // Sizes
     public static String[] Sizes = new String[]{"Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"};
 
-    // SpecialEventStrings
     public static String[] SpecialEventStrings = new String[]{
             "This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?",
             "This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.",
@@ -1035,7 +977,6 @@ public class Strings {
             "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?",
             "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\""};
 
-    // SpecialEventTitles
     public static String[] SpecialEventTitles = new String[]{
             "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
             "Dragonfly", "Dragonfly Destroyed", "Weird Ship", "Lightning Ship",
@@ -1054,7 +995,6 @@ public class Strings {
             "Dangerous Scorpion", "Royal Rescue", "Quantum Disruptor",
             "Royal Return"};
 
-    // SpecialResources
     public static String[] SpecialResources = new String[]{"Nothing Special",
             "Mineral Rich", "Mineral Poor", "Desert", "Sweetwater Oceans",
             "Rich Soil", "Poor Soil", "Rich Fauna", "Lifeless",
@@ -1066,7 +1006,6 @@ public class Strings {
     // changes to names of this series. A few have different origins.
     // JAF - Except where noted these comments are the previous author's.
     // *************************************************************************
-    // SystemNames
     public static String[] SystemNames = new String[]{"Acamar", // JAF - TNG "The Vengeance Factor (Acamar III)"
             "Adahn", // The alternate personality for The Nameless One in "Planescape: Torment"
             "Aldea", // JAF - TNG "When the Bough Breaks"
@@ -1085,8 +1024,7 @@ public class Strings {
             "Courteney", // After Courteney Cox...
             "Daled", // JAF - TNG "The Dauphin" (Daled IV)
             "Damast", "Davlos", // JAF - DS9 "Time's Orphan" (Davlos Prime) or DS9 "Visionary" (Davlos III)
-            "Deneb", // JAF - TOS "Wolf in the Fold" (Deneb II) or TOS
-            // "Where No Man Has Gone Before" and TNG "Encounter at Farpoint" (Deneb IV)
+            "Deneb", // JAF - TOS "Wolf in the Fold" (Deneb II) or TOS "Where No Man Has Gone Before" and TNG "Encounter at Farpoint" (Deneb IV)
             "Deneva", // JAF - TOS "Operation -- Annihilate!"
             "Devidia", // JAF - TNG "Time's Arrow" (Devidia II)
             "Draylon", // JAF - DS9 "Sanctuary" (Draylon II)
@@ -1145,8 +1083,7 @@ public class Strings {
             "Quator", // JAF - TNG "Unification: Part I" (Qualar II)?
             "Rakhar", // JAF - DS9 "Vortex"
             "Ran", // A film by Akira Kurosawa
-            "Regulas", // JAF - "Star Trek II: The Wrath of Khan" (Regula) or
-            // DS9 "Fascination" (Regulus III) or TOS "Amok Time" (Regulus V)
+            "Regulas", // JAF - "Star Trek II: The Wrath of Khan" (Regula) or DS9 "Fascination" (Regulus III) or TOS "Amok Time" (Regulus V)
             "Relva", // JAF - TNG "Coming of Age" (Relva VII)
             "Rhymus", "Rochani", // JAF - DS9 "Dramatis Personae" (Rochanie III)
             "Rubicum", // The river Ceasar crossed to get into Rome
@@ -1173,7 +1110,7 @@ public class Strings {
             "Zalkon", // TNG "Transfigurations" (Zalcon)
             "Zuul", // From the first Ghostbusters movie
 
-            // The rest are systems I added - JAF
+            // The rest are systems added JAF
             "Centauri", // As in Alpha Centauri - the closest star outside our solar system
             "Galvon", // Star Trek: The Next Generation "Data's Day"
             "Inthara", // Star Trek: Voyager "Retrospect"
@@ -1184,7 +1121,6 @@ public class Strings {
             "Zonama" // From the Star Wars: New Jedi Order series (and Rogue Planet)
     };
 
-    // SystemPressures
     public static String[] SystemPressures = new String[]{
             "under no particular pressure", // Uneventful
             "at war", // Ore and Weapons in demand
@@ -1196,20 +1132,15 @@ public class Strings {
             "lacking enough workers" // Machinery and Robots in demand
     };
 
-    // TechLevelNames
-    public static String[] TechLevelNames = new String[]{"Pre-Agricultural",
-            "Agricultural", "Medieval", "Renaissance", "Early Industrial", "Industrial", "Post-Industrial", "Hi-Tech"};
+    public static String[] TechLevelNames = new String[]{"Pre-Agricultural", "Agricultural", "Medieval", "Renaissance",
+            "Early Industrial", "Industrial", "Post-Industrial", "Hi-Tech"};
 
-    // TradeItemNames
     public static String[] TradeItemNames = new String[]{"Water", "Furs", "Food", "Ore", "Games", "Firearms",
             "Medicine", "Machines", "Narcotics", "Robots"};
 
-    // VeryRareEncounters
-    public static String[] VeryRareEncounters = new String[]{"Marie Celeste",
-            "Captain Ahab", "Captain Conrad", "Captain Huie", "Dated Tonic", "Good Tonic"};
+    public static String[] VeryRareEncounters = new String[]{"Marie Celeste", "Captain Ahab", "Captain Conrad",
+            "Captain Huie", "Dated Tonic", "Good Tonic"};
 
-    // WeaponNames
-    public static String[] WeaponNames = new String[]{"Pulse Laser",
-            "Beam Laser", "Military Laser", "Morgan's Laser", "Photon Disruptor", "Quantum Disruptor"};
-
+    public static String[] WeaponNames = new String[]{"Pulse Laser", "Beam Laser", "Military Laser", "Morgan's Laser",
+            "Photon Disruptor", "Quantum Disruptor"};
 }

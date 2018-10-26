@@ -21,8 +21,6 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.Container;
-import spacetrader.controls.MenuItem;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -34,6 +32,7 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
 import spacetrader.stub.RegistryKey;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import static spacetrader.controls.MenuItem.separator;
@@ -50,32 +49,35 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private SpaceTraderStatusBar statusBar;
 
-    private MainMenu mainMenu;
+    private MainMenu mainMenu = new MainMenu();
 
-    private SubMenu gameSubMenu;
-    private MenuItem newGameMenuItem;
-    private MenuItem loadGameMenuItem;
-    private MenuItem saveGameMenuItem;
-    private MenuItem saveGameAsMenuItem;
-    private MenuItem retireGameMenuItem;
-    private MenuItem exitGameMenuItem;
+    private SubMenu gameSubMenu = new SubMenu();
+    private MenuItem newGameMenuItem = new MenuItem();
+    private MenuItem loadGameMenuItem = new MenuItem();
+    private MenuItem saveGameMenuItem = new MenuItem();
+    private MenuItem saveGameAsMenuItem = new MenuItem();
+    private MenuItem retireGameMenuItem = new MenuItem();
+    private MenuItem exitGameMenuItem = new MenuItem();
 
-    private SubMenu viewSubMenu;
-    private MenuItem commanderMenuItem;
-    private MenuItem shipMenuItem;
-    private MenuItem personnelMenuItem;
-    private MenuItem questsMenuItem;
-    private MenuItem bankMenuItem;
-    private MenuItem highScoresMenuItem;
-    private MenuItem optionsMenuItem;
+    private SubMenu viewSubMenu = new SubMenu();
+    private MenuItem commanderMenuItem = new MenuItem();
+    private MenuItem shipMenuItem = new MenuItem();
+    private MenuItem personnelMenuItem = new MenuItem();
+    private MenuItem questsMenuItem = new MenuItem();
+    private MenuItem bankMenuItem = new MenuItem();
+    private MenuItem highScoresMenuItem = new MenuItem();
+    private SubMenu languagesSubMenu = new SubMenu();
+    private MenuItem englishMenuItem = new MenuItem();
+    private MenuItem russianMenuItem = new MenuItem();
+    private MenuItem optionsMenuItem = new MenuItem();
 
-    private SubMenu helpSubMenu;
-    private MenuItem aboutMenuItem;
+    private SubMenu helpSubMenu = new SubMenu();
+    private MenuItem aboutMenuItem = new MenuItem();
 
     private OpenFileDialog openFileDialog;
     private SaveFileDialog saveFileDialog;
 
-    private HorizontalLine horizontalLine;
+    private HorizontalLine horizontalLine = new HorizontalLine();
 
     //TODO need???
     private IContainer components;
@@ -197,28 +199,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializeMenu() {
-        mainMenu = new MainMenu();
-
-        gameSubMenu = new SubMenu();
-        newGameMenuItem = new MenuItem();
-        loadGameMenuItem = new MenuItem();
-        saveGameMenuItem = new MenuItem();
-        saveGameAsMenuItem = new MenuItem();
-        retireGameMenuItem = new MenuItem();
-        exitGameMenuItem = new MenuItem();
-
-        viewSubMenu = new SubMenu();
-        commanderMenuItem = new MenuItem();
-        shipMenuItem = new MenuItem();
-        personnelMenuItem = new MenuItem();
-        questsMenuItem = new MenuItem();
-        bankMenuItem = new MenuItem();
-        highScoresMenuItem = new MenuItem();
-        optionsMenuItem = new MenuItem();
-
-        helpSubMenu = new SubMenu();
-        aboutMenuItem = new MenuItem();
-
         mainMenu.addAll(gameSubMenu, viewSubMenu, helpSubMenu);
 
         gameSubMenu.addAll(newGameMenuItem, loadGameMenuItem, saveGameMenuItem, saveGameAsMenuItem, separator(), 
@@ -235,7 +215,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         });
 
-        loadGameMenuItem.shortcut = Shortcut.CtrlL;
+        loadGameMenuItem.setShortcut(Shortcut.CtrlL);
         loadGameMenuItem.setText("&Load...");
         loadGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -245,7 +225,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
         saveGameMenuItem.setEnabled(false);
-        saveGameMenuItem.shortcut = Shortcut.CtrlS;
+        saveGameMenuItem.setShortcut(Shortcut.CtrlS);
         saveGameMenuItem.setText("&Save");
         saveGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -255,7 +235,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
         saveGameAsMenuItem.setEnabled(false);
-        saveGameAsMenuItem.shortcut = Shortcut.CtrlA;
+        saveGameAsMenuItem.setShortcut(Shortcut.CtrlA);
         saveGameAsMenuItem.setText("Save &As...");
         saveGameAsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -282,12 +262,12 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
         viewSubMenu.addAll(commanderMenuItem, shipMenuItem, personnelMenuItem, questsMenuItem, bankMenuItem, 
-                separator(), highScoresMenuItem, separator(), optionsMenuItem);
+                separator(), highScoresMenuItem, separator(), languagesSubMenu, optionsMenuItem);
 
         viewSubMenu.setText("&View");
 
         commanderMenuItem.setEnabled(false);
-        commanderMenuItem.shortcut = Shortcut.CtrlC;
+        commanderMenuItem.setShortcut(Shortcut.CtrlC);
         commanderMenuItem.setText("&Commander Status");
         commanderMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -297,7 +277,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
         shipMenuItem.setEnabled(false);
-        shipMenuItem.shortcut = Shortcut.CtrlH;
+        shipMenuItem.setShortcut(Shortcut.CtrlH);
         shipMenuItem.setText("&Ship");
         shipMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -307,7 +287,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
         personnelMenuItem.setEnabled(false);
-        personnelMenuItem.shortcut = Shortcut.CtrlP;
+        personnelMenuItem.setShortcut(Shortcut.CtrlP);
         personnelMenuItem.setText("&Personnel");
         personnelMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -317,7 +297,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
         questsMenuItem.setEnabled(false);
-        questsMenuItem.shortcut = Shortcut.CtrlQ;
+        questsMenuItem.setShortcut(Shortcut.CtrlQ);
         questsMenuItem.setText("&Quests");
         questsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -327,7 +307,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
         bankMenuItem.setEnabled(false);
-        bankMenuItem.shortcut = Shortcut.CtrlB;
+        bankMenuItem.setShortcut(Shortcut.CtrlB);
         bankMenuItem.setText("&Bank");
         bankMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -341,6 +321,25 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             @Override
             public void handle(Object sender, EventArgs e) {
                 highScoresMenuItemClick();
+            }
+        });
+
+        languagesSubMenu.setText("Languages");
+        languagesSubMenu.addAll(englishMenuItem, russianMenuItem);
+
+        englishMenuItem.setText("English");
+        englishMenuItem.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                languageMenuItemClick(sender);
+            }
+        });
+
+        russianMenuItem.setText("Русский");
+        russianMenuItem.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                languageMenuItemClick(sender);
             }
         });
 
@@ -371,7 +370,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializePictureBox() {
-        horizontalLine = new HorizontalLine();
         horizontalLine.setLocation(0, 0);
         horizontalLine.setSize(770, 1);
         horizontalLine.setTabStop(false);
@@ -575,6 +573,17 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void shipMenuItemClick() {
         (new FormViewShip()).showDialog(this);
+    }
+
+    private void languageMenuItemClick(Object sender) {
+        String fileName = ((String) sender).replace("MenuItem", "").toLowerCase();
+
+        GlobalAssets.loadStrings(fileName);
+
+        ReflectionUtils.loadControlsStrings(getFrame(), getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadStrings(GlobalAssets.getStrings());
+
+        updateAll();
     }
 
     public void setGame(Game game) {

@@ -1,9 +1,9 @@
 package spacetrader.gui;
 
-import static spacetrader.game.Functions.formatMoney;
-import static spacetrader.game.Functions.formatNumber;
-import static spacetrader.game.Functions.multiples;
-import static spacetrader.game.Functions.stringVars;
+import static spacetrader.util.Functions.formatMoney;
+import static spacetrader.util.Functions.formatNumber;
+import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.DistanceUnit;
 import static spacetrader.game.Strings.DockFuelCost;
 import static spacetrader.game.Strings.DockFuelFull;
@@ -12,17 +12,14 @@ import static spacetrader.game.Strings.DockHullCost;
 import static spacetrader.game.Strings.DockHullFull;
 import static spacetrader.game.Strings.DockHullStatus;
 
-import java.awt.Point;
 import spacetrader.controls.Button;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
-import spacetrader.controls.Size;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.Commander;
-import spacetrader.game.GlobalAssets;
 import spacetrader.game.Ship;
 import spacetrader.util.ReflectionUtils;
 
@@ -47,7 +44,6 @@ class DockPanel extends Panel {
     }
 
     void initializeComponent() {
-        setName("dockPanel");
         setText("Dock");
         setSize(240, 90);
         setTabStop(false);
@@ -98,8 +94,6 @@ class DockPanel extends Panel {
 
         getControls()
                 .addAll(fuelStatusLabel, fuelUpButton, fuelCostLabel, hullStatusLabel, repairButton, repairCostLabel);
-
-        ReflectionUtils.loadControlsData(this);
     }
 
     private void fuelUpButtonClick() {

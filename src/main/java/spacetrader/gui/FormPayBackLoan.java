@@ -25,12 +25,11 @@
 
 package spacetrader.gui;
 
-import static spacetrader.game.Functions.multiples;
-import static spacetrader.game.Functions.stringVars;
+import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.BankLoanStatementDebt;
 import static spacetrader.game.Strings.MoneyUnit;
 
-import java.awt.Point;
 import spacetrader.controls.Button;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.EventArgs;
@@ -40,7 +39,6 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.controls.Label;
 import spacetrader.controls.NumericUpDown;
-import spacetrader.controls.Size;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
 import spacetrader.game.enums.Difficulty;

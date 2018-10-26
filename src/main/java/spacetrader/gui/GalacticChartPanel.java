@@ -14,7 +14,7 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
-import spacetrader.util.ReflectionUtils;
+import spacetrader.util.Functions;
 import spacetrader.util.Util;
 
 import java.awt.*;
@@ -55,8 +55,7 @@ public class GalacticChartPanel extends Panel {
 
     void initializeComponent() {
         anchor = AnchorStyles.TOP_RIGHT;
-        
-        setName("galacticChartPanel");
+
         setText("Galactic Chart");
         setBackground(SystemColors.CONTROL);
         setSize(176, 168);
@@ -115,9 +114,6 @@ public class GalacticChartPanel extends Panel {
         });
 
         getControls().addAll(wormholeLabelValue, wormholeLabel, jumpButton, findButton, galacticChartPicture);
-
-        ReflectionUtils.loadControlsData(this);
-
     }
 
     private void galacticChartPictureMouseDown(spacetrader.controls.MouseEventArgs e) {

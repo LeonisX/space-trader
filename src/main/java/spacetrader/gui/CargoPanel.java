@@ -35,8 +35,8 @@ import spacetrader.util.ReflectionUtils;
 import java.awt.*;
 import java.util.Arrays;
 
-import static spacetrader.game.Functions.formatMoney;
-import static spacetrader.game.Functions.formatNumber;
+import static spacetrader.util.Functions.formatMoney;
+import static spacetrader.util.Functions.formatNumber;
 import static spacetrader.game.Strings.*;
 
 class CargoPanel extends Panel {
@@ -224,7 +224,6 @@ class CargoPanel extends Panel {
     void initializeComponent() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
 
-        setName("cargoPanel");
         setText("Cargo");
         setSize(512, 300);
         setTabStop(false);
@@ -333,7 +332,7 @@ class CargoPanel extends Panel {
         for (int i = 0; i < Strings.TradeItemNames.length; i++) {
             commoditiesArray[i].setAutoSize(true);
             commoditiesArray[i].setTabIndex(16 + i);
-            commoditiesArray[i].setText(Strings.TradeItemNames[i]);
+            //commoditiesArray[i].setText(Strings.TradeItemNames[i]);
         }
         
         targetPercentageLabelValue9.setLocation(466, 276);
@@ -812,7 +811,7 @@ class CargoPanel extends Panel {
 
         Arrays.stream(sellAllButtonArray).forEach(button -> {
             button.setFlatStyle(FlatStyle.FLAT);
-            button.setText(Strings.CargoAll);
+            //button.setText(Strings.CargoAll);
             button.setClick(new EventHandler<Object, EventArgs>() {
                 @Override
                 public void handle(Object sender, EventArgs e) {
@@ -834,7 +833,7 @@ class CargoPanel extends Panel {
 
         Arrays.stream(buyMaxButtonArray).forEach(button -> {
             button.setFlatStyle(FlatStyle.FLAT);
-            button.setText(Strings.CargoMax);
+            //button.setText(Strings.CargoMax);
             button.setClick(new EventHandler<Object, EventArgs>() {
                 @Override
                 public void handle(Object sender, EventArgs e) {
@@ -879,11 +878,19 @@ class CargoPanel extends Panel {
         getControls().addAll(sellAllButtonArray);
         getControls().addAll(buyButtonArray);
         getControls().addAll(buyMaxButtonArray);
-
-        ReflectionUtils.loadControlsData(this);
     }
 
     void update() {
+        for (int i = 0; i < Strings.TradeItemNames.length; i++) {
+            commoditiesArray[i].setText(Strings.TradeItemNames[i]);
+        }
+        Arrays.stream(sellAllButtonArray).forEach(button -> {
+            button.setText(Strings.CargoAll);
+        });
+        Arrays.stream(buyMaxButtonArray).forEach(button -> {
+            button.setText(Strings.CargoMax);
+        });
+
         if (game == null || game.getCommander().getCurrentSystem() == null) {
             for (int i = 0; i < sellPriceArray.length; i++) {
                 sellPriceArray[i].setText("");

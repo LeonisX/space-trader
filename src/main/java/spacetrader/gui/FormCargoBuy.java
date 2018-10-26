@@ -32,9 +32,10 @@ import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.*;
 import spacetrader.game.enums.CargoBuyOp;
 import spacetrader.guifacade.Facaded;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
-import static spacetrader.game.Functions.*;
+import static spacetrader.util.Functions.*;
 
 public class FormCargoBuy extends SpaceTraderForm {
     

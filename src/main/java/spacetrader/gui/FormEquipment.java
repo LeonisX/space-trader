@@ -35,11 +35,14 @@ import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.GadgetType;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
 
 public class FormEquipment extends SpaceTraderForm {
+
+    private final String FREE_SLOT = " - " + Strings.EquipmentFreeSlot + " - ";
 
     private Panel currentInventoryPanel = new Panel();
     private Panel equipmentForSalePanel = new Panel();
@@ -153,7 +156,7 @@ public class FormEquipment extends SpaceTraderForm {
         sellWeaponsNoSlotsLabel.setLocation(24, 36);
         sellWeaponsNoSlotsLabel.setSize(104, 16);
         sellWeaponsNoSlotsLabel.setTabIndex(147);
-        sellWeaponsNoSlotsLabel.setText("No slots");
+        sellWeaponsNoSlotsLabel.setText(Strings.EquipmentNoSlots);
         sellWeaponsNoSlotsLabel.setVisible(false);
 
         sellShieldsLabel.setAutoSize(true);
@@ -180,7 +183,7 @@ public class FormEquipment extends SpaceTraderForm {
         sellShieldsNoSlotsLabel.setLocation(24, 132);
         sellShieldsNoSlotsLabel.setSize(104, 16);
         sellShieldsNoSlotsLabel.setTabIndex(148);
-        sellShieldsNoSlotsLabel.setText("No slots");
+        sellShieldsNoSlotsLabel.setText(Strings.EquipmentNoSlots);
         sellShieldsNoSlotsLabel.setVisible(false);
 
         sellGadgetsLabel.setAutoSize(true);
@@ -207,7 +210,7 @@ public class FormEquipment extends SpaceTraderForm {
         sellGadgetsNoSlotsLabel.setLocation(24, 228);
         sellGadgetsNoSlotsLabel.setSize(104, 16);
         sellGadgetsNoSlotsLabel.setTabIndex(149);
-        sellGadgetsNoSlotsLabel.setText("No slots");
+        sellGadgetsNoSlotsLabel.setText(Strings.EquipmentNoSlots);
         sellGadgetsNoSlotsLabel.setVisible(false);
 
         currentInventoryPanel.getControls().addAll(sellWeaponsLabel, sellWeaponsListBox, sellWeaponsNoSlotsLabel);
@@ -243,7 +246,7 @@ public class FormEquipment extends SpaceTraderForm {
         buyWeaponNoneLabel.setLocation(24, 36);
         buyWeaponNoneLabel.setSize(104, 16);
         buyWeaponNoneLabel.setTabIndex(148);
-        buyWeaponNoneLabel.setText("None for sale");
+        buyWeaponNoneLabel.setText(Strings.EquipmentNoneForSale);
         buyWeaponNoneLabel.setVisible(false);
 
         buyShieldsLabel.setAutoSize(true);
@@ -270,7 +273,7 @@ public class FormEquipment extends SpaceTraderForm {
         buyShieldsNoneLabel.setLocation(24, 132);
         buyShieldsNoneLabel.setSize(104, 16);
         buyShieldsNoneLabel.setTabIndex(149);
-        buyShieldsNoneLabel.setText("None for sale");
+        buyShieldsNoneLabel.setText(Strings.EquipmentNoneForSale);
         buyShieldsNoneLabel.setVisible(false);
 
         buyGadgetsLabel.setAutoSize(true);
@@ -297,7 +300,7 @@ public class FormEquipment extends SpaceTraderForm {
         buyGadgetsNoneLabel.setLocation(24, 228);
         buyGadgetsNoneLabel.setSize(104, 16);
         buyGadgetsNoneLabel.setTabIndex(150);
-        buyGadgetsNoneLabel.setText("None for sale");
+        buyGadgetsNoneLabel.setText(Strings.EquipmentNoneForSale);
         buyGadgetsNoneLabel.setVisible(false);
 
         equipmentForSalePanel.getControls().addAll(buyWeaponsLabel, buyWeaponsListBox, buyWeaponNoneLabel);
@@ -585,15 +588,15 @@ public class FormEquipment extends SpaceTraderForm {
         Ship ship = Game.getCurrentGame().getCommander().getShip();
 
         for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.WEAPON)) {
-            sellWeaponsListBox.getItems().add(equipment == null ? Strings.EquipmentFreeSlot : equipment);
+            sellWeaponsListBox.getItems().add(equipment == null ? FREE_SLOT : equipment);
         }
 
         for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.SHIELD)) {
-            sellShieldsListBox.getItems().add(equipment == null ? Strings.EquipmentFreeSlot : equipment);
+            sellShieldsListBox.getItems().add(equipment == null ? FREE_SLOT : equipment);
         }
 
         for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.GADGET)) {
-            sellGadgetsListBox.getItems().add(equipment == null ? Strings.EquipmentFreeSlot : equipment);
+            sellGadgetsListBox.getItems().add(equipment == null ? FREE_SLOT : equipment);
         }
 
         for (int i = 0; i < sellBoxes.length; i++) {

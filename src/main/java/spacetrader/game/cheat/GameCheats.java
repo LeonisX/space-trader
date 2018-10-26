@@ -5,6 +5,7 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.VeryRareEncounter;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.Functions;
 import spacetrader.util.Util;
 
 // TODO removes refs to gui...

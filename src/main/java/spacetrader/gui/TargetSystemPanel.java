@@ -4,7 +4,7 @@ import spacetrader.controls.*;
 import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
-import spacetrader.util.ReflectionUtils;
+import spacetrader.util.Functions;
 
 import static spacetrader.game.Strings.*;
 
@@ -52,8 +52,7 @@ class TargetSystemPanel extends Panel {
 
     void initializeComponent() {
         anchor = AnchorStyles.TOP_RIGHT;
-        
-        setName("targetSystemPanel");
+
         setText("Target System");
         setSize(216, 168);
         setTabStop(false);
@@ -213,8 +212,6 @@ class TargetSystemPanel extends Panel {
                 targetPiratesLabelValue, targetPoliceLabelValue, targetResourceLabelValue, targetDistanceLabel,
                 targetPiratesLabel, targetPoliceLabel, targetResourceLabel, targetGovernmentLabel, targetTechLevelLabel,
                 targetSizeLabel, targetNameLabelValue, targetNameLabel);
-        
-        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {

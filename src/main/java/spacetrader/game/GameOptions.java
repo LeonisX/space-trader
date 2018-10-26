@@ -19,6 +19,7 @@
  ******************************************************************************/
 package spacetrader.game;
 
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 
 public class GameOptions extends STSerializableObject {

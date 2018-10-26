@@ -18,6 +18,6 @@ public class SubMenu extends MenuItem {
     }
 
     private JMenu asJMenu() {
-        return (JMenu) swingVersion;
+        return (JMenu) asJMenuItem();
     }
 }

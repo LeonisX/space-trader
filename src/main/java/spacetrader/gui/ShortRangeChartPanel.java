@@ -7,12 +7,12 @@ import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.MouseButtons;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
-import spacetrader.util.ReflectionUtils;
+import spacetrader.util.Functions;
 
 import java.awt.*;
 
-import static spacetrader.game.Functions.multiples;
-import static spacetrader.game.Functions.stringVars;
+import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.ChartDistance;
 import static spacetrader.game.Strings.DistanceUnit;
 import static spacetrader.gui.ChartsGraphicsConsts.*;
@@ -43,7 +43,6 @@ public class ShortRangeChartPanel extends Panel {
     }
 
     void initializeComponent() {
-        setName("shortRangeChartPanel");
         setText("Short-Range Chart");
         setSize(176, 168);
         setTabStop(false);
@@ -71,8 +70,6 @@ public class ShortRangeChartPanel extends Panel {
         getControls().add(shortRangeChartPicture);
 
         fixFonts(super.getFont());
-
-        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {
@@ -129,7 +126,7 @@ public class ShortRangeChartPanel extends Panel {
 
                 if (game.isShowTrackedRange())
                     e.getGraphics().drawString(stringVars(ChartDistance, multiples(dist, DistanceUnit),
-                            trackSys.getName()), font, new SolidBrush(Color.black), 0,
+                            trackSys.getName()), font, new SolidBrush(Color.BLACK), 0,
                             shortRangeChartPicture.getHeight() - 13);
             }
 

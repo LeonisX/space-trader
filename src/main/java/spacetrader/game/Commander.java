@@ -28,6 +28,7 @@ package spacetrader.game;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 
 public class Commander extends CrewMember {

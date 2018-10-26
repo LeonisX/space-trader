@@ -33,11 +33,10 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.*;
 import java.util.Arrays;
 
-import static spacetrader.game.Functions.multiples;
-import static spacetrader.game.Functions.stringVars;
+import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.BankLoanStatementBorrow;
 import static spacetrader.game.Strings.MoneyUnit;
 

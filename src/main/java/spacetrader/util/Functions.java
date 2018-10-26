@@ -22,7 +22,7 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-package spacetrader.game;
+package spacetrader.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,14 +32,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.BinaryFormatter;
 import spacetrader.stub.RegistryKey;
 import spacetrader.stub.SerializationException;
-import spacetrader.util.Hashtable;
-import spacetrader.util.Log;
-import spacetrader.util.Util;
 
 public class Functions {
 
@@ -55,7 +54,7 @@ public class Functions {
         return distance(a, b.getX(), b.getY());
     }
 
-    static int distance(StarSystem a, int x, int y) {
+    public static int distance(StarSystem a, int x, int y) {
         return (int) Math.floor(Math.sqrt(Math.pow(a.getX() - x, 2) + Math.pow(a.getY() - y, 2)));
     }
 
@@ -63,7 +62,7 @@ public class Functions {
         return String.format("%,d", num);
     }
 
-    static String formatList(List<String> listItems) {
+    public static String formatList(List<String> listItems) {
         return stringVars(Strings.ListStrings[listItems.size()], listItems);
     }
 
@@ -75,7 +74,12 @@ public class Functions {
         return String.format("%,d%%", num);
     }
 
-    //TODO plural
+    //TODO russian plural + gender
+    //TODO rules :(
+    //parsec, credit, click, unit, Unit, day, weapons,shields,gadgets[],
+    //gadget slot, shield slot, weapon slot, cute, furry tribble, bay
+    //парсек, кредит, клик юнит(единица), день, оружие-щиты-гаджеты
+    //слот для гаджета слот для щита слот для оружия(вооружения), милый, пушистый триббл, отсек
     public static String multiples(int num, String unit) {
         return formatNumber(num) + " " + unit + (num == 1 ? "" : "s");
     }
@@ -106,14 +110,14 @@ public class Functions {
         return getRandom(0, max);
     }
 
-    static int getRandom(int min, int max) {
+    public static int getRandom(int min, int max) {
         return rand.nextInt(max - min) + min;
     }
 
     // *************************************************************************
     // Pieter's new random functions, tweaked a bit by SjG
     // *************************************************************************
-    static int getRandom2(int max) {
+    public static int getRandom2(int max) {
         return (int) (rand() % max);
     }
 
@@ -140,11 +144,11 @@ public class Functions {
         return ((seedX << 16) + (seedY & MAX_WORD));
     }
 
-    static int randomSkill() {
+    public static int randomSkill() {
         return 1 + getRandom(5) + getRandom(6);
     }
 
-    static void randSeed(int seed1, int seed2) {
+    public static void randSeed(int seed1, int seed2) {
         if (seed1 > 0)
             seedX = seed1; /* use default seeds if parameter is 0 */
         else
@@ -213,7 +217,7 @@ public class Functions {
         return false;
     }
 
-    static boolean wormholeExists(StarSystem a, StarSystem b) {
+    public static boolean wormholeExists(StarSystem a, StarSystem b) {
         return wormholeExists(a.getId().castToInt(), (b == null) ? -1 : b.getId().castToInt());
     }
 

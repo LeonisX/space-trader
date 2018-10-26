@@ -3,6 +3,7 @@ package spacetrader.game;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 

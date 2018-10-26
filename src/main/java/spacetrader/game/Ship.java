@@ -27,6 +27,7 @@ package spacetrader.game;
 
 import spacetrader.game.enums.*;
 import spacetrader.stub.ArrayList;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 

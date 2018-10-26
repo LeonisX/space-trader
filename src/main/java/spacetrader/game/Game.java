@@ -27,6 +27,7 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
 import spacetrader.game.cheat.CheatCode;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 
@@ -1703,7 +1704,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         } else if (getOpponentDisabled()) {
             if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
                 GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDisabled,
-                        Strings.EncounterPiratesLocation, Functions.multiples(getOpponent().getBounty(), Strings.MoneyUnit));
+                        " " + Strings.EncounterPiratesLocation, Functions.multiples(getOpponent().getBounty(), Strings.MoneyUnit));
 
                 commander.setCash(commander.getCash() + getOpponent().getBounty());
             }
@@ -3206,9 +3207,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             int cost = getDifficulty().castToInt() + 1;
 
             if (commander.getCash() < cost) {
-                GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.multiples(cost, "credit"));
+                GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.multiples(cost, Strings.MoneyUnit));
             } else if (getOptions().isNewsAutoPay()
-                    || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.multiples(cost, "credit")) == DialogResult.YES) {
+                    || GuiFacade.alert(AlertType.ArrivalBuyNewspaper, Functions.multiples(cost, Strings.MoneyUnit)) == DialogResult.YES) {
                 commander.setCash(commander.getCash() - cost);
                 setPaidForNewspaper(true);
                 getParentWindow().updateAll();

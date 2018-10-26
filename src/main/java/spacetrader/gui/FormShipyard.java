@@ -46,6 +46,7 @@ import spacetrader.guifacade.GuiEngine;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 import spacetrader.stub.Directory;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Path;
 import spacetrader.util.ReflectionUtils;
@@ -850,7 +851,7 @@ public class FormShipyard extends SpaceTraderForm {
         // Add the minimal sizes templates.
         for (Size size : sizes)
             templateComboBox.getItems().add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
-                    + Strings.ShipNameTemplateSuffixMinimum));
+                    + " " + Strings.ShipNameTemplateSuffixMinimum));
 
         templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
 
@@ -858,7 +859,7 @@ public class FormShipyard extends SpaceTraderForm {
         for (ShipSpec spec : Consts.ShipSpecs) {
             if (sizes.contains(spec.getSize()) && spec.getType().castToInt() <= Consts.MaxShip) {
                 templateComboBox
-                        .getItems().add(new ShipTemplate(spec, spec.getName() + Strings.ShipNameTemplateSuffixDefault));
+                        .getItems().add(new ShipTemplate(spec, spec.getName() + " " + Strings.ShipNameTemplateSuffixDefault));
             }
         }
 

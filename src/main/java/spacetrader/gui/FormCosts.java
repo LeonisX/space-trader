@@ -31,7 +31,7 @@ import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.game.Functions;
+import spacetrader.util.Functions;
 import spacetrader.game.Game;
 import spacetrader.util.ReflectionUtils;
 

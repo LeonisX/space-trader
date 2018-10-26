@@ -25,6 +25,7 @@ import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.SkillType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.stub.ArrayList;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 

@@ -21,7 +21,7 @@ package spacetrader.gui;
 
 import spacetrader.controls.*;
 import spacetrader.controls.enums.*;
-import spacetrader.game.Functions;
+import spacetrader.util.Functions;
 import spacetrader.game.Game;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;

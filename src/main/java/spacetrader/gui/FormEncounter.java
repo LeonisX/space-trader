@@ -35,7 +35,7 @@ import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Consts;
-import spacetrader.game.Functions;
+import spacetrader.util.Functions;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.AlertType;

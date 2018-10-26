@@ -35,6 +35,7 @@ import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.stub.ArrayList;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.List;

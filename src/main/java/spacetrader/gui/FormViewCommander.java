@@ -34,6 +34,7 @@ import spacetrader.game.*;
 
 import spacetrader.game.enums.Difficulty;
 import spacetrader.gui.debug.Launcher;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 public class FormViewCommander extends SpaceTraderForm {

@@ -33,6 +33,7 @@ import spacetrader.controls.enums.*;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;

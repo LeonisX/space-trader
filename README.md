@@ -22,7 +22,9 @@ Useful Source Repositories:
 
 ## TODO
 
+* Save last selected language as default
 * i18n for Swing
+* Declension engine
 * Language selector
 * Different image sizes, font sizes (config)
 * Special object for save states

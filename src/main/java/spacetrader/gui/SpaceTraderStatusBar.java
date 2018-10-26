@@ -3,7 +3,7 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.enums.StatusBarPanelAutoSize;
 import spacetrader.game.Commander;
-import spacetrader.game.Functions;
+import spacetrader.util.Functions;
 
 import static spacetrader.game.Strings.*;
 

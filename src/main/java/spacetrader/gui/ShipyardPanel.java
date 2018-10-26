@@ -34,7 +34,6 @@ class ShipyardPanel extends Panel {
     }
 
     void initializeComponent() {
-        setName("shipyardPanel");
         setText("Shipyard");
         setSize(168, 168);
         setTabStop(false);
@@ -106,8 +105,6 @@ class ShipyardPanel extends Panel {
 
         getControls().addAll(shipsForSaleLabel, designButton, buyShipButton, equipForSaleLabel,
                 tradeEquipmentButton, escapePodLabel, buyPodButton);
-
-        ReflectionUtils.loadControlsData(this);
     }
 
     void update() {

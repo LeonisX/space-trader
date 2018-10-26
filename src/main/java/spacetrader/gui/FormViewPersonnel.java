@@ -32,6 +32,7 @@ import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.List;

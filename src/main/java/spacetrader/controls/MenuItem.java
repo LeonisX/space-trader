@@ -7,8 +7,8 @@ import spacetrader.controls.enums.Shortcut;
 
 public class MenuItem implements IName {
 
-    public Shortcut shortcut;
-    JMenuItem swingVersion;
+    private Shortcut shortcut;
+    private JMenuItem swingVersion;
 
     public MenuItem() {
         this(new JMenuItem());
@@ -45,12 +45,24 @@ public class MenuItem implements IName {
         asJMenuItem().setName(name);
     }
 
+    public Shortcut getShortcut() {
+        return shortcut;
+    }
+
+    public void setShortcut(Shortcut shortcut) {
+        this.shortcut = shortcut;
+    }
+
+    public JMenuItem getSwingVersion() {
+        return swingVersion;
+    }
+
+    public void setSwingVersion(JMenuItem swingVersion) {
+        this.swingVersion = swingVersion;
+    }
+
     public void setClick(final EventHandler<Object, EventArgs> eventHandler) {
-        asJMenuItem().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                eventHandler.handle(this, null);
-            }
-        });
+        asJMenuItem().addActionListener(arg0 -> eventHandler.handle(getName(), null));
     }
 
     public void setEnabled(boolean enabled) {
