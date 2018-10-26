@@ -34,6 +34,9 @@ Useful Source Repositories:
 * setSize, setClientSize, setLocation
 * Fix 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
 
+ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+
 ### Minor tasks
 
 * Find all languages in resources
