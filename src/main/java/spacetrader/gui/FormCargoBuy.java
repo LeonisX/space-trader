@@ -44,14 +44,14 @@ import static spacetrader.game.Functions.stringVars;
 
 public class FormCargoBuy extends SpaceTraderForm {
     
-    private Button okButton;
-    private Button allButton;
-    private Button noneButton;
-    private Label questionLabel;
-    private Label statementLabelValue;
-    private NumericUpDown numericUpDown;
-    private Label availableLabelValue;
-    private Label affordLabelValue;
+    private Button okButton = new Button();
+    private Button allButton = new Button();
+    private Button noneButton = new Button();
+    private Label questionLabel = new Label();
+    private Label statementLabelValue = new Label();
+    private NumericUpDown numericUpDown = new NumericUpDown();
+    private Label availableLabelValue = new Label();
+    private Label affordLabelValue = new Label();
 
     @Facaded
     public FormCargoBuy(int item, int maxAmount, CargoBuyOp op) {
@@ -104,63 +104,64 @@ public class FormCargoBuy extends SpaceTraderForm {
     }
 
     private void initializeComponent() {
-        questionLabel = new Label();
-        statementLabelValue = new Label();
-        numericUpDown = new NumericUpDown();
-        okButton = new Button();
-        allButton = new Button();
-        noneButton = new Button();
-        availableLabelValue = new Label();
-        affordLabelValue = new Label();
-        ((ISupportInitialize) (numericUpDown)).beginInit();
-
-        setName("formCargoBuy");
         ReflectionUtils.setAllComponentNames(this);
 
+        setName("formCargoBuy");
+        //setText("Buy Xxxxxxxxxx");
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(326, 105);
+        setControlBox(false);
+        setShowInTaskbar(false);
+        setAcceptButton(okButton);
+        setCancelButton(noneButton);
+        
+        numericUpDown.beginInit();
         suspendLayout();
 
         //TODO delete all texts & sizes
-        statementLabelValue.setLocation(new Point(8, 8));
-        statementLabelValue.setSize(new Size(326, 13));
+        statementLabelValue.setLocation(8, 8);
+        statementLabelValue.setSize(326, 13);
         statementLabelValue.setTabIndex(3);
         //statementLabelValue.setText("The trader wants to sell Machines for the price of 8,888 cr. each.");
 
-        availableLabelValue.setLocation(new Point(8, 21));
-        availableLabelValue.setSize(new Size(163, 13));
+        availableLabelValue.setLocation(8, 21);
+        availableLabelValue.setSize(163, 13);
         availableLabelValue.setTabIndex(5);
         //availableLabelValue.setText("The trader has 88 units for sale.");
         availableLabelValue.setVisible(false);
 
         questionLabel.setAutoSize(true);
-        questionLabel.setLocation(new Point(8, 24));
-        questionLabel.setSize(new Size(161, 16));
+        questionLabel.setLocation(8, 24);
+        questionLabel.setSize(161, 16);
         questionLabel.setTabIndex(1);
         questionLabel.setText("How many do you want to buy?");
 
-        numericUpDown.setLocation(new Point(168, 22));
-        numericUpDown.setMaximum(999);
+        numericUpDown.setLocation(168, 22);
+        //numericUpDown.setMaximum(999);
         numericUpDown.setMinimum(1);
-        numericUpDown.setSize(new Size(44, 20));
+        numericUpDown.setSize(44, 20);
         numericUpDown.setTabIndex(1);
         numericUpDown.setValue(1);
 
-        affordLabelValue.setLocation(new Point(8, 34));
-        affordLabelValue.setSize(new Size(157, 13));
+        affordLabelValue.setLocation(8, 34);
+        affordLabelValue.setSize(157, 13);
         affordLabelValue.setTabIndex(6);
         //affordLabelValue.setText("You can afford to buy 88 units.");
         affordLabelValue.setVisible(false);
 
         okButton.setDialogResult(DialogResult.OK);
         okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(new Point(95, 48));
-        okButton.setSize(new Size(41, 22));
+        okButton.setLocation(95, 48);
+        okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
         allButton.setDialogResult(DialogResult.OK);
         allButton.setFlatStyle(FlatStyle.FLAT);
-        allButton.setLocation(new Point(143, 48));
-        allButton.setSize(new Size(41, 22));
+        allButton.setLocation(143, 48);
+        allButton.setSize(41, 22);
         allButton.setTabIndex(3);
         allButton.setText("All");
         allButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -172,31 +173,18 @@ public class FormCargoBuy extends SpaceTraderForm {
 
         noneButton.setDialogResult(DialogResult.CANCEL);
         noneButton.setFlatStyle(FlatStyle.FLAT);
-        noneButton.setLocation(new Point(191, 48));
-        noneButton.setSize(new Size(41, 22));
+        noneButton.setLocation(191, 48);
+        noneButton.setSize(41, 22);
         noneButton.setTabIndex(4);
         noneButton.setText("None");
 
-        setAcceptButton(okButton);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setCancelButton(noneButton);
-        setClientSize(new Size(326, 105));
-        setControlBox(false);
+        controls.addAll(statementLabelValue, availableLabelValue, questionLabel, numericUpDown, affordLabelValue,
+                okButton, allButton, noneButton);
 
-        controls.add(statementLabelValue);
-        controls.add(availableLabelValue);
-        controls.add(questionLabel);
-        controls.add(numericUpDown);
-        controls.add(affordLabelValue);
-        controls.add(okButton);
-        controls.add(allButton);
-        controls.add(noneButton);
+        numericUpDown.endInit();
 
-        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
-        setShowInTaskbar(false);
-        setStartPosition(FormStartPosition.CENTER_PARENT);
-        //setText("Buy Xxxxxxxxxx");
-        ((ISupportInitialize) (numericUpDown)).endInit();
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 
     @Facaded
