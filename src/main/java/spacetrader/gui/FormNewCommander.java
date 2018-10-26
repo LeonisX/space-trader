@@ -25,21 +25,11 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.Button;
-import spacetrader.controls.Label;
-import spacetrader.controls.enums.ComboBoxStyle;
-import spacetrader.controls.enums.ContentAlignment;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.controls.enums.HorizontalAlignment;
+import spacetrader.controls.enums.*;
 import spacetrader.game.Consts;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.util.ReflectionUtils;
-
-import java.awt.*;
 
 public class FormNewCommander extends SpaceTraderForm {
 
@@ -73,8 +63,8 @@ public class FormNewCommander extends SpaceTraderForm {
         setText("New Commander");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(202, 231));
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(202, 231);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -88,13 +78,13 @@ public class FormNewCommander extends SpaceTraderForm {
         suspendLayout();
 
         nameLabel.setAutoSize(true);
-        nameLabel.setLocation(new Point(8, 8));
-        nameLabel.setSize(new Size(38, 13));
+        nameLabel.setLocation(8, 8);
+        nameLabel.setSize(38, 13);
         nameLabel.setTabIndex(0);
         nameLabel.setText("Name:");
 
-        nameTextBox.setLocation(new Point(72, 5));
-        nameTextBox.setSize(new Size(120, 20));
+        nameTextBox.setLocation(72, 5);
+        nameTextBox.setSize(120, 20);
         nameTextBox.setTabIndex(1);
         nameTextBox.setTextChanged(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -103,45 +93,45 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         difficultyLabel.setAutoSize(true);
-        difficultyLabel.setLocation(new Point(8, 40));
-        difficultyLabel.setSize(new Size(50, 13));
+        difficultyLabel.setLocation(8, 40);
+        difficultyLabel.setSize(50, 13);
         difficultyLabel.setTabIndex(34);
         difficultyLabel.setText("Difficulty:");
 
         difficultyComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         difficultyComboBox.getItems().addRange(Strings.DifficultyLevels);
-        difficultyComboBox.setLocation(new Point(72, 37));
-        difficultyComboBox.setSize(new Size(120, 21));
+        difficultyComboBox.setLocation(72, 37);
+        difficultyComboBox.setSize(120, 21);
         difficultyComboBox.setTabIndex(2);
 
         skillPointsLabel.setAutoSize(true);
-        skillPointsLabel.setLocation(new Point(8, 72));
-        skillPointsLabel.setSize(new Size(63, 13));
+        skillPointsLabel.setLocation(8, 72);
+        skillPointsLabel.setSize(63, 13);
         skillPointsLabel.setTabIndex(35);
         skillPointsLabel.setText("Skill Points:");
 
-        skillPointsLabelValue.setLocation(new Point(73, 72));
-        skillPointsLabelValue.setSize(new Size(17, 13));
+        skillPointsLabelValue.setLocation(73, 72);
+        skillPointsLabelValue.setSize(17, 13);
         skillPointsLabelValue.setTabIndex(41);
         skillPointsLabelValue.setText(Consts.SkillPointsOnStart);
         skillPointsLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         skillPointsRemainingLabel.setAutoSize(true);
-        skillPointsRemainingLabel.setLocation(new Point(91, 72));
-        skillPointsRemainingLabel.setSize(new Size(90, 13));
+        skillPointsRemainingLabel.setLocation(91, 72);
+        skillPointsRemainingLabel.setSize(90, 13);
         skillPointsRemainingLabel.setTabIndex(40);
         skillPointsRemainingLabel.setText("points remaining.");
 
         pilotLabel.setAutoSize(true);
-        pilotLabel.setLocation(new Point(16, 96));
-        pilotLabel.setSize(new Size(29, 13));
+        pilotLabel.setLocation(16, 96);
+        pilotLabel.setSize(29, 13);
         pilotLabel.setTabIndex(36);
         pilotLabel.setText("Pilot:");
 
-        numPilot.setLocation(new Point(72, 94));
+        numPilot.setLocation(72, 94);
         numPilot.setMaximum(10);
         numPilot.setMinimum(1);
-        numPilot.setSize(new Size(46, 20));
+        numPilot.setSize(46, 20);
         numPilot.setTabIndex(3);
         numPilot.setTextAlign(HorizontalAlignment.CENTER);
         numPilot.setValue(1);
@@ -162,15 +152,15 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         fighterLabel.setAutoSize(true);
-        fighterLabel.setLocation(new Point(16, 120));
-        fighterLabel.setSize(new Size(43, 13));
+        fighterLabel.setLocation(16, 120);
+        fighterLabel.setSize(43, 13);
         fighterLabel.setTabIndex(37);
         fighterLabel.setText("Fighter:");
 
-        numFighter.setLocation(new Point(72, 118));
+        numFighter.setLocation(72, 118);
         numFighter.setMaximum(10);
         numFighter.setMinimum(1);
-        numFighter.setSize(new Size(46, 20));
+        numFighter.setSize(46, 20);
         numFighter.setTabIndex(4);
         numFighter.setTextAlign(HorizontalAlignment.CENTER);
         numFighter.setValue(1);
@@ -191,15 +181,15 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         traderLabel.setAutoSize(true);
-        traderLabel.setLocation(new Point(16, 144));
-        traderLabel.setSize(new Size(41, 13));
+        traderLabel.setLocation(16, 144);
+        traderLabel.setSize(41, 13);
         traderLabel.setTabIndex(38);
         traderLabel.setText("Trader:");
 
-        numTrader.setLocation(new Point(72, 142));
+        numTrader.setLocation(72, 142);
         numTrader.setMaximum(10);
         numTrader.setMinimum(1);
-        numTrader.setSize(new Size(46, 20));
+        numTrader.setSize(46, 20);
         numTrader.setTabIndex(5);
         numTrader.setTextAlign(HorizontalAlignment.CENTER);
         numTrader.setValue(1);
@@ -220,15 +210,15 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         engineerLabel.setAutoSize(true);
-        engineerLabel.setLocation(new Point(16, 168));
-        engineerLabel.setSize(new Size(53, 13));
+        engineerLabel.setLocation(16, 168);
+        engineerLabel.setSize(53, 13);
         engineerLabel.setTabIndex(39);
         engineerLabel.setText("Engineer:");
 
-        numEngineer.setLocation(new Point(72, 166));
+        numEngineer.setLocation(72, 166);
         numEngineer.setMaximum(10);
         numEngineer.setMinimum(1);
-        numEngineer.setSize(new Size(46, 20));
+        numEngineer.setSize(46, 20);
         numEngineer.setTabIndex(6);
         numEngineer.setTextAlign(HorizontalAlignment.CENTER);
         numEngineer.setValue(1);
@@ -251,15 +241,15 @@ public class FormNewCommander extends SpaceTraderForm {
         okButton.setDialogResult(DialogResult.OK);
         okButton.setEnabled(false);
         okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(new Point(83, 200));
-        okButton.setSize(new Size(36, 22));
+        okButton.setLocation(83, 200);
+        okButton.setSize(36, 22);
         okButton.setTabIndex(7);
         okButton.setText("Ok");
         okButton.setEnabled(false);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
-        closeButton.setLocation(new Point(-32, -32));
-        closeButton.setSize(new Size(30, 31));
+        closeButton.setLocation(-32, -32);
+        closeButton.setSize(30, 31);
         closeButton.setTabStop(false);
         //closeButton.setText("X");
 
@@ -271,6 +261,8 @@ public class FormNewCommander extends SpaceTraderForm {
         numFighter.endInit();
         numTrader.endInit();
         numEngineer.endInit();
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateOkEnabled() {

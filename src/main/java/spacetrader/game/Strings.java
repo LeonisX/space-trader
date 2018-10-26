@@ -564,6 +564,8 @@ public class Strings {
 
     public static String HighScoreStatus = "^1 in ^2, worth ^3 on ^4 level.";
 
+    public static String JettisonAll = "All";
+
     public static String Mercenaries = " mercenaries";
     public static String MercenariesForHire = "^1 available for hire.";
     public static String MercenaryFire = "Fire";
@@ -633,6 +635,9 @@ public class Strings {
     public static String ShipUnfilled = "Unfilled:";
 
     public static String ShipInfoEscapePod = "Escape Pod";
+
+    public static String ShipListBuy = "Buy";
+    public static String ShipListInfo = "Info";
 
     public static String ShipNameCurrentShip = "<current ship>";
     public static String ShipNameCustomShip = "Custom Ship";

@@ -1,10 +1,9 @@
 package spacetrader.util;
 
+import spacetrader.controls.BaseComponent;
 import spacetrader.controls.IName;
+import spacetrader.game.GlobalAssets;
 import spacetrader.game.Strings;
-import spacetrader.game.enums.AlertType;
-import spacetrader.gui.FormAlert;
-import spacetrader.stub.ArrayList;
 import spacetrader.stub.StringsMap;
 import spacetrader.stub.ValuesMap;
 
@@ -12,8 +11,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.lang.reflect.Field;
-import java.util.*;
-import java.util.List;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReflectionUtils {
 
@@ -190,6 +190,15 @@ public class ReflectionUtils {
         }
     }
 
+    public static void loadControlsData(BaseComponent component) {
+        loadControlsDimensions(component);
+        loadControlsStrings(component);
+    }
+
+    private static void loadControlsDimensions(BaseComponent component) {
+        loadControlsDimensions(component.asSwingObject(), component.getName(), GlobalAssets.getDimensions());
+    }
+
     public static void loadControlsDimensions(Component component, String prefix, ValuesMap valuesMap) {
         prefix = formatPropertyName(prefix);
         if (component.getName() != null && !component.getName().startsWith("null.")) {
@@ -214,6 +223,10 @@ public class ReflectionUtils {
                 loadControlsDimensions(child, prefix + "." + name, valuesMap);
             }
         }
+    }
+
+    private static void loadControlsStrings(BaseComponent component) {
+        loadControlsStrings(component.asSwingObject(), component.getName(), GlobalAssets.getStrings());
     }
 
     public static void loadControlsStrings(Component component, String prefix, StringsMap stringsMap) {

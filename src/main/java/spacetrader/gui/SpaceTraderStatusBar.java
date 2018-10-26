@@ -11,10 +11,10 @@ class SpaceTraderStatusBar extends StatusBar {
 
     private final SpaceTrader mainWindow;
 
-    private StatusBarPanel statusBarPanelBays;
-    private StatusBarPanel statusBarPanelCash;
-    private StatusBarPanel statusBarPanelCosts;
-    private StatusBarPanel statusBarPanelExtra;
+    private StatusBarPanel statusBarPanelBays = new StatusBarPanel();
+    private StatusBarPanel statusBarPanelCash = new StatusBarPanel();
+    private StatusBarPanel statusBarPanelCosts = new StatusBarPanel();
+    private StatusBarPanel statusBarPanelExtra = new StatusBarPanel(StatusBarPanelAutoSize.SPRING);
 
     private Commander commander;
 
@@ -27,11 +27,10 @@ class SpaceTraderStatusBar extends StatusBar {
     }
 
     public void initializeComponent() {
-        panels.addAll(statusBarPanelCash, statusBarPanelBays, statusBarPanelCosts, statusBarPanelExtra);
-        showPanels = true;
-        setSize(new Size(768, 24));
-        sizingGrip = false;
+        setSize(768, 24);
         setTabIndex(2);
+        showPanels = true;
+        sizingGrip = false;
 
         panelClick = new EventHandler<Object, StatusBarPanelClickEventArgs>() {
             @Override
@@ -52,16 +51,14 @@ class SpaceTraderStatusBar extends StatusBar {
         //statusBarPanelCosts.setText(" Current Costs: 888 cr.");
         statusBarPanelCosts.setWidth(120);
 
+        panels.addAll(statusBarPanelCash, statusBarPanelBays, statusBarPanelCosts, statusBarPanelExtra);
+        
         endInit();
     }
 
     @Override
     public void beginInit() {
-        statusBarPanelCash = new StatusBarPanel();
-        statusBarPanelBays = new StatusBarPanel();
-        statusBarPanelCosts = new StatusBarPanel();
-        statusBarPanelExtra = new StatusBarPanel(StatusBarPanelAutoSize.SPRING);
-
+        //TODO need?
         statusBarPanelCash.beginInit();
         statusBarPanelBays.beginInit();
         statusBarPanelCosts.beginInit();

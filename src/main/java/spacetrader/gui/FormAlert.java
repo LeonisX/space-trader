@@ -19,25 +19,14 @@
  ******************************************************************************/
 package spacetrader.gui;
 
-import spacetrader.controls.Button;
 import spacetrader.controls.*;
-import spacetrader.controls.Container;
-import spacetrader.controls.Graphics;
-import spacetrader.controls.Label;
-import spacetrader.controls.enums.ColorDepth;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.controls.enums.*;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
-import spacetrader.game.GlobalAssets;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
-
-import java.awt.*;
 
 import static spacetrader.game.Strings.*;
 
@@ -157,7 +146,7 @@ public class FormAlert extends SpaceTraderForm {
         return makeDialog(type, args).showDialog();
     }
 
-    private static FormAlert makeDialog(AlertType type, String[] args) {
+    public static FormAlert makeDialog(AlertType type, String[] args) {
         switch (type) {
             case Alert:
                 return new FormAlert(AlertsAlertTitle, AlertsAlertMessage, AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -798,7 +787,6 @@ public class FormAlert extends SpaceTraderForm {
 
         controls.addAll(messageLabel, acceptButton, cancelButton);
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 }

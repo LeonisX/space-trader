@@ -63,8 +63,8 @@ public class FormGetLoan extends SpaceTraderForm {
 
         setName("formGetLoan");
         setText("Get Loan");
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(252, 79));
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(252, 79);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setControlBox(false);
@@ -75,34 +75,34 @@ public class FormGetLoan extends SpaceTraderForm {
         ((ISupportInitialize) (numAmount)).beginInit();
         suspendLayout();
 
-        statementLabelValue.setLocation(new Point(8, 8));
-        statementLabelValue.setSize(new Size(189, 13));
+        statementLabelValue.setLocation(8, 8);
+        statementLabelValue.setSize(189, 13);
         statementLabelValue.setTabIndex(5);
         //statementLabelValue.setText("You can borrow up to 88,888 credits.");
 
         questionLabel.setAutoSize(true);
-        questionLabel.setLocation(new Point(8, 24));
-        questionLabel.setSize(new Size(178, 13));
+        questionLabel.setLocation(8, 24);
+        questionLabel.setSize(178, 13);
         questionLabel.setTabIndex(3);
         questionLabel.setText("How much do you want to borrow?");
 
-        numAmount.setLocation(new Point(184, 22));
+        numAmount.setLocation(184, 22);
         numAmount.setMinimum(1);
-        numAmount.setSize(new Size(64, 20));
+        numAmount.setSize(64, 20);
         numAmount.setTabIndex(1);
         numAmount.setThousandsSeparator(true);
 
         okButton.setDialogResult(DialogResult.OK);
         okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(new Point(52, 48));
-        okButton.setSize(new Size(41, 22));
+        okButton.setLocation(52, 48);
+        okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
         maxButton.setDialogResult(DialogResult.OK);
         maxButton.setFlatStyle(FlatStyle.FLAT);
-        maxButton.setLocation(new Point(100, 48));
-        maxButton.setSize(new Size(41, 22));
+        maxButton.setLocation(100, 48);
+        maxButton.setSize(41, 22);
         maxButton.setTabIndex(3);
         maxButton.setText("Max");
         maxButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -113,14 +113,16 @@ public class FormGetLoan extends SpaceTraderForm {
 
         nothingButton.setDialogResult(DialogResult.CANCEL);
         nothingButton.setFlatStyle(FlatStyle.FLAT);
-        nothingButton.setLocation(new Point(148, 48));
-        nothingButton.setSize(new Size(53, 22));
+        nothingButton.setLocation(148, 48);
+        nothingButton.setSize(53, 22);
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");
 
         ((ISupportInitialize) (numAmount)).endInit();
 
         controls.addAll(Arrays.asList(statementLabelValue, nothingButton, maxButton, okButton, numAmount, questionLabel));
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     int getAmount() {

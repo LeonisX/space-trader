@@ -25,8 +25,6 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.Button;
-import spacetrader.controls.Label;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
@@ -36,11 +34,7 @@ import spacetrader.game.enums.CargoBuyOp;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.*;
-
-import static spacetrader.game.Functions.formatMoney;
-import static spacetrader.game.Functions.formatNumber;
-import static spacetrader.game.Functions.stringVars;
+import static spacetrader.game.Functions.*;
 
 public class FormCargoBuy extends SpaceTraderForm {
     
@@ -183,8 +177,7 @@ public class FormCargoBuy extends SpaceTraderForm {
 
         numericUpDown.endInit();
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     @Facaded

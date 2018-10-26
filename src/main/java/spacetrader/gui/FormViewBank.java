@@ -226,8 +226,7 @@ public class FormViewBank extends SpaceTraderForm {
                 getLoanButton, payBackButton, insuranceLabel, shipValueLabel, shipValueLabelValue, noClaimLabel,
                 noClaimLabelValue, maxNoClaimLabel, insAmtLabel, insAmtLabelValue, buyInsuranceButton, closeButton);
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {

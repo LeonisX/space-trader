@@ -25,33 +25,15 @@
 
 package spacetrader.gui;
 
-import static java.lang.Math.ceil;
-import static java.lang.Math.min;
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
-
-import java.awt.Color;
-import java.awt.Point;
-import java.util.Arrays;
-import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.Button;
 import spacetrader.controls.Container;
-import spacetrader.controls.EventArgs;
-import spacetrader.controls.EventHandler;
+import spacetrader.controls.*;
+import spacetrader.controls.Graphics;
+import spacetrader.controls.Label;
+import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.controls.Graphics;
-import spacetrader.controls.IContainer;
-import spacetrader.controls.ImageList;
-import spacetrader.controls.ImageListStreamer;
-import spacetrader.controls.Label;
-import spacetrader.controls.PaintEventArgs;
-import spacetrader.controls.PictureBox;
-import spacetrader.controls.ResourceManager;
-import spacetrader.controls.Size;
-import spacetrader.controls.SystemColors;
-import spacetrader.controls.Timer;
 import spacetrader.game.Consts;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
@@ -62,27 +44,31 @@ import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.ReflectionUtils;
 
+import java.awt.*;
+import java.util.Arrays;
+
+import static java.lang.Math.*;
+
 @Facaded
 public class FormEncounter extends SpaceTraderForm {
 
-    private final Button[] buttons;
-    private final int ATTACK = 0;
-    private final int BOARD = 1;
-    private final int BRIBE = 2;
-    private final int DRINK = 3;
-    private final int FLEE = 4;
-    private final int IGNORE = 5;
-    private final int INT = 6;
-    private final int MEET = 7;
-    private final int PLUNDER = 8;
-    private final int SUBMIT = 9;
-    private final int SURRENDER = 10;
-    private final int TRADE = 11;
-    private final int YIELD = 12;
-    
+    private static final int ATTACK = 0;
+    private static final int BOARD = 1;
+    private static final int BRIBE = 2;
+    private static final int DRINK = 3;
+    private static final int FLEE = 4;
+    private static final int IGNORE = 5;
+    private static final int INT = 6;
+    private static final int MEET = 7;
+    private static final int PLUNDER = 8;
+    private static final int SUBMIT = 9;
+    private static final int SURRENDER = 10;
+    private static final int TRADE = 11;
+    private static final int YIELD = 12;
+
     private final Game game = Game.getCurrentGame();
-    private final Ship commanderShip = Game.getCurrentGame().getCommander().getShip();
-    private final Ship opponent = Game.getCurrentGame().getOpponent();
+    private final Ship commanderShip = game.getCommander().getShip();
+    private final Ship opponent = game.getOpponent();
 
     private Button attackButton = new Button();
     private Button fleeButton = new Button();
@@ -97,6 +83,10 @@ public class FormEncounter extends SpaceTraderForm {
     private Button drinkButton = new Button();
     private Button interruptButton = new Button();
     private Button yieldButton = new Button();
+
+    private final Button[] buttons = new Button[]{attackButton, boardButton, bribeButton,
+            drinkButton, fleeButton, ignoreButton, interruptButton, meetButton, plunderButton,
+            submitButton, surrenderButton, tradeButton, yieldButton};
 
     private Label encounterLabelValue = new Label();
     private PictureBox yourShipPicture = new PictureBox();
@@ -165,7 +155,7 @@ public class FormEncounter extends SpaceTraderForm {
     
     private int continueImage = 1;
 
-    private EncounterResult _result = EncounterResult.CONTINUE;
+    private EncounterResult result = EncounterResult.CONTINUE;
 
     public FormEncounter() {
         initializeComponent();
@@ -177,9 +167,6 @@ public class FormEncounter extends SpaceTraderForm {
         if (game.isEasyEncounters()) {
             setControlBox(true);
         }
-
-        buttons = new Button[]{attackButton, boardButton, bribeButton, drinkButton, fleeButton, ignoreButton, interruptButton, meetButton,
-                plunderButton, submitButton, surrenderButton, tradeButton, yieldButton};
 
         updateShipInfo();
         updateTribbles();
@@ -545,34 +532,14 @@ public class FormEncounter extends SpaceTraderForm {
         continuousImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilContinuous.ImageStream"))));
         continuousImageList.setTransparentColor(Color.WHITE);
 
-        controls.add(encounterTypePicture);
-        controls.add(youLabel);
-        controls.add(opponentLabel);
-        controls.add(yourShipPicture);
-        controls.add(opponentsShipPicture);
-        controls.add(yourShipLabelValue);
-        controls.add(opponentsShipLabelValue);
-        controls.add(yourHullLabelValue);
-        controls.add(opponentsHullLabelValue);
-        controls.add(yourShieldsLabelValue);
-        controls.add(opponentsShieldsLabelValue);
-        controls.add(encounterLabelValue);
-        controls.add(actionLabelValue);
-        controls.add(attackButton);
-        controls.add(fleeButton);
-        controls.add(submitButton);
-        controls.add(bribeButton);
-        controls.add(surrenderButton);
-        controls.add(ignoreButton);
-        controls.add(tradeButton);
-        controls.add(plunderButton);
-        controls.add(boardButton);
-        controls.add(meetButton);
-        controls.add(drinkButton);
-        controls.add(interruptButton);
-        controls.add(yieldButton);
-        controls.add(continuousPicture);
+        controls.addAll(encounterTypePicture, youLabel, opponentLabel, yourShipPicture, opponentsShipPicture,
+                yourShipLabelValue, opponentsShipLabelValue, yourHullLabelValue, opponentsHullLabelValue,
+                yourShieldsLabelValue, opponentsShieldsLabelValue, encounterLabelValue, actionLabelValue,
+                attackButton, fleeButton, submitButton, bribeButton, surrenderButton, ignoreButton, tradeButton,
+                plunderButton, boardButton, meetButton, drinkButton, interruptButton, yieldButton, continuousPicture);
         controls.addAll(tribblesArray);
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void disableAuto() {
@@ -585,7 +552,7 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void executeAction() {
-        if ((_result = game.getEncounterExecuteAction()) == EncounterResult.CONTINUE) {
+        if ((result = game.getEncounterExecuteAction()) == EncounterResult.CONTINUE) {
             updateButtons();
             updateShipStats();
 
@@ -601,7 +568,7 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void exit(EncounterResult result) {
-        _result = result;
+        this.result = result;
         close();
     }
 
@@ -804,7 +771,7 @@ public class FormEncounter extends SpaceTraderForm {
     private void surrenderButtonClick() {
         disableAuto();
 
-        if ((_result = game.getEncounterVerifySurrender()) != EncounterResult.CONTINUE) {
+        if ((result = game.getEncounterVerifySurrender()) != EncounterResult.CONTINUE) {
             close();
         }
     }
@@ -816,7 +783,7 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void yieldButtonClick() {
-        if ((_result = game.getEncounterVerifyYield()) != EncounterResult.CONTINUE) {
+        if ((result = game.getEncounterVerifyYield()) != EncounterResult.CONTINUE) {
             close();
         }
     }
@@ -840,6 +807,6 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     public EncounterResult getResult() {
-        return _result;
+        return result;
     }
 }

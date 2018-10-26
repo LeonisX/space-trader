@@ -20,7 +20,10 @@
 
 package spacetrader.gui;
 
-import spacetrader.controls.*;
+import spacetrader.controls.BaseComponent;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
+import spacetrader.controls.Panel;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -91,15 +94,15 @@ public class FormViewShip extends SpaceTraderForm {
         equipTitleLabelValue.setLocation(8, 34);
         equipTitleLabelValue.setSize(64, 176);
         equipTitleLabelValue.setTabIndex(43);
-        equipTitleLabelValue.setText("Hull:\r\n\r\nEquipment:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nUnfilled:");
+        //equipTitleLabelValue.setText("Hull:\r\n\r\nEquipment:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nUnfilled:");
 
         equipLabelValue.setLocation(80, 34);
         equipLabelValue.setSize(120, 176);
         equipLabelValue.setTabIndex(44);
-        equipLabelValue
+        /*equipLabelValue
                 .setText("Hardened\r\n\r\n1 Military Laser\r\n1 Morgan\'s Laser\r\n1 Energy Shield\r\n1 Reflective Shi"
                         + "eld\r\n1 Lightning Shield\r\nNavigating System\r\nAuto-Repair System\r\n10 Extra Cargo Bays\r\nAn Escape Pod\r\n"
-                        + "\r\n1 weapon slot\r\n1 gadget slot");
+                        + "\r\n1 weapon slot\r\n1 gadget slot");*/
 
         specialCargoPanel.setLocation(192, 8);
         specialCargoPanel.setSize(200, 204);
@@ -118,12 +121,11 @@ public class FormViewShip extends SpaceTraderForm {
         closeButton.setLocation(-32, -32);
         closeButton.setSize(32, 32);
         closeButton.setTabStop(false);
-        closeButton.setText("X");
+        //closeButton.setText("X");
 
         controls.addAll(typeLabel, typeLabelValue, equipTitleLabelValue, equipLabelValue, specialCargoPanel, closeButton);
 
-        ReflectionUtils.loadControlsDimensions(asSwingObject(), getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void displayEquipment() {

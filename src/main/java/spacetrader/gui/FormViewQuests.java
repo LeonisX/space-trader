@@ -111,8 +111,7 @@ public class FormViewQuests extends SpaceTraderForm {
 
         controls.addAll(questsLabelValue, closeButton);
 
-        ReflectionUtils.loadControlsDimensions(asSwingObject(), getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {

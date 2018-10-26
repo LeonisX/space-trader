@@ -7,6 +7,7 @@ import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.MouseButtons;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
+import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
 
@@ -27,7 +28,7 @@ public class ShortRangeChartPanel extends Panel {
     private SystemTracker game = null;
     private Commander commander;
 
-    private PictureBox shortRangeChartPicture;
+    private PictureBox shortRangeChartPicture = new PictureBox();
     private Font font;
     private Font smallFont;
 
@@ -42,11 +43,15 @@ public class ShortRangeChartPanel extends Panel {
     }
 
     void initializeComponent() {
-        shortRangeChartPicture = new PictureBox();
-        shortRangeChartPicture.setBackground(Color.white);
-        shortRangeChartPicture.setLocation(new Point(8, 16));
-        shortRangeChartPicture.setSize(new Size(160, 145));
-        shortRangeChartPicture.setTabIndex(1);
+        setName("shortRangeChartPanel");
+        setText("Short-Range Chart");
+        setSize(176, 168);
+        setTabStop(false);
+
+
+        shortRangeChartPicture.setBackground(Color.WHITE);
+        shortRangeChartPicture.setLocation(8, 16);
+        shortRangeChartPicture.setSize(160, 145);
         shortRangeChartPicture.setTabStop(false);
         shortRangeChartPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
             @Override
@@ -65,12 +70,9 @@ public class ShortRangeChartPanel extends Panel {
 
         getControls().add(shortRangeChartPicture);
 
-        setSize(new spacetrader.controls.Size(176, 168));
-        setTabIndex(6);
-        setTabStop(false);
-        setText("Short-Range Chart");
-
         fixFonts(super.getFont());
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {

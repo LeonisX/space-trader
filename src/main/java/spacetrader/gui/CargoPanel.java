@@ -20,9 +20,9 @@
 
 package spacetrader.gui;
 
-import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Container;
+import spacetrader.controls.*;
 import spacetrader.controls.Font;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
@@ -30,10 +30,10 @@ import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
+import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
 import java.util.Arrays;
-import spacetrader.util.ReflectionUtils;
 
 import static spacetrader.game.Functions.formatMoney;
 import static spacetrader.game.Functions.formatNumber;
@@ -222,7 +222,6 @@ class CargoPanel extends Panel {
     }
 
     void initializeComponent() {
-        ReflectionUtils.setAllComponentNames(this);
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
 
         setName("cargoPanel");
@@ -263,7 +262,7 @@ class CargoPanel extends Panel {
         sellPriceLabel.setAutoSize(true);
         sellPriceLabel.setFont(FontCollection.regular825);
         sellPriceLabel.setLocation(132, 34);
-        sellPriceLabel.setSize(23, 1);
+        sellPriceLabel.setSize(23, 16);
         sellPriceLabel.setTabIndex(26);
         sellPriceLabel.setText("Sell");
 
@@ -881,8 +880,7 @@ class CargoPanel extends Panel {
         getControls().addAll(buyButtonArray);
         getControls().addAll(buyMaxButtonArray);
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     void update() {

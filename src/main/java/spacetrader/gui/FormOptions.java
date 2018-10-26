@@ -24,9 +24,7 @@
  ******************************************************************************/
 package spacetrader.gui;
 
-import spacetrader.controls.Button;
 import spacetrader.controls.*;
-import spacetrader.controls.Label;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
@@ -35,8 +33,6 @@ import spacetrader.game.Game;
 import spacetrader.game.GameOptions;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
-
-import java.awt.*;
 import spacetrader.util.ReflectionUtils;
 
 public class FormOptions extends SpaceTraderForm {
@@ -90,8 +86,8 @@ public class FormOptions extends SpaceTraderForm {
         setText("Options");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(362, 271));
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(362, 271);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -101,8 +97,8 @@ public class FormOptions extends SpaceTraderForm {
         emptyNumericUpDown.beginInit();
         suspendLayout();
 
-        fuelCheckBox.setLocation(new Point(8, 8));
-        fuelCheckBox.setSize(new Size(160, 16));
+        fuelCheckBox.setLocation(8, 8);
+        fuelCheckBox.setSize(160, 16);
         fuelCheckBox.setTabIndex(1);
         fuelCheckBox.setText("Get full fuel tanks on arrival");
         fuelCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -111,8 +107,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        repairCheckBox.setLocation(new Point(8, 24));
-        repairCheckBox.setSize(new Size(167, 16));
+        repairCheckBox.setLocation(8, 24);
+        repairCheckBox.setSize(167, 16);
         repairCheckBox.setTabIndex(2);
         repairCheckBox.setText("Get full hull repairs on arrival");
         repairCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -121,8 +117,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        newspaperCheckBox.setLocation(new Point(8, 40));
-        newspaperCheckBox.setSize(new Size(155, 16));
+        newspaperCheckBox.setLocation(8, 40);
+        newspaperCheckBox.setSize(155, 16);
         newspaperCheckBox.setTabIndex(3);
         newspaperCheckBox.setText("Always pay for newspaper");
         newspaperCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -131,8 +127,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        showNewspaperCheckBox.setLocation(new Point(24, 56));
-        showNewspaperCheckBox.setSize(new Size(160, 16));
+        showNewspaperCheckBox.setLocation(24, 56);
+        showNewspaperCheckBox.setSize(160, 16);
         showNewspaperCheckBox.setTabIndex(53);
         showNewspaperCheckBox.setText("Show newspaper on arrival");
         showNewspaperCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -141,8 +137,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        rangeCheckBox.setLocation(new Point(184, 8));
-        rangeCheckBox.setSize(new Size(175, 16));
+        rangeCheckBox.setLocation(184, 8);
+        rangeCheckBox.setSize(175, 16);
         rangeCheckBox.setTabIndex(5);
         rangeCheckBox.setText("Show range to tracked system");
         rangeCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -151,8 +147,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        stopTrackingCheckBox.setLocation(new Point(184, 24));
-        stopTrackingCheckBox.setSize(new Size(139, 16));
+        stopTrackingCheckBox.setLocation(184, 24);
+        stopTrackingCheckBox.setSize(139, 16);
         stopTrackingCheckBox.setTabIndex(6);
         stopTrackingCheckBox.setText("Stop tracking on arrival");
         stopTrackingCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -161,8 +157,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        reserveMoneyCheckBox.setLocation(new Point(184, 40));
-        reserveMoneyCheckBox.setSize(new Size(176, 16));
+        reserveMoneyCheckBox.setLocation(184, 40);
+        reserveMoneyCheckBox.setSize(176, 16);
         reserveMoneyCheckBox.setTabIndex(7);
         reserveMoneyCheckBox.setText("Reserve money for warp costs");
         reserveMoneyCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -171,8 +167,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        loanCheckBox.setLocation(new Point(184, 56));
-        loanCheckBox.setSize(new Size(124, 16));
+        loanCheckBox.setLocation(184, 56);
+        loanCheckBox.setSize(124, 16);
         loanCheckBox.setTabIndex(4);
         loanCheckBox.setText("Remind about loans");
         loanCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -181,9 +177,9 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        emptyNumericUpDown.setLocation(new Point(8, 88));
+        emptyNumericUpDown.setLocation(8, 88);
         emptyNumericUpDown.setMaximum(99);
-        emptyNumericUpDown.setSize(new Size(40, 20));
+        emptyNumericUpDown.setSize(40, 20);
         emptyNumericUpDown.setTabIndex(8);
         emptyNumericUpDown.setValue(88);
         emptyNumericUpDown.setValueChanged(new EventHandler<Object, EventArgs>() {
@@ -193,19 +189,19 @@ public class FormOptions extends SpaceTraderForm {
         });
 
         emptyLabel.setAutoSize(true);
-        emptyLabel.setLocation(new Point(52, 90));
-        emptyLabel.setSize(new Size(292, 16));
+        emptyLabel.setLocation(52, 90);
+        emptyLabel.setSize(292, 16);
         emptyLabel.setTabIndex(38);
         emptyLabel.setText("Cargo Bays to leave empty when buying goods in-system");
 
         ignoreLabel.setAutoSize(true);
-        ignoreLabel.setLocation(new Point(8, 120));
-        ignoreLabel.setSize(new Size(152, 16));
+        ignoreLabel.setLocation(8, 120);
+        ignoreLabel.setSize(152, 16);
         ignoreLabel.setTabIndex(52);
         ignoreLabel.setText("Always ignore when it is safe:");
 
-        ignorePiratesCheckBox.setLocation(new Point(8, 136));
-        ignorePiratesCheckBox.setSize(new Size(63, 16));
+        ignorePiratesCheckBox.setLocation(8, 136);
+        ignorePiratesCheckBox.setSize(63, 16);
         ignorePiratesCheckBox.setTabIndex(9);
         ignorePiratesCheckBox.setText("Pirates");
         ignorePiratesCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -214,8 +210,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        ignorePoliceCheckBox.setLocation(new Point(79, 136));
-        ignorePoliceCheckBox.setSize(new Size(59, 16));
+        ignorePoliceCheckBox.setLocation(79, 136);
+        ignorePoliceCheckBox.setSize(59, 16);
         ignorePoliceCheckBox.setTabIndex(10);
         ignorePoliceCheckBox.setText("Police");
         ignorePoliceCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -224,8 +220,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        ignoreTradersCheckBox.setLocation(new Point(146, 136));
-        ignoreTradersCheckBox.setSize(new Size(67, 16));
+        ignoreTradersCheckBox.setLocation(146, 136);
+        ignoreTradersCheckBox.setSize(67, 16);
         ignoreTradersCheckBox.setTabIndex(11);
         ignoreTradersCheckBox.setText("Traders");
         ignoreTradersCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -234,8 +230,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        ignoreDealingTradersCheckBox.setLocation(new Point(162, 152));
-        ignoreDealingTradersCheckBox.setSize(new Size(133, 16));
+        ignoreDealingTradersCheckBox.setLocation(162, 152);
+        ignoreDealingTradersCheckBox.setSize(133, 16);
         ignoreDealingTradersCheckBox.setTabIndex(12);
         ignoreDealingTradersCheckBox.setText("Ignore dealing traders");
         ignoreDealingTradersCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -244,8 +240,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        continuousAttackCheckBox.setLocation(new Point(8, 176));
-        continuousAttackCheckBox.setSize(new Size(163, 16));
+        continuousAttackCheckBox.setLocation(8, 176);
+        continuousAttackCheckBox.setSize(163, 16);
         continuousAttackCheckBox.setTabIndex(13);
         continuousAttackCheckBox.setText("Continuous attack and flight");
         continuousAttackCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -254,8 +250,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        attackFleeingCheckBox.setLocation(new Point(24, 192));
-        attackFleeingCheckBox.setSize(new Size(177, 16));
+        attackFleeingCheckBox.setLocation(24, 192);
+        attackFleeingCheckBox.setSize(177, 16);
         attackFleeingCheckBox.setTabIndex(14);
         attackFleeingCheckBox.setText("Continue attacking fleeing ship");
         attackFleeingCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -264,8 +260,8 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        disableOpponentsCheckBox.setLocation(new Point(8, 208));
-        disableOpponentsCheckBox.setSize(new Size(244, 16));
+        disableOpponentsCheckBox.setLocation(8, 208);
+        disableOpponentsCheckBox.setSize(244, 16);
         disableOpponentsCheckBox.setTabIndex(54);
         disableOpponentsCheckBox.setText("Attempt to disable opponents when possible");
         disableOpponentsCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -276,21 +272,21 @@ public class FormOptions extends SpaceTraderForm {
 
         okButton.setDialogResult(DialogResult.OK);
         okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(new Point(14, 240));
-        okButton.setSize(new Size(40, 22));
+        okButton.setLocation(14, 240);
+        okButton.setSize(40, 22);
         okButton.setTabIndex(15);
         okButton.setText("Ok");
 
         cancelButton.setDialogResult(DialogResult.CANCEL);
         cancelButton.setFlatStyle(FlatStyle.FLAT);
-        cancelButton.setLocation(new Point(62, 240));
-        cancelButton.setSize(new Size(49, 22));
+        cancelButton.setLocation(62, 240);
+        cancelButton.setSize(49, 22);
         cancelButton.setTabIndex(16);
-        cancelButton.setText("cancel");
+        cancelButton.setText("Cancel");
 
         saveButton.setFlatStyle(FlatStyle.FLAT);
-        saveButton.setLocation(new Point(119, 240));
-        saveButton.setSize(new Size(107, 22));
+        saveButton.setLocation(119, 240);
+        saveButton.setSize(107, 22);
         saveButton.setTabIndex(17);
         saveButton.setText("Save As Defaults");
         saveButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -300,8 +296,8 @@ public class FormOptions extends SpaceTraderForm {
         });
 
         loadButton.setFlatStyle(FlatStyle.FLAT);
-        loadButton.setLocation(new Point(234, 240));
-        loadButton.setSize(new Size(114, 22));
+        loadButton.setLocation(234, 240);
+        loadButton.setSize(114, 22);
         loadButton.setTabIndex(18);
         loadButton.setText("Load from Defaults");
         loadButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -317,6 +313,8 @@ public class FormOptions extends SpaceTraderForm {
                 saveButton, loadButton);
         
         emptyNumericUpDown.endInit();
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {

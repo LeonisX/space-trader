@@ -1,14 +1,15 @@
 package spacetrader.gui;
 
-import spacetrader.controls.*;
 import spacetrader.controls.Button;
+import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
-import spacetrader.game.enums.AlertType;
 import spacetrader.game.*;
+import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
 import java.util.List;
@@ -20,25 +21,25 @@ class SystemPanel extends Panel {
     private GameController controller = null;
     private Commander commander;
 
-    private Button newsButton;
-    private Button specialButton;
-    private Button hireMercenaryButton;
-    private Label systemGovernmentLabel;
-    private Label systemNameLabelValue;
-    private Label systemNameLabel;
-    private Label systemPiratesLabelValue;
-    private Label systemPiratesLabel;
-    private Label systemPoliceLabelValue;
-    private Label systemPoliceLabel;
-    private Label systemGovernmentLabelValue;
-    private Label systemPressureLabelValue;
-    private Label systemPressureLabel;
-    private Label systemResourcesLabelValue;
-    private Label systemResourcesLabel;
-    private Label systemSizeLabelValue;
-    private Label systemSizeLabel;
-    private Label systemTechLevelLabelValue;
-    private Label systemTechLevelLabel;
+    private Button newsButton = new Button();
+    private Button specialButton = new Button();
+    private Button hireMercenaryButton = new Button();
+    private Label systemGovernmentLabel = new Label();
+    private Label systemNameLabelValue = new Label();
+    private Label systemNameLabel = new Label();
+    private Label systemPiratesLabelValue = new Label();
+    private Label systemPiratesLabel = new Label();
+    private Label systemPoliceLabelValue = new Label();
+    private Label systemPoliceLabel = new Label();
+    private Label systemGovernmentLabelValue = new Label();
+    private Label systemPressureLabelValue = new Label();
+    private Label systemPressureLabel = new Label();
+    private Label systemResourcesLabelValue = new Label();
+    private Label systemResourcesLabel = new Label();
+    private Label systemSizeLabelValue = new Label();
+    private Label systemSizeLabel = new Label();
+    private Label systemTechLevelLabelValue = new Label();
+    private Label systemTechLevelLabel = new Label();
 
     SystemPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
@@ -51,150 +52,109 @@ class SystemPanel extends Panel {
     }
 
     public void initializeComponent() {
-        hireMercenaryButton = new Button();
-        specialButton = new Button();
-        newsButton = new Button();
-
-        systemNameLabel = new Label();
-        systemNameLabelValue = new Label();
-        systemSizeLabel = new Label();
-        systemSizeLabelValue = new Label();
-        systemTechLevelLabel = new Label();
-        systemTechLevelLabelValue = new Label();
-        systemGovernmentLabel = new Label();
-        systemGovernmentLabelValue = new Label();
-        systemResourcesLabel = new Label();
-        systemResourcesLabelValue = new Label();
-        systemPoliceLabel = new Label();
-        systemPoliceLabelValue = new Label();
-        systemPiratesLabel = new Label();
-        systemPiratesLabelValue = new Label();
-        systemPressureLabel = new Label();
-        systemPressureLabelValue = new Label();
-
-        getControls().add(hireMercenaryButton);
-        getControls().add(specialButton);
-        getControls().add(newsButton);
-        getControls().add(systemPressureLabelValue);
-        getControls().add(systemPressureLabel);
-        getControls().add(systemGovernmentLabelValue);
-        getControls().add(systemSizeLabelValue);
-        getControls().add(systemTechLevelLabelValue);
-        getControls().add(systemPiratesLabelValue);
-        getControls().add(systemPoliceLabelValue);
-        getControls().add(systemResourcesLabelValue);
-        getControls().add(systemPiratesLabel);
-        getControls().add(systemPoliceLabel);
-        getControls().add(systemResourcesLabel);
-        getControls().add(systemGovernmentLabel);
-        getControls().add(systemTechLevelLabel);
-        getControls().add(systemSizeLabel);
-        getControls().add(systemNameLabelValue);
-        getControls().add(systemNameLabel);
-
-        setSize(new Size(240, 206));
-        setTabIndex(1);
+        setSize(240, 206);
         setTabStop(false);
+        setName("systemPanel");
         setText("System Info");
 
         systemNameLabel.setAutoSize(true);
         systemNameLabel.setFont(FontCollection.bold825);
-        systemNameLabel.setLocation(new Point(8, 16));
-        systemNameLabel.setSize(new Size(39, 16));
+        systemNameLabel.setLocation(8, 16);
+        systemNameLabel.setSize(39, 16);
         systemNameLabel.setTabIndex(0);
         systemNameLabel.setText("Name:");
 
-        systemNameLabelValue.setLocation(new Point(88, 16));
-        systemNameLabelValue.setSize(new Size(65, 13));
+        systemNameLabelValue.setLocation(88, 16);
+        systemNameLabelValue.setSize(65, 13);
         systemNameLabelValue.setTabIndex(1);
         //systemNameLabelValue.setText("Tarchannen");
 
         systemSizeLabel.setAutoSize(true);
         systemSizeLabel.setFont(FontCollection.bold825);
-        systemSizeLabel.setLocation(new Point(8, 32));
-        systemSizeLabel.setSize(new Size(31, 16));
+        systemSizeLabel.setLocation(8, 32);
+        systemSizeLabel.setSize(31, 16);
         systemSizeLabel.setTabIndex(2);
         systemSizeLabel.setText("Size:");
 
-        systemSizeLabelValue.setLocation(new Point(88, 32));
-        systemSizeLabelValue.setSize(new Size(45, 13));
+        systemSizeLabelValue.setLocation(88, 32);
+        systemSizeLabelValue.setSize(45, 13);
         systemSizeLabelValue.setTabIndex(14);
         //systemSizeLabelValue.setText("Medium");
 
         systemTechLevelLabel.setAutoSize(true);
         systemTechLevelLabel.setFont(FontCollection.bold825);
-        systemTechLevelLabel.setLocation(new Point(8, 48));
-        systemTechLevelLabel.setSize(new Size(65, 16));
+        systemTechLevelLabel.setLocation(8, 48);
+        systemTechLevelLabel.setSize(65, 16);
         systemTechLevelLabel.setTabIndex(3);
         systemTechLevelLabel.setText("Tech Level:");
 
-        systemTechLevelLabelValue.setLocation(new Point(88, 48));
-        systemTechLevelLabelValue.setSize(new Size(82, 13));
+        systemTechLevelLabelValue.setLocation(88, 48);
+        systemTechLevelLabelValue.setSize(82, 13);
         systemTechLevelLabelValue.setTabIndex(13);
         //systemTechLevelLabelValue.setText("Pre-Agricultural");
 
         systemGovernmentLabel.setAutoSize(true);
         systemGovernmentLabel.setFont(FontCollection.bold825);
-        systemGovernmentLabel.setLocation(new Point(8, 64));
-        systemGovernmentLabel.setSize(new Size(72, 16));
+        systemGovernmentLabel.setLocation(8, 64);
+        systemGovernmentLabel.setSize(72, 16);
         systemGovernmentLabel.setTabIndex(4);
         systemGovernmentLabel.setText("Government:");
 
-        systemGovernmentLabelValue.setLocation(new Point(88, 64));
-        systemGovernmentLabelValue.setSize(new Size(91, 13));
+        systemGovernmentLabelValue.setLocation(88, 64);
+        systemGovernmentLabelValue.setSize(91, 13);
         systemGovernmentLabelValue.setTabIndex(15);
         //systemGovernmentLabelValue.setText("Cybernetic State");
 
         systemResourcesLabel.setAutoSize(true);
         systemResourcesLabel.setFont(FontCollection.bold825);
-        systemResourcesLabel.setLocation(new Point(8, 80));
-        systemResourcesLabel.setSize(new Size(58, 16));
+        systemResourcesLabel.setLocation(8, 80);
+        systemResourcesLabel.setSize(58, 16);
         systemResourcesLabel.setTabIndex(5);
         systemResourcesLabel.setText("Resource:");
 
-        systemResourcesLabelValue.setLocation(new Point(88, 80));
-        systemResourcesLabelValue.setSize(new Size(105, 13));
+        systemResourcesLabelValue.setLocation(88, 80);
+        systemResourcesLabelValue.setSize(105, 13);
         systemResourcesLabelValue.setTabIndex(9);
         //systemResourcesLabelValue.setText("Sweetwater Oceans");
 
         systemPoliceLabel.setAutoSize(true);
         systemPoliceLabel.setFont(FontCollection.bold825);
-        systemPoliceLabel.setLocation(new Point(8, 96));
-        systemPoliceLabel.setSize(new Size(40, 16));
+        systemPoliceLabel.setLocation(8, 96);
+        systemPoliceLabel.setSize(40, 16);
         systemPoliceLabel.setTabIndex(6);
         systemPoliceLabel.setText("Police:");
 
-        systemPoliceLabelValue.setLocation(new Point(88, 96));
-        systemPoliceLabelValue.setSize(new Size(53, 13));
+        systemPoliceLabelValue.setLocation(88, 96);
+        systemPoliceLabelValue.setSize(53, 13);
         systemPoliceLabelValue.setTabIndex(10);
         //systemPoliceLabelValue.setText("Moderate");
 
         systemPiratesLabel.setAutoSize(true);
         systemPiratesLabel.setFont(FontCollection.bold825);
-        systemPiratesLabel.setLocation(new Point(8, 112));
-        systemPiratesLabel.setSize(new Size(44, 16));
+        systemPiratesLabel.setLocation(8, 112);
+        systemPiratesLabel.setSize(44, 16);
         systemPiratesLabel.setTabIndex(7);
         systemPiratesLabel.setText("Pirates:");
 
-        systemPiratesLabelValue.setLocation(new Point(88, 112));
-        systemPiratesLabelValue.setSize(new Size(53, 13));
+        systemPiratesLabelValue.setLocation(88, 112);
+        systemPiratesLabelValue.setSize(53, 13);
         systemPiratesLabelValue.setTabIndex(11);
         //systemPiratesLabelValue.setText("Abundant");
 
         systemPressureLabel.setAutoSize(true);
-        systemPressureLabel.setLocation(new Point(8, 134));
-        systemPressureLabel.setSize(new Size(122, 16));
+        systemPressureLabel.setLocation(8, 134);
+        systemPressureLabel.setSize(122, 16);
         systemPressureLabel.setTabIndex(17);
         systemPressureLabel.setText("This system is currently");
 
-        systemPressureLabelValue.setLocation(new Point(8, 147));
-        systemPressureLabelValue.setSize(new Size(168, 16));
+        systemPressureLabelValue.setLocation(8, 147);
+        systemPressureLabelValue.setSize(168, 16);
         systemPressureLabelValue.setTabIndex(18);
         //systemPressureLabelValue.setText("suffering from extreme bordom.");
 
         newsButton.setFlatStyle(FlatStyle.FLAT);
-        newsButton.setLocation(new Point(8, 174));
-        newsButton.setSize(new Size(42, 22));
+        newsButton.setLocation(8, 174);
+        newsButton.setSize(42, 22);
         newsButton.setTabIndex(1);
         newsButton.setText("News");
         newsButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -206,8 +166,8 @@ class SystemPanel extends Panel {
 
         specialButton.setBackground(new Color(255, 255, 128));
         specialButton.setFlatStyle(FlatStyle.FLAT);
-        specialButton.setLocation(new Point(58, 174));
-        specialButton.setSize(new Size(52, 22));
+        specialButton.setLocation(58, 174);
+        specialButton.setSize(52, 22);
         specialButton.setTabIndex(2);
         specialButton.setText("Special");
         specialButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -218,8 +178,8 @@ class SystemPanel extends Panel {
         });
 
         hireMercenaryButton.setFlatStyle(FlatStyle.FLAT);
-        hireMercenaryButton.setLocation(new Point(118, 174));
-        hireMercenaryButton.setSize(new Size(112, 22));
+        hireMercenaryButton.setLocation(118, 174);
+        hireMercenaryButton.setSize(112, 22);
         hireMercenaryButton.setTabIndex(3);
         hireMercenaryButton.setText("Mercenary For Hire");
         hireMercenaryButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -228,6 +188,16 @@ class SystemPanel extends Panel {
                 hireMercenaryButtonClick();
             }
         });
+
+
+        getControls().addAll(systemNameLabel, systemNameLabelValue, systemSizeLabel, systemSizeLabelValue,
+                systemTechLevelLabel, systemTechLevelLabelValue, systemGovernmentLabel, systemGovernmentLabelValue,
+                systemResourcesLabel, systemResourcesLabelValue, systemPoliceLabel, systemPoliceLabelValue,
+                systemPiratesLabel, systemPiratesLabelValue, systemPressureLabel, systemPressureLabelValue,
+                newsButton, specialButton, hireMercenaryButton);
+
+        //TODO for all panels - need???
+        ReflectionUtils.loadControlsData(this);
     }
 
     void update() {

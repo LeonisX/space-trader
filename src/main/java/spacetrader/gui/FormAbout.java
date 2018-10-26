@@ -26,17 +26,11 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.Button;
-import spacetrader.controls.Image;
-import spacetrader.controls.Label;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.game.GlobalAssets;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
-
-import java.awt.*;
 
 public class FormAbout extends WinformForm {
 
@@ -45,7 +39,7 @@ public class FormAbout extends WinformForm {
     private Label aboutLabel = new Label();
     private Button closeButton = new Button();
 
-    FormAbout() {
+    public FormAbout() {
         initializeComponent();
     }
 
@@ -101,8 +95,7 @@ public class FormAbout extends WinformForm {
         controls.addAll(logoPicture, aboutLabel, titleLabel, closeButton);
 
         performLayout();
-        
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+
+        ReflectionUtils.loadControlsData(this);
     }
 }

@@ -24,15 +24,11 @@
  ******************************************************************************/
 package spacetrader.gui;
 
-import spacetrader.controls.*;
 import spacetrader.controls.Button;
+import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.BorderStyle;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.controls.enums.*;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.EquipmentType;
@@ -84,11 +80,11 @@ public class FormEquipment extends SpaceTraderForm {
     private Label buyGadgetsNoneLabel = new Label();
     private Button closeButton = new Button();
 
-    ListBox[] buyListBoxes = new ListBox[]{buyWeaponsListBox, buyShieldsListBox, buyGadgetsListBox};
-    Label[] buyNoneLabels = new Label[]{buyWeaponNoneLabel, buyShieldsNoneLabel, buyGadgetsNoneLabel};
+    private ListBox[] buyListBoxes = new ListBox[]{buyWeaponsListBox, buyShieldsListBox, buyGadgetsListBox};
+    private Label[] buyNoneLabels = new Label[]{buyWeaponNoneLabel, buyShieldsNoneLabel, buyGadgetsNoneLabel};
 
-    ListBox[] sellBoxes = new ListBox[]{sellWeaponsListBox, sellShieldsListBox, sellGadgetsListBox};
-    Label[] sellLabels = new Label[]{sellWeaponsNoSlotsLabel, sellShieldsNoSlotsLabel, sellGadgetsNoSlotsLabel};
+    private ListBox[] sellBoxes = new ListBox[]{sellWeaponsListBox, sellShieldsListBox, sellGadgetsListBox};
+    private Label[] sellLabels = new Label[]{sellWeaponsNoSlotsLabel, sellShieldsNoSlotsLabel, sellGadgetsNoSlotsLabel};
 
     private Game game = Game.getCurrentGame();
 
@@ -104,13 +100,14 @@ public class FormEquipment extends SpaceTraderForm {
         updateSell();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         FormEquipment form = new FormEquipment();
         Launcher.runForm(form);
     }
 
     private void initializeComponent() {
         ReflectionUtils.setAllComponentNames(this);
+
         currentInventoryPanel.suspendLayout();
         equipmentForSalePanel.suspendLayout();
         equipmentInformationPanel.suspendLayout();
@@ -120,27 +117,27 @@ public class FormEquipment extends SpaceTraderForm {
         setText("Buy/Sell Equipment");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(522, 311));
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(522, 311);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        currentInventoryPanel.setLocation(new Point(4, 2));
-        currentInventoryPanel.setSize(new Size(144, 304));
+        currentInventoryPanel.setLocation(4, 2);
+        currentInventoryPanel.setSize(144, 304);
         currentInventoryPanel.setTabStop(false);
         currentInventoryPanel.setText("Current Inventory");
 
         sellWeaponsLabel.setAutoSize(true);
-        sellWeaponsLabel.setLocation(new Point(8, 20));
-        sellWeaponsLabel.setSize(new Size(52, 16));
+        sellWeaponsLabel.setLocation(8, 20);
+        sellWeaponsLabel.setSize(52, 16);
         sellWeaponsLabel.setTabIndex(144);
         sellWeaponsLabel.setText("Weapons");
 
         sellWeaponsListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        sellWeaponsListBox.setLocation(new Point(8, 36));
-        sellWeaponsListBox.setSize(new Size(128, 67));
+        sellWeaponsListBox.setLocation(8, 36);
+        sellWeaponsListBox.setSize(128, 67);
         sellWeaponsListBox.setTabIndex(1);
         sellWeaponsListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -153,21 +150,21 @@ public class FormEquipment extends SpaceTraderForm {
             }
         });
 
-        sellWeaponsNoSlotsLabel.setLocation(new Point(24, 36));
-        sellWeaponsNoSlotsLabel.setSize(new Size(104, 16));
+        sellWeaponsNoSlotsLabel.setLocation(24, 36);
+        sellWeaponsNoSlotsLabel.setSize(104, 16);
         sellWeaponsNoSlotsLabel.setTabIndex(147);
         sellWeaponsNoSlotsLabel.setText("No slots");
         sellWeaponsNoSlotsLabel.setVisible(false);
 
         sellShieldsLabel.setAutoSize(true);
-        sellShieldsLabel.setLocation(new Point(8, 116));
-        sellShieldsLabel.setSize(new Size(41, 16));
+        sellShieldsLabel.setLocation(8, 116);
+        sellShieldsLabel.setSize(41, 16);
         sellShieldsLabel.setTabIndex(145);
         sellShieldsLabel.setText("Shields");
 
         sellShieldsListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        sellShieldsListBox.setLocation(new Point(8, 132));
-        sellShieldsListBox.setSize(new Size(128, 67));
+        sellShieldsListBox.setLocation(8, 132);
+        sellShieldsListBox.setSize(128, 67);
         sellShieldsListBox.setTabIndex(2);
         sellShieldsListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -180,21 +177,21 @@ public class FormEquipment extends SpaceTraderForm {
             }
         });
 
-        sellShieldsNoSlotsLabel.setLocation(new Point(24, 132));
-        sellShieldsNoSlotsLabel.setSize(new Size(104, 16));
+        sellShieldsNoSlotsLabel.setLocation(24, 132);
+        sellShieldsNoSlotsLabel.setSize(104, 16);
         sellShieldsNoSlotsLabel.setTabIndex(148);
         sellShieldsNoSlotsLabel.setText("No slots");
         sellShieldsNoSlotsLabel.setVisible(false);
 
         sellGadgetsLabel.setAutoSize(true);
-        sellGadgetsLabel.setLocation(new Point(8, 212));
-        sellGadgetsLabel.setSize(new Size(47, 16));
+        sellGadgetsLabel.setLocation(8, 212);
+        sellGadgetsLabel.setSize(47, 16);
         sellGadgetsLabel.setTabIndex(146);
         sellGadgetsLabel.setText("Gadgets");
 
         sellGadgetsListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        sellGadgetsListBox.setLocation(new Point(8, 228));
-        sellGadgetsListBox.setSize(new Size(128, 67));
+        sellGadgetsListBox.setLocation(8, 228);
+        sellGadgetsListBox.setSize(128, 67);
         sellGadgetsListBox.setTabIndex(3);
         sellGadgetsListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -207,8 +204,8 @@ public class FormEquipment extends SpaceTraderForm {
             }
         });
 
-        sellGadgetsNoSlotsLabel.setLocation(new Point(24, 228));
-        sellGadgetsNoSlotsLabel.setSize(new Size(104, 16));
+        sellGadgetsNoSlotsLabel.setLocation(24, 228);
+        sellGadgetsNoSlotsLabel.setSize(104, 16);
         sellGadgetsNoSlotsLabel.setTabIndex(149);
         sellGadgetsNoSlotsLabel.setText("No slots");
         sellGadgetsNoSlotsLabel.setVisible(false);
@@ -217,20 +214,20 @@ public class FormEquipment extends SpaceTraderForm {
         currentInventoryPanel.getControls().addAll(sellShieldsLabel, sellShieldsListBox, sellShieldsNoSlotsLabel);
         currentInventoryPanel.getControls().addAll(sellGadgetsLabel, sellGadgetsListBox, sellGadgetsNoSlotsLabel);
 
-        equipmentForSalePanel.setLocation(new Point(156, 2));
-        equipmentForSalePanel.setSize(new Size(144, 304));
+        equipmentForSalePanel.setLocation(156, 2);
+        equipmentForSalePanel.setSize(144, 304);
         equipmentForSalePanel.setTabStop(false);
         equipmentForSalePanel.setText("Equipment For Sale");
 
         buyWeaponsLabel.setAutoSize(true);
-        buyWeaponsLabel.setLocation(new Point(8, 20));
-        buyWeaponsLabel.setSize(new Size(52, 16));
+        buyWeaponsLabel.setLocation(8, 20);
+        buyWeaponsLabel.setSize(52, 16);
         buyWeaponsLabel.setTabIndex(141);
         buyWeaponsLabel.setText("Weapons");
 
         buyWeaponsListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        buyWeaponsListBox.setLocation(new Point(8, 36));
-        buyWeaponsListBox.setSize(new Size(128, 67));
+        buyWeaponsListBox.setLocation(8, 36);
+        buyWeaponsListBox.setSize(128, 67);
         buyWeaponsListBox.setTabIndex(4);
         buyWeaponsListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -243,21 +240,21 @@ public class FormEquipment extends SpaceTraderForm {
             }
         });
 
-        buyWeaponNoneLabel.setLocation(new Point(24, 36));
-        buyWeaponNoneLabel.setSize(new Size(104, 16));
+        buyWeaponNoneLabel.setLocation(24, 36);
+        buyWeaponNoneLabel.setSize(104, 16);
         buyWeaponNoneLabel.setTabIndex(148);
         buyWeaponNoneLabel.setText("None for sale");
         buyWeaponNoneLabel.setVisible(false);
 
         buyShieldsLabel.setAutoSize(true);
-        buyShieldsLabel.setLocation(new Point(8, 116));
-        buyShieldsLabel.setSize(new Size(41, 16));
+        buyShieldsLabel.setLocation(8, 116);
+        buyShieldsLabel.setSize(41, 16);
         buyShieldsLabel.setTabIndex(142);
         buyShieldsLabel.setText("Shields");
 
         buyShieldsListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        buyShieldsListBox.setLocation(new Point(8, 132));
-        buyShieldsListBox.setSize(new Size(128, 67));
+        buyShieldsListBox.setLocation(8, 132);
+        buyShieldsListBox.setSize(128, 67);
         buyShieldsListBox.setTabIndex(5);
         buyShieldsListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -270,21 +267,21 @@ public class FormEquipment extends SpaceTraderForm {
             }
         });
 
-        buyShieldsNoneLabel.setLocation(new Point(24, 132));
-        buyShieldsNoneLabel.setSize(new Size(104, 16));
+        buyShieldsNoneLabel.setLocation(24, 132);
+        buyShieldsNoneLabel.setSize(104, 16);
         buyShieldsNoneLabel.setTabIndex(149);
         buyShieldsNoneLabel.setText("None for sale");
         buyShieldsNoneLabel.setVisible(false);
 
         buyGadgetsLabel.setAutoSize(true);
-        buyGadgetsLabel.setLocation(new Point(8, 212));
-        buyGadgetsLabel.setSize(new Size(47, 16));
+        buyGadgetsLabel.setLocation(8, 212);
+        buyGadgetsLabel.setSize(47, 16);
         buyGadgetsLabel.setTabIndex(143);
         buyGadgetsLabel.setText("Gadgets");
 
         buyGadgetsListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        buyGadgetsListBox.setLocation(new Point(8, 228));
-        buyGadgetsListBox.setSize(new Size(128, 67));
+        buyGadgetsListBox.setLocation(8, 228);
+        buyGadgetsListBox.setSize(128, 67);
         buyGadgetsListBox.setTabIndex(6);
         buyGadgetsListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -297,8 +294,8 @@ public class FormEquipment extends SpaceTraderForm {
             }
         });
 
-        buyGadgetsNoneLabel.setLocation(new Point(24, 228));
-        buyGadgetsNoneLabel.setSize(new Size(104, 16));
+        buyGadgetsNoneLabel.setLocation(24, 228);
+        buyGadgetsNoneLabel.setSize(104, 16);
         buyGadgetsNoneLabel.setTabIndex(150);
         buyGadgetsNoneLabel.setText("None for sale");
         buyGadgetsNoneLabel.setVisible(false);
@@ -307,97 +304,97 @@ public class FormEquipment extends SpaceTraderForm {
         equipmentForSalePanel.getControls().addAll(buyShieldsLabel, buyShieldsListBox, buyShieldsNoneLabel);
         equipmentForSalePanel.getControls().addAll(buyGadgetsLabel, buyGadgetsListBox, buyGadgetsNoneLabel);
 
-        equipmentInformationPanel.setLocation(new Point(308, 2));
-        equipmentInformationPanel.setSize(new Size(208, 304));
+        equipmentInformationPanel.setLocation(308, 2);
+        equipmentInformationPanel.setSize(208, 304);
         equipmentInformationPanel.setTabStop(false);
         equipmentInformationPanel.setText("Equipment Information");
 
         equipmentPictureBox.setBackground(Color.WHITE);
         equipmentPictureBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        equipmentPictureBox.setLocation(new Point(71, 20));
-        equipmentPictureBox.setSize(new Size(66, 54));
+        equipmentPictureBox.setLocation(71, 20);
+        equipmentPictureBox.setSize(66, 54);
         equipmentPictureBox.setTabStop(false);
         equipmentPictureBox.setVisible(false);
 
         nameLabel.setAutoSize(true);
         nameLabel.setFont(FontCollection.bold825);
-        nameLabel.setLocation(new Point(8, 84));
-        nameLabel.setSize(new Size(39, 16));
+        nameLabel.setLocation(8, 84);
+        nameLabel.setSize(39, 16);
         nameLabel.setTabIndex(61);
         nameLabel.setText("Name:");
 
-        nameLabelValue.setLocation(new Point(80, 84));
-        nameLabelValue.setSize(new Size(116, 16));
+        nameLabelValue.setLocation(80, 84);
+        nameLabelValue.setSize(116, 16);
         nameLabelValue.setTabIndex(35);
         //nameLabelValue.setText("Auto-Repair System");
 
         typeLabel.setAutoSize(true);
         typeLabel.setFont(FontCollection.bold825);
-        typeLabel.setLocation(new Point(8, 100));
-        typeLabel.setSize(new Size(34, 16));
+        typeLabel.setLocation(8, 100);
+        typeLabel.setSize(34, 16);
         typeLabel.setTabIndex(62);
         typeLabel.setText("Type:");
 
-        typeLabelValue.setLocation(new Point(80, 100));
-        typeLabelValue.setSize(new Size(116, 16));
+        typeLabelValue.setLocation(80, 100);
+        typeLabelValue.setSize(116, 16);
         typeLabelValue.setTabIndex(63);
         //typeLabelValue.setText("Weapon");
 
         buyPriceLabel.setAutoSize(true);
         buyPriceLabel.setFont(FontCollection.bold825);
-        buyPriceLabel.setLocation(new Point(8, 116));
-        buyPriceLabel.setSize(new Size(58, 16));
+        buyPriceLabel.setLocation(8, 116);
+        buyPriceLabel.setSize(58, 16);
         buyPriceLabel.setTabIndex(57);
         buyPriceLabel.setText("Buy Price:");
 
-        buyPriceLabelValue.setLocation(new Point(80, 116));
-        buyPriceLabelValue.setSize(new Size(116, 16));
+        buyPriceLabelValue.setLocation(80, 116);
+        buyPriceLabelValue.setSize(116, 16);
         buyPriceLabelValue.setTabIndex(56);
         //buyPriceLabelValue.setText("888,888 cr.");
 
         sellPriceLabel.setAutoSize(true);
         sellPriceLabel.setFont(FontCollection.bold825);
-        sellPriceLabel.setLocation(new Point(8, 132));
-        sellPriceLabel.setSize(new Size(58, 16));
+        sellPriceLabel.setLocation(8, 132);
+        sellPriceLabel.setSize(58, 16);
         sellPriceLabel.setTabIndex(55);
         sellPriceLabel.setText("Sell Price:");
 
-        sellPriceLabelValue.setLocation(new Point(80, 132));
-        sellPriceLabelValue.setSize(new Size(116, 16));
+        sellPriceLabelValue.setLocation(80, 132);
+        sellPriceLabelValue.setSize(116, 16);
         sellPriceLabelValue.setTabIndex(52);
         //sellPriceLabelValue.setText("888,888 cr.");
 
         powerLabel.setAutoSize(true);
         powerLabel.setFont(FontCollection.bold825);
-        powerLabel.setLocation(new Point(8, 148));
-        powerLabel.setSize(new Size(41, 16));
+        powerLabel.setLocation(8, 148);
+        powerLabel.setSize(41, 16);
         powerLabel.setTabIndex(64);
         powerLabel.setText("Power:");
 
-        powerLabelValue.setLocation(new Point(80, 148));
-        powerLabelValue.setSize(new Size(116, 16));
+        powerLabelValue.setLocation(80, 148);
+        powerLabelValue.setSize(116, 16);
         powerLabelValue.setTabIndex(66);
         //powerLabelValue.setText("888");
 
         chargeLabel.setAutoSize(true);
         chargeLabel.setFont(FontCollection.bold825);
-        chargeLabel.setLocation(new Point(8, 164));
-        chargeLabel.setSize(new Size(46, 16));
+        chargeLabel.setLocation(8, 164);
+        chargeLabel.setSize(46, 16);
         chargeLabel.setTabIndex(65);
         chargeLabel.setText("Charge:");
 
-        chargeLabelValue.setLocation(new Point(80, 164));
-        chargeLabelValue.setSize(new Size(116, 16));
+        chargeLabelValue.setLocation(80, 164);
+        chargeLabelValue.setSize(116, 16);
         chargeLabelValue.setTabIndex(67);
         //chargeLabelValue.setText("888");
 
-        descriptionLabel.setLocation(new Point(8, 188));
-        descriptionLabel.setSize(new Size(196, 75));
+        descriptionLabel.setLocation(8, 188);
+        descriptionLabel.setSize(196, 75);
         descriptionLabel.setTabIndex(47);
 
         sellButton.setFlatStyle(FlatStyle.FLAT);
-        sellButton.setLocation(new Point(103, 272));
-        sellButton.setSize(new Size(58, 22));
+        sellButton.setLocation(103, 272);
+        sellButton.setSize(58, 22);
         sellButton.setTabIndex(8);
         sellButton.setText("Sell");
         sellButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -407,8 +404,8 @@ public class FormEquipment extends SpaceTraderForm {
         });
 
         buyButton.setFlatStyle(FlatStyle.FLAT);
-        buyButton.setLocation(new Point(31, 272));
-        buyButton.setSize(new Size(58, 22));
+        buyButton.setLocation(31, 272);
+        buyButton.setSize(58, 22);
         buyButton.setTabIndex(7);
         buyButton.setText("Buy");
         buyButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -422,12 +419,14 @@ public class FormEquipment extends SpaceTraderForm {
                 powerLabelValue, chargeLabel, chargeLabelValue, descriptionLabel, sellButton, buyButton);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
-        closeButton.setLocation(new Point(-32, -32));
-        closeButton.setSize(new Size(32, 32));
+        closeButton.setLocation(-32, -32);
+        closeButton.setSize(32, 32);
         closeButton.setTabStop(false);
         //closeButton.setText("X");
 
         controls.addAll(currentInventoryPanel, equipmentForSalePanel, equipmentInformationPanel, closeButton);
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void deselectAll() {

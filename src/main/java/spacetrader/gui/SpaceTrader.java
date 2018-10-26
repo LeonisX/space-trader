@@ -20,28 +20,13 @@
 
 package spacetrader.gui;
 
-import static spacetrader.controls.MenuItem.separator;
-
-import java.awt.Point;
-import spacetrader.controls.CancelEventArgs;
+import spacetrader.controls.*;
 import spacetrader.controls.Container;
+import spacetrader.controls.MenuItem;
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.EventArgs;
-import spacetrader.controls.EventHandler;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.controls.HorizontalLine;
-import spacetrader.controls.IContainer;
-import spacetrader.controls.Icon;
-import spacetrader.controls.MainMenu;
-import spacetrader.controls.MenuItem;
-import spacetrader.controls.OpenFileDialog;
-import spacetrader.controls.ResourceManager;
-import spacetrader.controls.SaveFileDialog;
 import spacetrader.controls.enums.Shortcut;
-import spacetrader.controls.Size;
-import spacetrader.controls.SubMenu;
-import spacetrader.controls.WinformWindow;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
@@ -50,6 +35,8 @@ import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
 import spacetrader.stub.RegistryKey;
 import spacetrader.util.ReflectionUtils;
+
+import static spacetrader.controls.MenuItem.separator;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
 
@@ -127,15 +114,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         //this.suspendLayout();
 
         this.setClientSize(GlobalAssets.getDimensions().getSize(this.getName()));
-        controls.add(horizontalLine);
-        controls.add(dockPanel);
-        controls.add(cargoPanel);
-        controls.add(targetSystemPanel);
-        controls.add(galacticChartPanel);
-        controls.add(shortRangeChartPanel);
-
-        controls.add(systemPanel);
-        controls.add(shipyardPanel);
+        controls.addAll(horizontalLine, dockPanel, cargoPanel, targetSystemPanel, galacticChartPanel,
+                shortRangeChartPanel, systemPanel, shipyardPanel);
 
         setStatusBar(statusBar);
         this.setMenu(mainMenu);
@@ -148,22 +128,24 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         this.setClosing(new spacetrader.controls.EventHandler<Object, CancelEventArgs>() {
             @Override
             public void handle(Object sender, CancelEventArgs e) {
-                SpaceTrader_Closing(e);
+                spaceTraderClosing(e);
             }
         });
         this.setClosed(new spacetrader.controls.EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                SpaceTrader_Closed();
+                spaceTraderClosed();
             }
         });
 
         this.setLoad(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                SpaceTrader_Load();
+                spaceTraderLoad();
             }
         });
+
+        //ReflectionUtils.loadControlsData(this);
     }
 
     private void initializeComponents() {
@@ -193,25 +175,25 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         // shipyard galactic shortRange target
 
         systemPanel.initializeComponent();
-        systemPanel.setLocation(new Point(4, 2));
+        systemPanel.setLocation(4, 2);
 
         cargoPanel.initializeComponent();
-        cargoPanel.setLocation(new Point(252, 2));
+        cargoPanel.setLocation(252, 2);
 
         dockPanel.initializeComponent();
-        dockPanel.setLocation(new Point(4, 212));
+        dockPanel.setLocation(4, 212);
 
         shipyardPanel.initializeComponent();
-        shipyardPanel.setLocation(new Point(4, 306));
+        shipyardPanel.setLocation(4, 306);
 
         galacticChartPanel.initializeComponent();
-        galacticChartPanel.setLocation(new Point(180, 306));
+        galacticChartPanel.setLocation(180, 306);
 
         shortRangeChartPanel.initializeComponent();
-        shortRangeChartPanel.setLocation(new Point(364, 306));
+        shortRangeChartPanel.setLocation(364, 306);
 
         targetSystemPanel.initializeComponent();
-        targetSystemPanel.setLocation(new Point(548, 306));
+        targetSystemPanel.setLocation(548, 306);
     }
 
     private void initializeMenu() {
@@ -239,8 +221,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         mainMenu.addAll(gameSubMenu, viewSubMenu, helpSubMenu);
 
-        gameSubMenu.addAll(newGameMenuItem, loadGameMenuItem, saveGameMenuItem, saveGameAsMenuItem, separator(), retireGameMenuItem, separator(),
-                exitGameMenuItem);
+        gameSubMenu.addAll(newGameMenuItem, loadGameMenuItem, saveGameMenuItem, saveGameAsMenuItem, separator(), 
+                retireGameMenuItem, separator(), exitGameMenuItem);
 
         //TODO remove all setText after dump all strings
         gameSubMenu.setText("&Game");
@@ -258,7 +240,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         loadGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuGameLoad_Click();
+                loadGameMenuItemClick();
             }
         });
 
@@ -268,7 +250,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         saveGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuGameSave_Click();
+                saveGameMenuItemClick();
             }
         });
 
@@ -278,7 +260,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         saveGameAsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuGameSaveAs_Click();
+                saveGameAsMenuItemClick();
             }
         });
 
@@ -287,7 +269,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         retireGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuRetire_Click();
+                retireGameMenuItemClick();
             }
         });
 
@@ -295,12 +277,12 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         exitGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuGameExit_Click();
+                exitGameMenuItemClick();
             }
         });
 
-        viewSubMenu.addAll(commanderMenuItem, shipMenuItem, personnelMenuItem, questsMenuItem, bankMenuItem, separator(),
-                highScoresMenuItem, separator(), optionsMenuItem);
+        viewSubMenu.addAll(commanderMenuItem, shipMenuItem, personnelMenuItem, questsMenuItem, bankMenuItem, 
+                separator(), highScoresMenuItem, separator(), optionsMenuItem);
 
         viewSubMenu.setText("&View");
 
@@ -310,7 +292,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         commanderMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuViewCommander_Click();
+                commanderMenuItemClick();
             }
         });
 
@@ -320,7 +302,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         shipMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuViewShip_Click();
+                shipMenuItemClick();
             }
         });
 
@@ -330,7 +312,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         personnelMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuViewPersonnel_Click();
+                personnelMenuItemClick();
             }
         });
 
@@ -340,7 +322,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         questsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuViewQuests_Click();
+                questsMenuItemClick();
             }
         });
 
@@ -350,7 +332,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         bankMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuViewBank_Click();
+                bankMenuItemClick();
             }
         });
 
@@ -358,7 +340,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         highScoresMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuHighScores_Click();
+                highScoresMenuItemClick();
             }
         });
 
@@ -366,7 +348,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         optionsMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuOptions_Click();
+                optionsMenuItemClick();
             }
         });
 
@@ -377,7 +359,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         aboutMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuHelpAbout_Click();
+                aboutMenuItemClick();
             }
         });
     }
@@ -390,8 +372,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void initializePictureBox() {
         horizontalLine = new HorizontalLine();
-        horizontalLine.setLocation(new Point(0, 0));
-        horizontalLine.setSize(new Size(770, 1));
+        horizontalLine.setLocation(0, 0);
+        horizontalLine.setSize(770, 1);
         horizontalLine.setTabStop(false);
     }
 
@@ -411,17 +393,14 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-
-
-
     private String getRegistrySetting(String settingName, String defaultValue) {
         String settingValue = defaultValue;
 
         try {
             RegistryKey key = Functions.getRegistryKey();
-            Object ObjectValue = key.getValue(settingName);
-            if (ObjectValue != null) {
-                settingValue = ObjectValue.toString();
+            Object objectValue = key.getValue(settingName);
+            if (objectValue != null) {
+                settingValue = objectValue.toString();
             }
             key.close();
         } catch (NullPointerException ex) {
@@ -479,7 +458,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         statusBar.update();
     }
 
-    private void SpaceTrader_Closing(CancelEventArgs e) {
+    private void spaceTraderClosing(CancelEventArgs e) {
         if (game == null || commander.getDays() == controller.saveGameDays
                 || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES) {
             if (windowState == FormWindowState.NORMAL) {
@@ -491,11 +470,11 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-    private void SpaceTrader_Closed() {
+    private void spaceTraderClosed() {
         FormsOwnerTree.pop(this);
     }
 
-    private void SpaceTrader_Load() {
+    private void spaceTraderLoad() {
         left = Integer.parseInt(getRegistrySetting("X", "0"));
         top = Integer.parseInt(getRegistrySetting("Y", "0"));
 
@@ -504,7 +483,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         GuiFacade.alert(AlertType.AppStart);
     }
 
-    private void mnuGameExit_Click() {
+    private void exitGameMenuItemClick() {
         close();
     }
 
@@ -527,38 +506,38 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-    private void mnuGameLoad_Click() {
+    private void loadGameMenuItemClick() {
         if ((game == null || commander.getDays() == controller.saveGameDays || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
                 && openFileDialog.showDialog(this) == DialogResult.OK) {
             controller.loadGame(openFileDialog.getFileName());
         }
     }
 
-    private void mnuGameSave_Click() {
+    private void saveGameMenuItemClick() {
         if (Game.getCurrentGame() != null) {
             if (controller.saveGameFile != null) {
                 controller.saveGame(controller.saveGameFile, false);
             } else {
-                mnuGameSaveAs_Click();
+                saveGameAsMenuItemClick();
             }
         }
     }
 
-    private void mnuGameSaveAs_Click() {
+    private void saveGameAsMenuItemClick() {
         if (Game.getCurrentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
             controller.saveGame(saveFileDialog.getFileName(), true);
         }
     }
 
-    private void mnuHelpAbout_Click() {
+    private void aboutMenuItemClick() {
         (new FormAbout()).showDialog(this);
     }
 
-    private void mnuHighScores_Click() {
+    private void highScoresMenuItemClick() {
         (new FormViewHighScores()).showDialog(this);
     }
 
-    private void mnuOptions_Click() {
+    private void optionsMenuItemClick() {
         FormOptions form = new FormOptions();
         if (form.showDialog(this) == DialogResult.OK) {
             game.getOptions().copyValues(form.getOptions());
@@ -566,7 +545,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-    private void mnuRetire_Click() {
+    private void retireGameMenuItemClick() {
         if (GuiFacade.alert(AlertType.GameRetire) == DialogResult.YES) {
             game.setEndStatus(GameEndType.RETIRED);
             controller.gameEnd();
@@ -574,8 +553,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-    //TODO rename all methods
-    private void mnuViewBank_Click() {
+    private void bankMenuItemClick() {
         showBank();
     }
 
@@ -583,23 +561,21 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         (new FormViewBank()).showDialog(this);
     }
 
-    private void mnuViewCommander_Click() {
+    private void commanderMenuItemClick() {
         (new FormViewCommander()).showDialog(this);
     }
 
-    private void mnuViewPersonnel_Click() {
+    private void personnelMenuItemClick() {
         (new FormViewPersonnel()).showDialog(this);
     }
 
-    private void mnuViewQuests_Click() {
+    private void questsMenuItemClick() {
         (new FormViewQuests()).showDialog(this);
     }
 
-    private void mnuViewShip_Click() {
+    private void shipMenuItemClick() {
         (new FormViewShip()).showDialog(this);
     }
-
-
 
     public void setGame(Game game) {
         this.game = game;

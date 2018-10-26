@@ -56,7 +56,7 @@ public class SpaceTraderDevApp {
         Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
 
         List<BaseComponent> components = Arrays.asList(
-                /*spaceTrader,
+                spaceTrader,
                 new FormAbout(),
                 FormAlert.makeDialog(EncounterDrinkContents, new String[]{}),
                 new FormBuyFuel(),
@@ -80,7 +80,7 @@ public class SpaceTraderDevApp {
                 new FormViewCommander(),
                 new FormViewHighScores(),
                 new FormViewPersonnel(),
-                new FormViewQuests(),*/
+                new FormViewQuests(),
                 new FormViewShip()
         );
         dumpAllDimensions(components);

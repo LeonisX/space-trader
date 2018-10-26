@@ -14,6 +14,7 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.ReflectionUtils;
 import spacetrader.util.Util;
 
 import java.awt.*;
@@ -22,8 +23,8 @@ import static spacetrader.gui.ChartsGraphicsConsts.*;
 
 public class GalacticChartPanel extends Panel {
 
-    private final Pen DEFAULT_PEN = new Pen(Color.black);
-    private final Brush DEFAULT_BRUSH = new SolidBrush(Color.white);
+    private final Pen DEFAULT_PEN = new Pen(Color.BLACK);
+    private final Brush DEFAULT_BRUSH = new SolidBrush(Color.WHITE);
 
     private final SpaceTrader mainWindow;
 
@@ -34,11 +35,11 @@ public class GalacticChartPanel extends Panel {
     private Commander commander;
     private GameCheats cheats;
 
-    private Label wormholeLabelValue;
-    private Label wormholeLabel;
-    private Button jumpButton;
-    private Button findButton;
-    private PictureBox galacticChartPicture;
+    private Label wormholeLabelValue = new Label();
+    private Label wormholeLabel = new Label();
+    private Button jumpButton = new Button();
+    private Button findButton = new Button();
+    private PictureBox galacticChartPicture = new PictureBox();
 
     GalacticChartPanel(SpaceTrader mainWindow, ImageList images) {
         this.mainWindow = mainWindow;
@@ -53,29 +54,17 @@ public class GalacticChartPanel extends Panel {
     }
 
     void initializeComponent() {
-        galacticChartPicture = new PictureBox();
-        wormholeLabelValue = new Label();
-        wormholeLabel = new Label();
-        jumpButton = new Button();
-        findButton = new Button();
-
         anchor = AnchorStyles.TOP_RIGHT;
-        setBackground(SystemColors.CONTROL);
-
-        getControls().add(wormholeLabelValue);
-        getControls().add(wormholeLabel);
-        getControls().add(jumpButton);
-        getControls().add(findButton);
-        getControls().add(galacticChartPicture);
-
-        setSize(new Size(176, 168));
-        setTabIndex(5);
-        setTabStop(false);
+        
+        setName("galacticChartPanel");
         setText("Galactic Chart");
-
-        galacticChartPicture.setBackground(Color.white);
-        galacticChartPicture.setLocation(new Point(8, 16));
-        galacticChartPicture.setSize(new Size(160, 116));
+        setBackground(SystemColors.CONTROL);
+        setSize(176, 168);
+        setTabStop(false);
+        
+        galacticChartPicture.setBackground(Color.WHITE);
+        galacticChartPicture.setLocation(8, 16);
+        galacticChartPicture.setSize(160, 116);
         galacticChartPicture.setTabIndex(0);
         galacticChartPicture.setTabStop(false);
         galacticChartPicture.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
@@ -91,19 +80,19 @@ public class GalacticChartPanel extends Panel {
             }
         });
 
-        wormholeLabel.setLocation(new Point(8, 135));
-        wormholeLabel.setSize(new Size(72, 13));
+        wormholeLabel.setLocation(8, 135);
+        wormholeLabel.setSize(72, 13);
         wormholeLabel.setTabIndex(28);
         wormholeLabel.setText("Wormhole to");
 
-        wormholeLabelValue.setLocation(new Point(8, 148));
-        wormholeLabelValue.setSize(new Size(72, 13));
+        wormholeLabelValue.setLocation(8, 148);
+        wormholeLabelValue.setSize(72, 13);
         wormholeLabelValue.setTabIndex(29);
         //wormholeLabelValue.setText("Tarchannen");
 
         jumpButton.setFlatStyle(FlatStyle.FLAT);
-        jumpButton.setLocation(new Point(81, 138));
-        jumpButton.setSize(new Size(42, 22));
+        jumpButton.setLocation(81, 138);
+        jumpButton.setSize(42, 22);
         jumpButton.setTabIndex(55);
         jumpButton.setText("Jump");
         jumpButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -114,8 +103,8 @@ public class GalacticChartPanel extends Panel {
         });
 
         findButton.setFlatStyle(FlatStyle.FLAT);
-        findButton.setLocation(new Point(132, 138));
-        findButton.setSize(new Size(36, 22));
+        findButton.setLocation(132, 138);
+        findButton.setSize(36, 22);
         findButton.setTabIndex(56);
         findButton.setText("Find");
         findButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -124,6 +113,10 @@ public class GalacticChartPanel extends Panel {
                 findButtonClick();
             }
         });
+
+        getControls().addAll(wormholeLabelValue, wormholeLabel, jumpButton, findButton, galacticChartPicture);
+
+        ReflectionUtils.loadControlsData(this);
 
     }
 

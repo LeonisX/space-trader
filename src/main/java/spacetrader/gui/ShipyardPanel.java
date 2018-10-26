@@ -1,9 +1,6 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.Button;
-import spacetrader.controls.Label;
-import spacetrader.controls.Panel;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.Commander;
@@ -11,8 +8,7 @@ import spacetrader.game.Consts;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.ShipType;
 import spacetrader.guifacade.GuiFacade;
-
-import java.awt.*;
+import spacetrader.util.ReflectionUtils;
 
 import static spacetrader.game.Strings.*;
 
@@ -21,13 +17,13 @@ class ShipyardPanel extends Panel {
     private final SpaceTrader mainWindow;
     private Commander commander;
 
-    private Label shipsForSaleLabel;
-    private Button designButton;
-    private Button buyShipButton;
-    private Label equipForSaleLabel;
-    private Button tradeEquipmentButton;
-    private Label escapePodLabel;
-    private Button buyPodButton;
+    private Label shipsForSaleLabel = new Label();
+    private Button designButton = new Button();
+    private Button buyShipButton = new Button();
+    private Label equipForSaleLabel = new Label();
+    private Button tradeEquipmentButton = new Button();
+    private Label escapePodLabel = new Label();
+    private Button buyPodButton = new Button();
 
     ShipyardPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
@@ -38,37 +34,21 @@ class ShipyardPanel extends Panel {
     }
 
     void initializeComponent() {
-        designButton = new Button();
-        buyPodButton = new Button();
-        escapePodLabel = new Label();
-        tradeEquipmentButton = new Button();
-        buyShipButton = new Button();
-        equipForSaleLabel = new Label();
-        shipsForSaleLabel = new Label();
-
+        setName("shipyardPanel");
+        setText("Shipyard");
+        setSize(168, 168);
+        setTabStop(false);
+        
         suspendLayout();
 
-        getControls().add(shipsForSaleLabel);
-        getControls().add(designButton);
-        getControls().add(buyShipButton);
-        getControls().add(equipForSaleLabel);
-        getControls().add(tradeEquipmentButton);
-        getControls().add(escapePodLabel);
-        getControls().add(buyPodButton);
-
-        setSize(new spacetrader.controls.Size(168, 168));
-        setTabIndex(4);
-        setTabStop(false);
-        setText("Shipyard");
-
-        shipsForSaleLabel.setLocation(new Point(8, 16));
-        shipsForSaleLabel.setSize(new spacetrader.controls.Size(152, 13));
+        shipsForSaleLabel.setLocation(8, 16);
+        shipsForSaleLabel.setSize(152, 13);
         shipsForSaleLabel.setTabIndex(20);
         //shipsForSaleLabel.setText("There are new ships for sale.");
 
         designButton.setFlatStyle(FlatStyle.FLAT);
-        designButton.setLocation(new Point(8, 32));
-        designButton.setSize(new spacetrader.controls.Size(54, 22));
+        designButton.setLocation(8, 32);
+        designButton.setSize(54, 22);
         designButton.setTabIndex(55);
         designButton.setText("Design");
         designButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -79,8 +59,8 @@ class ShipyardPanel extends Panel {
         });
 
         buyShipButton.setFlatStyle(FlatStyle.FLAT);
-        buyShipButton.setLocation(new Point(70, 32));
-        buyShipButton.setSize(new spacetrader.controls.Size(86, 22));
+        buyShipButton.setLocation(70, 32);
+        buyShipButton.setSize(86, 22);
         buyShipButton.setTabIndex(52);
         buyShipButton.setText("View Ship Info");
         buyShipButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -90,14 +70,14 @@ class ShipyardPanel extends Panel {
             }
         });
 
-        equipForSaleLabel.setLocation(new Point(8, 69));
-        equipForSaleLabel.setSize(new spacetrader.controls.Size(152, 13));
+        equipForSaleLabel.setLocation(8, 69);
+        equipForSaleLabel.setSize(152, 13);
         equipForSaleLabel.setTabIndex(21);
         //equipForSaleLabel.setText("There is equipment for sale.");
 
         tradeEquipmentButton.setFlatStyle(FlatStyle.FLAT);
-        tradeEquipmentButton.setLocation(new Point(43, 85));
-        tradeEquipmentButton.setSize(new spacetrader.controls.Size(113, 22));
+        tradeEquipmentButton.setLocation(43, 85);
+        tradeEquipmentButton.setSize(113, 22);
         tradeEquipmentButton.setTabIndex(53);
         tradeEquipmentButton.setText("Buy/Sell Equipment");
         tradeEquipmentButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -107,14 +87,14 @@ class ShipyardPanel extends Panel {
             }
         });
 
-        escapePodLabel.setLocation(new Point(8, 122));
-        escapePodLabel.setSize(new spacetrader.controls.Size(152, 26));
+        escapePodLabel.setLocation(8, 122);
+        escapePodLabel.setSize(152, 26);
         escapePodLabel.setTabIndex(27);
         //escapePodLabel.setText("You can buy an escape pod for 2,000 cr.");
 
         buyPodButton.setFlatStyle(FlatStyle.FLAT);
-        buyPodButton.setLocation(new Point(98, 138));
-        buyPodButton.setSize(new spacetrader.controls.Size(58, 22));
+        buyPodButton.setLocation(98, 138);
+        buyPodButton.setSize(58, 22);
         buyPodButton.setTabIndex(54);
         buyPodButton.setText("Buy Pod");
         buyPodButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -123,6 +103,11 @@ class ShipyardPanel extends Panel {
                 buyPodButtonClick();
             }
         });
+
+        getControls().addAll(shipsForSaleLabel, designButton, buyShipButton, equipForSaleLabel,
+                tradeEquipmentButton, escapePodLabel, buyPodButton);
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     void update() {

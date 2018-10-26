@@ -47,8 +47,6 @@ class DockPanel extends Panel {
     }
 
     void initializeComponent() {
-        ReflectionUtils.setAllComponentNames(this);
-
         setName("dockPanel");
         setText("Dock");
         setSize(240, 90);
@@ -101,8 +99,7 @@ class DockPanel extends Panel {
         getControls()
                 .addAll(fuelStatusLabel, fuelUpButton, fuelCostLabel, hullStatusLabel, repairButton, repairCostLabel);
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void fuelUpButtonClick() {

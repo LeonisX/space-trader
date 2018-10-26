@@ -112,14 +112,14 @@ public class FormViewHighScores extends SpaceTraderForm {
         scoreLabelValue1.setLocation(168, 8);
         scoreLabelValue1.setSize(43, 13);
         scoreLabelValue1.setTabIndex(36);
-        scoreLabelValue1.setText("888.8%");
+        //scoreLabelValue1.setText("888.8%");
         scoreLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
         scoreLabelValue1.setVisible(false);
 
         statusLabelValue1.setLocation(24, 24);
         statusLabelValue1.setSize(200, 26);
         statusLabelValue1.setTabIndex(42);
-        statusLabelValue1.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
+        //statusLabelValue1.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
         statusLabelValue1.setVisible(false);
 
         rankLabel2.setAutoSize(true);
@@ -137,14 +137,14 @@ public class FormViewHighScores extends SpaceTraderForm {
         scoreLabelValue2.setLocation(168, 72);
         scoreLabelValue2.setSize(43, 13);
         scoreLabelValue2.setTabIndex(37);
-        scoreLabelValue2.setText("888.8%");
+        //scoreLabelValue2.setText("888.8%");
         scoreLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
         scoreLabelValue2.setVisible(false);
 
         statusLabelValue2.setLocation(24, 88);
         statusLabelValue2.setSize(200, 26);
         statusLabelValue2.setTabIndex(43);
-        statusLabelValue2.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
+        //statusLabelValue2.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
         statusLabelValue2.setVisible(false);
 
         rankLabel3.setAutoSize(true);
@@ -162,27 +162,26 @@ public class FormViewHighScores extends SpaceTraderForm {
         scoreLabelValue3.setLocation(168, 136);
         scoreLabelValue3.setSize(43, 13);
         scoreLabelValue3.setTabIndex(38);
-        scoreLabelValue3.setText("888.8%");
+        //scoreLabelValue3.setText("888.8%");
         scoreLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
         scoreLabelValue3.setVisible(false);
         
         statusLabelValue3.setLocation(24, 152);
         statusLabelValue3.setSize(200, 26);
         statusLabelValue3.setTabIndex(44);
-        statusLabelValue3.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
+        //statusLabelValue3.setText("Claimed moon in 888,888 days, worth 8,888,888 credits on impossible level.");
         statusLabelValue3.setVisible(false);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setLocation(-32, -32);
         closeButton.setSize(32, 32);
         closeButton.setTabStop(false);
-        closeButton.setText("X");
+        //closeButton.setText("X");
 
         controls.addAll(rankLabel1, nameLabelValue1, scoreLabelValue1, statusLabelValue1, rankLabel2,
                 nameLabelValue2, scoreLabelValue2, statusLabelValue2, rankLabel3, nameLabelValue3,
                 scoreLabelValue3, statusLabelValue3, closeButton);
-        
-        ReflectionUtils.loadControlsDimensions(asSwingObject(), getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
+
+        ReflectionUtils.loadControlsData(this);
     }
 }

@@ -25,21 +25,18 @@
 
 package spacetrader.gui;
 
-import spacetrader.controls.Button;
 import spacetrader.controls.*;
-import spacetrader.controls.Label;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
-import spacetrader.game.GlobalAssets;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.Arrays;
 
-class FormBuyFuel extends SpaceTraderForm {
+public class FormBuyFuel extends SpaceTraderForm {
 
     private Label questionLabel = new Label();
     private NumericUpDown numericUpDown = new NumericUpDown();
@@ -47,7 +44,7 @@ class FormBuyFuel extends SpaceTraderForm {
     private Button maxButton = new Button();
     private Button nothingButton = new Button();
 
-    FormBuyFuel() {
+    public FormBuyFuel() {
         initializeComponent();
 
         Commander cmdr = Game.getCurrentGame().getCommander();
@@ -121,8 +118,7 @@ class FormBuyFuel extends SpaceTraderForm {
 
         numericUpDown.endInit();
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     int getAmount() {

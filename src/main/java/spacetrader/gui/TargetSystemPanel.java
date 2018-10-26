@@ -1,14 +1,10 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.Button;
-import spacetrader.controls.Label;
-import spacetrader.controls.Panel;
 import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
-
-import java.awt.*;
+import spacetrader.util.ReflectionUtils;
 
 import static spacetrader.game.Strings.*;
 
@@ -20,29 +16,29 @@ class TargetSystemPanel extends Panel {
     private GameController controller = null;
     private Commander commander;
 
-    private Button prevSystemButton;
-    private Button nextSystemButton;
+    private Button prevSystemButton = new Button();
+    private Button nextSystemButton = new Button();
 
-    private Label targetNameLabel;
-    private Label targetNameLabelValue;
-    private Label targetSizeLabel;
-    private Label targetSizeLabelValue;
-    private Label targetTechLevelLabel;
-    private Label targetTechLevelLabelValue;
-    private Label targetGovernmentLabel;
-    private Label targetGovernmentLabelValue;
-    private Label targetResourceLabel;
-    private Label targetResourceLabelValue;
-    private Label targetPoliceLabel;
-    private Label targetPoliceLabelValue;
-    private Label targetPiratesLabel;
-    private Label targetPiratesLabelValue;
-    private Label targetDistanceLabelValue;
-    private Label targetDistanceLabel;
-    private Label targetOutOfRangeLabel;
+    private Label targetNameLabel = new Label();
+    private Label targetNameLabelValue = new Label();
+    private Label targetSizeLabel = new Label();
+    private Label targetSizeLabelValue = new Label();
+    private Label targetTechLevelLabel = new Label();
+    private Label targetTechLevelLabelValue = new Label();
+    private Label targetGovernmentLabel = new Label();
+    private Label targetGovernmentLabelValue = new Label();
+    private Label targetResourceLabel = new Label();
+    private Label targetResourceLabelValue = new Label();
+    private Label targetPoliceLabel = new Label();
+    private Label targetPoliceLabelValue = new Label();
+    private Label targetPiratesLabel = new Label();
+    private Label targetPiratesLabelValue = new Label();
+    private Label targetDistanceLabelValue = new Label();
+    private Label targetDistanceLabel = new Label();
+    private Label targetOutOfRangeLabel = new Label();
 
-    private Button trackButton;
-    private Button warpButton;
+    private Button trackButton = new Button();
+    private Button warpButton = new Button();
 
     TargetSystemPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
@@ -55,60 +51,16 @@ class TargetSystemPanel extends Panel {
     }
 
     void initializeComponent() {
-        trackButton = new Button();
-        nextSystemButton = new Button();
-        prevSystemButton = new Button();
-        targetOutOfRangeLabel = new Label();
-        warpButton = new Button();
-        targetGovernmentLabelValue = new Label();
-        targetSizeLabelValue = new Label();
-        targetTechLevelLabelValue = new Label();
-        targetDistanceLabelValue = new Label();
-        targetPiratesLabelValue = new Label();
-        targetPoliceLabelValue = new Label();
-        targetResourceLabelValue = new Label();
-        targetDistanceLabel = new Label();
-        targetPiratesLabel = new Label();
-        targetPoliceLabel = new Label();
-        targetResourceLabel = new Label();
-        targetGovernmentLabel = new Label();
-        targetTechLevelLabel = new Label();
-        targetSizeLabel = new Label();
-        targetNameLabelValue = new Label();
-        targetNameLabel = new Label();
-
         anchor = AnchorStyles.TOP_RIGHT;
-
-        getControls().add(trackButton);
-        getControls().add(nextSystemButton);
-        getControls().add(prevSystemButton);
-        getControls().add(targetOutOfRangeLabel);
-        getControls().add(warpButton);
-        getControls().add(targetGovernmentLabelValue);
-        getControls().add(targetSizeLabelValue);
-        getControls().add(targetTechLevelLabelValue);
-        getControls().add(targetDistanceLabelValue);
-        getControls().add(targetPiratesLabelValue);
-        getControls().add(targetPoliceLabelValue);
-        getControls().add(targetResourceLabelValue);
-        getControls().add(targetDistanceLabel);
-        getControls().add(targetPiratesLabel);
-        getControls().add(targetPoliceLabel);
-        getControls().add(targetResourceLabel);
-        getControls().add(targetGovernmentLabel);
-        getControls().add(targetTechLevelLabel);
-        getControls().add(targetSizeLabel);
-        getControls().add(targetNameLabelValue);
-        getControls().add(targetNameLabel);
         
-        setSize(new Size(216, 168));
-        setTabIndex(7);
-        setTabStop(false);
+        setName("targetSystemPanel");
         setText("Target System");
+        setSize(216, 168);
+        setTabStop(false);
 
         prevSystemButton.setFlatStyle(FlatStyle.FLAT);
-        prevSystemButton.setLocation(new Point(160, 16));
-        prevSystemButton.setSize(new Size(18, 18));
+        prevSystemButton.setLocation(160, 16);
+        prevSystemButton.setSize(18, 18);
         prevSystemButton.setTabIndex(57);
         prevSystemButton.setText("<");
         prevSystemButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -119,8 +71,8 @@ class TargetSystemPanel extends Panel {
         });
 
         nextSystemButton.setFlatStyle(FlatStyle.FLAT);
-        nextSystemButton.setLocation(new Point(186, 16));
-        nextSystemButton.setSize(new Size(18, 18));
+        nextSystemButton.setLocation(186, 16);
+        nextSystemButton.setSize(18, 18);
         nextSystemButton.setTabIndex(58);
         nextSystemButton.setText(">");
         nextSystemButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -132,103 +84,103 @@ class TargetSystemPanel extends Panel {
 
         targetNameLabel.setAutoSize(true);
         targetNameLabel.setFont(FontCollection.bold825);
-        targetNameLabel.setLocation(new Point(8, 16));
-        targetNameLabel.setSize(new Size(39, 16));
+        targetNameLabel.setLocation(8, 16);
+        targetNameLabel.setSize(39, 16);
         targetNameLabel.setTabIndex(0);
         targetNameLabel.setText("Name:");
 
-        targetNameLabelValue.setLocation(new Point(88, 16));
-        targetNameLabelValue.setSize(new Size(65, 13));
+        targetNameLabelValue.setLocation(88, 16);
+        targetNameLabelValue.setSize(65, 13);
         targetNameLabelValue.setTabIndex(1);
         //targetNameLabelValue.setText("Tarchannen");
 
         targetSizeLabel.setAutoSize(true);
         targetSizeLabel.setFont(FontCollection.bold825);
-        targetSizeLabel.setLocation(new Point(8, 32));
-        targetSizeLabel.setSize(new Size(31, 16));
+        targetSizeLabel.setLocation(8, 32);
+        targetSizeLabel.setSize(31, 16);
         targetSizeLabel.setTabIndex(2);
         targetSizeLabel.setText("Size:");
 
-        targetSizeLabelValue.setLocation(new Point(88, 32));
-        targetSizeLabelValue.setSize(new Size(45, 13));
+        targetSizeLabelValue.setLocation(88, 32);
+        targetSizeLabelValue.setSize(45, 13);
         targetSizeLabelValue.setTabIndex(14);
         //targetSizeLabelValue.setText("Medium");
 
         targetTechLevelLabel.setAutoSize(true);
         targetTechLevelLabel.setFont(FontCollection.bold825);
-        targetTechLevelLabel.setLocation(new Point(8, 48));
-        targetTechLevelLabel.setSize(new Size(65, 16));
+        targetTechLevelLabel.setLocation(8, 48);
+        targetTechLevelLabel.setSize(65, 16);
         targetTechLevelLabel.setTabIndex(3);
         targetTechLevelLabel.setText("Tech Level:");
 
-        targetTechLevelLabelValue.setLocation(new Point(88, 48));
-        targetTechLevelLabelValue.setSize(new Size(82, 13));
+        targetTechLevelLabelValue.setLocation(88, 48);
+        targetTechLevelLabelValue.setSize(82, 13);
         targetTechLevelLabelValue.setTabIndex(13);
         //targetTechLevelLabelValue.setText("Pre-Agricultural");
 
         targetGovernmentLabel.setAutoSize(true);
         targetGovernmentLabel.setFont(FontCollection.bold825);
-        targetGovernmentLabel.setLocation(new Point(8, 64));
-        targetGovernmentLabel.setSize(new Size(72, 16));
+        targetGovernmentLabel.setLocation(8, 64);
+        targetGovernmentLabel.setSize(72, 16);
         targetGovernmentLabel.setTabIndex(4);
         targetGovernmentLabel.setText("Government:");
 
-        targetGovernmentLabelValue.setLocation(new Point(88, 64));
-        targetGovernmentLabelValue.setSize(new Size(91, 13));
+        targetGovernmentLabelValue.setLocation(88, 64);
+        targetGovernmentLabelValue.setSize(91, 13);
         targetGovernmentLabelValue.setTabIndex(15);
         //targetGovernmentLabelValue.setText("Communist State");
 
         targetResourceLabel.setAutoSize(true);
         targetResourceLabel.setFont(FontCollection.bold825);
-        targetResourceLabel.setLocation(new Point(8, 80));
-        targetResourceLabel.setSize(new Size(58, 16));
+        targetResourceLabel.setLocation(8, 80);
+        targetResourceLabel.setSize(58, 16);
         targetResourceLabel.setTabIndex(5);
         targetResourceLabel.setText("Resource:");
 
-        targetResourceLabelValue.setLocation(new Point(88, 80));
-        targetResourceLabelValue.setSize(new Size(105, 13));
+        targetResourceLabelValue.setLocation(88, 80);
+        targetResourceLabelValue.setSize(105, 13);
         targetResourceLabelValue.setTabIndex(9);
         //targetResourceLabelValue.setText("Sweetwater Oceans");
 
         targetPoliceLabel.setAutoSize(true);
         targetPoliceLabel.setFont(FontCollection.bold825);
-        targetPoliceLabel.setLocation(new Point(8, 96));
-        targetPoliceLabel.setSize(new Size(40, 16));
+        targetPoliceLabel.setLocation(8, 96);
+        targetPoliceLabel.setSize(40, 16);
         targetPoliceLabel.setTabIndex(6);
         targetPoliceLabel.setText("Police:");
 
-        targetPoliceLabelValue.setLocation(new Point(88, 96));
-        targetPoliceLabelValue.setSize(new Size(53, 13));
+        targetPoliceLabelValue.setLocation(88, 96);
+        targetPoliceLabelValue.setSize(53, 13);
         targetPoliceLabelValue.setTabIndex(10);
         //targetPoliceLabelValue.setText("Abundant");
 
         targetPiratesLabel.setAutoSize(true);
         targetPiratesLabel.setFont(FontCollection.bold825);
-        targetPiratesLabel.setLocation(new Point(8, 112));
-        targetPiratesLabel.setSize(new Size(44, 16));
+        targetPiratesLabel.setLocation(8, 112);
+        targetPiratesLabel.setSize(44, 16);
         targetPiratesLabel.setTabIndex(7);
         targetPiratesLabel.setText("Pirates:");
 
-        targetPiratesLabelValue.setLocation(new Point(88, 112));
-        targetPiratesLabelValue.setSize(new Size(53, 13));
+        targetPiratesLabelValue.setLocation(88, 112);
+        targetPiratesLabelValue.setSize(53, 13);
         targetPiratesLabelValue.setTabIndex(11);
         //targetPiratesLabelValue.setText("Abundant");
 
         targetDistanceLabel.setAutoSize(true);
         targetDistanceLabel.setFont(FontCollection.bold825);
-        targetDistanceLabel.setLocation(new Point(8, 128));
-        targetDistanceLabel.setSize(new Size(53, 16));
+        targetDistanceLabel.setLocation(8, 128);
+        targetDistanceLabel.setSize(53, 16);
         targetDistanceLabel.setTabIndex(8);
         targetDistanceLabel.setText("Distance:");
 
-        targetDistanceLabelValue.setLocation(new Point(88, 128));
-        targetDistanceLabelValue.setSize(new Size(66, 13));
+        targetDistanceLabelValue.setLocation(88, 128);
+        targetDistanceLabelValue.setSize(66, 13);
         targetDistanceLabelValue.setTabIndex(12);
         ///targetDistanceLabelValue.setText("888 parsecs");
 
         trackButton.setFlatStyle(FlatStyle.FLAT);
-        trackButton.setLocation(new Point(160, 140));
-        trackButton.setSize(new Size(44, 22));
+        trackButton.setLocation(160, 140);
+        trackButton.setSize(44, 22);
         trackButton.setTabIndex(60);
         trackButton.setText("Track");
         trackButton.setVisible(false);
@@ -239,14 +191,14 @@ class TargetSystemPanel extends Panel {
             }
         });
 
-        targetOutOfRangeLabel.setLocation(new Point(8, 144));
-        targetOutOfRangeLabel.setSize(new Size(144, 13));
+        targetOutOfRangeLabel.setLocation(8, 144);
+        targetOutOfRangeLabel.setSize(144, 13);
         targetOutOfRangeLabel.setTabIndex(17);
         targetOutOfRangeLabel.setText("This system is out of range.");
 
         warpButton.setFlatStyle(FlatStyle.FLAT);
-        warpButton.setLocation(new Point(160, 98));
-        warpButton.setSize(new Size(44, 44));
+        warpButton.setLocation(160, 98);
+        warpButton.setSize(44, 44);
         warpButton.setTabIndex(59);
         warpButton.setText("Warp");
         warpButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -255,6 +207,14 @@ class TargetSystemPanel extends Panel {
                 warpButtonClick();
             }
         });
+        
+        getControls().addAll(trackButton, nextSystemButton, prevSystemButton, targetOutOfRangeLabel, warpButton,
+                targetGovernmentLabelValue, targetSizeLabelValue, targetTechLevelLabelValue, targetDistanceLabelValue,
+                targetPiratesLabelValue, targetPoliceLabelValue, targetResourceLabelValue, targetDistanceLabel,
+                targetPiratesLabel, targetPoliceLabel, targetResourceLabel, targetGovernmentLabel, targetTechLevelLabel,
+                targetSizeLabel, targetNameLabelValue, targetNameLabel);
+        
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {

@@ -24,8 +24,8 @@
  ******************************************************************************/
 package spacetrader.gui;
 
-import spacetrader.controls.*;
 import spacetrader.controls.Button;
+import spacetrader.controls.HorizontalLine;
 import spacetrader.controls.Label;
 import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.DialogResult;
@@ -33,10 +33,9 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
-import spacetrader.game.GlobalAssets;
 import spacetrader.util.ReflectionUtils;
 
-class FormCosts extends SpaceTraderForm {
+public class FormCosts extends SpaceTraderForm {
 
     private Button closeButton = new Button();
     private Label mercenariesLabelValue = new Label();
@@ -51,7 +50,7 @@ class FormCosts extends SpaceTraderForm {
     private Label insuranceLabel = new Label();
     private HorizontalLine horizontalLine = new HorizontalLine();
 
-    FormCosts() {
+    public FormCosts() {
         initializeComponent();
 
         Game game = Game.getCurrentGame();
@@ -157,7 +156,6 @@ class FormCosts extends SpaceTraderForm {
                 interestLabel, interestLabelValue, wormholeTaxLabel, wormholeTaxLabelValue, horizontalLine, 
                 totalLabel, totalLabelValue, closeButton);
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 }

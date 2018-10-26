@@ -158,7 +158,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         nameLabelValue.setLocation(12, 18);
         nameLabelValue.setSize(72, 13);
         nameLabelValue.setTabIndex(96);
-        nameLabelValue.setText("Alexey Leonov");
+        //nameLabelValue.setText("Alexey Leonov");
 
         pilotLabel.setAutoSize(true);
         pilotLabel.setLocation(12, 40);
@@ -169,13 +169,18 @@ public class FormViewPersonnel extends SpaceTraderForm {
         pilotLabelValue.setLocation(64, 40);
         pilotLabelValue.setSize(17, 13);
         pilotLabelValue.setTabIndex(92);
-        pilotLabelValue.setText("88");
+        //pilotLabelValue.setText("88");
 
         fighterLabel.setAutoSize(true);
         fighterLabel.setLocation(12, 56);
         fighterLabel.setSize(43, 16);
         fighterLabel.setTabIndex(89);
         fighterLabel.setText("Fighter:");
+
+        fighterLabelValue.setLocation(64, 56);
+        fighterLabelValue.setSize(17, 13);
+        fighterLabelValue.setTabIndex(93);
+        //fighterLabelValue.setText("88");
 
         traderLabel.setAutoSize(true);
         traderLabel.setLocation(12, 72);
@@ -186,12 +191,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
         traderLabelValue.setLocation(64, 72);
         traderLabelValue.setSize(17, 13);
         traderLabelValue.setTabIndex(94);
-        traderLabelValue.setText("88");
-
-        fighterLabelValue.setLocation(64, 56);
-        fighterLabelValue.setSize(17, 13);
-        fighterLabelValue.setTabIndex(93);
-        fighterLabelValue.setText("88");
+        //traderLabelValue.setText("88");
 
         engineerLabel.setAutoSize(true);
         engineerLabel.setLocation(12, 88);
@@ -202,12 +202,12 @@ public class FormViewPersonnel extends SpaceTraderForm {
         engineerLabelValue.setLocation(64, 88);
         engineerLabelValue.setSize(17, 13);
         engineerLabelValue.setTabIndex(95);
-        engineerLabelValue.setText("88");
+        //engineerLabelValue.setText("88");
 
         rateLabelValue.setLocation(104, 40);
         rateLabelValue.setSize(59, 13);
         rateLabelValue.setTabIndex(97);
-        rateLabelValue.setText("88 cr. daily");
+        //rateLabelValue.setText("88 cr. daily");
 
         hireFireButton.setFlatStyle(FlatStyle.FLAT);
         hireFireButton.setLocation(120, 80);
@@ -225,12 +225,11 @@ public class FormViewPersonnel extends SpaceTraderForm {
         closeButton.setSize(32, 32);
         closeButton.setTabIndex(32);
         closeButton.setTabStop(false);
-        closeButton.setText("X");
+        //closeButton.setText("X");
 
         controls.addAll(currentCrewPanel, mercenariesForHirePanel, mercenaryInfoPanel, closeButton);
 
-        ReflectionUtils.loadControlsDimensions(asSwingObject(), getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void deselectAll() {

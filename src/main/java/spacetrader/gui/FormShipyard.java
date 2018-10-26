@@ -40,6 +40,7 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.ShipType;
 import spacetrader.game.enums.ShipyardId;
+import spacetrader.game.enums.Size;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.GuiEngine;
 import spacetrader.guifacade.GuiFacade;
@@ -49,7 +50,7 @@ import spacetrader.util.Hashtable;
 import spacetrader.util.Path;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class FormShipyard extends SpaceTraderForm {
 
@@ -132,7 +133,7 @@ public class FormShipyard extends SpaceTraderForm {
 
     private int imgIndex = 0;
     private boolean loading = false;
-    private ArrayList<spacetrader.game.enums.Size> sizes = null;
+    private ArrayList<Size> sizes = null;
 
     public static void main(String[] args) {
         GlobalAssets.initializeImages();
@@ -171,7 +172,7 @@ public class FormShipyard extends SpaceTraderForm {
         ReflectionUtils.setAllComponentNames(this);
 
         setName("formShipyard");
-        setText("Ship Design at XXXX Shipyards");
+        //setText("Ship Design at XXXX Shipyards");
 
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
@@ -213,8 +214,8 @@ public class FormShipyard extends SpaceTraderForm {
         welcomeLabelValue.setLocation(92, 12);
         welcomeLabelValue.setSize(176, 52);
         welcomeLabelValue.setTabIndex(3);
-        welcomeLabelValue
-                .setText("Welcome to Sorosuub Engineering Shipyards! Our best engineer, Obi-Wan, is at your service.");
+        /*welcomeLabelValue
+                .setText("Welcome to Sorosuub Engineering Shipyards! Our best engineer, Obi-Wan, is at your service.");*/
 
         sizeSpecialtyLabel.setAutoSize(true);
         sizeSpecialtyLabel.setFont(FontCollection.bold825);
@@ -226,7 +227,7 @@ public class FormShipyard extends SpaceTraderForm {
         sizeSpecialtyLabelValue.setLocation(180, 65);
         sizeSpecialtyLabelValue.setSize(64, 13);
         sizeSpecialtyLabelValue.setTabIndex(25);
-        sizeSpecialtyLabelValue.setText("Gargantuan");
+        //sizeSpecialtyLabelValue.setText("Gargantuan");
 
         skillLabel.setAutoSize(true);
         skillLabel.setFont(FontCollection.bold825);
@@ -238,19 +239,19 @@ public class FormShipyard extends SpaceTraderForm {
         skillLabelValue.setLocation(180, 79);
         skillLabelValue.setSize(87, 13);
         skillLabelValue.setTabIndex(26);
-        skillLabelValue.setText("Crew Quartering");
+        //skillLabelValue.setText("Crew Quartering");
 
         skillDescriptionLabelValue.setLocation(8, 98);
         skillDescriptionLabelValue.setSize(258, 26);
         skillDescriptionLabelValue.setTabIndex(27);
-        skillDescriptionLabelValue.setText("All ships constructed at this shipyard use 2 fewer units per crew quarter.");
+        //skillDescriptionLabelValue.setText("All ships constructed at this shipyard use 2 fewer units per crew quarter.");
 
         warningLabelValue.setLocation(8, 134);
         warningLabelValue.setSize(258, 65);
         warningLabelValue.setTabIndex(5);
-        warningLabelValue.setText("Bear in mind that getting too close to the maximum number of units will result in"
+        /*warningLabelValue.setText("Bear in mind that getting too close to the maximum number of units will result in"
                 + " a \"Crowding Penalty\" due to the engineering difficulty of squeezing everything "
-                + "in.  There is a modest penalty at 80%, and a more severe one at 90%.");
+                + "in.  There is a modest penalty at 80%, and a more severe one at 90%.");*/
 
         
         infoPanel.setLocation(8, 208);
@@ -599,7 +600,7 @@ public class FormShipyard extends SpaceTraderForm {
         unitsUsedLabelValue.setLocation(110, 186);
         unitsUsedLabelValue.setSize(34, 13);
         unitsUsedLabelValue.setTabIndex(17);
-        unitsUsedLabelValue.setText("888");
+        //unitsUsedLabelValue.setText("888");
         unitsUsedLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         pctOfMaxLabel.setAutoSize(true);
@@ -613,7 +614,7 @@ public class FormShipyard extends SpaceTraderForm {
         pctOfMaxLabelValue.setLocation(110, 204);
         pctOfMaxLabelValue.setSize(34, 13);
         pctOfMaxLabelValue.setTabIndex(19);
-        pctOfMaxLabelValue.setText("888%");
+        //pctOfMaxLabelValue.setText("888%");
         pctOfMaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         costsPanel.setLocation(286, 230);
@@ -634,7 +635,7 @@ public class FormShipyard extends SpaceTraderForm {
         shipCostLabelValue.setLocation(106, 16);
         shipCostLabelValue.setSize(74, 16);
         shipCostLabelValue.setTabIndex(19);
-        shipCostLabelValue.setText("8,888,888 cr.");
+        //shipCostLabelValue.setText("8,888,888 cr.");
         shipCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         penaltyLabel.setAutoSize(true);
@@ -646,7 +647,7 @@ public class FormShipyard extends SpaceTraderForm {
         penaltyLabelValue.setLocation(106, 32);
         penaltyLabelValue.setSize(74, 16);
         penaltyLabelValue.setTabIndex(21);
-        penaltyLabelValue.setText("8,888,888 cr.");
+        //penaltyLabelValue.setText("8,888,888 cr.");
         penaltyLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         designFeeLabel.setAutoSize(true);
@@ -658,7 +659,7 @@ public class FormShipyard extends SpaceTraderForm {
         designFeeLabelValue.setLocation(106, 48);
         designFeeLabelValue.setSize(74, 16);
         designFeeLabelValue.setTabIndex(15);
-        designFeeLabelValue.setText("888,888 cr.");
+        //designFeeLabelValue.setText("888,888 cr.");
         designFeeLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         tradeInLabel.setAutoSize(true);
@@ -670,7 +671,7 @@ public class FormShipyard extends SpaceTraderForm {
         tradeInLabelValue.setLocation(106, 64);
         tradeInLabelValue.setSize(75, 16);
         tradeInLabelValue.setTabIndex(135);
-        tradeInLabelValue.setText("-8,888,888 cr.");
+        //tradeInLabelValue.setText("-8,888,888 cr.");
         tradeInLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         costsHorizontalLine.setLocation(8, 80);
@@ -686,7 +687,7 @@ public class FormShipyard extends SpaceTraderForm {
         totalCostLabelValue.setLocation(106, 84);
         totalCostLabelValue.setSize(74, 16);
         totalCostLabelValue.setTabIndex(18);
-        totalCostLabelValue.setText("8,888,888 cr.");
+        //totalCostLabelValue.setText("8,888,888 cr.");
         totalCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         cancelButton.setDialogResult(DialogResult.CANCEL);
@@ -694,7 +695,7 @@ public class FormShipyard extends SpaceTraderForm {
         cancelButton.setLocation(286, 344);
         cancelButton.setSize(88, 22);
         cancelButton.setTabIndex(5);
-        cancelButton.setText("cancel Design");
+        cancelButton.setText("Cancel Design");
 
         constructButton.setFlatStyle(FlatStyle.FLAT);
         constructButton.setForeground(SystemColors.CONTROL_TEXT);
@@ -768,8 +769,7 @@ public class FormShipyard extends SpaceTraderForm {
         gadgetSlotsNum.endInit();
         weaponsSlotsNum.endInit();
 
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     private boolean constructButtonEnabled() {
@@ -834,7 +834,7 @@ public class FormShipyard extends SpaceTraderForm {
     private void loadSizes() {
         sizes = new ArrayList<>(6);
 
-        for (spacetrader.game.enums.Size size : shipyard.getAvailableSizes()) {
+        for (Size size : shipyard.getAvailableSizes()) {
             sizes.add(size);
             sizeComboBox.getItems().add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()],
                     Functions.multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
@@ -848,7 +848,7 @@ public class FormShipyard extends SpaceTraderForm {
         templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
 
         // Add the minimal sizes templates.
-        for (spacetrader.game.enums.Size size : sizes)
+        for (Size size : sizes)
             templateComboBox.getItems().add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
                     + Strings.ShipNameTemplateSuffixMinimum));
 

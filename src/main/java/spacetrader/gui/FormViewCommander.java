@@ -305,8 +305,7 @@ public class FormViewCommander extends SpaceTraderForm {
         controls.addAll(nameLabel, nameLabelValue, difficultyLabel,  difficultyLabelValue,
                 timeLabel, timeLabelValue, skillsPanel, financesPanel, notorietyPanel, closeButton);
 
-        ReflectionUtils.loadControlsDimensions(asSwingObject(), getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
+        ReflectionUtils.loadControlsData(this);
     }
 
     private void initializeScreen() {

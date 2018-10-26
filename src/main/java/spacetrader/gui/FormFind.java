@@ -24,8 +24,8 @@
  ******************************************************************************/
 package spacetrader.gui;
 
-import spacetrader.controls.*;
 import spacetrader.controls.Button;
+import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
@@ -49,12 +49,13 @@ public class FormFind extends SpaceTraderForm {
 
     private void initializeComponent() {
         ReflectionUtils.setAllComponentNames(this);
+
         setName("formFind");
         setText("Find System");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(184, 97));
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(184, 97);
         setControlBox(false);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
@@ -63,35 +64,37 @@ public class FormFind extends SpaceTraderForm {
         this.suspendLayout();
 
         questionLabel.setAutoSize(true);
-        questionLabel.setLocation(new Point(8, 8));
-        questionLabel.setSize(new Size(177, 13));
+        questionLabel.setLocation(8, 8);
+        questionLabel.setSize(177, 13);
         questionLabel.setTabIndex(3);
         questionLabel.setText("Which system are you looking for?");
 
-        systemTextBox.setLocation(new Point(8, 24));
-        systemTextBox.setSize(new Size(168, 20));
+        systemTextBox.setLocation(8, 24);
+        systemTextBox.setSize(168, 20);
         systemTextBox.setTabIndex(1);
 
-        trackSystemCheckBox.setLocation(new Point(8, 48));
-        trackSystemCheckBox.setSize(new Size(112, 16));
+        trackSystemCheckBox.setLocation(8, 48);
+        trackSystemCheckBox.setSize(112, 16);
         trackSystemCheckBox.setTabIndex(2);
         trackSystemCheckBox.setText("Track this system");
 
         okButton.setDialogResult(DialogResult.OK);
         okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(new Point(43, 68));
-        okButton.setSize(new Size(40, 22));
+        okButton.setLocation(43, 68);
+        okButton.setSize(40, 22);
         okButton.setTabIndex(3);
         okButton.setText("Ok");
 
         cancelButton.setDialogResult(DialogResult.CANCEL);
         cancelButton.setFlatStyle(FlatStyle.FLAT);
-        cancelButton.setLocation(new Point(91, 68));
-        cancelButton.setSize(new Size(50, 22));
+        cancelButton.setLocation(91, 68);
+        cancelButton.setSize(50, 22);
         cancelButton.setTabIndex(4);
         cancelButton.setText("cancel");
 
         controls.addAll(questionLabel, systemTextBox, trackSystemCheckBox, okButton, cancelButton);
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     String getSystemName() {

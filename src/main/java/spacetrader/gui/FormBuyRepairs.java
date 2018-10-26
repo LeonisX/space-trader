@@ -25,20 +25,19 @@
 
 package spacetrader.gui;
 
-import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
+import spacetrader.controls.NumericUpDown;
+import spacetrader.controls.WinformForm;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
-import spacetrader.game.GlobalAssets;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.*;
 import java.util.Arrays;
 
 public class FormBuyRepairs extends WinformForm {
@@ -49,7 +48,7 @@ public class FormBuyRepairs extends WinformForm {
     private Button maxButton = new Button();
     private Button nothingButton = new Button();
 
-    FormBuyRepairs() {
+    public FormBuyRepairs() {
         initializeComponent();
 
         Commander cmdr = Game.getCurrentGame().getCommander();
@@ -119,9 +118,8 @@ public class FormBuyRepairs extends WinformForm {
         controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
         
         numericUpDown.endInit();
-        
-        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
-        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     int getAmount() {
