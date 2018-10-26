@@ -32,6 +32,7 @@ import spacetrader.controls.Label;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.game.GlobalAssets;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
@@ -39,12 +40,12 @@ import java.awt.*;
 
 public class FormAbout extends WinformForm {
 
-    private PictureBox logoPicture;
-    private Label titleLabel;
-    private Label aboutLabel;
-    private Button closeButton;
+    private PictureBox logoPicture = new PictureBox();
+    private Label titleLabel = new Label();
+    private Label aboutLabel = new Label();
+    private Button closeButton = new Button();
 
-    public FormAbout() {
+    FormAbout() {
         initializeComponent();
     }
 
@@ -53,28 +54,30 @@ public class FormAbout extends WinformForm {
     }
 
     private void initializeComponent() {
-        closeButton = new Button();
-        titleLabel = new Label();
-        aboutLabel = new Label();
-        logoPicture = new PictureBox();
-        suspendLayout();
+        ReflectionUtils.setAllComponentNames(this);
 
-        closeButton.setDialogResult(DialogResult.CANCEL);
-        //TODO delete all sizes
-        closeButton.setLocation(new Point(-32, -32));
-        closeButton.setSize(new Size(32, 32));
-        closeButton.setTabIndex(32);
-        closeButton.setTabStop(false);
+        setName("formAbout");
+        setText("About Space Trader");
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(446, 191);
+        setMaximizeBox(false);
+        setMinimizeBox(false);
+        setShowInTaskbar(false);
+        setCancelButton(closeButton);
+        
+        suspendLayout();
 
         titleLabel.setAutoSize(true);
         titleLabel.setFont(FontCollection.bold825);
-        titleLabel.setLocation(new Point(172, 8));
-        titleLabel.setSize(new Size(187, 13));
+        titleLabel.setLocation(172, 8);
+        titleLabel.setSize(187, 13);
         titleLabel.setTabIndex(33);
         titleLabel.setText("Space Trader for Windows 2.01");
 
-        aboutLabel.setLocation(new Point(172, 32));
-        aboutLabel.setSize(new Size(272, 160));
+        aboutLabel.setLocation(172, 32);
+        aboutLabel.setSize(272, 160);
         aboutLabel.setTabIndex(34);
         aboutLabel.setText("Copyright © 2005 French<BR>spacetrader@frenchfryz.com<BR><BR>" +
                 "Palm version copyright © 2000-2002 by Peter Spronk<BR>" +
@@ -83,28 +86,23 @@ public class FormAbout extends WinformForm {
                 "http://spacetraderwin.sourceforge.net/");
 
         logoPicture.setImage(((Image) (ResourceManager.getImage("images/splash.jpg"))));
-        logoPicture.setLocation(new Point(8, 8));
-        logoPicture.setSize(new Size(160, 160));
+        logoPicture.setLocation(8, 8);
+        logoPicture.setSize(160, 160);
         logoPicture.setTabIndex(35);
         logoPicture.setTabStop(false);
 
-        setAutoScaleBaseSize(new Size(5, 13));
-        setCancelButton(closeButton);
-        setClientSize(new Size(446, 191));
+        closeButton.setDialogResult(DialogResult.CANCEL);
+        //TODO delete all sizes
+        closeButton.setLocation(-32, -32);
+        closeButton.setSize(32, 32);
+        closeButton.setTabIndex(32);
+        closeButton.setTabStop(false);
 
-        controls.add(logoPicture);
-        controls.add(aboutLabel);
-        controls.add(titleLabel);
-        controls.add(closeButton);
+        controls.addAll(logoPicture, aboutLabel, titleLabel, closeButton);
 
-        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
-        setMaximizeBox(false);
-        setMinimizeBox(false);
-        setName("formAbout");
-        ReflectionUtils.setAllComponentNames(this);
-        setShowInTaskbar(false);
-        setStartPosition(FormStartPosition.CENTER_PARENT);
-        setText("About Space Trader");
         performLayout();
+        
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 }
