@@ -22,11 +22,7 @@
  * You can contact the author at spacetrader@frenchfryz.com
  *
  ******************************************************************************/
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.ComponentModel;
-//using System.Windows.Forms;
+
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
@@ -38,67 +34,73 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
+import spacetrader.game.GlobalAssets;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.*;
 import java.util.Arrays;
 
-public class FormBuyFuel extends SpaceTraderForm {
+class FormBuyFuel extends SpaceTraderForm {
 
-    private Label questionLabel;
-    private NumericUpDown numericUpDown;
-    private Button okButton;
-    private Button maxButton;
-    private Button nothingButton;
+    private Label questionLabel = new Label();
+    private NumericUpDown numericUpDown = new NumericUpDown();
+    private Button okButton = new Button();
+    private Button maxButton = new Button();
+    private Button nothingButton = new Button();
 
-    public FormBuyFuel() {
+    FormBuyFuel() {
         initializeComponent();
 
-        Game game = Game.getCurrentGame();
-        Commander cmdr = game.getCommander();
+        Commander cmdr = Game.getCurrentGame().getCommander();
         numericUpDown.setMaximum(Math.min(cmdr.getCash(),
                 (cmdr.getShip().getFuelTanks() - cmdr.getShip().getFuel()) * cmdr.getShip().getFuelCost()));
         numericUpDown.setValue(numericUpDown.getMaximum());
     }
 
     private void initializeComponent() {
-        questionLabel = new Label();
-        numericUpDown = new NumericUpDown();
-        okButton = new Button();
-        maxButton = new Button();
-        nothingButton = new Button();
-        ((ISupportInitialize) (numericUpDown)).beginInit();
+        ReflectionUtils.setAllComponentNames(this);
 
         setName("formBuyFuel");
+        setText("Buy Fuel");
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(270, 63);
+        setControlBox(false);
+        setShowInTaskbar(false);
+        setAcceptButton(okButton);
+        setCancelButton(nothingButton);
+        
+        numericUpDown.beginInit();
+
         ReflectionUtils.setAllComponentNames(this);
 
         suspendLayout();
 
         questionLabel.setAutoSize(true);
-        questionLabel.setLocation(new Point(8, 8));
-        questionLabel.setSize(new Size(211, 13));
+        questionLabel.setLocation(8, 8);
+        questionLabel.setSize(211, 13);
         questionLabel.setTabIndex(3);
         questionLabel.setText("How much do you want to spend on fuel?");
 
-        numericUpDown.setLocation(new Point(216, 6));
+        numericUpDown.setLocation(216, 6);
         //numericUpDown.setMaximum(999);
         numericUpDown.setMinimum(1);
-        numericUpDown.setSize(new Size(44, 20));
+        numericUpDown.setSize(44, 20);
         numericUpDown.setTabIndex(1);
         //numericUpDown.setValue(888);
 
         okButton.setDialogResult(DialogResult.OK);
         okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(new Point(61, 32));
-        okButton.setSize(new Size(41, 22));
+        okButton.setLocation(61, 32);
+        okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
         maxButton.setDialogResult(DialogResult.OK);
         maxButton.setFlatStyle(FlatStyle.FLAT);
         //TODO delete all sizes
-        maxButton.setLocation(new Point(109, 32));
-        maxButton.setSize(new Size(41, 22));
+        maxButton.setLocation(109, 32);
+        maxButton.setSize(41, 22);
         maxButton.setTabIndex(3);
         //TODO delete all texts
         maxButton.setText("Max");
@@ -110,28 +112,20 @@ public class FormBuyFuel extends SpaceTraderForm {
 
         nothingButton.setDialogResult(DialogResult.CANCEL);
         nothingButton.setFlatStyle(FlatStyle.FLAT);
-        nothingButton.setLocation(new Point(157, 32));
-        nothingButton.setSize(new Size(53, 22));
+        nothingButton.setLocation(157, 32);
+        nothingButton.setSize(53, 22);
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");
 
-        setAcceptButton(okButton);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setCancelButton(nothingButton);
-        setClientSize(new Size(270, 63));
-        setControlBox(false);
-
         controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
 
-        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        numericUpDown.endInit();
 
-        setShowInTaskbar(false);
-        setStartPosition(FormStartPosition.CENTER_PARENT);
-        setText("Buy Fuel");
-        ((ISupportInitialize) (numericUpDown)).endInit();
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 
-    public int getAmount() {
+    int getAmount() {
         return numericUpDown.getValue();
     }
 }
