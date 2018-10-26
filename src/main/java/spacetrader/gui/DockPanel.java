@@ -51,17 +51,17 @@ class DockPanel extends Panel {
 
         setName("dockPanel");
         setText("Dock");
-        setSize(new Size(240, 90));
+        setSize(240, 90);
         setTabStop(false);
 
-        fuelStatusLabel.setLocation(new Point(8, 16));
-        fuelStatusLabel.setSize(new Size(162, 13));
+        fuelStatusLabel.setLocation(8, 16);
+        fuelStatusLabel.setSize(162, 13);
         fuelStatusLabel.setTabIndex(20);
         //fuelStatusLabel.setText("You have fuel to fly 88 parsecs.");
 
         fuelUpButton.setFlatStyle(FlatStyle.FLAT);
-        fuelUpButton.setLocation(new Point(192, 18));
-        fuelUpButton.setSize(new Size(36, 22));
+        fuelUpButton.setLocation(192, 18);
+        fuelUpButton.setSize(36, 22);
         fuelUpButton.setTabIndex(4);
         fuelUpButton.setText("Fuel");
         fuelUpButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -71,19 +71,19 @@ class DockPanel extends Panel {
             }
         });
 
-        fuelCostLabel.setLocation(new Point(8, 31));
-        fuelCostLabel.setSize(new Size(121, 13));
+        fuelCostLabel.setLocation(8, 31);
+        fuelCostLabel.setSize(121, 13);
         fuelCostLabel.setTabIndex(19);
         //fuelCostLabel.setText("A full tank costs 888 cr.");
 
-        hullStatusLabel.setLocation(new Point(8, 52));
-        hullStatusLabel.setSize(new Size(152, 13));
+        hullStatusLabel.setLocation(8, 52);
+        hullStatusLabel.setSize(152, 13);
         hullStatusLabel.setTabIndex(18);
         //hullStatusLabel.setText("Your hull strength is at 888%.");
 
         repairButton.setFlatStyle(FlatStyle.FLAT);
-        repairButton.setLocation(new Point(180, 56));
-        repairButton.setSize(new Size(48, 22));
+        repairButton.setLocation(180, 56);
+        repairButton.setSize(48, 22);
         repairButton.setTabIndex(5);
         repairButton.setText("Repair");
         repairButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -93,8 +93,8 @@ class DockPanel extends Panel {
             }
         });
 
-        repairCostLabel.setLocation(new Point(8, 67));
-        repairCostLabel.setSize(new Size(150, 13));
+        repairCostLabel.setLocation(8, 67);
+        repairCostLabel.setSize(150, 13);
         repairCostLabel.setTabIndex(19);
         //repairCostLabel.setText("Full repairs will cost 8,888 cr.");
 
