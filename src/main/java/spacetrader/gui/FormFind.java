@@ -27,6 +27,10 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
@@ -85,7 +89,7 @@ public class FormFind extends SpaceTraderForm {
         cancelButton.setLocation(new Point(91, 68));
         cancelButton.setSize(new Size(50, 22));
         cancelButton.setTabIndex(4);
-        cancelButton.setText("Cancel");
+        cancelButton.setText("cancel");
 
         controls.addAll(questionLabel, systemTextBox, trackSystemCheckBox, okButton, cancelButton);
     }

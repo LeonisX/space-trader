@@ -3,6 +3,7 @@ package spacetrader.controls;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import spacetrader.controls.enums.Shortcut;
 
 public class MenuItem implements IName {
 

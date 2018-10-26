@@ -25,13 +25,13 @@ public class DWIM {
     public static <T extends SpaceTraderEnum> T dwim(Object ob, Class<T> cls) {
         int intValue;
 
-        if (ob instanceof Integer)
+        if (ob instanceof Integer) {
             intValue = (Integer) ob;
-        else if (ob instanceof SpaceTraderEnum)
+        } else if (ob instanceof SpaceTraderEnum) {
             intValue = ((SpaceTraderEnum) ob).castToInt();
-        else
-            throw new Error("Unknown value: type is " + ob.getClass()
-                    + " toString is " + ob);
+        } else {
+            throw new Error("Unknown value: type is " + ob.getClass() + " toString is " + ob);
+        }
 
         try {
             return (T) getFromInt(cls).invoke(null, intValue);

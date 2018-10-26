@@ -1,4 +1,4 @@
-package spacetrader.controls;
+package spacetrader.controls.enums;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -6,7 +6,7 @@ import java.awt.*;
 
 public enum BorderStyle {
 
-    FIXED_SINGLE(BorderFactory.createLineBorder(Color.black, 1));
+    FIXED_SINGLE(BorderFactory.createLineBorder(Color.BLACK, 1));
 
     private Border border;
 
@@ -17,5 +17,4 @@ public enum BorderStyle {
     public Border getBorder() {
         return border;
     }
-
 }

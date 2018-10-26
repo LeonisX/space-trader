@@ -25,6 +25,11 @@
 package spacetrader.gui.debug;
 
 import spacetrader.controls.*;
+import spacetrader.controls.enums.ComboBoxStyle;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Consts;
 import spacetrader.game.SpecialEvent;
 import spacetrader.game.enums.AlertType;
@@ -124,7 +129,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // btnTestAlert
         //
-        this.btnTestAlert.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
+        this.btnTestAlert.setFlatStyle(FlatStyle.FLAT);
         this.btnTestAlert.setLocation(new java.awt.Point(80, 120));
         this.btnTestAlert.setName("btnTestAlert");
         this.btnTestAlert.setSize(new spacetrader.controls.Size(41, 22));
@@ -210,7 +215,7 @@ public class FormTest extends SpaceTraderForm {
         //
         // btnTestSpecialEvent
         //
-        this.btnTestSpecialEvent.setFlatStyle(spacetrader.controls.FlatStyle.FLAT);
+        this.btnTestSpecialEvent.setFlatStyle(FlatStyle.FLAT);
         this.btnTestSpecialEvent.setLocation(new java.awt.Point(80, 48));
         this.btnTestSpecialEvent.setName("btnTestSpecialEvent");
         this.btnTestSpecialEvent.setSize(new spacetrader.controls.Size(41, 22));

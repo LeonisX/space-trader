@@ -3,6 +3,9 @@ package spacetrader.controls;
 import javax.swing.*;
 import java.awt.Dialog.ModalityType;
 import java.awt.*;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 
 // TODO make Closing etc work.
 public class WinformForm extends WinformPane {
@@ -57,8 +60,9 @@ public class WinformForm extends WinformPane {
     }
 
     private void fixLocation() {
-        if (startPosition == null)
+        if (startPosition == null) {
             return;
+        }
         switch (startPosition) {
             case CENTER_PARENT:
                 jDialog.setLocationRelativeTo(parent == null ? null : parent.asSwingObject());
@@ -128,7 +132,6 @@ public class WinformForm extends WinformPane {
         return showInTaskbar;
     }
 
-    // TODO ShowInTaskbar
     public void setShowInTaskbar(boolean showInTaskbar) {
         this.showInTaskbar = showInTaskbar;
     }

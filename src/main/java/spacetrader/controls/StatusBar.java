@@ -1,5 +1,6 @@
 package spacetrader.controls;
 
+import spacetrader.controls.enums.StatusBarPanelAutoSize;
 import spacetrader.controls.swingextra.JStatusBar;
 
 import java.awt.event.MouseAdapter;

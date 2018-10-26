@@ -1,5 +1,6 @@
 package spacetrader.controls;
 
+import java.awt.Component;
 import javax.swing.*;
 import java.awt.Graphics;
 import java.util.Collection;
@@ -11,7 +12,7 @@ public class WinformJPanel extends JPanel {
 
     private final WinformPane form;
     Image backgroundImage = null;
-    private Map<java.awt.Component, Integer> tabOrderMap = new HashMap<>();
+    private Map<Component, Integer> tabOrderMap = new HashMap<>();
 
     WinformJPanel(WinformPane form) {
         super(null); // That's what winforms use.
@@ -19,7 +20,7 @@ public class WinformJPanel extends JPanel {
 
         setFocusTraversalPolicy(new SortingFocusTraversalPolicy(Comparator.comparing(o -> tabOrderMap.get(o))) {
             @Override
-            protected boolean accept(java.awt.Component component) {
+            protected boolean accept(Component component) {
                 return tabOrderMap.containsKey(component);
             }
         });
@@ -33,7 +34,7 @@ public class WinformJPanel extends JPanel {
         }
     }
 
-    private void setFocusOrder(java.awt.Component component, int order) {
+    private void setFocusOrder(Component component, int order) {
         if (order == -1) {
             tabOrderMap.remove(component);
         } else {
@@ -45,7 +46,7 @@ public class WinformJPanel extends JPanel {
         if (wccont instanceof Button) {
             handleDialogResult((Button) wccont);
         }
-        java.awt.Component ob = wccont.asSwingObject();
+        Component ob = wccont.asSwingObject();
         add(ob);
         setFocusOrder(ob, wccont.getTabIndex());
         ob.addMouseListener(wccont.getMouseListener());

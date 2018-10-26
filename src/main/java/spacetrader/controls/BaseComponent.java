@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import spacetrader.controls.enums.BorderStyle;
 
 public class BaseComponent implements ISupportInitialize, IName {
 
@@ -175,7 +176,7 @@ public class BaseComponent implements ISupportInitialize, IName {
         this.click = click;
     }
 
-    public EventHandler<Object, EventArgs> getClick() {
+    EventHandler<Object, EventArgs> getClick() {
         return click;
     }
 

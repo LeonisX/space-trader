@@ -26,6 +26,10 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.Difficulty;
@@ -33,7 +37,6 @@ import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 

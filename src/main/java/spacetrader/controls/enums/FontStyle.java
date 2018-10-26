@@ -1,4 +1,4 @@
-package spacetrader.controls;
+package spacetrader.controls.enums;
 
 import java.awt.Font;
 

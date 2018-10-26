@@ -3,6 +3,8 @@ package spacetrader.controls;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
 
 public class Button extends BaseComponent {
 

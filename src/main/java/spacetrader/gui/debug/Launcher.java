@@ -1,6 +1,6 @@
 package spacetrader.gui.debug;
 
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.WinformForm;
 
 import javax.swing.*;

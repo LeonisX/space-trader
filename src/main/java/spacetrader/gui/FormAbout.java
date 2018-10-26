@@ -29,10 +29,12 @@ import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class FormAbout extends WinformForm {

@@ -20,17 +20,18 @@ public class WinformMouseListener extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         switch (e.getClickCount()) {
             case 1:
-                if (normalClick != null)
+                if (normalClick != null) {
                     normalClick.handle(sender, new MouseEventArgs(e));
+                }
                 break;
             case 2:
             case 3:
-                if (doubleClick != null)
+                if (doubleClick != null) {
                     doubleClick.handle(sender, new MouseEventArgs(e));
+                }
                 break;
             default:
                 // ignore?
         }
     }
-
 }

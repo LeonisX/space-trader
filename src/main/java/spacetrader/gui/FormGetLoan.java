@@ -27,6 +27,10 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;

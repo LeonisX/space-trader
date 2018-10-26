@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import spacetrader.controls.enums.BorderStyle;
+import spacetrader.controls.enums.PictureBoxSizeMode;
 
 public class PictureBox extends BaseComponent implements ISupportInitialize {
 
@@ -47,7 +49,7 @@ public class PictureBox extends BaseComponent implements ISupportInitialize {
     public void setBorderStyle(BorderStyle borderStyle) {
         switch (borderStyle) {
             case FIXED_SINGLE:
-                asJLabel().setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                asJLabel().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 break;
 
             default:

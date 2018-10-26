@@ -1,8 +1,8 @@
 package spacetrader.gui;
 
 import spacetrader.controls.Font;
-import spacetrader.controls.FontStyle;
-import spacetrader.controls.GraphicsUnit;
+import spacetrader.controls.enums.FontStyle;
+import spacetrader.controls.enums.GraphicsUnit;
 
 /**
  * @author Aviv

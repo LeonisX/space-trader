@@ -20,13 +20,13 @@
 
 package spacetrader.game;
 
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
-import spacetrader.util.CheatCode;
+import spacetrader.game.cheat.CheatCode;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 

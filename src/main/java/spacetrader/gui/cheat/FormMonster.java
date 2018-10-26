@@ -26,13 +26,13 @@
 package spacetrader.gui.cheat;
 
 import java.awt.Point;
-import spacetrader.controls.BorderStyle;
+import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.Button;
-import spacetrader.controls.ContentAlignment;
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.ContentAlignment;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.EventHandler;
-import spacetrader.controls.FormBorderStyle;
-import spacetrader.controls.FormStartPosition;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.controls.HorizontalLine;
 import spacetrader.controls.Label;
 import spacetrader.controls.LinkArea;
@@ -52,7 +52,7 @@ import spacetrader.game.enums.ShipyardId;
 import spacetrader.gui.FontCollection;
 import spacetrader.gui.SpaceTraderForm;
 import spacetrader.stub.ArrayList;
-import spacetrader.util.CheatCode;
+import spacetrader.game.cheat.CheatCode;
 import spacetrader.util.ReflectionUtils;
 import spacetrader.util.Util;
 

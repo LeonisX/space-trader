@@ -3,6 +3,7 @@ package spacetrader.controls;
 import java.awt.*;
 import java.awt.image.ColorModel;
 import java.util.ArrayList;
+import spacetrader.controls.enums.GraphicsUnit;
 
 public class ImageList {
 

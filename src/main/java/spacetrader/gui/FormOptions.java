@@ -27,6 +27,10 @@ package spacetrader.gui;
 import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Label;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
 import spacetrader.game.GameOptions;
 import spacetrader.game.enums.AlertType;
@@ -282,7 +286,7 @@ public class FormOptions extends SpaceTraderForm {
         cancelButton.setLocation(new Point(62, 240));
         cancelButton.setSize(new Size(49, 22));
         cancelButton.setTabIndex(16);
-        cancelButton.setText("Cancel");
+        cancelButton.setText("cancel");
 
         saveButton.setFlatStyle(FlatStyle.FLAT);
         saveButton.setLocation(new Point(119, 240));

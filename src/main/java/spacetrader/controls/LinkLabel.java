@@ -1,6 +1,5 @@
 package spacetrader.controls;
 
-
 public class LinkLabel extends Label {
 
     private LinkHolder links = new LinkHolder();

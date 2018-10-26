@@ -25,7 +25,7 @@
 
 package spacetrader.game;
 
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Hashtable;

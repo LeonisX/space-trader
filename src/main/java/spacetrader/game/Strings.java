@@ -29,7 +29,7 @@ public class Strings {
     //TODO test FormMonster, ...
     public static String newline = "<br>";//String.format("%n");
 
-    public static String AlertsCancel = "Cancel";
+    public static String AlertsCancel = "cancel";
     public static String AlertsNo = "No";
     public static String AlertsOk = "Ok";
     public static String AlertsYes = "Yes";
@@ -778,7 +778,7 @@ public class Strings {
             "Unidentified Ship: A Threat to Zalkon?",
             "Huge Explosion Reported at Research Facility.",
             "Travelers Report Timespace Damage, Warp Problems!",
-            "Scientists Cancel High-profile Test! Committee to Investigate Design.",
+            "Scientists cancel High-profile Test! Committee to Investigate Design.",
             "Travelers Claim Sighting of Ship Materializing in Orbit!",
             "Editorial: Who Will Warn Gemulon?",
             "Alien Invasion Devastates Planet!",

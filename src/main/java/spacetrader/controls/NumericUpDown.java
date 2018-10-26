@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import spacetrader.controls.enums.HorizontalAlignment;
 
 public class NumericUpDown extends BaseComponent {
 

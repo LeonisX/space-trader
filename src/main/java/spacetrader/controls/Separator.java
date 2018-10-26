@@ -1,5 +1,6 @@
 package spacetrader.controls;
 
+import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.swingextra.JLineSeparator;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class Separator extends BaseComponent {
     public void setBorderStyle(BorderStyle borderStyle) {
         switch (borderStyle) {
             case FIXED_SINGLE:
-                asJLineSeparator().setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+                asJLineSeparator().setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
                 break;
 
             default:

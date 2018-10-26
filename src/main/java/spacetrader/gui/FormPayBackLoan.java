@@ -32,12 +32,12 @@ import static spacetrader.game.Strings.MoneyUnit;
 
 import java.awt.Point;
 import spacetrader.controls.Button;
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
-import spacetrader.controls.FlatStyle;
-import spacetrader.controls.FormBorderStyle;
-import spacetrader.controls.FormStartPosition;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.controls.Label;
 import spacetrader.controls.NumericUpDown;
 import spacetrader.controls.Size;

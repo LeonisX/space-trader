@@ -4,15 +4,16 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import spacetrader.controls.enums.DialogResult;
 
 public class FileDialog {
 
     private final JFileChooser chooser = new JFileChooser();
 
     private String approveButtonText;
+    //TODO
     private String string;
     private String defaultExt;
-
     private String title;
 
     public void setTitle(String title) {

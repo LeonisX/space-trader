@@ -1,7 +1,5 @@
 package spacetrader.game.cheat;
 
-import spacetrader.util.CheatCode;
-
 import java.util.Hashtable;
 
 @CheatCode

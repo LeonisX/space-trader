@@ -31,10 +31,6 @@ public class CheckBox extends BaseComponent {
     }
 
     public void setCheckedChanged(final EventHandler<Object, EventArgs> handler) {
-        asJCheckBox().addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                handler.handle(CheckBox.this, null);
-            }
-        });
+        asJCheckBox().addChangeListener(e -> handler.handle(CheckBox.this, null));
     }
 }

@@ -18,7 +18,7 @@ public class Bitmap extends Image implements Icon, Serializable {
     private Color transparent = null;
     private transient boolean transSet = false;
 
-    public Bitmap(Image source) {
+    Bitmap(Image source) {
         image = ((Bitmap) source).image;
         imageUrl = ((Bitmap) source).imageUrl;
     }
@@ -92,7 +92,7 @@ public class Bitmap extends Image implements Icon, Serializable {
         image = newImage;
     }
 
-    public int toArgb(int col, int row) {
+    int toArgb(int col, int row) {
         // note that alpha is ignored.
         return image.getRGB(col, row);
     }

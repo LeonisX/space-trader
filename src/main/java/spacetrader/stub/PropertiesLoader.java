@@ -55,5 +55,4 @@ public class PropertiesLoader {
             }
             return lines.stream();
     }
-
 }

@@ -1,6 +1,7 @@
 package spacetrader.controls;
 
 import java.awt.*;
+import spacetrader.controls.enums.DialogResult;
 
 /**
  * base class for windows / forms.
@@ -15,15 +16,16 @@ public abstract class WinformPane extends BaseComponent {
         super(swingVersion);
     }
 
-    protected void show() {
+    void show() {
         EventHandler<Object, EventArgs> loadHandler = load;
         raise(loadHandler, this, null);
         swingComponent.setVisible(true);
     }
 
     private <O, E> void raise(EventHandler<O, E> handler, O sender, E args) {
-        if (handler != null)
+        if (handler != null) {
             handler.handle(sender, args);
+        }
     }
 
     protected void setLoad(EventHandler<Object, EventArgs> load) {

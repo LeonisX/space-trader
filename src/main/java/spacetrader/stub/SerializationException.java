@@ -1,6 +1,7 @@
 package spacetrader.stub;
 
 public class SerializationException extends Exception {
+
     public SerializationException() {
         super();
     }
@@ -13,7 +14,7 @@ public class SerializationException extends Exception {
         super(message);
     }
 
-    public SerializationException(Throwable cause) {
+    SerializationException(Throwable cause) {
         super(cause);
     }
 }

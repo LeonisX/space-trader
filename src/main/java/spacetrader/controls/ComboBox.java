@@ -1,6 +1,7 @@
 package spacetrader.controls;
 
 import javax.swing.*;
+import spacetrader.controls.enums.ComboBoxStyle;
 
 public class ComboBox<T> extends BaseComponent {
 

@@ -9,26 +9,6 @@ public class JStatusBar extends JPanel {
         super(new GridBagLayout());
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        JStatusBar panel = new JStatusBar();
-
-        Container pane = frame.getContentPane();
-        pane.add(panel, BorderLayout.SOUTH);
-
-        panel.addSection(new JStatusBarSection("eastest!"), false);
-        panel.addSection(new JStatusBarSection("Foo bar!"), false);
-        panel.addSection(new JStatusBarSection("--fill--"), true);
-
-//		panel.addSection(new JStatusBarSection("Foo bar!"), false);
-//		panel.addSection(new JStatusBarSection("westest"), false);
-
-        frame.setSize(400, 400);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(3);
-        frame.setVisible(true);
-    }
-
     public void addSection(JStatusBarSection section, boolean stretch) {
         GridBagConstraints c = new GridBagConstraints();
         if (stretch) {

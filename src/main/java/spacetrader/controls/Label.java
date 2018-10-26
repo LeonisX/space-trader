@@ -2,6 +2,7 @@ package spacetrader.controls;
 
 import javax.swing.*;
 import java.awt.*;
+import spacetrader.controls.enums.ContentAlignment;
 
 public class Label extends BaseComponent {
 
@@ -33,8 +34,9 @@ public class Label extends BaseComponent {
         if (text.length() > 15) {
             convertedToHtml = true;
             text = START + text.replaceAll(NEWLINE_LITERAL + "\\s*", NEWLINE) + END;
-        } else
+        } else {
             convertedToHtml = false;
+        }
         ((JLabel) swingComponent).setText(text);
     }
 

@@ -8,7 +8,7 @@ import java.util.Properties;
 public class ResourceManager {
 
     private static final ClassLoader classLoader = ResourceManager.class.getClassLoader();
-    protected final Properties properties = new Properties();
+    final Properties properties = new Properties();
     private final String path;
 
     ResourceManager(URL resource, String path) {

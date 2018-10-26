@@ -2,6 +2,13 @@ package spacetrader.controls;
 
 public class CancelEventArgs extends EventArgs {
 
-    public boolean Cancel;
+    private boolean cancel;
 
+    public boolean isCancel() {
+        return cancel;
+    }
+
+    public void setCancel(boolean cancel) {
+        this.cancel = cancel;
+    }
 }

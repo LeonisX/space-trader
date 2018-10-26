@@ -16,5 +16,4 @@ public interface MainWindow extends GuiWindow {
     void setInGameControlsEnabled(boolean enabled);
 
     void setGame(Game game);
-
 }

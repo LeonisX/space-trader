@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 
 public class WinformWindow extends WinformPane {
 
@@ -12,7 +15,7 @@ public class WinformWindow extends WinformPane {
     private final WinformJPanel panel;
     protected Integer left, top;
     protected FormWindowState windowState;
-    DialogResult result;
+    private DialogResult result;
     private EventHandler<Object, CancelEventArgs> onClosing;
     private EventHandler<Object, EventArgs> onClosed;
     private FormBorderStyle formBorderStyle;
@@ -141,23 +144,26 @@ public class WinformWindow extends WinformPane {
 
     // ///////////// implementation ends here.
     protected enum FormWindowState {
-        Normal
+        NORMAL
     }
 
     private class WindowListener extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
             CancelEventArgs args = new CancelEventArgs();
-            if (onClosing != null)
+            if (onClosing != null) {
                 onClosing.handle(WinformWindow.this, args);
-            if (!args.Cancel)
+            }
+            if (!args.isCancel()) {
                 frame.dispose();
+            }
         }
 
         @Override
         public void windowClosed(WindowEvent e) {
-            if (onClosed != null)
+            if (onClosed != null) {
                 onClosed.handle(WinformWindow.this, new EventArgs());
+            }
             super.windowClosed(e);
         }
     }

@@ -266,7 +266,7 @@ public class ReflectionUtils {
             print3(stringsList.stream().filter(s -> s.contains("Title=\"")).findFirst().orElse(""));
             print3(stringsList.stream().filter(s -> s.contains("Message=\"")).findFirst().orElse(""));
             print3(stringsList.stream().filter(s -> s.contains("Accept=\"")).findFirst().orElse(""));
-            print3(stringsList.stream().filter(s -> s.contains("Cancel=\"")).findFirst().orElse(""));
+            print3(stringsList.stream().filter(s -> s.contains("cancel=\"")).findFirst().orElse(""));
         });
         System.out.println();
         System.out.println(method);
@@ -319,7 +319,7 @@ public class ReflectionUtils {
         if (value.equals("Yes")) {
             varName = "AlertsYes";
         }
-        if (value.equals("Cancel")) {
+        if (value.equals("cancel")) {
             varName = "AlertsCancel";
         }
             method = method.replace(varValue, varName);
@@ -351,7 +351,7 @@ public class ReflectionUtils {
             "                return (new FormAlert(\"Space Trader for Windows\", SPLASH_INDEX));\n" +
             "            case ArrivalBuyNewspaper:\n" +
             "                return (new FormAlert(\"Buy Newspaper?\", \"The local newspaper costs ^1. Do you wish to buy a copy?\",\n" +
-            "                        \"Buy Newspaper\", DialogResult.YES, \"Cancel\", DialogResult.NO, args));\n" +
+            "                        \"Buy Newspaper\", DialogResult.YES, \"cancel\", DialogResult.NO, args));\n" +
             "            case ArrivalIFFuel:\n" +
             "                return (new FormAlert(\"No Full Tanks\", \"You do not have enough money to buy full tanks.\", \"Ok\",\n" +
             "                        DialogResult.OK, null, DialogResult.NONE, args));\n" +
@@ -1050,13 +1050,13 @@ public class ReflectionUtils {
             "                return (new FormAlert(\n" +
             "                        \"Wild Won't Stay Aboard\",\n" +
             "                        \"Jonathan Wild isn't about to go with you if you're not armed with at least a Beam Laser. He'd rather take his chances hiding out here on ^1.\"\n" +
-            "                                + Strings.newline, \"Say Goodbye to Wild\", DialogResult.OK, \"Cancel\", DialogResult.CANCEL,\n" +
+            "                                + Strings.newline, \"Say Goodbye to Wild\", DialogResult.OK, \"cancel\", DialogResult.CANCEL,\n" +
             "                        args));\n" +
             "            case WildWontStayAboardReactor:\n" +
             "                return (new FormAlert(\n" +
             "                        \"Wild Won't Stay Aboard\",\n" +
             "                        \"Jonathan Wild isn't willing to go with you if you bring that Reactor on board. He'd rather take his chances hiding out here on ^1.\"\n" +
-            "                                + Strings.newline, \"Say Goodbye to Wild\", DialogResult.OK, \"Cancel\", DialogResult.CANCEL,\n" +
+            "                                + Strings.newline, \"Say Goodbye to Wild\", DialogResult.OK, \"cancel\", DialogResult.CANCEL,\n" +
             "                        args));\n" +
             "\n" +
             "            default:\n" +

@@ -4,6 +4,8 @@ import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.*;
 import spacetrader.guifacade.GuiFacade;

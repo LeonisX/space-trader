@@ -1,6 +1,7 @@
 package spacetrader.controls;
 
 import java.awt.event.MouseEvent;
+import spacetrader.controls.enums.MouseButtons;
 
 public class MouseEventArgs extends EventArgs {
 

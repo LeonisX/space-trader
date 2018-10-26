@@ -25,6 +25,16 @@ import spacetrader.controls.Container;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
+import spacetrader.controls.enums.BorderStyle;
+import spacetrader.controls.enums.ColorDepth;
+import spacetrader.controls.enums.ComboBoxStyle;
+import spacetrader.controls.enums.ContentAlignment;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.controls.enums.HorizontalAlignment;
+import spacetrader.controls.enums.PictureBoxSizeMode;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.Difficulty;
@@ -197,7 +207,7 @@ public class FormShipyard extends SpaceTraderForm {
         logoPictureBox.setBackground(Color.BLACK);
         logoPictureBox.setLocation(8, 12);
         logoPictureBox.setSize(80, 80);
-        logoPictureBox.sizeMode = PictureBoxSizeMode.StretchImage;
+        logoPictureBox.sizeMode = PictureBoxSizeMode.STRETCH_IMAGE;
         logoPictureBox.setTabStop(false);
 
         welcomeLabelValue.setLocation(92, 12);
@@ -684,7 +694,7 @@ public class FormShipyard extends SpaceTraderForm {
         cancelButton.setLocation(286, 344);
         cancelButton.setSize(88, 22);
         cancelButton.setTabIndex(5);
-        cancelButton.setText("Cancel Design");
+        cancelButton.setText("cancel Design");
 
         constructButton.setFlatStyle(FlatStyle.FLAT);
         constructButton.setForeground(SystemColors.CONTROL_TEXT);

@@ -1,6 +1,7 @@
 package spacetrader.controls;
 
 import java.awt.*;
+import spacetrader.controls.enums.GraphicsUnit;
 import spacetrader.game.Consts;
 import spacetrader.game.Ship;
 

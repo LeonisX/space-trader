@@ -2,6 +2,7 @@ package spacetrader.controls;
 
 import javax.swing.*;
 import java.awt.*;
+import spacetrader.controls.enums.BorderStyle;
 
 public class ListBox extends BaseComponent {
 

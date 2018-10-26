@@ -1,6 +1,6 @@
 package spacetrader.guifacade;
 
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.WinformPane;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.CargoBuyOp;
@@ -9,7 +9,7 @@ import spacetrader.game.enums.EncounterResult;
 import spacetrader.gui.*;
 
 /**
- * Ment to be the connecting link between the game engien and the GUI. Will help later
+ * Ment to be the connecting link between the game engine and the GUI. Will help later
  * with replacing the GUI layer.
  * <p>
  * It holds things refactored UP from the controller classes. Also see GameController.
@@ -20,7 +20,7 @@ public class GuiFacade {
     /**
      * Asks the user for how many items to buy (or steal).
      *
-     * @return amount selected by the user to buy; 0 if clicked Cancel.
+     * @return amount selected by the user to buy; 0 if clicked cancel.
      */
     public static int queryAmountAcquire(int item, int maxAmount, CargoBuyOp op) {
         FormCargoBuy form = new FormCargoBuy(item, maxAmount, op);
@@ -30,7 +30,7 @@ public class GuiFacade {
     /**
      * Asks the user for how many items to sell.
      *
-     * @return amount selected by the user to buy; 0 if clicked Cancel.
+     * @return amount selected by the user to buy; 0 if clicked cancel.
      */
     public static int queryAmountRelease(int item, CargoSellOp op, int maxAmount, int price) {
         FormCargoSell form = new FormCargoSell(item, maxAmount, op, price);
@@ -38,8 +38,7 @@ public class GuiFacade {
     }
 
     /**
-     * Lets the user Plunder an un-opposing ship. The gui handles the what and the how
-     * much of it.
+     * Lets the user Plunder an un-opposing ship. The gui handles the what and the how much of it.
      * <p>
      * todo smells like there's too much game code in that form.
      */

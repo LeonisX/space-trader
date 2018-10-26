@@ -1,6 +1,6 @@
 package spacetrader.gui;
 
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.WinformForm;
 import spacetrader.controls.WinformPane;
 

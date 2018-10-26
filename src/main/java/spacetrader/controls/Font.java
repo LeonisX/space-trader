@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashSet;
+import spacetrader.controls.enums.FontStyle;
+import spacetrader.controls.enums.GraphicsUnit;
 
 public class Font extends java.awt.Font {
 
@@ -54,8 +56,9 @@ public class Font extends java.awt.Font {
 
     private static java.awt.Font makeAndRegisterFont(String name) throws FontFormatException, IOException {
         InputStream stream = Font.class.getClassLoader().getResourceAsStream(name);
-        if (stream == null)
+        if (stream == null) {
             throw new IOException("Resource not found: " + name);
+        }
 
         java.awt.Font font = java.awt.Font.createFont(Font.TRUETYPE_FONT, stream);
         GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);

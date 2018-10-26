@@ -4,15 +4,16 @@ import java.io.*;
 import java.util.Properties;
 
 public class RegistryKey {
-    protected final Properties properties = new Properties();
+
+    private final Properties properties = new Properties();
     private final File file;
 
-    public RegistryKey(File regfile) {
-        this.file = regfile;
+    public RegistryKey(File regFile) {
+        this.file = regFile;
         FileInputStream stream = null;
         try {
-            regfile.createNewFile();
-            stream = new FileInputStream(regfile);
+            regFile.createNewFile();
+            stream = new FileInputStream(regFile);
             properties.load(stream);
         } catch (IOException e) {
             throw new Error("Can't create/load regfile.");
@@ -26,7 +27,7 @@ public class RegistryKey {
         }
     }
 
-    public void Close() {
+    public void close() {
         FileOutputStream stream;
         try {
             stream = new FileOutputStream(file);
@@ -43,17 +44,16 @@ public class RegistryKey {
                 stream.close();
             } catch (IOException e) {
                 e.printStackTrace();
-                return;
             }
         }
     }
 
-    public void SetValue(String settingName, String settingValue) {
+    public void setValue(String settingName, String settingValue) {
         properties.setProperty(settingName, settingValue);
 
     }
 
-    public Object GetValue(String settingName) {
+    public Object getValue(String settingName) {
         return properties.getProperty(settingName);
     }
 

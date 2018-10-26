@@ -4,6 +4,8 @@ import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
+import spacetrader.controls.enums.AnchorStyles;
+import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
 
 import java.awt.*;

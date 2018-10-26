@@ -102,7 +102,7 @@ public class SpaceTraderDevApp {
             ReflectionUtils.dumpControlsStrings(component, component.getName());
             System.out.println();
         });
-        //ReflectionUtils.dumpStrings();
+        ReflectionUtils.dumpStrings();
     }
 
 }

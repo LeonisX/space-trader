@@ -1,6 +1,5 @@
 package spacetrader.controls;
 
-
 public class ImageListStreamer {
 
     final Iterable<Image> images;

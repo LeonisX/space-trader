@@ -1,4 +1,4 @@
-package spacetrader.controls;
+package spacetrader.controls.enums;
 
 public enum GraphicsUnit {
     /**
@@ -58,7 +58,7 @@ public enum GraphicsUnit {
         }
     }
 
-    float toPixels(float value) {
+    public float toPixels(float value) {
         return value * toPixels(this);
     }
 }

@@ -25,11 +25,11 @@ import static spacetrader.controls.MenuItem.separator;
 import java.awt.Point;
 import spacetrader.controls.CancelEventArgs;
 import spacetrader.controls.Container;
-import spacetrader.controls.DialogResult;
+import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
-import spacetrader.controls.FormBorderStyle;
-import spacetrader.controls.FormStartPosition;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.controls.HorizontalLine;
 import spacetrader.controls.IContainer;
 import spacetrader.controls.Icon;
@@ -38,7 +38,7 @@ import spacetrader.controls.MenuItem;
 import spacetrader.controls.OpenFileDialog;
 import spacetrader.controls.ResourceManager;
 import spacetrader.controls.SaveFileDialog;
-import spacetrader.controls.Shortcut;
+import spacetrader.controls.enums.Shortcut;
 import spacetrader.controls.Size;
 import spacetrader.controls.SubMenu;
 import spacetrader.controls.WinformWindow;
@@ -419,11 +419,11 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         try {
             RegistryKey key = Functions.getRegistryKey();
-            Object ObjectValue = key.GetValue(settingName);
+            Object ObjectValue = key.getValue(settingName);
             if (ObjectValue != null) {
                 settingValue = ObjectValue.toString();
             }
-            key.Close();
+            key.close();
         } catch (NullPointerException ex) {
             GuiFacade.alert(AlertType.RegistryError, ex.getMessage());
         }
@@ -460,8 +460,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private void SetRegistrySetting(String settingName, String settingValue) {
         try {
             RegistryKey key = Functions.getRegistryKey();
-            key.SetValue(settingName, settingValue);
-            key.Close();
+            key.setValue(settingName, settingValue);
+            key.close();
         } catch (NullPointerException ex) {
             GuiFacade.alert(AlertType.RegistryError, ex.getMessage());
         }
@@ -479,15 +479,15 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         statusBar.update();
     }
 
-    private void SpaceTrader_Closing(spacetrader.controls.CancelEventArgs e) {
+    private void SpaceTrader_Closing(CancelEventArgs e) {
         if (game == null || commander.getDays() == controller.saveGameDays
                 || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES) {
-            if (windowState == FormWindowState.Normal) {
+            if (windowState == FormWindowState.NORMAL) {
                 SetRegistrySetting("X", left.toString());
                 SetRegistrySetting("Y", top.toString());
             }
         } else {
-            e.Cancel = true;
+            e.setCancel(true);
         }
     }
 

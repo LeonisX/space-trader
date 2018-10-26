@@ -26,6 +26,11 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.enums.ContentAlignment;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.Difficulty;

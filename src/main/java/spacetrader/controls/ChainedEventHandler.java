@@ -11,8 +11,9 @@ public abstract class ChainedEventHandler<Sender, Args> extends EventHandler<Sen
 
     @Override
     public final void handle(Sender sender, Args e) {
-        if (chain != null)
+        if (chain != null) {
             chain.handle(sender, e);
+        }
         this.instanceHandle(sender, e);
     }
 

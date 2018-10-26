@@ -27,7 +27,7 @@ public class Directory {
         File[] files = new File(path).listFiles((arg0, filename) -> filename.endsWith(suffix));
 
         if (files == null) {
-            System.out.println("getFiles rets null!");
+            System.out.println("getFiles returns null!");
             return new String[0];
         }
         List<String> names = Lisp.map(files, File::getPath);

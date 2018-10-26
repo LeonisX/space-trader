@@ -12,7 +12,6 @@ public class SubMenu extends MenuItem {
         asJMenu().add(item.asJMenuItem());
     }
 
-
     public void addAll(MenuItem... items) {
         for (MenuItem item : items)
             this.add(item);

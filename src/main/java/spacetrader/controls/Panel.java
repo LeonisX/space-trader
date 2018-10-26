@@ -2,6 +2,7 @@ package spacetrader.controls;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import spacetrader.controls.enums.AnchorStyles;
 
 public class Panel extends BaseComponent {
 
