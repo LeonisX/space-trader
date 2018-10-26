@@ -1195,8 +1195,8 @@ public class Strings {
             "Agricultural", "Medieval", "Renaissance", "Early Industrial", "Industrial", "Post-Industrial", "Hi-Tech"};
 
     // TradeItemNames
-    public static String[] TradeItemNames = new String[]{"Water", "Furs",
-            "Food", "Ore", "Games", "Firearms", "Medicine", "Machines", "Narcotics", "Robots"};
+    public static String[] TradeItemNames = new String[]{"Water", "Furs", "Food", "Ore", "Games", "Firearms",
+            "Medicine", "Machines", "Narcotics", "Robots"};
 
     // VeryRareEncounters
     public static String[] VeryRareEncounters = new String[]{"Marie Celeste",

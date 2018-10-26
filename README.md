@@ -6,11 +6,11 @@ The project is a Java port of the [Space Trader for Windows](https://sourceforge
 
 Useful Source Repositories:
 
-https://github.com/videogamepreservation/spacetrader
+* https://github.com/videogamepreservation/spacetrader
+* https://github.com/SpaceTraderGame/SpaceTrader-Windows
+* https://bitbucket.org/brucelet/space-trader/src
 
-https://github.com/SpaceTraderGame/SpaceTrader-Windows
-
-https://bitbucket.org/brucelet/space-trader/src
+[Other implementations on GitHub](https://github.com/search?q=space+trader)
 
 ## Whats new:
 
@@ -22,9 +22,7 @@ https://bitbucket.org/brucelet/space-trader/src
 
 ## TODO
 
-* Move cheats-only enums to cheat package
 * i18n for Swing
-* Strings to file
 * Language selector
 * Different image sizes, font sizes (config)
 * Special object for save states
