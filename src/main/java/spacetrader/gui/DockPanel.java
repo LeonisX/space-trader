@@ -1,30 +1,42 @@
 package spacetrader.gui;
 
+import static spacetrader.game.Functions.formatMoney;
+import static spacetrader.game.Functions.formatNumber;
+import static spacetrader.game.Functions.multiples;
+import static spacetrader.game.Functions.stringVars;
+import static spacetrader.game.Strings.DistanceUnit;
+import static spacetrader.game.Strings.DockFuelCost;
+import static spacetrader.game.Strings.DockFuelFull;
+import static spacetrader.game.Strings.DockFuelStatus;
+import static spacetrader.game.Strings.DockHullCost;
+import static spacetrader.game.Strings.DockHullFull;
+import static spacetrader.game.Strings.DockHullStatus;
+
+import java.awt.Point;
 import spacetrader.controls.Button;
-import spacetrader.controls.*;
+import spacetrader.controls.EventArgs;
+import spacetrader.controls.EventHandler;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
+import spacetrader.controls.Size;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.Commander;
+import spacetrader.game.GlobalAssets;
 import spacetrader.game.Ship;
-
-import java.awt.*;
-
-import static spacetrader.game.Functions.*;
-import static spacetrader.game.Strings.*;
+import spacetrader.util.ReflectionUtils;
 
 class DockPanel extends Panel {
 
     private final SpaceTrader mainWindow;
     private Commander commander;
 
-    private Button fuelUpButton;
-    private Button repairButton;
-    private Label fuelStatusLabel;
-    private Label fuelCostLabel;
-    private Label hullStatusLabel;
-    private Label repairCostLabel;
+    private Button fuelUpButton = new Button();
+    private Button repairButton = new Button();
+    private Label fuelStatusLabel = new Label();
+    private Label fuelCostLabel = new Label();
+    private Label hullStatusLabel = new Label();
+    private Label repairCostLabel = new Label();
 
     DockPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
@@ -35,36 +47,17 @@ class DockPanel extends Panel {
     }
 
     void initializeComponent() {
-        repairButton = new Button();
-        fuelUpButton = new Button();
-        fuelStatusLabel = new Label();
-        fuelCostLabel = new Label();
-        hullStatusLabel = new Label();
-        repairCostLabel = new Label();
+        ReflectionUtils.setAllComponentNames(this);
 
-        getControls().add(repairButton);
-        getControls().add(fuelUpButton);
-        getControls().add(fuelStatusLabel);
-        getControls().add(fuelCostLabel);
-        getControls().add(hullStatusLabel);
-        getControls().add(repairCostLabel);
-
-        setSize(new Size(240, 90));
-        setTabIndex(2);
-        setTabStop(false);
+        setName("dockPanel");
         setText("Dock");
+        setSize(new Size(240, 90));
+        setTabStop(false);
 
-        repairButton.setFlatStyle(FlatStyle.FLAT);
-        repairButton.setLocation(new Point(180, 56));
-        repairButton.setSize(new Size(48, 22));
-        repairButton.setTabIndex(5);
-        repairButton.setText("Repair");
-        repairButton.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, spacetrader.controls.EventArgs e) {
-                repairButtonClick();
-            }
-        });
+        fuelStatusLabel.setLocation(new Point(8, 16));
+        fuelStatusLabel.setSize(new Size(162, 13));
+        fuelStatusLabel.setTabIndex(20);
+        //fuelStatusLabel.setText("You have fuel to fly 88 parsecs.");
 
         fuelUpButton.setFlatStyle(FlatStyle.FLAT);
         fuelUpButton.setLocation(new Point(192, 18));
@@ -78,11 +71,6 @@ class DockPanel extends Panel {
             }
         });
 
-        fuelStatusLabel.setLocation(new Point(8, 16));
-        fuelStatusLabel.setSize(new Size(162, 13));
-        fuelStatusLabel.setTabIndex(20);
-        //fuelStatusLabel.setText("You have fuel to fly 88 parsecs.");
-
         fuelCostLabel.setLocation(new Point(8, 31));
         fuelCostLabel.setSize(new Size(121, 13));
         fuelCostLabel.setTabIndex(19);
@@ -93,10 +81,28 @@ class DockPanel extends Panel {
         hullStatusLabel.setTabIndex(18);
         //hullStatusLabel.setText("Your hull strength is at 888%.");
 
+        repairButton.setFlatStyle(FlatStyle.FLAT);
+        repairButton.setLocation(new Point(180, 56));
+        repairButton.setSize(new Size(48, 22));
+        repairButton.setTabIndex(5);
+        repairButton.setText("Repair");
+        repairButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, spacetrader.controls.EventArgs e) {
+                repairButtonClick();
+            }
+        });
+
         repairCostLabel.setLocation(new Point(8, 67));
         repairCostLabel.setSize(new Size(150, 13));
         repairCostLabel.setTabIndex(19);
         //repairCostLabel.setText("Full repairs will cost 8,888 cr.");
+
+        getControls()
+                .addAll(fuelStatusLabel, fuelUpButton, fuelCostLabel, hullStatusLabel, repairButton, repairCostLabel);
+
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 
     private void fuelUpButtonClick() {
