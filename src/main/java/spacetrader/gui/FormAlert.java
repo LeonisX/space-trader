@@ -31,6 +31,7 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Functions;
 import spacetrader.game.Game;
+import spacetrader.game.GlobalAssets;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.guifacade.Facaded;
@@ -47,13 +48,14 @@ public class FormAlert extends SpaceTraderForm {
 
     private static final int SPLASH_INDEX = 4;
 
-    private Label messageLabel;
-    private Button acceptButton;
-    private Button cancelButton;
-    private ImageList ilImages;
-    private Timer timer;
+    private Label messageLabel = new Label();
+    private Button acceptButton = new Button();
+    private Button cancelButton = new Button();
+
     //TODO need?
-    private IContainer components;
+    private IContainer components = new Container();
+    private ImageList ilImages = new ImageList(components);
+    private Timer timer = new Timer(components);
 
     private FormAlert() {
         initializeComponent();
@@ -155,7 +157,7 @@ public class FormAlert extends SpaceTraderForm {
         return makeDialog(type, args).showDialog();
     }
 
-    public static FormAlert makeDialog(AlertType type, String[] args) {
+    private static FormAlert makeDialog(AlertType type, String[] args) {
         switch (type) {
             case Alert:
                 return new FormAlert(AlertsAlertTitle, AlertsAlertMessage, AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -729,46 +731,60 @@ public class FormAlert extends SpaceTraderForm {
     }
 
     private void initializeComponent() {
-        components = new Container();
+        ReflectionUtils.setAllComponentNames(this);
+
         ResourceManager resources = new ResourceManager(FormAlert.class);
-        messageLabel = new Label();
-        acceptButton = new Button();
-        cancelButton = new Button();
+
         ilImages = new ImageList(components);
         timer = new Timer(components);
 
-        this.asSwingObject().setName("formAlert");
+        setName("formAlert");
+        //setText("Title");
+        setAutoScaleBaseSize(5, 13);
+        setClientSize(270, 63);
+        setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
+        setStartPosition(FormStartPosition.CENTER_PARENT);
+        setShowInTaskbar(false);
+        setControlBox(false);
 
-        ReflectionUtils.setAllComponentNames(this);
+        setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                // If the button is off-screen, this is an image and can be clicked away.
+                if (acceptButton.getLeft() < 0) {
+                    close();
+                }
+            }
+        });
 
         this.suspendLayout();
 
-        //TODO delete all sizes
-        messageLabel.setLocation(new Point(8, 8));
-        // this.messageLabel.setSize(new Size(12, 13));
+        //TODO delete all sizes and locations
+        messageLabel.setLocation(8, 8);
+        // this.messageLabel.setSize(12, 13);
         messageLabel.setTabIndex(3);
         //messageLabel.setText("X");
         messageLabel.setFont(FontCollection.regular825);
 
         acceptButton.setDialogResult(DialogResult.OK);
         acceptButton.setFlatStyle(FlatStyle.FLAT);
-        acceptButton.setLocation(new Point(115, 32));
-        acceptButton.setSize(new Size(40, 22));
+        acceptButton.setLocation(115, 32);
+        acceptButton.setSize(40, 22);
         acceptButton.setTabIndex(1);
         //acceptButton.setText("Ok");
         acceptButton.setFont(FontCollection.regular825);
 
         cancelButton.setDialogResult(DialogResult.NO);
         cancelButton.setFlatStyle(FlatStyle.FLAT);
-        cancelButton.setLocation(new Point(200, 32));
-        cancelButton.setSize(new Size(40, 22));
+        cancelButton.setLocation(200, 32);
+        cancelButton.setSize(40, 22);
         cancelButton.setTabIndex(2);
         cancelButton.setText("No");
         cancelButton.setVisible(false);
         cancelButton.setFont(FontCollection.regular825);
 
         ilImages.setColorDepth(ColorDepth.DEPTH_24_BIT);
-        ilImages.setImageSize(new Size(160, 160));
+        ilImages.setImageSize(160, 160);
         ilImages.setImageStream((ImageListStreamer) (resources.getObject("ilImages.ImageStream")));
         ilImages.setTransparentColor(null);
 
@@ -780,26 +796,9 @@ public class FormAlert extends SpaceTraderForm {
             }
         });
 
-        this.setAutoScaleBaseSize(new Size(5, 13));
-        this.setClientSize(new Size(270, 63));
-        this.setControlBox(false);
+        controls.addAll(messageLabel, acceptButton, cancelButton);
 
-        controls.add(acceptButton);
-        controls.add(cancelButton);
-        controls.add(messageLabel);
-
-        this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
-        this.setShowInTaskbar(false);
-        this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        //this.setText("Title");
-        this.setClick(new EventHandler<Object, EventArgs>() {
-            @Override
-            public void handle(Object sender, EventArgs e) {
-                // If the button is off-screen, this is an image and can be clicked away.
-                if (acceptButton.getLeft() < 0) {
-                    close();
-                }
-            }
-        });
+        ReflectionUtils.loadControlsDimensions(this.asSwingObject(), this.getName(), GlobalAssets.getDimensions());
+        ReflectionUtils.loadControlsStrings(this.asSwingObject(), this.getName(), GlobalAssets.getStrings());
     }
 }
