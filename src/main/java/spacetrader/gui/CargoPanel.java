@@ -140,7 +140,6 @@ class CargoPanel extends Panel {
     private Label targetPriceLabelValue8 = new Label();
     private Label targetPriceLabelValue9 = new Label();
 
-
     private Label targetDiffLabel = new Label();
     private Label targetDiffLabelValue0 = new Label();
     private Label targetDiffLabelValue1 = new Label();
@@ -814,7 +813,7 @@ class CargoPanel extends Panel {
 
         Arrays.stream(sellAllButtonArray).forEach(button -> {
             button.setFlatStyle(FlatStyle.FLAT);
-            button.setText("All");
+            button.setText(Strings.CargoAll);
             button.setClick(new EventHandler<Object, EventArgs>() {
                 @Override
                 public void handle(Object sender, EventArgs e) {
@@ -836,7 +835,7 @@ class CargoPanel extends Panel {
 
         Arrays.stream(buyMaxButtonArray).forEach(button -> {
             button.setFlatStyle(FlatStyle.FLAT);
-            button.setText("Max");
+            button.setText(Strings.CargoMax);
             button.setClick(new EventHandler<Object, EventArgs>() {
                 @Override
                 public void handle(Object sender, EventArgs e) {
@@ -868,12 +867,8 @@ class CargoPanel extends Panel {
 
         getControls().addAll(commoditiesArray);
 
-        getControls().add(buyPriceLabel);
-        getControls().add(sellPriceLabel);
-        getControls().add(tradeTargetLabel);
-        getControls().add(targetPriceLabel);
-        getControls().add(targetDiffLabel);
-        getControls().add(targetPercentageLabel);
+        getControls().addAll(buyPriceLabel, sellPriceLabel, tradeTargetLabel, targetPriceLabel, targetDiffLabel,
+                targetPercentageLabel);
 
         getControls().addAll(sellPriceArray);
         getControls().addAll(buyPriceArray);

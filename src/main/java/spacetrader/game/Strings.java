@@ -451,6 +451,7 @@ public class Strings {
     public static String CargoCredit = "cr.";
     public static String CargoDump = "Dump";
     public static String CargoLoss = "loss";
+    public static String CargoMax = "Max";
     public static String CargoProfit = "profit";
     public static String CargoSellDumpCost = "It costs ^1 per unit for disposal.";
     public static String CargoSelling = "selling";
