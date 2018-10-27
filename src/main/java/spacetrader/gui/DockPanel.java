@@ -17,11 +17,10 @@ import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
+import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.Commander;
 import spacetrader.game.Ship;
-import spacetrader.util.ReflectionUtils;
 
 class DockPanel extends Panel {
 
@@ -45,16 +44,18 @@ class DockPanel extends Panel {
 
     void initializeComponent() {
         setText("Dock");
-        setSize(240, 90);
+        setSize(250, 95);
         setTabStop(false);
 
-        fuelStatusLabel.setLocation(8, 16);
+        fuelStatusLabel.setAutoSize(true);
+        fuelStatusLabel.setLocation(8, 21);
         fuelStatusLabel.setSize(162, 13);
         fuelStatusLabel.setTabIndex(20);
         //fuelStatusLabel.setText("You have fuel to fly 88 parsecs.");
 
-        fuelUpButton.setFlatStyle(FlatStyle.FLAT);
-        fuelUpButton.setLocation(192, 18);
+        fuelUpButton.setAutoWidth(true);
+        fuelUpButton.setControlBinding(ControlBinding.RIGHT);
+        fuelUpButton.setLocation(202, 23);
         fuelUpButton.setSize(36, 22);
         fuelUpButton.setTabIndex(4);
         fuelUpButton.setText("Fuel");
@@ -65,18 +66,21 @@ class DockPanel extends Panel {
             }
         });
 
-        fuelCostLabel.setLocation(8, 31);
+        fuelCostLabel.setAutoSize(true);
+        fuelCostLabel.setLocation(8, 36);
         fuelCostLabel.setSize(121, 13);
         fuelCostLabel.setTabIndex(19);
         //fuelCostLabel.setText("A full tank costs 888 cr.");
 
-        hullStatusLabel.setLocation(8, 52);
+        hullStatusLabel.setAutoSize(true);
+        hullStatusLabel.setLocation(8, 57);
         hullStatusLabel.setSize(152, 13);
         hullStatusLabel.setTabIndex(18);
         //hullStatusLabel.setText("Your hull strength is at 888%.");
 
-        repairButton.setFlatStyle(FlatStyle.FLAT);
-        repairButton.setLocation(180, 56);
+        repairButton.setAutoWidth(true);
+        repairButton.setControlBinding(ControlBinding.RIGHT);
+        repairButton.setLocation(190, 61);
         repairButton.setSize(48, 22);
         repairButton.setTabIndex(5);
         repairButton.setText("Repair");
@@ -87,7 +91,8 @@ class DockPanel extends Panel {
             }
         });
 
-        repairCostLabel.setLocation(8, 67);
+        repairCostLabel.setAutoSize(true);
+        repairCostLabel.setLocation(8, 72);
         repairCostLabel.setSize(150, 13);
         repairCostLabel.setTabIndex(19);
         //repairCostLabel.setText("Full repairs will cost 8,888 cr.");

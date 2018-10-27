@@ -191,13 +191,13 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         shipyardPanel.setLocation(4, 306);
 
         galacticChartPanel.initializeComponent();
-        galacticChartPanel.setLocation(180, 306);
+        galacticChartPanel.setLocation(200, 306);
 
         shortRangeChartPanel.initializeComponent();
-        shortRangeChartPanel.setLocation(364, 306);
+        shortRangeChartPanel.setLocation(379, 306);
 
         targetSystemPanel.initializeComponent();
-        targetSystemPanel.setLocation(548, 306);
+        targetSystemPanel.setLocation(558, 306);
     }
 
     private void initializeMenu() {

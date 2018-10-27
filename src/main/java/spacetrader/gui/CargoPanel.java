@@ -225,7 +225,7 @@ class CargoPanel extends Panel {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
 
         setText("Cargo");
-        setSize(512, 300);
+        setSize(512, 305);
         setTabStop(false);
         
         this.suspendLayout();

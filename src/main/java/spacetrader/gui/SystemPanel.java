@@ -59,56 +59,56 @@ class SystemPanel extends Panel {
     }
 
     public void initializeComponent() {
-        setSize(250, 206);
+        setSize(250, 211);
         setTabStop(false);
         setText("System Info");
 
-        systemNameLabel.setLocation(8, 18);
+        systemNameLabel.setLocation(8, 23);
         systemNameLabel.setText("Name:");
 
-        systemNameLabelValue.setLocation(98, 18);
+        systemNameLabelValue.setLocation(98, 23);
         //systemNameLabelValue.setText("Tarchannen");
 
-        systemSizeLabel.setLocation(8, 34);
+        systemSizeLabel.setLocation(8, 39);
         systemSizeLabel.setText("Size:");
 
-        systemSizeLabelValue.setLocation(98, 34);
+        systemSizeLabelValue.setLocation(98, 39);
         //systemSizeLabelValue.setText("Medium");
 
-        systemTechLevelLabel.setLocation(8, 50);
+        systemTechLevelLabel.setLocation(8, 55);
         systemTechLevelLabel.setText("Tech Level:");
 
-        systemTechLevelLabelValue.setLocation(98, 50);
+        systemTechLevelLabelValue.setLocation(98, 55);
         //systemTechLevelLabelValue.setText("Pre-Agricultural");
 
-        systemGovernmentLabel.setLocation(8, 68);
+        systemGovernmentLabel.setLocation(8, 71);
         systemGovernmentLabel.setText("Government:");
 
-        systemGovernmentLabelValue.setLocation(98, 68);
+        systemGovernmentLabelValue.setLocation(98, 71);
         //systemGovernmentLabelValue.setText("Cybernetic State");
 
-        systemResourcesLabel.setLocation(8, 82);
+        systemResourcesLabel.setLocation(8, 87);
         systemResourcesLabel.setText("Resource:");
 
-        systemResourcesLabelValue.setLocation(98, 82);
+        systemResourcesLabelValue.setLocation(98, 87);
         //systemResourcesLabelValue.setText("Sweetwater Oceans");
 
-        systemPoliceLabel.setLocation(8, 98);
+        systemPoliceLabel.setLocation(8, 103);
         systemPoliceLabel.setText("Police:");
 
-        systemPoliceLabelValue.setLocation(98, 98);
+        systemPoliceLabelValue.setLocation(98, 103);
         //systemPoliceLabelValue.setText("Moderate");
 
-        systemPiratesLabel.setLocation(8, 114);
+        systemPiratesLabel.setLocation(8, 119);
         systemPiratesLabel.setText("Pirates:");
 
-        systemPiratesLabelValue.setLocation(98, 114);
+        systemPiratesLabelValue.setLocation(98, 119);
         //systemPiratesLabelValue.setText("Abundant");
 
-        systemPressureLabel.setLocation(8, 136);
+        systemPressureLabel.setLocation(8, 141);
         systemPressureLabel.setText("This system is currently");
 
-        systemPressureLabelValue.setLocation(8, 149);
+        systemPressureLabelValue.setLocation(8, 154);
         //systemPressureLabelValue.setText("suffering from extreme bordom.");
 
         for (Label label : labels) {
@@ -127,7 +127,7 @@ class SystemPanel extends Panel {
 
         newsButton.setAutoWidth(true);
         newsButton.setControlBinding(ControlBinding.LEFT);
-        newsButton.setLocation(8, 174);
+        newsButton.setLocation(8, 179);
         newsButton.setSize(42, 22);
         newsButton.setTabIndex(1);
         newsButton.setText("News");
@@ -141,7 +141,7 @@ class SystemPanel extends Panel {
         specialButton.setBackground(new Color(255, 255, 128));
         specialButton.setAutoWidth(true);
         specialButton.setControlBinding(ControlBinding.CENTER);
-        specialButton.setLocation(70, 174);
+        specialButton.setLocation(70, 179);
         specialButton.setSize(52, 22);
         specialButton.setTabIndex(2);
         specialButton.setText("Special");
@@ -154,7 +154,7 @@ class SystemPanel extends Panel {
 
         hireMercenaryButton.setAutoWidth(true);
         hireMercenaryButton.setControlBinding(ControlBinding.RIGHT);
-        hireMercenaryButton.setLocation(130, 174);
+        hireMercenaryButton.setLocation(130, 179);
         hireMercenaryButton.setSize(112, 22);
         hireMercenaryButton.setTabIndex(3);
         hireMercenaryButton.setText("Mercenary For Hire");
