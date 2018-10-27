@@ -113,7 +113,7 @@ public class BaseComponent implements ISupportInitialize, IName {
     }
 
     Dimension getSize() {
-        return swingComponent.getPreferredSize();
+        return swingComponent.getSize();
     }
 
     //TODO replace with setSize(int width, int height) {

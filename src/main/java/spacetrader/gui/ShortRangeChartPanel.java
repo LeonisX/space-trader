@@ -22,8 +22,8 @@ public class ShortRangeChartPanel extends Panel {
     private final SpaceTrader mainWindow;
     private final ImageList ilChartImages;
 
-    private final Pen DEFAULT_PEN = new Pen(Color.black);
-    private final Brush DEFAULT_BRUSH = new SolidBrush(Color.white);
+    private final Pen DEFAULT_PEN = new Pen(Color.BLACK);
+    private final Brush DEFAULT_BRUSH = new SolidBrush(Color.WHITE);
 
     private SystemTracker game = null;
     private Commander commander;
@@ -46,7 +46,6 @@ public class ShortRangeChartPanel extends Panel {
         setText("Short-Range Chart");
         setSize(176, 168);
         setTabStop(false);
-
 
         shortRangeChartPicture.setBackground(Color.WHITE);
         shortRangeChartPicture.setLocation(8, 16);
