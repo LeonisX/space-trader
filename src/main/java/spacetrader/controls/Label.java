@@ -17,10 +17,11 @@ public class Label extends BaseComponent {
 
     public Label() {
         super(new JLabel());
+        asJLabel().putClientProperty("baseComponent", this);
     }
 
     public String getText() {
-        String text = ((JLabel) swingComponent).getText();
+        String text = asJLabel().getText();
 
         if (convertedToHtml) {
             text = text.substring(START.length(), text.length() - END.length());
@@ -37,7 +38,8 @@ public class Label extends BaseComponent {
         } else {
             convertedToHtml = false;
         }
-        ((JLabel) swingComponent).setText(text);
+        asJLabel().setText(text);
+        Graphics.resizeIfNeed(swingComponent, isAutoSize(), isAutoWidth(), isAutoHeight(), getControlBinding());
     }
 
     public void setText(int number) {
@@ -46,12 +48,12 @@ public class Label extends BaseComponent {
 
     @Override
     public void setBackground(Color background) {
-        ((JLabel) swingComponent).setOpaque(background != null);
+        asJLabel().setOpaque(background != null);
         super.setBackground(background);
     }
 
     public void setImage(Image image) {
-        ((JLabel) swingComponent).setIcon(new ImageIcon(image.asSwingImage()));
+        asJLabel().setIcon(new ImageIcon(image.asSwingImage()));
     }
 
     public ContentAlignment getTextAlign() {
@@ -68,5 +70,9 @@ public class Label extends BaseComponent {
 
     public void setImageAlign(ContentAlignment imageAlign) {
         this.imageAlign = imageAlign;
+    }
+
+    private JLabel asJLabel() {
+        return (JLabel) swingComponent;
     }
 }

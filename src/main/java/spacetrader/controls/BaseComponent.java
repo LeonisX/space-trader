@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import spacetrader.controls.enums.BorderStyle;
+import spacetrader.controls.enums.ControlBinding;
 
 public class BaseComponent implements ISupportInitialize, IName {
 
@@ -19,6 +20,12 @@ public class BaseComponent implements ISupportInitialize, IName {
 
     private Color foreground;
     private Color background;
+
+    // 4 properties for Label, Button, Panel with binding
+    private boolean autoSize;
+    private boolean autoWidth;
+    private boolean autoHeight;
+    private ControlBinding controlBinding = ControlBinding.LEFT;
 
     private EventHandler<Object, EventArgs> click;
     private EventHandler<Object, EventArgs> doubleClick;
@@ -111,18 +118,47 @@ public class BaseComponent implements ISupportInitialize, IName {
 
     //TODO replace with setSize(int width, int height) {
     public void setSize(Dimension size) {
-        swingComponent.setPreferredSize(size);
+        //swingComponent.setPreferredSize(size);
         swingComponent.setSize(size);
     }
 
     public void setSize(int width, int height) {
         Size size = new Size(width, height);
-        swingComponent.setPreferredSize(size);
         swingComponent.setSize(size);
     }
 
     public void setAutoSize(boolean autoSize) {
-        // /TODO impl.
+        this.autoSize = autoSize;
+        Graphics.resizeIfNeed(swingComponent, autoSize, autoWidth, autoHeight, controlBinding);
+    }
+
+    public boolean isAutoSize() {
+        return autoSize;
+    }
+
+    public boolean isAutoWidth() {
+        return autoWidth;
+    }
+
+    public void setAutoWidth(boolean autoWidth) {
+        this.autoWidth = autoWidth;
+        Graphics.resizeIfNeed(swingComponent, autoSize, autoWidth, autoHeight, controlBinding);
+    }
+
+    public boolean isAutoHeight() {
+        return autoHeight;
+    }
+
+    public void setAutoHeight(boolean autoHeight) {
+        this.autoHeight = autoHeight;
+    }
+
+    public ControlBinding getControlBinding() {
+        return controlBinding;
+    }
+
+    public void setControlBinding(ControlBinding controlBinding) {
+        this.controlBinding = controlBinding;
     }
 
     public boolean isVisible() {

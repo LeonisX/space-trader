@@ -4,8 +4,8 @@ import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
+import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
@@ -41,6 +41,13 @@ class SystemPanel extends Panel {
     private Label systemTechLevelLabelValue = new Label();
     private Label systemTechLevelLabel = new Label();
 
+    private Label[] labels = new Label[]{systemNameLabel, systemSizeLabel, systemTechLevelLabel,
+            systemGovernmentLabel, systemResourcesLabel, systemPoliceLabel, systemPiratesLabel};
+
+    private Label[] labelValues = new Label[]{systemNameLabelValue, systemSizeLabelValue, systemTechLevelLabelValue,
+            systemGovernmentLabelValue, systemResourcesLabelValue, systemPoliceLabelValue, systemPiratesLabelValue,
+            systemPressureLabel, systemPressureLabelValue};
+
     SystemPanel(SpaceTrader mainWindow) {
         this.mainWindow = mainWindow;
     }
@@ -52,98 +59,74 @@ class SystemPanel extends Panel {
     }
 
     public void initializeComponent() {
-        setSize(240, 206);
+        setSize(250, 206);
         setTabStop(false);
         setText("System Info");
 
-        systemNameLabel.setFont(FontCollection.bold825);
-        systemNameLabel.setLocation(8, 16);
-        systemNameLabel.setSize(90, 16);
-        systemNameLabel.setTabIndex(0);
+        systemNameLabel.setLocation(8, 18);
         systemNameLabel.setText("Name:");
 
-        systemNameLabelValue.setLocation(88, 16);
-        systemNameLabelValue.setSize(110, 13);
-        systemNameLabelValue.setTabIndex(1);
+        systemNameLabelValue.setLocation(98, 18);
         //systemNameLabelValue.setText("Tarchannen");
 
-        systemSizeLabel.setFont(FontCollection.bold825);
-        systemSizeLabel.setLocation(8, 32);
-        systemSizeLabel.setSize(90, 16);
-        systemSizeLabel.setTabIndex(2);
+        systemSizeLabel.setLocation(8, 34);
         systemSizeLabel.setText("Size:");
 
-        systemSizeLabelValue.setLocation(88, 32);
-        systemSizeLabelValue.setSize(110, 13);
-        systemSizeLabelValue.setTabIndex(14);
+        systemSizeLabelValue.setLocation(98, 34);
         //systemSizeLabelValue.setText("Medium");
 
-        systemTechLevelLabel.setFont(FontCollection.bold825);
-        systemTechLevelLabel.setLocation(8, 48);
-        systemTechLevelLabel.setSize(90, 16);
-        systemTechLevelLabel.setTabIndex(3);
+        systemTechLevelLabel.setLocation(8, 50);
         systemTechLevelLabel.setText("Tech Level:");
 
-        systemTechLevelLabelValue.setLocation(88, 48);
-        systemTechLevelLabelValue.setSize(110, 13);
-        systemTechLevelLabelValue.setTabIndex(13);
+        systemTechLevelLabelValue.setLocation(98, 50);
         //systemTechLevelLabelValue.setText("Pre-Agricultural");
 
-        systemGovernmentLabel.setFont(FontCollection.bold825);
-        systemGovernmentLabel.setLocation(8, 64);
-        systemGovernmentLabel.setSize(90, 16);
-        systemGovernmentLabel.setTabIndex(4);
+        systemGovernmentLabel.setLocation(8, 68);
         systemGovernmentLabel.setText("Government:");
 
-        systemGovernmentLabelValue.setLocation(88, 64);
-        systemGovernmentLabelValue.setSize(110, 13);
-        systemGovernmentLabelValue.setTabIndex(15);
+        systemGovernmentLabelValue.setLocation(98, 68);
         //systemGovernmentLabelValue.setText("Cybernetic State");
 
-        systemResourcesLabel.setFont(FontCollection.bold825);
-        systemResourcesLabel.setLocation(8, 90);
-        systemResourcesLabel.setSize(90, 16);
-        systemResourcesLabel.setTabIndex(5);
+        systemResourcesLabel.setLocation(8, 82);
         systemResourcesLabel.setText("Resource:");
 
-        systemResourcesLabelValue.setLocation(88, 80);
-        systemResourcesLabelValue.setSize(110, 13);
-        systemResourcesLabelValue.setTabIndex(9);
+        systemResourcesLabelValue.setLocation(98, 82);
         //systemResourcesLabelValue.setText("Sweetwater Oceans");
 
-        systemPoliceLabel.setFont(FontCollection.bold825);
-        systemPoliceLabel.setLocation(8, 96);
-        systemPoliceLabel.setSize(90, 16);
-        systemPoliceLabel.setTabIndex(6);
+        systemPoliceLabel.setLocation(8, 98);
         systemPoliceLabel.setText("Police:");
 
-        systemPoliceLabelValue.setLocation(88, 96);
-        systemPoliceLabelValue.setSize(110, 13);
-        systemPoliceLabelValue.setTabIndex(10);
+        systemPoliceLabelValue.setLocation(98, 98);
         //systemPoliceLabelValue.setText("Moderate");
 
-        systemPiratesLabel.setFont(FontCollection.bold825);
-        systemPiratesLabel.setLocation(8, 112);
-        systemPiratesLabel.setSize(90, 16);
-        systemPiratesLabel.setTabIndex(7);
+        systemPiratesLabel.setLocation(8, 114);
         systemPiratesLabel.setText("Pirates:");
 
-        systemPiratesLabelValue.setLocation(88, 112);
-        systemPiratesLabelValue.setSize(110, 13);
-        systemPiratesLabelValue.setTabIndex(11);
+        systemPiratesLabelValue.setLocation(98, 114);
         //systemPiratesLabelValue.setText("Abundant");
 
-        systemPressureLabel.setLocation(8, 134);
-        systemPressureLabel.setSize(140, 16);
-        systemPressureLabel.setTabIndex(17);
+        systemPressureLabel.setLocation(8, 136);
         systemPressureLabel.setText("This system is currently");
 
-        systemPressureLabelValue.setLocation(8, 147);
-        systemPressureLabelValue.setSize(180, 16);
-        systemPressureLabelValue.setTabIndex(18);
+        systemPressureLabelValue.setLocation(8, 149);
         //systemPressureLabelValue.setText("suffering from extreme bordom.");
 
-        newsButton.setFlatStyle(FlatStyle.FLAT);
+        for (Label label : labels) {
+            label.setFont(FontCollection.bold825);
+            label.setAutoSize(true);
+            //labels[i].setTabIndex(i * 2);
+            // Fix different fonts sizes
+            label.setTop(label.getTop() + 1); // TODO
+        }
+
+        for (Label labelValue : labelValues) {
+            labelValue.setFont(FontCollection.regular825);
+            labelValue.setAutoSize(true);
+            //labelValues[i].setTabIndex(i * 2 + 1);
+        }
+
+        newsButton.setAutoWidth(true);
+        newsButton.setControlBinding(ControlBinding.LEFT);
         newsButton.setLocation(8, 174);
         newsButton.setSize(42, 22);
         newsButton.setTabIndex(1);
@@ -156,8 +139,9 @@ class SystemPanel extends Panel {
         });
 
         specialButton.setBackground(new Color(255, 255, 128));
-        specialButton.setFlatStyle(FlatStyle.FLAT);
-        specialButton.setLocation(58, 174);
+        specialButton.setAutoWidth(true);
+        specialButton.setControlBinding(ControlBinding.CENTER);
+        specialButton.setLocation(70, 174);
         specialButton.setSize(52, 22);
         specialButton.setTabIndex(2);
         specialButton.setText("Special");
@@ -168,8 +152,9 @@ class SystemPanel extends Panel {
             }
         });
 
-        hireMercenaryButton.setFlatStyle(FlatStyle.FLAT);
-        hireMercenaryButton.setLocation(118, 174);
+        hireMercenaryButton.setAutoWidth(true);
+        hireMercenaryButton.setControlBinding(ControlBinding.RIGHT);
+        hireMercenaryButton.setLocation(130, 174);
         hireMercenaryButton.setSize(112, 22);
         hireMercenaryButton.setTabIndex(3);
         hireMercenaryButton.setText("Mercenary For Hire");
@@ -180,12 +165,9 @@ class SystemPanel extends Panel {
             }
         });
 
-
-        getControls().addAll(systemNameLabel, systemNameLabelValue, systemSizeLabel, systemSizeLabelValue,
-                systemTechLevelLabel, systemTechLevelLabelValue, systemGovernmentLabel, systemGovernmentLabelValue,
-                systemResourcesLabel, systemResourcesLabelValue, systemPoliceLabel, systemPoliceLabelValue,
-                systemPiratesLabel, systemPiratesLabelValue, systemPressureLabel, systemPressureLabelValue,
-                newsButton, specialButton, hireMercenaryButton);
+        getControls().addAll(labels);
+        getControls().addAll(labelValues);
+        getControls().addAll(newsButton, specialButton, hireMercenaryButton);
     }
 
     void update() {

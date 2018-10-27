@@ -1,10 +1,11 @@
 package spacetrader.controls;
 
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FlatStyle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
 
 public class Button extends BaseComponent {
 
@@ -12,6 +13,7 @@ public class Button extends BaseComponent {
 
     public Button() {
         super(new JButton());
+        asJButton().putClientProperty("baseComponent", this);
     }
 
     public String getText() {
@@ -20,6 +22,7 @@ public class Button extends BaseComponent {
 
     public void setText(String text) {
         asJButton().setText(text);
+        Graphics.resizeIfNeed(swingComponent, isAutoSize(), isAutoWidth(), isAutoHeight(), getControlBinding());
     }
 
     public void setText(int number) {

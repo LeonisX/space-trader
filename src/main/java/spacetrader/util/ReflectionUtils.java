@@ -239,15 +239,18 @@ public class ReflectionUtils {
 
         if (component instanceof AbstractButton && text != null && !text.isEmpty()) {
             ((AbstractButton) component).setText(text);
+            resizeIfNeed(((AbstractButton) component));
         }
 
         if (component instanceof JLabel && text != null && !text.isEmpty()) {
             ((JLabel) component).setText(text);
+            resizeIfNeed(((JLabel) component));
         }
 
         if (component instanceof JPanel && ((JPanel) component).getBorder() instanceof TitledBorder
                 && title != null && !title.isEmpty()) {
             ((TitledBorder) ((JPanel) component).getBorder()).setTitle(title);
+            resizeIfNeed(((JPanel) component));
         }
 
         if (component instanceof JDialog && title != null && !title.isEmpty()) {
@@ -268,6 +271,17 @@ public class ReflectionUtils {
             }
         }
     }
+
+    private static void resizeIfNeed(JComponent component) {
+        Object obj = component.getClientProperty("baseComponent");
+        if (obj != null) {
+            BaseComponent baseComponent = (BaseComponent) obj;
+            spacetrader.controls.Graphics.resizeIfNeed(baseComponent.asSwingObject(), baseComponent.isAutoSize(),
+                    baseComponent.isAutoWidth(), baseComponent.isAutoHeight(), baseComponent.getControlBinding());
+        }
+    }
+
+
 /*
     //TODO delete
     public static void dumpAllAlertStrings() {

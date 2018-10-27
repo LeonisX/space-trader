@@ -13,6 +13,7 @@ public class Panel extends BaseComponent {
     public Panel() {
         super(new WinformJPanel(null));
         controls = (WinformJPanel) swingComponent;
+        controls.putClientProperty("baseComponent", this);
         border = BorderFactory.createTitledBorder("");
         asJPanel().setBorder(border);
     }
@@ -32,6 +33,8 @@ public class Panel extends BaseComponent {
 
     public void setText(String text) {
         border.setTitle(text);
+        //TODO need? It works???
+        Graphics.resizeIfNeed(swingComponent, isAutoSize(), isAutoWidth(), isAutoHeight(), getControlBinding());
     }
 
     private WinformJPanel asJPanel() {

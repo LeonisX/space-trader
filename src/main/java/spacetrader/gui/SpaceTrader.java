@@ -115,7 +115,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         ReflectionUtils.setAllComponentNames(this);
         //this.suspendLayout();
 
-        this.setClientSize(GlobalAssets.getDimensions().getSize(this.getName()));
+        //this.setClientSize(GlobalAssets.getDimensions().getSize(this.getName()));
+        //this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
+        this.setClientSize(772, 505);
         controls.addAll(horizontalLine, dockPanel, cargoPanel, targetSystemPanel, galacticChartPanel,
                 shortRangeChartPanel, systemPanel, shipyardPanel);
 
@@ -180,7 +182,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         systemPanel.setLocation(4, 2);
 
         cargoPanel.initializeComponent();
-        cargoPanel.setLocation(252, 2);
+        cargoPanel.setLocation(257, 2);
 
         dockPanel.initializeComponent();
         dockPanel.setLocation(4, 212);

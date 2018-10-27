@@ -1,5 +1,7 @@
 package spacetrader.controls.enums;
 
+
+//TODO unused. May be delete
 public enum ContentAlignment {
 
     TOP_LEFT(Horizontal.TOP, Vertical.LEFT),

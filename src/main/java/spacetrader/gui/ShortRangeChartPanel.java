@@ -163,7 +163,7 @@ public class ShortRangeChartPanel extends Panel {
                                 ilChartImages.draw(e.getGraphics(), xW - OFF_X, y - OFF_Y, IMG_G_W);
                             }
                         } else {
-                            SizeF size = e.getGraphics().measureString(universe[i].getName(), getFont());
+                            Size size = e.getGraphics().measureString(universe[i].getName(), getFont());
                             e.getGraphics().drawString(universe[i].getName(), smallFont, new SolidBrush(Color.black),
                                     x - size.width / 2 + OFF_X, y /*- size.Height*/ - 5);
                             // implementations differ as to which point we start the string at. --aviv

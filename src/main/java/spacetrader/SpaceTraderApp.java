@@ -19,7 +19,7 @@ public class SpaceTraderApp {
         }
 
         GlobalAssets.loadStrings("en");
-        GlobalAssets.loadDimensions("0768");
+        //GlobalAssets.loadDimensions("0768");
         GlobalAssets.initializeImages();
 
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());

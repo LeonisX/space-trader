@@ -19,13 +19,13 @@ Useful Source Repositories:
 * Full refactor, code clean-up
 * --Bug fixes
 * Custom strings reader
+* Autosize for labels, buttons, panels
 
 ## TODO
 
 * Save last selected language as default
 * i18n for Swing
 * Declension engine
-* Language selector
 * Different image sizes, font sizes (config)
 * Special object for save states
 * SaveFileDialog - full localization
@@ -35,8 +35,10 @@ Useful Source Repositories:
 
 ### Minor tasks
 
-* Find all languages in resources
 * Need to update font sizes. Dump all too
+
+### Feature requests
+
 * Show in Cargo planet names (target)
 
 ## Known bugs:

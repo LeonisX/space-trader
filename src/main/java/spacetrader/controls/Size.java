@@ -1,9 +1,11 @@
 package spacetrader.controls;
 
-public class Size extends SizeF {
+import java.awt.*;
 
-    public Size(int w, int h) {
-        super(h, w);
+public class Size extends Dimension {
+
+    public Size(int width, int height) {
+        super(width, height);
         // TODO Auto-generated constructor stub
     }
 

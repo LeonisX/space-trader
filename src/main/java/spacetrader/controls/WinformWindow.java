@@ -111,6 +111,10 @@ public class WinformWindow extends WinformPane {
         this.formBorderStyle = formBorderStyle;
     }
 
+    public void setClientSize(int width, int height) {
+        setClientSize(new Dimension(width, height));
+    }
+
     public void setClientSize(Dimension clientSize) {
         // heigher, cause decorations count in swing.
         frame.setSize(new Dimension(clientSize.width, clientSize.height + 45));

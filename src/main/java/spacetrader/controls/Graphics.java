@@ -1,9 +1,11 @@
 package spacetrader.controls;
 
-import java.awt.*;
+import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.GraphicsUnit;
 import spacetrader.game.Consts;
 import spacetrader.game.Ship;
+
+import java.awt.*;
 
 public class Graphics {
 
@@ -62,15 +64,15 @@ public class Graphics {
                 rect.getX(), rect.getY(), rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight(), null);
     }
 
-    public SizeF measureString(String text, java.awt.Font font) {
+    public Size measureString(String text, java.awt.Font font) {
         if (graphics == null) {
-            return new SizeF(30, text.length() * 5);
+            return new Size(text.length() * 5, 30);
         }
 
         FontMetrics metrics = graphics.getFontMetrics(font);
         int w = metrics.stringWidth(text);
         int h = metrics.getHeight();
-        return new SizeF(h, w);
+        return new Size(w, h);
     }
 
     public static void paintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
@@ -118,5 +120,45 @@ public class Graphics {
             }
         }
         return -1;
+    }
+
+    public static void resizeIfNeed(Component component, boolean autoSize, boolean autoWidth, boolean autoHeight,
+                                    ControlBinding binding) {
+        if (!(autoSize || autoWidth || autoHeight)) {
+            return;
+        }
+
+        Dimension oldSize = component.getSize();
+        Dimension preferredSize = component.getPreferredSize();
+        double newHeight = oldSize.getHeight();
+        double newWidth = oldSize.getWidth();
+
+        if (autoSize || autoHeight) {
+            newHeight = preferredSize.getHeight();
+        }
+
+        if (autoSize || autoWidth) {
+            newWidth = preferredSize.getWidth();
+
+            switch (binding) {
+                case LEFT:
+                    // Nothing else to do
+                    break;
+                case RIGHT:
+                    component.setLocation(component.getX() + (int) (oldSize.getWidth() - newWidth),
+                            component.getY());
+                    break;
+                case CENTER:
+                    component.setLocation(component.getX() + (int) (oldSize.getWidth() - newWidth) / 2,
+                            component.getY());
+                    break;
+            }
+        }
+
+        Dimension newSize = new Dimension((int) newWidth, (int) newHeight);
+
+        if (!newSize.equals(oldSize)) {
+            component.setSize(newSize);
+        }
     }
 }
