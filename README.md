@@ -23,6 +23,7 @@ Useful Source Repositories:
 
 ## TODO
 
+* TargetSystemPanel: расстояние + парсек
 * Save last selected language as default
 * i18n for Swing
 * Declension engine
