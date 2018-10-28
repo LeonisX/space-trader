@@ -225,13 +225,13 @@ class SystemPanel extends Panel {
         DialogResult button1Result, button2Result;
 
         if (specEvent.isMessageOnly()) {
-            button1Text = "Ok";
+            button1Text = Strings.AlertsOk;
             button2Text = null;
             button1Result = DialogResult.OK;
             button2Result = DialogResult.NONE;
         } else {
-            button1Text = "Yes";
-            button2Text = "No";
+            button1Text = Strings.AlertsYes;
+            button2Text = Strings.AlertsNo;
             button1Result = DialogResult.YES;
             button2Result = DialogResult.NO;
         }

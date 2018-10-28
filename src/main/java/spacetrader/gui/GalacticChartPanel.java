@@ -61,7 +61,6 @@ public class GalacticChartPanel extends Panel {
         galacticChartPicture.setBackground(Color.WHITE);
         galacticChartPicture.setLocation(8, 16);
         galacticChartPicture.setSize(175, 121);
-        galacticChartPicture.setTabIndex(0);
         galacticChartPicture.setTabStop(false);
         galacticChartPicture.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
             @Override
@@ -78,13 +77,13 @@ public class GalacticChartPanel extends Panel {
 
         wormholeLabel.setAutoSize(true);
         wormholeLabel.setLocation(8, 140);
-        wormholeLabel.setSize(72, 13);
+        //wormholeLabel.setSize(72, 13);
         wormholeLabel.setTabIndex(28);
         wormholeLabel.setText("Wormhole to");
 
         wormholeLabelValue.setAutoSize(true);
         wormholeLabelValue.setLocation(8, 153);
-        wormholeLabelValue.setSize(72, 13);
+        //wormholeLabelValue.setSize(72, 13);
         wormholeLabelValue.setTabIndex(29);
         //wormholeLabelValue.setText("Tarchannen");
 
