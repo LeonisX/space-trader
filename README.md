@@ -1,6 +1,6 @@
-# Space Trader
+# Space Trader for Java 8
 
-Deeply refactored and upgraded version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal (09.10.2008-03.12.2010)
+Fully reworked version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal (09.10.2008-03.12.2010)
 
 The project is a Java port of the [Space Trader for Windows](https://sourceforge.net/projects/spacetraderwin) from [Jay French](http://web.archive.org/web/20040212092717/http://www.frenchfryz.com:80/jay/spacetrader/home.php) (08.12.2003-14.08.2008), which is a C# port of the [original](http://ticc.uvt.nl/~pspronck/spacetrader/STFrames.html) Palm version from Peter Spronk (2000-2002). [New site](https://www.spronck.net/spacetrader/).
 
@@ -14,26 +14,25 @@ Useful Source Repositories:
 
 ## Whats new:
 
-* Multilingual support
-* Gradle
+* Multilingual support for UI dialogs and in-game strings
+* Gradle as main build tool
 * Full refactor, code clean-up
-* --Bug fixes
+* Many bug fixes
 * Custom strings reader
-* Autosize for labels, buttons, panels
+* Autosize labels, buttons, panels
+* Measure multiline labels
 
 ## TODO
 
 * TargetSystemPanel: расстояние + парсек
 * Save last selected language as default
-* i18n for Swing
 * Declension engine
 * Different image sizes, font sizes (config)
 * Special object for save states
 * SaveFileDialog - full localization
-* Full refactor
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
 * Fix 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
-* FormAbout - show version in titleLabel
+* FormAbout - show version (from Gradle) in titleLabel
 
 ### Minor tasks
 

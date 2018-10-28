@@ -4,7 +4,6 @@ import spacetrader.controls.*;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
 public class FormAbout extends WinformForm {
@@ -16,10 +15,6 @@ public class FormAbout extends WinformForm {
 
     public FormAbout() {
         initializeComponent();
-    }
-
-    public static void main(String[] args) {
-        Launcher.runForm(new FormAbout());
     }
 
     private void initializeComponent() {

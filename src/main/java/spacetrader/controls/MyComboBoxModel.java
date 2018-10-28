@@ -9,7 +9,7 @@ public class MyComboBoxModel<T> extends DefaultComboBoxModel<T> {
         this.addElement(obj);
     }
 
-    public void addRange(T[] objects) {
+    public void addAll(T... objects) {
         for (T object : objects) {
             add(object);
         }

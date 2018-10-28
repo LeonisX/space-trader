@@ -99,7 +99,7 @@ public class FormNewCommander extends SpaceTraderForm {
         difficultyLabel.setText("Difficulty:");
 
         difficultyComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        difficultyComboBox.getItems().addRange(Strings.DifficultyLevels);
+        difficultyComboBox.getItems().addAll(Strings.DifficultyLevels);
         difficultyComboBox.setLocation(72, 37);
         difficultyComboBox.setSize(120, 21);
         difficultyComboBox.setTabIndex(2);

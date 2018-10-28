@@ -1,32 +1,18 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
+import spacetrader.controls.Button;
+import spacetrader.controls.Container;
 import spacetrader.controls.*;
+import spacetrader.controls.Label;
 import spacetrader.controls.enums.*;
-import spacetrader.util.Functions;
 import spacetrader.game.Game;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.guifacade.Facaded;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
+
+import java.awt.*;
 
 import static spacetrader.game.Strings.*;
 
@@ -46,14 +32,10 @@ public class FormAlert extends SpaceTraderForm {
     private ImageList ilImages = new ImageList(components);
     private Timer timer = new Timer(components);
 
-    private FormAlert() {
-        initializeComponent();
-    }
-
     public FormAlert(String title, String text, String acceptButtonText, DialogResult acceptButtonResult,
             String cancelButtonText, DialogResult cancelButtonResult, String[] args) {
-        this();
-        Graphics g = this.createGraphics();
+
+        initializeComponent();
 
         // Replace any variables.
         if (args != null) {
@@ -61,32 +43,34 @@ public class FormAlert extends SpaceTraderForm {
             text = Functions.stringVars(text, args);
         }
 
-        messageLabel.setWidth(g.measureString((text.length() > 80 ? DA_80_CHARS : text), messageLabel.getFont()).width + 25);
-        // messageLabel.setWidth(300);
+        FontMetrics metrics = messageLabel.asSwingObject().getFontMetrics(messageLabel.asSwingObject().getFont());
+
+        messageLabel.setWidth(metrics.stringWidth((text.length() > 80) ? DA_80_CHARS : text));
         messageLabel.setText(text);
-        messageLabel.setHeight(30 + 30 * text.length() / 80);
+        messageLabel.setWidth(messageLabel.getMaxLineWidth());
+        messageLabel.setHeight(metrics.getHeight() * messageLabel.getLinesCount());
 
         // Size the buttons.
         int btnWidth;
+        acceptButton.setAutoWidth(true);
         acceptButton.setText(acceptButtonText);
         acceptButton.setDialogResult(acceptButtonResult);
-        acceptButton.setWidth(Math.max(40, g.measureString(acceptButton.getText(), acceptButton.getFont()).width + 35));
         btnWidth = acceptButton.getWidth();
         if (cancelButtonText != null) {
+            cancelButton.setAutoWidth(true);
             cancelButton.setText(cancelButtonText);
-            cancelButton.setWidth(Math.max((int) Math.ceil(g.measureString(cancelButton.getText(), cancelButton.getFont()).width) + 15, 40));
             cancelButton.setVisible(true);
             cancelButton.setDialogResult(cancelButtonResult);
             btnWidth += cancelButton.getWidth() + 6;
         }
 
         // Size the form.
-        this.setWidth(Math.max(btnWidth, messageLabel.getWidth()) + 16);
-        this.setHeight(messageLabel.getHeight() + 75);
+        setWidth(Math.max(btnWidth, messageLabel.getWidth()) + 16);
+        setHeight(messageLabel.getHeight() + 52);
 
         // Locate the 
         messageLabel.setLeft((this.getWidth() - messageLabel.getWidth()) / 2);
-        acceptButton.setTop(messageLabel.getHeight() + 19);
+        acceptButton.setTop(messageLabel.getHeight() + 18);
         acceptButton.setLeft((this.getWidth() - btnWidth) / 2);
         cancelButton.setTop(acceptButton.getTop());
         cancelButton.setLeft(acceptButton.getLeft() + acceptButton.getWidth() + 6);
@@ -96,7 +80,7 @@ public class FormAlert extends SpaceTraderForm {
     }
 
     private FormAlert(String title, int imageIndex) {
-        this();
+        initializeComponent();
         // Make sure the extra spacetrader.controls are hidden.
         messageLabel.setVisible(false);
         cancelButton.setVisible(false);
@@ -109,7 +93,7 @@ public class FormAlert extends SpaceTraderForm {
 
         // Set the background image.
         setBackgroundImage(ilImages.getImages()[imageIndex]);
-        setClientSize(new Size(getBackgroundImage().getWidth(), getBackgroundImage().getHeight()));
+        setClientSize(getBackgroundImage().getWidth(), getBackgroundImage().getHeight());
 
         // Set the title.
         setText(title);
@@ -127,22 +111,7 @@ public class FormAlert extends SpaceTraderForm {
     }
 
     @Facaded
-    public static DialogResult alert(AlertType type, String var1) {
-        return alert(type, new String[]{var1});
-    }
-
-    @Facaded
-    public static DialogResult alert(AlertType type, String var1, String var2) {
-        return alert(type, new String[]{var1, var2});
-    }
-
-    @Facaded
-    public static DialogResult alert(AlertType type, String var1, String var2, String var3) {
-        return alert(type, new String[]{var1, var2, var3});
-    }
-
-    @Facaded
-    public static DialogResult alert(AlertType type, String[] args) {
+    public static DialogResult alert(AlertType type, String... args) {
         return makeDialog(type, args).showDialog();
     }
 
@@ -713,7 +682,6 @@ public class FormAlert extends SpaceTraderForm {
             case WildWontStayAboardReactor:
                 return new FormAlert(AlertsWildWontStayAboardReactorTitle, AlertsWildWontStayAboardReactorMessage,
                         AlertsWildWontStayAboardReactorAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);
-
             default:
                 throw new IllegalArgumentException("Unknown AlertType: " + type);
         }
@@ -729,7 +697,7 @@ public class FormAlert extends SpaceTraderForm {
 
         setName("formAlert");
         //setText("Title");
-        setAutoScaleBaseSize(5, 13);
+        //setAutoScaleBaseSize(5, 13);
         setClientSize(270, 63);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
@@ -749,23 +717,25 @@ public class FormAlert extends SpaceTraderForm {
         this.suspendLayout();
 
         //TODO delete all sizes and locations
+        messageLabel.setFont(FontCollection.regular825);
         messageLabel.setLocation(8, 8);
         // this.messageLabel.setSize(12, 13);
-        messageLabel.setTabIndex(3);
         //messageLabel.setText("X");
-        messageLabel.setFont(FontCollection.regular825);
+
 
         acceptButton.setDialogResult(DialogResult.OK);
-        acceptButton.setFlatStyle(FlatStyle.FLAT);
-        acceptButton.setLocation(115, 32);
+        //acceptButton.setControlBinding(ControlBinding.CENTER);
+        acceptButton.setAutoWidth(true);
+        //acceptButton.setLocation(115, 32);
         acceptButton.setSize(40, 22);
         acceptButton.setTabIndex(1);
         //acceptButton.setText("Ok");
         acceptButton.setFont(FontCollection.regular825);
 
         cancelButton.setDialogResult(DialogResult.NO);
-        cancelButton.setFlatStyle(FlatStyle.FLAT);
-        cancelButton.setLocation(200, 32);
+        cancelButton.setAutoWidth(true);
+        //cancelButton.setControlBinding(ControlBinding.CENTER);
+        //cancelButton.setLocation(200, 32);
         cancelButton.setSize(40, 22);
         cancelButton.setTabIndex(2);
         cancelButton.setText("No");

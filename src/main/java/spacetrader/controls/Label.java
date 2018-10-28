@@ -14,6 +14,9 @@ public class Label extends BaseComponent {
     private ContentAlignment textAlign;
     private ContentAlignment imageAlign;
     private boolean convertedToHtml;
+    private int linesCount;
+    private int maxLineWidth;
+
 
     public Label() {
         super(new JLabel());
@@ -40,10 +43,39 @@ public class Label extends BaseComponent {
         }
         asJLabel().setText(text);
         Graphics.resizeIfNeed(swingComponent, isAutoSize(), isAutoWidth(), isAutoHeight(), getControlBinding());
+
+        measureText();
     }
 
     public void setText(int number) {
         this.setText(Integer.toString(number));
+    }
+
+    private void measureText() {
+        FontMetrics metrics = asJLabel().getFontMetrics(asJLabel().getFont());
+        String[] chunks = getText().split(" ");
+        linesCount = 1;
+        maxLineWidth = 0;
+        int textWidth = 0;
+        String text = "";
+        for (String chunk: chunks) {
+            text += " " + chunk;
+            textWidth = metrics.stringWidth(text);
+            if (textWidth > getWidth()) {
+                linesCount++;
+                maxLineWidth = Math.max(maxLineWidth, textWidth);
+                text = chunk;
+            }
+        }
+        maxLineWidth = Math.max(maxLineWidth, textWidth);
+    }
+
+    public int getLinesCount() {
+        return linesCount;
+    }
+
+    public int getMaxLineWidth() {
+        return maxLineWidth;
     }
 
     @Override

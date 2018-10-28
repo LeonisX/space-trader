@@ -4,7 +4,7 @@ import spacetrader.controls.Image;
 import spacetrader.controls.ImageList;
 import spacetrader.game.GlobalAssets;
 import spacetrader.gui.cheat.FormMonster;
-import spacetrader.gui.debug.FormTest;
+import spacetrader.gui.debug.FormsTest;
 import spacetrader.guifacade.GuiEngine.CheatGui;
 import spacetrader.guifacade.GuiEngine.ImageProvider;
 import spacetrader.guifacade.GuiEngine.ImplementationProvider;
@@ -46,7 +46,7 @@ public class OriginalGuiImplementationProvider implements ImplementationProvider
             }
 
             public void showTestForm() {
-                (new FormTest()).showDialog();
+                (new FormsTest()).showDialog();
             }
         };
     }
