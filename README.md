@@ -53,6 +53,7 @@ Useful Source Repositories:
 ## Regressions:
 
 * Bold font for labels on main screen, formEncounter. Source: new `tahomabd.ttf`
+* Probably absent special event (lottery) at starting planet
 
 ## Far perspectives
 

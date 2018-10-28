@@ -44,12 +44,12 @@ public class ShortRangeChartPanel extends Panel {
 
     void initializeComponent() {
         setText("Short-Range Chart");
-        setSize(176, 168);
+        setSize(176, 173);
         setTabStop(false);
 
         shortRangeChartPicture.setBackground(Color.WHITE);
         shortRangeChartPicture.setLocation(8, 16);
-        shortRangeChartPicture.setSize(160, 145);
+        shortRangeChartPicture.setSize(160, 150);
         shortRangeChartPicture.setTabStop(false);
         shortRangeChartPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
             @Override
@@ -91,7 +91,7 @@ public class ShortRangeChartPanel extends Panel {
         smallFont = (base == null) ? null : new Font(base.getFontFamily(), 7);
     }
 
-    private void shortRangeChartPicturePaint(spacetrader.controls.PaintEventArgs e) {
+    private void shortRangeChartPicturePaint(PaintEventArgs e) {
         if (game != null) {
             StarSystem[] universe = game.getUniverse();
             StarSystem trackSys = game.getTrackedSystem();
@@ -125,8 +125,8 @@ public class ShortRangeChartPanel extends Panel {
 
                 if (game.isShowTrackedRange())
                     e.getGraphics().drawString(stringVars(ChartDistance, multiples(dist, DistanceUnit),
-                            trackSys.getName()), font, new SolidBrush(Color.BLACK), 0,
-                            shortRangeChartPicture.getHeight() - 13);
+                            trackSys.getName()), font, new SolidBrush(Color.BLACK), 4,
+                            shortRangeChartPicture.getHeight() - 8);
             }
 
             // Two loops: first draw the names and then the systems. The names may

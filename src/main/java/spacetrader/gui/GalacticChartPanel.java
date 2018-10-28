@@ -5,10 +5,7 @@ import spacetrader.controls.Button;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.AnchorStyles;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.MouseButtons;
+import spacetrader.controls.enums.*;
 import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
@@ -58,12 +55,12 @@ public class GalacticChartPanel extends Panel {
 
         setText("Galactic Chart");
         setBackground(SystemColors.CONTROL);
-        setSize(176, 168);
+        setSize(191, 175);
         setTabStop(false);
         
         galacticChartPicture.setBackground(Color.WHITE);
         galacticChartPicture.setLocation(8, 16);
-        galacticChartPicture.setSize(160, 116);
+        galacticChartPicture.setSize(175, 121);
         galacticChartPicture.setTabIndex(0);
         galacticChartPicture.setTabStop(false);
         galacticChartPicture.setPaint(new spacetrader.controls.EventHandler<Object, PaintEventArgs>() {
@@ -79,18 +76,21 @@ public class GalacticChartPanel extends Panel {
             }
         });
 
-        wormholeLabel.setLocation(8, 135);
+        wormholeLabel.setAutoSize(true);
+        wormholeLabel.setLocation(8, 140);
         wormholeLabel.setSize(72, 13);
         wormholeLabel.setTabIndex(28);
         wormholeLabel.setText("Wormhole to");
 
-        wormholeLabelValue.setLocation(8, 148);
+        wormholeLabelValue.setAutoSize(true);
+        wormholeLabelValue.setLocation(8, 153);
         wormholeLabelValue.setSize(72, 13);
         wormholeLabelValue.setTabIndex(29);
         //wormholeLabelValue.setText("Tarchannen");
 
-        jumpButton.setFlatStyle(FlatStyle.FLAT);
-        jumpButton.setLocation(81, 138);
+        jumpButton.setAutoWidth(true);
+        jumpButton.setControlBinding(ControlBinding.RIGHT);
+        jumpButton.setLocation(96, 143);
         jumpButton.setSize(42, 22);
         jumpButton.setTabIndex(55);
         jumpButton.setText("Jump");
@@ -101,8 +101,9 @@ public class GalacticChartPanel extends Panel {
             }
         });
 
-        findButton.setFlatStyle(FlatStyle.FLAT);
-        findButton.setLocation(132, 138);
+        findButton.setAutoWidth(true);
+        findButton.setControlBinding(ControlBinding.RIGHT);
+        findButton.setLocation(147, 143);
         findButton.setSize(36, 22);
         findButton.setTabIndex(56);
         findButton.setText("Find");
@@ -116,7 +117,7 @@ public class GalacticChartPanel extends Panel {
         getControls().addAll(wormholeLabelValue, wormholeLabel, jumpButton, findButton, galacticChartPicture);
     }
 
-    private void galacticChartPictureMouseDown(spacetrader.controls.MouseEventArgs e) {
+    private void galacticChartPictureMouseDown(MouseEventArgs e) {
         if (e.getButton() != MouseButtons.LEFT || game == null) {
             return;
         }
