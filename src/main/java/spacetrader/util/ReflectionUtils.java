@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class ReflectionUtils {
 
@@ -243,7 +244,8 @@ public class ReflectionUtils {
         }
 
         if (component instanceof JLabel && text != null && !text.isEmpty()) {
-            ((JLabel) component).setText(text);
+            JLabel jLabel = (JLabel) component;
+            getBaseComponent(jLabel).ifPresent(label -> ((spacetrader.controls.Label) label).setText(text));
             resizeIfNeed(((JLabel) component));
         }
 
@@ -273,12 +275,14 @@ public class ReflectionUtils {
     }
 
     private static void resizeIfNeed(JComponent component) {
-        Object obj = component.getClientProperty("baseComponent");
-        if (obj != null) {
-            BaseComponent baseComponent = (BaseComponent) obj;
-            spacetrader.controls.Graphics.resizeIfNeed(baseComponent.asSwingObject(), baseComponent.isAutoSize(),
-                    baseComponent.isAutoWidth(), baseComponent.isAutoHeight(), baseComponent.getControlBinding());
-        }
+        getBaseComponent(component).ifPresent(bc ->
+            spacetrader.controls.Graphics.resizeIfNeed(bc.asSwingObject(), bc.isAutoSize(),
+                    bc.isAutoWidth(), bc.isAutoHeight(), bc.getControlBinding())
+        );
+    }
+
+    private static Optional<BaseComponent> getBaseComponent(JComponent component) {
+        return Optional.ofNullable(component.getClientProperty("baseComponent")).map(o -> (BaseComponent) o);
     }
 
 

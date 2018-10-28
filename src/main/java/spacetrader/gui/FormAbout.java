@@ -1,28 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.gui;
 
 import spacetrader.controls.*;
@@ -54,8 +29,7 @@ public class FormAbout extends WinformForm {
         setText("About Space Trader");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(446, 191);
+        setClientSize(540, 181);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -64,32 +38,30 @@ public class FormAbout extends WinformForm {
         suspendLayout();
 
         titleLabel.setAutoSize(true);
-        titleLabel.setFont(FontCollection.bold825);
+        titleLabel.setFont(FontCollection.bold10);
         titleLabel.setLocation(172, 8);
-        titleLabel.setSize(187, 13);
-        titleLabel.setTabIndex(33);
-        titleLabel.setText("Space Trader for Windows 2.01");
+        //titleLabel.setSize(187, 13);
+        titleLabel.setText("Space Trader for Java 8");
 
         aboutLabel.setLocation(172, 32);
-        aboutLabel.setSize(272, 160);
-        aboutLabel.setTabIndex(34);
-        aboutLabel.setText("Copyright © 2005 French<BR>spacetrader@frenchfryz.com<BR><BR>" +
-                "Palm version copyright © 2000-2002 by Peter Spronk<BR>" +
-                "space_trader@hotmail.com<BR><BR>Pictures copyright © 2000 by Alexander Lawrence<BR><BR>" +
+        aboutLabel.setSize(410, 170);
+        aboutLabel.setText("Copyright © 2018 by Stavila Leonid aka Leonis<BR>Site: http://tv-games.ru; e-mail: tv-games@mail.ru<BR><BR>" +
+                "* Space Trader for Java version copyright © 2008-2010 by Aviv Eyal<BR>" +
+                "* Space Trader for Windows version copyright © 2003-2008 by Jay French<BR>" +
+                "* Original Palm OS version copyright © 2000-2002 by Peter Spronk<BR>" +
+                "<BR>Pictures copyright © 2000 by Alexander Lawrence<BR><BR>" +
                 "This game is freeware under a GNU General Public License.<BR>" +
-                "http://spacetraderwin.sourceforge.net/");
+                "https://github.com/LeonisX/space-trader");
 
         logoPicture.setImage(((Image) (ResourceManager.getImage("images/splash.jpg"))));
         logoPicture.setLocation(8, 8);
         logoPicture.setSize(160, 160);
-        logoPicture.setTabIndex(35);
         logoPicture.setTabStop(false);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         //TODO delete all sizes
         closeButton.setLocation(-32, -32);
         closeButton.setSize(32, 32);
-        closeButton.setTabIndex(32);
         closeButton.setTabStop(false);
 
         controls.addAll(logoPicture, aboutLabel, titleLabel, closeButton);

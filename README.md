@@ -33,6 +33,7 @@ Useful Source Repositories:
 * Full refactor
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
 * Fix 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
+* FormAbout - show version in titleLabel
 
 ### Minor tasks
 
