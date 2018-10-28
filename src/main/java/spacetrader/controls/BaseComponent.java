@@ -206,6 +206,7 @@ public class BaseComponent implements ISupportInitialize, IName {
 
     public void setFont(spacetrader.controls.Font font) {
         swingComponent.setFont(font);
+        Graphics.resizeIfNeed(swingComponent, autoSize, autoWidth, autoHeight, controlBinding);
     }
 
     public void setClick(EventHandler<Object, EventArgs> click) {

@@ -117,7 +117,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         //this.setClientSize(GlobalAssets.getDimensions().getSize(this.getName()));
         //this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
-        this.setClientSize(772, 505);
+        this.setClientSize(795, 505);
         controls.addAll(horizontalLine, dockPanel, cargoPanel, targetSystemPanel, galacticChartPanel,
                 shortRangeChartPanel, systemPanel, shipyardPanel);
 
