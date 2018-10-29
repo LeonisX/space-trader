@@ -38,6 +38,8 @@ public class FormsTest extends SpaceTraderForm {
     private Button formAlertsButton = new Button();
     private Button formBuyFuelButton = new Button();
     private Button formBuyRepairsButton = new Button();
+    private Button formFormCargoBuyButton = new Button();
+    private Button formFormCargoSellButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -98,7 +100,8 @@ public class FormsTest extends SpaceTraderForm {
         mainPanel.setTabStop(false);
         mainPanel.setText("Simple dialogs");
 
-        mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton);
+        mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
+                formFormCargoBuyButton, formFormCargoSellButton);
 
         formAboutButton.setLocation(8, 23);
         formAboutButton.setSize(90, 22);
@@ -133,6 +136,24 @@ public class FormsTest extends SpaceTraderForm {
         formBuyRepairsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
                 Launcher.runForm(new FormBuyRepairs());
+            }
+        });
+
+        formFormCargoBuyButton.setLocation(8, 115);
+        formFormCargoBuyButton.setSize(90, 22);
+        formFormCargoBuyButton.setText("FormCargoBuy");
+        formFormCargoBuyButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormCargoBuy(1, 1, CargoBuyOp.BUY_TRADER));
+            }
+        });
+
+        formFormCargoSellButton.setLocation(8, 138);
+        formFormCargoSellButton.setSize(90, 22);
+        formFormCargoSellButton.setText("FormCargoSell");
+        formFormCargoSellButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255));
             }
         });
 

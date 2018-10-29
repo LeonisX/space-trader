@@ -1,32 +1,8 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Commander;
@@ -94,9 +70,7 @@ public class FormCargoSell extends SpaceTraderForm {
         setName("formCargoSell");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(302, 105);
-        setControlBox(false);
+        setClientSize(302, 90);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(noneButton);
@@ -104,43 +78,46 @@ public class FormCargoSell extends SpaceTraderForm {
         numericUpDown.beginInit();
         suspendLayout();
 
+        statementLabelValue.setAutoSize(true);
         statementLabelValue.setLocation(8, 8);
-        statementLabelValue.setSize(302, 13);
-        statementLabelValue.setTabIndex(3);
+        //statementLabelValue.setSize(302, 13);
         //statementLabelValue.setText("The trader wants to by Machines, and offers 8,888 cr. each.");
 
-        paidLabelValue.setLocation(8, 21);
-        paidLabelValue.setSize(280, 13);
+        paidLabelValue.setAutoSize(true);
+        paidLabelValue.setLocation(8, 23);
+        //paidLabelValue.setSize(280, 13);
         paidLabelValue.setTabIndex(5);
         //paidLabelValue.setText("You paid about 8,888 cr. per unit, and can sell 88 units.");
 
-        profitLabelValue.setLocation(8, 34);
-        profitLabelValue.setSize(200, 13);
-        profitLabelValue.setTabIndex(6);
+        profitLabelValue.setAutoSize(true);
+        profitLabelValue.setLocation(8, 38);
+        //profitLabelValue.setSize(200, 13);
         //profitLabelValue.setText("It costs 8,888 cr. per unit for disposal.");
 
-        questionLabel.setLocation(8, 50);
-        questionLabel.setSize(160, 13);
-        questionLabel.setTabIndex(1);
+        questionLabel.setAutoSize(true);
+        questionLabel.setLocation(8, 57);
+        //questionLabel.setSize(160, 13);
         questionLabel.setText("How many do you want to sell?");
 
-        numericUpDown.setLocation(168, 48);
+        numericUpDown.setLocation(207, 54);
         numericUpDown.setMinimum(1);
         numericUpDown.setSize(38, 20);
         numericUpDown.setTabIndex(1);
         numericUpDown.setValue(88);
         
         okButton.setDialogResult(DialogResult.OK);
-        okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(83, 74);
-        okButton.setSize(41, 22);
+        okButton.setAutoWidth(true);
+        okButton.setControlBinding(ControlBinding.RIGHT);
+        okButton.setLocation(81, 81);
+        okButton.setSize(41, 25);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
         
         allButton.setDialogResult(DialogResult.OK);
-        allButton.setFlatStyle(FlatStyle.FLAT);
-        allButton.setLocation(131, 74);
-        allButton.setSize(41, 22);
+        allButton.setAutoWidth(true);
+        allButton.setControlBinding(ControlBinding.CENTER);
+        allButton.setLocation(132, 81);
+        allButton.setSize(41, 25);
         allButton.setTabIndex(3);
         allButton.setText("All");
         allButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -151,9 +128,10 @@ public class FormCargoSell extends SpaceTraderForm {
         });
         
         noneButton.setDialogResult(DialogResult.CANCEL);
-        noneButton.setFlatStyle(FlatStyle.FLAT);
-        noneButton.setLocation(179, 74);
-        noneButton.setSize(41, 22);
+        noneButton.setAutoWidth(true);
+        noneButton.setControlBinding(ControlBinding.LEFT);
+        noneButton.setLocation(181, 81);
+        noneButton.setSize(41, 25);
         noneButton.setTabIndex(4);
         noneButton.setText("None");
 

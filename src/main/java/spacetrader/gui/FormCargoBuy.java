@@ -1,34 +1,7 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.controls.enums.*;
 import spacetrader.game.*;
 import spacetrader.game.enums.CargoBuyOp;
 import spacetrader.guifacade.Facaded;
@@ -64,7 +37,7 @@ public class FormCargoBuy extends SpaceTraderForm {
                 statementLabelValue.setText(stringVars(Strings.CargoBuyStatement,
                         formatMoney(game.getPriceCargoBuy()[item]), formatNumber(maxAmount)));
 
-                //TODO multiplier
+                //TODO scale
                 setHeight(okButton.getTop() + okButton.getHeight() + 34);
                 break;
             case BUY_TRADER:
@@ -92,7 +65,7 @@ public class FormCargoBuy extends SpaceTraderForm {
             case PLUNDER:
                 statementLabelValue.setText(stringVars(Strings.CargoBuyStatementSteal, formatNumber(game
                         .getOpponent().getCargo()[item])));
-                //TODO multiplier
+                //TODO scale
                 setHeight(okButton.getTop() + okButton.getHeight() + 34);
                 break;
         }
@@ -105,9 +78,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         //setText("Buy Xxxxxxxxxx");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(326, 105);
-        setControlBox(false);
+        setClientSize(326, 90);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(noneButton);
@@ -116,30 +87,33 @@ public class FormCargoBuy extends SpaceTraderForm {
         suspendLayout();
 
         //TODO delete all texts & sizes
+        statementLabelValue.setAutoSize(true);
         statementLabelValue.setLocation(8, 8);
-        statementLabelValue.setSize(326, 13);
+        //statementLabelValue.setSize(326, 13);
         statementLabelValue.setTabIndex(3);
         //statementLabelValue.setText("The trader wants to sell Machines for the price of 8,888 cr. each.");
 
+        statementLabelValue.setAutoSize(true);
         availableLabelValue.setLocation(8, 21);
-        availableLabelValue.setSize(163, 13);
+        //availableLabelValue.setSize(163, 13);
         availableLabelValue.setTabIndex(5);
         //availableLabelValue.setText("The trader has 88 units for sale.");
         availableLabelValue.setVisible(false);
 
         questionLabel.setAutoSize(true);
         questionLabel.setLocation(8, 24);
-        questionLabel.setSize(161, 16);
+        //questionLabel.setSize(161, 16);
         questionLabel.setTabIndex(1);
         questionLabel.setText("How many do you want to buy?");
 
-        numericUpDown.setLocation(168, 22);
+        numericUpDown.setLocation(170, 22);
         //numericUpDown.setMaximum(999);
         numericUpDown.setMinimum(1);
         numericUpDown.setSize(44, 20);
         numericUpDown.setTabIndex(1);
         numericUpDown.setValue(1);
 
+        affordLabelValue.setAutoSize(true);
         affordLabelValue.setLocation(8, 34);
         affordLabelValue.setSize(157, 13);
         affordLabelValue.setTabIndex(6);
@@ -147,15 +121,17 @@ public class FormCargoBuy extends SpaceTraderForm {
         affordLabelValue.setVisible(false);
 
         okButton.setDialogResult(DialogResult.OK);
-        okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(95, 48);
+        okButton.setAutoWidth(true);
+        okButton.setControlBinding(ControlBinding.RIGHT);
+        okButton.setLocation(95, 54);
         okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
         allButton.setDialogResult(DialogResult.OK);
-        allButton.setFlatStyle(FlatStyle.FLAT);
-        allButton.setLocation(143, 48);
+        allButton.setAutoWidth(true);
+        allButton.setControlBinding(ControlBinding.CENTER);
+        allButton.setLocation(144, 54);
         allButton.setSize(41, 22);
         allButton.setTabIndex(3);
         allButton.setText("All");
@@ -167,8 +143,9 @@ public class FormCargoBuy extends SpaceTraderForm {
         });
 
         noneButton.setDialogResult(DialogResult.CANCEL);
-        noneButton.setFlatStyle(FlatStyle.FLAT);
-        noneButton.setLocation(191, 48);
+        noneButton.setAutoWidth(true);
+        noneButton.setControlBinding(ControlBinding.LEFT);
+        noneButton.setLocation(191, 54);
         noneButton.setSize(41, 22);
         noneButton.setTabIndex(4);
         noneButton.setText("None");
