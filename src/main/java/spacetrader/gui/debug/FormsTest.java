@@ -1,15 +1,14 @@
 package spacetrader.gui.debug;
 
 import spacetrader.controls.*;
+import spacetrader.controls.Size;
 import spacetrader.controls.enums.*;
 import spacetrader.game.Consts;
+import spacetrader.game.Game;
 import spacetrader.game.GlobalAssets;
 import spacetrader.game.SpecialEvent;
-import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.SpecialEventType;
-import spacetrader.gui.FormAbout;
-import spacetrader.gui.FormAlert;
-import spacetrader.gui.SpaceTraderForm;
+import spacetrader.game.enums.*;
+import spacetrader.gui.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.ReflectionUtils;
 
@@ -37,6 +36,8 @@ public class FormsTest extends SpaceTraderForm {
     private Panel mainPanel = new Panel();
     private Button formAboutButton = new Button();
     private Button formAlertsButton = new Button();
+    private Button formBuyFuelButton = new Button();
+    private Button formBuyRepairsButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -44,6 +45,19 @@ public class FormsTest extends SpaceTraderForm {
 
     public FormsTest() {
         GlobalAssets.loadStrings("english");
+
+        Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
+        game.getCommander().getShip().getCargo()[1] = 12;
+        game.getCommander().setCash(65535);
+        game.getCommander().getShip().setFuelTanks(24);
+        game.getCommander().getShip().setFuel(10);
+        game.getCommander().getShip().setHullStrength(100);
+        game.getCommander().getShip().setHull(50);
+
+        game.setSelectedSystemId(StarSystemId.Aldea);
+        game.warpDirect();
+        Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
+
         initializeComponent();
     }
 
@@ -80,14 +94,14 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         mainPanel.setLocation(4, 56);
-        mainPanel.setSize(200, 80);
+        mainPanel.setSize(200, 300);
         mainPanel.setTabStop(false);
         mainPanel.setText("Simple dialogs");
 
-        mainPanel.getControls().addAll(formAboutButton, formAlertsButton);
+        mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton);
 
         formAboutButton.setLocation(8, 23);
-        formAboutButton.setSize(70, 22);
+        formAboutButton.setSize(90, 22);
         formAboutButton.setText("FormAbout");
         formAboutButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -96,7 +110,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formAlertsButton.setLocation(8, 46);
-        formAlertsButton.setSize(70, 22);
+        formAlertsButton.setSize(90, 22);
         formAlertsButton.setText("FormAlert");
         formAlertsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -104,6 +118,23 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formBuyFuelButton.setLocation(8, 69);
+        formBuyFuelButton.setSize(90, 22);
+        formBuyFuelButton.setText("FormBuyFuel");
+        formBuyFuelButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormBuyFuel());
+            }
+        });
+
+        formBuyRepairsButton.setLocation(8, 92);
+        formBuyRepairsButton.setSize(90, 22);
+        formBuyRepairsButton.setText("FormBuyRepairs");
+        formBuyRepairsButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormBuyRepairs());
+            }
+        });
 
 
         lblAlertType = new Label();

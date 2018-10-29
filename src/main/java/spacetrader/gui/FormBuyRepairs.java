@@ -1,44 +1,16 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
 import spacetrader.controls.NumericUpDown;
 import spacetrader.controls.WinformForm;
+import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
-
-import java.util.Arrays;
 
 public class FormBuyRepairs extends WinformForm {
     
@@ -57,12 +29,6 @@ public class FormBuyRepairs extends WinformForm {
         numericUpDown.setValue(numericUpDown.getMaximum());
     }
 
-    public static void main(String[] args) {
-        FormBuyRepairs form = new FormBuyRepairs();
-        Launcher.runForm(form);
-        System.out.println(form.getAmount());
-    }
-
     private void initializeComponent() {
         ReflectionUtils.setAllComponentNames(this);
         
@@ -70,9 +36,7 @@ public class FormBuyRepairs extends WinformForm {
         setText("Hull Repair");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(286, 63);
-        setControlBox(false);
+        setClientSize(286, 50);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(nothingButton);
@@ -82,12 +46,12 @@ public class FormBuyRepairs extends WinformForm {
         suspendLayout();
 
         questionLabel.setAutoSize(true);
-        questionLabel.setLocation(8, 8);
-        questionLabel.setSize(227, 13);
-        questionLabel.setTabIndex(3);
+        questionLabel.setLocation(8, 14);
+        //questionLabel.setSize(227, 13);
+        //questionLabel.setTabIndex(3);
         questionLabel.setText("How much do you want to spend on repairs?");
 
-        numericUpDown.setLocation(232, 6);
+        numericUpDown.setLocation(240, 11);
         //numericUpDown.setMaximum(999);
         numericUpDown.setMinimum(1);
         numericUpDown.setSize(44, 20);
@@ -95,27 +59,30 @@ public class FormBuyRepairs extends WinformForm {
         //numericUpDown.setValue(888);
 
         okButton.setDialogResult(DialogResult.OK);
-        okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(69, 32);
+        okButton.setAutoWidth(true);
+        okButton.setControlBinding(ControlBinding.LEFT);
+        okButton.setLocation(69, 40);
         okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
         maxButton.setDialogResult(DialogResult.OK);
-        maxButton.setFlatStyle(FlatStyle.FLAT);
-        maxButton.setLocation(117, 32);
+        maxButton.setAutoWidth(true);
+        maxButton.setControlBinding(ControlBinding.CENTER);
+        maxButton.setLocation(117, 40);
         maxButton.setSize(41, 22);
         maxButton.setTabIndex(3);
         maxButton.setText("Max");
 
         nothingButton.setDialogResult(DialogResult.CANCEL);
-        nothingButton.setFlatStyle(FlatStyle.FLAT);
-        nothingButton.setLocation(165, 32);
+        nothingButton.setAutoWidth(true);
+        nothingButton.setControlBinding(ControlBinding.RIGHT);
+        nothingButton.setLocation(173, 40);
         nothingButton.setSize(53, 22);
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");
 
-        controls.addAll(Arrays.asList(questionLabel, numericUpDown, okButton, maxButton, nothingButton));
+        controls.addAll(questionLabel, numericUpDown, okButton, maxButton, nothingButton);
         
         numericUpDown.endInit();
 
