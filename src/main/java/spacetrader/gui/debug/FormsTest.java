@@ -9,6 +9,7 @@ import spacetrader.game.GlobalAssets;
 import spacetrader.game.SpecialEvent;
 import spacetrader.game.enums.*;
 import spacetrader.gui.*;
+import spacetrader.guifacade.GuiEngine;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.ReflectionUtils;
 
@@ -38,8 +39,10 @@ public class FormsTest extends SpaceTraderForm {
     private Button formAlertsButton = new Button();
     private Button formBuyFuelButton = new Button();
     private Button formBuyRepairsButton = new Button();
-    private Button formFormCargoBuyButton = new Button();
-    private Button formFormCargoSellButton = new Button();
+    private Button formCargoBuyButton = new Button();
+    private Button formCargoSellButton = new Button();
+    private Button formCostsButton = new Button();
+    private Button formEncounterButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -47,6 +50,8 @@ public class FormsTest extends SpaceTraderForm {
 
     public FormsTest() {
         GlobalAssets.loadStrings("english");
+        GlobalAssets.initializeImages();
+        GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
 
         Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
         game.getCommander().getShip().getCargo()[1] = 12;
@@ -101,7 +106,7 @@ public class FormsTest extends SpaceTraderForm {
         mainPanel.setText("Simple dialogs");
 
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
-                formFormCargoBuyButton, formFormCargoSellButton);
+                formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton);
 
         formAboutButton.setLocation(8, 23);
         formAboutButton.setSize(90, 22);
@@ -139,24 +144,41 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
-        formFormCargoBuyButton.setLocation(8, 115);
-        formFormCargoBuyButton.setSize(90, 22);
-        formFormCargoBuyButton.setText("FormCargoBuy");
-        formFormCargoBuyButton.setClick(new EventHandler<Object, EventArgs>() {
+        formCargoBuyButton.setLocation(8, 115);
+        formCargoBuyButton.setSize(90, 22);
+        formCargoBuyButton.setText("FormCargoBuy");
+        formCargoBuyButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
                 Launcher.runForm(new FormCargoBuy(1, 1, CargoBuyOp.BUY_TRADER));
             }
         });
 
-        formFormCargoSellButton.setLocation(8, 138);
-        formFormCargoSellButton.setSize(90, 22);
-        formFormCargoSellButton.setText("FormCargoSell");
-        formFormCargoSellButton.setClick(new EventHandler<Object, EventArgs>() {
+        formCargoSellButton.setLocation(8, 138);
+        formCargoSellButton.setSize(90, 22);
+        formCargoSellButton.setText("FormCargoSell");
+        formCargoSellButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
                 Launcher.runForm(new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255));
             }
         });
 
+        formCostsButton.setLocation(8, 161);
+        formCostsButton.setSize(90, 22);
+        formCostsButton.setText("FormCosts");
+        formCostsButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormCosts());
+            }
+        });
+
+        formEncounterButton.setLocation(8, 185);
+        formEncounterButton.setSize(90, 22);
+        formEncounterButton.setText("FormEncounter");
+        formEncounterButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormEncounter());
+            }
+        });
 
         lblAlertType = new Label();
         boxAlert = new Panel();

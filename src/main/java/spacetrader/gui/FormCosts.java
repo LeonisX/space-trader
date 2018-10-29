@@ -1,27 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
@@ -66,8 +42,7 @@ public class FormCosts extends SpaceTraderForm {
         
         setName("formCosts");
         setText("Cost Specification");
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(164, 99);
+        setClientSize(165, 80);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setMaximizeBox(false);
@@ -80,73 +55,68 @@ public class FormCosts extends SpaceTraderForm {
         mercenariesLabel.setAutoSize(true);
         mercenariesLabel.setFont(FontCollection.bold825);
         mercenariesLabel.setLocation(8, 8);
-        mercenariesLabel.setSize(72, 13);
-        mercenariesLabel.setTabIndex(4);
+        //mercenariesLabel.setSize(72, 13);
         mercenariesLabel.setText("Mercenaries:");
 
-        mercenariesLabelValue.setLocation(104, 8);
-        mercenariesLabelValue.setSize(39, 13);
-        mercenariesLabelValue.setTabIndex(36);
+        mercenariesLabelValue.setAutoSize(true);
+        mercenariesLabelValue.setLocation(114, 9);
+        //mercenariesLabelValue.setSize(39, 13);
         //mercenariesLabelValue.setText("888 cr.");
-        mercenariesLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+        //mercenariesLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         insuranceLabel.setAutoSize(true);
         insuranceLabel.setFont(FontCollection.bold825);
-        insuranceLabel.setLocation(8, 24);
-        insuranceLabel.setSize(59, 13);
-        insuranceLabel.setTabIndex(3);
+        insuranceLabel.setLocation(8, 25);
+        //insuranceLabel.setSize(59, 13);
         insuranceLabel.setText("Insurance:");
 
-        insuranceLabelValue.setLocation(104, 24);
-        insuranceLabelValue.setSize(39, 13);
-        insuranceLabelValue.setTabIndex(40);
+        insuranceLabelValue.setAutoSize(true);
+        insuranceLabelValue.setLocation(114, 24);
+        //insuranceLabelValue.setSize(39, 13);
         //insuranceLabelValue.setText("888 cr.");
-        insuranceLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+        //insuranceLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         interestLabel.setAutoSize(true);
         interestLabel.setFont(FontCollection.bold825);
-        interestLabel.setLocation(8, 40);
-        interestLabel.setSize(47, 13);
-        interestLabel.setTabIndex(5);
+        interestLabel.setLocation(8, 41);
+        //interestLabel.setSize(47, 13);
         interestLabel.setText("Interest:");
 
-        interestLabelValue.setLocation(104, 40);
-        interestLabelValue.setSize(39, 13);
-        interestLabelValue.setTabIndex(44);
+        interestLabelValue.setAutoSize(true);
+        interestLabelValue.setLocation(114, 40);
+        //interestLabelValue.setSize(39, 13);
         //interestLabelValue.setText("888 cr.");
-        interestLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+        //interestLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         wormholeTaxLabel.setAutoSize(true);
         wormholeTaxLabel.setFont(FontCollection.bold825);
-        wormholeTaxLabel.setLocation(8, 56);
-        wormholeTaxLabel.setSize(84, 13);
-        wormholeTaxLabel.setTabIndex(6);
+        wormholeTaxLabel.setLocation(8, 57);
+        //wormholeTaxLabel.setSize(84, 13);
         wormholeTaxLabel.setText("Wormhole Tax:");
 
-        wormholeTaxLabelValue.setLocation(104, 56);
-        wormholeTaxLabelValue.setSize(39, 13);
-        wormholeTaxLabelValue.setTabIndex(48);
+        wormholeTaxLabelValue.setAutoSize(true);
+        wormholeTaxLabelValue.setLocation(114, 56);
+        //wormholeTaxLabelValue.setSize(39, 13);
         //wormholeTaxLabelValue.setText("888 cr.");
-        wormholeTaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+        //wormholeTaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         //horizontalLine.setBackground(Color.darkGray);
         horizontalLine.setLocation(6, 73);
-        horizontalLine.setSize(138, 1);
-        horizontalLine.setTabIndex(134);
+        horizontalLine.setWidth(160);
         horizontalLine.setTabStop(false);
 
         totalLabel.setAutoSize(true);
         totalLabel.setFont(FontCollection.bold825);
-        totalLabel.setLocation(8, 79);
-        totalLabel.setSize(34, 13);
+        totalLabel.setLocation(8, 80);
+        //totalLabel.setSize(34, 13);
         totalLabel.setTabIndex(7);
         totalLabel.setText("Total:");
 
-        totalLabelValue.setLocation(104, 79);
-        totalLabelValue.setSize(39, 13);
-        totalLabelValue.setTabIndex(52);
+        totalLabelValue.setAutoSize(true);
+        totalLabelValue.setLocation(114, 79);
+        //totalLabelValue.setSize(39, 13);
         //totalLabelValue.setText("888 cr.");
-        totalLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+        //totalLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setVisible(false);

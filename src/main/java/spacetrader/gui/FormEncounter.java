@@ -1,28 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
@@ -30,10 +5,7 @@ import spacetrader.controls.Container;
 import spacetrader.controls.*;
 import spacetrader.controls.Graphics;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.BorderStyle;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.controls.enums.*;
 import spacetrader.game.Consts;
 import spacetrader.util.Functions;
 import spacetrader.game.Game;
@@ -195,29 +167,30 @@ public class FormEncounter extends SpaceTraderForm {
         setShowInTaskbar(false);
         setControlBox(false);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(new Size(5, 13));
-        setClientSize(new Size(234, 271));
+        setClientSize(234, 271);
 
-        encounterTypePicture.setLocation(new Point(220, 2));
-        encounterTypePicture.setSize(new Size(12, 12));
+        encounterTypePicture.setLocation(220, 2);
+        encounterTypePicture.setSize(12, 12);
         encounterTypePicture.setTabStop(false);
 
         youLabel.setAutoSize(true);
+        youLabel.setControlBinding(ControlBinding.CENTER);
         youLabel.setFont(FontCollection.bold825);
-        youLabel.setLocation(new Point(45, 8));
-        youLabel.setSize(new Size(28, 16));
+        youLabel.setLocation(45, 8);
+        //youLabel.setSize(28, 16);
         youLabel.setText("You:");
 
         opponentLabel.setAutoSize(true);
+        opponentLabel.setControlBinding(ControlBinding.CENTER);
         opponentLabel.setFont(FontCollection.bold825);
-        opponentLabel.setLocation(new Point(141, 8));
-        opponentLabel.setSize(new Size(59, 16));
+        opponentLabel.setLocation(141, 8);
+        //opponentLabel.setSize(59, 16);
         opponentLabel.setText("Opponent:");
 
         yourShipPicture.setBackground(Color.WHITE);
         yourShipPicture.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        yourShipPicture.setLocation(new Point(26, 24));
-        yourShipPicture.setSize(new Size(70, 58));
+        yourShipPicture.setLocation(26, 24);
+        yourShipPicture.setSize(70, 58);
         yourShipPicture.setTabStop(false);
         yourShipPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
             @Override
@@ -228,8 +201,8 @@ public class FormEncounter extends SpaceTraderForm {
 
         opponentsShipPicture.setBackground(Color.WHITE);
         opponentsShipPicture.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        opponentsShipPicture.setLocation(new Point(138, 24));
-        opponentsShipPicture.setSize(new Size(70, 58));
+        opponentsShipPicture.setLocation(138, 24);
+        opponentsShipPicture.setSize(70, 58);
         opponentsShipPicture.setTabStop(false);
         opponentsShipPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
             @Override
@@ -238,49 +211,53 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        yourShipLabelValue.setLocation(new Point(26, 88));
-        yourShipLabelValue.setSize(new Size(100, 13));
-        yourShipLabelValue.setTabIndex(19);
+        yourShipLabelValue.setAutoSize(true);
+        yourShipLabelValue.setControlBinding(ControlBinding.LEFT);
+        yourShipLabelValue.setLocation(26, 88);
+        //yourShipLabelValue.setSize(100, 13);
         //yourShipLabelValue.setText("Grasshopper");
 
-        opponentsShipLabelValue.setLocation(new Point(138, 88));
-        opponentsShipLabelValue.setSize(new Size(80, 13));
-        opponentsShipLabelValue.setTabIndex(18);
+        opponentsShipLabelValue.setAutoSize(true);
+        opponentsShipLabelValue.setControlBinding(ControlBinding.LEFT);
+        opponentsShipLabelValue.setLocation(138, 88);
+        //opponentsShipLabelValue.setSize(80, 13);
         //opponentsShipLabelValue.setText("Space Monster");
 
-        yourHullLabelValue.setLocation(new Point(26, 104));
-        yourHullLabelValue.setSize(new Size(68, 13));
-        yourHullLabelValue.setTabIndex(20);
+        yourHullLabelValue.setAutoSize(true);
+        yourHullLabelValue.setControlBinding(ControlBinding.LEFT);
+        yourHullLabelValue.setLocation(26, 104);
+        //yourHullLabelValue.setSize(68, 13);
         //yourHullLabelValue.setText("Hull at 100%");
 
-        opponentsHullLabelValue.setLocation(new Point(138, 104));
-        opponentsHullLabelValue.setSize(new Size(68, 13));
-        opponentsHullLabelValue.setTabIndex(22);
+        opponentsHullLabelValue.setAutoSize(true);
+        opponentsHullLabelValue.setControlBinding(ControlBinding.LEFT);
+        opponentsHullLabelValue.setLocation(138, 104);
+        //opponentsHullLabelValue.setSize(68, 13);
         //opponentsHullLabelValue.setText("Hull at 100%");
 
-        yourShieldsLabelValue.setLocation(new Point(26, 120));
-        yourShieldsLabelValue.setSize(new Size(86, 13));
-        yourShieldsLabelValue.setTabIndex(21);
+        yourShieldsLabelValue.setAutoSize(true);
+        yourShieldsLabelValue.setControlBinding(ControlBinding.LEFT);
+        yourShieldsLabelValue.setLocation(26, 120);
+        //yourShieldsLabelValue.setSize(86, 13);
         //yourShieldsLabelValue.setText("Shields at 100%");
 
-        opponentsShieldsLabelValue.setLocation(new Point(138, 120));
-        opponentsShieldsLabelValue.setSize(new Size(86, 13));
-        opponentsShieldsLabelValue.setTabIndex(23);
+        opponentsShieldsLabelValue.setAutoSize(true);
+        opponentsShieldsLabelValue.setControlBinding(ControlBinding.LEFT);
+        opponentsShieldsLabelValue.setLocation(138, 120);
+        //opponentsShieldsLabelValue.setSize(86, 13);
         //opponentsShieldsLabelValue.setText("Shields at 100%");
 
-        encounterLabelValue.setLocation(new Point(8, 152));
-        encounterLabelValue.setSize(new Size(232, 26));
-        encounterLabelValue.setTabIndex(0);
+        encounterLabelValue.setLocation(8, 152);
+        encounterLabelValue.setSize(232, 26);
         //encounterLabelValue.setText("At 20 clicks from Tarchannen, you encounter the famous Captain Ahab.");
 
-        actionLabelValue.setLocation(new Point(8, 192));
-        actionLabelValue.setSize(new Size(232, 39));
-        actionLabelValue.setTabIndex(15);
+        actionLabelValue.setLocation(8, 192);
+        actionLabelValue.setSize(232, 39);
         //actionLabelValue.setText("\"We know you removed illegal goods from the Marie Celeste. You must give them up at once!\"");
 
         attackButton.setFlatStyle(FlatStyle.FLAT);
-        attackButton.setLocation(new Point(8, 240));
-        attackButton.setSize(new Size(46, 22));
+        attackButton.setLocation(8, 240);
+        attackButton.setSize(46, 22);
         attackButton.setTabIndex(24);
         attackButton.setText("Attack");
         attackButton.setVisible(false);
@@ -292,8 +269,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         fleeButton.setFlatStyle(FlatStyle.FLAT);
-        fleeButton.setLocation(new Point(62, 240));
-        fleeButton.setSize(new Size(36, 22));
+        fleeButton.setLocation(62, 240);
+        fleeButton.setSize(36, 22);
         fleeButton.setTabIndex(25);
         fleeButton.setText("Flee");
         fleeButton.setVisible(false);
@@ -305,8 +282,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         submitButton.setFlatStyle(FlatStyle.FLAT);
-        submitButton.setLocation(new Point(106, 240));
-        submitButton.setSize(new Size(49, 22));
+        submitButton.setLocation(106, 240);
+        submitButton.setSize(49, 22);
         submitButton.setTabIndex(26);
         submitButton.setText("Submit");
         submitButton.setVisible(false);
@@ -318,8 +295,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         bribeButton.setFlatStyle(FlatStyle.FLAT);
-        bribeButton.setLocation(new Point(163, 240));
-        bribeButton.setSize(new Size(41, 22));
+        bribeButton.setLocation(163, 240);
+        bribeButton.setSize(41, 22);
         bribeButton.setTabIndex(27);
         bribeButton.setText("Bribe");
         bribeButton.setVisible(false);
@@ -331,8 +308,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         surrenderButton.setFlatStyle(FlatStyle.FLAT);
-        surrenderButton.setLocation(new Point(106, 240));
-        surrenderButton.setSize(new Size(65, 22));
+        surrenderButton.setLocation(106, 240);
+        surrenderButton.setSize(65, 22);
         surrenderButton.setTabIndex(28);
         surrenderButton.setText("Surrender");
         surrenderButton.setVisible(false);
@@ -344,8 +321,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         ignoreButton.setFlatStyle(FlatStyle.FLAT);
-        ignoreButton.setLocation(new Point(62, 240));
-        ignoreButton.setSize(new Size(46, 22));
+        ignoreButton.setLocation(62, 240);
+        ignoreButton.setSize(46, 22);
         ignoreButton.setTabIndex(29);
         ignoreButton.setText("Ignore");
         ignoreButton.setVisible(false);
@@ -357,8 +334,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         tradeButton.setFlatStyle(FlatStyle.FLAT);
-        tradeButton.setLocation(new Point(116, 240));
-        tradeButton.setSize(new Size(44, 22));
+        tradeButton.setLocation(116, 240);
+        tradeButton.setSize(44, 22);
         tradeButton.setTabIndex(30);
         tradeButton.setText("Trade");
         tradeButton.setVisible(false);
@@ -370,8 +347,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         plunderButton.setFlatStyle(FlatStyle.FLAT);
-        plunderButton.setLocation(new Point(62, 240));
-        plunderButton.setSize(new Size(53, 22));
+        plunderButton.setLocation(62, 240);
+        plunderButton.setSize(53, 22);
         plunderButton.setTabIndex(31);
         plunderButton.setText("Plunder");
         plunderButton.setVisible(false);
@@ -383,8 +360,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         boardButton.setFlatStyle(FlatStyle.FLAT);
-        boardButton.setLocation(new Point(8, 240));
-        boardButton.setSize(new Size(44, 22));
+        boardButton.setLocation(8, 240);
+        boardButton.setSize(44, 22);
         boardButton.setTabIndex(32);
         boardButton.setText("Board");
         boardButton.setVisible(false);
@@ -396,8 +373,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         meetButton.setFlatStyle(FlatStyle.FLAT);
-        meetButton.setLocation(new Point(116, 240));
-        meetButton.setSize(new Size(39, 22));
+        meetButton.setLocation(116, 240);
+        meetButton.setSize(39, 22);
         meetButton.setTabIndex(34);
         meetButton.setText("Meet");
         meetButton.setVisible(false);
@@ -409,8 +386,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         drinkButton.setFlatStyle(FlatStyle.FLAT);
-        drinkButton.setLocation(new Point(8, 240));
-        drinkButton.setSize(new Size(41, 22));
+        drinkButton.setLocation(8, 240);
+        drinkButton.setSize(41, 22);
         drinkButton.setTabIndex(35);
         drinkButton.setText("Drink");
         drinkButton.setVisible(false);
@@ -422,8 +399,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         interruptButton.setFlatStyle(FlatStyle.FLAT);
-        interruptButton.setLocation(new Point(179, 240));
-        interruptButton.setSize(new Size(30, 22));
+        interruptButton.setLocation(179, 240);
+        interruptButton.setSize(30, 22);
         interruptButton.setTabIndex(36);
         interruptButton.setText("Int.");
         interruptButton.setVisible(false);
@@ -435,8 +412,8 @@ public class FormEncounter extends SpaceTraderForm {
         });
 
         yieldButton.setFlatStyle(FlatStyle.FLAT);
-        yieldButton.setLocation(new Point(106, 240));
-        yieldButton.setSize(new Size(39, 22));
+        yieldButton.setLocation(106, 240);
+        yieldButton.setSize(39, 22);
         yieldButton.setTabIndex(37);
         yieldButton.setText("Yield");
         yieldButton.setVisible(false);
@@ -447,48 +424,48 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        continuousPicture.setLocation(new Point(214, 247));
-        continuousPicture.setSize(new Size(9, 9));
+        continuousPicture.setLocation(214, 247);
+        continuousPicture.setSize(9, 9);
         continuousPicture.setTabIndex(38);
         continuousPicture.setTabStop(false);
         continuousPicture.setVisible(false);
 
-        tribblePicture00.setLocation(new Point(16, 16));
-        tribblePicture01.setLocation(new Point(56, 8));
-        tribblePicture02.setLocation(new Point(96, 16));
-        tribblePicture03.setLocation(new Point(128, 8));
-        tribblePicture04.setLocation(new Point(176, 8));
-        tribblePicture05.setLocation(new Point(208, 16));
-        tribblePicture10.setLocation(new Point(8, 56));
-        tribblePicture11.setLocation(new Point(32, 80));
-        tribblePicture12.setLocation(new Point(88, 56));
-        tribblePicture13.setLocation(new Point(128, 40));
-        tribblePicture14.setLocation(new Point(192, 72));
-        tribblePicture15.setLocation(new Point(216, 48));
-        tribblePicture20.setLocation(new Point(8, 96));
-        tribblePicture21.setLocation(new Point(56, 96));
-        tribblePicture22.setLocation(new Point(96, 80));
-        tribblePicture23.setLocation(new Point(136, 88));
-        tribblePicture24.setLocation(new Point(176, 104));
-        tribblePicture25.setLocation(new Point(216, 96));
-        tribblePicture30.setLocation(new Point(16, 136));
-        tribblePicture31.setLocation(new Point(56, 128));
-        tribblePicture32.setLocation(new Point(96, 120));
-        tribblePicture33.setLocation(new Point(128, 128));
-        tribblePicture34.setLocation(new Point(168, 144));
-        tribblePicture35.setLocation(new Point(208, 128));
-        tribblePicture40.setLocation(new Point(8, 184));
-        tribblePicture41.setLocation(new Point(48, 176));
-        tribblePicture42.setLocation(new Point(88, 168));
-        tribblePicture43.setLocation(new Point(136, 176));
-        tribblePicture44.setLocation(new Point(184, 184));
-        tribblePicture45.setLocation(new Point(216, 176));
-        tribblePicture50.setLocation(new Point(16, 224));
-        tribblePicture51.setLocation(new Point(64, 216));
-        tribblePicture52.setLocation(new Point(96, 224));
-        tribblePicture53.setLocation(new Point(144, 216));
-        tribblePicture54.setLocation(new Point(176, 224));
-        tribblePicture55.setLocation(new Point(208, 216));
+        tribblePicture00.setLocation(16, 16);
+        tribblePicture01.setLocation(56, 8);
+        tribblePicture02.setLocation(96, 16);
+        tribblePicture03.setLocation(128, 8);
+        tribblePicture04.setLocation(176, 8);
+        tribblePicture05.setLocation(208, 16);
+        tribblePicture10.setLocation(8, 56);
+        tribblePicture11.setLocation(32, 80);
+        tribblePicture12.setLocation(88, 56);
+        tribblePicture13.setLocation(128, 40);
+        tribblePicture14.setLocation(192, 72);
+        tribblePicture15.setLocation(216, 48);
+        tribblePicture20.setLocation(8, 96);
+        tribblePicture21.setLocation(56, 96);
+        tribblePicture22.setLocation(96, 80);
+        tribblePicture23.setLocation(136, 88);
+        tribblePicture24.setLocation(176, 104);
+        tribblePicture25.setLocation(216, 96);
+        tribblePicture30.setLocation(16, 136);
+        tribblePicture31.setLocation(56, 128);
+        tribblePicture32.setLocation(96, 120);
+        tribblePicture33.setLocation(128, 128);
+        tribblePicture34.setLocation(168, 144);
+        tribblePicture35.setLocation(208, 128);
+        tribblePicture40.setLocation(8, 184);
+        tribblePicture41.setLocation(48, 176);
+        tribblePicture42.setLocation(88, 168);
+        tribblePicture43.setLocation(136, 176);
+        tribblePicture44.setLocation(184, 184);
+        tribblePicture45.setLocation(216, 176);
+        tribblePicture50.setLocation(16, 224);
+        tribblePicture51.setLocation(64, 216);
+        tribblePicture52.setLocation(96, 224);
+        tribblePicture53.setLocation(144, 216);
+        tribblePicture54.setLocation(176, 224);
+        tribblePicture55.setLocation(208, 216);
 
         tribblesArray = new PictureBox[]{
                 tribblePicture00, tribblePicture01, tribblePicture02, tribblePicture03, tribblePicture04, tribblePicture05, 
@@ -501,7 +478,7 @@ public class FormEncounter extends SpaceTraderForm {
 
         Arrays.stream(tribblesArray).forEach(picture -> {
             picture.setBackground(SystemColors.CONTROL);
-            picture.setSize(new Size(12, 12));
+            picture.setSize(12, 12);
             picture.setTabStop(false);
             picture.setVisible(false);
             picture.setClick(new EventHandler<Object, EventArgs>() {
@@ -520,15 +497,15 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        encounterTypeImageList.setImageSize(new Size(12, 12));
+        encounterTypeImageList.setImageSize(12, 12);
         encounterTypeImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilEncounterType.ImageStream"))));
         encounterTypeImageList.setTransparentColor(Color.WHITE);
 
-        tribblesImageList.setImageSize(new Size(12, 12));
+        tribblesImageList.setImageSize(12, 12);
         tribblesImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilTribbles.ImageStream"))));
         tribblesImageList.setTransparentColor(Color.WHITE);
 
-        continuousImageList.setImageSize(new Size(9, 9));
+        continuousImageList.setImageSize(9, 9);
         continuousImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilContinuous.ImageStream"))));
         continuousImageList.setTransparentColor(Color.WHITE);
 
