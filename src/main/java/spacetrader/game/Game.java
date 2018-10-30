@@ -764,7 +764,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return encounterType;
     }
 
-    private void setEncounterType(EncounterType encounterType) {
+    public void setEncounterType(EncounterType encounterType) {
         this.encounterType = encounterType;
     }
 
@@ -1064,7 +1064,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
     }
 
-    private boolean isDetermineEncounter() {
+    public boolean isDetermineEncounter() {
         // If there is a specific encounter that needs to happen, it will,
         // otherwise we'll generate a random encounter.
         return isDetermineNonRandomEncounter() || isDetermineRandomEncounter();
@@ -1291,7 +1291,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 && getOptions().isAlwaysIgnoreTradeInOrbit());
     }
 
-    private boolean isDetermineVeryRareEncounter() {
+    public boolean isDetermineVeryRareEncounter() {
         // Very Rare Random Events:
         // 1. Encounter the abandoned Marie Celeste, which you may loot.
         // 2. Captain Ahab will trade your Reflective Shield for skill points in Piloting.
@@ -3416,8 +3416,20 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return difficulty;
     }
 
-    private Ship getDragonfly() {
+    public Ship getDragonfly() {
         return dragonfly;
+    }
+
+    public Ship getScorpion() {
+        return scorpion;
+    }
+
+    public Ship getSpaceMonster() {
+        return spaceMonster;
+    }
+
+    public Ship getScarab() {
+        return scarab;
     }
 
     public String getEncounterAction() {
@@ -3823,10 +3835,6 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
 
     public int[] getPriceCargoSell() {
         return priceCargoSell;
-    }
-
-    public Ship getScarab() {
-        return scarab;
     }
 
     int getScore() {

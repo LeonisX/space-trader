@@ -26,17 +26,17 @@ public class FormEncounter extends SpaceTraderForm {
 
     private static final int ATTACK = 0;
     private static final int BOARD = 1;
-    private static final int BRIBE = 2;
-    private static final int DRINK = 3;
-    private static final int FLEE = 4;
-    private static final int IGNORE = 5;
-    private static final int INT = 6;
-    private static final int MEET = 7;
-    private static final int PLUNDER = 8;
-    private static final int SUBMIT = 9;
-    private static final int SURRENDER = 10;
-    private static final int TRADE = 11;
-    private static final int YIELD = 12;
+    private static final int DRINK = 2;
+    private static final int FLEE = 3;
+    private static final int IGNORE = 4;
+    private static final int PLUNDER = 5;
+    private static final int MEET = 6;
+    private static final int SUBMIT = 7;
+    private static final int SURRENDER = 8;
+    private static final int TRADE = 9;
+    private static final int YIELD = 10;
+    private static final int BRIBE = 11;
+    private static final int INT = 12;
 
     private final Game game = Game.getCurrentGame();
     private final Ship commanderShip = game.getCommander().getShip();
@@ -56,9 +56,9 @@ public class FormEncounter extends SpaceTraderForm {
     private Button interruptButton = new Button();
     private Button yieldButton = new Button();
 
-    private final Button[] buttons = new Button[]{attackButton, boardButton, bribeButton,
-            drinkButton, fleeButton, ignoreButton, interruptButton, meetButton, plunderButton,
-            submitButton, surrenderButton, tradeButton, yieldButton};
+    private final Button[] buttons = new Button[]{attackButton, boardButton, drinkButton,
+            fleeButton, ignoreButton, plunderButton, meetButton, submitButton, surrenderButton,
+            tradeButton, yieldButton, bribeButton, interruptButton};
 
     private Label encounterLabelValue = new Label();
     private PictureBox yourShipPicture = new PictureBox();
@@ -167,23 +167,21 @@ public class FormEncounter extends SpaceTraderForm {
         setShowInTaskbar(false);
         setControlBox(false);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(234, 271);
+        setClientSize(250, 260);
 
         encounterTypePicture.setLocation(220, 2);
         encounterTypePicture.setSize(12, 12);
         encounterTypePicture.setTabStop(false);
 
         youLabel.setAutoSize(true);
-        youLabel.setControlBinding(ControlBinding.CENTER);
         youLabel.setFont(FontCollection.bold825);
-        youLabel.setLocation(45, 8);
+        youLabel.setLocation(26, 8);
         //youLabel.setSize(28, 16);
         youLabel.setText("You:");
 
         opponentLabel.setAutoSize(true);
-        opponentLabel.setControlBinding(ControlBinding.CENTER);
         opponentLabel.setFont(FontCollection.bold825);
-        opponentLabel.setLocation(141, 8);
+        opponentLabel.setLocation(148, 8);
         //opponentLabel.setSize(59, 16);
         opponentLabel.setText("Opponent:");
 
@@ -201,7 +199,7 @@ public class FormEncounter extends SpaceTraderForm {
 
         opponentsShipPicture.setBackground(Color.WHITE);
         opponentsShipPicture.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        opponentsShipPicture.setLocation(138, 24);
+        opponentsShipPicture.setLocation(148, 24);
         opponentsShipPicture.setSize(70, 58);
         opponentsShipPicture.setTabStop(false);
         opponentsShipPicture.setPaint(new EventHandler<Object, PaintEventArgs>() {
@@ -219,7 +217,7 @@ public class FormEncounter extends SpaceTraderForm {
 
         opponentsShipLabelValue.setAutoSize(true);
         opponentsShipLabelValue.setControlBinding(ControlBinding.LEFT);
-        opponentsShipLabelValue.setLocation(138, 88);
+        opponentsShipLabelValue.setLocation(148, 88);
         //opponentsShipLabelValue.setSize(80, 13);
         //opponentsShipLabelValue.setText("Space Monster");
 
@@ -231,7 +229,7 @@ public class FormEncounter extends SpaceTraderForm {
 
         opponentsHullLabelValue.setAutoSize(true);
         opponentsHullLabelValue.setControlBinding(ControlBinding.LEFT);
-        opponentsHullLabelValue.setLocation(138, 104);
+        opponentsHullLabelValue.setLocation(148, 104);
         //opponentsHullLabelValue.setSize(68, 13);
         //opponentsHullLabelValue.setText("Hull at 100%");
 
@@ -243,24 +241,24 @@ public class FormEncounter extends SpaceTraderForm {
 
         opponentsShieldsLabelValue.setAutoSize(true);
         opponentsShieldsLabelValue.setControlBinding(ControlBinding.LEFT);
-        opponentsShieldsLabelValue.setLocation(138, 120);
+        opponentsShieldsLabelValue.setLocation(148, 120);
         //opponentsShieldsLabelValue.setSize(86, 13);
         //opponentsShieldsLabelValue.setText("Shields at 100%");
 
         encounterLabelValue.setLocation(8, 152);
-        encounterLabelValue.setSize(232, 26);
+        encounterLabelValue.setSize(245, 39);
         //encounterLabelValue.setText("At 20 clicks from Tarchannen, you encounter the famous Captain Ahab.");
 
-        actionLabelValue.setLocation(8, 192);
-        actionLabelValue.setSize(232, 39);
+        actionLabelValue.setLocation(8, 197);
+        actionLabelValue.setSize(245, 39);
         //actionLabelValue.setText("\"We know you removed illegal goods from the Marie Celeste. You must give them up at once!\"");
 
-        attackButton.setFlatStyle(FlatStyle.FLAT);
-        attackButton.setLocation(8, 240);
+        attackButton.setAutoWidth(true);
+        attackButton.setLocation(8, 245);
         attackButton.setSize(46, 22);
         attackButton.setTabIndex(24);
         attackButton.setText("Attack");
-        attackButton.setVisible(false);
+        //attackButton.setVisible(false);
         attackButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -268,12 +266,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        fleeButton.setFlatStyle(FlatStyle.FLAT);
-        fleeButton.setLocation(62, 240);
+        fleeButton.setAutoWidth(true);
+        fleeButton.setLocation(62, 245);
         fleeButton.setSize(36, 22);
         fleeButton.setTabIndex(25);
         fleeButton.setText("Flee");
-        fleeButton.setVisible(false);
+        //fleeButton.setVisible(false);
         fleeButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -281,12 +279,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        submitButton.setFlatStyle(FlatStyle.FLAT);
-        submitButton.setLocation(106, 240);
+        submitButton.setAutoWidth(true);
+        submitButton.setLocation(106, 245);
         submitButton.setSize(49, 22);
         submitButton.setTabIndex(26);
         submitButton.setText("Submit");
-        submitButton.setVisible(false);
+        //submitButton.setVisible(false);
         submitButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -294,12 +292,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        bribeButton.setFlatStyle(FlatStyle.FLAT);
-        bribeButton.setLocation(163, 240);
+        bribeButton.setAutoWidth(true);
+        bribeButton.setLocation(163, 245);
         bribeButton.setSize(41, 22);
         bribeButton.setTabIndex(27);
         bribeButton.setText("Bribe");
-        bribeButton.setVisible(false);
+        //bribeButton.setVisible(false);
         bribeButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -307,12 +305,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        surrenderButton.setFlatStyle(FlatStyle.FLAT);
-        surrenderButton.setLocation(106, 240);
+        surrenderButton.setAutoWidth(true);
+        surrenderButton.setLocation(106, 245);
         surrenderButton.setSize(65, 22);
         surrenderButton.setTabIndex(28);
         surrenderButton.setText("Surrender");
-        surrenderButton.setVisible(false);
+        //surrenderButton.setVisible(false);
         surrenderButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -320,12 +318,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        ignoreButton.setFlatStyle(FlatStyle.FLAT);
-        ignoreButton.setLocation(62, 240);
+        ignoreButton.setAutoWidth(true);
+        ignoreButton.setLocation(62, 245);
         ignoreButton.setSize(46, 22);
         ignoreButton.setTabIndex(29);
         ignoreButton.setText("Ignore");
-        ignoreButton.setVisible(false);
+        //ignoreButton.setVisible(false);
         ignoreButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -333,12 +331,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        tradeButton.setFlatStyle(FlatStyle.FLAT);
-        tradeButton.setLocation(116, 240);
+        tradeButton.setAutoWidth(true);
+        tradeButton.setLocation(116, 245);
         tradeButton.setSize(44, 22);
         tradeButton.setTabIndex(30);
         tradeButton.setText("Trade");
-        tradeButton.setVisible(false);
+        //tradeButton.setVisible(false);
         tradeButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -346,12 +344,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        plunderButton.setFlatStyle(FlatStyle.FLAT);
-        plunderButton.setLocation(62, 240);
+        plunderButton.setAutoWidth(true);
+        plunderButton.setLocation(62, 245);
         plunderButton.setSize(53, 22);
         plunderButton.setTabIndex(31);
         plunderButton.setText("Plunder");
-        plunderButton.setVisible(false);
+        //plunderButton.setVisible(false);
         plunderButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -359,12 +357,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        boardButton.setFlatStyle(FlatStyle.FLAT);
-        boardButton.setLocation(8, 240);
+        boardButton.setAutoWidth(true);
+        boardButton.setLocation(8, 245);
         boardButton.setSize(44, 22);
         boardButton.setTabIndex(32);
         boardButton.setText("Board");
-        boardButton.setVisible(false);
+        //boardButton.setVisible(false);
         boardButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -372,12 +370,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        meetButton.setFlatStyle(FlatStyle.FLAT);
-        meetButton.setLocation(116, 240);
+        meetButton.setAutoWidth(true);
+        meetButton.setLocation(116, 245);
         meetButton.setSize(39, 22);
         meetButton.setTabIndex(34);
         meetButton.setText("Meet");
-        meetButton.setVisible(false);
+        //meetButton.setVisible(false);
         meetButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -385,12 +383,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        drinkButton.setFlatStyle(FlatStyle.FLAT);
-        drinkButton.setLocation(8, 240);
+        drinkButton.setAutoWidth(true);
+        drinkButton.setLocation(8, 245);
         drinkButton.setSize(41, 22);
         drinkButton.setTabIndex(35);
         drinkButton.setText("Drink");
-        drinkButton.setVisible(false);
+        //drinkButton.setVisible(false);
         drinkButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -398,12 +396,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        interruptButton.setFlatStyle(FlatStyle.FLAT);
-        interruptButton.setLocation(179, 240);
+        interruptButton.setAutoWidth(true);
+        interruptButton.setLocation(179, 245);
         interruptButton.setSize(30, 22);
         interruptButton.setTabIndex(36);
         interruptButton.setText("Int.");
-        interruptButton.setVisible(false);
+        //interruptButton.setVisible(false);
         interruptButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -411,12 +409,12 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        yieldButton.setFlatStyle(FlatStyle.FLAT);
-        yieldButton.setLocation(106, 240);
+        yieldButton.setAutoWidth(true);
+        yieldButton.setLocation(106, 245);
         yieldButton.setSize(39, 22);
         yieldButton.setTabIndex(37);
         yieldButton.setText("Yield");
-        yieldButton.setVisible(false);
+        //yieldButton.setVisible(false);
         yieldButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -424,7 +422,7 @@ public class FormEncounter extends SpaceTraderForm {
             }
         });
 
-        continuousPicture.setLocation(214, 247);
+        continuousPicture.setLocation(230, 252);
         continuousPicture.setSize(9, 9);
         continuousPicture.setTabIndex(38);
         continuousPicture.setTabStop(false);
@@ -557,8 +555,6 @@ public class FormEncounter extends SpaceTraderForm {
             case BOTTLE_OLD:
                 visible[DRINK] = true;
                 visible[IGNORE] = true;
-                //TODO scale
-                ignoreButton.setLeft(drinkButton.getLeft() + drinkButton.getWidth() + 8);
                 break;
             case CAPTAIN_AHAB:
             case CAPTAIN_CONRAD:
@@ -574,7 +570,6 @@ public class FormEncounter extends SpaceTraderForm {
             case TRADER_ATTACK:
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
-                interruptButton.setLeft(fleeButton.getLeft() + fleeButton.getWidth() + 8);
                 break;
             case DRAGONFLY_IGNORE:
             case FAMOUS_CAPT_DISABLED:
@@ -594,14 +589,12 @@ public class FormEncounter extends SpaceTraderForm {
             case MARIE_CELESTE:
                 visible[BOARD] = true;
                 visible[IGNORE] = true;
-                ignoreButton.setLeft(boardButton.getLeft() + boardButton.getWidth() + 8);
                 break;
             case MARIE_CELESTE_POLICE:
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
                 visible[YIELD] = true;
                 visible[BRIBE] = true;
-                bribeButton.setLeft(yieldButton.getLeft() + yieldButton.getWidth() + 8);
                 break;
             case PIRATE_ATTACK:
             case POLICE_ATTACK:
@@ -610,7 +603,6 @@ public class FormEncounter extends SpaceTraderForm {
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
                 visible[SURRENDER] = true;
-                interruptButton.setLeft(surrenderButton.getLeft() + surrenderButton.getWidth() + 8);
                 break;
             case PIRATE_DISABLED:
             case PIRATE_SURRENDER:
@@ -637,15 +629,21 @@ public class FormEncounter extends SpaceTraderForm {
             visible[INT] = true;
         }
 
+        int left = attackButton.getLeft();
+
         for (int i = 0; i < visible.length; i++) {
-            if (visible[i] != buttons[i].isVisible()) {
-                buttons[i].setVisible(visible[i]);
+            if (visible[i]) {
+                buttons[i].setLeft(left);
+                //TODO scale
+                left += buttons[i].getWidth() + 4;
             }
+            buttons[i].setVisible(visible[i]);
         }
 
         continuousPicture.setVisible(visible[INT]);
 
         if (continuousPicture.isVisible()) {
+            continuousPicture.setLeft(left);
             continuousPicture.setImage(continuousImageList.getImages()[continueImage = (continueImage + 1) % 2]);
         }
     }

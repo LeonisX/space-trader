@@ -1,35 +1,20 @@
 package spacetrader.gui.debug;
 
+import spacetrader.controls.Button;
 import spacetrader.controls.*;
-import spacetrader.controls.Size;
+import spacetrader.controls.Panel;
 import spacetrader.controls.enums.*;
-import spacetrader.game.Consts;
 import spacetrader.game.Game;
 import spacetrader.game.GlobalAssets;
-import spacetrader.game.SpecialEvent;
 import spacetrader.game.enums.*;
 import spacetrader.gui.*;
 import spacetrader.guifacade.GuiEngine;
-import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.ReflectionUtils;
+
+import java.awt.*;
 
 //TODO untranslated, unrefactored, untested
 public class FormsTest extends SpaceTraderForm {
-
-    private Label lblAlertType;
-    private Panel boxAlert;
-    private Label lblValue2;
-    private Label lblValue1;
-    private Label lblValue3;
-    private ComboBox<AlertType> selAlertType;
-    private TextBox txtValue1;
-    private TextBox txtValue2;
-    private TextBox txtValue3;
-
-    private Button btnTestAlert;
-    private Button btnTestSpecialEvent;
-    private ComboBox<SpecialEventType> selSpecialEvent;
-    private Label lblSpecialEvent;
 
     private Panel languagesPanel = new Panel();
     private ComboBox<String> languagesComboBox = new ComboBox<>();
@@ -42,6 +27,9 @@ public class FormsTest extends SpaceTraderForm {
     private Button formCargoBuyButton = new Button();
     private Button formCargoSellButton = new Button();
     private Button formCostsButton = new Button();
+
+    private Panel encounterPanel = new Panel();
+    private ComboBox<EncounterType> encounterComboBox = new ComboBox<>();
     private Button formEncounterButton = new Button();
 
     public static void main(String[] args) {
@@ -73,7 +61,7 @@ public class FormsTest extends SpaceTraderForm {
 
         setName("formsTest");
         setText("Test dialogs");
-        setClientSize(370, 255);
+        setClientSize(600, 255);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);
@@ -171,193 +159,42 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
-        formEncounterButton.setLocation(8, 185);
-        formEncounterButton.setSize(90, 22);
-        formEncounterButton.setText("FormEncounter");
-        formEncounterButton.setClick(new EventHandler<Object, EventArgs>() {
+        encounterPanel.setText("Encounter");
+        encounterPanel.setControlBinding(ControlBinding.LEFT);
+        encounterPanel.setForeground(Color.WHITE);
+        encounterPanel.setLocation(220, 56);
+        encounterPanel.setSize(180, 80);
+        encounterPanel.setTabStop(false);
+
+        encounterPanel.getControls().addAll(encounterComboBox, formEncounterButton);
+
+        encounterComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
+        encounterComboBox.setLocation(8, 20);
+        encounterComboBox.setSize(160, 21);
+        encounterComboBox.setTabIndex(10);
+        encounterComboBox.getItems().addAll(EncounterType.values());
+        encounterComboBox.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
+            @Override
             public void handle(Object sender, EventArgs e) {
+                Game.getCurrentGame().isDetermineVeryRareEncounter();
+                Game.getCurrentGame().setEncounterType((EncounterType) encounterComboBox.getSelectedItem());
                 Launcher.runForm(new FormEncounter());
             }
         });
 
-        lblAlertType = new Label();
-        boxAlert = new Panel();
-        btnTestAlert = new Button();
-        txtValue3 = new TextBox();
-        txtValue2 = new TextBox();
-        txtValue1 = new TextBox();
-        selAlertType = new ComboBox<>();
-        lblValue3 = new Label();
-        lblValue1 = new Label();
-        lblValue2 = new Label();
-        btnTestSpecialEvent = new Button();
-        selSpecialEvent = new ComboBox<>();
-        lblSpecialEvent = new Label();
-        //
-        // lblAlertType
-        //
-        lblAlertType.setAutoSize(true);
-        lblAlertType.setLocation(new java.awt.Point(8, 19));
-        lblAlertType.setName("lblAlertType");
-        lblAlertType.setSize(new Size(56, 13));
-        lblAlertType.setTabIndex(0);
-        lblAlertType.setText("Alert Type");
-        //
-        // boxAlert
-        //
-        boxAlert.getControls().addAll((new BaseComponent[]{
-                btnTestAlert,
-                txtValue3,
-                txtValue2,
-                txtValue1,
-                selAlertType,
-                lblValue3,
-                lblValue1,
-                lblValue2,
-                lblAlertType}));
-        boxAlert.setLocation(new java.awt.Point(8, 8));
-        boxAlert.setName("boxAlert");
-        boxAlert.setSize(new Size(200, 152));
-        boxAlert.setTabIndex(1);
-        boxAlert.setTabStop(false);
-        boxAlert.setText("Test Alert");
-        //
-        // btnTestAlert
-        //
-        btnTestAlert.setFlatStyle(FlatStyle.FLAT);
-        btnTestAlert.setLocation(new java.awt.Point(80, 120));
-        btnTestAlert.setName("btnTestAlert");
-        btnTestAlert.setSize(new Size(41, 22));
-        btnTestAlert.setTabIndex(8);
-        btnTestAlert.setText("Test");
-        btnTestAlert.setClick(new EventHandler<Object, EventArgs>() {
+        formEncounterButton.setLocation(8, 44);
+        formEncounterButton.setSize(90, 22);
+        formEncounterButton.setText("FormEncounter");
+        formEncounterButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                btnTestAlert_Click();
+                Game.getCurrentGame().isDetermineEncounter();
+                Launcher.runForm(new FormEncounter());
             }
         });
-        //
-        // txtValue3
-        //
-        txtValue3.setLocation(new java.awt.Point(72, 88));
-        txtValue3.setName("txtValue3");
-        txtValue3.setSize(new Size(120, 20));
-        txtValue3.setTabIndex(7);
-        txtValue3.setText("");
-        //
-        // txtValue2
-        //
-        txtValue2.setLocation(new java.awt.Point(72, 64));
-        txtValue2.setName("txtValue2");
-        txtValue2.setSize(new Size(120, 20));
-        txtValue2.setTabIndex(6);
-        txtValue2.setText("");
-        //
-        // txtValue1
-        //
-        txtValue1.setLocation(new java.awt.Point(72, 40));
-        txtValue1.setName("txtValue1");
-        txtValue1.setSize(new Size(120, 20));
-        txtValue1.setTabIndex(5);
-        txtValue1.setText("");
-        //
-        // selAlertType
-        //
-        selAlertType.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        selAlertType.setLocation(new java.awt.Point(72, 16));
-        selAlertType.setName("selAlertType");
-        selAlertType.setSize(new Size(120, 21));
-        selAlertType.setTabIndex(4);
-        //
-        // lblValue3
-        //
-        lblValue3.setAutoSize(true);
-        lblValue3.setLocation(new java.awt.Point(8, 91));
-        lblValue3.setName("lblValue3");
-        lblValue3.setSize(new Size(43, 13));
-        lblValue3.setTabIndex(3);
-        lblValue3.setText("Value 3");
-        //
-        // lblValue1
-        //
-        lblValue1.setAutoSize(true);
-        lblValue1.setLocation(new java.awt.Point(8, 43));
-        lblValue1.setName("lblValue1");
-        lblValue1.setSize(new Size(43, 13));
-        lblValue1.setTabIndex(2);
-        lblValue1.setText("Value 1");
-        //
-        // lblValue2
-        //
-        lblValue2.setAutoSize(true);
-        lblValue2.setLocation(new java.awt.Point(8, 67));
-        lblValue2.setName("lblValue2");
-        lblValue2.setSize(new Size(43, 13));
-        lblValue2.setTabIndex(1);
-        lblValue2.setText("Value 2");
-        //
-        // mainPanel
-        //
 
-        //
-        // btnTestSpecialEvent
-        //
-        btnTestSpecialEvent.setFlatStyle(FlatStyle.FLAT);
-        btnTestSpecialEvent.setLocation(new java.awt.Point(80, 48));
-        btnTestSpecialEvent.setName("btnTestSpecialEvent");
-        btnTestSpecialEvent.setSize(new Size(41, 22));
-        btnTestSpecialEvent.setTabIndex(8);
-        btnTestSpecialEvent.setText("Test");
-        btnTestSpecialEvent.setClick(new EventHandler<Object, EventArgs>() {
-            public void handle(Object sender, EventArgs e) {
-                btnTestSpecialEvent_Click();
-            }
-        });
-        //
-        // selSpecialEvent
-        //
-        selSpecialEvent.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        selSpecialEvent.setLocation(new java.awt.Point(88, 16));
-        selSpecialEvent.setName("selSpecialEvent");
-        selSpecialEvent.setSize(new Size(104, 21));
-        selSpecialEvent.setTabIndex(4);
-        //
-        // lblSpecialEvent
-        //
-        lblSpecialEvent.setAutoSize(true);
-        lblSpecialEvent.setLocation(new java.awt.Point(8, 19));
-        lblSpecialEvent.setName("lblSpecialEvent");
-        lblSpecialEvent.setSize(new Size(73, 13));
-        lblSpecialEvent.setTabIndex(0);
-        lblSpecialEvent.setText("Special Event");
-
-        controls.addAll(languagesPanel, mainPanel/*, boxAlert*/);
+        controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
 
         ReflectionUtils.loadControlsData(this);
-    }
-
-    private void btnTestAlert_Click() {
-        GuiFacade.alert(AlertType.Alert, "Result", ("The result was " +
-                GuiFacade.alert(((AlertType) selAlertType.getSelectedItem()), txtValue1.getText(), txtValue2.getText(), txtValue3.getText()).toString()));
-    }
-
-    private void btnTestSpecialEvent_Click() {
-        SpecialEvent specEvent = Consts.SpecialEvents[((SpecialEventType) selSpecialEvent.getSelectedItem()).castToInt()];
-        String btn1, btn2;
-        DialogResult res1, res2;
-
-        if (specEvent.isMessageOnly()) {
-            btn1 = "Ok";
-            btn2 = null;
-            res1 = DialogResult.OK;
-            res2 = DialogResult.NONE;
-        } else {
-            btn1 = "Yes";
-            btn2 = "No";
-            res1 = DialogResult.YES;
-            res2 = DialogResult.NO;
-        }
-
-        (new FormAlert(specEvent.getTitle(), specEvent.getString(), btn1, res1, btn2, res2, null)).showDialog(this);
     }
 
     //TODO unify?

@@ -33,6 +33,8 @@ Useful Source Repositories:
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
 * Fix 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
 * FormAbout - show version (from Gradle) in titleLabel
+* FormCargoBuy/Sell: separate phrases for each case.
+* FormEncounter: need to carefully refactor all phrases 
 
 ### Minor tasks
 
