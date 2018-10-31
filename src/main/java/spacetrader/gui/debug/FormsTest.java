@@ -4,8 +4,7 @@ import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Panel;
 import spacetrader.controls.enums.*;
-import spacetrader.game.Game;
-import spacetrader.game.GlobalAssets;
+import spacetrader.game.*;
 import spacetrader.game.enums.*;
 import spacetrader.gui.*;
 import spacetrader.guifacade.GuiEngine;
@@ -32,6 +31,8 @@ public class FormsTest extends SpaceTraderForm {
     private ComboBox<EncounterType> encounterComboBox = new ComboBox<>();
     private Button formEncounterButton = new Button();
 
+    private Button formEquipmentButton = new Button();
+
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
     }
@@ -48,8 +49,25 @@ public class FormsTest extends SpaceTraderForm {
         game.getCommander().getShip().setFuel(10);
         game.getCommander().getShip().setHullStrength(100);
         game.getCommander().getShip().setHull(50);
+        game.getCommander().getShip().setGadgetSlots(10);
+        game.getCommander().getShip().setShieldSlots(10);
+        game.getCommander().getShip().setWeaponSlots(10);
+        game.getCommander().getShip().setWeapons(new Weapon[game.getCommander().getShip().getWeaponSlots()]);
+        game.getCommander().getShip().setShields(new Shield[game.getCommander().getShip().getShieldSlots()]);
+        game.getCommander().getShip().setGadgets(new Gadget[game.getCommander().getShip().getGadgetSlots()]);
+        for (int i = 0; i < Consts.Weapons.length; i++) {
+            game.getCommander().getShip().addEquipment(Consts.Weapons[i]);
+        }
+        for (int i = 0; i < Consts.Shields.length; i++) {
+            game.getCommander().getShip().addEquipment(Consts.Shields[i]);
+        }
+        for (int i = 0; i < Consts.Gadgets.length; i++) {
+            game.getCommander().getShip().addEquipment(Consts.Gadgets[i]);
+        }
 
         game.setSelectedSystemId(StarSystemId.Aldea);
+        game.getSelectedSystem().setShipyardId(ShipyardId.INCOM);
+        game.getSelectedSystem().setTechLevel(TechLevel.HI_TECH);
         game.warpDirect();
         Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
 
@@ -94,7 +112,7 @@ public class FormsTest extends SpaceTraderForm {
         mainPanel.setText("Simple dialogs");
 
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
-                formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton);
+                formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton, formEquipmentButton);
 
         formAboutButton.setLocation(8, 23);
         formAboutButton.setSize(90, 22);
@@ -191,6 +209,17 @@ public class FormsTest extends SpaceTraderForm {
                 Launcher.runForm(new FormEncounter());
             }
         });
+
+
+        formEquipmentButton.setLocation(8, 184);
+        formEquipmentButton.setSize(90, 22);
+        formEquipmentButton.setText("FormEquipment");
+        formEquipmentButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormEquipment());
+            }
+        });
+
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
 

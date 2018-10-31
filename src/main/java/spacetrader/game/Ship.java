@@ -752,7 +752,7 @@ public class Ship extends ShipSpec {
     }
 
     @Override
-    protected void setValues(ShipType type) {
+    public void setValues(ShipType type) {
         super.setValues(type);
 
         weapons = new Weapon[getWeaponSlots()];
@@ -1111,4 +1111,16 @@ public class Ship extends ShipSpec {
         return hasCrew(CrewMemberId.WILD);
     }
 
+    // For test purposes
+    public void setWeapons(Weapon[] weapons) {
+        this.weapons = weapons;
+    }
+
+    public void setShields(Shield[] shields) {
+        this.shields = shields;
+    }
+
+    public void setGadgets(Gadget[] gadgets) {
+        this.gadgets = gadgets;
+    }
 }

@@ -1,29 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-//using System;
-//using System.Collections;
 package spacetrader.game;
 
 import spacetrader.game.enums.*;
@@ -48,10 +22,6 @@ public class StarSystem extends STSerializableObject {
     private int countDown = 0;
     private boolean visited = false;
     private ShipyardId shipyardId = ShipyardId.NA;
-
-    // #endregion
-
-    // #region Methods
 
     public StarSystem(StarSystemId id, int x, int y, Size size, TechLevel techLevel,
                       PoliticalSystemType politicalSystemType, SystemPressure systemPressure,
@@ -85,7 +55,7 @@ public class StarSystem extends STSerializableObject {
         shipyardId = ShipyardId.fromInt(getValueFromHash(hash, "_shipyardId", shipyardId, Integer.class));
     }
 
-    void initializeTradeItems() {
+    public void initializeTradeItems() {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (!isItemTraded(Consts.TradeItems[i])) {
                 tradeItems[i] = 0;
@@ -122,14 +92,14 @@ public class StarSystem extends STSerializableObject {
         }
     }
 
-    boolean isItemTraded(TradeItem item) {
+    public boolean isItemTraded(TradeItem item) {
         return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().isDrugsOk())
                 && (item.getType() != TradeItemType.FIREARMS
                 || getPoliticalSystem().isFirearmsOk()) && getTechLevel().castToInt() >= item
                 .getTechProduction().castToInt());
     }
 
-    boolean itemUsed(TradeItem item) {
+    public boolean itemUsed(TradeItem item) {
         return ((item.getType() != TradeItemType.NARCOTICS || getPoliticalSystem().isDrugsOk())
                 && (item.getType() != TradeItemType.FIREARMS
                 || getPoliticalSystem().isFirearmsOk()) && getTechLevel().castToInt() >= item
@@ -289,11 +259,11 @@ public class StarSystem extends STSerializableObject {
         return show;
     }
 
-    int getCountDown() {
+    public int getCountDown() {
         return countDown;
     }
 
-    void setCountDown(int value) {
+    public void setCountDown(int value) {
         countDown = value;
     }
 
@@ -303,7 +273,7 @@ public class StarSystem extends STSerializableObject {
                 && (getDistance() <= comm.getShip().getFuel() || Functions.wormholeExists(comm.getCurrentSystem(), this));
     }
 
-    private int getDistance() {
+    public int getDistance() {
         return Functions.distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
@@ -333,11 +303,11 @@ public class StarSystem extends STSerializableObject {
         return Consts.PoliticalSystems[politicalSystemType.castToInt()];
     }
 
-    PoliticalSystemType getPoliticalSystemType() {
+    public PoliticalSystemType getPoliticalSystemType() {
         return politicalSystemType;
     }
 
-    void setPoliticalSystemType(PoliticalSystemType value) {
+    public void setPoliticalSystemType(PoliticalSystemType value) {
         politicalSystemType = value;
     }
 
@@ -361,11 +331,11 @@ public class StarSystem extends STSerializableObject {
         return (specialEventType == SpecialEventType.NA ? null : Consts.SpecialEvents[specialEventType.castToInt()]);
     }
 
-    SpecialEventType getSpecialEventType() {
+    public SpecialEventType getSpecialEventType() {
         return specialEventType;
     }
 
-    void setSpecialEventType(SpecialEventType value) {
+    public void setSpecialEventType(SpecialEventType value) {
         specialEventType = value;
     }
 
@@ -377,7 +347,7 @@ public class StarSystem extends STSerializableObject {
         return systemPressure;
     }
 
-    void setSystemPressure(SystemPressure value) {
+    public void setSystemPressure(SystemPressure value) {
         systemPressure = value;
     }
 
@@ -385,7 +355,7 @@ public class StarSystem extends STSerializableObject {
         return techLevel;
     }
 
-    void setTechLevel(TechLevel value) {
+    public void setTechLevel(TechLevel value) {
         techLevel = value;
     }
 
@@ -397,7 +367,7 @@ public class StarSystem extends STSerializableObject {
         return visited;
     }
 
-    void setVisited(boolean value) {
+    public void setVisited(boolean value) {
         visited = value;
     }
 

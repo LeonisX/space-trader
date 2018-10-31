@@ -111,7 +111,6 @@ public class Commander extends CrewMember {
     }
 
     public boolean isTradeShip(ShipSpec specToBuy, int netPrice, String newShipName) {
-
         if (netPrice > 0 && getDebt() > 0) {
             GuiFacade.alert(AlertType.DebtNoBuy);
         } else if (netPrice > getCashToSpend()) {
