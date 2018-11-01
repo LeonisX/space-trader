@@ -44,6 +44,8 @@ public class SpaceTraderDevApp {
         ReflectionUtils.loadControlsStrings(spaceTrader.getFrame(), spaceTrader.getName(), GlobalAssets.getStrings());
         ReflectionUtils.loadStrings(GlobalAssets.getStrings());
 
+        Game.setCurrentGame(null);
+
         spaceTrader.showWindow();
     }
 
