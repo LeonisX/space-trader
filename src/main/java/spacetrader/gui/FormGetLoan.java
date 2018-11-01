@@ -1,36 +1,9 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.controls.enums.*;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.Arrays;
@@ -62,11 +35,10 @@ public class FormGetLoan extends SpaceTraderForm {
 
         setName("formGetLoan");
         setText("Get Loan");
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(252, 79);
+        setClientSize(252, 60);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setControlBox(false);
+        //setControlBox(false);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(nothingButton);
@@ -74,33 +46,35 @@ public class FormGetLoan extends SpaceTraderForm {
         ((ISupportInitialize) (numAmount)).beginInit();
         suspendLayout();
 
+        statementLabelValue.setAutoSize(true);
         statementLabelValue.setLocation(8, 8);
-        statementLabelValue.setSize(189, 13);
-        statementLabelValue.setTabIndex(5);
+        //statementLabelValue.setSize(189, 13);
         //statementLabelValue.setText("You can borrow up to 88,888 credits.");
 
         questionLabel.setAutoSize(true);
-        questionLabel.setLocation(8, 24);
-        questionLabel.setSize(178, 13);
-        questionLabel.setTabIndex(3);
+        questionLabel.setAutoSize(true);
+        questionLabel.setLocation(8, 25);
+        //questionLabel.setSize(178, 13);
         questionLabel.setText("How much do you want to borrow?");
 
-        numAmount.setLocation(184, 22);
+        numAmount.setLocation(190, 22);
         numAmount.setMinimum(1);
         numAmount.setSize(64, 20);
         numAmount.setTabIndex(1);
         numAmount.setThousandsSeparator(true);
 
         okButton.setDialogResult(DialogResult.OK);
-        okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(52, 48);
+        okButton.setAutoWidth(true);
+        okButton.setControlBinding(ControlBinding.RIGHT);
+        okButton.setLocation(52, 52);
         okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
         maxButton.setDialogResult(DialogResult.OK);
-        maxButton.setFlatStyle(FlatStyle.FLAT);
-        maxButton.setLocation(100, 48);
+        maxButton.setAutoWidth(true);
+        maxButton.setControlBinding(ControlBinding.CENTER);
+        maxButton.setLocation(102, 52);
         maxButton.setSize(41, 22);
         maxButton.setTabIndex(3);
         maxButton.setText("Max");
@@ -111,8 +85,9 @@ public class FormGetLoan extends SpaceTraderForm {
         });
 
         nothingButton.setDialogResult(DialogResult.CANCEL);
-        nothingButton.setFlatStyle(FlatStyle.FLAT);
-        nothingButton.setLocation(148, 48);
+        nothingButton.setAutoWidth(true);
+        nothingButton.setControlBinding(ControlBinding.LEFT);
+        nothingButton.setLocation(150, 52);
         nothingButton.setSize(53, 22);
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");

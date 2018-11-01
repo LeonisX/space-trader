@@ -33,6 +33,7 @@ public class FormsTest extends SpaceTraderForm {
 
     private Button formEquipmentButton = new Button();
     private Button formFindButton = new Button();
+    private Button formGetLoanButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -80,7 +81,7 @@ public class FormsTest extends SpaceTraderForm {
 
         setName("formsTest");
         setText("Test dialogs");
-        setClientSize(600, 255);
+        setClientSize(600, 400);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);
@@ -227,10 +228,21 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formGetLoanButton.setLocation(8, 230);
+        formGetLoanButton.setSize(90, 22);
+        formGetLoanButton.setText("FormGetLoan");
+        formGetLoanButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormGetLoan(25000));
+            }
+        });
+
+
+
 
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
                 formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton, formEquipmentButton,
-                formFindButton);
+                formFindButton, formGetLoanButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
 
