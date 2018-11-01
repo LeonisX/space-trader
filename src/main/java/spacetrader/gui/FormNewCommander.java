@@ -1,27 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
 import spacetrader.controls.*;
@@ -29,6 +5,7 @@ import spacetrader.controls.enums.*;
 import spacetrader.game.Consts;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.Difficulty;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 public class FormNewCommander extends SpaceTraderForm {
@@ -51,9 +28,12 @@ public class FormNewCommander extends SpaceTraderForm {
     private NumericUpDown numTrader = new NumericUpDown();
     private NumericUpDown numEngineer = new NumericUpDown();
 
+    private int points = Consts.AvailableSkillPointsOnStart;
+
     public FormNewCommander() {
         initializeComponent();
         difficultyComboBox.setSelectedIndex(2);
+        updateOkEnabled();
     }
 
     private void initializeComponent() {
@@ -63,8 +43,7 @@ public class FormNewCommander extends SpaceTraderForm {
         setText("New Commander");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(202, 231);
+        setClientSize(202, 220);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -79,11 +58,10 @@ public class FormNewCommander extends SpaceTraderForm {
 
         nameLabel.setAutoSize(true);
         nameLabel.setLocation(8, 8);
-        nameLabel.setSize(38, 13);
-        nameLabel.setTabIndex(0);
+        //nameLabel.setSize(38, 13);
         nameLabel.setText("Name:");
 
-        nameTextBox.setLocation(72, 5);
+        nameTextBox.setLocation(80, 5);
         nameTextBox.setSize(120, 20);
         nameTextBox.setTabIndex(1);
         nameTextBox.setTextChanged(new EventHandler<Object, EventArgs>() {
@@ -94,41 +72,32 @@ public class FormNewCommander extends SpaceTraderForm {
 
         difficultyLabel.setAutoSize(true);
         difficultyLabel.setLocation(8, 40);
-        difficultyLabel.setSize(50, 13);
-        difficultyLabel.setTabIndex(34);
+        //difficultyLabel.setSize(50, 13);
         difficultyLabel.setText("Difficulty:");
 
         difficultyComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         difficultyComboBox.getItems().addAll(Strings.DifficultyLevels);
-        difficultyComboBox.setLocation(72, 37);
+        difficultyComboBox.setLocation(80, 37);
         difficultyComboBox.setSize(120, 21);
         difficultyComboBox.setTabIndex(2);
 
         skillPointsLabel.setAutoSize(true);
         skillPointsLabel.setLocation(8, 72);
-        skillPointsLabel.setSize(63, 13);
-        skillPointsLabel.setTabIndex(35);
+        //skillPointsLabel.setSize(63, 13);
         skillPointsLabel.setText("Skill Points:");
 
-        skillPointsLabelValue.setLocation(73, 72);
-        skillPointsLabelValue.setSize(17, 13);
-        skillPointsLabelValue.setTabIndex(41);
-        skillPointsLabelValue.setText(Consts.SkillPointsOnStart);
+        skillPointsLabelValue.setAutoSize(true);
+        skillPointsLabelValue.setLocation(82, 72);
+        //skillPointsLabelValue.setSize(17, 13);
+        skillPointsLabelValue.setText(formatSkillPoints());
         skillPointsLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
-        skillPointsRemainingLabel.setAutoSize(true);
-        skillPointsRemainingLabel.setLocation(91, 72);
-        skillPointsRemainingLabel.setSize(90, 13);
-        skillPointsRemainingLabel.setTabIndex(40);
-        skillPointsRemainingLabel.setText("points remaining.");
-
         pilotLabel.setAutoSize(true);
-        pilotLabel.setLocation(16, 96);
-        pilotLabel.setSize(29, 13);
-        pilotLabel.setTabIndex(36);
+        pilotLabel.setLocation(25, 96);
+        //pilotLabel.setSize(29, 13);
         pilotLabel.setText("Pilot:");
 
-        numPilot.setLocation(72, 94);
+        numPilot.setLocation(80, 94);
         numPilot.setMaximum(10);
         numPilot.setMinimum(1);
         numPilot.setSize(46, 20);
@@ -152,12 +121,11 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         fighterLabel.setAutoSize(true);
-        fighterLabel.setLocation(16, 120);
-        fighterLabel.setSize(43, 13);
-        fighterLabel.setTabIndex(37);
+        fighterLabel.setLocation(25, 120);
+        //fighterLabel.setSize(43, 13);
         fighterLabel.setText("Fighter:");
 
-        numFighter.setLocation(72, 118);
+        numFighter.setLocation(80, 118);
         numFighter.setMaximum(10);
         numFighter.setMinimum(1);
         numFighter.setSize(46, 20);
@@ -181,12 +149,11 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         traderLabel.setAutoSize(true);
-        traderLabel.setLocation(16, 144);
-        traderLabel.setSize(41, 13);
-        traderLabel.setTabIndex(38);
+        traderLabel.setLocation(25, 144);
+        //traderLabel.setSize(41, 13);
         traderLabel.setText("Trader:");
 
-        numTrader.setLocation(72, 142);
+        numTrader.setLocation(80, 142);
         numTrader.setMaximum(10);
         numTrader.setMinimum(1);
         numTrader.setSize(46, 20);
@@ -210,12 +177,11 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         engineerLabel.setAutoSize(true);
-        engineerLabel.setLocation(16, 168);
-        engineerLabel.setSize(53, 13);
-        engineerLabel.setTabIndex(39);
+        engineerLabel.setLocation(25, 168);
+        //engineerLabel.setSize(53, 13);
         engineerLabel.setText("Engineer:");
 
-        numEngineer.setLocation(72, 166);
+        numEngineer.setLocation(80, 166);
         numEngineer.setMaximum(10);
         numEngineer.setMinimum(1);
         numEngineer.setSize(46, 20);
@@ -239,13 +205,12 @@ public class FormNewCommander extends SpaceTraderForm {
         });
 
         okButton.setDialogResult(DialogResult.OK);
-        okButton.setEnabled(false);
-        okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(83, 200);
+        okButton.setAutoWidth(true);
+        okButton.setControlBinding(ControlBinding.CENTER);
+        okButton.setLocation(85, 200);
         okButton.setSize(36, 22);
-        okButton.setTabIndex(7);
+        okButton.setTabStop(false);
         okButton.setText("Ok");
-        okButton.setEnabled(false);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setLocation(-32, -32);
@@ -266,18 +231,22 @@ public class FormNewCommander extends SpaceTraderForm {
     }
 
     private void updateOkEnabled() {
-        okButton.setEnabled(skillPointsLabelValue.getText().equals("0") && nameTextBox.getText().length() > 0);
+        okButton.setEnabled(0 == points && nameTextBox.getText().length() > 0);
     }
 
     private void numValueChanged() {
-        int points = 20 - (getPilot() + getFighter() + getTrader() + getEngineer());
-        skillPointsLabelValue.setText(points);
+        points = Consts.MaximalSkillPointsOnStart - (getPilot() + getFighter() + getTrader() + getEngineer());
+        skillPointsLabelValue.setText(formatSkillPoints());
         numPilot.setMaximum(Math.min(10, getPilot() + points));
         numFighter.setMaximum(Math.min(10, getFighter() + points));
         numTrader.setMaximum(Math.min(10, getTrader() + points));
         numEngineer.setMaximum(Math.min(10, getEngineer() + points));
 
         updateOkEnabled();
+    }
+
+    private String formatSkillPoints() {
+        return Functions.stringVars(Strings.PointsRemaining, Integer.toString(points));
     }
 
     private void numValueEnter(Object sender) {
@@ -295,7 +264,6 @@ public class FormNewCommander extends SpaceTraderForm {
     public int getPilot() {
         return numPilot.getValue();
     }
-
 
     public int getFighter() {
         return numFighter.getValue();

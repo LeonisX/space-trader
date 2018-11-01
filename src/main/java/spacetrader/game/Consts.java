@@ -63,7 +63,8 @@ public class Consts {
     public static final int MaxNoClaim = 90;
     public static final int SkillBonus = 3;
     public static final int CloakBonus = 2;
-    public static final int SkillPointsOnStart = 16;
+    public static final int MaximalSkillPointsOnStart = 20;
+    public static final int AvailableSkillPointsOnStart = 16;
     public static final int MaxSkill = 10;
     public static final int StartClicks = 20;
     public static final int MaxFuelTanks = 20;

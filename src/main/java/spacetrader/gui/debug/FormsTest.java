@@ -35,6 +35,7 @@ public class FormsTest extends SpaceTraderForm {
     private Button formFindButton = new Button();
     private Button formGetLoanButton = new Button();
     private Button formJettisonButton = new Button();
+    private Button formNewCommanderButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -115,7 +116,7 @@ public class FormsTest extends SpaceTraderForm {
         mainPanel.setText("Simple dialogs");
 
         formAboutButton.setLocation(8, 23);
-        formAboutButton.setSize(90, 22);
+        formAboutButton.setSize(125, 22);
         formAboutButton.setText("FormAbout");
         formAboutButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -124,7 +125,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formAlertsButton.setLocation(8, 46);
-        formAlertsButton.setSize(90, 22);
+        formAlertsButton.setSize(125, 22);
         formAlertsButton.setText("FormAlert");
         formAlertsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -133,7 +134,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formBuyFuelButton.setLocation(8, 69);
-        formBuyFuelButton.setSize(90, 22);
+        formBuyFuelButton.setSize(125, 22);
         formBuyFuelButton.setText("FormBuyFuel");
         formBuyFuelButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -142,7 +143,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formBuyRepairsButton.setLocation(8, 92);
-        formBuyRepairsButton.setSize(90, 22);
+        formBuyRepairsButton.setSize(125, 22);
         formBuyRepairsButton.setText("FormBuyRepairs");
         formBuyRepairsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -151,7 +152,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formCargoBuyButton.setLocation(8, 115);
-        formCargoBuyButton.setSize(90, 22);
+        formCargoBuyButton.setSize(125, 22);
         formCargoBuyButton.setText("FormCargoBuy");
         formCargoBuyButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -160,7 +161,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formCargoSellButton.setLocation(8, 138);
-        formCargoSellButton.setSize(90, 22);
+        formCargoSellButton.setSize(125, 22);
         formCargoSellButton.setText("FormCargoSell");
         formCargoSellButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -169,7 +170,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formCostsButton.setLocation(8, 161);
-        formCostsButton.setSize(90, 22);
+        formCostsButton.setSize(125, 22);
         formCostsButton.setText("FormCosts");
         formCostsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -201,7 +202,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formEncounterButton.setLocation(8, 44);
-        formEncounterButton.setSize(90, 22);
+        formEncounterButton.setSize(125, 22);
         formEncounterButton.setText("FormEncounter");
         formEncounterButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -212,7 +213,7 @@ public class FormsTest extends SpaceTraderForm {
 
 
         formEquipmentButton.setLocation(8, 184);
-        formEquipmentButton.setSize(90, 22);
+        formEquipmentButton.setSize(125, 22);
         formEquipmentButton.setText("FormEquipment");
         formEquipmentButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -221,7 +222,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formFindButton.setLocation(8, 207);
-        formFindButton.setSize(90, 22);
+        formFindButton.setSize(125, 22);
         formFindButton.setText("FormFind");
         formFindButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -230,7 +231,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formGetLoanButton.setLocation(8, 230);
-        formGetLoanButton.setSize(90, 22);
+        formGetLoanButton.setSize(125, 22);
         formGetLoanButton.setText("FormGetLoan");
         formGetLoanButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -239,7 +240,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formJettisonButton.setLocation(8, 253);
-        formJettisonButton.setSize(90, 22);
+        formJettisonButton.setSize(125, 22);
         formJettisonButton.setText("FormJettison");
         formJettisonButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -247,9 +248,18 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formNewCommanderButton.setLocation(8, 276);
+        formNewCommanderButton.setSize(125, 22);
+        formNewCommanderButton.setText("FormNewCommander");
+        formNewCommanderButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormNewCommander());
+            }
+        });
+
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
                 formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton, formEquipmentButton,
-                formFindButton, formGetLoanButton, formJettisonButton);
+                formFindButton, formGetLoanButton, formJettisonButton, formNewCommanderButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
 

@@ -559,6 +559,7 @@ public class Strings {
     public static String NewsTribbleBuyer = "Collector in ^1 System seeks to purchase Tribbles.";
 
     public static String PersonnelVacancy = "Vacancy";
+    public static String PointsRemaining = "remaining: ^1.";
 
     public static String QuestNone = "There are no open quests.";
     public static String QuestArtifact = "Deliver the alien artifact to Professor Berger at some hi-tech system.";
