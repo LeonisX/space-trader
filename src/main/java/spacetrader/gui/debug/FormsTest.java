@@ -34,6 +34,7 @@ public class FormsTest extends SpaceTraderForm {
     private Button formEquipmentButton = new Button();
     private Button formFindButton = new Button();
     private Button formGetLoanButton = new Button();
+    private Button formJettisonButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -237,12 +238,18 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
-
-
+        formJettisonButton.setLocation(8, 253);
+        formJettisonButton.setSize(90, 22);
+        formJettisonButton.setText("FormJettison");
+        formJettisonButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormJettison());
+            }
+        });
 
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
                 formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton, formEquipmentButton,
-                formFindButton, formGetLoanButton);
+                formFindButton, formGetLoanButton, formJettisonButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
 

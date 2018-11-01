@@ -248,7 +248,9 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterDrinkContents:
                 return new FormAlert(AlertsEncounterDrinkContentsTitle, AlertsEncounterDrinkContentsMessage,
                         AlertsEncounterDrinkContentsAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
+                //TODO unused???
             case EncounterDumpAll:
+                //TODO credit(s)
                 return new FormAlert(AlertsEncounterDumpAllTitle, AlertsEncounterDumpAllMessage, AlertsYes,
                         DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case EncounterDumpWarning:
