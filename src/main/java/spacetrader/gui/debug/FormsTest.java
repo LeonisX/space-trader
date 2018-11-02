@@ -39,6 +39,8 @@ public class FormsTest extends SpaceTraderForm {
     private Button formOptionsButton = new Button();
     private Button formPayBackLoanButton = new Button();
     private Button formPlunderButton = new Button();
+    private Button formShipListButton = new Button();
+
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -287,11 +289,21 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formShipListButton.setLocation(8, 368);
+        formShipListButton.setSize(125, 22);
+        formShipListButton.setText("FormShipList");
+        formShipListButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormShipList());
+            }
+        });
+
+
 
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
                 formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton, formEquipmentButton,
                 formFindButton, formGetLoanButton, formJettisonButton, formNewCommanderButton, formOptionsButton,
-                formPayBackLoanButton, formPlunderButton);
+                formPayBackLoanButton, formPlunderButton, formShipListButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
 
