@@ -28,6 +28,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         Game game = Game.getCurrentGame();
         Commander cmdr = game.getCommander();
         numericUpDown.setMaximum(maxAmount);
+        numericUpDown.setMinimum(Math.min(maxAmount, 1));
         numericUpDown.setValue(numericUpDown.getMinimum());
         setText(stringVars(Strings.CargoTitle, Strings.CargoBuyOps[op.castToInt()], Consts.TradeItems[item].getName()));
         questionLabel.setText(stringVars(Strings.CargoBuyQuestion, Strings.CargoBuyOps[op.castToInt()].toLowerCase()));
@@ -108,7 +109,6 @@ public class FormCargoBuy extends SpaceTraderForm {
 
         numericUpDown.setLocation(170, 22);
         //numericUpDown.setMaximum(999);
-        numericUpDown.setMinimum(1);
         numericUpDown.setSize(44, 20);
         numericUpDown.setTabIndex(1);
         numericUpDown.setValue(1);

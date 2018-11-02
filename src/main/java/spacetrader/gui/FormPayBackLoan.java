@@ -1,28 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.gui;
 
 import static spacetrader.util.Functions.multiples;
@@ -31,18 +6,13 @@ import static spacetrader.game.Strings.BankLoanStatementDebt;
 import static spacetrader.game.Strings.MoneyUnit;
 
 import spacetrader.controls.Button;
-import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.*;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.controls.Label;
 import spacetrader.controls.NumericUpDown;
 import spacetrader.game.Commander;
 import spacetrader.game.Game;
-import spacetrader.game.enums.Difficulty;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.util.ReflectionUtils;
 
 public class FormPayBackLoan extends SpaceTraderForm {
@@ -60,15 +30,9 @@ public class FormPayBackLoan extends SpaceTraderForm {
         Commander commander = Game.getCurrentGame().getCommander();
         int max = Math.min(commander.getDebt(), commander.getCash());
         numAmount.setMaximum(max);
+        numAmount.setMinimum(Math.min(commander.getDebt(), 1));
         numAmount.setValue(numAmount.getMinimum());
         statementLabelValue.setText(stringVars(BankLoanStatementDebt, multiples(commander.getDebt(), MoneyUnit)));
-    }
-
-    public static void main(String[] args) {
-        new Game("name", Difficulty.BEGINNER,8,8,8,8, null);
-        FormPayBackLoan form = new FormPayBackLoan();
-        Launcher.runForm(form);
-        System.out.println(form.getAmount());
     }
 
     private void initializeComponent() {
@@ -78,8 +42,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         setText("Pay Back Loan");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(264, 79);
+        setClientSize(264, 60);
         setControlBox(false);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
@@ -88,33 +51,33 @@ public class FormPayBackLoan extends SpaceTraderForm {
         numAmount.beginInit();
         suspendLayout();
 
+        statementLabelValue.setAutoSize(true);
         statementLabelValue.setLocation(8, 8);
-        statementLabelValue.setSize(176, 13);
-        statementLabelValue.setTabIndex(5);
+        //statementLabelValue.setSize(176, 13);
         //statementLabelValue.setText("You have a debt of 88,888 credits.");
 
         questionLabel.setAutoSize(true);
-        questionLabel.setLocation(8, 24);
-        questionLabel.setSize(188, 13);
-        questionLabel.setTabIndex(3);
+        questionLabel.setLocation(8, 26);
+        //questionLabel.setSize(188, 13);
         questionLabel.setText("How much do you want to pay back?");
 
-        numAmount.setLocation(196, 22);
-        numAmount.setMinimum(1);
+        numAmount.setLocation(196, 24);
         numAmount.setSize(58, 20);
         numAmount.setTabIndex(1);
         numAmount.setThousandsSeparator(true);
 
         okButton.setDialogResult(DialogResult.OK);
-        okButton.setFlatStyle(FlatStyle.FLAT);
-        okButton.setLocation(58, 48);
+        okButton.setAutoWidth(true);
+        okButton.setControlBinding(ControlBinding.RIGHT);
+        okButton.setLocation(58, 52);
         okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
         maxButton.setDialogResult(DialogResult.OK);
-        maxButton.setFlatStyle(FlatStyle.FLAT);
-        maxButton.setLocation(106, 48);
+        maxButton.setAutoWidth(true);
+        maxButton.setControlBinding(ControlBinding.CENTER);
+        maxButton.setLocation(109, 52);
         maxButton.setSize(41, 22);
         maxButton.setTabIndex(3);
         maxButton.setText("Max");
@@ -126,8 +89,9 @@ public class FormPayBackLoan extends SpaceTraderForm {
         });
 
         nothingButton.setDialogResult(DialogResult.CANCEL);
-        nothingButton.setFlatStyle(FlatStyle.FLAT);
-        nothingButton.setLocation(154, 48);
+        nothingButton.setAutoWidth(true);
+        nothingButton.setControlBinding(ControlBinding.LEFT);
+        nothingButton.setLocation(158, 52);
         nothingButton.setSize(53, 22);
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");

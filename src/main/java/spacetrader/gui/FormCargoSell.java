@@ -35,6 +35,7 @@ public class FormCargoSell extends SpaceTraderForm {
         int cost = commander.getPriceCargo()[item] / commander.getShip().getCargo()[item];
 
         numericUpDown.setMaximum(maxAmount);
+        numericUpDown.setMinimum(Math.min(maxAmount, 1));
         numericUpDown.setValue(numericUpDown.getMinimum());
         setText(stringVars(Strings.CargoTitle, Strings.CargoSellOps[op.castToInt()], Consts.TradeItems[item].getName()));
         questionLabel.setText(stringVars(Strings.CargoSellQuestion, Strings.CargoSellOps[op.castToInt()].toLowerCase()));

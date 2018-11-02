@@ -1,39 +1,10 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron Original coding by Pieter Spronck, Sam Anderson,
- * Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
-import java.awt.Point;
-import java.util.Arrays;
 import spacetrader.controls.Button;
-import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.controls.Label;
-import spacetrader.controls.Size;
+import spacetrader.controls.enums.*;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.Strings;
@@ -41,6 +12,10 @@ import spacetrader.game.enums.Difficulty;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
+
+import java.util.Arrays;
+
+import static spacetrader.util.Functions.stringVars;
 
 @Facaded
 public class FormPlunder extends SpaceTraderForm {
@@ -76,7 +51,6 @@ public class FormPlunder extends SpaceTraderForm {
     private Label commodityLabel4 = new Label();
     private Label commodityLabel3 = new Label();
     private Label commodityLabel7 = new Label();
-    private Label baysLabel = new Label();
     private Label baysLabelValue = new Label();
     private Button doneButton = new Button();
 
@@ -91,7 +65,7 @@ public class FormPlunder extends SpaceTraderForm {
             plunderAllButton8, plunderAllButton9};
 
 
-    private Button btnJettison = new Button();
+    private Button jettisonButton = new Button();
 
     public static void main(String[] args) {
         new Game("name", Difficulty.BEGINNER,8,8,8,8, null);
@@ -111,8 +85,7 @@ public class FormPlunder extends SpaceTraderForm {
         setText("Plunder Cargo");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(230, 283);
+        setClientSize(235, 263);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -122,48 +95,47 @@ public class FormPlunder extends SpaceTraderForm {
         suspendLayout();
 
         commodityLabel0.setLocation(8, 8);
-        commodityLabel0.setSize(36, 13);
+        //commodityLabel0.setSize(36, 13);
         //commodityLabel0.setText("Water");
 
         commodityLabel1.setLocation(8, 32);
-        commodityLabel1.setSize(27, 13);
+        //commodityLabel1.setSize(27, 13);
         //commodityLabel1.setText("Furs");
 
         commodityLabel2.setLocation(8, 56);
-        commodityLabel2.setSize(31, 13);
+        //commodityLabel2.setSize(31, 13);
         //commodityLabel2.setText("Food");
 
         commodityLabel3.setLocation(8, 80);
-        commodityLabel3.setSize(24, 13);
+        //commodityLabel3.setSize(24, 13);
         //commodityLabel3.setText("Ore");
 
         commodityLabel4.setLocation(8, 104);
-        commodityLabel4.setSize(40, 13);
+        //commodityLabel4.setSize(40, 13);
         //commodityLabel4.setText("Games");
 
         commodityLabel5.setLocation(8, 128);
-        commodityLabel5.setSize(46, 13);
+        //commodityLabel5.setSize(46, 13);
         //commodityLabel5.setText("Firearms");
 
         commodityLabel6.setLocation(8, 152);
-        commodityLabel6.setSize(50, 13);
+        //commodityLabel6.setSize(50, 13);
         //commodityLabel6.setText("Medicine");
 
         commodityLabel7.setLocation(8, 176);
-        commodityLabel7.setSize(53, 13);
+        //commodityLabel7.setSize(53, 13);
         //commodityLabel7.setText("Machines");
 
         commodityLabel8.setLocation(8, 200);
-        commodityLabel8.setSize(52, 13);
+        //commodityLabel8.setSize(52, 13);
         //commodityLabel8.setText("Narcotics");
 
         commodityLabel9.setLocation(8, 224);
-        commodityLabel9.setSize(41, 13);
+        //commodityLabel9.setSize(41, 13);
         //commodityLabel9.setText("Robots");
 
         for (int i = 0; i < Strings.TradeItemNames.length; i++) {
             commoditiesArray[i].setAutoSize(true);
-            commoditiesArray[i].setTabIndex(142 + i);
             commoditiesArray[i].setText(Strings.TradeItemNames[i]);
         }
 
@@ -228,7 +200,6 @@ public class FormPlunder extends SpaceTraderForm {
         plunderButton0.setTabIndex(122);
 
         Arrays.stream(plunderButtons).forEach(button -> {
-            button.setFlatStyle(FlatStyle.FLAT);
             button.setSize(28, 22);
             //button.setText("88");
             button.setClick(new EventHandler<Object, EventArgs>() {
@@ -240,9 +211,9 @@ public class FormPlunder extends SpaceTraderForm {
         });
 
         Arrays.stream(plunderAllButtons).forEach(button -> {
-            button.setFlatStyle(FlatStyle.FLAT);
+            button.setAutoWidth(true);
             button.setSize(32, 22);
-            button.setText("All");
+            button.setText(" " + Strings.JettisonAll + " ");
             button.setClick(new EventHandler<Object, EventArgs>() {
                 @Override
                 public void handle(Object sender, EventArgs e) {
@@ -251,23 +222,17 @@ public class FormPlunder extends SpaceTraderForm {
             });
         });
 
-        baysLabel.setAutoSize(true);
-        baysLabel.setLocation(144, 8);
-        baysLabel.setSize(33, 13);
-        baysLabel.setTabIndex(152);
-        baysLabel.setText("Bays:");
+        baysLabelValue.setAutoSize(true);
+        baysLabelValue.setLocation(144, 8);
+        //baysLabelValue.setSize(48, 13);
+        //baysLabelValue.setText("Bays: 888/888");
 
-        baysLabelValue.setLocation(176, 8);
-        baysLabelValue.setSize(48, 13);
-        baysLabelValue.setTabIndex(153);
-        //baysLabelValue.setText("888/888");
-
-        btnJettison.setFlatStyle(FlatStyle.FLAT);
-        btnJettison.setLocation(150, 24);
-        btnJettison.setSize(53, 22);
-        btnJettison.setTabIndex(155);
-        btnJettison.setText("Jettison");
-        btnJettison.setClick(new EventHandler<Object, EventArgs>() {
+        jettisonButton.setAutoWidth(true);
+        jettisonButton.setLocation(142, 24);
+        jettisonButton.setSize(53, 22);
+        jettisonButton.setTabIndex(155);
+        jettisonButton.setText("Jettison");
+        jettisonButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 jettisonButtonClick();
@@ -275,8 +240,9 @@ public class FormPlunder extends SpaceTraderForm {
         });
 
         doneButton.setDialogResult(DialogResult.CANCEL);
-        doneButton.setFlatStyle(FlatStyle.FLAT);
-        doneButton.setLocation(87, 252);
+        doneButton.setAutoWidth(true);
+        doneButton.setControlBinding(ControlBinding.CENTER);
+        doneButton.setLocation(92, 255);
         doneButton.setSize(44, 22);
         doneButton.setTabIndex(154);
         doneButton.setText("Done");
@@ -284,6 +250,7 @@ public class FormPlunder extends SpaceTraderForm {
         controls.addAll(commoditiesArray);
         controls.addAll(plunderButtons);
         controls.addAll(plunderAllButtons);
+        controls.addAll(baysLabelValue, jettisonButton, doneButton);
 
         performLayout();
 
@@ -303,7 +270,8 @@ public class FormPlunder extends SpaceTraderForm {
             plunderButtons[i].setText(opp.getCargo()[i]);
         }
 
-        baysLabelValue.setText(ship.getFilledCargoBays() + "/" + ship.getCargoBays());
+        baysLabelValue
+                .setText(stringVars(Strings.JettisonBays, ship.getFilledCargoBays() + "/" + ship.getCargoBays()));
     }
 
     private void jettisonButtonClick() {

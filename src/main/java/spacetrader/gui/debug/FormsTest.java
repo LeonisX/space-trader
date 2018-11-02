@@ -37,6 +37,8 @@ public class FormsTest extends SpaceTraderForm {
     private Button formJettisonButton = new Button();
     private Button formNewCommanderButton = new Button();
     private Button formOptionsButton = new Button();
+    private Button formPayBackLoanButton = new Button();
+    private Button formPlunderButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -267,9 +269,29 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formPayBackLoanButton.setLocation(8, 322);
+        formPayBackLoanButton.setSize(125, 22);
+        formPayBackLoanButton.setText("FormPayBackLoan");
+        formPayBackLoanButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormPayBackLoan());
+            }
+        });
+
+        formPlunderButton.setLocation(8, 345);
+        formPlunderButton.setSize(125, 22);
+        formPlunderButton.setText("FormPlunder");
+        formPlunderButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormPlunder());
+            }
+        });
+
+
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
                 formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton, formEquipmentButton,
-                formFindButton, formGetLoanButton, formJettisonButton, formNewCommanderButton, formOptionsButton);
+                formFindButton, formGetLoanButton, formJettisonButton, formNewCommanderButton, formOptionsButton,
+                formPayBackLoanButton, formPlunderButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
 
