@@ -47,7 +47,6 @@ Useful Source Repositories:
 ## Known bugs:
 
 * Load game from scratch
-* High Score
 * LinkLabel - not implemented sort
 * FormMonster - not correct columns order; bug in mercenariesPanel (systems); Links don't work
 * Many dialogs don't allow to close them from [x]
@@ -58,6 +57,10 @@ Useful Source Repositories:
 
 * Bold font for labels on main screen, formEncounter. Source: new `tahomabd.ttf`
 * Probably absent special event (lottery) at starting planet
+
+## Fixed bugs and regressions:
+
+* High Score
 
 ## Far perspectives
 

@@ -1,28 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.game;
 
 import spacetrader.game.enums.Difficulty;
@@ -51,10 +26,10 @@ public class HighScoreRecord extends STSerializableObject implements Comparable<
         super();
         name = getValueFromHash(hash, "_name", String.class);
         score = getValueFromHash(hash, "_score", Integer.class);
-        type = getValueFromHash(hash, "_type", GameEndType.class);
+        type = GameEndType.fromInt(getValueFromHash(hash, "_type", Integer.class));
         days = getValueFromHash(hash, "_days", Integer.class);
         worth = getValueFromHash(hash, "_worth", Integer.class);
-        difficulty = getValueFromHash(hash, "_difficulty", Difficulty.class);
+        difficulty = Difficulty.fromInt(getValueFromHash(hash, "_difficulty", Integer.class));
     }
 
     public int compareTo(HighScoreRecord value) {

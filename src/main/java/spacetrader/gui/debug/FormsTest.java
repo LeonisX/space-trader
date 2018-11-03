@@ -48,6 +48,7 @@ public class FormsTest extends SpaceTraderForm {
     private Panel mainPanel2 = new Panel();
     private Button formViewBankButton = new Button();
     private Button formViewCommanderButton = new Button();
+    private Button formViewHighScoresButton = new Button();
 
 
     public static void main(String[] args) {
@@ -347,7 +348,16 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
-        mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton);
+        formViewHighScoresButton.setLocation(8, 69);
+        formViewHighScoresButton.setSize(125, 22);
+        formViewHighScoresButton.setText("FormViewHighScores");
+        formViewHighScoresButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormViewHighScores());
+            }
+        });
+
+        mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton, formViewHighScoresButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel, mainPanel2/*, boxAlert*/);
 

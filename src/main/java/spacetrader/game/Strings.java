@@ -540,7 +540,8 @@ public class Strings {
     public static String FileFormatBad = "The file is not a Space Trader for Windows file, or is the wrong version or has been corrupted.";
     public static String FileFutureVersion = "The version of the file is greater than the current version. You should upgrade to the latest version of Space Trader for Windows.";
 
-    public static String HighScoreStatus = "^1 in ^2, worth ^3 on ^4 level.";
+    public static String HighScoreEmpty = "Empty";
+    public static String HighScoreStatus = "^1 on ^2 day, worth ^3 on ^4 level.";
 
     public static String JettisonAll = "All";
     public static String JettisonBays = "Bays: ^1";
