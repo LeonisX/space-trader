@@ -227,8 +227,10 @@ public class FormViewShip extends SpaceTraderForm {
         if (ship.getTribbles() > 0) {
             if (ship.getTribbles() == Consts.MaxTribbles) {
                 specialCargo.add(Strings.SpecialCargoTribblesInfest);
+            } else if (ship.getTribbles() == 1){
+                specialCargo.add(Strings.SpecialCargoTribbleCute);
             } else {
-                specialCargo.add(Functions.multiples(ship.getTribbles(), Strings.SpecialCargoTribblesCute) + ".");
+                specialCargo.add(Strings.SpecialCargoTribblesCute);
             }
         }
 

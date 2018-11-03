@@ -649,7 +649,8 @@ public class Strings {
     public static String SpecialCargoSculpture = "A stolen plastic sculpture of a man holding some kind of light sword.";
     public static String SpecialCargoReactorBays = "of enriched fuel.";
     public static String SpecialCargoTribblesInfest = "An infestation of tribbles.";
-    public static String SpecialCargoTribblesCute = "cute, furry tribble";
+    public static String SpecialCargoTribbleCute = "Cute, furry tribble.";
+    public static String SpecialCargoTribblesCute = "Cute, furry tribbles.";
 
     public static String StatusBarBays = "Bays:";
     public static String StatusBarCash = "Cash:";
