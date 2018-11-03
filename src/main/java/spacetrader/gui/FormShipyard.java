@@ -1,22 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
 package spacetrader.gui;
 
 import spacetrader.controls.*;
@@ -25,23 +6,11 @@ import spacetrader.controls.Container;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.BorderStyle;
-import spacetrader.controls.enums.ColorDepth;
-import spacetrader.controls.enums.ComboBoxStyle;
-import spacetrader.controls.enums.ContentAlignment;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.controls.enums.HorizontalAlignment;
-import spacetrader.controls.enums.PictureBoxSizeMode;
+import spacetrader.controls.enums.*;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.ShipType;
-import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.Size;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.GuiEngine;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
@@ -51,7 +20,7 @@ import spacetrader.util.Hashtable;
 import spacetrader.util.Path;
 import spacetrader.util.ReflectionUtils;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class FormShipyard extends SpaceTraderForm {
 
@@ -136,15 +105,6 @@ public class FormShipyard extends SpaceTraderForm {
     private boolean loading = false;
     private ArrayList<Size> sizes = null;
 
-    public static void main(String[] args) {
-        GlobalAssets.initializeImages();
-        GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
-        new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
-        Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
-
-        Launcher.runForm(new FormShipyard());
-    }
-
     public FormShipyard() {
         initializeComponent();
 
@@ -177,8 +137,7 @@ public class FormShipyard extends SpaceTraderForm {
 
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(478, 375);
+        setClientSize(515, 355);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -201,62 +160,59 @@ public class FormShipyard extends SpaceTraderForm {
         this.suspendLayout();
 
         welcomePanel.setLocation(8, 0);
-        welcomePanel.setSize(270, 204);
+        welcomePanel.setSize(310, 204);
         welcomePanel.setTabStop(false);
+
         welcomePanel.getControls().addAll(logoPictureBox, welcomeLabelValue, sizeSpecialtyLabel,
                 sizeSpecialtyLabelValue, skillLabel, skillLabelValue, skillDescriptionLabelValue, warningLabelValue);
 
         logoPictureBox.setBackground(Color.BLACK);
-        logoPictureBox.setLocation(8, 12);
+        logoPictureBox.setLocation(8, 10);
         logoPictureBox.setSize(80, 80);
         logoPictureBox.sizeMode = PictureBoxSizeMode.STRETCH_IMAGE;
         logoPictureBox.setTabStop(false);
 
-        welcomeLabelValue.setLocation(92, 12);
-        welcomeLabelValue.setSize(176, 52);
-        welcomeLabelValue.setTabIndex(3);
+        welcomeLabelValue.setLocation(92, 10);
+        welcomeLabelValue.setSize(191, 42);
         /*welcomeLabelValue
                 .setText("Welcome to Sorosuub Engineering Shipyards! Our best engineer, Obi-Wan, is at your service.");*/
 
         sizeSpecialtyLabel.setAutoSize(true);
         sizeSpecialtyLabel.setFont(FontCollection.bold825);
-        sizeSpecialtyLabel.setLocation(92, 65);
-        sizeSpecialtyLabel.setSize(82, 13);
-        sizeSpecialtyLabel.setTabIndex(23);
+        sizeSpecialtyLabel.setLocation(92, 60);
+        //sizeSpecialtyLabel.setSize(82, 13);
         sizeSpecialtyLabel.setText("Size Specialty:");
 
-        sizeSpecialtyLabelValue.setLocation(180, 65);
-        sizeSpecialtyLabelValue.setSize(64, 13);
+        sizeSpecialtyLabelValue.setAutoSize(true);
+        sizeSpecialtyLabelValue.setLocation(190, 59);
+        //sizeSpecialtyLabelValue.setSize(64, 13);
         sizeSpecialtyLabelValue.setTabIndex(25);
         //sizeSpecialtyLabelValue.setText("Gargantuan");
 
         skillLabel.setAutoSize(true);
         skillLabel.setFont(FontCollection.bold825);
-        skillLabel.setLocation(92, 79);
-        skillLabel.setSize(72, 13);
-        skillLabel.setTabIndex(24);
+        skillLabel.setLocation(92, 75);
+        //skillLabel.setSize(72, 13);
         skillLabel.setText("Special Skill:");
 
-        skillLabelValue.setLocation(180, 79);
-        skillLabelValue.setSize(87, 13);
-        skillLabelValue.setTabIndex(26);
+        skillLabelValue.setAutoSize(true);
+        skillLabelValue.setLocation(190, 74);
+        //skillLabelValue.setSize(87, 13);
         //skillLabelValue.setText("Crew Quartering");
 
-        skillDescriptionLabelValue.setLocation(8, 98);
-        skillDescriptionLabelValue.setSize(258, 26);
-        skillDescriptionLabelValue.setTabIndex(27);
+        skillDescriptionLabelValue.setLocation(8, 96);
+        skillDescriptionLabelValue.setSize(305, 26);
         //skillDescriptionLabelValue.setText("All ships constructed at this shipyard use 2 fewer units per crew quarter.");
 
-        warningLabelValue.setLocation(8, 134);
-        warningLabelValue.setSize(258, 65);
-        warningLabelValue.setTabIndex(5);
+        warningLabelValue.setLocation(8, 130);
+        warningLabelValue.setSize(305, 70);
         /*warningLabelValue.setText("Bear in mind that getting too close to the maximum number of units will result in"
                 + " a \"Crowding Penalty\" due to the engineering difficulty of squeezing everything "
                 + "in.  There is a modest penalty at 80%, and a more severe one at 90%.");*/
 
         
-        infoPanel.setLocation(8, 208);
-        infoPanel.setSize(270, 160);
+        infoPanel.setLocation(6, 208);
+        infoPanel.setSize(314, 165);
         infoPanel.setTabStop(false);
         infoPanel.setText("Info");
         
@@ -265,19 +221,19 @@ public class FormShipyard extends SpaceTraderForm {
                 shipPictureBox, prevImageButton, imageLabelValue, nextImageButton, setCustomImageButton);
 
         templateLabel.setAutoSize(true);
-        templateLabel.setLocation(8, 19);
+        templateLabel.setLocation(8, 24);
         templateLabel.setSize(55, 13);
         templateLabel.setTabIndex(20);
         templateLabel.setText("Template:");
 
         templateComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        templateComboBox.setLocation(80, 16);
-        templateComboBox.setSize(132, 21);
+        templateComboBox.setLocation(80, 23);
+        templateComboBox.setSize(152, 21);
         templateComboBox.setTabIndex(1);
 
         loadButton.setFlatStyle(FlatStyle.FLAT);
-        loadButton.setLocation(216, 16);
-        loadButton.setSize(44, 20);
+        loadButton.setLocation(236, 24);
+        loadButton.setSize(67, 20);
         loadButton.setTabIndex(2);
         loadButton.setText("Load");
         loadButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -288,13 +244,13 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         shipNameLabel.setAutoSize(true);
-        shipNameLabel.setLocation(8, 44);
+        shipNameLabel.setLocation(8, 48);
         shipNameLabel.setSize(63, 13);
         shipNameLabel.setTabIndex(5);
         shipNameLabel.setText("Ship Name:");
 
-        shipNameTextBox.setLocation(80, 40);
-        shipNameTextBox.setSize(132, 20);
+        shipNameTextBox.setLocation(80, 45);
+        shipNameTextBox.setSize(152, 20);
         shipNameTextBox.setTabIndex(3);
         shipNameTextBox.setTextChanged(new EventHandler<Object, EventArgs>() {
             @Override
@@ -304,8 +260,8 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         saveButton.setFlatStyle(FlatStyle.FLAT);
-        saveButton.setLocation(216, 40);
-        saveButton.setSize(44, 20);
+        saveButton.setLocation(236, 45);
+        saveButton.setSize(67, 20);
         saveButton.setTabIndex(4);
         saveButton.setText("Save");
         saveButton.setClick(new EventHandler<Object, EventArgs>() {
@@ -328,14 +284,14 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         sizeLabel.setAutoSize(true);
-        sizeLabel.setLocation(8, 66);
+        sizeLabel.setLocation(8, 71);
         sizeLabel.setSize(29, 13);
         sizeLabel.setTabIndex(18);
         sizeLabel.setText("Size:");
 
         sizeComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        sizeComboBox.setLocation(80, 63);
-        sizeComboBox.setSize(180, 21);
+        sizeComboBox.setLocation(80, 67);
+        sizeComboBox.setSize(222, 21);
         sizeComboBox.setTabIndex(5);
         sizeComboBox.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
             @Override
@@ -344,25 +300,23 @@ public class FormShipyard extends SpaceTraderForm {
             }
         });
 
-        infoHorizontalLine.setLocation(8, 89);
-        infoHorizontalLine.setWidth(254);
+        infoHorizontalLine.setLocation(8, 94);
+        infoHorizontalLine.setWidth(298);
         infoHorizontalLine.setTabStop(false);
 
         imageLabel.setAutoSize(true);
-        imageLabel.setLocation(8, 95);
-        imageLabel.setSize(39, 13);
-        imageLabel.setTabIndex(22);
+        imageLabel.setLocation(8, 100);
+        //imageLabel.setSize(39, 13);
         imageLabel.setText("Image:");
 
         shipPictureBox.setBackground(Color.WHITE);
         shipPictureBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        shipPictureBox.setLocation(80, 95);
+        shipPictureBox.setLocation(85, 100);
         shipPictureBox.setSize(66, 54);
-        shipPictureBox.setTabIndex(14);
         shipPictureBox.setTabStop(false);
 
-        prevImageButton.setFlatStyle(FlatStyle.FLAT);
-        prevImageButton.setLocation(154, 95);
+        prevImageButton.setAutoWidth(true);
+        prevImageButton.setLocation(159, 100);
         prevImageButton.setSize(20, 18);
         prevImageButton.setTabIndex(6);
         prevImageButton.setText("<");
@@ -373,14 +327,17 @@ public class FormShipyard extends SpaceTraderForm {
             }
         });
 
-        imageLabelValue.setLocation(174, 98);
+        imageLabelValue.setAutoSize(true);
+        imageLabelValue.setControlBinding(ControlBinding.CENTER);
+        imageLabelValue.setLocation(192, 102);
         imageLabelValue.setSize(70, 13);
         imageLabelValue.setTabIndex(61);
         imageLabelValue.setText("Custom Ship");
         imageLabelValue.setTextAlign(ContentAlignment.TOP_CENTER);
 
-        nextImageButton.setFlatStyle(FlatStyle.FLAT);
-        nextImageButton.setLocation(240, 95);
+        nextImageButton.setAutoWidth(true);
+        nextImageButton.setControlBinding(ControlBinding.RIGHT);
+        nextImageButton.setLocation(283, 100);
         nextImageButton.setSize(20, 18);
         nextImageButton.setTabIndex(7);
         nextImageButton.setText(">");
@@ -391,8 +348,9 @@ public class FormShipyard extends SpaceTraderForm {
             }
         });
 
-        setCustomImageButton.setFlatStyle(FlatStyle.FLAT);
-        setCustomImageButton.setLocation(158, 121);
+        setCustomImageButton.setAutoWidth(true);
+        setCustomImageButton.setControlBinding(ControlBinding.CENTER);
+        setCustomImageButton.setLocation(178, 126);
         setCustomImageButton.setSize(106, 22);
         setCustomImageButton.setTabIndex(8);
         setCustomImageButton.setText("Set Custom...");
@@ -403,8 +361,8 @@ public class FormShipyard extends SpaceTraderForm {
             }
         });
 
-        allocationPanel.setLocation(286, 0);
-        allocationPanel.setSize(184, 226);
+        allocationPanel.setLocation(325, 0);
+        allocationPanel.setSize(195, 231);
         allocationPanel.setTabStop(false);
         allocationPanel.setText("Space Allocation");
 
@@ -414,13 +372,12 @@ public class FormShipyard extends SpaceTraderForm {
                 unitsUsedLabelValue, pctOfMaxLabel, pctOfMaxLabelValue);
 
         cargoBaysLabel.setAutoSize(true);
-        cargoBaysLabel.setLocation(8, 18);
-        cargoBaysLabel.setSize(66, 13);
-        cargoBaysLabel.setTabIndex(5);
+        cargoBaysLabel.setLocation(8, 23);
+        //cargoBaysLabel.setSize(66, 13);
         cargoBaysLabel.setText("Cargo Bays:");
 
         cargoBaysNum.setBackground(Color.WHITE);
-        cargoBaysNum.setLocation(110, 16);
+        cargoBaysNum.setLocation(120, 21);
         cargoBaysNum.setMaximum(999);
         cargoBaysNum.setReadOnly(true);
         cargoBaysNum.setSize(64, 20);
@@ -440,13 +397,12 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         fuelTanksLabel.setAutoSize(true);
-        fuelTanksLabel.setLocation(8, 42);
-        fuelTanksLabel.setSize(41, 13);
-        fuelTanksLabel.setTabIndex(4);
+        fuelTanksLabel.setLocation(8, 47);
+        //fuelTanksLabel.setSize(41, 13);
         fuelTanksLabel.setText("Range:");
 
         fuelTanksNum.setBackground(Color.WHITE);
-        fuelTanksNum.setLocation(110, 40);
+        fuelTanksNum.setLocation(120, 45);
         fuelTanksNum.setReadOnly(true);
         fuelTanksNum.setSize(64, 20);
         fuelTanksNum.setTabIndex(2);
@@ -465,13 +421,12 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         hullStrengthLabel.setAutoSize(true);
-        hullStrengthLabel.setLocation(8, 66);
-        hullStrengthLabel.setSize(70, 13);
-        hullStrengthLabel.setTabIndex(13);
+        hullStrengthLabel.setLocation(8, 71);
+        //hullStrengthLabel.setSize(70, 13);
         hullStrengthLabel.setText("Hull Strength:");
 
         hullStrengthNum.setBackground(Color.WHITE);
-        hullStrengthNum.setLocation(110, 64);
+        hullStrengthNum.setLocation(120, 69);
         hullStrengthNum.setMaximum(9999);
         hullStrengthNum.setReadOnly(true);
         hullStrengthNum.setSize(64, 20);
@@ -491,13 +446,12 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         weaponsSlotsLabel.setAutoSize(true);
-        weaponsSlotsLabel.setLocation(8, 90);
-        weaponsSlotsLabel.setSize(78, 13);
-        weaponsSlotsLabel.setTabIndex(0);
+        weaponsSlotsLabel.setLocation(8, 95);
+        //weaponsSlotsLabel.setSize(78, 13);
         weaponsSlotsLabel.setText("Weapon Slots:");
 
         weaponsSlotsNum.setBackground(Color.WHITE);
-        weaponsSlotsNum.setLocation(110, 88);
+        weaponsSlotsNum.setLocation(120, 93);
         weaponsSlotsNum.setReadOnly(true);
         weaponsSlotsNum.setSize(64, 20);
         weaponsSlotsNum.setTabIndex(5);
@@ -516,13 +470,12 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         shieldSlotsLabel.setAutoSize(true);
-        shieldSlotsLabel.setLocation(8, 114);
-        shieldSlotsLabel.setSize(67, 13);
-        shieldSlotsLabel.setTabIndex(2);
+        shieldSlotsLabel.setLocation(8, 119);
+        //shieldSlotsLabel.setSize(67, 13);
         shieldSlotsLabel.setText("Shield Slots:");
 
         shieldSlotsNum.setBackground(Color.WHITE);
-        shieldSlotsNum.setLocation(110, 112);
+        shieldSlotsNum.setLocation(120, 117);
         shieldSlotsNum.setReadOnly(true);
         shieldSlotsNum.setSize(64, 20);
         shieldSlotsNum.setTabIndex(6);
@@ -541,13 +494,12 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         gadgetSlotsLabel.setAutoSize(true);
-        gadgetSlotsLabel.setLocation(8, 138);
-        gadgetSlotsLabel.setSize(73, 13);
-        gadgetSlotsLabel.setTabIndex(1);
+        gadgetSlotsLabel.setLocation(8, 143);
+        //gadgetSlotsLabel.setSize(73, 13);
         gadgetSlotsLabel.setText("Gadget Slots:");
 
         gadgetSlotsNum.setBackground(Color.WHITE);
-        gadgetSlotsNum.setLocation(110, 136);
+        gadgetSlotsNum.setLocation(120, 141);
         gadgetSlotsNum.setReadOnly(true);
         gadgetSlotsNum.setSize(64, 20);
         gadgetSlotsNum.setTabIndex(7);
@@ -566,13 +518,12 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         crewQuartersLabel.setAutoSize(true);
-        crewQuartersLabel.setLocation(8, 162);
-        crewQuartersLabel.setSize(81, 13);
-        crewQuartersLabel.setTabIndex(3);
+        crewQuartersLabel.setLocation(8, 167);
+        //crewQuartersLabel.setSize(81, 13);
         crewQuartersLabel.setText("Crew Quarters:");
 
         crewQuartersNum.setBackground(Color.WHITE);
-        crewQuartersNum.setLocation(110, 160);
+        crewQuartersNum.setLocation(120, 165);
         crewQuartersNum.setMinimum(1);
         crewQuartersNum.setReadOnly(true);
         crewQuartersNum.setSize(64, 20);
@@ -593,33 +544,31 @@ public class FormShipyard extends SpaceTraderForm {
         });
 
         unitsUsedLabel.setAutoSize(true);
-        unitsUsedLabel.setLocation(8, 186);
+        unitsUsedLabel.setLocation(8, 191);
         unitsUsedLabel.setSize(63, 13);
-        unitsUsedLabel.setTabIndex(16);
         unitsUsedLabel.setText("Units Used:");
 
-        unitsUsedLabelValue.setLocation(110, 186);
+        unitsUsedLabelValue.setAutoSize(true);
+        unitsUsedLabelValue.setLocation(120, 191);
         unitsUsedLabelValue.setSize(34, 13);
-        unitsUsedLabelValue.setTabIndex(17);
         //unitsUsedLabelValue.setText("888");
-        unitsUsedLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+        //unitsUsedLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         pctOfMaxLabel.setAutoSize(true);
-        pctOfMaxLabel.setLocation(8, 204);
-        pctOfMaxLabel.setSize(60, 13);
-        pctOfMaxLabel.setTabIndex(18);
+        pctOfMaxLabel.setLocation(8, 209);
+        //pctOfMaxLabel.setSize(60, 13);
         pctOfMaxLabel.setText("% of Max:");
 
+        pctOfMaxLabelValue.setAutoSize(true);
         pctOfMaxLabelValue.setFont(FontCollection.bold825);
-        pctOfMaxLabelValue.setForeground(Color.red);
-        pctOfMaxLabelValue.setLocation(110, 204);
-        pctOfMaxLabelValue.setSize(34, 13);
-        pctOfMaxLabelValue.setTabIndex(19);
+        pctOfMaxLabelValue.setForeground(Color.RED);
+        pctOfMaxLabelValue.setLocation(121, 212);
+        //pctOfMaxLabelValue.setSize(34, 13);
         //pctOfMaxLabelValue.setText("888%");
-        pctOfMaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
+        //pctOfMaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
-        costsPanel.setLocation(286, 230);
-        costsPanel.setSize(184, 106);
+        costsPanel.setLocation(325, 235);
+        costsPanel.setSize(195, 108);
         costsPanel.setTabStop(false);
         costsPanel.setText("Costs");
 
@@ -628,79 +577,76 @@ public class FormShipyard extends SpaceTraderForm {
                 tradeInLabelValue, costsHorizontalLine, totalCostLabel, totalCostLabelValue);
 
         shipCostLabel.setAutoSize(true);
-        shipCostLabel.setLocation(8, 16);
-        shipCostLabel.setSize(56, 13);
-        shipCostLabel.setTabIndex(16);
+        shipCostLabel.setLocation(8, 19);
+        //shipCostLabel.setSize(56, 13);
         shipCostLabel.setText("Ship Cost:");
 
-        shipCostLabelValue.setLocation(106, 16);
-        shipCostLabelValue.setSize(74, 16);
-        shipCostLabelValue.setTabIndex(19);
+        shipCostLabelValue.setAutoSize(true);
+        shipCostLabelValue.setLocation(120, 19);
+        //shipCostLabelValue.setSize(74, 16);
         //shipCostLabelValue.setText("8,888,888 cr.");
         shipCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         penaltyLabel.setAutoSize(true);
-        penaltyLabel.setLocation(8, 32);
-        penaltyLabel.setSize(96, 13);
-        penaltyLabel.setTabIndex(20);
+        penaltyLabel.setLocation(8, 35);
+        //penaltyLabel.setSize(96, 13);
         penaltyLabel.setText("Crowding Penalty:");
 
-        penaltyLabelValue.setLocation(106, 32);
-        penaltyLabelValue.setSize(74, 16);
-        penaltyLabelValue.setTabIndex(21);
+        penaltyLabelValue.setAutoSize(true);
+        penaltyLabelValue.setLocation(120, 35);
+        //penaltyLabelValue.setSize(74, 16);
         //penaltyLabelValue.setText("8,888,888 cr.");
         penaltyLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         designFeeLabel.setAutoSize(true);
-        designFeeLabel.setLocation(8, 48);
-        designFeeLabel.setSize(65, 13);
-        designFeeLabel.setTabIndex(14);
+        designFeeLabel.setLocation(8, 51);
+        //designFeeLabel.setSize(65, 13);
         designFeeLabel.setText("Design Fee:");
 
-        designFeeLabelValue.setLocation(106, 48);
-        designFeeLabelValue.setSize(74, 16);
-        designFeeLabelValue.setTabIndex(15);
+        designFeeLabelValue.setAutoSize(true);
+        designFeeLabelValue.setLocation(120, 51);
+        //designFeeLabelValue.setSize(74, 16);
         //designFeeLabelValue.setText("888,888 cr.");
         designFeeLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         tradeInLabel.setAutoSize(true);
-        tradeInLabel.setLocation(8, 64);
+        tradeInLabel.setLocation(8, 67);
         tradeInLabel.setSize(77, 13);
-        tradeInLabel.setTabIndex(134);
         tradeInLabel.setText("Less Trade-In:");
 
-        tradeInLabelValue.setLocation(106, 64);
-        tradeInLabelValue.setSize(75, 16);
-        tradeInLabelValue.setTabIndex(135);
+        tradeInLabelValue.setAutoSize(true);
+        tradeInLabelValue.setLocation(120, 67);
+        //tradeInLabelValue.setSize(75, 16);
         //tradeInLabelValue.setText("-8,888,888 cr.");
         tradeInLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
-        costsHorizontalLine.setLocation(8, 80);
-        costsHorizontalLine.setWidth(168);
+        costsHorizontalLine.setLocation(8, 83);
+        costsHorizontalLine.setWidth(179);
         costsHorizontalLine.setTabStop(false);
 
         totalCostLabel.setAutoSize(true);
-        totalCostLabel.setLocation(8, 84);
-        totalCostLabel.setSize(59, 13);
-        totalCostLabel.setTabIndex(17);
+        totalCostLabel.setLocation(8, 87);
+        //totalCostLabel.setSize(59, 13);
         totalCostLabel.setText("Total Cost:");
 
-        totalCostLabelValue.setLocation(106, 84);
-        totalCostLabelValue.setSize(74, 16);
-        totalCostLabelValue.setTabIndex(18);
+        totalCostLabelValue.setAutoSize(true);
+        totalCostLabelValue.setLocation(120, 87);
+        //totalCostLabelValue.setSize(74, 16);
         //totalCostLabelValue.setText("8,888,888 cr.");
         totalCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         cancelButton.setDialogResult(DialogResult.CANCEL);
-        cancelButton.setFlatStyle(FlatStyle.FLAT);
-        cancelButton.setLocation(286, 344);
+        cancelButton.setAutoWidth(true);
+        cancelButton.setControlBinding(ControlBinding.LEFT);
+        cancelButton.setLocation(325, 349);
         cancelButton.setSize(88, 22);
         cancelButton.setTabIndex(5);
         cancelButton.setText("Cancel Design");
 
-        constructButton.setFlatStyle(FlatStyle.FLAT);
+        constructButton.setAutoWidth(true);
+        constructButton.setControlBinding(ControlBinding.RIGHT);
         constructButton.setForeground(SystemColors.CONTROL_TEXT);
-        constructButton.setLocation(382, 344);
+        constructButton.setLocation(430, 349);
         constructButton.setSize(88, 22);
         constructButton.setTabIndex(6);
         constructButton.setText("Construct Ship");
@@ -742,9 +688,9 @@ public class FormShipyard extends SpaceTraderForm {
         disabledNameTipLabel.setBackground(SystemColors.INFO);
         disabledNameTipLabel.setBorderStyle(BorderStyle.FIXED_SINGLE);
         disabledNameTipLabel.setTextAlign(ContentAlignment.MIDDLE_LEFT);
-        disabledNameTipLabel.setLocation(96, 222);
-        disabledNameTipLabel.setSize(170, 20);
-        disabledNameTipLabel.setTabIndex(7);
+        //disabledNameTipLabel.setAutoSize(true);
+        disabledNameTipLabel.setLocation(87, 232);
+        disabledNameTipLabel.setSize(195, 20);
         disabledNameTipLabel.setText("You must enter a Ship Name.");
         disabledNameTipLabel.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
         disabledNameTipLabel.setVisible(false);
@@ -752,15 +698,16 @@ public class FormShipyard extends SpaceTraderForm {
         disabledPctTipLabel.setBackground(SystemColors.INFO);
         disabledPctTipLabel.setBorderStyle(BorderStyle.FIXED_SINGLE);
         disabledPctTipLabel.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
-        disabledPctTipLabel.setLocation(154, 182);
-        disabledPctTipLabel.setSize(276, 20);
-        disabledPctTipLabel.setTabIndex(8);
+        //disabledPctTipLabel.setAutoSize(true);
+        disabledPctTipLabel.setControlBinding(ControlBinding.RIGHT);
+        disabledPctTipLabel.setLocation(215, 189);
+        disabledPctTipLabel.setSize(305, 20);
         disabledPctTipLabel.setText("Your % of Max must be less than or equal to 100%.");
         disabledPctTipLabel.setTextAlign(ContentAlignment.MIDDLE_CENTER);
         disabledPctTipLabel.setVisible(false);
 
-        controls.addAll(welcomePanel, infoPanel, allocationPanel, costsPanel, cancelButton, constructButton,
-                disabledNameTipLabel, disabledPctTipLabel);
+        controls.addAll(disabledPctTipLabel, welcomePanel, disabledNameTipLabel, infoPanel, allocationPanel,
+                costsPanel, cancelButton, constructButton);
 
         hullStrengthNum.endInit();
         cargoBaysNum.endInit();
@@ -838,7 +785,7 @@ public class FormShipyard extends SpaceTraderForm {
         for (Size size : shipyard.getAvailableSizes()) {
             sizes.add(size);
             sizeComboBox.getItems().add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()],
-                    Functions.multiples(Shipyard.MAX_UNITS[size.castToInt()], Strings.ShipyardUnit)));
+                    Shipyard.MAX_UNITS[size.castToInt()] + " " + Strings.ShipyardUnit));
         }
     }
 

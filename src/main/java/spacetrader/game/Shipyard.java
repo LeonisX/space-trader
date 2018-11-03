@@ -1,23 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.game;
 
 import spacetrader.game.enums.ShipType;
@@ -67,9 +47,9 @@ public class Shipyard {
     public static final int PENALTY_SECOND_PCT = 90;
     public static final int PENALTY_SECOND_FEE = 75;
 
-    private ShipyardId _id;
-    private Size _specialtySize;
-    private ShipyardSkill _skill;
+    private ShipyardId id;
+    private Size specialtySize;
+    private ShipyardSkill skill;
 
     // Internal Variables
     private int modCrew = 0;
@@ -79,9 +59,9 @@ public class Shipyard {
     private int modWeapon = 0;
 
     public Shipyard(ShipyardId id, Size specialtySize, ShipyardSkill skill) {
-        _id = id;
-        _specialtySize = specialtySize;
-        _skill = skill;
+        this.id = id;
+        this.specialtySize = specialtySize;
+        this.skill = skill;
 
         switch (getSkill()) {
             case CREW_QUARTERS:
@@ -176,7 +156,7 @@ public class Shipyard {
     }
 
     public ShipyardId getId() {
-        return _id;
+        return id;
     }
 
     public int getMaxUnits() {
@@ -219,11 +199,11 @@ public class Shipyard {
     }
 
     public ShipyardSkill getSkill() {
-        return _skill;
+        return skill;
     }
 
     public Size getSpecialtySize() {
-        return _specialtySize;
+        return specialtySize;
     }
 
     public int getTotalCost() {
@@ -233,7 +213,6 @@ public class Shipyard {
     public int getTradeIn() {
         return Game.getCurrentGame().getCommander().getShip().getWorth(false);
     }
-
 
     public int getUnitsCrew() {
         return UNITS_CREW[getShipSpec().getSize().castToInt()] - modCrew;

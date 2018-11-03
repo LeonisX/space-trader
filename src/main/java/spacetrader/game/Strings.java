@@ -633,7 +633,7 @@ public class Strings {
     public static String ShipyardShipNoSale = "No ships for sale.";
     public static String ShipyardSizeItem = "^1 (Max ^2)";
     public static String ShipyardTitle = "Ship Design at ^1 Shipyards";
-    public static String ShipyardUnit = "Unit";
+    public static String ShipyardUnit = "Units";
     public static String ShipyardWarning = "Bear in mind that getting too close to the maximum number of units will result in a \"Crowding Penalty\" due to the engineering difficulty of squeezing everything in.  There is a modest penalty at 80%, and a more severe one at 90%.";
     public static String ShipyardWelcome = "Welcome to ^1 Shipyards! Our best engineer, ^2, is at your service.";
 
