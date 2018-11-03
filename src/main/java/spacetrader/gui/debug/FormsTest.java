@@ -50,7 +50,7 @@ public class FormsTest extends SpaceTraderForm {
     private Button formViewCommanderButton = new Button();
     private Button formViewHighScoresButton = new Button();
     private Button formViewPersonnelButton = new Button();
-
+    private Button formViewQuestsButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -79,7 +79,9 @@ public class FormsTest extends SpaceTraderForm {
         game.getCommander().getShip().setWeapons(new Weapon[game.getCommander().getShip().getWeaponSlots()]);
         game.getCommander().getShip().setShields(new Shield[game.getCommander().getShip().getShieldSlots()]);
         game.getCommander().getShip().setGadgets(new Gadget[game.getCommander().getShip().getGadgetSlots()]);
-
+        game.setQuestStatusGemulon(1);
+        game.setQuestStatusJapori(1);
+        game.setQuestStatusPrincess(1);
         game.getCommander().setReputationScore(10);
 
 
@@ -373,8 +375,17 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formViewQuestsButton.setLocation(8, 115);
+        formViewQuestsButton.setSize(125, 22);
+        formViewQuestsButton.setText("FormViewQuests");
+        formViewQuestsButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormViewQuests());
+            }
+        });
+
         mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton, formViewHighScoresButton,
-                formViewPersonnelButton);
+                formViewPersonnelButton, formViewQuestsButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel, mainPanel2/*, boxAlert*/);
 

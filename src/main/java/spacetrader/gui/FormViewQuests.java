@@ -1,39 +1,15 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron
- * Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.gui;
 
 import spacetrader.controls.*;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.game.*;
+import spacetrader.game.Consts;
+import spacetrader.game.Game;
+import spacetrader.game.SpecialEvent;
+import spacetrader.game.Strings;
 import spacetrader.game.enums.CrewMemberId;
-import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.SpecialEventType;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -47,11 +23,6 @@ public class FormViewQuests extends SpaceTraderForm {
     private Button closeButton = new Button();
     private LinkLabel questsLabelValue = new LinkLabel();
 
-    public static void main(String[] args) {
-        new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
-        Launcher.runForm(new FormViewQuests());
-    }
-
     public FormViewQuests() {
         initializeComponent();
         updateAll();
@@ -62,7 +33,6 @@ public class FormViewQuests extends SpaceTraderForm {
 
         setName("formViewQuests");
         setText("Quests");
-        setAutoScaleBaseSize(5, 13);
         setClientSize(378, 325);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
@@ -76,7 +46,6 @@ public class FormViewQuests extends SpaceTraderForm {
         questsLabelValue.setLinkArea(new LinkArea(0, 0));
         questsLabelValue.setLocation(8, 8);
         questsLabelValue.setSize(368, 312);
-        questsLabelValue.setTabIndex(44);
         /*questsLabelValue.setText("Kill the space monster at Acamar."
                 + "\n\n"
                 + "Get your lightning shield at Zalkon."
