@@ -52,7 +52,6 @@ public class GameController {
 
     private void addHighScore(HighScoreRecord highScore) {
         HighScoreRecord[] highScores = Functions.getHighScores();
-        //TODO need to add in tail, sort, then drop last
         highScores[0] = highScore;
         Util.sort(highScores);
 
