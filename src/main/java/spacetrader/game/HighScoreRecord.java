@@ -2,9 +2,12 @@ package spacetrader.game;
 
 import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.GameEndType;
-import spacetrader.util.Hashtable;
 
-public class HighScoreRecord extends STSerializableObject implements Comparable<HighScoreRecord> {
+import java.io.Serializable;
+
+public class HighScoreRecord implements Serializable, Comparable<HighScoreRecord> {
+
+    private static final long serialVersionUID = 8309080721495266420L;
 
     private String name;
     private int score;
@@ -22,16 +25,6 @@ public class HighScoreRecord extends STSerializableObject implements Comparable<
         this.difficulty = difficulty;
     }
 
-    HighScoreRecord(Hashtable hash) {
-        super();
-        name = getValueFromHash(hash, "_name", String.class);
-        score = getValueFromHash(hash, "_score", Integer.class);
-        type = GameEndType.fromInt(getValueFromHash(hash, "_type", Integer.class));
-        days = getValueFromHash(hash, "_days", Integer.class);
-        worth = getValueFromHash(hash, "_worth", Integer.class);
-        difficulty = Difficulty.fromInt(getValueFromHash(hash, "_difficulty", Integer.class));
-    }
-
     public int compareTo(HighScoreRecord value) {
         if (value == null) {
             return 1;
@@ -46,20 +39,6 @@ public class HighScoreRecord extends STSerializableObject implements Comparable<
         } else {
             return Integer.compare(getDays(), value.getDays());
         }
-    }
-
-    @Override
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_name", name);
-        hash.add("_score", score);
-        hash.add("_type", type.castToInt());
-        hash.add("_days", days);
-        hash.add("_worth", worth);
-        hash.add("_difficulty", difficulty.castToInt());
-
-        return hash;
     }
 
     public int getDays() {

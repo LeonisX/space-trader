@@ -47,15 +47,16 @@ public class GameController {
     //TODO ???
     public void clearHighScores() {
         HighScoreRecord[] highScores = new HighScoreRecord[3];
-        Functions.saveFile(Consts.HighScoreFile, STSerializableObject.arrayToArrayList(highScores));
+        Functions.writeObjectToFile(Consts.HighScoreFile, highScores);
     }
 
     private void addHighScore(HighScoreRecord highScore) {
         HighScoreRecord[] highScores = Functions.getHighScores();
+        //TODO need to add in tail, sort, then drop last
         highScores[0] = highScore;
         Util.sort(highScores);
 
-        Functions.saveFile(Consts.HighScoreFile, STSerializableObject.arrayToArrayList(highScores));
+        Functions.writeObjectToFile(Consts.HighScoreFile, highScores);
     }
 
     public void gameEnd() {
