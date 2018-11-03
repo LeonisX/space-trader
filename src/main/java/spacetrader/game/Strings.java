@@ -458,6 +458,9 @@ public class Strings {
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
+    public static String CommanderAngryKingpins = "Angry kingpins:";
+    public static String CommanderBountyOffered = "Bounty offered:";
+
 
     public static String DistanceUnit = "parsec";
     public static String DistanceSubunit = "click";

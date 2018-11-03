@@ -47,7 +47,7 @@ public class FormsTest extends SpaceTraderForm {
 
     private Panel mainPanel2 = new Panel();
     private Button formViewBankButton = new Button();
-
+    private Button formViewCommanderButton = new Button();
 
 
     public static void main(String[] args) {
@@ -72,6 +72,10 @@ public class FormsTest extends SpaceTraderForm {
         game.getCommander().getShip().setWeapons(new Weapon[game.getCommander().getShip().getWeaponSlots()]);
         game.getCommander().getShip().setShields(new Shield[game.getCommander().getShip().getShieldSlots()]);
         game.getCommander().getShip().setGadgets(new Gadget[game.getCommander().getShip().getGadgetSlots()]);
+
+        game.getCommander().setReputationScore(10);
+
+
         for (int i = 0; i < Consts.Weapons.length; i++) {
             game.getCommander().getShip().addEquipment(Consts.Weapons[i]);
         }
@@ -334,7 +338,17 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
-        mainPanel2.getControls().addAll(formViewBankButton);
+        formViewCommanderButton.setLocation(8, 46);
+        formViewCommanderButton.setSize(125, 22);
+        formViewCommanderButton.setText("FormViewCommander");
+        formViewCommanderButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormViewCommander());
+            }
+        });
+
+        mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton);
+
         controls.addAll(languagesPanel, mainPanel, encounterPanel, mainPanel2/*, boxAlert*/);
 
         ReflectionUtils.loadControlsData(this);
