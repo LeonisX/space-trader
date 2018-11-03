@@ -51,7 +51,8 @@ Useful Source Repositories:
 * FormMonster - not correct columns order; bug in mercenariesPanel (systems); Links don't work
 * Many dialogs don't allow to close them from [x]
 * FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
-* FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage, 
+* FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,
+* When fire mercenary - he disappears forever
 
 ## Regressions:
 

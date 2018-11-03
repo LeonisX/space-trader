@@ -1,36 +1,12 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.enums.BorderStyle;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.game.*;
+import spacetrader.controls.enums.*;
+import spacetrader.game.CrewMember;
+import spacetrader.game.Game;
+import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.CrewMemberId;
-import spacetrader.game.enums.Difficulty;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -64,11 +40,6 @@ public class FormViewPersonnel extends SpaceTraderForm {
     private CrewMember selectedCrewMember = null;
     private boolean handlingSelect = false;
 
-    public static void main(String[] args) {
-        new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
-        Launcher.runForm(new FormViewPersonnel());
-    }
-
     public FormViewPersonnel() {
         initializeComponent();
         updateAll();
@@ -79,8 +50,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
         setName("formViewPersonnel");
         setText("Personnel");
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(488, 129);
+        setClientSize(540, 110);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);
@@ -91,15 +61,15 @@ public class FormViewPersonnel extends SpaceTraderForm {
         suspendLayout();
 
         currentCrewPanel.setLocation(8, 8);
-        currentCrewPanel.setSize(144, 114);
+        currentCrewPanel.setSize(155, 120);
         currentCrewPanel.setTabStop(false);
         currentCrewPanel.setText("Current Crew");
 
         currentCrewPanel.getControls().addAll(crewListBox, crewNoQuartersLabel);
 
         crewListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        crewListBox.setLocation(8, 24);
-        crewListBox.setSize(126, 80);
+        crewListBox.setLocation(8, 26);
+        crewListBox.setSize(137, 80);
         crewListBox.setTabIndex(6);
         crewListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -112,22 +82,22 @@ public class FormViewPersonnel extends SpaceTraderForm {
             }
         });
 
-        crewNoQuartersLabel.setLocation(16, 24);
-        crewNoQuartersLabel.setSize(120, 16);
-        crewNoQuartersLabel.setTabIndex(7);
+        crewNoQuartersLabel.setAutoSize(true);
+        crewNoQuartersLabel.setLocation(16, 26);
+        //crewNoQuartersLabel.setSize(120, 16);
         crewNoQuartersLabel.setText("No quarters available");
         crewNoQuartersLabel.setVisible(false);
 
-        mercenariesForHirePanel.setLocation(160, 8);
-        mercenariesForHirePanel.setSize(144, 114);
+        mercenariesForHirePanel.setLocation(171, 8);
+        mercenariesForHirePanel.setSize(165, 120);
         mercenariesForHirePanel.setTabStop(false);
         mercenariesForHirePanel.setText("Mercenaries For Hire");
 
         mercenariesForHirePanel.getControls().addAll(forHireListBox, forHireNoneLabel);
 
         forHireListBox.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        forHireListBox.setLocation(8, 24);
-        forHireListBox.setSize(126, 80);
+        forHireListBox.setLocation(8, 26);
+        forHireListBox.setSize(147, 80);
         forHireListBox.setTabIndex(5);
         forHireListBox.setDoubleClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -140,14 +110,14 @@ public class FormViewPersonnel extends SpaceTraderForm {
             }
         });
 
-        forHireNoneLabel.setLocation(16, 24);
-        forHireNoneLabel.setSize(120, 16);
-        forHireNoneLabel.setTabIndex(8);
+        forHireNoneLabel.setAutoSize(true);
+        forHireNoneLabel.setLocation(16, 26);
+        //forHireNoneLabel.setSize(120, 16);
         forHireNoneLabel.setText("No one for hire");
         forHireNoneLabel.setVisible(false);
 
-        mercenaryInfoPanel.setLocation(312, 8);
-        mercenaryInfoPanel.setSize(168, 114);
+        mercenaryInfoPanel.setLocation(344, 8);
+        mercenaryInfoPanel.setSize(200, 120);
         mercenaryInfoPanel.setTabStop(false);
         mercenaryInfoPanel.setText("Mercenary Information");
 
@@ -155,63 +125,61 @@ public class FormViewPersonnel extends SpaceTraderForm {
                 fighterLabel, fighterLabelValue, traderLabel, traderLabelValue, engineerLabel,
                 engineerLabelValue, rateLabelValue, hireFireButton);
 
+        nameLabelValue.setAutoSize(true);
         nameLabelValue.setFont(FontCollection.bold825);
-        nameLabelValue.setLocation(12, 18);
-        nameLabelValue.setSize(72, 13);
-        nameLabelValue.setTabIndex(96);
+        nameLabelValue.setLocation(12, 23);
+        //nameLabelValue.setSize(72, 13);
         //nameLabelValue.setText("Alexey Leonov");
 
         pilotLabel.setAutoSize(true);
-        pilotLabel.setLocation(12, 40);
-        pilotLabel.setSize(29, 16);
-        pilotLabel.setTabIndex(88);
+        pilotLabel.setLocation(12, 45);
+        //pilotLabel.setSize(29, 16);
         pilotLabel.setText("Pilot:");
 
-        pilotLabelValue.setLocation(64, 40);
-        pilotLabelValue.setSize(17, 13);
-        pilotLabelValue.setTabIndex(92);
+        pilotLabelValue.setAutoSize(true);
+        pilotLabelValue.setLocation(67, 45);
+        //pilotLabelValue.setSize(17, 13);
         //pilotLabelValue.setText("88");
 
         fighterLabel.setAutoSize(true);
-        fighterLabel.setLocation(12, 56);
-        fighterLabel.setSize(43, 16);
-        fighterLabel.setTabIndex(89);
+        fighterLabel.setLocation(12, 61);
+        //fighterLabel.setSize(43, 16);
         fighterLabel.setText("Fighter:");
 
-        fighterLabelValue.setLocation(64, 56);
-        fighterLabelValue.setSize(17, 13);
-        fighterLabelValue.setTabIndex(93);
+        fighterLabelValue.setAutoSize(true);
+        fighterLabelValue.setLocation(67, 61);
+        //fighterLabelValue.setSize(17, 13);
         //fighterLabelValue.setText("88");
 
         traderLabel.setAutoSize(true);
-        traderLabel.setLocation(12, 72);
-        traderLabel.setSize(41, 16);
-        traderLabel.setTabIndex(90);
+        traderLabel.setLocation(12, 77);
+        //traderLabel.setSize(41, 16);
         traderLabel.setText("Trader:");
 
-        traderLabelValue.setLocation(64, 72);
-        traderLabelValue.setSize(17, 13);
-        traderLabelValue.setTabIndex(94);
+        traderLabelValue.setAutoSize(true);
+        traderLabelValue.setLocation(67, 77);
+        //traderLabelValue.setSize(17, 13);
         //traderLabelValue.setText("88");
 
         engineerLabel.setAutoSize(true);
-        engineerLabel.setLocation(12, 88);
-        engineerLabel.setSize(53, 16);
-        engineerLabel.setTabIndex(91);
+        engineerLabel.setLocation(12, 93);
+        //engineerLabel.setSize(53, 16);
         engineerLabel.setText("Engineer:");
 
-        engineerLabelValue.setLocation(64, 88);
-        engineerLabelValue.setSize(17, 13);
-        engineerLabelValue.setTabIndex(95);
+        engineerLabelValue.setAutoSize(true);
+        engineerLabelValue.setLocation(67, 93);
+        //engineerLabelValue.setSize(17, 13);
         //engineerLabelValue.setText("88");
 
-        rateLabelValue.setLocation(104, 40);
-        rateLabelValue.setSize(59, 13);
-        rateLabelValue.setTabIndex(97);
-        //rateLabelValue.setText("88 cr. daily");
+        rateLabelValue.setAutoSize(true);
+        rateLabelValue.setControlBinding(ControlBinding.RIGHT);
+        rateLabelValue.setLocation(185, 45);
+        //rateLabelValue.setSize(59, 13);
+        rateLabelValue.setText("88 cr. daily");
 
-        hireFireButton.setFlatStyle(FlatStyle.FLAT);
-        hireFireButton.setLocation(120, 80);
+        hireFireButton.setAutoWidth(true);
+        hireFireButton.setControlBinding(ControlBinding.RIGHT);
+        hireFireButton.setLocation(150, 85);
         hireFireButton.setSize(36, 22);
         hireFireButton.setTabIndex(4);
         hireFireButton.setText("Hire");
@@ -224,7 +192,6 @@ public class FormViewPersonnel extends SpaceTraderForm {
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setLocation(-32, -32);
         closeButton.setSize(32, 32);
-        closeButton.setTabIndex(32);
         closeButton.setTabStop(false);
         //closeButton.setText("X");
 

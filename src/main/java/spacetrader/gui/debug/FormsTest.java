@@ -49,6 +49,7 @@ public class FormsTest extends SpaceTraderForm {
     private Button formViewBankButton = new Button();
     private Button formViewCommanderButton = new Button();
     private Button formViewHighScoresButton = new Button();
+    private Button formViewPersonnelButton = new Button();
 
 
     public static void main(String[] args) {
@@ -61,8 +62,13 @@ public class FormsTest extends SpaceTraderForm {
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
 
         Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
+
+        game.setParentWindow(new SpaceTrader(null));
         game.getCommander().getShip().getCargo()[1] = 12;
         game.getCommander().setCash(65535);
+        game.getCommander().getShip().setCrewQuarters(5);
+        game.getCommander().getShip().setCrewMembers(new CrewMember[5]);
+        game.getCommander().getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries()[0];
         game.getCommander().getShip().setFuelTanks(24);
         game.getCommander().getShip().setFuel(10);
         game.getCommander().getShip().setHullStrength(100);
@@ -91,7 +97,8 @@ public class FormsTest extends SpaceTraderForm {
         game.getSelectedSystem().setShipyardId(ShipyardId.INCOM);
         game.getSelectedSystem().setTechLevel(TechLevel.HI_TECH);
         game.warpDirect();
-        Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
+        game.getSelectedSystem().getMercenariesForHire().add(Game.getCurrentGame().getMercenaries()[0]);
+        game.getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
 
         initializeComponent();
     }
@@ -357,7 +364,17 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
-        mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton, formViewHighScoresButton);
+        formViewPersonnelButton.setLocation(8, 92);
+        formViewPersonnelButton.setSize(125, 22);
+        formViewPersonnelButton.setText("FormViewPersonnel");
+        formViewPersonnelButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormViewPersonnel());
+            }
+        });
+
+        mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton, formViewHighScoresButton,
+                formViewPersonnelButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel, mainPanel2/*, boxAlert*/);
 
