@@ -407,9 +407,8 @@ public class Strings {
     public static String AlertsWildWontStayAboardReactorMessage = "Jonathan Wild isn't willing to go with you if you bring that Reactor on board. He'd rather take his chances hiding out here on ^1." + Strings.newline;
     public static String AlertsWildWontStayAboardReactorAccept = "Say Goodbye to Wild";
 
-    public static String BankInsuranceButtonText = "^1 Insurance";
-    public static String BankInsuranceButtonBuy = "Buy";
-    public static String BankInsuranceButtonStop = "Stop";
+    public static String BankInsuranceButtonBuy = "Buy Insurance";
+    public static String BankInsuranceButtonStop = "Stop Insurance";
     public static String BankLoanStatementBorrow = "You can borrow up to ^1.";
     public static String BankLoanStatementDebt = "You have a debt of ^1.";
 

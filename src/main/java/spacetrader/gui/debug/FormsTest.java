@@ -3,7 +3,10 @@ package spacetrader.gui.debug;
 import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.*;
+import spacetrader.controls.enums.ComboBoxStyle;
+import spacetrader.controls.enums.ControlBinding;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.*;
 import spacetrader.game.enums.*;
 import spacetrader.gui.*;
@@ -41,6 +44,10 @@ public class FormsTest extends SpaceTraderForm {
     private Button formPlunderButton = new Button();
     private Button formShipListButton = new Button();
     private Button formShipyardButton = new Button();
+
+    private Panel mainPanel2 = new Panel();
+    private Button formViewBankButton = new Button();
+
 
 
     public static void main(String[] args) {
@@ -208,7 +215,7 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         formEncounterButton.setLocation(8, 44);
-        formEncounterButton.setSize(125, 22);
+        formEncounterButton.setSize(90, 22);
         formEncounterButton.setText("FormEncounter");
         formEncounterButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
@@ -309,11 +316,26 @@ public class FormsTest extends SpaceTraderForm {
         });
 
         mainPanel.getControls().addAll(formAboutButton, formAlertsButton, formBuyFuelButton, formBuyRepairsButton,
-                formCargoBuyButton, formCargoSellButton, formCostsButton, formEncounterButton, formEquipmentButton,
-                formFindButton, formGetLoanButton, formJettisonButton, formNewCommanderButton, formOptionsButton,
-                formPayBackLoanButton, formPlunderButton, formShipListButton, formShipyardButton);
+                formCargoBuyButton, formCargoSellButton, formCostsButton, formEquipmentButton, formFindButton,
+                formGetLoanButton, formJettisonButton, formNewCommanderButton, formOptionsButton, formPayBackLoanButton,
+                formPlunderButton, formShipListButton, formShipyardButton);
 
-        controls.addAll(languagesPanel, mainPanel, encounterPanel/*, boxAlert*/);
+        mainPanel2.setLocation(220, 140);
+        mainPanel2.setSize(200, 400);
+        mainPanel2.setTabStop(false);
+        mainPanel2.setText("Simple dialogs2");
+
+        formViewBankButton.setLocation(8, 23);
+        formViewBankButton.setSize(125, 22);
+        formViewBankButton.setText("FormViewBank");
+        formViewBankButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormViewBank());
+            }
+        });
+
+        mainPanel2.getControls().addAll(formViewBankButton);
+        controls.addAll(languagesPanel, mainPanel, encounterPanel, mainPanel2/*, boxAlert*/);
 
         ReflectionUtils.loadControlsData(this);
     }
