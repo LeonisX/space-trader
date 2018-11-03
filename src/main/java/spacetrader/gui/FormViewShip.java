@@ -1,23 +1,3 @@
-/*******************************************************************************
- *
- * Space Trader for Windows 2.00
- *
- * Copyright (C) 2005 Jay French, All Rights Reserved
- *
- * Additional coding by David Pierron Original coding by Pieter Spronck, Sam Anderson, Samuel Goldstein, Matt Lee
- *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * If you'd like a copy of the GNU General Public License, go to http://www.gnu.org/copyleft/gpl.html.
- *
- * You can contact the author at spacetrader@frenchfryz.com
- *
- ******************************************************************************/
-
 package spacetrader.gui;
 
 import spacetrader.controls.BaseComponent;
@@ -28,9 +8,7 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.*;
-import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.GadgetType;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -48,11 +26,6 @@ public class FormViewShip extends SpaceTraderForm {
     private Label equipTitleLabelValue = new Label();
     private Label equipLabelValue = new Label();
 
-    public static void main(String[] args) {
-        new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
-        Launcher.runForm(new FormViewShip());
-    }
-
     public FormViewShip() {
         initializeComponent();
 
@@ -68,8 +41,7 @@ public class FormViewShip extends SpaceTraderForm {
 
         setName("formViewShip");
         setText("Current Ship");
-        setAutoScaleBaseSize(5, 13);
-        setClientSize(402, 219);
+        setClientSize(445, 219);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);
@@ -82,32 +54,28 @@ public class FormViewShip extends SpaceTraderForm {
         typeLabel.setAutoSize(true);
         typeLabel.setFont(FontCollection.bold825);
         typeLabel.setLocation(8, 8);
-        typeLabel.setSize(34, 13);
-        typeLabel.setTabIndex(2);
+        //typeLabel.setSize(34, 13);
         typeLabel.setText("Type:");
 
-        typeLabelValue.setLocation(80, 8);
-        typeLabelValue.setSize(100, 13);
-        typeLabelValue.setTabIndex(4);
+        typeLabelValue.setAutoSize(true);
+        typeLabelValue.setLocation(90, 8);
+        typeLabelValue.setSize(120, 13);
         typeLabelValue.setText(ship.getName());
 
         equipTitleLabelValue.setFont(FontCollection.bold825);
         equipTitleLabelValue.setLocation(8, 34);
-        equipTitleLabelValue.setSize(64, 176);
-        equipTitleLabelValue.setTabIndex(43);
+        equipTitleLabelValue.setSize(84, 176);
         //equipTitleLabelValue.setText("Hull:\r\n\r\nEquipment:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nUnfilled:");
 
-        equipLabelValue.setLocation(80, 34);
-        equipLabelValue.setSize(120, 176);
-        equipLabelValue.setTabIndex(44);
+        equipLabelValue.setLocation(90, 34);
+        equipLabelValue.setSize(140, 176);
         /*equipLabelValue
                 .setText("Hardened\r\n\r\n1 Military Laser\r\n1 Morgan\'s Laser\r\n1 Energy Shield\r\n1 Reflective Shi"
                         + "eld\r\n1 Lightning Shield\r\nNavigating System\r\nAuto-Repair System\r\n10 Extra Cargo Bays\r\nAn Escape Pod\r\n"
                         + "\r\n1 weapon slot\r\n1 gadget slot");*/
 
-        specialCargoPanel.setLocation(192, 8);
-        specialCargoPanel.setSize(200, 204);
-        specialCargoPanel.setTabIndex(64);
+        specialCargoPanel.setLocation(242, 8);
+        specialCargoPanel.setSize(210, 204);
         specialCargoPanel.setTabStop(false);
         specialCargoPanel.setText("Special Cargo");
 
@@ -115,7 +83,6 @@ public class FormViewShip extends SpaceTraderForm {
 
         specialCargoLabelValue.setLocation(8, 16);
         specialCargoLabelValue.setSize(190, 176);
-        specialCargoLabelValue.setTabIndex(0);
         specialCargoLabelValue.setText("No special items.");
 
         closeButton.setDialogResult(DialogResult.CANCEL);
@@ -183,7 +150,7 @@ public class FormViewShip extends SpaceTraderForm {
                 if (i == GadgetType.EXTRA_CARGO_BAYS.castToInt() || i == GadgetType.HIDDEN_CARGO_BAYS.castToInt()) {
                     count *= 5;
                     equipLabelValue.setText(equipLabelValue.getText()
-                            + (Functions.formatNumber(count) + Consts.Gadgets[i].getName().substring(1) + Strings.newline));
+                            + (Consts.Gadgets[i].getName().replace("5", Functions.formatNumber(count)) + Strings.newline));
                 } else {
                     equipLabelValue.setText(equipLabelValue.getText()
                             + (Functions.multiples(count, Consts.Gadgets[i].getName()) + Strings.newline));

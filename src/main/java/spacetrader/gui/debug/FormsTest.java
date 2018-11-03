@@ -51,6 +51,7 @@ public class FormsTest extends SpaceTraderForm {
     private Button formViewHighScoresButton = new Button();
     private Button formViewPersonnelButton = new Button();
     private Button formViewQuestsButton = new Button();
+    private Button formViewShipButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -82,6 +83,7 @@ public class FormsTest extends SpaceTraderForm {
         game.setQuestStatusGemulon(1);
         game.setQuestStatusJapori(1);
         game.setQuestStatusPrincess(1);
+        game.setQuestStatusSculpture(1);
         game.getCommander().setReputationScore(10);
 
 
@@ -384,8 +386,17 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formViewShipButton.setLocation(8, 138);
+        formViewShipButton.setSize(125, 22);
+        formViewShipButton.setText("FormViewShip");
+        formViewShipButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormViewShip());
+            }
+        });
+
         mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton, formViewHighScoresButton,
-                formViewPersonnelButton, formViewQuestsButton);
+                formViewPersonnelButton, formViewQuestsButton, formViewShipButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel, mainPanel2/*, boxAlert*/);
 
