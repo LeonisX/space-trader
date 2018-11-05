@@ -1,5 +1,5 @@
 group 'md.leonis.spacetrader'
-version "2.0"
+version "2.00-RC1"
 
 apply plugin: 'java'
 apply plugin: 'idea'

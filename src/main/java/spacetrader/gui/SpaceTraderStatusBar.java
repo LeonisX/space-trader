@@ -39,17 +39,17 @@ class SpaceTraderStatusBar extends StatusBar {
             }
         };
 
-        statusBarPanelCash.setMinWidth(112);
+        statusBarPanelCash.setMinWidth(130);
         //statusBarPanelCash.setText(" Cash: 88,888,888 cr.");
-        statusBarPanelCash.setWidth(112);
+        statusBarPanelCash.setWidth(130);
 
-        statusBarPanelBays.setMinWidth(80);
+        statusBarPanelBays.setMinWidth(100);
         //statusBarPanelBays.setText(" Bays: 88/88");
-        statusBarPanelBays.setWidth(80);
+        statusBarPanelBays.setWidth(100);
 
-        statusBarPanelCosts.setMinWidth(120);
+        statusBarPanelCosts.setMinWidth(140);
         //statusBarPanelCosts.setText(" Current Costs: 888 cr.");
-        statusBarPanelCosts.setWidth(120);
+        statusBarPanelCosts.setWidth(140);
 
         panels.addAll(statusBarPanelCash, statusBarPanelBays, statusBarPanelCosts, statusBarPanelExtra);
         
