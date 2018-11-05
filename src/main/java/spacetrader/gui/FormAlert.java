@@ -480,6 +480,7 @@ public class FormAlert extends SpaceTraderForm {
             case NewGameConfirm:
                 return new FormAlert(AlertsNewGameConfirmTitle, AlertsNewGameConfirmMessage, AlertsYes, DialogResult.YES,
                         AlertsNo, DialogResult.NO, args);
+                //TODO unused???
             case NewGameMoreSkillPoints:
                 return new FormAlert(AlertsNewGameMoreSkillPointsTitle, AlertsNewGameMoreSkillPointsMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
