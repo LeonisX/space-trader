@@ -27,13 +27,22 @@ Space Trader (Космический Торговец) написан на Java 
 
 [Скачать Java с сайта Oracle](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
+Дальше надо скачать эти два файла: 
+
+* `space-trader.bat`
+* `space-trader-%текущаяВерсия%.jar`
+
+и запустить первый из них.
+
 ### Linux
 
 Если у вас установлен Linux, то подразумевается, что вы более-менее опытный пользователь и в состоянии самостоятельно установить себе Java.
 
 Чтобы запустить игру, надо выполнить команду:
 
-`java -jar space-trader-2.00-RC1.jar`
+`java -jar space-trader-%текущаяВерсия%.jar`
+
+Если у вас установлен `wine`, то можно спокойно запускать `space-trader.bat`.
 
 ## Другое
 

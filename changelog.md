@@ -3,10 +3,11 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
-06.11.2018. v2.2.1
+06.11.2018. v2.3.1-RC1
 
 * Upgrade Gradle to 4.10.2 version
 * Show game version from Gradle in FormAbout
+* Automatic prepare BAT file and copy JAR file to root
 * Solve compilation warnings
 
 05.11.2018. v2.00-RC1

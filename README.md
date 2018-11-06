@@ -39,13 +39,22 @@ If you do not plan to write programs in Java, it will be sufficient to install t
 
 [Download Java from Oracle site](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
+Next you need to download these two files:
+
+* `space-trader.bat`
+* `space-trader-%текущаяВерсия%.jar`
+
+and run the first one.
+
 ### Linux
 
 If you have Linux installed, it means that you are a more or less experienced user and are able to install Java yourself.
 
 To start the game, you need to run the command:
 
-`java -jar space-trader-2.00-RC1.jar`
+`java -jar space-trader-%currentVersion%.jar`
+
+If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Other
 

@@ -1,5 +1,5 @@
 group 'md.leonis.spacetrader'
-version "2.2.1"
+version "2.3.1-RC1"
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -16,16 +16,35 @@ jar {
     }
 }
 
-task createProperties(dependsOn: processResources) {
+task release(dependsOn: jar) {
     doLast {
         new File("$buildDir/resources/main/version.properties").withWriter { w ->
             Properties p = new Properties()
             p['version'] = project.version.toString()
             p.store w, null
         }
+
+        def jarFileName = "space-trader-${version}.jar"
+        def batFileName = "space-trader.bat"
+
+        new File("$projectDir/${batFileName}").text = "java -jar ${jarFileName}"
+
+        delete fileTree(projectDir) {
+            include '*.jar'
+        }
+
+        println "chmod 755 add ${batFileName}".execute().text
+
+        copy {
+            from "build/libs"
+            into projectDir
+        }
+
+        println "git add ${batFileName}".execute().text
+        println "git add ${jarFileName}".execute().text
     }
 }
 
-classes {
-    dependsOn createProperties
+jar.doLast {
+    release.execute()
 }
