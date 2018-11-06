@@ -821,7 +821,7 @@ public class FormShipyard extends SpaceTraderForm {
             }
         }
         userTemplates.sort();
-        templateComboBox.getItems().addAll(userTemplates.toArray(new ShipTemplate[0]));
+        templateComboBox.getItems().addAll(userTemplates);
 
         templateComboBox.setSelectedIndex(0);
     }
