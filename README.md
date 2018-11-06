@@ -1,5 +1,7 @@
 # Space Trader for Java 8
 
+[abbreviated version of this documentation in Russian](README_RU.md)
+
 Fully reworked version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal
 
 The project is a Java port of the [Space Trader for Windows](https://sourceforge.net/projects/spacetraderwin) from [Jay French](http://web.archive.org/web/20040212092717/http://www.frenchfryz.com:80/jay/spacetrader/home.php), which is a C# port of the [original](http://ticc.uvt.nl/~pspronck/spacetrader/STFrames.html) Palm version from Peter Spronk. [New site](https://www.spronck.net/spacetrader/).
@@ -25,11 +27,7 @@ Your ultimate goal as a space trader is to amass enough money so you can buy you
 At first, the main point is to stay alive, and earn some money by trading. The GGF has a space port in every solar system, where goods locally produced are sold, and goods the locals need are bought. A good trader will judge, based on the systems tech level, government type, resources and current situation, which goods are cheap and which are expensive in a system, and will adapt his trading strategy accordingly.
 Later on, when you are better equipped, you might try to become a bounty hunter alongside your trading job. If you feel so inclined, you might also become a pirate and rob other traders of their goods. Being a pirate can be very profitable, but remember that the police will try to hunt you down, and that, as a pirate, you cannot sell goods out in the open (even those that you bought legally). You need an intermediary to sell your goods, and this sleazy person will take 10% of everything your cargo sells for. This makes the return to an honest life all the more difficult. 
 
-
-
 ## How to start
-
-[abbreviated version of this documentation in Russian](README_RU.md)
 
 The game is written in Java 8. While it is still in active development, and I don't have time to make a friendly installer for it.
 
