@@ -74,6 +74,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * FormEncounter: need to carefully refactor all phrases 
 * Copy all comments to language files
 * Full Russian description
+* Installers: http://www.jrsoftware.org/isdl.php
+* Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
 
 ### Minor tasks
 
