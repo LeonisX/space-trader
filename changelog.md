@@ -3,6 +3,12 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+06.11.2018. v2.2.1
+
+* Upgrade Gradle to 4.10.2 version
+* Show game version from Gradle in FormAbout
+* Solve compilation warnings
+
 05.11.2018. v2.00-RC1
 
 New features:

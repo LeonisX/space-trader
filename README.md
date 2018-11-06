@@ -14,7 +14,7 @@ Useful Source Repositories:
 
 [Other implementations on GitHub](https://github.com/search?q=space+trader)
 
-[Changelog](chandelog.md)
+[Changelog](changelog.md)
 
 ## Introduction
 
@@ -61,7 +61,6 @@ To start the game, you need to run the command:
 * Special object for save states
 * SaveFileDialog - full localization
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
-* FormAbout - show version (from Gradle) in titleLabel
 * FormCargoBuy/Sell: separate phrases for each case.
 * FormEncounter: need to carefully refactor all phrases 
 * Copy all comments to language files

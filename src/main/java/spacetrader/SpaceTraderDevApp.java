@@ -30,6 +30,7 @@ public class SpaceTraderDevApp {
             throw new RuntimeException(e);
         }
 
+        GlobalAssets.loadVersions();
         GlobalAssets.loadStrings("english");
         //GlobalAssets.loadDimensions("0768");
         GlobalAssets.initializeImages();

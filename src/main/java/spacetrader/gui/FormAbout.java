@@ -1,9 +1,11 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.game.GlobalAssets;
 import spacetrader.util.ReflectionUtils;
 
 public class FormAbout extends WinformForm {
@@ -11,6 +13,7 @@ public class FormAbout extends WinformForm {
     private PictureBox logoPicture = new PictureBox();
     private Label titleLabel = new Label();
     private Label aboutLabel = new Label();
+    private Label versionLabelValue = new Label();
     private Button closeButton = new Button();
 
     public FormAbout() {
@@ -38,6 +41,12 @@ public class FormAbout extends WinformForm {
         //titleLabel.setSize(187, 13);
         titleLabel.setText("Space Trader for Java 8");
 
+        versionLabelValue.setAutoSize(true);
+        versionLabelValue.setControlBinding(ControlBinding.RIGHT);
+        versionLabelValue.setFont(FontCollection.bold825);
+        versionLabelValue.setLocation(getWidth() - 10, 10);
+        versionLabelValue.setText(GlobalAssets.getVersions().getString("version"));
+
         aboutLabel.setLocation(172, 32);
         aboutLabel.setSize(410, 170);
         aboutLabel.setText("Copyright © 2018 by Stavila Leonid aka Leonis<BR>Site: http://tv-games.ru; e-mail: tv-games@mail.ru<BR><BR>" +
@@ -59,7 +68,7 @@ public class FormAbout extends WinformForm {
         closeButton.setSize(32, 32);
         closeButton.setTabStop(false);
 
-        controls.addAll(logoPicture, aboutLabel, titleLabel, closeButton);
+        controls.addAll(logoPicture, aboutLabel, titleLabel, versionLabelValue, closeButton);
 
         performLayout();
 

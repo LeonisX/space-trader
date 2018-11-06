@@ -1,5 +1,5 @@
 group 'md.leonis.spacetrader'
-version "2.00-RC1"
+version "2.2.1"
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -8,14 +8,24 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.3'
-}
-
 jar {
     manifest {
         attributes(
                 'Main-Class': 'spacetrader.SpaceTraderApp'
         )
     }
+}
+
+task createProperties(dependsOn: processResources) {
+    doLast {
+        new File("$buildDir/resources/main/version.properties").withWriter { w ->
+            Properties p = new Properties()
+            p['version'] = project.version.toString()
+            p.store w, null
+        }
+    }
+}
+
+classes {
+    dependsOn createProperties
 }

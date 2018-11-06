@@ -17,6 +17,7 @@ public class GlobalAssets {
 
     private static final String STRINGS_TEMPLATE = "strings/%s.properties";
     private static final String DIMENSIONS_TEMPLATE = "dimensions/%s.properties";
+    private static final String VERSION_FILE = "version.properties";
 
     private static ImageList ilChartImages;
     private static ImageList ilDirectionImages;
@@ -25,6 +26,7 @@ public class GlobalAssets {
 
     private static StringsMap strings = new StringsMap();
     private static ValuesMap dimensions = new ValuesMap();
+    private static StringsMap versions = new StringsMap();
 
     public static void initializeImages() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
@@ -61,12 +63,20 @@ public class GlobalAssets {
         dimensions = PropertiesLoader.getValuesMap(String.format(DIMENSIONS_TEMPLATE, fileName));
     }
 
+    public static void loadVersions() {
+        versions = PropertiesLoader.getStringsMap(VERSION_FILE);
+    }
+
     public static StringsMap getStrings() {
         return strings;
     }
 
     public static ValuesMap getDimensions() {
         return dimensions;
+    }
+
+    public static StringsMap getVersions() {
+        return versions;
     }
 
     public static ImageList getChartImages() {
