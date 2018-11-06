@@ -1,7 +1,9 @@
-#Space Trader for Java 8
+# Space Trader for Java 8
 by Stavila Leonid aka Leonis
 
-v2.00-RC1
+[The history of commits](https://github.com/LeonisX/space-trader/commits/master)
+
+05.11.2018. v2.00-RC1
 
 New features:
 
@@ -18,8 +20,10 @@ Bug fixes:
 * High Score is working now
 * Many other minor bug fixes
 
+Started at 13.10.2018
 
-#Space Trader for Java
+
+# Space Trader for Java
 by Aviv Eyal (09.10.2008-03.12.2010)
 
 13.03.2010 1.12
@@ -57,7 +61,7 @@ Also: I know of are two bugs in the game; If you happen to run across any more, 
 The first release is out - Version 0.9. Play today!
 
 
-#Space Trader for Windows
+# Space Trader for Windows
 by Jay French aka JAF (08.12.2003-14.08.2008)
 
 14.08.2008
@@ -121,20 +125,9 @@ by Jay French aka JAF (08.12.2003-14.08.2008)
 
 And of course a huge "Thanks!" to Pieter Spronk for creating such a great game in the first place. 
 
-TODO:
-* in Form_Alert.cs : move the strings to a resource
-* make shipyard news advertisements
-* rework escape pod sequence
-* create images for trade goods
-* passenger modules
-* courier quests
-* more very rare encounters
-* fix GetValueFromHash calls
     
-    
-#Space Trader (Original for Palm OS)
-Copyright (C) 2000, 2001, 2002, 2005 by Pieter Spronck.
-
+# Space Trader (Original version for Palm OS)
+by Pieter Spronck (25.09.2000-08.12.2005)
 
 Version 1.2.2 (December 8, 2005)
 * Jim Anderson sent me a fix for the absent

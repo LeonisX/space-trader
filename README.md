@@ -1,24 +1,37 @@
 # Space Trader for Java 8
 
-Fully reworked version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal (09.10.2008-03.12.2010)
+Fully reworked version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal
 
-The project is a Java port of the [Space Trader for Windows](https://sourceforge.net/projects/spacetraderwin) from [Jay French](http://web.archive.org/web/20040212092717/http://www.frenchfryz.com:80/jay/spacetrader/home.php) (08.12.2003-14.08.2008), which is a C# port of the [original](http://ticc.uvt.nl/~pspronck/spacetrader/STFrames.html) Palm version from Peter Spronk (2000-2002, 2005). [New site](https://www.spronck.net/spacetrader/).
+The project is a Java port of the [Space Trader for Windows](https://sourceforge.net/projects/spacetraderwin) from [Jay French](http://web.archive.org/web/20040212092717/http://www.frenchfryz.com:80/jay/spacetrader/home.php), which is a C# port of the [original](http://ticc.uvt.nl/~pspronck/spacetrader/STFrames.html) Palm version from Peter Spronk. [New site](https://www.spronck.net/spacetrader/).
 
 Useful Source Repositories:
 
-* https://github.com/videogamepreservation/spacetrader
-* https://github.com/SpaceTraderGame/SpaceTrader-Windows
-* https://bitbucket.org/brucelet/space-trader/src
+* [Space Trader from Peter Spronk on GitHub](https://github.com/videogamepreservation/spacetrader)
+* [Space Trader from Jay French on GitHub](https://github.com/SpaceTraderGame/SpaceTrader-Windows)
+* [Android version of Space Trader from Russel Wolf aka brucelet](https://bitbucket.org/brucelet/space-trader/src)
 
 [Other implementations on GitHub](https://github.com/search?q=space+trader)
 
 [Changelog](chandelog.md)
 
+## Introduction
+
+You grew up as a member of a small colony on a planet in a solar system that is part of the Great Galactic Federation (GGF). You worked on your family's farm, dreaming about a life as an intergalactic trader. You imagined yourself buying goods on one system, selling them on another making huge profits, battling pirates, finding opportunities and perhaps, one day, buy your own moon to which you could retire to live a wealthy and peaceful life for the rest of your days.
+After your parents died, as their only child you inherited the farm. Since it would be too difficult to run it all on your own, you saw your chance clear and sold it to a neighbour. With the earnings, you bought a second-hand space ship of the Gnat type, equipped it with one pulse laser, and went to the local GGF space port to buy trade goods with your last 1000 credits. This is where your life as a space trader begins.
+
+## Your Job as a Space Trader
+
+Your ultimate goal as a space trader is to amass enough money so you can buy your own moon, then claim that moon to retire to it. You need a lot of money for that, and will encounter many dangers, so along the way you might want to buy a better ship and better equipment.
+At first, the main point is to stay alive, and earn some money by trading. The GGF has a space port in every solar system, where goods locally produced are sold, and goods the locals need are bought. A good trader will judge, based on the systems tech level, government type, resources and current situation, which goods are cheap and which are expensive in a system, and will adapt his trading strategy accordingly.
+Later on, when you are better equipped, you might try to become a bounty hunter alongside your trading job. If you feel so inclined, you might also become a pirate and rob other traders of their goods. Being a pirate can be very profitable, but remember that the police will try to hunt you down, and that, as a pirate, you cannot sell goods out in the open (even those that you bought legally). You need an intermediary to sell your goods, and this sleazy person will take 10% of everything your cargo sells for. This makes the return to an honest life all the more difficult. 
+
+
+
 ## How to start
 
 [abbreviated version of this documentation in Russian](README_RU.md)
 
-The game is written in Java 8. While it is still in active development, and I do not have time to make a friendly installer for it.
+The game is written in Java 8. While it is still in active development, and I don't have time to make a friendly installer for it.
 
 First you need to install JRE (Java Runtime Environment) or JDK. It sounds scary, but, in fact, this is just another program on your computer, a virtual machine in which the game will run.
 
@@ -26,7 +39,7 @@ First you need to install JRE (Java Runtime Environment) or JDK. It sounds scary
 
 If you do not plan to write programs in Java, it will be sufficient to install the JRE. The game was tested for Java with version 8, so if there is no acute need in the 11th version, then set yourself the 8th.
 
-https://www.oracle.com/technetwork/java/javase/downloads/index.html
+[Download Java from Oracle site](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 ### Linux
 
@@ -60,7 +73,16 @@ To start the game, you need to run the command:
 
 * Need to update font sizes. Dump all too
 
-### Feature requests
+### TODO list of Jay French
+
+* make shipyard news advertisements
+* rework escape pod sequence
+* create images for trade goods
+* passenger modules
+* courier quests
+* more very rare encounters
+
+## Feature requests
 
 * Show in Cargo planet names (target)
 * Save last selected language as default
