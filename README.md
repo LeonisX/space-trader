@@ -66,6 +66,12 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * TargetSystemPanel: расстояние + парсек
 * Declension engine
+ * http://icu-project.org/apiref/icu4j46/com/ibm/icu/text/PluralFormat.html
+ * https://gist.github.com/stuartgunter/1501385
+ * https://github.com/nespera/inflect
+ * https://github.com/atteo/evo-inflector
+ * https://docs.oracle.com/javase/tutorial/i18n/format/choiceFormat.html
+ * https://github.com/plural4j/plural4j
 * Different image sizes, font sizes (config)
 * Special object for save states
 * SaveFileDialog - full localization
