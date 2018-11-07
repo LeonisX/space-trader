@@ -8,8 +8,8 @@ import spacetrader.controls.Size;
 import spacetrader.game.enums.ShipType;
 import spacetrader.gui.SpaceTrader;
 import spacetrader.stub.PropertiesLoader;
-import spacetrader.stub.StringsMap;
-import spacetrader.stub.ValuesMap;
+import spacetrader.stub.StringsBundle;
+import spacetrader.stub.ValuesBundle;
 
 import java.awt.*;
 
@@ -24,9 +24,9 @@ public class GlobalAssets {
     private static ImageList ilEquipmentImages;
     private static ImageList ilShipImages;
 
-    private static StringsMap strings = new StringsMap();
-    private static ValuesMap dimensions = new ValuesMap();
-    private static StringsMap versions = new StringsMap();
+    private static StringsBundle strings = new StringsBundle();
+    private static ValuesBundle dimensions = new ValuesBundle();
+    private static StringsBundle versions = new StringsBundle();
 
     public static void initializeImages() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
@@ -56,26 +56,26 @@ public class GlobalAssets {
     }
 
     public static void loadStrings(String fileName) {
-        strings = PropertiesLoader.getStringsMap(String.format(STRINGS_TEMPLATE, fileName));
+        strings = PropertiesLoader.getStringsBundle(String.format(STRINGS_TEMPLATE, fileName));
     }
 
     public static void loadDimensions(String fileName) {
-        dimensions = PropertiesLoader.getValuesMap(String.format(DIMENSIONS_TEMPLATE, fileName));
+        dimensions = PropertiesLoader.getValuesBundle(String.format(DIMENSIONS_TEMPLATE, fileName));
     }
 
     public static void loadVersions() {
-        versions = PropertiesLoader.getStringsMap(VERSION_FILE);
+        versions = PropertiesLoader.getStringsBundle(VERSION_FILE);
     }
 
-    public static StringsMap getStrings() {
+    public static StringsBundle getStrings() {
         return strings;
     }
 
-    public static ValuesMap getDimensions() {
+    public static ValuesBundle getDimensions() {
         return dimensions;
     }
 
-    public static StringsMap getVersions() {
+    public static StringsBundle getVersions() {
         return versions;
     }
 

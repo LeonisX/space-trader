@@ -2,7 +2,11 @@ package spacetrader.stub;
 
 import java.util.HashMap;
 
-public class StringsMap extends HashMap<String, String> {
+/**
+ * This class resembles ResourceBundle from Java.
+ * The same set of key-value String pairs and simple methods for accessing them.
+ */
+public class StringsBundle extends HashMap<String, String> {
 
     public String getString(String key) {
         //System.out.println("getString: " + key);

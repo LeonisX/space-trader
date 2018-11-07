@@ -31,6 +31,7 @@ public class SpaceTraderDevApp {
         }
 
         GlobalAssets.loadVersions();
+        //TODO from settings
         GlobalAssets.loadStrings("english");
         //GlobalAssets.loadDimensions("0768");
         GlobalAssets.initializeImages();

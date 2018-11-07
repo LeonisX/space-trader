@@ -5,27 +5,81 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PropertiesLoader {
 
-    public static ValuesMap getValuesMap(String name) {
-        ValuesMap valuesMap = new ValuesMap();
-        getResourceAsFilteredStream(name).forEach(s -> {
-            String[] pair = s.split("=", 2);
-            valuesMap.put(pair[0], pair[1]);
-        });
-        return valuesMap;
+    private final static Pattern LEFT_TRIM_PATTERN = Pattern.compile("^\\s+");
+    private final static Pattern RIGHT_TRIM_PATTERN = Pattern.compile("\\s+$");
+
+    public static ValuesBundle getValuesBundle(String name) {
+        return getValuesBundle(name, true);
     }
 
-    public static StringsMap getStringsMap(String name) {
-        StringsMap result = new StringsMap();
+    /**
+     * Loads key=value String->Object pairs as ValuesBundle.
+     *
+     * # these comments will be removed
+     * // these comments, if they are at the string start will be removed
+     *
+     * Single line comments after key-value pair will be deleted only if trimSingleLineComments is true
+     *
+     * Example:
+     * Source: version=2.11 // the version of library
+     * Result: "version"->"2.11"
+     *
+     * @param name                   name of file with strings
+     * @param trimSingleLineComments trim single line comments at the end of strings
+     * @return Map<String, Object> as ValuesBundle
+     */
+    private static ValuesBundle getValuesBundle(String name, boolean trimSingleLineComments) {
+        ValuesBundle valuesBundle = new ValuesBundle();
         getResourceAsFilteredStream(name).forEach(s -> {
             String[] pair = s.split("=", 2);
+            if (trimSingleLineComments && pair[1].contains("//")) {
+                pair[1] = trimTrailComment(pair[1]);
+            }
+            valuesBundle.put(pair[0], pair[1]);
+        });
+        return valuesBundle;
+    }
+
+    public static StringsBundle getStringsBundle(String name) {
+        return getStringsBundle(name, true);
+    }
+
+    /**
+     * Loads key=value String pairs as StringBundle.
+     *
+     * # these comments will be removed
+     * // these comments, if they are at the string start will be removed
+     *
+     * Single line comments after key-value pair will be deleted only if trimSingleLineComments is true
+     *
+     * Example:
+     * Source: version=2.11 // the version of library
+     * Result: "version"->"2.11"
+     *
+     * @param name                   name of file with strings
+     * @param trimSingleLineComments trim single line comments at the end of strings
+     * @return Map<String, String> as StringBundle
+     */
+    private static StringsBundle getStringsBundle(String name, boolean trimSingleLineComments) {
+        StringsBundle result = new StringsBundle();
+        getResourceAsFilteredStream(name).forEach(s -> {
+            String[] pair = s.split("=", 2);
+            if (trimSingleLineComments && pair[1].contains("//")) {
+                pair[1] = trimTrailComment(pair[1]);
+            }
             result.put(pair[0], pair[1]);
         });
         return result;
+    }
+
+    private static String trimTrailComment(String string) {
+        return RIGHT_TRIM_PATTERN.matcher(string.split("//", 2)[0]).replaceAll("");
     }
 
     public static List<String> getResourceAsFilteredList(String name) {
@@ -37,7 +91,10 @@ public class PropertiesLoader {
     }
 
     private static Stream<String> getResourceAsFilteredStream(String name) {
-        return getResourceAsStream(name).filter(s -> !s.isEmpty() && !s.startsWith("#") && s.contains("="));
+        return getResourceAsStream(name).filter(rawString -> {
+            String s = LEFT_TRIM_PATTERN.matcher(rawString).replaceAll("");
+            return !s.isEmpty() && !s.startsWith("#") && !s.startsWith("//") && s.contains("=");
+        });
     }
 
     private static Stream<String> getResourceAsStream(String name) {

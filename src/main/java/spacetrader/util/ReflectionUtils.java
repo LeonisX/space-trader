@@ -4,8 +4,8 @@ import spacetrader.controls.BaseComponent;
 import spacetrader.controls.IName;
 import spacetrader.game.GlobalAssets;
 import spacetrader.game.Strings;
-import spacetrader.stub.StringsMap;
-import spacetrader.stub.ValuesMap;
+import spacetrader.stub.StringsBundle;
+import spacetrader.stub.ValuesBundle;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -48,7 +48,7 @@ public class ReflectionUtils {
         }
     }
 
-    public static void loadStrings(StringsMap stringsMap) {
+    public static void loadStrings(StringsBundle stringsBundle) {
         Strings strings = new Strings();
         try {
             getFieldNamesAndValues(strings).entrySet().stream()
@@ -58,7 +58,7 @@ public class ReflectionUtils {
                 try {
                     Field field = (strings).getClass().getField(name);
                     if (object instanceof String) {
-                        String value = stringsMap.getString(name);
+                        String value = stringsBundle.getString(name);
                         if (value != null) {
                             field.set(strings, value);
                         }
@@ -66,7 +66,7 @@ public class ReflectionUtils {
                         String[] array = (String[]) object;
                         for (int i = 0; i < array.length; i++) {
                             String fieldName = name + "[" + i + "]";
-                            String value = stringsMap.getString(fieldName);
+                            String value = stringsBundle.getString(fieldName);
                             if (value != null) {
                                 array[i] = value;
                             }
@@ -76,7 +76,7 @@ public class ReflectionUtils {
                         for (int j = 0; j < array.length; j++) {
                             for (int i = 0; i < array[j].length; i++) {
                                 String fieldName = name + "[" + j + "]" + "[" + i + "]";
-                                String value = stringsMap.getString(fieldName);
+                                String value = stringsBundle.getString(fieldName);
                                 if (value != null) {
                                     array[j][i] = value;
                                 }
@@ -200,17 +200,17 @@ public class ReflectionUtils {
         loadControlsDimensions(component.asSwingObject(), component.getName(), GlobalAssets.getDimensions());
     }
 
-    public static void loadControlsDimensions(Component component, String prefix, ValuesMap valuesMap) {
+    public static void loadControlsDimensions(Component component, String prefix, ValuesBundle valuesBundle) {
         prefix = formatPropertyName(prefix);
         if (component.getName() != null && !component.getName().startsWith("null.")) {
             double scale = 1.0;
             //TODO delete
-            if (valuesMap.get(prefix + ".width") != null) {
-                Dimension dimension = valuesMap.getSize(prefix);
+            if (valuesBundle.get(prefix + ".width") != null) {
+                Dimension dimension = valuesBundle.getSize(prefix);
                 dimension.setSize(dimension.getWidth() * scale, dimension.getHeight() * scale);
                 component.setSize(dimension);
                 if (!(component instanceof JFrame)) {
-                    Point point = valuesMap.getLocation(prefix);
+                    Point point = valuesBundle.getLocation(prefix);
                     point.setLocation(point.getX() * scale, point.getY() * scale);
                     component.setLocation(point);
                 }
@@ -221,7 +221,7 @@ public class ReflectionUtils {
         if (component instanceof java.awt.Container) {
             for (Component child : ((java.awt.Container) component).getComponents()) {
                 String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                loadControlsDimensions(child, prefix + "." + name, valuesMap);
+                loadControlsDimensions(child, prefix + "." + name, valuesBundle);
             }
         }
     }
@@ -230,10 +230,10 @@ public class ReflectionUtils {
         loadControlsStrings(component.asSwingObject(), component.getName(), GlobalAssets.getStrings());
     }
 
-    public static void loadControlsStrings(Component component, String prefix, StringsMap stringsMap) {
+    public static void loadControlsStrings(Component component, String prefix, StringsBundle stringsBundle) {
         prefix = formatPropertyName(prefix);
-        String title = stringsMap.getTitle(prefix);
-        String text = stringsMap.getText(prefix);
+        String title = stringsBundle.getTitle(prefix);
+        String text = stringsBundle.getText(prefix);
         if (component instanceof JFrame && title != null && !title.isEmpty()) {
             ((JFrame) component).setTitle(title);
         }
@@ -262,14 +262,14 @@ public class ReflectionUtils {
         if (component instanceof JMenu) {
             for (Component child : ((JMenu) component).getMenuComponents()) {
                 String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                loadControlsStrings(child, prefix + "." + name, stringsMap);
+                loadControlsStrings(child, prefix + "." + name, stringsBundle);
             }
         }
 
         if (component instanceof java.awt.Container) {
             for (Component child : ((java.awt.Container) component).getComponents()) {
                 String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                loadControlsStrings(child, prefix + "." + name, stringsMap);
+                loadControlsStrings(child, prefix + "." + name, stringsBundle);
             }
         }
     }
