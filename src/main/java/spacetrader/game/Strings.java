@@ -412,8 +412,6 @@ public class Strings {
     public static String BankLoanStatementBorrow = "You can borrow up to ^1.";
     public static String BankLoanStatementDebt = "You have a debt of ^1.";
 
-    public static String ChartDistance = "^1 to ^2.";
-
     public static String CargoAll = "All";
     public static String CargoBuyAfford = "You can afford to buy ^1.";
     public static String CargoBuyAvailable = "The trader has ^1 for sale.";
@@ -441,6 +439,8 @@ public class Strings {
     public static String CargoTitle = "^1 ^2";
     public static String CargoUnit = "unit";
 
+    public static String ChartDistance = "^1 to ^2.";
+
     public static String CheatsVeryRareEncountersRemaining = "Remaining Very Rare Encounters";
     public static String CheatsArtifact = "Artifact";
     public static String CheatsDragonfly = "Dragonfly";
@@ -460,7 +460,6 @@ public class Strings {
     public static String CommanderAnd = "and";
     public static String CommanderAngryKingpins = "Angry kingpins:";
     public static String CommanderBountyOffered = "Bounty offered:";
-
 
     public static String DistanceUnit = "parsec";
     public static String DistanceSubunit = "click";
@@ -533,9 +532,9 @@ public class Strings {
     public static String EncounterTextPoliceSurrender = "The police hail they want you to surrender.";
     public static String EncounterTextTrader = "You are hailed with an offer to trade goods.";
 
+    public static String EquipmentFreeSlot = "FREE SLOT";
     public static String EquipmentNoneForSale = "None for sale";
     public static String EquipmentNoSlots = "No slots";
-    public static String EquipmentFreeSlot = "FREE SLOT";
 
     public static String FileFormatBad = "The file is not a Space Trader for Windows file, or is the wrong version or has been corrupted.";
     public static String FileFutureVersion = "The version of the file is greater than the current version. You should upgrade to the latest version of Space Trader for Windows.";
@@ -546,11 +545,12 @@ public class Strings {
     public static String JettisonAll = "All";
     public static String JettisonBays = "Bays: ^1";
 
+    public static String MercOnBoard = "Member of Crew (^1)";
+
     public static String Mercenaries = "mercenaries";
     public static String MercenariesForHire = "^1 available for hire.";
     public static String MercenaryFire = "Fire";
     public static String MercenaryHire = "Hire";
-    public static String MercOnBoard = "Member of Crew (^1)";
 
     public static String MoneyRateSuffix = "^1 daily";
     public static String MoneyUnit = "credit";

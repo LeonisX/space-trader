@@ -71,8 +71,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * SaveFileDialog - full localization
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
 * FormCargoBuy/Sell: separate phrases for each case.
-* FormEncounter: need to carefully refactor all phrases 
-* Copy all comments to language files
+* FormEncounter: need to carefully refactor all phrases
 * Full Russian description
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
