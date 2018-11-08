@@ -8,10 +8,9 @@ import spacetrader.stub.RegistryKey;
 import spacetrader.stub.SerializationException;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+
+import static java.util.stream.Collectors.toList;
 
 public class Functions {
 
@@ -70,13 +69,18 @@ public class Functions {
     }
 
     public static String stringVars(String toParse, List<String> vars) {
-        String parsed = toParse;
+        List<List<String>> splittedVars = vars.stream().map(s -> Arrays.stream(s.split("\\|"))
+                .map(String::trim).filter(st -> !st.isEmpty()).collect(toList())).collect(toList());
 
-        for (int i = 0; i < vars.size(); i++) {
-            parsed = parsed.replaceAll("\\^" + (i + 1), vars.get(i));
+        for (int i = splittedVars.size() - 1; i >= 0; i--) {
+
+            for (int j = splittedVars.get(i).size() - 1; j >= 0; j--) {
+                String s = String.join("", Collections.nCopies(j + 1, "\\^")) + (i + 1);
+                toParse = toParse.replaceAll(s, splittedVars.get(i).get(j));
+            }
         }
 
-        return parsed;
+        return toParse;
     }
 
     public static int getRandom(int max) {

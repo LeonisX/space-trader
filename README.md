@@ -65,37 +65,17 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## TODO
 
 * TargetSystemPanel: расстояние + парсек
-* Declension engine
- * http://icu-project.org/apiref/icu4j46/com/ibm/icu/text/PluralFormat.html
- * https://gist.github.com/stuartgunter/1501385
- * https://github.com/nespera/inflect
- * https://github.com/atteo/evo-inflector
- * https://docs.oracle.com/javase/tutorial/i18n/format/choiceFormat.html
- * https://github.com/plural4j/plural4j
 * Different image sizes, font sizes (config)
 * Special object for save states
 * SaveFileDialog - full localization
 * Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
-* FormCargoBuy/Sell: separate phrases for each case.
-* FormEncounter: need to carefully refactor all phrases
 * Full Russian description
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
 
 ### Declencions
 
-Кого? Чего?
-
-* Вы уверены, что хотите уволить ^1?
-* У вас нет свободной каюты для ^1.
-* // тут может быть название корабля, так что надо склонять в game.getEncounterShipText() 
-* Вы отключили корабль своего противника. Без системы жизнеобеспечения экипаж вынужден погрузиться в сон. Вы оповещаете Космический Корпус, они прибывают и буксируют ^1 на планету, 
-* Благодарю за ^1 ^2. Было очень приятно вести с тобой дело.                         // CargoSelling "продажу", CargoBuying "покупку"; Water, Furs
-* Вы приняли на борт ^1. Будучи на борту, ^1 всячески помогает вам, но если путешествие слишком затянется, то на помощь можно будет не рассчитывать. //Джарека, Принцессу, Уайлда; need ^1, ^2!!!!!!!
-* CargoTitle=^1 ^2                        // Купить вода
-
 TODO news :(
-
 
 ### Minor tasks
 
@@ -139,3 +119,11 @@ TODO news :(
 * FAQ, description
 * Quests engine
 * New interesting quests
+
+* Declension engine
+ * http://icu-project.org/apiref/icu4j46/com/ibm/icu/text/PluralFormat.html
+ * https://gist.github.com/stuartgunter/1501385
+ * https://github.com/nespera/inflect
+ * https://github.com/atteo/evo-inflector
+ * https://docs.oracle.com/javase/tutorial/i18n/format/choiceFormat.html
+ * https://github.com/plural4j/plural4j
