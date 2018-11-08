@@ -93,12 +93,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Благодарю за ^1 ^2. Было очень приятно вести с тобой дело.                         // CargoSelling "продажу", CargoBuying "покупку"; Water, Furs
 * Вы приняли на борт ^1. Будучи на борту, ^1 всячески помогает вам, но если путешествие слишком затянется, то на помощь можно будет не рассчитывать. //Джарека, Принцессу, Уайлда; need ^1, ^2!!!!!!!
 * CargoTitle=^1 ^2                        // Купить вода
-# EncounterShipCaptain=Капитан #EncounterShipMantis=корабль пришельцев #EncounterShipPirate=пиратский корабль #EncounterShipPolice=полицейский корабль #EncounterShipTrader=корабль торговца Комар, Блоха
-EncounterActionOppChased=Вы догнали ^1.
-EncounterActionOppHit=Вы попали в ^1.
-EncounterActionOppMissed=Вы не попали в ^1.
 
-TODO: EncounterText
+TODO news :(
 
 
 ### Minor tasks

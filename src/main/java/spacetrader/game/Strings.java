@@ -497,19 +497,20 @@ public class Strings {
     public static String EncounterPoliceSurrenderReactor = "destroy the reactor";
     public static String EncounterPoliceSurrenderSculpt = "confiscate the sculpture";
     public static String EncounterPoliceSurrenderWild = "arrest Wild, too";
-    public static String EncounterPretextAlien = "an alien";
-    public static String EncounterPretextBottle = "a floating";
-    public static String EncounterPretextCaptainAhab = "the famous Captain Ahab in a";
-    public static String EncounterPretextCaptainConrad = "the famous Captain Conrad in a";
-    public static String EncounterPretextCaptainHuie = "the famous Captain Huie in a";
-    public static String EncounterPretextMarie = "a drifting";
-    public static String EncounterPretextMariePolice = "the Customs Police in a";
-    public static String EncounterPretextPirate = "a pirate";
-    public static String EncounterPretextPolice = "a police";
-    public static String EncounterPretextScorpion = "the kidnappers in a";
-    public static String EncounterPretextSpaceMonster = "a horrifying";
-    public static String EncounterPretextStolen = "a stolen";
-    public static String EncounterPretextTrader = "a trader";
+    public static String EncounterPretextAlien = "an alien ^1";
+    public static String EncounterPretextBottle = "a floating ^1";
+    public static String EncounterPretextCaptainAhab = "the famous Captain Ahab in a ^1";
+    public static String EncounterPretextCaptainConrad = "the famous Captain Conrad in a ^1";
+    public static String EncounterPretextCaptainHuie = "the famous Captain Huie in a ^1";
+    public static String EncounterPretextMarie = "a drifting ^1";
+    //TODO
+    public static String EncounterPretextMariePolice = "the Customs Police in a ^1";
+    public static String EncounterPretextPirate = "a pirate ^1";
+    public static String EncounterPretextPolice = "a police ^1";
+    public static String EncounterPretextScorpion = "the kidnappers in a ^1";
+    public static String EncounterPretextSpaceMonster = "a horrifying ^1";
+    public static String EncounterPretextStolen = "a stolen ^1";
+    public static String EncounterPretextTrader = "a trader ^1";
     public static String EncounterPrincessRescued = newline + newline
             + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\"";
     public static String EncounterShieldStrength = "Shields at ^1%";
@@ -519,7 +520,7 @@ public class Strings {
     public static String EncounterShipPirate = "pirate ship";
     public static String EncounterShipPolice = "police ship";
     public static String EncounterShipTrader = "trader ship";
-    public static String EncounterText = "At ^1 from ^2 you encounter ^3 ^4.";
+    public static String EncounterText = "At ^1 from ^2 you encounter ^3.";
     public static String EncounterTextBottle = "It appears to be a rare bottle of Captain Marmoset's Skill Tonic!";
     public static String EncounterTextFamousCaptain = "The Captain requests a brief meeting with you.";
     public static String EncounterTextMarieCeleste = "The Marie Celeste appears to be completely abandoned.";
@@ -540,7 +541,7 @@ public class Strings {
     public static String FileFutureVersion = "The version of the file is greater than the current version. You should upgrade to the latest version of Space Trader for Windows.";
 
     public static String HighScoreEmpty = "Empty";
-    public static String HighScoreStatus = "^1 on ^2 day, worth ^3 on ^4 level.";
+    public static String HighScoreStatus = "^1 on ^2 day, worth ^3 on ^4 level.";   //Was killed
 
     public static String JettisonAll = "All";
     public static String JettisonBays = "Bays: ^1";

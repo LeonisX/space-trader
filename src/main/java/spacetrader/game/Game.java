@@ -3690,9 +3690,10 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 break;
         }
 
+        String internal = Functions.stringVars(encounterPretext, getOpponent().getName().toLowerCase());
+
         return Functions.stringVars(Strings.EncounterText, new String[]{
-                Functions.multiples(getClicks(), Strings.DistanceSubunit), getWarpSystem().getName(), encounterPretext,
-                getOpponent().getName().toLowerCase()});
+                Functions.multiples(getClicks(), Strings.DistanceSubunit), getWarpSystem().getName(), internal});
     }
 
     public int getInsuranceCosts() {
