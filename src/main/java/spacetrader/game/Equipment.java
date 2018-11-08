@@ -24,6 +24,7 @@ import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.TechLevel;
 import spacetrader.guifacade.GuiEngine;
 import spacetrader.game.enums.EquipmentSubType;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 
 public abstract class Equipment extends STSerializableObject implements Cloneable {
@@ -65,7 +66,7 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
 
     @Override
     public String toString() {
-        return getName();
+        return Functions.singular(getName());
     }
 
     public abstract boolean isTypeEquals(Object type);

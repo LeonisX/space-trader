@@ -29,6 +29,7 @@ import spacetrader.controls.Graphics;
 import spacetrader.controls.Image;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiEngine;
+import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 
 public class ShipSpec extends STSerializableObject {
@@ -333,7 +334,7 @@ public class ShipSpec extends STSerializableObject {
     }
 
     public String getName() {
-        return Strings.ShipNames[getType().castToInt()];
+        return Functions.singular(Strings.ShipNames[getType().castToInt()]);
     }
 
     int getOccurrence() {

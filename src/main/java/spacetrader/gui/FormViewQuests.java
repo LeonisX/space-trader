@@ -114,7 +114,7 @@ public class FormViewQuests extends SpaceTraderForm {
                 quests.add(Strings.QuestGemulonInformTomorrow);
             } else {
                 quests.add(Functions.stringVars(Strings.QuestGemulonInformDays,
-                        Functions.multiples(SpecialEvent.STATUS_GEMULON_DATE
+                        Functions.plural(SpecialEvent.STATUS_GEMULON_DATE
                                 - game.getQuestStatusGemulon(), Strings.TimeUnit)));
             }
         } else if (game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_FUEL) {
@@ -127,7 +127,7 @@ public class FormViewQuests extends SpaceTraderForm {
                 quests.add(Strings.QuestExperimentInformTomorrow);
             } else {
                 quests.add(Functions.stringVars(
-                        Strings.QuestExperimentInformDays, Functions.multiples(
+                        Strings.QuestExperimentInformDays, Functions.plural(
                                 SpecialEvent.STATUS_EXPERIMENT_DATE
                                         - game.getQuestStatusExperiment(), Strings.TimeUnit)));
             }

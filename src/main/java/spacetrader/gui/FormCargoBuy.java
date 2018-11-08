@@ -30,7 +30,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         numericUpDown.setMaximum(maxAmount);
         numericUpDown.setMinimum(Math.min(maxAmount, 1));
         numericUpDown.setValue(numericUpDown.getMinimum());
-        setText(stringVars(Strings.CargoTitle, Strings.CargoBuyOps[op.castToInt()], Consts.TradeItems[item].getName()));
+        setText(stringVars(Strings.CargoTitle, capitalize(Strings.CargoBuyOps[op.castToInt()]), Consts.TradeItems[item].getName()));
         questionLabel.setText(stringVars(Strings.CargoBuyQuestion, Strings.CargoBuyOps[op.castToInt()].toLowerCase()));
 
         switch (op) {
@@ -48,9 +48,9 @@ public class FormCargoBuy extends SpaceTraderForm {
                 }
                 statementLabelValue.setText(stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].getName(),
                         formatMoney(game.getPriceCargoBuy()[item])));
-                availableLabelValue.setText(stringVars(Strings.CargoBuyAvailable, Functions.multiples(game.getOpponent()
+                availableLabelValue.setText(stringVars(Strings.CargoBuyAvailable, Functions.plural(game.getOpponent()
                         .getCargo()[item], Strings.CargoUnit)));
-                affordLabelValue.setText(stringVars(Strings.CargoBuyAfford, Functions.multiples(afford,
+                affordLabelValue.setText(stringVars(Strings.CargoBuyAfford, Functions.plural(afford,
                         Strings.CargoUnit)));
 
                 availableLabelValue.setVisible(true);

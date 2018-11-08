@@ -58,7 +58,8 @@ public class FormsTest extends SpaceTraderForm {
     }
 
     public FormsTest() {
-        GlobalAssets.loadStrings("english");
+        GlobalAssets.setLanguage(Language.ENGLISH);
+        GlobalAssets.loadStrings();
         GlobalAssets.initializeImages();
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
 
@@ -405,10 +406,8 @@ public class FormsTest extends SpaceTraderForm {
 
     //TODO unify?
     private void languageItemChanged() {
-
-        String fileName = ((String) languagesComboBox.getSelectedItem()).toLowerCase();
-
-        GlobalAssets.loadStrings(fileName);
+        GlobalAssets.setLanguage(Language.values()[languagesComboBox.getSelectedIndex()]);
+        GlobalAssets.loadStrings();
 
         ReflectionUtils.loadControlsStrings(asSwingObject(), getName(), GlobalAssets.getStrings());
         ReflectionUtils.loadStrings(GlobalAssets.getStrings());

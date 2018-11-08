@@ -115,7 +115,7 @@ public class FormViewShip extends SpaceTraderForm {
                 equipTitleLabelValue.setText(equipTitleLabelValue.getText()
                         + (equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline));
                 equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.multiples(count, Consts.Weapons[i].getName()) + Strings.newline));
+                        + (Functions.plural(count, Consts.Weapons[i].getName()) + Strings.newline));
                 equipPrinted = true;
             }
         }
@@ -131,7 +131,7 @@ public class FormViewShip extends SpaceTraderForm {
                 equipTitleLabelValue.setText(equipTitleLabelValue.getText()
                         + (equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline));
                 equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.multiples(count, Consts.Shields[i].getName()) + Strings.newline));
+                        + (Functions.plural(count, Consts.Shields[i].getName()) + Strings.newline));
                 equipPrinted = true;
             }
         }
@@ -150,10 +150,10 @@ public class FormViewShip extends SpaceTraderForm {
                 if (i == GadgetType.EXTRA_CARGO_BAYS.castToInt() || i == GadgetType.HIDDEN_CARGO_BAYS.castToInt()) {
                     count *= 5;
                     equipLabelValue.setText(equipLabelValue.getText()
-                            + (Consts.Gadgets[i].getName().replace("5", Functions.formatNumber(count)) + Strings.newline));
+                            + (Functions.singular(Consts.Gadgets[i].getName()).replace("5", Functions.formatNumber(count)) + Strings.newline));
                 } else {
                     equipLabelValue.setText(equipLabelValue.getText()
-                            + (Functions.multiples(count, Consts.Gadgets[i].getName()) + Strings.newline));
+                            + (Functions.plural(count, Consts.Gadgets[i].getName()) + Strings.newline));
                 }
 
                 equipPrinted = true;
@@ -173,17 +173,17 @@ public class FormViewShip extends SpaceTraderForm {
 
             if (ship.getFreeWeaponSlots() > 0) {
                 equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.multiples(ship.getFreeWeaponSlots(), Strings.ShipWeaponSlot) + Strings.newline));
+                        + (Functions.plural(ship.getFreeWeaponSlots(), Strings.ShipWeaponSlot) + Strings.newline));
             }
 
             if (ship.getFreeShieldSlots() > 0) {
                 equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.multiples(ship.getFreeShieldSlots(), Strings.ShipShiedSlot) + Strings.newline));
+                        + (Functions.plural(ship.getFreeShieldSlots(), Strings.ShipShiedSlot) + Strings.newline));
             }
 
             if (ship.getFreeGadgetSlots() > 0) {
                 equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.multiples(ship.getFreeGadgetSlots(), Strings.ShipGadgetSlot) + Strings.newline));
+                        + (Functions.plural(ship.getFreeGadgetSlots(), Strings.ShipGadgetSlot) + Strings.newline));
             }
         }
     }
@@ -215,7 +215,7 @@ public class FormViewShip extends SpaceTraderForm {
 
         if (ship.isReactorOnBoard()) {
             specialCargo.add(Strings.SpecialCargoReactor);
-            specialCargo.add(Functions.multiples(10 - ((game.getQuestStatusReactor() - 1) / 2), Strings.ShipBay)
+            specialCargo.add(Functions.plural(10 - ((game.getQuestStatusReactor() - 1) / 2), Strings.ShipBay)
                     + " " + Strings.SpecialCargoReactorBays);
         }
 

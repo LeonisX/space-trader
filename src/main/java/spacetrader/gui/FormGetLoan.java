@@ -8,7 +8,7 @@ import spacetrader.util.ReflectionUtils;
 
 import java.util.Arrays;
 
-import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.plural;
 import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.BankLoanStatementBorrow;
 import static spacetrader.game.Strings.MoneyUnit;
@@ -27,7 +27,7 @@ public class FormGetLoan extends SpaceTraderForm {
 
         numAmount.setMaximum(max);
         numAmount.setValue(numAmount.getMinimum());
-        statementLabelValue.setText(stringVars(BankLoanStatementBorrow, multiples(max, MoneyUnit)));
+        statementLabelValue.setText(stringVars(BankLoanStatementBorrow, plural(max, MoneyUnit)));
     }
 
     private void initializeComponent() {

@@ -2,7 +2,7 @@ package spacetrader.gui;
 
 import static spacetrader.util.Functions.formatMoney;
 import static spacetrader.util.Functions.formatNumber;
-import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.plural;
 import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.DistanceUnit;
 import static spacetrader.game.Strings.DockFuelCost;
@@ -134,7 +134,7 @@ class DockPanel extends Panel {
         } else {
             Ship ship = commander.getShip();
 
-            fuelStatusLabel.setText(stringVars(DockFuelStatus, multiples(ship.getFuel(), DistanceUnit)));
+            fuelStatusLabel.setText(stringVars(DockFuelStatus, plural(ship.getFuel(), DistanceUnit)));
 
             int tanksEmpty = ship.getFuelTanks() - ship.getFuel();
             fuelCostLabel.setText(tanksEmpty > 0

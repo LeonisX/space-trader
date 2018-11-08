@@ -9,6 +9,7 @@ import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.Strings;
 import spacetrader.guifacade.Facaded;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.Arrays;
@@ -211,11 +212,11 @@ public class FormJettison extends SpaceTraderForm {
         //commodityLabel6.setSize(50, 13);
         //commodityLabel6.setText("Medicine");
 
-        commodityLabel5.setLocation(8, 130);
+        commodityLabel5.setLocation(8, 126);
         //commodityLabel5.setSize(49, 13);
         //commodityLabel5.setText("Firearms");
 
-        commodityLabel4.setLocation(8, 102);
+        commodityLabel4.setLocation(8, 104);
         //commodityLabel4.setSize(41, 13);
         //commodityLabel4.setText("Games");
 
@@ -230,7 +231,7 @@ public class FormJettison extends SpaceTraderForm {
         for (int i = 0; i < Strings.TradeItemNames.length; i++) {
             commoditiesArray[i].setAutoSize(true);
             //commoditiesArray[i].setTabIndex(142 + i);
-            commoditiesArray[i].setText(Strings.TradeItemNames[i]);
+            commoditiesArray[i].setText(Functions.singular(Strings.TradeItemNames[i]));
         }
 
         baysLabelValue.setAutoSize(true);

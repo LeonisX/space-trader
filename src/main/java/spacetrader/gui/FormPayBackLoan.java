@@ -1,6 +1,6 @@
 package spacetrader.gui;
 
-import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.plural;
 import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.BankLoanStatementDebt;
 import static spacetrader.game.Strings.MoneyUnit;
@@ -32,7 +32,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         numAmount.setMaximum(max);
         numAmount.setMinimum(Math.min(commander.getDebt(), 1));
         numAmount.setValue(numAmount.getMinimum());
-        statementLabelValue.setText(stringVars(BankLoanStatementDebt, multiples(commander.getDebt(), MoneyUnit)));
+        statementLabelValue.setText(stringVars(BankLoanStatementDebt, plural(commander.getDebt(), MoneyUnit)));
     }
 
     private void initializeComponent() {

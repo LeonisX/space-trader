@@ -8,6 +8,7 @@ import spacetrader.controls.enums.Shortcut;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
+import spacetrader.game.enums.Language;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
@@ -16,6 +17,8 @@ import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import static spacetrader.controls.MenuItem.separator;
+import static spacetrader.game.enums.Language.ENGLISH;
+import static spacetrader.game.enums.Language.RUSSIAN;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
 
@@ -313,7 +316,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         englishMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                languageMenuItemClick(sender);
+                languageMenuItemClick(ENGLISH);
             }
         });
 
@@ -321,7 +324,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         russianMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                languageMenuItemClick(sender);
+                languageMenuItemClick(RUSSIAN);
             }
         });
 
@@ -557,10 +560,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         (new FormViewShip()).showDialog(this);
     }
 
-    private void languageMenuItemClick(Object sender) {
-        String fileName = ((String) sender).replace("MenuItem", "").toLowerCase();
-
-        GlobalAssets.loadStrings(fileName);
+    private void languageMenuItemClick(Language language) {
+        GlobalAssets.setLanguage(language);
+        GlobalAssets.loadStrings();
 
         ReflectionUtils.loadControlsStrings(getFrame(), getName(), GlobalAssets.getStrings());
         ReflectionUtils.loadStrings(GlobalAssets.getStrings());

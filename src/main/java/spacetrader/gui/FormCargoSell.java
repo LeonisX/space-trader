@@ -37,10 +37,10 @@ public class FormCargoSell extends SpaceTraderForm {
         numericUpDown.setMaximum(maxAmount);
         numericUpDown.setMinimum(Math.min(maxAmount, 1));
         numericUpDown.setValue(numericUpDown.getMinimum());
-        setText(stringVars(Strings.CargoTitle, Strings.CargoSellOps[op.castToInt()], Consts.TradeItems[item].getName()));
+        setText(stringVars(Strings.CargoTitle, capitalize(Strings.CargoSellOps[op.castToInt()]), Consts.TradeItems[item].getName()));
         questionLabel.setText(stringVars(Strings.CargoSellQuestion, Strings.CargoSellOps[op.castToInt()].toLowerCase()));
         paidLabelValue.setText(stringVars(op == CargoSellOp.SELL_TRADER ? Strings.CargoSellPaidTrader
-                        : Strings.CargoSellPaid, formatMoney(cost), multiples(maxAmount, Strings.CargoUnit)));
+                        : Strings.CargoSellPaid, formatMoney(cost), plural(maxAmount, Strings.CargoUnit)));
         profitLabelValue.setText(stringVars(Strings.CargoSellProfitPerUnit,
                 price >= cost ? Strings.CargoProfit : Strings.CargoLoss, formatMoney(price >= cost ? price - cost : cost - price)));
 
@@ -48,12 +48,12 @@ public class FormCargoSell extends SpaceTraderForm {
         switch (op) {
             case DUMP:
                 statementLabelValue.setText(stringVars(Strings.CargoSellStatementDump,
-                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), formatNumber(maxAmount)));
+                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), plural(12, Strings.CargoUnit)));
                 profitLabelValue.setText(stringVars(Strings.CargoSellDumpCost, formatMoney(-price)));
                 break;
             case JETTISON:
                 statementLabelValue.setText(stringVars(Strings.CargoSellStatementDump,
-                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), formatNumber(maxAmount)));
+                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), plural(12, Strings.CargoUnit)));
                 break;
             case SELL_SYSTEM:
                 statementLabelValue.setText(stringVars(Strings.CargoSellStatement, formatNumber(maxAmount), formatMoney(price)));

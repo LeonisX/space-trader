@@ -165,7 +165,7 @@ public class Commander extends CrewMember {
                     if (netPrice + extraCost + special[i].getTransferPrice() > getCashToSpend()) {
                         GuiFacade.alert(AlertType.ShipBuyNoTransfer, special[i].getName());
                     } else if (GuiFacade.alert(AlertType.ShipBuyTransfer, special[i].getName(), special[i].getName()
-                            .toLowerCase(), Functions.multiples(special[i].getTransferPrice(), Strings.MoneyUnit)) == DialogResult.YES) {
+                            .toLowerCase(), Functions.plural(special[i].getTransferPrice(), Strings.MoneyUnit)) == DialogResult.YES) {
                         extraCost += special[i].getTransferPrice();
                     } else {
                         add[i] = false;
@@ -177,7 +177,7 @@ public class Commander extends CrewMember {
                 if (netPrice + extraCost + Consts.PodTransferCost > getCashToSpend()) {
                     GuiFacade.alert(AlertType.ShipBuyNoTransfer, Strings.ShipInfoEscapePod);
                 } else if (GuiFacade.alert(AlertType.ShipBuyTransfer, Strings.ShipInfoEscapePod,
-                        Strings.ShipInfoEscapePod.toLowerCase(), Functions.multiples(Consts.PodTransferCost, Strings.MoneyUnit)) == DialogResult.YES) {
+                        Strings.ShipInfoEscapePod.toLowerCase(), Functions.plural(Consts.PodTransferCost, Strings.MoneyUnit)) == DialogResult.YES) {
                     extraCost += Consts.PodTransferCost;
                 } else {
                     addPod = false;

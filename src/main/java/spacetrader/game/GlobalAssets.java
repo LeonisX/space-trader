@@ -5,6 +5,7 @@ import spacetrader.controls.ImageList;
 import spacetrader.controls.ImageListStreamer;
 import spacetrader.controls.ResourceManager;
 import spacetrader.controls.Size;
+import spacetrader.game.enums.Language;
 import spacetrader.game.enums.ShipType;
 import spacetrader.gui.SpaceTrader;
 import spacetrader.stub.PropertiesLoader;
@@ -18,6 +19,8 @@ public class GlobalAssets {
     private static final String STRINGS_TEMPLATE = "strings/%s.properties";
     private static final String DIMENSIONS_TEMPLATE = "dimensions/%s.properties";
     private static final String VERSION_FILE = "version.properties";
+
+    private static Language language = Language.ENGLISH;
 
     private static ImageList ilChartImages;
     private static ImageList ilDirectionImages;
@@ -55,8 +58,8 @@ public class GlobalAssets {
         ilEquipmentImages.setTransparentColor(Color.white);
     }
 
-    public static void loadStrings(String fileName) {
-        strings = PropertiesLoader.getStringsBundle(String.format(STRINGS_TEMPLATE, fileName));
+    public static void loadStrings() {
+        strings = PropertiesLoader.getStringsBundle(String.format(STRINGS_TEMPLATE, language.toString()));
     }
 
     public static void loadDimensions(String fileName) {
@@ -111,4 +114,11 @@ public class GlobalAssets {
         }
     }
 
+    public static Language getLanguage() {
+        return language;
+    }
+
+    public static void setLanguage(Language language) {
+        GlobalAssets.language = language;
+    }
 }

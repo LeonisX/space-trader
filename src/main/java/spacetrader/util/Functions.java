@@ -46,14 +46,36 @@ public class Functions {
         return String.format("%,d%%", num);
     }
 
-    //TODO russian plural + gender
-    //TODO rules :(
-    //parsec, credit, click, unit, Unit, day, weapons,shields,gadgets[],
-    //gadget slot, shield slot, weapon slot, cute, furry tribble, bay
-    //парсек, кредит, клик юнит(единица), день, оружие-щиты-гаджеты
-    //слот для гаджета слот для щита слот для оружия(вооружения), милый, пушистый триббл, отсек
-    public static String multiples(int num, String unit) {
-        return formatNumber(num) + " " + unit + (num == 1 ? "" : "s");
+    public static String plural(int num, String unit) {
+        int index = 0;
+        switch (GlobalAssets.getLanguage()) {
+            case ENGLISH:
+                index = getEnglishPluralWordIndex(num);
+                break;
+            case RUSSIAN:
+                index = getRussianPluralWordIndex(num);
+                break;
+            default:
+                System.out.println("Unknown language: " + GlobalAssets.getLanguage());
+        }
+        List<String> units = splitString(unit);
+        if (index >= units.size()) {
+            index = units.size() - 1;
+        }
+        return formatNumber(num) + " " + units.get(index);
+    }
+
+    // From plural4j library https://github.com/plural4j/plural4j/blob/master/src/main/java/com/github/plural4j/Plural.java
+    // Thanks, Mikhail Fursov
+    private static int getEnglishPluralWordIndex(long n) {
+        return (n == 1) ? 0 : 1;
+    }
+
+    // From plural4j library
+    private static int getRussianPluralWordIndex(long n) {
+        return (n % 10 == 1 && n % 100 != 11 ? 0 // 1, 21, 1001, ...
+                : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 // 2, 3, 4,
+                : 2); // 5, 6, ... 11, 12, ... 1000
     }
 
     public static String stringVars(String toParse, String var1) {
@@ -69,8 +91,7 @@ public class Functions {
     }
 
     public static String stringVars(String toParse, List<String> vars) {
-        List<List<String>> splittedVars = vars.stream().map(s -> Arrays.stream(s.split("\\|"))
-                .map(String::trim).filter(st -> !st.isEmpty()).collect(toList())).collect(toList());
+        List<List<String>> splittedVars = vars.stream().map(Functions::splitString).collect(toList());
 
         for (int i = splittedVars.size() - 1; i >= 0; i--) {
 
@@ -81,6 +102,21 @@ public class Functions {
         }
 
         return toParse;
+    }
+
+    public static String singular(String string) {
+        return splitString(string).get(0);
+    }
+
+    private static List<String> splitString(String string) {
+        return Arrays.stream(string.split("\\|")).map(String::trim).filter(s -> !s.isEmpty()).collect(toList());
+    }
+
+    public static String capitalize(String string) {
+        if (string == null || string.length() == 0) {
+            return string;
+        }
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 
     public static int getRandom(int max) {

@@ -11,7 +11,7 @@ import spacetrader.util.Functions;
 
 import java.awt.*;
 
-import static spacetrader.util.Functions.multiples;
+import static spacetrader.util.Functions.plural;
 import static spacetrader.util.Functions.stringVars;
 import static spacetrader.game.Strings.ChartDistance;
 import static spacetrader.game.Strings.DistanceUnit;
@@ -124,7 +124,7 @@ public class ShortRangeChartPanel extends Panel {
                 }
 
                 if (game.isShowTrackedRange())
-                    e.getGraphics().drawString(stringVars(ChartDistance, multiples(dist, DistanceUnit),
+                    e.getGraphics().drawString(stringVars(ChartDistance, plural(dist, DistanceUnit),
                             trackSys.getName()), font, new SolidBrush(Color.BLACK), 4,
                             shortRangeChartPicture.getHeight() - 8);
             }

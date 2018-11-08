@@ -42,7 +42,7 @@ public class FormViewHighScores extends SpaceTraderForm {
                     {
                             Strings.GameCompletionTypes[highScores[i].getType().castToInt()],
                             Integer.toString(highScores[i].getDays()),
-                            Functions.multiples(highScores[i].getWorth(), Strings.MoneyUnit),
+                            Functions.plural(highScores[i].getWorth(), Strings.MoneyUnit),
                             Strings.DifficultyLevels[highScores[i].getDifficulty().castToInt()].toLowerCase()
                     }));
 

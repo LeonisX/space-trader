@@ -11,6 +11,7 @@ import spacetrader.game.Strings;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.Facaded;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.Arrays;
@@ -136,7 +137,7 @@ public class FormPlunder extends SpaceTraderForm {
 
         for (int i = 0; i < Strings.TradeItemNames.length; i++) {
             commoditiesArray[i].setAutoSize(true);
-            commoditiesArray[i].setText(Strings.TradeItemNames[i]);
+            commoditiesArray[i].setText(Functions.singular(Strings.TradeItemNames[i]));
         }
 
         plunderAllButton9.setLocation(100, 220);

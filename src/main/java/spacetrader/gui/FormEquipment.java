@@ -441,7 +441,7 @@ public class FormEquipment extends SpaceTraderForm {
                     break;
             }
 
-            nameLabelValue.setText(selectedEquipment.getName());
+            nameLabelValue.setText(Functions.singular(selectedEquipment.getName()));
             typeLabelValue.setText(Strings.EquipmentTypes[selectedEquipment.getEquipmentType().castToInt()]);
             descriptionLabel
                     .setText(Strings.EquipmentDescriptions[selectedEquipment.getEquipmentType().castToInt()][selectedEquipment
@@ -455,7 +455,6 @@ public class FormEquipment extends SpaceTraderForm {
             sellButton.setVisible(sellSideSelected);
         }
     }
-
 
     private void buy() {
         if (selectedEquipment != null && !sellSideSelected) {
@@ -474,7 +473,7 @@ public class FormEquipment extends SpaceTraderForm {
                     || (baseType == EquipmentType.GADGET && commander.getShip().getFreeGadgetSlots() == 0)) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else if (GuiFacade.alert(AlertType.EquipmentBuy, selectedEquipment.getName(),
-                    Functions.multiples(selectedEquipment.getPrice(), Strings.MoneyUnit)) == DialogResult.YES) {
+                    Functions.plural(selectedEquipment.getPrice(), Strings.MoneyUnit)) == DialogResult.YES) {
                 commander.getShip().addEquipment(selectedEquipment);
                 commander.setCash(commander.getCash() - selectedEquipment.getPrice());
 

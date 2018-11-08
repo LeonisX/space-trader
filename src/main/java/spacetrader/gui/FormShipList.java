@@ -233,7 +233,7 @@ public class FormShipList extends SpaceTraderForm {
         for (int i = 0; i < nameLabels.length; i++) {
             nameLabels[i].setAutoSize(true);
             //nameLabels[i].setSize(70, 13);
-            nameLabels[i].setText(Strings.ShipNames[i]);
+            nameLabels[i].setText(Functions.singular(Strings.ShipNames[i]));
         }
 
         Arrays.stream(buyButtons).forEach(button -> {
@@ -412,7 +412,7 @@ public class FormShipList extends SpaceTraderForm {
         nameLabelValue.setText(spec.getName());
         sizeLabelValue.setText(Strings.Sizes[spec.getSize().castToInt()]);
         baysLabelValue.setText(Functions.formatNumber(spec.getCargoBays()));
-        rangeLabelValue.setText(Functions.multiples(spec.getFuelTanks(), Strings.DistanceUnit));
+        rangeLabelValue.setText(Functions.plural(spec.getFuelTanks(), Strings.DistanceUnit));
         hullLabelValue.setText(Functions.formatNumber(spec.getHullStrength()));
         weaponLabelValue.setText(Functions.formatNumber(spec.getWeaponSlots()));
         shieldLabelValue.setText(Functions.formatNumber(spec.getShieldSlots()));
