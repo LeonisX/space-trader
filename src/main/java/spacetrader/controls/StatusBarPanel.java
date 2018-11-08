@@ -24,10 +24,7 @@ public class StatusBarPanel implements ISupportInitialize, IName {
     }
 
     public void setText(String text) {
-        if (text.isEmpty()) {
-            text = "  ";
-        }
-        jPanel.setText(text);
+        jPanel.setText("  " + text);
     }
 
     public void setWidth(int w) {

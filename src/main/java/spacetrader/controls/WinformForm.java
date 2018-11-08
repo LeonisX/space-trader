@@ -179,7 +179,8 @@ public class WinformForm extends WinformPane {
             System.out.println("null here");
             return;
         }
-        setSize(new Dimension(clientSize.width + 10, clientSize.height + 30));
+        setSize(clientSize);
+        //setSize(new Dimension(clientSize.width + 10, clientSize.height + 30));
     }
 
     public String getText() {

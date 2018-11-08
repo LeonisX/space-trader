@@ -64,6 +64,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Check all dialogs and fix, if need setSize(new Dimension(clientSize.width + 10, clientSize.height + 30));
 * TargetSystemPanel: расстояние + парсек
 * Different image sizes, font sizes (config)
 * Special object for save states
@@ -109,7 +110,6 @@ TODO news :(
 ## Regressions:
 
 * Bold font for labels on main screen, formEncounter. Source: new `tahomabd.ttf`
-* Probably absent special event (lottery) at starting planet
 
 ## Far perspectives
 
