@@ -139,6 +139,7 @@ public class Commander extends CrewMember {
             for (int i = 0; i < special.length; i++) {
                 if (getShip().hasEquipment(special[i])) {
                     if (specToBuy.getSlotsCount(special[i].getEquipmentType()) == 0) {
+                        //TODO one message for all special items
                         GuiFacade.alert(AlertType.ShipBuyNoSlots, newShipName, special[i].getName(),
                                 Strings.EquipmentTypes[special[i].getEquipmentType().castToInt()]);
                     } else {

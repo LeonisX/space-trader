@@ -2066,7 +2066,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                 GuiFacade.alert(AlertType.EncounterSurrenderRefused);
             } else if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
                     commander.getShip().getIllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            false), commander.getShip().illegalSpecialCargoActions()})) == DialogResult.YES) {
+                            false), commander.getShip().getIllegalSpecialCargoActions()})) == DialogResult.YES) {
                 result = EncounterResult.ARRESTED;
             }
         } else if (commander.getShip().isPrincessOnBoard() && !commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
@@ -2142,7 +2142,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (commander.getShip().isIllegalSpecialCargo()) {
             if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
                     commander.getShip().getIllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            true), commander.getShip().illegalSpecialCargoActions()})) == DialogResult.YES) {
+                            true), commander.getShip().getIllegalSpecialCargoActions()})) == DialogResult.YES) {
                 result = EncounterResult.ARRESTED;
             }
         } else {
@@ -3564,8 +3564,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return encounterImage;
     }
 
+    //TODO receive declension
     private String getEncounterShipText() {
-        //TODO declension, кого
+
         String shipText = getOpponent().getName();
 
         switch (getEncounterType()) {

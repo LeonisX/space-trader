@@ -492,7 +492,7 @@ public class Strings {
     public static String EncounterPoliceSubmitReactor = "an illegal Ion Reactor";
     public static String EncounterPoliceSubmitSculpture = "a stolen sculpture";
     public static String EncounterPoliceSubmitWild = "Jonathan Wild";
-    public static String EncounterPoliceSurrenderCargo = "You have ^1 on board! ";
+    public static String EncounterPoliceSurrenderCargo = "You have ^1 on board!";
     public static String EncounterPoliceSurrenderAction = "They will ^1. ";
     public static String EncounterPoliceSurrenderReactor = "destroy the reactor";
     public static String EncounterPoliceSurrenderSculpt = "confiscate the sculpture";
@@ -604,7 +604,7 @@ public class Strings {
             + "Wild is getting impatient, and will no longer aid your crew along the way.";
 
     public static String ShipBuyGotOne = "got one";
-    public static String ShipBuyTransfer = ", and transfer your unique equipment to the new ship";
+    public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
 
     public static String ShipBay = "bay";
     public static String ShipEquipment = "Equipment:";

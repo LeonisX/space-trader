@@ -601,7 +601,7 @@ public class Ship extends ShipSpec {
         }
     }
 
-    String illegalSpecialCargoActions() {
+    String getIllegalSpecialCargoActions() {
         ArrayList<String> actions = new ArrayList<>();
 
         if (isReactorOnBoard()) {

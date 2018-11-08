@@ -84,16 +84,21 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Declencions
 
-Кого?
+Кого? Чего?
 
 * Вы уверены, что хотите уволить ^1?
 * У вас нет свободной каюты для ^1.
 * // тут может быть название корабля, так что надо склонять в game.getEncounterShipText() 
 * Вы отключили корабль своего противника. Без системы жизнеобеспечения экипаж вынужден погрузиться в сон. Вы оповещаете Космический Корпус, они прибывают и буксируют ^1 на планету, 
+* Благодарю за ^1 ^2. Было очень приятно вести с тобой дело.                         // CargoSelling "продажу", CargoBuying "покупку"; Water, Furs
+* Вы приняли на борт ^1. Будучи на борту, ^1 всячески помогает вам, но если путешествие слишком затянется, то на помощь можно будет не рассчитывать. //Джарека, Принцессу, Уайлда; need ^1, ^2!!!!!!!
+* CargoTitle=^1 ^2                        // Купить вода
+# EncounterShipCaptain=Капитан #EncounterShipMantis=корабль пришельцев #EncounterShipPirate=пиратский корабль #EncounterShipPolice=полицейский корабль #EncounterShipTrader=корабль торговца Комар, Блоха
+EncounterActionOppChased=Вы догнали ^1.
+EncounterActionOppHit=Вы попали в ^1.
+EncounterActionOppMissed=Вы не попали в ^1.
 
-AlertsEncounterDisabledOpponentMessage
-
-
+TODO: EncounterText
 
 
 ### Minor tasks
