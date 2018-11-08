@@ -93,7 +93,7 @@ public class FormAlert extends SpaceTraderForm {
 
         // Set the background image.
         setBackgroundImage(ilImages.getImages()[imageIndex]);
-        setClientSize(getBackgroundImage().getWidth(), getBackgroundImage().getHeight());
+        setClientSize(ilImages.getImages()[imageIndex].getWidth(), ilImages.getImages()[imageIndex].getHeight());
 
         // Set the title.
         setText(title);
