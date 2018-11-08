@@ -474,7 +474,7 @@ public class FormEquipment extends SpaceTraderForm {
                     || (baseType == EquipmentType.GADGET && commander.getShip().getFreeGadgetSlots() == 0)) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else if (GuiFacade.alert(AlertType.EquipmentBuy, selectedEquipment.getName(),
-                    Functions.formatNumber(selectedEquipment.getPrice())) == DialogResult.YES) {
+                    Functions.multiples(selectedEquipment.getPrice(), Strings.MoneyUnit)) == DialogResult.YES) {
                 commander.getShip().addEquipment(selectedEquipment);
                 commander.setCash(commander.getCash() - selectedEquipment.getPrice());
 

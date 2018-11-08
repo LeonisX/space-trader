@@ -82,6 +82,20 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
 
+### Declencions
+
+Кого?
+
+* Вы уверены, что хотите уволить ^1?
+* У вас нет свободной каюты для ^1.
+* // тут может быть название корабля, так что надо склонять в game.getEncounterShipText() 
+* Вы отключили корабль своего противника. Без системы жизнеобеспечения экипаж вынужден погрузиться в сон. Вы оповещаете Космический Корпус, они прибывают и буксируют ^1 на планету, 
+
+AlertsEncounterDisabledOpponentMessage
+
+
+
+
 ### Minor tasks
 
 * Need to update font sizes. Dump all too

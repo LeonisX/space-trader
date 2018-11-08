@@ -1453,7 +1453,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
                         break;
                 }
 
-                GuiFacade.alert(AlertType.EncounterDisabledOpponent, EncounterShipText(), str2);
+                GuiFacade.alert(AlertType.EncounterDisabledOpponent, getEncounterShipText(), str2);
 
                 commander.setReputationScore(
                         commander.getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
@@ -3416,16 +3416,16 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         String action = "";
 
         if (getOpponentDisabled()) {
-            action = Functions.stringVars(Strings.EncounterActionOppDisabled, EncounterShipText());
+            action = Functions.stringVars(Strings.EncounterActionOppDisabled, getEncounterShipText());
         } else if (getEncounterOppFleeing()) {
             if (getEncounterType() == EncounterType.PIRATE_SURRENDER
                     || getEncounterType() == EncounterType.TRADER_SURRENDER) {
-                action = Functions.stringVars(Strings.EncounterActionOppSurrender, EncounterShipText());
+                action = Functions.stringVars(Strings.EncounterActionOppSurrender, getEncounterShipText());
             } else {
-                action = Functions.stringVars(Strings.EncounterActionOppFleeing, EncounterShipText());
+                action = Functions.stringVars(Strings.EncounterActionOppFleeing, getEncounterShipText());
             }
         } else {
-            action = Functions.stringVars(Strings.EncounterActionOppAttacks, EncounterShipText());
+            action = Functions.stringVars(Strings.EncounterActionOppAttacks, getEncounterShipText());
         }
 
         return action;
@@ -3564,7 +3564,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return encounterImage;
     }
 
-    private String EncounterShipText() {
+    private String getEncounterShipText() {
+        //TODO declension, кого
         String shipText = getOpponent().getName();
 
         switch (getEncounterType()) {
@@ -3601,19 +3602,19 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         String oppStatus = "";
 
         if (getEncounterCmdrFleeing()) {
-            cmdrStatus = Functions.stringVars(Strings.EncounterActionCmdrChased, EncounterShipText());
+            cmdrStatus = Functions.stringVars(Strings.EncounterActionCmdrChased, getEncounterShipText());
         } else if (getEncounterOppHit()) {
-            cmdrStatus = Functions.stringVars(Strings.EncounterActionOppHit, EncounterShipText());
+            cmdrStatus = Functions.stringVars(Strings.EncounterActionOppHit, getEncounterShipText());
         } else {
-            cmdrStatus = Functions.stringVars(Strings.EncounterActionOppMissed, EncounterShipText());
+            cmdrStatus = Functions.stringVars(Strings.EncounterActionOppMissed, getEncounterShipText());
         }
 
         if (getEncounterOppFleeingPrev()) {
-            oppStatus = Functions.stringVars(Strings.EncounterActionOppChased, EncounterShipText());
+            oppStatus = Functions.stringVars(Strings.EncounterActionOppChased, getEncounterShipText());
         } else if (getEncounterCmdrHit()) {
-            oppStatus = Functions.stringVars(Strings.EncounterActionCmdrHit, EncounterShipText());
+            oppStatus = Functions.stringVars(Strings.EncounterActionCmdrHit, getEncounterShipText());
         } else {
-            oppStatus = Functions.stringVars(Strings.EncounterActionCmdrMissed, EncounterShipText());
+            oppStatus = Functions.stringVars(Strings.EncounterActionCmdrMissed, getEncounterShipText());
         }
 
         return cmdrStatus + Strings.newline + oppStatus;

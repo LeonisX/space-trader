@@ -178,6 +178,7 @@ public class FormAlert extends SpaceTraderForm {
             case ChartJumpNoSystemSelected:
                 return new FormAlert(AlertsChartJumpNoSystemSelectedTitle, AlertsChartJumpNoSystemSelectedMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
+                //TODO unused???
             case ChartTrackSystem:
                 return new FormAlert(AlertsChartTrackSystemTitle, AlertsChartTrackSystemMessage, AlertsYes, DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case ChartWormholeUnreachable:

@@ -106,7 +106,7 @@ public class Strings {
     public static String AlertsEncounterDrinkContentsMessage = "You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The \"use-by\" date is illegible, but might still be good.  Would you like to drink it?";
     public static String AlertsEncounterDrinkContentsAccept = "Yes, Drink It";
     public static String AlertsEncounterDumpAllTitle = "Dump All?";
-    public static String AlertsEncounterDumpAllMessage = "You paid ^1 credits for these items. Are you sure you want to just dump them?";
+    public static String AlertsEncounterDumpAllMessage = "You paid ^1 for these items. Are you sure you want to just dump them?";
     public static String AlertsEncounterDumpWarningTitle = "Space Littering";
     public static String AlertsEncounterDumpWarningMessage = "Dumping cargo in space is considered littering. If the police find your dumped goods and track them to you, this will influence your record. Do you really wish to dump?";
     public static String AlertsEncounterEscapedTitle = "Escaped";
@@ -143,7 +143,7 @@ public class Strings {
     public static String AlertsEncounterPoliceBribeLowCashTitle = "Not Enough Cash";
     public static String AlertsEncounterPoliceBribeLowCashMessage = "You don't have enough cash for a bribe.";
     public static String AlertsEncounterPoliceFineTitle = "Caught";
-    public static String AlertsEncounterPoliceFineMessage = "The police discovers illegal goods in your cargo holds. These goods impounded and you are fined ^1 credits.";
+    public static String AlertsEncounterPoliceFineMessage = "The police discovers illegal goods in your cargo holds. These goods impounded and you are fined ^1.";
     public static String AlertsEncounterPoliceNothingFoundTitle = "Nothing Found";
     public static String AlertsEncounterPoliceNothingFoundMessage = "The police find nothing illegal in your cargo holds, and apologize for the inconvenience.";
     public static String AlertsEncounterPoliceNothingIllegalTitle = "You Have Nothing Illegal";
@@ -186,7 +186,7 @@ public class Strings {
     public static String AlertsEquipmentAlreadyOwnTitle = "You Already Have One";
     public static String AlertsEquipmentAlreadyOwnMessage = "It's not useful to buy more than one of this item.";
     public static String AlertsEquipmentBuyTitle = "Buy ^1";
-    public static String AlertsEquipmentBuyMessage = "Do you wish to buy this item for ^2 credits?";
+    public static String AlertsEquipmentBuyMessage = "Do you wish to buy this item for ^2?";
     public static String AlertsEquipmentEscapePodTitle = "Escape Pod";
     public static String AlertsEquipmentEscapePodMessage = "Do you want to buy an escape pod for 2000 credits?";
     public static String AlertsEquipmentExtraBaysInUseTitle = "Cargo Bays Full";
@@ -317,7 +317,7 @@ public class Strings {
     public static String AlertsShipBuyReactorTitle = "Shipyard Engineer";
     public static String AlertsShipBuyReactorMessage = "Sorry! We can't take your ship as a trade-in. That Ion Reactor looks dangerous, and we have no way of removing it. Come back when you've gotten rid of it.";
     public static String AlertsShipBuyTransferTitle = "Transfer ^1";
-    public static String AlertsShipBuyTransferMessage = "I'll transfer your ^2 to your new ship for ^3 credits.";
+    public static String AlertsShipBuyTransferMessage = "I'll transfer your ^2 to your new ship for ^3.";
     public static String AlertsShipBuyTransferAccept = "Do it!";
     public static String AlertsShipBuyTransferCancel = "No thanks";
     public static String AlertsShipDesignIFTitle = "Not Enough Money";
