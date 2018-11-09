@@ -441,7 +441,7 @@ public class FormEquipment extends SpaceTraderForm {
                     break;
             }
 
-            nameLabelValue.setText(Functions.singular(selectedEquipment.getName()));
+            nameLabelValue.setText(selectedEquipment.getName());
             typeLabelValue.setText(Strings.EquipmentTypes[selectedEquipment.getEquipmentType().castToInt()]);
             descriptionLabel
                     .setText(Strings.EquipmentDescriptions[selectedEquipment.getEquipmentType().castToInt()][selectedEquipment

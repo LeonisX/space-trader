@@ -233,7 +233,7 @@ public class FormShipList extends SpaceTraderForm {
         for (int i = 0; i < nameLabels.length; i++) {
             nameLabels[i].setAutoSize(true);
             //nameLabels[i].setSize(70, 13);
-            nameLabels[i].setText(Functions.singular(Strings.ShipNames[i]));
+            nameLabels[i].setText(Strings.ShipNames[i]);
         }
 
         Arrays.stream(buyButtons).forEach(button -> {

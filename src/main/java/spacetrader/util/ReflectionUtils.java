@@ -11,17 +11,19 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.lang.reflect.Field;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.List;
 
 public class ReflectionUtils {
+
+    private static final String PLURAL_MAP = "pluralMap";
 
     public static void dumpStrings() {
         Strings strings = new Strings();
         try {
-            getFieldNamesAndValues(strings).entrySet().stream()
+            Map<String, Object> fieldNamesAndValues = getFieldNamesAndValues(strings);
+            fieldNamesAndValues.remove(PLURAL_MAP);
+            fieldNamesAndValues.entrySet().stream()
                     .sorted(Comparator.comparing(Map.Entry::getKey)).forEach(entry -> {
                 String name = entry.getKey();
                 Object object = entry.getValue();
@@ -47,11 +49,13 @@ public class ReflectionUtils {
             e.printStackTrace();
         }
     }
-
     public static void loadStrings(StringsBundle stringsBundle) {
         Strings strings = new Strings();
+        Map<String, String> pluralMap = new HashMap<>();
         try {
-            getFieldNamesAndValues(strings).entrySet().stream()
+            Map<String, Object> fieldNamesAndValues = getFieldNamesAndValues(strings);
+            fieldNamesAndValues.remove(PLURAL_MAP);
+            fieldNamesAndValues.entrySet().stream()
                     .sorted(Comparator.comparing(Map.Entry::getKey)).forEach(entry -> {
                 String name = entry.getKey();
                 Object object = entry.getValue();
@@ -60,7 +64,7 @@ public class ReflectionUtils {
                     if (object instanceof String) {
                         String value = stringsBundle.getString(name);
                         if (value != null) {
-                            field.set(strings, value);
+                            field.set(strings, detectPlural(value, pluralMap));
                         }
                     } else if (object instanceof String[]) {
                         String[] array = (String[]) object;
@@ -68,7 +72,7 @@ public class ReflectionUtils {
                             String fieldName = name + "[" + i + "]";
                             String value = stringsBundle.getString(fieldName);
                             if (value != null) {
-                                array[i] = value;
+                                array[i] = detectPlural(value, pluralMap);
                             }
                         }
                     } else if (object instanceof String[][]) {
@@ -78,7 +82,7 @@ public class ReflectionUtils {
                                 String fieldName = name + "[" + j + "]" + "[" + i + "]";
                                 String value = stringsBundle.getString(fieldName);
                                 if (value != null) {
-                                    array[j][i] = value;
+                                    array[j][i] = detectPlural(value, pluralMap);
                                 }
                             }
                         }
@@ -89,9 +93,22 @@ public class ReflectionUtils {
                     e.printStackTrace();
                 }
             });
-        } catch (IllegalAccessException e) {
+            ((strings).getClass().getField(PLURAL_MAP)).set(strings, pluralMap);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String detectPlural(String string, Map<String, String> pluralMap) {
+        if (string.isEmpty()) {
+            return string;
+        }
+        List<String> chunks = Functions.splitString(string);
+        String singular = chunks.remove(0);
+        for (int i = 0; i < chunks.size(); i++) {
+            pluralMap.put(singular + (i + 2), chunks.get(i));
+        }
+        return singular;
     }
 
     public static void setAllComponentNames(Object obj) {
@@ -276,8 +293,8 @@ public class ReflectionUtils {
 
     private static void resizeIfNeed(JComponent component) {
         getBaseComponent(component).ifPresent(bc ->
-            spacetrader.controls.Graphics.resizeIfNeed(bc.asSwingObject(), bc.isAutoSize(),
-                    bc.isAutoWidth(), bc.isAutoHeight(), bc.getControlBinding())
+                spacetrader.controls.Graphics.resizeIfNeed(bc.asSwingObject(), bc.isAutoSize(),
+                        bc.isAutoWidth(), bc.isAutoHeight(), bc.getControlBinding())
         );
     }
 

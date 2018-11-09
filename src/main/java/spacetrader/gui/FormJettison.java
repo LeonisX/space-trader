@@ -4,12 +4,14 @@ import spacetrader.controls.Button;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.*;
+import spacetrader.controls.enums.ControlBinding;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.Strings;
 import spacetrader.guifacade.Facaded;
-import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.Arrays;
@@ -231,7 +233,7 @@ public class FormJettison extends SpaceTraderForm {
         for (int i = 0; i < Strings.TradeItemNames.length; i++) {
             commoditiesArray[i].setAutoSize(true);
             //commoditiesArray[i].setTabIndex(142 + i);
-            commoditiesArray[i].setText(Functions.singular(Strings.TradeItemNames[i]));
+            commoditiesArray[i].setText(Strings.TradeItemNames[i]);
         }
 
         baysLabelValue.setAutoSize(true);

@@ -262,7 +262,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
                 rateVisible = true;
             }
 
-            nameLabelValue.setText(Functions.singular(selectedCrewMember.getName()));
+            nameLabelValue.setText(selectedCrewMember.getName());
             rateLabelValue.setText(Functions.stringVars(Strings.MoneyRateSuffix, Functions.formatMoney(selectedCrewMember
                     .getRate())));
             pilotLabelValue.setText(selectedCrewMember.getPilot());

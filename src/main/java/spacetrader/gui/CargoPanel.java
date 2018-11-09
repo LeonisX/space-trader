@@ -10,7 +10,6 @@ import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.game.*;
-import spacetrader.util.Functions;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -892,7 +891,7 @@ class CargoPanel extends Panel {
 
     void update() {
         for (int i = 0; i < Strings.TradeItemNames.length; i++) {
-            commoditiesArray[i].setText(Functions.singular(Strings.TradeItemNames[i]));
+            commoditiesArray[i].setText(Strings.TradeItemNames[i]);
         }
         Arrays.stream(sellAllButtonArray).forEach(button -> button.setText(Strings.CargoAll));
         Arrays.stream(buyMaxButtonArray).forEach(button -> button.setText(Strings.CargoMax));

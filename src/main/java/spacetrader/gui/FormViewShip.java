@@ -150,7 +150,7 @@ public class FormViewShip extends SpaceTraderForm {
                 if (i == GadgetType.EXTRA_CARGO_BAYS.castToInt() || i == GadgetType.HIDDEN_CARGO_BAYS.castToInt()) {
                     count *= 5;
                     equipLabelValue.setText(equipLabelValue.getText()
-                            + (Functions.singular(Consts.Gadgets[i].getName()).replace("5", Functions.formatNumber(count)) + Strings.newline));
+                            + (Consts.Gadgets[i].getName().replace("5", Functions.formatNumber(count)) + Strings.newline));
                 } else {
                     equipLabelValue.setText(equipLabelValue.getText()
                             + (Functions.plural(count, Consts.Gadgets[i].getName()) + Strings.newline));

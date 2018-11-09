@@ -63,6 +63,9 @@ public class FormsTest extends SpaceTraderForm {
         GlobalAssets.initializeImages();
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
 
+        // Need to initialize pluralMap
+        ReflectionUtils.loadStrings(GlobalAssets.getStrings());
+
         Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
 
         game.setParentWindow(new SpaceTrader(null));

@@ -14,6 +14,8 @@ import static java.util.stream.Collectors.toList;
 
 public class Functions {
 
+    private static final String TMP = "%$#";
+
     private final static long DEF_SEED_X = 521288629;
     private final static long DEF_SEED_Y = 362436069;
     private final static int MAX_WORD = 65535;
@@ -58,11 +60,7 @@ public class Functions {
             default:
                 System.out.println("Unknown language: " + GlobalAssets.getLanguage());
         }
-        List<String> units = splitString(unit);
-        if (index >= units.size()) {
-            index = units.size() - 1;
-        }
-        return formatNumber(num) + " " + units.get(index);
+        return formatNumber(num) + " " + getPlural(unit, index + 1);
     }
 
     // From plural4j library https://github.com/plural4j/plural4j/blob/master/src/main/java/com/github/plural4j/Plural.java
@@ -91,25 +89,26 @@ public class Functions {
     }
 
     public static String stringVars(String toParse, List<String> vars) {
-        List<List<String>> splittedVars = vars.stream().map(Functions::splitString).collect(toList());
-
-        for (int i = splittedVars.size() - 1; i >= 0; i--) {
-
-            for (int j = splittedVars.get(i).size() - 1; j >= 0; j--) {
-                String s = String.join("", Collections.nCopies(j + 1, "\\^")) + (i + 1);
-                toParse = toParse.replaceAll(s, splittedVars.get(i).get(j));
+        //TODO increase, if need
+        int maxSize = 3;
+        for (int i = 0; i < vars.size(); i++) {
+            for (int j = maxSize; j > 0; j--) {
+                String s = String.join("", Collections.nCopies(j, "\\^")) + (i + 1); // ^^^
+                String plural = getPlural(vars.get(i), j);
+                toParse = toParse.replaceAll(s, plural);
             }
         }
 
         return toParse;
     }
 
-    public static String singular(String string) {
-        return splitString(string).get(0);
+    private static String getPlural(String singular, int index) {
+        return (index > 0) ? Optional.ofNullable(Strings.pluralMap.get(singular + index)).orElse(singular) : singular;
     }
 
-    private static List<String> splitString(String string) {
-        return Arrays.stream(string.split("\\|")).map(String::trim).filter(s -> !s.isEmpty()).collect(toList());
+    static List<String> splitString(String string) {
+        return Arrays.stream(string.replace("\\|", TMP).split("\\|"))
+                .map(st -> st.replace(TMP, "|").trim()).filter(s -> !s.isEmpty()).collect(toList());
     }
 
     public static String capitalize(String string) {
@@ -270,7 +269,7 @@ public class Functions {
         return (i >= 0 && (b < 0 || wormholes[(i + 1) % wormholes.length] == b));
     }
 
-    //TODO wrom where???
+    //TODO from where???
     public static StarSystem wormholeTarget(int a) {
         int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, a);

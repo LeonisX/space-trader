@@ -125,7 +125,7 @@ public class CrewMember extends STSerializableObject {
 
     public @Override
     String toString() {
-        return Functions.singular(getName());
+        return getName();
     }
 
     public StarSystem getCurrentSystem() {

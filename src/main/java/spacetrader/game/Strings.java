@@ -1,6 +1,11 @@
 package spacetrader.game;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Strings {
+
+    public static Map<String, String> pluralMap = new HashMap<>();
 
     //TODO test FormMonster, ...
     public static String newline = "<br>";//String.format("%n");
