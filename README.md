@@ -2,7 +2,7 @@
 
 [abbreviated version of this documentation in Russian](README_RU.md)
 
-Fully reworked version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal
+Fully reworked version of [Space Trader for Java](https://sourceforge.net/projects/spacetraderjava/files/Space%20Trader%20Java/Version%201.12/) from Aviv Eyal.
 
 The project is a Java port of the [Space Trader for Windows](https://sourceforge.net/projects/spacetraderwin) from [Jay French](http://web.archive.org/web/20040212092717/http://www.frenchfryz.com:80/jay/spacetrader/home.php), which is a C# port of the [original](http://ticc.uvt.nl/~pspronck/spacetrader/STFrames.html) Palm version from Peter Spronk. [New site](https://www.spronck.net/spacetrader/).
 
@@ -42,7 +42,7 @@ If you do not plan to write programs in Java, it will be sufficient to install t
 Next you need to download these two files:
 
 * `space-trader.bat`
-* `space-trader-%текущаяВерсия%.jar`
+* `space-trader-%currentVersion%.jar`
 
 and run the first one.
 
