@@ -73,10 +73,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
 
-### Declencions
-
-TODO news :(
-
 ### Minor tasks
 
 * Need to update font sizes. Dump all too
