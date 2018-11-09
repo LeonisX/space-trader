@@ -3,6 +3,20 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+10.11.2018. v.2.8.9
+
+* Case and Plural Support
+* Support single line comments in properties files
+* Migrate all comments to the names and titles in the language files
+* First unit tests for few functions
+
+Bug fixes:
+
+* Corrections in Russian translation
+* Small corrections in the English text
+* Refinement Bar Status
+* Fixed splash screen size
+
 06.11.2018. v2.3.1-RC1
 
 * Upgrade Gradle to 4.10.2 version
