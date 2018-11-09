@@ -60,7 +60,7 @@ public class FormOptions extends SpaceTraderForm {
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setAutoScaleBaseSize(5, 13);
-        setClientSize(535, 251);
+        setClientSize(545, 281);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

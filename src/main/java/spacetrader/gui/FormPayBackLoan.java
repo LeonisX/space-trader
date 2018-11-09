@@ -42,7 +42,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         setText("Pay Back Loan");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(264, 60);
+        setClientSize(274, 70);
         setControlBox(false);
         setShowInTaskbar(false);
         setAcceptButton(okButton);

@@ -79,7 +79,7 @@ public class FormJettison extends SpaceTraderForm {
         setText("Jettison Cargo");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(220, 265);
+        setClientSize(230, 295);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

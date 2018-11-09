@@ -79,7 +79,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         //setText("Buy Xxxxxxxxxx");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(326, 90);
+        setClientSize(336, 120);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(noneButton);

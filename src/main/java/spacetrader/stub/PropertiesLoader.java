@@ -70,7 +70,7 @@ public class PropertiesLoader {
         StringsBundle result = new StringsBundle();
         getResourceAsFilteredStream(name).forEach(s -> {
             String[] pair = s.split("=", 2);
-            if (trimSingleLineComments && pair[1].contains("//")) {
+            if (trimSingleLineComments && pair[1].contains(" //")) {
                 pair[1] = trimTrailComment(pair[1]);
             }
             result.put(pair[0], pair[1]);
@@ -79,7 +79,7 @@ public class PropertiesLoader {
     }
 
     private static String trimTrailComment(String string) {
-        return RIGHT_TRIM_PATTERN.matcher(string.split("//", 2)[0]).replaceAll("");
+        return RIGHT_TRIM_PATTERN.matcher(string.split(" //", 2)[0]).replaceAll("");
     }
 
     public static List<String> getResourceAsFilteredList(String name) {

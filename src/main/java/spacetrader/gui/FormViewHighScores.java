@@ -56,7 +56,7 @@ public class FormViewHighScores extends SpaceTraderForm {
 
         setName("formViewHighScores");
         setText("High Scores");
-        setClientSize(240, 191);
+        setClientSize(250, 221);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);

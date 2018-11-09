@@ -71,7 +71,7 @@ public class FormCargoSell extends SpaceTraderForm {
         setName("formCargoSell");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(302, 90);
+        setClientSize(312, 120);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(noneButton);

@@ -41,7 +41,7 @@ public class FormViewShip extends SpaceTraderForm {
 
         setName("formViewShip");
         setText("Current Ship");
-        setClientSize(445, 219);
+        setClientSize(455, 249);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);

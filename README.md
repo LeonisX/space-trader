@@ -64,7 +64,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Check all dialogs and fix, if need setSize(new Dimension(clientSize.width + 10, clientSize.height + 30));
 * TargetSystemPanel: расстояние + парсек
 * Different image sizes, font sizes (config)
 * Special object for save states

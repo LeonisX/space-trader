@@ -33,7 +33,7 @@ public class FormBuyFuel extends SpaceTraderForm {
         setText("Buy Fuel");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(286, 50);
+        setClientSize(296, 80);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(nothingButton);

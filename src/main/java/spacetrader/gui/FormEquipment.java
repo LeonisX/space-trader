@@ -91,7 +91,7 @@ public class FormEquipment extends SpaceTraderForm {
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setAutoScaleBaseSize(5, 13);
-        setClientSize(562, 311);
+        setClientSize(572, 341);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

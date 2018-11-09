@@ -29,7 +29,7 @@ public class FormFind extends SpaceTraderForm {
         setText("Find System");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(220, 77);
+        setClientSize(230, 107);
         //setControlBox(false);
         setShowInTaskbar(false);
         setAcceptButton(okButton);

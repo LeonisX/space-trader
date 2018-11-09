@@ -35,7 +35,7 @@ public class FormGetLoan extends SpaceTraderForm {
 
         setName("formGetLoan");
         setText("Get Loan");
-        setClientSize(252, 60);
+        setClientSize(262, 90);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         //setControlBox(false);

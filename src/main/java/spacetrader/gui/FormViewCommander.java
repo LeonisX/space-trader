@@ -58,7 +58,7 @@ public class FormViewCommander extends SpaceTraderForm {
 
         setName("formViewCommander");
         setText("Commander Status");
-        setClientSize(225, 280);
+        setClientSize(235, 310);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);

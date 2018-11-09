@@ -43,7 +43,7 @@ public class FormNewCommander extends SpaceTraderForm {
         setText("New Commander");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(202, 220);
+        setClientSize(212, 250);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

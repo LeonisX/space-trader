@@ -114,7 +114,7 @@ public class FormShipList extends SpaceTraderForm {
         setText("Ship List");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(438, 240);
+        setClientSize(448, 270);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

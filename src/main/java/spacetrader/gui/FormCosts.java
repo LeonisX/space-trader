@@ -42,7 +42,7 @@ public class FormCosts extends SpaceTraderForm {
         
         setName("formCosts");
         setText("Cost Specification");
-        setClientSize(165, 80);
+        setClientSize(175, 110);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setMaximizeBox(false);

@@ -88,7 +88,7 @@ public class FormPlunder extends SpaceTraderForm {
         setText("Plunder Cargo");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(235, 263);
+        setClientSize(245, 293);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

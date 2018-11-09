@@ -45,7 +45,7 @@ public class FormViewQuests extends SpaceTraderForm {
 
         questsLabelValue.setLinkArea(new LinkArea(0, 0));
         questsLabelValue.setLocation(8, 8);
-        questsLabelValue.setSize(368, 312);
+        questsLabelValue.setSize(378, 342);
         /*questsLabelValue.setText("Kill the space monster at Acamar."
                 + "\n\n"
                 + "Get your lightning shield at Zalkon."

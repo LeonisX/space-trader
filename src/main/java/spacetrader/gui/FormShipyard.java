@@ -137,7 +137,7 @@ public class FormShipyard extends SpaceTraderForm {
 
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(515, 355);
+        setClientSize(525, 385);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);

@@ -167,7 +167,7 @@ public class FormEncounter extends SpaceTraderForm {
         setShowInTaskbar(false);
         setControlBox(false);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(250, 260);
+        setClientSize(260, 290);
 
         encounterTypePicture.setLocation(220, 2);
         encounterTypePicture.setSize(12, 12);

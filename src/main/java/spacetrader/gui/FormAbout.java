@@ -27,7 +27,7 @@ public class FormAbout extends WinformForm {
         setText("About Space Trader");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(540, 181);
+        setClientSize(545, 181);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
@@ -37,7 +37,7 @@ public class FormAbout extends WinformForm {
 
         titleLabel.setAutoSize(true);
         titleLabel.setFont(FontCollection.bold10);
-        titleLabel.setLocation(172, 8);
+        titleLabel.setLocation(177, 8);
         //titleLabel.setSize(187, 13);
         titleLabel.setText("Space Trader for Java 8");
 
@@ -47,7 +47,7 @@ public class FormAbout extends WinformForm {
         versionLabelValue.setLocation(getWidth() - 10, 10);
         versionLabelValue.setText(GlobalAssets.getVersions().getString("version"));
 
-        aboutLabel.setLocation(172, 32);
+        aboutLabel.setLocation(177, 32);
         aboutLabel.setSize(410, 170);
         aboutLabel.setText("Copyright © 2018 by Stavila Leonid aka Leonis<BR>Site: http://tv-games.ru; e-mail: tv-games@mail.ru<BR><BR>" +
                 "* Space Trader for Java version copyright © 2008-2010 by Aviv Eyal<BR>" +

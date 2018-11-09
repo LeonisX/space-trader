@@ -50,7 +50,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
         setName("formViewPersonnel");
         setText("Personnel");
-        setClientSize(540, 110);
+        setClientSize(550, 140);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);

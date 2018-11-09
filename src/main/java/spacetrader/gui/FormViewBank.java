@@ -57,7 +57,7 @@ public class FormViewBank extends SpaceTraderForm {
         
         setName("formViewBank");
         setText("Bank");
-        setClientSize(200, 211);
+        setClientSize(210, 241);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);
