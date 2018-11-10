@@ -240,7 +240,7 @@ class TargetSystemPanel extends Panel {
                     : Unknown);
             targetPoliceLabelValue.setText(ActivityLevels[system.getPoliticalSystem().getActivityPolice().castToInt()]);
             targetPiratesLabelValue.setText(ActivityLevels[system.getPoliticalSystem().getActivityPirates().castToInt()]);
-            targetDistanceLabelValue.setText(distance);
+            targetDistanceLabelValue.setText(Functions.plural(distance, Strings.DistanceUnit));
             targetOutOfRangeLabel.setVisible(!system.destIsOk() && system != commander.getCurrentSystem());
             warpButton.setVisible(system.destIsOk());
             trackButton.setVisible(targetOutOfRangeLabel.isVisible() && system != game.getTrackedSystem());

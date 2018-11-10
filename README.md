@@ -65,7 +65,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* TargetSystemPanel: расстояние + парсек
 * Different image sizes, font sizes (config)
 * Special object for save states
 * SaveFileDialog - full localization
