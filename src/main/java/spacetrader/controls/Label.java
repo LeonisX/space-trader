@@ -2,7 +2,6 @@ package spacetrader.controls;
 
 import javax.swing.*;
 import java.awt.*;
-import spacetrader.controls.enums.ContentAlignment;
 
 public class Label extends BaseComponent {
 
@@ -11,8 +10,6 @@ public class Label extends BaseComponent {
     private static final String START = "<HTML>";
     private static final String NEWLINE = "<br>";
 
-    private ContentAlignment textAlign;
-    private ContentAlignment imageAlign;
     private boolean convertedToHtml;
     private int linesCount;
     private int maxLineWidth;
@@ -86,22 +83,6 @@ public class Label extends BaseComponent {
 
     public void setImage(Image image) {
         asJLabel().setIcon(new ImageIcon(image.asSwingImage()));
-    }
-
-    public ContentAlignment getTextAlign() {
-        return textAlign;
-    }
-
-    public void setTextAlign(ContentAlignment textAlign) {
-        this.textAlign = textAlign;
-    }
-
-    public ContentAlignment getImageAlign() {
-        return imageAlign;
-    }
-
-    public void setImageAlign(ContentAlignment imageAlign) {
-        this.imageAlign = imageAlign;
     }
 
     private JLabel asJLabel() {

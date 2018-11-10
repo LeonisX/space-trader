@@ -4,7 +4,6 @@ import spacetrader.controls.Button;
 import spacetrader.controls.EventArgs;
 import spacetrader.controls.EventHandler;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -83,7 +82,6 @@ public class FormViewBank extends SpaceTraderForm {
         currentDebtLabelValue.setLocation(136, 32);
         //currentDebtLabelValue.setSize(56, 13);
         //currentDebtLabelValue.setText("88,888 cr.");
-        currentDebtLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         maxLoanLabel.setAutoSize(true);
         maxLoanLabel.setFont(FontCollection.bold825);
@@ -95,7 +93,6 @@ public class FormViewBank extends SpaceTraderForm {
         maxLoanLabelValue.setLocation(136, 52);
         //maxLoanLabelValue.setSize(56, 13);
         //maxLoanLabelValue.setText("88,888 cr.");
-        maxLoanLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         getLoanButton.setAutoWidth(true);
         getLoanButton.setLocation(16, 72);
@@ -137,7 +134,6 @@ public class FormViewBank extends SpaceTraderForm {
         shipValueLabelValue.setLocation(136, 136);
         //shipValueLabelValue.setSize(56, 13);
         //shipValueLabelValue.setText("88,888 cr.");
-        shipValueLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         noClaimLabel.setAutoSize(true);
         noClaimLabel.setFont(FontCollection.bold825);
@@ -149,7 +145,6 @@ public class FormViewBank extends SpaceTraderForm {
         noClaimLabelValue.setLocation(154, 156);
         //noClaimLabelValue.setSize(32, 13);
         //noClaimLabelValue.setText("88%");
-        noClaimLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         maxNoClaimLabel.setAutoSize(true);
         maxNoClaimLabel.setLocation(182, 156);
@@ -167,7 +162,6 @@ public class FormViewBank extends SpaceTraderForm {
         insAmtLabelValue.setLocation(136, 176);
         //insAmtLabelValue.setSize(82, 13);
         //insAmtLabelValue.setText("8,888 cr. daily");
-        insAmtLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyInsuranceButton.setAutoWidth(true);
         buyInsuranceButton.setLocation(16, 196);

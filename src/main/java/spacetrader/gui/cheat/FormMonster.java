@@ -3,7 +3,6 @@ package spacetrader.gui.cheat;
 import java.awt.Point;
 import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.Button;
-import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.EventHandler;
 import spacetrader.controls.enums.FormBorderStyle;
@@ -182,7 +181,6 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesIdLabel.setTabIndex(5);
         mercenariesIdLabel.setTabStop(true);
         mercenariesIdLabel.setText("ID");
-        mercenariesIdLabel.setTextAlign(ContentAlignment.TOP_RIGHT);
         mercenariesIdLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -211,7 +209,6 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillPilotLabel.setTabIndex(7);
         mercenariesSkillPilotLabel.setTabStop(true);
         mercenariesSkillPilotLabel.setText("P");
-        mercenariesSkillPilotLabel.setTextAlign(ContentAlignment.TOP_RIGHT);
         mercenariesSkillPilotLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -226,7 +223,6 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillFighterLabel.setTabIndex(8);
         mercenariesSkillFighterLabel.setTabStop(true);
         mercenariesSkillFighterLabel.setText("F");
-        mercenariesSkillFighterLabel.setTextAlign(ContentAlignment.TOP_RIGHT);
         mercenariesSkillFighterLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -241,7 +237,6 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillTraderLabel.setTabIndex(9);
         mercenariesSkillTraderLabel.setTabStop(true);
         mercenariesSkillTraderLabel.setText("T");
-        mercenariesSkillTraderLabel.setTextAlign(ContentAlignment.TOP_RIGHT);
         mercenariesSkillTraderLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -256,7 +251,6 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillEngineerLabel.setTabIndex(10);
         mercenariesSkillEngineerLabel.setTabStop(true);
         mercenariesSkillEngineerLabel.setText("E");
-        mercenariesSkillEngineerLabel.setTextAlign(ContentAlignment.TOP_RIGHT);
         mercenariesSkillEngineerLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -291,22 +285,18 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesPanelSkillsPilotLabel.setLocation(new Point(93, 4));
         mercenariesPanelSkillsPilotLabel.setSize(new Size(20, 673));
         mercenariesPanelSkillsPilotLabel.setTabIndex(144);
-        mercenariesPanelSkillsPilotLabel.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         mercenariesPanelSkillsFighter.setLocation(new Point(113, 4));
         mercenariesPanelSkillsFighter.setSize(new Size(20, 673));
         mercenariesPanelSkillsFighter.setTabIndex(145);
-        mercenariesPanelSkillsFighter.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         mercenariesPanelSkillsTrader.setLocation(new Point(133, 4));
         mercenariesPanelSkillsTrader.setSize(new Size(20, 673));
         mercenariesPanelSkillsTrader.setTabIndex(146);
-        mercenariesPanelSkillsTrader.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         mercenariesPanelSkillsEngineer.setLocation(new Point(153, 4));
         mercenariesPanelSkillsEngineer.setSize(new Size(20, 673));
         mercenariesPanelSkillsEngineer.setTabIndex(147);
-        mercenariesPanelSkillsEngineer.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         mercenariesPanelSystems.setLinkArea(new LinkArea(0, 0));
         mercenariesPanelSystems.setLocation(new Point(185, 4));
@@ -322,7 +312,6 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesPanelIds.setLocation(new Point(0, 4));
         mercenariesPanelIds.setSize(new Size(23, 673));
         mercenariesPanelIds.setTabIndex(142);
-        mercenariesPanelIds.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         mercenariesPanelNames.setLocation(new Point(28, 4));
         mercenariesPanelNames.setSize(new Size(69, 673));

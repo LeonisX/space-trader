@@ -3,7 +3,6 @@ package spacetrader.gui;
 import spacetrader.controls.Button;
 import spacetrader.controls.HorizontalLine;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -62,7 +61,6 @@ public class FormCosts extends SpaceTraderForm {
         mercenariesLabelValue.setLocation(114, 9);
         //mercenariesLabelValue.setSize(39, 13);
         //mercenariesLabelValue.setText("888 cr.");
-        //mercenariesLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         insuranceLabel.setAutoSize(true);
         insuranceLabel.setFont(FontCollection.bold825);
@@ -74,7 +72,6 @@ public class FormCosts extends SpaceTraderForm {
         insuranceLabelValue.setLocation(114, 24);
         //insuranceLabelValue.setSize(39, 13);
         //insuranceLabelValue.setText("888 cr.");
-        //insuranceLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         interestLabel.setAutoSize(true);
         interestLabel.setFont(FontCollection.bold825);
@@ -86,7 +83,6 @@ public class FormCosts extends SpaceTraderForm {
         interestLabelValue.setLocation(114, 40);
         //interestLabelValue.setSize(39, 13);
         //interestLabelValue.setText("888 cr.");
-        //interestLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         wormholeTaxLabel.setAutoSize(true);
         wormholeTaxLabel.setFont(FontCollection.bold825);
@@ -98,9 +94,7 @@ public class FormCosts extends SpaceTraderForm {
         wormholeTaxLabelValue.setLocation(114, 56);
         //wormholeTaxLabelValue.setSize(39, 13);
         //wormholeTaxLabelValue.setText("888 cr.");
-        //wormholeTaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
-        //horizontalLine.setBackground(Color.darkGray);
         horizontalLine.setLocation(6, 73);
         horizontalLine.setWidth(160);
         horizontalLine.setTabStop(false);
@@ -116,7 +110,6 @@ public class FormCosts extends SpaceTraderForm {
         totalLabelValue.setLocation(114, 79);
         //totalLabelValue.setSize(39, 13);
         //totalLabelValue.setText("888 cr.");
-        //totalLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setVisible(false);

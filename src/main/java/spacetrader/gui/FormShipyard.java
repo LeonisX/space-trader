@@ -333,7 +333,6 @@ public class FormShipyard extends SpaceTraderForm {
         imageLabelValue.setSize(70, 13);
         imageLabelValue.setTabIndex(61);
         imageLabelValue.setText("Custom Ship");
-        imageLabelValue.setTextAlign(ContentAlignment.TOP_CENTER);
 
         nextImageButton.setAutoWidth(true);
         nextImageButton.setControlBinding(ControlBinding.RIGHT);
@@ -552,7 +551,6 @@ public class FormShipyard extends SpaceTraderForm {
         unitsUsedLabelValue.setLocation(120, 191);
         unitsUsedLabelValue.setSize(34, 13);
         //unitsUsedLabelValue.setText("888");
-        //unitsUsedLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         pctOfMaxLabel.setAutoSize(true);
         pctOfMaxLabel.setLocation(8, 209);
@@ -565,7 +563,6 @@ public class FormShipyard extends SpaceTraderForm {
         pctOfMaxLabelValue.setLocation(121, 212);
         //pctOfMaxLabelValue.setSize(34, 13);
         //pctOfMaxLabelValue.setText("888%");
-        //pctOfMaxLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         costsPanel.setLocation(325, 235);
         costsPanel.setSize(195, 108);
@@ -585,7 +582,6 @@ public class FormShipyard extends SpaceTraderForm {
         shipCostLabelValue.setLocation(120, 19);
         //shipCostLabelValue.setSize(74, 16);
         //shipCostLabelValue.setText("8,888,888 cr.");
-        shipCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         penaltyLabel.setAutoSize(true);
         penaltyLabel.setLocation(8, 35);
@@ -596,7 +592,6 @@ public class FormShipyard extends SpaceTraderForm {
         penaltyLabelValue.setLocation(120, 35);
         //penaltyLabelValue.setSize(74, 16);
         //penaltyLabelValue.setText("8,888,888 cr.");
-        penaltyLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         designFeeLabel.setAutoSize(true);
         designFeeLabel.setLocation(8, 51);
@@ -607,7 +602,6 @@ public class FormShipyard extends SpaceTraderForm {
         designFeeLabelValue.setLocation(120, 51);
         //designFeeLabelValue.setSize(74, 16);
         //designFeeLabelValue.setText("888,888 cr.");
-        designFeeLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         tradeInLabel.setAutoSize(true);
         tradeInLabel.setLocation(8, 67);
@@ -618,7 +612,6 @@ public class FormShipyard extends SpaceTraderForm {
         tradeInLabelValue.setLocation(120, 67);
         //tradeInLabelValue.setSize(75, 16);
         //tradeInLabelValue.setText("-8,888,888 cr.");
-        tradeInLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         costsHorizontalLine.setLocation(8, 83);
         costsHorizontalLine.setWidth(179);
@@ -633,7 +626,6 @@ public class FormShipyard extends SpaceTraderForm {
         totalCostLabelValue.setLocation(120, 87);
         //totalCostLabelValue.setSize(74, 16);
         //totalCostLabelValue.setText("8,888,888 cr.");
-        totalCostLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         cancelButton.setDialogResult(DialogResult.CANCEL);
         cancelButton.setAutoWidth(true);
@@ -687,23 +679,19 @@ public class FormShipyard extends SpaceTraderForm {
 
         disabledNameTipLabel.setBackground(SystemColors.INFO);
         disabledNameTipLabel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        disabledNameTipLabel.setTextAlign(ContentAlignment.MIDDLE_LEFT);
         //disabledNameTipLabel.setAutoSize(true);
         disabledNameTipLabel.setLocation(87, 232);
         disabledNameTipLabel.setSize(195, 20);
         disabledNameTipLabel.setText("You must enter a Ship Name.");
-        disabledNameTipLabel.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
         disabledNameTipLabel.setVisible(false);
 
         disabledPctTipLabel.setBackground(SystemColors.INFO);
         disabledPctTipLabel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        disabledPctTipLabel.setTextAlign(ContentAlignment.MIDDLE_RIGHT);
         //disabledPctTipLabel.setAutoSize(true);
         disabledPctTipLabel.setControlBinding(ControlBinding.RIGHT);
         disabledPctTipLabel.setLocation(215, 189);
         disabledPctTipLabel.setSize(305, 20);
         disabledPctTipLabel.setText("Your % of Max must be less than or equal to 100%.");
-        disabledPctTipLabel.setTextAlign(ContentAlignment.MIDDLE_CENTER);
         disabledPctTipLabel.setVisible(false);
 
         controls.addAll(disabledPctTipLabel, welcomePanel, disabledNameTipLabel, infoPanel, allocationPanel,

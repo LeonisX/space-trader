@@ -349,8 +349,6 @@ public class FormEquipment extends SpaceTraderForm {
         //chargeLabelValue.setSize(116, 16);
         //chargeLabelValue.setText("888");
 
-        //TODO fix
-        descriptionLabel.setTextAlign(ContentAlignment.TOP_LEFT);
         descriptionLabel.setLocation(8, 183);
         descriptionLabel.setSize(220, 100);
 

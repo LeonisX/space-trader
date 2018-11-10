@@ -227,7 +227,6 @@ public class FormShipList extends SpaceTraderForm {
             label.setAutoSize(true);
             //label.setSize(64, 13);
             //label.setText("-888,888 cr.");
-            label.setTextAlign(ContentAlignment.TOP_RIGHT);
         });
 
         for (int i = 0; i < nameLabels.length; i++) {

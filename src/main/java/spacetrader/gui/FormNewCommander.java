@@ -90,7 +90,6 @@ public class FormNewCommander extends SpaceTraderForm {
         skillPointsLabelValue.setLocation(82, 72);
         //skillPointsLabelValue.setSize(17, 13);
         skillPointsLabelValue.setText(formatSkillPoints());
-        skillPointsLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         pilotLabel.setAutoSize(true);
         pilotLabel.setLocation(25, 96);

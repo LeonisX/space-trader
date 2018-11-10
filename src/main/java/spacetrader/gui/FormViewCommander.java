@@ -3,7 +3,6 @@ package spacetrader.gui;
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -171,7 +170,6 @@ public class FormViewCommander extends SpaceTraderForm {
         cashLabelValue.setLocation(113, 21);
         //cashLabelValue.setSize(70, 13);
         //cashLabelValue.setText("8,888,888 cr.");
-        cashLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         debtLabel.setAutoSize(true);
         debtLabel.setFont(FontCollection.bold825);
@@ -183,7 +181,6 @@ public class FormViewCommander extends SpaceTraderForm {
         debtLabelValue.setLocation(113, 37);
         //debtLabelValue.setSize(70, 13);
         //debtLabelValue.setText("8,888,888 cr.");
-        debtLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         netWorthLabel.setAutoSize(true);
         netWorthLabel.setFont(FontCollection.bold825);
@@ -195,7 +192,6 @@ public class FormViewCommander extends SpaceTraderForm {
         netWorthLabelValue.setLocation(113, 53);
         //netWorthLabelValue.setSize(70, 13);
         //netWorthLabelValue.setText("8,888,888 cr.");
-        netWorthLabelValue.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         notorietyPanel.setLocation(8, 210);
         notorietyPanel.setSize(220, 92);

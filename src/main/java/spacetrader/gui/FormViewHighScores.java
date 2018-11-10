@@ -2,7 +2,6 @@ package spacetrader.gui;
 
 import spacetrader.controls.Button;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -70,7 +69,6 @@ public class FormViewHighScores extends SpaceTraderForm {
         rankLabel1.setLocation(8, 8);
         //rankLabel1.setSize(14, 13);
         rankLabel1.setText("1.");
-        rankLabel1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         nameLabelValue1.setAutoSize(true);
         nameLabelValue1.setLocation(24, 8);
@@ -81,7 +79,6 @@ public class FormViewHighScores extends SpaceTraderForm {
         scoreLabelValue1.setLocation(210, 8);
         //scoreLabelValue1.setSize(43, 13);
         //scoreLabelValue1.setText("888.8%");
-        scoreLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
         scoreLabelValue1.setVisible(false);
 
         statusLabelValue1.setLocation(24, 24);
@@ -93,7 +90,6 @@ public class FormViewHighScores extends SpaceTraderForm {
         rankLabel2.setLocation(8, 76);
         //rankLabel2.setSize(14, 13);
         rankLabel2.setText("2.");
-        rankLabel2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         nameLabelValue2.setAutoSize(true);
         nameLabelValue2.setLocation(24, 76);
@@ -104,7 +100,6 @@ public class FormViewHighScores extends SpaceTraderForm {
         scoreLabelValue2.setLocation(210, 76);
         //scoreLabelValue2.setSize(43, 13);
         //scoreLabelValue2.setText("888.8%");
-        scoreLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
         scoreLabelValue2.setVisible(false);
 
         statusLabelValue2.setLocation(24, 92);
@@ -116,7 +111,6 @@ public class FormViewHighScores extends SpaceTraderForm {
         rankLabel3.setLocation(8, 144);
         //rankLabel3.setSize(14, 13);
         rankLabel3.setText("3.");
-        rankLabel3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         nameLabelValue3.setAutoSize(true);
         nameLabelValue3.setLocation(24, 144);
@@ -127,7 +121,6 @@ public class FormViewHighScores extends SpaceTraderForm {
         scoreLabelValue3.setLocation(210, 144);
         //scoreLabelValue3.setSize(43, 13);
         //scoreLabelValue3.setText("888.8%");
-        scoreLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
         scoreLabelValue3.setVisible(false);
 
         statusLabelValue3.setLocation(24, 160);

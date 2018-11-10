@@ -7,7 +7,6 @@ import spacetrader.controls.Font;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.controls.enums.AnchorStyles;
-import spacetrader.controls.enums.ContentAlignment;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.game.*;
 
@@ -392,70 +391,60 @@ class CargoPanel extends Panel {
         sellPriceLabelValue0.setSize(48, 13);
         sellPriceLabelValue0.setTabIndex(35);
         // sellPriceLabelValue0.setText("8,888 cr.");
-        //sellPriceLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue1.setAutoSize(true);
         sellPriceLabelValue1.setLocation(163, 84);
         sellPriceLabelValue1.setSize(48, 13);
         sellPriceLabelValue1.setTabIndex(38);
         // sellPriceLabelValue1.setText("8,888 cr.");
-        //sellPriceLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue2.setAutoSize(true);
         sellPriceLabelValue2.setLocation(163, 108);
         sellPriceLabelValue2.setSize(48, 13);
         sellPriceLabelValue2.setTabIndex(56);
         // sellPriceLabelValue2.setText("8,888 cr.");
-        //sellPriceLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue3.setAutoSize(true);
         sellPriceLabelValue3.setLocation(163, 132);
         sellPriceLabelValue3.setSize(48, 13);
         sellPriceLabelValue3.setTabIndex(65);
         // sellPriceLabelValue3.setText("8,888 cr.");
-        //sellPriceLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue4.setAutoSize(true);
         sellPriceLabelValue4.setLocation(163, 156);
         sellPriceLabelValue4.setSize(48, 13);
         sellPriceLabelValue4.setTabIndex(74);
         // sellPriceLabelValue4.setText("8,888 cr.");
-        //sellPriceLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue5.setAutoSize(true);
         sellPriceLabelValue5.setLocation(163, 180);
         sellPriceLabelValue5.setSize(48, 13);
         sellPriceLabelValue5.setTabIndex(83);
         // sellPriceLabelValue5.setText("8,888 cr.");
-        //sellPriceLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue6.setAutoSize(true);
         sellPriceLabelValue6.setLocation(163, 204);
         sellPriceLabelValue6.setSize(48, 13);
         sellPriceLabelValue6.setTabIndex(92);
         // sellPriceLabelValue6.setText("8,888 cr.");
-        //sellPriceLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue7.setAutoSize(true);
         sellPriceLabelValue7.setLocation(163, 228);
         sellPriceLabelValue7.setSize(48, 13);
         sellPriceLabelValue7.setTabIndex(101);
         // sellPriceLabelValue7.setText("8,888 cr.");
-        //sellPriceLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue8.setAutoSize(true);
         sellPriceLabelValue8.setLocation(163, 252);
         sellPriceLabelValue8.setSize(48, 13);
         sellPriceLabelValue8.setTabIndex(110);
         // sellPriceLabelValue8.setText("8,888 cr.");
-        //sellPriceLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         sellPriceLabelValue9.setAutoSize(true);
         sellPriceLabelValue9.setLocation(163, 276);
         sellPriceLabelValue9.setSize(48, 13);
         sellPriceLabelValue9.setTabIndex(119);
         // sellPriceLabelValue9.setText("no trade");
-        //sellPriceLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyButton0.setLocation(232, 56);
         buyButton0.setSize(28, 22);
@@ -541,271 +530,231 @@ class CargoPanel extends Panel {
         buyPriceLabelValue0.setLocation(311, 60);
         buyPriceLabelValue0.setSize(48, 13);
         // buyPriceLabelValue0.setText("8,888 cr.");
-        buyPriceLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue1.setAutoSize(true);
         buyPriceLabelValue1.setLocation(311, 84);
         buyPriceLabelValue1.setSize(48, 13);
         // buyPriceLabelValue1.setText("8,888 cr.");
-        buyPriceLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue2.setAutoSize(true);
         buyPriceLabelValue2.setLocation(311, 108);
         buyPriceLabelValue2.setSize(48, 13);
         // buyPriceLabelValue2.setText("8,888 cr.");
-        buyPriceLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue3.setAutoSize(true);
         buyPriceLabelValue3.setLocation(311, 132);
         buyPriceLabelValue3.setSize(48, 13);
         // buyPriceLabelValue3.setText("8,888 cr.");
-        buyPriceLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue4.setAutoSize(true);
         buyPriceLabelValue4.setLocation(311, 156);
         buyPriceLabelValue4.setSize(48, 13);
         // buyPriceLabelValue4.setText("8,888 cr.");
-        buyPriceLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue5.setAutoSize(true);
         buyPriceLabelValue5.setLocation(311, 180);
         buyPriceLabelValue5.setSize(48, 13);
         // buyPriceLabelValue5.setText("8,888 cr.");
-        buyPriceLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue6.setAutoSize(true);
         buyPriceLabelValue6.setLocation(311, 204);
         buyPriceLabelValue6.setSize(48, 13);
         // buyPriceLabelValue6.setText("8,888 cr.");
-        buyPriceLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue7.setAutoSize(true);
         buyPriceLabelValue7.setLocation(311, 228);
         buyPriceLabelValue7.setSize(48, 13);
         // buyPriceLabelValue7.setText("8,888 cr.");
-        buyPriceLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue8.setAutoSize(true);
         buyPriceLabelValue8.setLocation(311, 252);
         buyPriceLabelValue8.setSize(48, 13);
         // buyPriceLabelValue8.setText("8,888 cr.");
-        buyPriceLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         buyPriceLabelValue9.setAutoSize(true);
         buyPriceLabelValue9.setLocation(311, 276);
         buyPriceLabelValue9.setSize(48, 13);
         // buyPriceLabelValue9.setText("not sold");
-        buyPriceLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue0.setAutoSize(true);
         targetPriceLabelValue0.setLocation(377, 60);
         targetPriceLabelValue0.setSize(48, 13);
         targetPriceLabelValue0.setTabIndex(44);
         // targetPriceLabelValue0.setText("8,888 cr.");
-        //targetPriceLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue1.setAutoSize(true);
         targetPriceLabelValue1.setLocation(377, 84);
         targetPriceLabelValue1.setSize(48, 13);
         targetPriceLabelValue1.setTabIndex(53);
         // targetPriceLabelValue1.setText("8,888 cr.");
-        //targetPriceLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue2.setAutoSize(true);
         targetPriceLabelValue2.setLocation(377, 108);
         targetPriceLabelValue2.setSize(48, 13);
         targetPriceLabelValue2.setTabIndex(62);
         // targetPriceLabelValue2.setText("8,888 cr.");
-        //targetPriceLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue3.setAutoSize(true);
         targetPriceLabelValue3.setLocation(377, 132);
         targetPriceLabelValue3.setSize(48, 13);
         targetPriceLabelValue3.setTabIndex(71);
         // targetPriceLabelValue3.setText("8,888 cr.");
-        //targetPriceLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue4.setAutoSize(true);
         targetPriceLabelValue4.setLocation(377, 156);
         targetPriceLabelValue4.setSize(48, 13);
         targetPriceLabelValue4.setTabIndex(80);
         // targetPriceLabelValue4.setText("8,888 cr.");
-        //targetPriceLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue5.setAutoSize(true);
         targetPriceLabelValue5.setLocation(377, 180);
         targetPriceLabelValue5.setSize(48, 13);
         targetPriceLabelValue5.setTabIndex(89);
         // targetPriceLabelValue5.setText("8,888 cr.");
-        //targetPriceLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue6.setAutoSize(true);
         targetPriceLabelValue6.setLocation(377, 204);
         targetPriceLabelValue6.setSize(48, 13);
         targetPriceLabelValue6.setTabIndex(98);
         // targetPriceLabelValue6.setText("8,888 cr.");
-        //targetPriceLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue7.setAutoSize(true);
         targetPriceLabelValue7.setLocation(377, 228);
         targetPriceLabelValue7.setSize(48, 13);
         targetPriceLabelValue7.setTabIndex(107);
         // targetPriceLabelValue7.setText("8,888 cr.");
-        //targetPriceLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue8.setAutoSize(true);
         targetPriceLabelValue8.setLocation(377, 252);
         targetPriceLabelValue8.setSize(48, 13);
         targetPriceLabelValue8.setTabIndex(116);
         // targetPriceLabelValue8.setText("8,888 cr.");
-        //targetPriceLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPriceLabelValue9.setAutoSize(true);
         targetPriceLabelValue9.setLocation(377, 276);
         targetPriceLabelValue9.setSize(48, 13);
         targetPriceLabelValue9.setTabIndex(125);
         targetPriceLabelValue9.setText(TARGET_PRICE_NA);
-        //targetPriceLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue0.setAutoSize(true);
         targetDiffLabelValue0.setLocation(430, 60);
         targetDiffLabelValue0.setSize(52, 13);
         targetDiffLabelValue0.setTabIndex(45);
         // targetDiffLabelValue0.setText("-8,888 cr.");
-        //targetDiffLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue1.setAutoSize(true);
         targetDiffLabelValue1.setLocation(430, 84);
         targetDiffLabelValue1.setSize(52, 13);
         targetDiffLabelValue1.setTabIndex(54);
         // targetDiffLabelValue1.setText("-8,888 cr.");
-        //targetDiffLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue2.setAutoSize(true);
         targetDiffLabelValue2.setLocation(430, 108);
         targetDiffLabelValue2.setSize(52, 13);
         targetDiffLabelValue2.setTabIndex(63);
         // targetDiffLabelValue2.setText("-8,888 cr.");
-        //targetDiffLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue3.setAutoSize(true);
         targetDiffLabelValue3.setLocation(430, 132);
         targetDiffLabelValue3.setSize(52, 13);
         targetDiffLabelValue3.setTabIndex(72);
         // targetDiffLabelValue3.setText("-8,888 cr.");
-        //targetDiffLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue4.setAutoSize(true);
         targetDiffLabelValue4.setLocation(430, 156);
         targetDiffLabelValue4.setSize(52, 13);
         targetDiffLabelValue4.setTabIndex(81);
         // targetDiffLabelValue4.setText("-8,888 cr.");
-        //targetDiffLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue5.setAutoSize(true);
         targetDiffLabelValue5.setLocation(430, 180);
         targetDiffLabelValue5.setSize(52, 13);
         targetDiffLabelValue5.setTabIndex(90);
         // targetDiffLabelValue5.setText("-8,888 cr.");
-        //targetDiffLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue6.setAutoSize(true);
         targetDiffLabelValue6.setLocation(430, 204);
         targetDiffLabelValue6.setSize(52, 13);
         targetDiffLabelValue6.setTabIndex(99);
         // targetDiffLabelValue6.setText("-8,888 cr.");
-        //targetDiffLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue7.setAutoSize(true);
         targetDiffLabelValue7.setLocation(430, 228);
         targetDiffLabelValue7.setSize(52, 13);
         targetDiffLabelValue7.setTabIndex(108);
         // targetDiffLabelValue7.setText("-8,888 cr.");
-        //targetDiffLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue8.setAutoSize(true);
         targetDiffLabelValue8.setLocation(430, 252);
         targetDiffLabelValue8.setSize(52, 13);
         targetDiffLabelValue8.setTabIndex(117);
         // targetDiffLabelValue8.setText("-8,888 cr.");
-        //targetDiffLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetDiffLabelValue9.setAutoSize(true);
         targetDiffLabelValue9.setLocation(430, 276);
         targetDiffLabelValue9.setSize(52, 13);
         targetDiffLabelValue9.setTabIndex(126);
         targetDiffLabelValue9.setText(TARGET_DIFF_NA);
-        //targetDiffLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue0.setAutoSize(true);
         targetPercentageLabelValue0.setLocation(489, 60);
         targetPercentageLabelValue0.setSize(37, 13);
         targetPercentageLabelValue0.setTabIndex(46);
         // targetPercentageLabelValue0.setText("-888%");
-        //targetPercentageLabelValue0.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue1.setAutoSize(true);
         targetPercentageLabelValue1.setLocation(489, 84);
         targetPercentageLabelValue1.setSize(37, 13);
         targetPercentageLabelValue1.setTabIndex(55);
         // targetPercentageLabelValue1.setText("-888%");
-        //targetPercentageLabelValue1.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue2.setAutoSize(true);
         targetPercentageLabelValue2.setLocation(489, 108);
         targetPercentageLabelValue2.setSize(37, 13);
         targetPercentageLabelValue2.setTabIndex(64);
         // targetPercentageLabelValue2.setText("-888%");
-        //targetPercentageLabelValue2.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue3.setAutoSize(true);
         targetPercentageLabelValue3.setLocation(489, 132);
         targetPercentageLabelValue3.setSize(37, 13);
         targetPercentageLabelValue3.setTabIndex(73);
         // targetPercentageLabelValue3.setText("-888%");
-        //targetPercentageLabelValue3.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue4.setAutoSize(true);
         targetPercentageLabelValue4.setLocation(489, 156);
         targetPercentageLabelValue4.setSize(37, 13);
         targetPercentageLabelValue4.setTabIndex(82);
         // targetPercentageLabelValue4.setText("-888%");
-        //targetPercentageLabelValue4.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue5.setAutoSize(true);
         targetPercentageLabelValue5.setLocation(489, 180);
         targetPercentageLabelValue5.setSize(37, 13);
         targetPercentageLabelValue5.setTabIndex(91);
         // targetPercentageLabelValue5.setText("-888%");
-        //targetPercentageLabelValue5.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue6.setAutoSize(true);
         targetPercentageLabelValue6.setLocation(489, 204);
         targetPercentageLabelValue6.setSize(37, 13);
         targetPercentageLabelValue6.setTabIndex(100);
         // targetPercentageLabelValue6.setText("-888%");
-        //targetPercentageLabelValue6.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue7.setAutoSize(true);
         targetPercentageLabelValue7.setLocation(489, 228);
         targetPercentageLabelValue7.setSize(37, 13);
         targetPercentageLabelValue7.setTabIndex(109);
         // targetPercentageLabelValue7.setText("-888%");
-        //targetPercentageLabelValue7.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue8.setAutoSize(true);
         targetPercentageLabelValue8.setLocation(489, 252);
         targetPercentageLabelValue8.setSize(37, 13);
         targetPercentageLabelValue8.setTabIndex(118);
         // targetPercentageLabelValue8.setText("-888%");
-        //targetPercentageLabelValue8.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         targetPercentageLabelValue9.setAutoSize(true);
         targetPercentageLabelValue9.setLocation(489, 276);
         targetPercentageLabelValue9.setSize(37, 13);
         targetPercentageLabelValue9.setTabIndex(127);
         //targetPercentageLabelValue9.setText(TARGET_PERCENTAGE_NA);
-        //targetPercentageLabelValue9.setTextAlign(ContentAlignment.TOP_RIGHT);
 
         Arrays.stream(sellButtonArray).forEach(button -> {
             //button.setFlatStyle(FlatStyle.FLAT);
