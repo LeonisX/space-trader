@@ -2,13 +2,14 @@ package spacetrader.util;
 
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
+import spacetrader.gui.SpaceTrader;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.BinaryFormatter;
-import spacetrader.stub.RegistryKey;
 import spacetrader.stub.SerializationException;
 
 import java.io.*;
 import java.util.*;
+import java.util.prefs.Preferences;
 
 import static java.util.stream.Collectors.toList;
 
@@ -49,17 +50,6 @@ public class Functions {
     }
 
     public static String plural(int num, String unit) {
-        int index = 0;
-        switch (GlobalAssets.getLanguage()) {
-            case ENGLISH:
-                index = getEnglishPluralWordIndex(num);
-                break;
-            case RUSSIAN:
-                index = getRussianPluralWordIndex(num);
-                break;
-            default:
-                System.out.println("Unknown language: " + GlobalAssets.getLanguage());
-        }
         return formatNumber(num) + " " + pluralWoNumber(num, unit);
     }
 
@@ -146,10 +136,6 @@ public class Functions {
     // *************************************************************************
     public static int getRandom2(int max) {
         return (int) (rand() % max);
-    }
-
-    public static RegistryKey getRegistryKey() {
-        return new RegistryKey(new File("registryKey.properties"));
     }
 
     public static boolean isInt(String toParse) {
@@ -265,6 +251,28 @@ public class Functions {
         }
 
         return false;
+    }
+
+    private static Preferences getPreferences() {
+        return Preferences.userNodeForPackage(SpaceTrader.class);
+    }
+
+    public static String getRegistrySetting(String settingName, String defaultValue) {
+        try {
+            return getPreferences().get(settingName, defaultValue);
+        } catch (Exception e) {
+            GuiFacade.alert(AlertType.RegistryError, e.getMessage());
+        }
+        return defaultValue;
+    }
+
+
+    public static void setRegistrySetting(String settingName, String settingValue) {
+        try {
+            getPreferences().put(settingName, settingValue);
+        } catch (NullPointerException ex) {
+            GuiFacade.alert(AlertType.RegistryError, ex.getMessage());
+        }
     }
 
     public static boolean wormholeExists(StarSystem a, StarSystem b) {

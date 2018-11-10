@@ -90,7 +90,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Show in Cargo planet names (target)
 * Save last selected language as default
-* Rewrite CargoBuyStatement, CargoSellStatement. Can't translate tu Russian
+* Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
 
 ## Known bugs:
 

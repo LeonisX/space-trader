@@ -11,6 +11,7 @@ import spacetrader.gui.SpaceTrader;
 import spacetrader.stub.PropertiesLoader;
 import spacetrader.stub.StringsBundle;
 import spacetrader.stub.ValuesBundle;
+import spacetrader.util.Functions;
 
 import java.awt.*;
 
@@ -120,5 +121,15 @@ public class GlobalAssets {
 
     public static void setLanguage(Language language) {
         GlobalAssets.language = language;
+        Functions.setRegistrySetting("language", language.toString());
+    }
+
+    public static void loadLanguageFromRegistry() {
+        String lang = Functions.getRegistrySetting("language", Language.ENGLISH.toString());
+        try {
+            language = Language.valueOf(lang.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Illegal language name from Registry: " + lang);
+        }
     }
 }

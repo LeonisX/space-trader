@@ -1,6 +1,8 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
+import spacetrader.controls.Container;
+import spacetrader.controls.MenuItem;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -12,9 +14,12 @@ import spacetrader.game.enums.Language;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.Directory;
-import spacetrader.stub.RegistryKey;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
+
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import static spacetrader.controls.MenuItem.separator;
 import static spacetrader.game.enums.Language.ENGLISH;
@@ -129,6 +134,12 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             @Override
             public void handle(Object sender, EventArgs e) {
                 spaceTraderLoad();
+            }
+        });
+
+        getFrame().addWindowListener( new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                spaceTraderWindowClosing(we);
             }
         });
 
@@ -376,23 +387,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-    private String getRegistrySetting(String settingName, String defaultValue) {
-        String settingValue = defaultValue;
-
-        try {
-            RegistryKey key = Functions.getRegistryKey();
-            Object objectValue = key.getValue(settingName);
-            if (objectValue != null) {
-                settingValue = objectValue.toString();
-            }
-            key.close();
-        } catch (NullPointerException ex) {
-            GuiFacade.alert(AlertType.RegistryError, ex.getMessage());
-        }
-
-        return settingValue;
-    }
-
     // Make sure all directories exists.
     private void initFileStructure() {
         String[] paths = new String[]{Consts.CustomDirectory, Consts.CustomImagesDirectory,
@@ -419,16 +413,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         bankMenuItem.setEnabled(enabled);
     }
 
-    private void SetRegistrySetting(String settingName, String settingValue) {
-        try {
-            RegistryKey key = Functions.getRegistryKey();
-            key.setValue(settingName, settingValue);
-            key.close();
-        } catch (NullPointerException ex) {
-            GuiFacade.alert(AlertType.RegistryError, ex.getMessage());
-        }
-    }
-
     public void updateAll() {
         systemPanel.update();
         dockPanel.update();
@@ -444,24 +428,43 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private void spaceTraderClosing(CancelEventArgs e) {
         if (game == null || commander.getDays() == controller.saveGameDays
                 || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES) {
-            if (windowState == FormWindowState.NORMAL) {
-                SetRegistrySetting("X", left.toString());
-                SetRegistrySetting("Y", top.toString());
-            }
+            e.setCancel(false);
         } else {
             e.setCancel(true);
         }
     }
+
+
+    private void spaceTraderWindowClosing(WindowEvent we) {
+        if (we.getID() == WindowEvent.WINDOW_CLOSING && getFrame().getState() == Frame.NORMAL) {
+            Functions.setRegistrySetting("x", Integer.toString(getFrame().getX()));
+            Functions.setRegistrySetting("y", Integer.toString(getFrame().getY()));
+        }
+    }
+
 
     private void spaceTraderClosed() {
         FormsOwnerTree.pop(this);
     }
 
     private void spaceTraderLoad() {
-        left = Integer.parseInt(getRegistrySetting("X", "0"));
-        top = Integer.parseInt(getRegistrySetting("Y", "0"));
+        left = Integer.parseInt(Functions.getRegistrySetting("x", "-1"));
+        top = Integer.parseInt(Functions.getRegistrySetting("y", "-1"));
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        if (left < 0 || left + getWidth() > screenSize.getWidth()) {
+            left = (int) (screenSize.getWidth() - getWidth()) / 2;
+        }
+
+        if (top < 0 || top + getHeight() > screenSize.getHeight()) {
+            top = (int) (screenSize.getHeight() - getHeight()) / 2;
+        }
 
         FormsOwnerTree.add(this);
+
+        setLeft(left);
+        setTop(top);
 
         GuiFacade.alert(AlertType.AppStart);
     }

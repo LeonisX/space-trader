@@ -58,7 +58,7 @@ public class FormsTest extends SpaceTraderForm {
     }
 
     public FormsTest() {
-        GlobalAssets.setLanguage(Language.ENGLISH);
+        GlobalAssets.loadLanguageFromRegistry();
         GlobalAssets.loadVersions();
         GlobalAssets.loadStrings();
         GlobalAssets.initializeImages();
