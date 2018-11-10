@@ -64,6 +64,7 @@ public class FunctionsTest {
 
     @Test
     public void versionToLong() {
+        assertEquals(new Long(0L), Functions.versionToLong(""));
         assertEquals(new Long(1L), Functions.versionToLong("1"));
         assertEquals(new Long(10011L), Functions.versionToLong("2.11"));
         assertEquals(new Long(2L * 5000 * 5000 * 5000 + 4 * 5000 * 5000 + 6 * 5000 + 8), Functions.versionToLong("2.4.6.8-PR"));
