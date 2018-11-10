@@ -60,7 +60,22 @@ public class Functions {
             default:
                 System.out.println("Unknown language: " + GlobalAssets.getLanguage());
         }
-        return formatNumber(num) + " " + getPlural(unit, index + 1);
+        return formatNumber(num) + " " + pluralWoNumber(num, unit);
+    }
+
+    public static String pluralWoNumber(int num, String unit) {
+        int index = 0;
+        switch (GlobalAssets.getLanguage()) {
+            case ENGLISH:
+                index = getEnglishPluralWordIndex(num);
+                break;
+            case RUSSIAN:
+                index = getRussianPluralWordIndex(num);
+                break;
+            default:
+                System.out.println("Unknown language: " + GlobalAssets.getLanguage());
+        }
+        return getPlural(unit, index + 1);
     }
 
     // From plural4j library https://github.com/plural4j/plural4j/blob/master/src/main/java/com/github/plural4j/Plural.java

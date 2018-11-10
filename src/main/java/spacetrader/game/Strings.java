@@ -5,7 +5,14 @@ import java.util.Map;
 
 public class Strings {
 
-    public static Map<String, String> pluralMap = new HashMap<>();
+    public static Map<String, String> pluralMap = new HashMap<String, String>() {{
+        put("Cargo Bay2", "Cargo Bays");
+        put("unit2", "units");
+        put("click", "clicks");
+        put("parsec2", "parsecs");
+        put("credit2", "credits");
+        put("day2", "days");
+    }};
 
     //TODO test FormMonster, ...
     public static String newline = "<br>";//String.format("%n");
@@ -412,6 +419,14 @@ public class Strings {
     public static String AlertsWildWontStayAboardReactorMessage = "Jonathan Wild isn't willing to go with you if you bring that Reactor on board. He'd rather take his chances hiding out here on ^1." + Strings.newline;
     public static String AlertsWildWontStayAboardReactorAccept = "Say Goodbye to Wild";
 
+    //Units
+    public static String CargoBay="Cargo Bay";
+    public static String CargoUnit = "unit";
+    public static String DistanceUnit = "parsec";
+    public static String DistanceSubunit = "click";
+    public static String MoneyUnit = "credit";
+    public static String TimeUnit = "day";
+
     public static String BankInsuranceButtonBuy = "Buy Insurance";
     public static String BankInsuranceButtonStop = "Stop Insurance";
     public static String BankLoanStatementBorrow = "You can borrow up to ^1.";
@@ -442,7 +457,6 @@ public class Strings {
     public static String CargoSellStatementDump = "You can ^1 up to ^2.";
     public static String CargoSellStatementTrader = "The trader wants to buy ^1 and offers ^2 each.";
     public static String CargoTitle = "^1 ^2";
-    public static String CargoUnit = "unit";
 
     public static String ChartDistance = "^1 to ^2.";
 
@@ -465,9 +479,6 @@ public class Strings {
     public static String CommanderAnd = "and";
     public static String CommanderAngryKingpins = "Angry kingpins:";
     public static String CommanderBountyOffered = "Bounty offered:";
-
-    public static String DistanceUnit = "parsec";
-    public static String DistanceSubunit = "click";
 
     public static String DockFuelCost = "A full tank costs ^1";
     public static String DockFuelFull = "Your tank is full.";
@@ -559,13 +570,14 @@ public class Strings {
     public static String MercenaryHire = "Hire";
 
     public static String MoneyRateSuffix = "^1 daily";
-    public static String MoneyUnit = "credit";
 
     public static String NA = "N/A";
 
     public static String NewsMoonForSale = "Seller in ^1 System has Utopian Moon available.";
     public static String NewsShipyard = "Shipyard in ^1 System offers to design custom ships.";
     public static String NewsTribbleBuyer = "Collector in ^1 System seeks to purchase Tribbles.";
+
+    public static String OptionsKeepEmptyCargoBays = "to leave empty when buying goods in-system";
 
     public static String PersonnelVacancy = "Vacancy";
     public static String PointsRemaining = "remaining: ^1.";
@@ -662,8 +674,6 @@ public class Strings {
     public static String StatusBarCash = "Cash:";
     public static String StatusBarCurrentCosts = "Current Costs:";
     public static String StatusBarNoGameLoaded = "No Game Loaded.";
-
-    public static String TimeUnit = "day";
 
     public static String TribbleDangerousNumber = "a dangerous number of";
 

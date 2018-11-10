@@ -1,18 +1,23 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.enums.*;
+import spacetrader.controls.enums.ControlBinding;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
 import spacetrader.game.GameOptions;
+import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 public class FormOptions extends SpaceTraderForm {
 
     private Button okButton = new Button();
     private Button cancelButton = new Button();
-    private Label emptyLabel = new Label();
+    private Label emptyLabelValue = new Label();
     private Label ignoreLabel = new Label();
     private CheckBox fuelCheckBox = new CheckBox();
     private CheckBox continuousAttackCheckBox = new CheckBox();
@@ -161,10 +166,10 @@ public class FormOptions extends SpaceTraderForm {
             }
         });
 
-        emptyLabel.setAutoSize(true);
-        emptyLabel.setLocation(52, 90);
-        //emptyLabel.setSize(300, 16);
-        emptyLabel.setText("Cargo Bays to leave empty when buying goods in-system");
+        emptyLabelValue.setAutoSize(true);
+        emptyLabelValue.setLocation(52, 90);
+        //emptyLabelValue.setSize(300, 16);
+        emptyLabelValue.setText(getEmptyLabelValue());
 
         ignoreLabel.setAutoSize(true);
         ignoreLabel.setLocation(8, 120);
@@ -202,7 +207,7 @@ public class FormOptions extends SpaceTraderForm {
         });
 
         ignoreDealingTradersCheckBox.setLocation(185, 152);
-        ignoreDealingTradersCheckBox.setSize(250, 16);
+        ignoreDealingTradersCheckBox.setSize(310, 16);
         ignoreDealingTradersCheckBox.setTabIndex(12);
         ignoreDealingTradersCheckBox.setText("Ignore dealing traders");
         ignoreDealingTradersCheckBox.setCheckedChanged(new EventHandler<Object, EventArgs>() {
@@ -280,7 +285,7 @@ public class FormOptions extends SpaceTraderForm {
         });
 
         controls.addAll(fuelCheckBox, repairCheckBox, newspaperCheckBox, showNewspaperCheckBox, rangeCheckBox,
-                stopTrackingCheckBox, reserveMoneyCheckBox, loanCheckBox, emptyNumericUpDown, emptyLabel, ignoreLabel,
+                stopTrackingCheckBox, reserveMoneyCheckBox, loanCheckBox, emptyNumericUpDown, emptyLabelValue, ignoreLabel,
                 ignorePiratesCheckBox, ignorePoliceCheckBox, ignoreTradersCheckBox, ignoreDealingTradersCheckBox,
                 continuousAttackCheckBox, attackFleeingCheckBox, disableOpponentsCheckBox, okButton, cancelButton,
                 saveButton, loadButton);
@@ -371,7 +376,15 @@ public class FormOptions extends SpaceTraderForm {
             getOptions().setContinuousAttack(continuousAttackCheckBox.isChecked());
             getOptions().setContinuousAttackFleeing(attackFleeingCheckBox.isChecked());
             getOptions().setDisableOpponents(disableOpponentsCheckBox.isChecked());
+
+            System.out.println(emptyNumericUpDown.getValue());
+            emptyLabelValue.setText(getEmptyLabelValue());
         }
+    }
+
+    private String getEmptyLabelValue() {
+        return Functions.pluralWoNumber(emptyNumericUpDown.getValue(), Strings.CargoBay) + " "
+                + Strings.OptionsKeepEmptyCargoBays;
     }
 
     GameOptions getOptions() {

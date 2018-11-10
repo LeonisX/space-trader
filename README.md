@@ -59,6 +59,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## Other
 
 * Those who wish to improve the Russian translation are invited. [Download script](english-russian.xls)
+* Everyone who wants to translate the game into their native language is also welcome. Write to me, I'll tell you what you need to do.
 * Any suggestions and recommendations are welcome.
 * Have a nice game
 
@@ -90,6 +91,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Show in Cargo planet names (target)
 * Save last selected language as default
+* Rewrite CargoBuyStatement, CargoSellStatement. Can't translate tu Russian
 
 ## Known bugs:
 
