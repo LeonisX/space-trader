@@ -22,8 +22,8 @@ public class GameController {
     private static final String SAVE_DEPARTURE = "autosave_departure.sav";
     private final Game game;
     private final MainWindow mainWindow;
-    public String saveGameFile = null;
-    public int saveGameDays = -1;
+    private String saveGameFile = null;
+    private int saveGameDays = -1;
 
     public GameController(Game game, MainWindow spaceTrader) {
         this.game = game;
@@ -96,20 +96,24 @@ public class GameController {
         mainWindow.setGame(null);
     }
 
-    public void loadGame(String fileName) {
+    public static GameController loadGame(String fileName, MainWindow mainWindow) {
         try {
             Object obj = Functions.loadFile(fileName, false);
             if (obj != null) {
-                mainWindow.setGame(new Game((Hashtable) obj, mainWindow));
-                saveGameFile = fileName;
-                saveGameDays = game.getCommander().getDays();
+                Game game = new Game((Hashtable) obj, mainWindow);
+                GameController gameController = new GameController(game, mainWindow);
+                gameController.setSaveGameFile(fileName);
+                gameController.setSaveGameDays(game.getCommander().getDays());
 
+                mainWindow.setGame(game);
                 mainWindow.setInGameControlsEnabled(true);
                 mainWindow.updateAll();
+                return gameController;
             }
         } catch (FutureVersionException ex) {
             GuiFacade.alert(AlertType.FileErrorOpen, fileName, Strings.FileFutureVersion);
         }
+        return new GameController(null, mainWindow);
     }
 
     public void saveGame(String fileName, boolean saveFileName) {
@@ -129,5 +133,21 @@ public class GameController {
         if (game.getAutoSave()) {
             saveGame(SAVE_DEPARTURE, false);
         }
+    }
+
+    public String getSaveGameFile() {
+        return saveGameFile;
+    }
+
+    public void setSaveGameFile(String saveGameFile) {
+        this.saveGameFile = saveGameFile;
+    }
+
+    public int getSaveGameDays() {
+        return saveGameDays;
+    }
+
+    public void setSaveGameDays(int saveGameDays) {
+        this.saveGameDays = saveGameDays;
     }
 }

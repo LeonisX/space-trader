@@ -1,12 +1,12 @@
 package spacetrader.game;
 
 import spacetrader.controls.enums.DialogResult;
+import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
-import spacetrader.game.cheat.CheatCode;
 import spacetrader.util.Functions;
 import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
@@ -128,8 +128,8 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         game = this;
         this.parentWin = parentWin;
 
-        String version = getValueFromHash(hash, "_version", String.class);
-        if (version.compareTo(Consts.CurrentVersion) > 0) {
+        String version = getValueFromHash(hash, "_version", "", String.class);
+        if (version.compareTo(GlobalAssets.getVersion()) > 0) {
             throw new FutureVersionException();
         }
 
@@ -137,14 +137,14 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         wormholes = getValueFromHash(hash, "_wormholes", wormholes, int[].class);
         mercenaries = (CrewMember[]) arrayListToArray(getValueFromHash(hash, "_mercenaries", ArrayList.class),
                 "CrewMember");
-        commander = new Commander(getValueFromHash(hash, "commander", Hashtable.class));
+        commander = new Commander(getValueFromHash(hash, "_commander", Hashtable.class));
         dragonfly = new Ship(getValueFromHash(hash, "_dragonfly", dragonfly.serialize(), Hashtable.class));
         scarab = new Ship(getValueFromHash(hash, "_scarab", scarab.serialize(), Hashtable.class));
         scorpion = new Ship(getValueFromHash(hash, "_scorpion", scorpion.serialize(), Hashtable.class));
         spaceMonster = new Ship(getValueFromHash(hash, "_spaceMonster", spaceMonster.serialize(), Hashtable.class));
         opponent = new Ship(getValueFromHash(hash, "_opponent", opponent.serialize(), Hashtable.class));
         chanceOfTradeInOrbit = getValueFromHash(hash, "_chanceOfTradeInOrbit", chanceOfTradeInOrbit);
-        clicks = getValueFromHash(hash, "clicks", clicks);
+        clicks = getValueFromHash(hash, "_clicks", clicks);
         raided = getValueFromHash(hash, "_raided", raided);
         inspected = getValueFromHash(hash, "_inspected", inspected);
         tribbleMessage = getValueFromHash(hash, "_tribbleMessage", tribbleMessage);
@@ -3204,9 +3204,9 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     Hashtable serialize() {
         Hashtable hash = super.serialize();
 
-        hash.add("_version", "2.00");
+        hash.add("_version", GlobalAssets.getVersion());
         hash.add("_universe", arrayToArrayList(universe));
-        hash.add("commander", commander.serialize());
+        hash.add("_commander", commander.serialize());
         hash.add("_wormholes", wormholes);
         hash.add("_mercenaries", arrayToArrayList(mercenaries));
         hash.add("_dragonfly", dragonfly.serialize());
@@ -3215,7 +3215,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         hash.add("_spaceMonster", spaceMonster.serialize());
         hash.add("_opponent", opponent.serialize());
         hash.add("_chanceOfTradeInOrbit", chanceOfTradeInOrbit);
-        hash.add("clicks", clicks);
+        hash.add("_clicks", clicks);
         hash.add("_raided", raided);
         hash.add("_inspected", inspected);
         hash.add("_tribbleMessage", tribbleMessage);
@@ -3223,7 +3223,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         hash.add("_paidForNewspaper", paidForNewspaper);
         hash.add("_litterWarning", litterWarning);
         hash.add("_newsEvents", arrayListToIntArray(newsEvents));
-        hash.add("difficulty", difficulty.castToInt());
+        hash.add("_difficulty", difficulty.castToInt());
         hash.add("_cheatEnabled", cheats.isCheatMode());
         hash.add("_autoSave", autoSave);
         hash.add("_easyEncounters", easyEncounters);

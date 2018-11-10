@@ -30,7 +30,7 @@ public class SpaceTraderDevApp {
             throw new RuntimeException(e);
         }
 
-        GlobalAssets.loadVersions();
+        GlobalAssets.loadVersion();
         GlobalAssets.loadLanguageFromRegistry();
         GlobalAssets.loadStrings();
         //GlobalAssets.loadDimensions("0768");

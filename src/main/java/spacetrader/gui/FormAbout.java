@@ -45,7 +45,7 @@ public class FormAbout extends WinformForm {
         versionLabelValue.setControlBinding(ControlBinding.RIGHT);
         versionLabelValue.setFont(FontCollection.bold825);
         versionLabelValue.setLocation(getWidth() - 10, 10);
-        versionLabelValue.setText(GlobalAssets.getVersions().getString("version"));
+        versionLabelValue.setText(GlobalAssets.getVersion());
 
         aboutLabel.setLocation(177, 32);
         aboutLabel.setSize(410, 170);

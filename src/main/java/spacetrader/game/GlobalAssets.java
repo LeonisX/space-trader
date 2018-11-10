@@ -20,6 +20,7 @@ public class GlobalAssets {
     private static final String STRINGS_TEMPLATE = "strings/%s.properties";
     private static final String DIMENSIONS_TEMPLATE = "dimensions/%s.properties";
     private static final String VERSION_FILE = "version.properties";
+    private static final String VERSION = "version";
 
     private static Language language = Language.ENGLISH;
 
@@ -30,7 +31,7 @@ public class GlobalAssets {
 
     private static StringsBundle strings = new StringsBundle();
     private static ValuesBundle dimensions = new ValuesBundle();
-    private static StringsBundle versions = new StringsBundle();
+    private static String version;
 
     public static void initializeImages() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
@@ -67,8 +68,11 @@ public class GlobalAssets {
         dimensions = PropertiesLoader.getValuesBundle(String.format(DIMENSIONS_TEMPLATE, fileName));
     }
 
-    public static void loadVersions() {
-        versions = PropertiesLoader.getStringsBundle(VERSION_FILE);
+    public static void loadVersion() {
+        version = PropertiesLoader.getStringsBundle(VERSION_FILE).getString(VERSION);
+        if (null == version) {
+            throw new IllegalStateException("Can't load version from " + VERSION_FILE);
+        }
     }
 
     public static StringsBundle getStrings() {
@@ -79,8 +83,8 @@ public class GlobalAssets {
         return dimensions;
     }
 
-    public static StringsBundle getVersions() {
-        return versions;
+    public static String getVersion() {
+        return version;
     }
 
     public static ImageList getChartImages() {

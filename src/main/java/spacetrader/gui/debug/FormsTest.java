@@ -59,7 +59,7 @@ public class FormsTest extends SpaceTraderForm {
 
     public FormsTest() {
         GlobalAssets.loadLanguageFromRegistry();
-        GlobalAssets.loadVersions();
+        GlobalAssets.loadVersion();
         GlobalAssets.loadStrings();
         GlobalAssets.initializeImages();
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());

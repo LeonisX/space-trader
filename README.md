@@ -94,7 +94,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Known bugs:
 
-* Load game from scratch
 * LinkLabel - not implemented sort
 * FormMonster - not correct columns order; bug in mercenariesPanel (systems); Links don't work
 * Many dialogs don't allow to close them from [x]
