@@ -129,7 +129,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         this.parentWin = parentWin;
 
         String version = getValueFromHash(hash, "_version", "", String.class);
-        if (version.compareTo(GlobalAssets.getVersion()) > 0) {
+        if (Functions.versionToLong(version).compareTo(Functions.versionToLong(GlobalAssets.getVersion())) > 0) {
             throw new FutureVersionException();
         }
 

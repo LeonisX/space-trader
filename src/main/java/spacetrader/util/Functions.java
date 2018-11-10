@@ -173,6 +173,17 @@ public class Functions {
             seedY = DEF_SEED_Y;
     }
 
+    public static Long versionToLong(String version) {
+        List<Integer> subVersions = Arrays.stream(version.split("\\.")).map(s -> s.replaceAll("[^\\d.]", ""))
+                .filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(toList());
+
+        long longVersion = 0L;
+        for (Integer subVersion : subVersions) {
+            longVersion = longVersion * 5000 + subVersion;
+        }
+        return longVersion;
+    }
+
     public static HighScoreRecord[] getHighScores() {
         return readObjectFromFile(Consts.HighScoreFile, true)
                 .map(o -> (HighScoreRecord[]) o)

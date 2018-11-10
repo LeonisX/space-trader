@@ -61,4 +61,18 @@ public class FunctionsTest {
         assertEquals("ddd|ddd", result.get(1));
         assertEquals("c", result.get(2));
     }
+
+    @Test
+    public void versionToLong() {
+        assertEquals(new Long(1L), Functions.versionToLong("1"));
+        assertEquals(new Long(10011L), Functions.versionToLong("2.11"));
+        assertEquals(new Long(2L * 5000 * 5000 * 5000 + 4 * 5000 * 5000 + 6 * 5000 + 8), Functions.versionToLong("2.4.6.8-PR"));
+    }
+
+    @Test
+    public void versionToLongCompare() {
+        assertEquals(Functions.versionToLong("1.9.9").compareTo(Functions.versionToLong("1.9.10")), -1);
+        assertEquals(Functions.versionToLong("1.9.9").compareTo(Functions.versionToLong("1.9 .09")), 0);
+        assertEquals(Functions.versionToLong("1.9.9").compareTo(Functions.versionToLong("1.10.8")), -1);
+    }
 }
