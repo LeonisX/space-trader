@@ -68,7 +68,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Different image sizes, font sizes (config)
 * Special object for save states
 * SaveFileDialog - full localization
-* Optional refactor GUI with WindowBuilder Pro (autosize, grouping)
 * Full Russian description
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin

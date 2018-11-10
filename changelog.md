@@ -69,11 +69,11 @@ Also: I know of are two bugs in the game; If you happen to run across any more, 
 
 * Game now runs under Linux, Mac, and hopefully everything else. Thanks Chris and Sonia!
 * Everything is compiled as Java version 1.5 (Macs have problems with version 1.6)
-* Fixed a bug that you couldn't exit the game without saving or retireing.
+* Fixed a bug that you could't exit the game without saving or retiring.
 
 04.07.2009 1.1
 
-* Seperate main window to several classes.
+* Separate main window to several classes.
 * Enable play in non-cheat mode (Just enter a name in the New Game dialog)
 * Fixed bugs in high-score: sort during save, read from file
 
