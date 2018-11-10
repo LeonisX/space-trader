@@ -103,11 +103,6 @@ public class BaseComponent implements ISupportInitialize, IName {
         setSize(size);
     }
 
-    //TODO replace to (x, y) version
-    public void setLocation(Point location) {
-        swingComponent.setLocation(location);
-    }
-
     public void setLocation(int x, int y) {
         swingComponent.setLocation(new Point(x, y));
     }

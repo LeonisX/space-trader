@@ -35,7 +35,7 @@ public class FormAlertTest extends SpaceTraderForm {
         Launcher.runForm(new FormAlertTest());
     }
 
-    public FormAlertTest() {
+    FormAlertTest() {
         initializeComponent();
 
         AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.WildWontStayAboardReactor.ordinal());
@@ -63,9 +63,9 @@ public class FormAlertTest extends SpaceTraderForm {
         // lblAlertType
         //
         this.lblAlertType.setAutoSize(true);
-        this.lblAlertType.setLocation(new java.awt.Point(8, 19));
+        this.lblAlertType.setLocation(8, 1);
         this.lblAlertType.setName("lblAlertType");
-        this.lblAlertType.setSize(new Size(56, 13));
+        this.lblAlertType.setSize(56, 13);
         this.lblAlertType.setTabIndex(0);
         this.lblAlertType.setText("Alert Type");
         //
@@ -81,19 +81,18 @@ public class FormAlertTest extends SpaceTraderForm {
                 this.lblValue1,
                 this.lblValue2,
                 this.lblAlertType}));
-        this.boxAlert.setLocation(new java.awt.Point(8, 8));
+        this.boxAlert.setLocation(8, 8);
         this.boxAlert.setName("boxAlert");
-        this.boxAlert.setSize(new Size(300, 152));
+        this.boxAlert.setSize(300, 152);
         this.boxAlert.setTabIndex(1);
         this.boxAlert.setTabStop(false);
         this.boxAlert.setText("Test Alert");
         //
         // btnTestAlert
         //
-        this.btnTestAlert.setFlatStyle(FlatStyle.FLAT);
-        this.btnTestAlert.setLocation(new java.awt.Point(80, 120));
+        this.btnTestAlert.setLocation(80, 120);
         this.btnTestAlert.setName("btnTestAlert");
-        this.btnTestAlert.setSize(new Size(41, 22));
+        this.btnTestAlert.setSize(41, 22);
         this.btnTestAlert.setTabIndex(8);
         this.btnTestAlert.setText("Test");
         this.btnTestAlert.setClick(new EventHandler<Object, EventArgs>() {
@@ -104,60 +103,60 @@ public class FormAlertTest extends SpaceTraderForm {
         //
         // txtValue3
         //
-        this.txtValue3.setLocation(new java.awt.Point(72, 88));
+        this.txtValue3.setLocation(72, 88);
         this.txtValue3.setName("txtValue3");
-        this.txtValue3.setSize(new Size(120, 20));
+        this.txtValue3.setSize(120, 20);
         this.txtValue3.setTabIndex(7);
         this.txtValue3.setText("");
         //
         // txtValue2
         //
-        this.txtValue2.setLocation(new java.awt.Point(72, 64));
+        this.txtValue2.setLocation(72, 64);
         this.txtValue2.setName("txtValue2");
-        this.txtValue2.setSize(new Size(120, 20));
+        this.txtValue2.setSize(120, 20);
         this.txtValue2.setTabIndex(6);
         this.txtValue2.setText("");
         //
         // txtValue1
         //
-        this.txtValue1.setLocation(new java.awt.Point(72, 40));
+        this.txtValue1.setLocation(72, 40);
         this.txtValue1.setName("txtValue1");
-        this.txtValue1.setSize(new Size(120, 20));
+        this.txtValue1.setSize(120, 20);
         this.txtValue1.setTabIndex(5);
         this.txtValue1.setText("");
         //
         // selAlertType
         //
         this.selAlertType.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        this.selAlertType.setLocation(new java.awt.Point(72, 16));
+        this.selAlertType.setLocation(72, 16);
         this.selAlertType.setName("selAlertType");
-        this.selAlertType.setSize(new Size(200, 21));
+        this.selAlertType.setSize(200, 21);
         this.selAlertType.setTabIndex(4);
         //
         // lblValue3
         //
         this.lblValue3.setAutoSize(true);
-        this.lblValue3.setLocation(new java.awt.Point(8, 91));
+        this.lblValue3.setLocation(8, 91);
         this.lblValue3.setName("lblValue3");
-        this.lblValue3.setSize(new Size(43, 13));
+        this.lblValue3.setSize(43, 13);
         this.lblValue3.setTabIndex(3);
         this.lblValue3.setText("Value 3");
         //
         // lblValue1
         //
         this.lblValue1.setAutoSize(true);
-        this.lblValue1.setLocation(new java.awt.Point(8, 43));
+        this.lblValue1.setLocation(8, 43);
         this.lblValue1.setName("lblValue1");
-        this.lblValue1.setSize(new Size(43, 13));
+        this.lblValue1.setSize(43, 13);
         this.lblValue1.setTabIndex(2);
         this.lblValue1.setText("Value 1");
         //
         // lblValue2
         //
         this.lblValue2.setAutoSize(true);
-        this.lblValue2.setLocation(new java.awt.Point(8, 67));
+        this.lblValue2.setLocation(8, 67);
         this.lblValue2.setName("lblValue2");
-        this.lblValue2.setSize(new Size(43, 13));
+        this.lblValue2.setSize(43, 13);
         this.lblValue2.setTabIndex(1);
         this.lblValue2.setText("Value 2");
         //
@@ -167,19 +166,18 @@ public class FormAlertTest extends SpaceTraderForm {
                 this.btnTestSpecialEvent,
                 this.selSpecialEvent,
                 this.lblSpecialEvent}));
-        this.panel1.setLocation(new java.awt.Point(8, 168));
+        this.panel1.setLocation(8, 168);
         this.panel1.setName("panel1");
-        this.panel1.setSize(new Size(200, 80));
+        this.panel1.setSize(200, 80);
         this.panel1.setTabIndex(2);
         this.panel1.setTabStop(false);
         this.panel1.setText("Test Special Alert");
         //
         // btnTestSpecialEvent
         //
-        this.btnTestSpecialEvent.setFlatStyle(FlatStyle.FLAT);
-        this.btnTestSpecialEvent.setLocation(new java.awt.Point(80, 48));
+        this.btnTestSpecialEvent.setLocation(80, 48);
         this.btnTestSpecialEvent.setName("btnTestSpecialEvent");
-        this.btnTestSpecialEvent.setSize(new Size(41, 22));
+        this.btnTestSpecialEvent.setSize(41, 22);
         this.btnTestSpecialEvent.setTabIndex(8);
         this.btnTestSpecialEvent.setText("Test");
         this.btnTestSpecialEvent.setClick(new EventHandler<Object, EventArgs>() {
@@ -191,24 +189,23 @@ public class FormAlertTest extends SpaceTraderForm {
         // selSpecialEvent
         //
         this.selSpecialEvent.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
-        this.selSpecialEvent.setLocation(new java.awt.Point(88, 16));
+        this.selSpecialEvent.setLocation(88, 16);
         this.selSpecialEvent.setName("selSpecialEvent");
-        this.selSpecialEvent.setSize(new Size(104, 21));
+        this.selSpecialEvent.setSize(104, 21);
         this.selSpecialEvent.setTabIndex(4);
         //
         // lblSpecialEvent
         //
         this.lblSpecialEvent.setAutoSize(true);
-        this.lblSpecialEvent.setLocation(new java.awt.Point(8, 19));
+        this.lblSpecialEvent.setLocation(8, 19);
         this.lblSpecialEvent.setName("lblSpecialEvent");
-        this.lblSpecialEvent.setSize(new Size(73, 13));
+        this.lblSpecialEvent.setSize(73, 13);
         this.lblSpecialEvent.setTabIndex(0);
         this.lblSpecialEvent.setText("Special Event");
         //
         // FormAlertTest
         //
-        this.setAutoScaleBaseSize(new Size(5, 13));
-        this.setClientSize(new Size(370, 255));
+        this.setClientSize(370, 255);
         this.controls.addAll(Arrays.asList(
                 this.panel1,
                 this.boxAlert));
