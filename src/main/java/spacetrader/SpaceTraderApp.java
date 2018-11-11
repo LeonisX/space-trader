@@ -21,14 +21,14 @@ public class SpaceTraderApp {
         GlobalAssets.loadVersion();
         GlobalAssets.loadLanguageFromRegistry();
         GlobalAssets.loadStrings();
-        //GlobalAssets.loadDimensions("0768");
+        GlobalAssets.loadDimensions("0768");
         GlobalAssets.initializeImages();
 
         GuiEngine.installImplementation(new OriginalGuiImplementationProvider());
 
         SpaceTrader spaceTrader = new SpaceTrader(args.length > 0 ? args[0] : null);
 
-        ReflectionUtils.loadControlsDimensions(spaceTrader.getFrame(), spaceTrader.getName(), GlobalAssets.getDimensions());
+        //ReflectionUtils.loadControlsDimensions(spaceTrader.getFrame(), spaceTrader.getName(), GlobalAssets.getDimensions());
         ReflectionUtils.loadControlsStrings(spaceTrader.getFrame(), spaceTrader.getName(), GlobalAssets.getStrings());
         ReflectionUtils.loadStrings(GlobalAssets.getStrings());
 

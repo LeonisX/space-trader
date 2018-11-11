@@ -114,15 +114,13 @@ class SystemPanel extends Panel {
         for (Label label : labels) {
             label.setFont(FontCollection.bold825);
             label.setAutoSize(true);
-            //labels[i].setTabIndex(i * 2);
             // Fix different fonts sizes
-            label.setTop(label.getTop() + 1); // TODO
+            label.setTop(label.getTop() + 1);
         }
 
         for (Label labelValue : labelValues) {
             labelValue.setFont(FontCollection.regular825);
             labelValue.setAutoSize(true);
-            //labelValues[i].setTabIndex(i * 2 + 1);
         }
 
         newsButton.setAutoWidth(true);

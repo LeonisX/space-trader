@@ -3565,7 +3565,6 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         return encounterImage;
     }
 
-    //TODO receive declension
     private String getEncounterShipText() {
 
         String shipText = getOpponent().getName();

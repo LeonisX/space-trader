@@ -9,7 +9,7 @@ import spacetrader.util.Hashtable;
 public class ShipTemplate extends STSerializableObject implements Comparable<ShipTemplate> {
 
     private String name = null;
-    private Size size = spacetrader.game.enums.Size.TINY;
+    private Size size = Size.TINY;
     private int imageIndex = ShipType.CUSTOM.castToInt();
     private int cargoBays = 0;
     private int weaponSlots = 0;

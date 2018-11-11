@@ -262,7 +262,6 @@ public class FormViewCommander extends SpaceTraderForm {
 
         nameLabelValue.setText(cmdr.getName());
         difficultyLabelValue.setText(Strings.DifficultyLevels[game.getDifficulty().castToInt()]);
-        // TODO день, дня, дней
         timeLabelValue.setText(Functions.plural(cmdr.getDays(), Strings.TimeUnit));
 
         pilotLabelValue.setText(cmdr.getPilot() + " (" + cmdr.getShip().getPilot() + ")");

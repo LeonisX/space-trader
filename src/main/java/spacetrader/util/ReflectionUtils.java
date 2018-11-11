@@ -217,7 +217,7 @@ public class ReflectionUtils {
         loadControlsDimensions(component.asSwingObject(), component.getName(), GlobalAssets.getDimensions());
     }
 
-    public static void loadControlsDimensions(Component component, String prefix, ValuesBundle valuesBundle) {
+    private static void loadControlsDimensions(Component component, String prefix, ValuesBundle valuesBundle) {
         prefix = formatPropertyName(prefix);
         if (component.getName() != null && !component.getName().startsWith("null.")) {
             double scale = 1.0;
@@ -232,7 +232,7 @@ public class ReflectionUtils {
                     component.setLocation(point);
                 }
             } else {
-                System.out.println("!!!" + prefix);
+                System.out.println("!!!Control without dimensions: " + prefix);
             }
         }
         if (component instanceof java.awt.Container) {

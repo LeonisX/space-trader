@@ -69,7 +69,6 @@ public class PoliticalSystem {
         return type;
     }
 
-    //TODO ???
     public int getReactionIllegal() {
         return reactionIllegal;
     }
