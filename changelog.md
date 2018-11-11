@@ -3,6 +3,31 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+11.11.2018. v.2.11.13
+
+* Keep main window position and language in registry
+* Distance + "parsec" in TargetSystemPanel
+* Update Russian script
+
+Bug fixes:
+
+* Fix game loading from scratch
+* Correct determination of the number of lines in Label
+* Fix version comparisons
+
+Refactor:
+
+* Simplify classes: MyComboBoxModel, MyListModel, ResourceManager, OpenFileDialog, SaveFileDialog
+* Remove unneeded methods: beginInit(), endInit(), suspendLayout() 
+* Remove unneeded methods: setSize(Dimension size) 
+* Remove unneeded methods: setLocation(Point location)
+* Remove unneeded classes: ContentAlignment, Size class, SolidBrush
+* Remove unneeded interface IContainer 
+* Remove unneeded value WinformJPanel.autoScaleBaseSize
+
+
+
+
 10.11.2018. v.2.8.9
 
 * Case and Plural Support
