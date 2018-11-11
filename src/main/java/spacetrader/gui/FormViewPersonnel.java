@@ -217,9 +217,9 @@ public class FormViewPersonnel extends SpaceTraderForm {
         crewListBox.getItems().clear();
         for (int i = 1; i < crewMembers.length; i++) {
             if (crewMembers[i] == null) {
-                crewListBox.getItems().add(Strings.PersonnelVacancy);
+                crewListBox.getItems().addElement(Strings.PersonnelVacancy);
             } else {
-                crewListBox.getItems().add(crewMembers[i]);
+                crewListBox.getItems().addElement(crewMembers[i]);
             }
         }
 

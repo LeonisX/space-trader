@@ -41,14 +41,14 @@ public class FormAlertTest extends SpaceTraderForm {
         AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.WildWontStayAboardReactor.ordinal());
 //			for (AlertType type = AlertType.Alert; type.castToInt() <= AlertType.WildWontStayAboardReactor.castToInt(); type++)
         for (AlertType type : alerts) {
-            selAlertType.getItems().add(type);
+            selAlertType.getItems().addElement(type);
         }
         selAlertType.setSelectedIndex(0);
 
         SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.Artifact.ordinal(), SpecialEventType.WildGetsOut.ordinal());
 //			for (SpecialEventType type = SpecialEventType.Artifact; type < SpecialEventType.WildGetsOut; type++)
         for (SpecialEventType type : events) {
-            selSpecialEvent.getItems().add(type);
+            selSpecialEvent.getItems().addElement(type);
         }
         selSpecialEvent.setSelectedIndex(0);
     }

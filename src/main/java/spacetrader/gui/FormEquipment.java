@@ -482,13 +482,13 @@ public class FormEquipment extends SpaceTraderForm {
             if (equipmentToBuy.getPrice() > 0) {
                 switch (equipmentToBuy.getEquipmentType()) {
                     case WEAPON:
-                        buyWeaponsListBox.getItems().add(equipmentToBuy);
+                        buyWeaponsListBox.getItems().addElement(equipmentToBuy);
                         break;
                     case SHIELD:
-                        buyShieldsListBox.getItems().add(equipmentToBuy);
+                        buyShieldsListBox.getItems().addElement(equipmentToBuy);
                         break;
                     case GADGET:
-                        buyGadgetsListBox.getItems().add(equipmentToBuy);
+                        buyGadgetsListBox.getItems().addElement(equipmentToBuy);
                         break;
                 }
             }
@@ -542,15 +542,15 @@ public class FormEquipment extends SpaceTraderForm {
         Ship ship = Game.getCurrentGame().getCommander().getShip();
 
         for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.WEAPON)) {
-            sellWeaponsListBox.getItems().add(equipment == null ? FREE_SLOT : equipment);
+            sellWeaponsListBox.getItems().addElement(equipment == null ? FREE_SLOT : equipment);
         }
 
         for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.SHIELD)) {
-            sellShieldsListBox.getItems().add(equipment == null ? FREE_SLOT : equipment);
+            sellShieldsListBox.getItems().addElement(equipment == null ? FREE_SLOT : equipment);
         }
 
         for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.GADGET)) {
-            sellGadgetsListBox.getItems().add(equipment == null ? FREE_SLOT : equipment);
+            sellGadgetsListBox.getItems().addElement(equipment == null ? FREE_SLOT : equipment);
         }
 
         for (int i = 0; i < sellBoxes.length; i++) {
