@@ -7,16 +7,14 @@ import spacetrader.controls.enums.GraphicsUnit;
 
 public class ImageList {
 
+    //TODO used???
     private Object colorDepth;
     private Image[] images;
-    private Size size;
-
-    public ImageList(IContainer components) {
-        // TODO Auto-generated constructor stub
-    }
+    private int width;
+    private int height;
 
     public void draw(Graphics graphics, int x, int y, int imageIndex) {
-        graphics.drawImage(images[imageIndex], x, y, new Rectangle(0, 0, size.width, size.height), GraphicsUnit.PIXEL);
+        graphics.drawImage(images[imageIndex], x, y, new Rectangle(0, 0, width, height), GraphicsUnit.PIXEL);
     }
 
     public Image[] getImages() {
@@ -42,12 +40,8 @@ public class ImageList {
     }
 
     public void setImageSize(int width, int height) {
-        size = new Size(width, height);
-    }
-
-    //TODO replace with setImageSize(int width, int height)
-    public void setImageSize(Size imageSize) {
-        size = imageSize;
+        this.width = width;
+        this.height = height;
     }
 }
 

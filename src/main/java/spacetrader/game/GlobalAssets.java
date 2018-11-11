@@ -4,7 +4,6 @@ import spacetrader.controls.Image;
 import spacetrader.controls.ImageList;
 import spacetrader.controls.ImageListStreamer;
 import spacetrader.controls.ResourceManager;
-import spacetrader.controls.Size;
 import spacetrader.game.enums.Language;
 import spacetrader.game.enums.ShipType;
 import spacetrader.gui.SpaceTrader;
@@ -36,25 +35,25 @@ public class GlobalAssets {
     public static void initializeImages() {
         ResourceManager resources = new ResourceManager(SpaceTrader.class);
 
-        ilChartImages = new ImageList(null);
-        ilShipImages = new ImageList(null);
-        ilDirectionImages = new ImageList(null);
-        ilEquipmentImages = new ImageList(null);
+        ilChartImages = new ImageList();
+        ilShipImages = new ImageList();
+        ilDirectionImages = new ImageList();
+        ilEquipmentImages = new ImageList();
 
-        ilChartImages.setImageSize(new Size(7, 7));
+        ilChartImages.setImageSize(7, 7);
         ilChartImages.setImageStream(((ImageListStreamer) (resources.getObject("ilChartImages.ImageStream"))));
         ilChartImages.setTransparentColor(Color.white);
 
-        ilShipImages.setImageSize(new Size(64, 52));
+        ilShipImages.setImageSize(64, 52);
         ilShipImages.setImageStream(((ImageListStreamer) (resources.getObject("ilShipImages.ImageStream"))));
         ilShipImages.setTransparentColor(Color.white);
 
-        ilDirectionImages.setImageSize(new Size(13, 13));
+        ilDirectionImages.setImageSize(13, 13);
         ilDirectionImages.setImageStream(((ImageListStreamer) (resources
                 .getObject("ilDirectionImages.ImageStream"))));
         ilDirectionImages.setTransparentColor(Color.white);
 
-        ilEquipmentImages.setImageSize(new Size(64, 52));
+        ilEquipmentImages.setImageSize(64, 52);
         ilEquipmentImages.setImageStream(((ImageListStreamer) (resources
                 .getObject("ilEquipmentImages.ImageStream"))));
         ilEquipmentImages.setTransparentColor(Color.white);

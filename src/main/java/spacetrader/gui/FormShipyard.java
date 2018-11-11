@@ -2,7 +2,6 @@ package spacetrader.gui;
 
 import spacetrader.controls.*;
 import spacetrader.controls.Button;
-import spacetrader.controls.Container;
 import spacetrader.controls.Image;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
@@ -30,8 +29,6 @@ public class FormShipyard extends SpaceTraderForm {
     private final ShipType[] imgTypes = new ShipType[]{ShipType.FLEA, ShipType.GNAT, ShipType.FIREFLY,
             ShipType.MOSQUITO, ShipType.BUMBLEBEE, ShipType.BEETLE, ShipType.HORNET, ShipType.GRASSHOPPER,
             ShipType.TERMITE, ShipType.WASP, ShipType.CUSTOM};
-
-    private IContainer components = new Container();
 
     private PictureBox logoPictureBox = new PictureBox();
     private Label welcomeLabelValue = new Label();
@@ -99,7 +96,7 @@ public class FormShipyard extends SpaceTraderForm {
     private SaveFileDialog saveDialog = new SaveFileDialog();
 
     private Image[] customImages = new Image[Consts.ImagesPerShip];
-    private ImageList shipyardLogosImageList = new ImageList(components);
+    private ImageList shipyardLogosImageList = new ImageList();
 
     private int imgIndex = 0;
     private boolean loading = false;

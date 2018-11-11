@@ -14,9 +14,6 @@ public class Timer {
         }
     });
 
-    public Timer(IContainer components) {
-    }
-
     public void start() {
         timer.start();
     }

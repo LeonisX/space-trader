@@ -1,7 +1,6 @@
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
-import spacetrader.controls.Container;
 import spacetrader.controls.*;
 import spacetrader.controls.Font;
 import spacetrader.controls.Label;
@@ -147,13 +146,10 @@ class CargoPanel extends Panel {
     private VerticalLine verticalLine2 = new VerticalLine();
     private HorizontalLine horizontalLine = new HorizontalLine();
 
-    //TODO need???
-    private IContainer components = new Container();
-    
-    private ImageList ilChartImages = new ImageList(components);
-    private ImageList ilDirectionImages = new ImageList(components);
-    private ImageList ilEquipmentImages = new ImageList(components);
-    private ImageList ilShipImages = new ImageList(components);
+    private ImageList ilChartImages = new ImageList();
+    private ImageList ilDirectionImages = new ImageList();
+    private ImageList ilEquipmentImages = new ImageList();
+    private ImageList ilShipImages = new ImageList();
 
     private Label[] commoditiesArray = new Label[]{commodityLabel0, commodityLabel1, commodityLabel2, commodityLabel3, commodityLabel4,
             commodityLabel5, commodityLabel6, commodityLabel7, commodityLabel8, commodityLabel9};

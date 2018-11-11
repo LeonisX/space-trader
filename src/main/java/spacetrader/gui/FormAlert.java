@@ -1,7 +1,6 @@
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
-import spacetrader.controls.Container;
 import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.enums.ColorDepth;
@@ -30,10 +29,8 @@ public class FormAlert extends SpaceTraderForm {
     private Button acceptButton = new Button();
     private Button cancelButton = new Button();
 
-    //TODO need?
-    private IContainer components = new Container();
-    private ImageList ilImages = new ImageList(components);
-    private Timer timer = new Timer(components);
+    private ImageList ilImages = new ImageList();
+    private Timer timer = new Timer();
 
     public FormAlert(String title, String text, String acceptButtonText, DialogResult acceptButtonResult,
                      String cancelButtonText, DialogResult cancelButtonResult, String[] args) {
@@ -699,8 +696,8 @@ public class FormAlert extends SpaceTraderForm {
 
         ResourceManager resources = new ResourceManager(FormAlert.class);
 
-        ilImages = new ImageList(components);
-        timer = new Timer(components);
+        ilImages = new ImageList();
+        timer = new Timer();
 
         setName("formAlert");
         //setText("Title");

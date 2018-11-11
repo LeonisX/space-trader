@@ -1,19 +1,21 @@
 package spacetrader.gui;
 
 import spacetrader.controls.Button;
-import spacetrader.controls.Container;
 import spacetrader.controls.*;
 import spacetrader.controls.Graphics;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.*;
+import spacetrader.controls.enums.BorderStyle;
+import spacetrader.controls.enums.ControlBinding;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Consts;
-import spacetrader.util.Functions;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.EncounterResult;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
@@ -73,14 +75,11 @@ public class FormEncounter extends SpaceTraderForm {
     private Label opponentsHullLabelValue = new Label();
     private Label actionLabelValue = new Label();
 
-    //TODO need?
-    private IContainer components = new Container();
-    
     private PictureBox continuousPicture = new PictureBox();
-    private ImageList continuousImageList = new ImageList(components);
+    private ImageList continuousImageList = new ImageList();
     private PictureBox encounterTypePicture = new PictureBox();
-    private ImageList encounterTypeImageList = new ImageList(components);
-    private ImageList tribblesImageList = new ImageList(components);
+    private ImageList encounterTypeImageList = new ImageList();
+    private ImageList tribblesImageList = new ImageList();
 
     //TODO refactor, optimize, generate on fly.
     //TODO clean-up configs
@@ -123,7 +122,7 @@ public class FormEncounter extends SpaceTraderForm {
 
     private PictureBox[] tribblesArray;
 
-    private Timer timer = new Timer(components);
+    private Timer timer = new Timer();
     
     private int continueImage = 1;
 

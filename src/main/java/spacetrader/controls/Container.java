@@ -1,5 +1,5 @@
 package spacetrader.controls;
 
-public class Container implements IContainer {
+public class Container {
 
 }
