@@ -735,8 +735,8 @@ public class FormShipyard extends SpaceTraderForm {
             updateShip();
             updateCalculatedFigures();
 
-            if (templateComboBox.getItems().get(0).toString().equals(Strings.ShipNameModified)) {
-                templateComboBox.getItems().remove(0);
+            if (templateComboBox.getItems().getElementAt(0).toString().equals(Strings.ShipNameModified)) {
+                templateComboBox.getItems().removeElementAt(0);
             }
 
             loading = false;
@@ -748,33 +748,33 @@ public class FormShipyard extends SpaceTraderForm {
 
         for (Size size : shipyard.getAvailableSizes()) {
             sizes.add(size);
-            sizeComboBox.getItems().add(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()],
+            sizeComboBox.getItems().addElement(Functions.stringVars(Strings.ShipyardSizeItem, Strings.Sizes[size.castToInt()],
                     Shipyard.MAX_UNITS[size.castToInt()] + " " + Strings.ShipyardUnit));
         }
     }
 
     private void loadTemplateList() {
         ShipTemplate currentShip = new ShipTemplate(game.getCommander().getShip(), Strings.ShipNameCurrentShip);
-        templateComboBox.getItems().add(currentShip);
+        templateComboBox.getItems().addElement(currentShip);
 
-        templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
+        templateComboBox.getItems().addElement(Consts.ShipTemplateSeparator);
 
         // Add the minimal sizes templates.
         for (Size size : sizes)
-            templateComboBox.getItems().add(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
+            templateComboBox.getItems().addElement(new ShipTemplate(size, Strings.Sizes[size.castToInt()]
                     + " " + Strings.ShipNameTemplateSuffixMinimum));
 
-        templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
+        templateComboBox.getItems().addElement(Consts.ShipTemplateSeparator);
 
         // Add the buyable ship spec templates.
         for (ShipSpec spec : Consts.ShipSpecs) {
             if (sizes.contains(spec.getSize()) && spec.getType().castToInt() <= Consts.MaxShip) {
                 templateComboBox
-                        .getItems().add(new ShipTemplate(spec, spec.getName() + " " + Strings.ShipNameTemplateSuffixDefault));
+                        .getItems().addElement(new ShipTemplate(spec, spec.getName() + " " + Strings.ShipNameTemplateSuffixDefault));
             }
         }
 
-        templateComboBox.getItems().add(Consts.ShipTemplateSeparator);
+        templateComboBox.getItems().addElement(Consts.ShipTemplateSeparator);
 
         // Add the user-created templates.
         ArrayList<ShipTemplate> userTemplates = new ArrayList<>();
@@ -796,8 +796,8 @@ public class FormShipyard extends SpaceTraderForm {
 
     private void setTemplateModified() {
         if (!loading && templateComboBox.getItems().getSize() > 0) {
-            if (!templateComboBox.getItems().get(0).toString().equals(Strings.ShipNameModified)) {
-                templateComboBox.getItems().insert(0, Strings.ShipNameModified);
+            if (!templateComboBox.getItems().getElementAt(0).toString().equals(Strings.ShipNameModified)) {
+                templateComboBox.getItems().insertElementAt(Strings.ShipNameModified, 0);
             }
             templateComboBox.setSelectedIndex(0);
         }
