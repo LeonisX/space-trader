@@ -13,6 +13,7 @@ import spacetrader.util.Util;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Game extends STSerializableObject implements SpaceTraderGame, SystemTracker, CurrentSystemMgr {
 
@@ -3805,7 +3806,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
             }
         }
 
-        return String.join(Strings.newline + Strings.newline, items);
+        return items.stream().map(s -> "\u02FB " + s).collect(Collectors.joining(Strings.newline));
     }
 
     public GameOptions getOptions() {

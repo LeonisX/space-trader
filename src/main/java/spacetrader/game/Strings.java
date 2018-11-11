@@ -15,7 +15,7 @@ public class Strings {
     }};
 
     //TODO test FormMonster, ...
-    public static String newline = "<br>";//String.format("%n");
+    public static String newline = "<BR>";//String.format("%n");
 
     public static String AlertsCancel = "Cancel";
     public static String AlertsNo = "No";

@@ -4,7 +4,10 @@ import spacetrader.controls.Button;
 import spacetrader.controls.Container;
 import spacetrader.controls.*;
 import spacetrader.controls.Label;
-import spacetrader.controls.enums.*;
+import spacetrader.controls.enums.ColorDepth;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
@@ -33,7 +36,7 @@ public class FormAlert extends SpaceTraderForm {
     private Timer timer = new Timer(components);
 
     public FormAlert(String title, String text, String acceptButtonText, DialogResult acceptButtonResult,
-            String cancelButtonText, DialogResult cancelButtonResult, String[] args) {
+                     String cancelButtonText, DialogResult cancelButtonResult, String[] args) {
 
         initializeComponent();
 
@@ -178,7 +181,7 @@ public class FormAlert extends SpaceTraderForm {
             case ChartJumpNoSystemSelected:
                 return new FormAlert(AlertsChartJumpNoSystemSelectedTitle, AlertsChartJumpNoSystemSelectedMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-                //TODO unused???
+            //TODO unused???
             case ChartTrackSystem:
                 return new FormAlert(AlertsChartTrackSystemTitle, AlertsChartTrackSystemMessage, AlertsYes, DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case ChartWormholeUnreachable:
@@ -249,7 +252,7 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterDrinkContents:
                 return new FormAlert(AlertsEncounterDrinkContentsTitle, AlertsEncounterDrinkContentsMessage,
                         AlertsEncounterDrinkContentsAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
-                //TODO unused???
+            //TODO unused???
             case EncounterDumpAll:
                 //TODO credit(s)
                 return new FormAlert(AlertsEncounterDumpAllTitle, AlertsEncounterDumpAllMessage, AlertsYes,
@@ -481,7 +484,7 @@ public class FormAlert extends SpaceTraderForm {
             case NewGameConfirm:
                 return new FormAlert(AlertsNewGameConfirmTitle, AlertsNewGameConfirmMessage, AlertsYes, DialogResult.YES,
                         AlertsNo, DialogResult.NO, args);
-                //TODO unused???
+            //TODO unused???
             case NewGameMoreSkillPoints:
                 return new FormAlert(AlertsNewGameMoreSkillPointsTitle, AlertsNewGameMoreSkillPointsMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);

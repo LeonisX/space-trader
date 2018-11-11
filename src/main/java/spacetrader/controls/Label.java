@@ -5,14 +5,14 @@ import java.awt.*;
 
 public class Label extends BaseComponent {
 
-    private static final String NEWLINE_LITERAL = "\n";
+    private static final String NEWLINE_LITERAL = String.format("%n");
     private static final String END = "</HTML>";
     private static final String START = "<HTML>";
-    private static final String NEWLINE = "<br>";
+    private static final String NEWLINE = "<BR>";
 
     private boolean convertedToHtml;
-    private int linesCount;
-    private int maxLineWidth;
+    private int linesCount = -1;
+    private int maxLineWidth = -1;
 
 
     public Label() {
@@ -40,8 +40,6 @@ public class Label extends BaseComponent {
         }
         asJLabel().setText(text);
         Graphics.resizeIfNeed(swingComponent, isAutoSize(), isAutoWidth(), isAutoHeight(), getControlBinding());
-
-        measureText();
     }
 
     public void setText(int number) {
@@ -50,15 +48,22 @@ public class Label extends BaseComponent {
 
     private void measureText() {
         FontMetrics metrics = asJLabel().getFontMetrics(asJLabel().getFont());
-        String[] chunks = getText().split(" ");
+        String labelText = getText().replace(NEWLINE_LITERAL, " " + NEWLINE_LITERAL + " ").replace("  ",  " ");
+        String[] chunks = labelText.split(" ");
         linesCount = 1;
         maxLineWidth = 0;
         int textWidth = 0;
         String text = "";
         for (String chunk: chunks) {
-            text += " " + chunk;
-            textWidth = metrics.stringWidth(text);
-            if (textWidth > getWidth()) {
+            boolean newLine;
+            if (chunk.equals(NEWLINE_LITERAL)) {
+                newLine = true;
+            } else {
+                text += " " + chunk;
+                textWidth = metrics.stringWidth(text);
+                newLine = textWidth > getWidth();
+            }
+            if (newLine) {
                 linesCount++;
                 maxLineWidth = Math.max(maxLineWidth, textWidth);
                 text = chunk;
@@ -68,10 +73,16 @@ public class Label extends BaseComponent {
     }
 
     public int getLinesCount() {
+        if (linesCount < 0) {
+            measureText();
+        }
         return linesCount;
     }
 
     public int getMaxLineWidth() {
+        if (maxLineWidth < 0) {
+            measureText();
+        }
         return maxLineWidth;
     }
 
