@@ -3,6 +3,7 @@ package spacetrader.game;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class GameOptions implements Serializable {
 
@@ -70,6 +71,10 @@ public class GameOptions implements Serializable {
      * Number of cargo bays to leave empty when buying goods
      */
     private int leaveEmpty = 0;
+
+    private GameOptions() {
+        // need for tests
+    }
 
     public GameOptions(boolean loadFromDefaults) {
         if (loadFromDefaults) {
@@ -239,5 +244,33 @@ public class GameOptions implements Serializable {
 
     public void setLeaveEmpty(int leaveEmpty) {
         this.leaveEmpty = leaveEmpty;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GameOptions)) return false;
+        GameOptions that = (GameOptions) o;
+        return alwaysIgnorePirates == that.alwaysIgnorePirates &&
+                alwaysIgnorePolice == that.alwaysIgnorePolice &&
+                alwaysIgnoreTradeInOrbit == that.alwaysIgnoreTradeInOrbit &&
+                alwaysIgnoreTraders == that.alwaysIgnoreTraders &&
+                autoFuel == that.autoFuel &&
+                autoRepair == that.autoRepair &&
+                continuousAttack == that.continuousAttack &&
+                continuousAttackFleeing == that.continuousAttackFleeing &&
+                disableOpponents == that.disableOpponents &&
+                newsAutoPay == that.newsAutoPay &&
+                newsAutoShow == that.newsAutoShow &&
+                remindLoans == that.remindLoans &&
+                reserveMoney == that.reserveMoney &&
+                showTrackedRange == that.showTrackedRange &&
+                trackAutoOff == that.trackAutoOff &&
+                leaveEmpty == that.leaveEmpty;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(alwaysIgnorePirates, alwaysIgnorePolice, alwaysIgnoreTradeInOrbit, alwaysIgnoreTraders, autoFuel, autoRepair, continuousAttack, continuousAttackFleeing, disableOpponents, newsAutoPay, newsAutoShow, remindLoans, reserveMoney, showTrackedRange, trackAutoOff, leaveEmpty);
     }
 }

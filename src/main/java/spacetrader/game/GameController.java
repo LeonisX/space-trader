@@ -101,7 +101,7 @@ public class GameController {
             Game game = (Game) Functions.readObjectFromFile(fileName, false).orElse(null);
             if (game != null) {
                 game.setParentWindow(mainWindow);
-                Game.setCurrentGame(game.getInnerGame());
+                Game.setCurrentGame(game);
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
                 gameController.setSaveGameDays(game.getCommander().getDays());

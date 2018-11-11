@@ -77,9 +77,9 @@ public class Functions {
 
     // From plural4j library
     private static int getRussianPluralWordIndex(long n) {
-        return (n % 10 == 1 && n % 100 != 11 ? 0 // 1, 21, 1001, ...
-                : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 // 2, 3, 4,
-                : 2); // 5, 6, ... 11, 12, ... 1000
+        return (n % 10 == 1 && n % 100 != 11 ? 0                                        // 1, 21, 1001, ...
+                : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1     // 2, 3, 4,
+                : 2);                                                                   // 5, 6, ... 11, 12, ... 1000
     }
 
     public static String stringVars(String toParse, String var1) {
@@ -139,15 +139,6 @@ public class Functions {
         return (int) (rand() % max);
     }
 
-    public static boolean isInt(String toParse) {
-        try {
-            Integer.parseInt(toParse);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     private static long rand() {
         final int a = 18000;
         final int b = 30903;
@@ -174,6 +165,15 @@ public class Functions {
             seedY = DEF_SEED_Y;
     }
 
+    public static boolean isInt(String toParse) {
+        try {
+            Integer.parseInt(toParse);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     static Long versionToLong(String version) {
         List<Integer> subVersions = Arrays.stream(version.split("\\.")).map(s -> s.replaceAll("[^\\d.]", ""))
                 .filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(toList());
@@ -193,8 +193,7 @@ public class Functions {
 
     public static boolean writeObjectToFile(String fileName, Object object) {
         try {
-            FileOutputStream fileOut = new FileOutputStream(fileName);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(fileName));
             objectOut.writeObject(object);
             objectOut.close();
             return true;

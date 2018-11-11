@@ -10,6 +10,7 @@ import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class CrewMember implements Serializable {
 
@@ -18,6 +19,10 @@ public class CrewMember implements Serializable {
     private CrewMemberId id;
     private int[] skills = new int[4];
     private StarSystemId currentSystemId; // StarSystemId.NA
+
+    CrewMember() {
+        // need for tests
+    }
 
     CrewMember(CrewMemberId id, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
         this.id = id;
@@ -175,5 +180,30 @@ public class CrewMember implements Serializable {
 
     public void setTrader(int value) {
         skills[SkillType.TRADER.castToInt()] = value;
+    }
+
+    public void setId(CrewMemberId id) {
+        this.id = id;
+    }
+
+    public void setSkills(int[] skills) {
+        this.skills = skills;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CrewMember)) return false;
+        CrewMember that = (CrewMember) o;
+        return id == that.id &&
+                Arrays.equals(skills, that.skills) &&
+                currentSystemId == that.currentSystemId;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, currentSystemId);
+        result = 31 * result + Arrays.hashCode(skills);
+        return result;
     }
 }

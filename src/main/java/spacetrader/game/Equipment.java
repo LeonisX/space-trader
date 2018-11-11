@@ -6,7 +6,12 @@ import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.TechLevel;
 import spacetrader.guifacade.GuiEngine;
 
-public abstract class Equipment implements Cloneable {
+import java.io.Serializable;
+import java.util.Objects;
+
+public abstract class Equipment implements Serializable, Cloneable {
+
+    static final long serialVersionUID = 13L;
 
     private EquipmentType equipType;
     private int price;
@@ -14,6 +19,7 @@ public abstract class Equipment implements Cloneable {
     private int chance;
 
     public Equipment() {
+        // need for tests
     }
 
     public Equipment(EquipmentType equipType, int price, TechLevel minTechLevel, int chance) {
@@ -87,5 +93,45 @@ public abstract class Equipment implements Cloneable {
         // The cost to transfer is 10% of the item worth. This is changed
         // from actually PAYING the buyer about 8% to transfer items. - JAF
         return getSellPrice() * 110 / 90;
+    }
+
+    public EquipmentType getEquipType() {
+        return equipType;
+    }
+
+    public void setEquipType(EquipmentType equipType) {
+        this.equipType = equipType;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public TechLevel getMinTech() {
+        return minTech;
+    }
+
+    public void setMinTech(TechLevel minTech) {
+        this.minTech = minTech;
+    }
+
+    public void setChance(int chance) {
+        this.chance = chance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Equipment)) return false;
+        Equipment equipment = (Equipment) o;
+        return price == equipment.price &&
+                chance == equipment.chance &&
+                equipType == equipment.equipType &&
+                minTech == equipment.minTech;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(equipType, price, minTech, chance);
     }
 }

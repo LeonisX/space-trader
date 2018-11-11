@@ -6,6 +6,8 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Commander extends CrewMember implements Serializable {
 
@@ -21,6 +23,10 @@ public class Commander extends CrewMember implements Serializable {
     private int noClaim = 0;
     private Ship ship = new Ship(ShipType.GNAT);
     private int[] priceCargo = new int[10]; // Total price paid for trade goods
+
+    private Commander() {
+        // Need for tests
+    }
 
     public Commander(CrewMember baseCrewMember) {
         super(baseCrewMember);
@@ -253,5 +259,32 @@ public class Commander extends CrewMember implements Serializable {
 
     public void setCash(int cash) {
         this.cash = cash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Commander)) return false;
+        if (!super.equals(o)) return false;
+        Commander commander = (Commander) o;
+        return cash == commander.cash &&
+                debt == commander.debt &&
+                killsPirate == commander.killsPirate &&
+                killsPolice == commander.killsPolice &&
+                killsTrader == commander.killsTrader &&
+                policeRecordScore == commander.policeRecordScore &&
+                reputationScore == commander.reputationScore &&
+                days == commander.days &&
+                insurance == commander.insurance &&
+                noClaim == commander.noClaim &&
+                Objects.equals(ship, commander.ship) &&
+                Arrays.equals(priceCargo, commander.priceCargo);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), cash, debt, killsPirate, killsPolice, killsTrader, policeRecordScore, reputationScore, days, insurance, noClaim, ship);
+        result = 31 * result + Arrays.hashCode(priceCargo);
+        return result;
     }
 }

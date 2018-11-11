@@ -8,6 +8,7 @@ import spacetrader.game.enums.TechLevel;
 import spacetrader.util.Log;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Shield extends Equipment implements Serializable {
 
@@ -16,6 +17,10 @@ public class Shield extends Equipment implements Serializable {
     private ShieldType type;
     private int power;
     private int charge;
+
+    private Shield() {
+        //  need for tests
+    }
 
     public Shield(EquipmentType equipType, int price, TechLevel minTechLevel, int chance) {
         super(equipType, price, minTechLevel, chance);
@@ -65,5 +70,20 @@ public class Shield extends Equipment implements Serializable {
 
     void setCharge(int charge) {
         this.charge = charge;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Shield)) return false;
+        Shield shield = (Shield) o;
+        return power == shield.power &&
+                charge == shield.charge &&
+                type == shield.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, power, charge);
     }
 }

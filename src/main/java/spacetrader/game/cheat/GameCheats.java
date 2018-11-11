@@ -9,16 +9,18 @@ import spacetrader.util.Functions;
 import spacetrader.util.Util;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 // TODO removes refs to gui...
 @CheatCode
 public class GameCheats implements Serializable {
 
-    private final Game game;
+    private final transient Game game;
+
     private boolean cheatMode = false;
 
-    public GameCheats(Game game) {
-        this.game = game;
+    public GameCheats() {
+        game = Game.getCurrentGame();
     }
 
     public boolean isCheatMode() {
@@ -252,5 +254,18 @@ public class GameCheats implements Serializable {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GameCheats)) return false;
+        GameCheats that = (GameCheats) o;
+        return cheatMode == that.cheatMode;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cheatMode);
     }
 }

@@ -4,6 +4,7 @@ import spacetrader.game.enums.*;
 import spacetrader.util.Log;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Gadget extends Equipment implements Serializable {
 
@@ -11,6 +12,10 @@ public class Gadget extends Equipment implements Serializable {
 
     private GadgetType type;
     private SkillType skillBonus;
+
+    private Gadget() {
+        //  need for tests
+    }
 
     public Gadget(EquipmentType equipType, int price, TechLevel minTechLevel, int chance, GadgetType type, SkillType skillBonus) {
         super(equipType, price, minTechLevel, chance);
@@ -62,4 +67,18 @@ public class Gadget extends Equipment implements Serializable {
         return skillBonus;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Gadget)) return false;
+        if (!super.equals(o)) return false;
+        Gadget gadget = (Gadget) o;
+        return type == gadget.type &&
+                skillBonus == gadget.skillBonus;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), type, skillBonus);
+    }
 }

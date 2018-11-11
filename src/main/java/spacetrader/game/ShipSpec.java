@@ -5,7 +5,12 @@ import spacetrader.controls.Image;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiEngine;
 
-public class ShipSpec {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class ShipSpec implements Serializable {
+
+    static final long serialVersionUID = 151L;
 
     private ShipType type = ShipType.CUSTOM;
     private Size size = Size.TINY;
@@ -247,5 +252,69 @@ public class ShipSpec {
 
     public ShipType getType() {
         return type;
+    }
+
+    public void setType(ShipType type) {
+        this.type = type;
+    }
+
+    public void setOccurrence(int occurrence) {
+        this.occurrence = occurrence;
+    }
+
+    public void setPolice(Activity police) {
+        this.police = police;
+    }
+
+    public void setPirates(Activity pirates) {
+        this.pirates = pirates;
+    }
+
+    public void setTraders(Activity traders) {
+        this.traders = traders;
+    }
+
+    public TechLevel getMinTech() {
+        return minTech;
+    }
+
+    public void setMinTech(TechLevel minTech) {
+        this.minTech = minTech;
+    }
+
+    public boolean isHullUpgraded() {
+        return hullUpgraded;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ShipSpec)) return false;
+        ShipSpec shipSpec = (ShipSpec) o;
+        return cargoBays == shipSpec.cargoBays &&
+                weaponSlots == shipSpec.weaponSlots &&
+                shieldSlots == shipSpec.shieldSlots &&
+                gadgetSlots == shipSpec.gadgetSlots &&
+                crewQuarters == shipSpec.crewQuarters &&
+                fuelTanks == shipSpec.fuelTanks &&
+                fuelCost == shipSpec.fuelCost &&
+                hullStrength == shipSpec.hullStrength &&
+                repairCost == shipSpec.repairCost &&
+                price == shipSpec.price &&
+                occurrence == shipSpec.occurrence &&
+                hullUpgraded == shipSpec.hullUpgraded &&
+                imageIndex == shipSpec.imageIndex &&
+                type == shipSpec.type &&
+                size == shipSpec.size &&
+                police == shipSpec.police &&
+                pirates == shipSpec.pirates &&
+                traders == shipSpec.traders &&
+                minTech == shipSpec.minTech;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, size, cargoBays, weaponSlots, shieldSlots, gadgetSlots, crewQuarters, fuelTanks,
+                fuelCost, hullStrength, repairCost, price, occurrence, police, pirates, traders, minTech, hullUpgraded, imageIndex);
     }
 }

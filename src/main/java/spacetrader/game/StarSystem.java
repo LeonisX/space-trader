@@ -5,7 +5,9 @@ import spacetrader.util.Functions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class StarSystem implements Serializable {
 
@@ -22,6 +24,10 @@ public class StarSystem implements Serializable {
     private int countDown = 0;
     private boolean visited = false;
     private ShipyardId shipyardId = ShipyardId.NA;
+
+    private StarSystem() {
+        // need for tests
+    }
 
     public StarSystem(StarSystemId id, int x, int y, Size size, TechLevel techLevel,
                       PoliticalSystemType politicalSystemType, SystemPressure systemPressure,
@@ -347,5 +353,32 @@ public class StarSystem implements Serializable {
 
     public void setY(int value) {
         y = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StarSystem)) return false;
+        StarSystem that = (StarSystem) o;
+        return x == that.x &&
+                y == that.y &&
+                countDown == that.countDown &&
+                visited == that.visited &&
+                id == that.id &&
+                size == that.size &&
+                techLevel == that.techLevel &&
+                politicalSystemType == that.politicalSystemType &&
+                systemPressure == that.systemPressure &&
+                specialResource == that.specialResource &&
+                specialEventType == that.specialEventType &&
+                Arrays.equals(tradeItems, that.tradeItems) &&
+                shipyardId == that.shipyardId;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, x, y, size, techLevel, politicalSystemType, systemPressure, specialResource, specialEventType, countDown, visited, shipyardId);
+        result = 31 * result + Arrays.hashCode(tradeItems);
+        return result;
     }
 }

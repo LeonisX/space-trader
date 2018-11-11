@@ -12,7 +12,9 @@ import spacetrader.util.Functions;
 import spacetrader.util.Util;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Game implements Serializable, SpaceTraderGame, SystemTracker, CurrentSystemMgr {
@@ -20,11 +22,10 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     static final long serialVersionUID = 110L;
 
     private static Game game;
-    private final Game innerGame; // Copy of game. Need for serialization only.
 
-    private final Commander commander;
+    private Commander commander;
     @CheatCode
-    private final GameCheats cheats;
+    private GameCheats cheats;
 
     // Game Data
     private StarSystem[] universe;
@@ -92,10 +93,13 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     private boolean encounterOppFleeing = false;
     private boolean encounterOppHit = false;
 
+    private Game() {
+        // need for tests
+    }
+
     public Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer,
                 MainWindow parentWin) {
         game = this;
-        innerGame = this;
         this.parentWin = parentWin;
         this.difficulty = difficulty;
 
@@ -119,7 +123,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             commander.getCurrentSystem().setSpecialEventType(SpecialEventType.Lottery);
         }
 
-        cheats = new GameCheats(this);
+        cheats = new GameCheats();
         if (name.length() == 0) {
             // TODO: JAF - DEBUG
             commander.setCash(1000000);
@@ -135,10 +139,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
     public static void setCurrentGame(Game value) {
         game = value;
-    }
-
-    public Game getInnerGame() {
-        return innerGame;
     }
 
     private void arrested() {
@@ -1967,8 +1967,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
                     int fine = (int) Math.max(100, Math.min(10000,
                             Math.ceil((double) commander.getWorth()
-                                            / ((Difficulty.IMPOSSIBLE.castToInt()
-                                            - getDifficulty().castToInt() + 2) * 10) / 50) * 50));
+                                    / ((Difficulty.IMPOSSIBLE.castToInt()
+                                    - getDifficulty().castToInt() + 2) * 10) / 50) * 50));
                     int cashPayment = Math.min(commander.getCash(), fine);
                     commander.setDebt(commander.getDebt() + (fine - cashPayment));
                     commander.setCash(commander.getCash() - cashPayment);
@@ -2310,7 +2310,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
     private void generateUniverse() {
         universe = new StarSystem[Strings.SystemNames.length];
-        // _universe = new StarSystem[10];
 
         for (int i = 0; i < getUniverse().length; i++) {
             StarSystemId id = (StarSystemId.fromInt(i));
@@ -3196,7 +3195,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             GuiFacade.alert(AlertType.LeavingIFInsurance);
         } else if (commander.getCash() < getMercenaryCosts() + getInsuranceCosts() + getWormholeCosts()) {
             GuiFacade.alert(AlertType.LeavingIFWormholeTax);
-        }else {
+        } else {
             boolean wildOk = true;
 
             // if Wild is aboard, make sure ship is armed!
@@ -3689,7 +3688,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             }
         }
 
-        return items.stream().map(s -> "\u02FB " + s).collect(Collectors.joining(Strings.newline));
+        return items.stream().map(s -> "\u02FE " + s).collect(Collectors.joining(Strings.newline));
     }
 
     public GameOptions getOptions() {
@@ -3796,5 +3795,90 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
     public boolean isShowTrackedRange() {
         return getOptions().isShowTrackedRange();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+        Game game = (Game) o;
+        return opponentDisabled == game.opponentDisabled &&
+                chanceOfTradeInOrbit == game.chanceOfTradeInOrbit &&
+                clicks == game.clicks &&
+                raided == game.raided &&
+                inspected == game.inspected &&
+                tribbleMessage == game.tribbleMessage &&
+                arrivedViaWormhole == game.arrivedViaWormhole &&
+                paidForNewspaper == game.paidForNewspaper &&
+                litterWarning == game.litterWarning &&
+                autoSave == game.autoSave &&
+                easyEncounters == game.easyEncounters &&
+                targetWormhole == game.targetWormhole &&
+                questStatusArtifact == game.questStatusArtifact &&
+                questStatusDragonfly == game.questStatusDragonfly &&
+                questStatusExperiment == game.questStatusExperiment &&
+                questStatusGemulon == game.questStatusGemulon &&
+                questStatusJapori == game.questStatusJapori &&
+                questStatusJarek == game.questStatusJarek &&
+                questStatusMoon == game.questStatusMoon &&
+                questStatusPrincess == game.questStatusPrincess &&
+                questStatusReactor == game.questStatusReactor &&
+                questStatusScarab == game.questStatusScarab &&
+                questStatusSculpture == game.questStatusSculpture &&
+                questStatusSpaceMonster == game.questStatusSpaceMonster &&
+                questStatusWild == game.questStatusWild &&
+                fabricRipProbability == game.fabricRipProbability &&
+                justLootedMarie == game.justLootedMarie &&
+                canSuperWarp == game.canSuperWarp &&
+                chanceOfVeryRareEncounter == game.chanceOfVeryRareEncounter &&
+                encounterContinueFleeing == game.encounterContinueFleeing &&
+                encounterContinueAttacking == game.encounterContinueAttacking &&
+                encounterCmdrFleeing == game.encounterCmdrFleeing &&
+                encounterCmdrHit == game.encounterCmdrHit &&
+                encounterOppFleeingPrev == game.encounterOppFleeingPrev &&
+                encounterOppFleeing == game.encounterOppFleeing &&
+                encounterOppHit == game.encounterOppHit &&
+                Objects.equals(commander, game.commander) &&
+                Objects.equals(cheats, game.cheats) &&
+                Arrays.equals(universe, game.universe) &&
+                Arrays.equals(wormholes, game.wormholes) &&
+                Arrays.equals(mercenaries, game.mercenaries) &&
+                Objects.equals(dragonfly, game.dragonfly) &&
+                Objects.equals(scarab, game.scarab) &&
+                Objects.equals(scorpion, game.scorpion) &&
+                Objects.equals(spaceMonster, game.spaceMonster) &&
+                Objects.equals(opponent, game.opponent) &&
+                Objects.equals(newsEvents, game.newsEvents) &&
+                difficulty == game.difficulty &&
+                endStatus == game.endStatus &&
+                encounterType == game.encounterType &&
+                selectedSystemId == game.selectedSystemId &&
+                warpSystemId == game.warpSystemId &&
+                trackedSystemId == game.trackedSystemId &&
+                Arrays.equals(priceCargoBuy, game.priceCargoBuy) &&
+                Arrays.equals(priceCargoSell, game.priceCargoSell) &&
+                Objects.equals(veryRareEncounters, game.veryRareEncounters) &&
+                Objects.equals(options, game.options) &&
+                Objects.equals(parentWin, game.parentWin);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(commander, cheats, dragonfly, scarab, scorpion, spaceMonster, opponent,
+                opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, tribbleMessage, arrivedViaWormhole,
+                paidForNewspaper, litterWarning, newsEvents, difficulty, autoSave, easyEncounters, endStatus,
+                encounterType, selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
+                questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori, questStatusJarek,
+                questStatusMoon, questStatusPrincess, questStatusReactor, questStatusScarab, questStatusSculpture,
+                questStatusSpaceMonster, questStatusWild, fabricRipProbability, justLootedMarie, canSuperWarp,
+                chanceOfVeryRareEncounter, veryRareEncounters, options, parentWin, encounterContinueFleeing,
+                encounterContinueAttacking, encounterCmdrFleeing, encounterCmdrHit, encounterOppFleeingPrev,
+                encounterOppFleeing, encounterOppHit);
+        result = 31 * result + Arrays.hashCode(universe);
+        result = 31 * result + Arrays.hashCode(wormholes);
+        result = 31 * result + Arrays.hashCode(mercenaries);
+        result = 31 * result + Arrays.hashCode(priceCargoBuy);
+        result = 31 * result + Arrays.hashCode(priceCargoSell);
+        return result;
     }
 }

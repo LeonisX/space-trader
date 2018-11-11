@@ -12,6 +12,8 @@ import java.util.stream.IntStream;
 
 public class Ship extends ShipSpec implements Serializable {
 
+    static final long serialVersionUID = 150L;
+
     private int fuel;
     private int hull;
     private int tribbles = 0;
@@ -26,6 +28,10 @@ public class Ship extends ShipSpec implements Serializable {
     private boolean[] tradeableItems;
 
     private boolean escapePod;
+
+    private Ship() {
+        // need for tests
+    }
 
     public Ship(ShipType type) {
         setValues(type);
@@ -1065,5 +1071,56 @@ public class Ship extends ShipSpec implements Serializable {
 
     public void setCrewMembers(CrewMember[] crewMembers) {
         this.crewMembers = crewMembers;
+    }
+
+    public void setCargo(int[] cargo) {
+        this.cargo = cargo;
+    }
+
+    public boolean isPod() {
+        return pod;
+    }
+
+    public void setPod(boolean pod) {
+        this.pod = pod;
+    }
+
+    public void setTradeableItems(boolean[] tradeableItems) {
+        this.tradeableItems = tradeableItems;
+    }
+
+    public boolean isEscapePod() {
+        return escapePod;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ship)) return false;
+        if (!super.equals(o)) return false;
+        Ship ship = (Ship) o;
+        return fuel == ship.fuel &&
+                hull == ship.hull &&
+                tribbles == ship.tribbles &&
+                pod == ship.pod &&
+                escapePod == ship.escapePod &&
+                Arrays.equals(cargo, ship.cargo) &&
+                Arrays.equals(weapons, ship.weapons) &&
+                Arrays.equals(shields, ship.shields) &&
+                Arrays.equals(gadgets, ship.gadgets) &&
+                Arrays.equals(crewMembers, ship.crewMembers) &&
+                Arrays.equals(tradeableItems, ship.tradeableItems);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), fuel, hull, tribbles, pod, escapePod);
+        result = 31 * result + Arrays.hashCode(cargo);
+        result = 31 * result + Arrays.hashCode(weapons);
+        result = 31 * result + Arrays.hashCode(shields);
+        result = 31 * result + Arrays.hashCode(gadgets);
+        result = 31 * result + Arrays.hashCode(crewMembers);
+        result = 31 * result + Arrays.hashCode(tradeableItems);
+        return result;
     }
 }

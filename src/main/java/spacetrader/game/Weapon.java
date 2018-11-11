@@ -7,6 +7,7 @@ import spacetrader.game.enums.WeaponType;
 import spacetrader.util.Log;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Weapon extends Equipment implements Serializable {
 
@@ -16,7 +17,7 @@ public class Weapon extends Equipment implements Serializable {
     private int power;
     private boolean disabling;
 
-    public Weapon() {
+    private Weapon() {
     }
 
     public Weapon(WeaponType type, int power, boolean disabling, int price, TechLevel minTechLevel, int chance) {
@@ -66,5 +67,21 @@ public class Weapon extends Equipment implements Serializable {
 
     public WeaponType getType() {
         return type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Weapon)) return false;
+        if (!super.equals(o)) return false;
+        Weapon weapon = (Weapon) o;
+        return power == weapon.power &&
+                disabling == weapon.disabling &&
+                type == weapon.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), type, power, disabling);
     }
 }
