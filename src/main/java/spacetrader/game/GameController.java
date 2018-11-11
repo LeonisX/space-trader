@@ -1,10 +1,10 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.exceptions.FutureVersionException;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 
 /**
@@ -21,7 +21,7 @@ public class GameController {
     private static final String SAVE_ARRIVAL = "autosave_arrival.sav";
     private static final String SAVE_DEPARTURE = "autosave_departure.sav";
     private final Game game;
-    private final MainWindow mainWindow;
+    private final transient MainWindow mainWindow;
     private String saveGameFile = null;
     private int saveGameDays = -1;
 
@@ -98,9 +98,10 @@ public class GameController {
 
     public static GameController loadGame(String fileName, MainWindow mainWindow) {
         try {
-            Object obj = Functions.loadFile(fileName, false);
-            if (obj != null) {
-                Game game = new Game((Hashtable) obj, mainWindow);
+            Game game = (Game) Functions.readObjectFromFile(fileName, false).orElse(null);
+            if (game != null) {
+                game.setParentWindow(mainWindow);
+                Game.setCurrentGame(game.getInnerGame());
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
                 gameController.setSaveGameDays(game.getCommander().getDays());
@@ -117,7 +118,7 @@ public class GameController {
     }
 
     public void saveGame(String fileName, boolean saveFileName) {
-        if (Functions.saveFile(fileName, game.serialize()) && saveFileName)
+        if (Functions.writeObjectToFile(fileName, game) && saveFileName)
             saveGameFile = fileName;
 
         saveGameDays = game.getCommander().getDays();

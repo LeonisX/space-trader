@@ -11,9 +11,11 @@ import spacetrader.game.*;
 import spacetrader.game.enums.*;
 import spacetrader.gui.*;
 import spacetrader.guifacade.GuiEngine;
+import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
+import java.util.Arrays;
 
 //TODO untranslated, unrefactored, untested
 public class FormsTest extends SpaceTraderForm {
@@ -91,7 +93,6 @@ public class FormsTest extends SpaceTraderForm {
         game.setQuestStatusSculpture(1);
         game.getCommander().setReputationScore(10);
 
-
         for (int i = 0; i < Consts.Weapons.length; i++) {
             game.getCommander().getShip().addEquipment(Consts.Weapons[i]);
         }
@@ -135,8 +136,8 @@ public class FormsTest extends SpaceTraderForm {
         languagesComboBox.setLocation(8, 21);
         languagesComboBox.setSize(104, 21);
         languagesComboBox.setTabIndex(4);
-        languagesComboBox.getItems().addAll("English", "Russian");
-        languagesComboBox.setSelectedIndex(0);
+        Arrays.stream(Language.values()).forEach(lang -> languagesComboBox.getItems().addElement(Functions.capitalize(lang.toString())));
+        languagesComboBox.setSelectedIndex(GlobalAssets.getLanguage().ordinal());
         languagesComboBox.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {

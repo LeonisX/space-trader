@@ -2,12 +2,12 @@ package spacetrader.game;
 
 import spacetrader.game.enums.*;
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StarSystem extends STSerializableObject {
+public class StarSystem implements Serializable {
 
     private StarSystemId id;
     private int x;
@@ -36,23 +36,6 @@ public class StarSystem extends STSerializableObject {
         this.specialResource = specialResource;
 
         initializeTradeItems();
-    }
-
-    public StarSystem(Hashtable hash) {
-        super();
-        id = StarSystemId.fromInt(getValueFromHash(hash, "_id", id, Integer.class));
-        x = getValueFromHash(hash, "_x", x);
-        y = getValueFromHash(hash, "_y", y);
-        size = Size.fromInt(getValueFromHash(hash, "_size", size, Integer.class));
-        techLevel = TechLevel.fromInt(getValueFromHash(hash, "_techLevel", techLevel, Integer.class));
-        politicalSystemType = PoliticalSystemType.fromInt(getValueFromHash(hash, "_politicalSystemType", politicalSystemType, Integer.class));
-        systemPressure = SystemPressure.fromInt(getValueFromHash(hash, "_systemPressure", systemPressure, Integer.class));
-        specialResource = SpecialResource.fromInt(getValueFromHash(hash, "_specialResource", specialResource, Integer.class));
-        specialEventType = SpecialEventType.fromInt(getValueFromHash(hash, "_specialEventType", specialEventType, Integer.class));
-        tradeItems = getValueFromHash(hash, "_tradeItems", tradeItems, int[].class);
-        countDown = getValueFromHash(hash, "_countDown", countDown);
-        visited = getValueFromHash(hash, "_visited", visited);
-        shipyardId = ShipyardId.fromInt(getValueFromHash(hash, "_shipyardId", shipyardId, Integer.class));
     }
 
     public void initializeTradeItems() {
@@ -104,27 +87,6 @@ public class StarSystem extends STSerializableObject {
                 && (item.getType() != TradeItemType.FIREARMS
                 || getPoliticalSystem().isFirearmsOk()) && getTechLevel().castToInt() >= item
                 .getTechUsage().castToInt());
-    }
-
-    @Override
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_id", id.castToInt());
-        hash.add("_x", x);
-        hash.add("_y", y);
-        hash.add("_size", size.castToInt());
-        hash.add("_techLevel", techLevel.castToInt());
-        hash.add("_politicalSystemType", politicalSystemType.castToInt());
-        hash.add("_systemPressure", systemPressure.castToInt());
-        hash.add("_specialResource", specialResource.castToInt());
-        hash.add("_specialEventType", specialEventType.castToInt());
-        hash.add("_tradeItems", tradeItems);
-        hash.add("_countDown", countDown);
-        hash.add("_visited", visited);
-        hash.add("_shipyardId", shipyardId.castToInt());
-
-        return hash;
     }
 
     public boolean showSpecialButton() {

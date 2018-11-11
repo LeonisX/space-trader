@@ -15,7 +15,6 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 import spacetrader.stub.Directory;
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 import spacetrader.util.Path;
 import spacetrader.util.ReflectionUtils;
 
@@ -157,7 +156,7 @@ public class FormShipyard extends SpaceTraderForm {
         logoPictureBox.setTabStop(false);
 
         welcomeLabelValue.setLocation(92, 10);
-        welcomeLabelValue.setSize(191, 42);
+        welcomeLabelValue.setSize(210, 42);
         /*welcomeLabelValue
                 .setText("Welcome to Sorosuub Engineering Shipyards! Our best engineer, Obi-Wan, is at your service.");*/
 
@@ -189,7 +188,7 @@ public class FormShipyard extends SpaceTraderForm {
         //skillDescriptionLabelValue.setText("All ships constructed at this shipyard use 2 fewer units per crew quarter.");
 
         warningLabelValue.setLocation(8, 130);
-        warningLabelValue.setSize(305, 70);
+        warningLabelValue.setSize(300, 70);
         /*warningLabelValue.setText("Bear in mind that getting too close to the maximum number of units will result in"
                 + " a \"Crowding Penalty\" due to the engineering difficulty of squeezing everything "
                 + "in.  There is a modest penalty at 80%, and a more severe one at 90%.");*/
@@ -215,7 +214,6 @@ public class FormShipyard extends SpaceTraderForm {
         templateComboBox.setSize(152, 21);
         templateComboBox.setTabIndex(1);
 
-        loadButton.setFlatStyle(FlatStyle.FLAT);
         loadButton.setLocation(236, 24);
         loadButton.setSize(67, 20);
         loadButton.setTabIndex(2);
@@ -779,10 +777,13 @@ public class FormShipyard extends SpaceTraderForm {
         // Add the user-created templates.
         ArrayList<ShipTemplate> userTemplates = new ArrayList<>();
         for (String fileName : Directory.getFiles(Consts.CustomTemplatesDirectory, "*.sst")) {
-            ShipTemplate template = new ShipTemplate((Hashtable) Functions.loadFile(fileName, true));
-            if (sizes.contains(template.getSize())) {
-                userTemplates.add(template);
-            }
+            Functions.readObjectFromFile(fileName, true).map(t -> {
+                ShipTemplate template = (ShipTemplate) t;
+                if (sizes.contains(template.getSize())) {
+                    userTemplates.add(template);
+                }
+                return null;
+            });
         }
         userTemplates.sort();
         templateComboBox.getItems().addAll(userTemplates);
@@ -952,7 +953,7 @@ public class FormShipyard extends SpaceTraderForm {
                     template.setImageIndex(imgIndex);
                 }
 
-                Functions.saveFile(saveDialog.getFileName(), template.serialize());
+                Functions.writeObjectToFile(saveDialog.getFileName(), template);
 
                 loadTemplateList();
             }

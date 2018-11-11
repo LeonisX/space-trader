@@ -10,6 +10,7 @@ import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
+import spacetrader.game.exceptions.GameEndException;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.Util;

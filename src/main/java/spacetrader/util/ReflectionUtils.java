@@ -232,7 +232,7 @@ public class ReflectionUtils {
                     component.setLocation(point);
                 }
             } else {
-                System.out.println("!!!Control without dimensions: " + prefix);
+                //System.out.println("!!!Control without dimensions: " + prefix);
             }
         }
         if (component instanceof java.awt.Container) {

@@ -4,9 +4,8 @@ import spacetrader.controls.Graphics;
 import spacetrader.controls.Image;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiEngine;
-import spacetrader.util.Hashtable;
 
-public class ShipSpec extends STSerializableObject {
+public class ShipSpec {
 
     private ShipType type = ShipType.CUSTOM;
     private Size size = Size.TINY;
@@ -51,87 +50,6 @@ public class ShipSpec extends STSerializableObject {
         this.pirates = pirates;
         this.traders = traders;
         minTech = minTechLevel;
-    }
-
-    ShipSpec(Hashtable hash) {
-        super();
-        type = ShipType.fromInt(getValueFromHash(hash, "_type", type, Integer.class));
-        size = Size.fromInt(getValueFromHash(hash, "_size", size, Integer.class));
-        cargoBays = getValueFromHash(hash, "_cargoBays", cargoBays);
-        weaponSlots = getValueFromHash(hash, "_weaponSlots", weaponSlots);
-        shieldSlots = getValueFromHash(hash, "_shieldSlots", shieldSlots);
-        gadgetSlots = getValueFromHash(hash, "_gadgetSlots", gadgetSlots);
-        crewQuarters = getValueFromHash(hash, "_crewQuarters", crewQuarters);
-        fuelTanks = getValueFromHash(hash, "_fuelTanks", fuelTanks);
-        fuelCost = getValueFromHash(hash, "_fuelCost", fuelCost);
-        hullStrength = getValueFromHash(hash, "_hullStrength", hullStrength);
-        repairCost = getValueFromHash(hash, "_repairCost", repairCost);
-        price = getValueFromHash(hash, "_price", price);
-        occurrence = getValueFromHash(hash, "_occurrence", occurrence);
-        police = Activity.fromInt(getValueFromHash(hash, "_police", police, Integer.class));
-        pirates = Activity.fromInt(getValueFromHash(hash, "_pirates", pirates, Integer.class));
-        traders = Activity.fromInt(getValueFromHash(hash, "_traders", traders, Integer.class));
-        minTech = TechLevel.fromInt(getValueFromHash(hash, "_minTech", minTech, Integer.class));
-        hullUpgraded = getValueFromHash(hash, "_hullUpgraded", hullUpgraded);
-        imageIndex = getValueFromHash(hash, "_imageIndex", Consts.ShipImgUseDefault);
-
-        // Get the images if the ship uses the custom images.
-        if (getImageIndex() == ShipType.CUSTOM.castToInt()) {
-            GuiEngine.getImageProvider().setCustomShipImages(getValueFromHash(hash, "_images", GuiEngine.getImageProvider()
-                    .getCustomShipImages()));
-        }
-
-        // Get the name if the ship is a custom design.
-        if (getType() == ShipType.CUSTOM) {
-            Strings.ShipNames[ShipType.CUSTOM.castToInt()] = getValueFromHash(hash, "_name",
-                    Strings.ShipNames[ShipType.CUSTOM.castToInt()]);
-
-            Consts.ShipSpecs[ShipType.CUSTOM.castToInt()] = new ShipSpec(type, size, cargoBays, weaponSlots,
-                    shieldSlots, gadgetSlots, crewQuarters, fuelTanks, fuelCost, hullStrength, repairCost,
-                    price, occurrence, police, pirates, traders, minTech);
-            updateCustomImageOffsetConstants();
-        }
-    }
-
-    @Override
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.put("_type", type.castToInt());
-        hash.put("_size", size.castToInt());
-        hash.put("_cargoBays", cargoBays);
-        hash.put("_weaponSlots", weaponSlots);
-        hash.put("_shieldSlots", shieldSlots);
-        hash.add("_gadgetSlots", gadgetSlots);
-        hash.add("_crewQuarters", crewQuarters);
-        hash.add("_fuelTanks", fuelTanks);
-        hash.add("_fuelCost", fuelCost);
-        hash.add("_hullStrength", hullStrength);
-        hash.add("_repairCost", repairCost);
-        hash.add("_price", price);
-        hash.add("_occurrence", occurrence);
-        hash.add("_police", police.castToInt());
-        hash.add("_pirates", pirates.castToInt());
-        hash.add("_traders", traders.castToInt());
-        hash.add("_minTech", minTech.castToInt());
-        hash.add("_hullUpgraded", hullUpgraded);
-
-        // Only save image index if it's not the default.
-        if (imageIndex != Consts.ShipImgUseDefault) {
-            hash.add("_imageIndex", imageIndex);
-        }
-
-        // Save the name if the ship is a custom design.
-        if (getType() == ShipType.CUSTOM) {
-            hash.add("_name", getName());
-        }
-
-        // Save the images if the ship uses the custom images.
-        if (getImageIndex() == ShipType.CUSTOM.castToInt()) {
-            hash.add("_images", GuiEngine.getImageProvider().getCustomShipImages());
-        }
-
-        return hash;
     }
 
     protected void setValues(ShipType type) {

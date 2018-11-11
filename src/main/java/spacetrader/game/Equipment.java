@@ -5,14 +5,16 @@ import spacetrader.game.enums.EquipmentSubType;
 import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.TechLevel;
 import spacetrader.guifacade.GuiEngine;
-import spacetrader.util.Hashtable;
 
-public abstract class Equipment extends STSerializableObject implements Cloneable {
+public abstract class Equipment implements Cloneable {
 
     private EquipmentType equipType;
     private int price;
     private TechLevel minTech;
     private int chance;
+
+    public Equipment() {
+    }
 
     public Equipment(EquipmentType equipType, int price, TechLevel minTechLevel, int chance) {
         this.equipType = equipType;
@@ -21,28 +23,8 @@ public abstract class Equipment extends STSerializableObject implements Cloneabl
         this.chance = chance;
     }
 
-    public Equipment(Hashtable hash) {
-        super();
-        equipType = EquipmentType.fromInt(getValueFromHash(hash, "_equipType", Integer.class));
-        price = getValueFromHash(hash, "_price", Integer.class);
-        minTech = TechLevel.fromInt(getValueFromHash(hash, "_minTech", Integer.class));
-        chance = getValueFromHash(hash, "_chance", Integer.class);
-    }
-
     //TODO was Clone. This implements Object.clone. Need to test
     public abstract Equipment clone();
-
-    @Override
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.put("_equipType", equipType.castToInt());
-        hash.put("_price", price);
-        hash.put("_minTech", minTech.castToInt());
-        hash.put("_chance", chance);
-
-        return hash;
-    }
 
     @Override
     public String toString() {

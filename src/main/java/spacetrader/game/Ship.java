@@ -3,14 +3,14 @@ package spacetrader.game;
 import spacetrader.game.enums.*;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-public class Ship extends ShipSpec {
+public class Ship extends ShipSpec implements Serializable {
 
     private int fuel;
     private int hull;
@@ -67,25 +67,6 @@ public class Ship extends ShipSpec {
             if (oppType != OpponentType.POLICE) {
                 generateOpponentAddCargo(oppType == OpponentType.PIRATE);
             }
-        }
-    }
-
-    public Ship(Hashtable hash) {
-        super(hash);
-        fuel = getValueFromHash(hash, "_fuel", Integer.class);
-        hull = getValueFromHash(hash, "_hull", Integer.class);
-        tribbles = getValueFromHash(hash, "_tribbles", tribbles);
-        cargo = getValueFromHash(hash, "_cargo", cargo, int[].class);
-        weapons = (Weapon[]) arrayListToArray(getValueFromHash(hash, "_weapons", ArrayList.class), "Weapon");
-        shields = (Shield[]) arrayListToArray(getValueFromHash(hash, "_shields", ArrayList.class), "Shield");
-        gadgets = (Gadget[]) arrayListToArray(getValueFromHash(hash, "_gadgets", ArrayList.class), "Gadget");
-        pod = getValueFromHash(hash, "_pod", pod);
-
-        int[] crewIds = getValueFromHash(hash, "_crewIds", (new int[0]), int[].class);
-        crewMembers = new CrewMember[crewIds.length];
-        for (int index = 0; index < crewMembers.length; index++) {
-            CrewMemberId id = CrewMemberId.fromInt(crewIds[index]);
-            crewMembers[index] = (id == CrewMemberId.NA ? null : Game.getCurrentGame().getMercenaries()[id.castToInt()]);
         }
     }
 
@@ -701,29 +682,6 @@ public class Ship extends ShipSpec {
                 Game.getCurrentGame().getCommander().getPriceCargo()[i] = 0;
             }
         }
-    }
-
-    @Override
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        // We don't want the actual CrewMember Objects - we just want the ids.
-        int[] crewIds = new int[crewMembers.length];
-        for (int i = 0; i < crewIds.length; i++) {
-            crewIds[i] = (crewMembers[i] == null ? CrewMemberId.NA : crewMembers[i].getId()).castToInt();
-        }
-
-        hash.add("_fuel", fuel);
-        hash.add("_hull", hull);
-        hash.add("_tribbles", tribbles);
-        hash.add("_cargo", cargo);
-        hash.add("_weapons", arrayToArrayList(weapons));
-        hash.add("_shields", arrayToArrayList(shields));
-        hash.add("_gadgets", arrayToArrayList(gadgets));
-        hash.add("_crewIds", crewIds);
-        hash.add("_pod", pod);
-
-        return hash;
     }
 
     @Override

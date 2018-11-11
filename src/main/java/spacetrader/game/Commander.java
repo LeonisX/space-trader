@@ -4,9 +4,10 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 
-public class Commander extends CrewMember {
+import java.io.Serializable;
+
+public class Commander extends CrewMember implements Serializable {
 
     private int cash = 1000;
     private int debt = 0;
@@ -28,26 +29,6 @@ public class Commander extends CrewMember {
         getShip().addEquipment(Consts.Weapons[WeaponType.PULSE_LASER.castToInt()]);
     }
 
-    public Commander(Hashtable hash) {
-        super(hash);
-        cash = getValueFromHash(hash, "_cash", cash);
-        debt = getValueFromHash(hash, "_debt", debt);
-        killsPirate = getValueFromHash(hash, "_killsPirate", killsPirate);
-        killsPolice = getValueFromHash(hash, "_killsPolice", killsPolice);
-        killsTrader = getValueFromHash(hash, "_killsTrader", killsTrader);
-        policeRecordScore = getValueFromHash(hash, "_policeRecordScore", policeRecordScore);
-        reputationScore = getValueFromHash(hash, "_reputationScore", reputationScore);
-        days = getValueFromHash(hash, "_days", days);
-        insurance = getValueFromHash(hash, "_insurance", insurance);
-        noClaim = getValueFromHash(hash, "_noclaim", noClaim);
-        ship = new Ship(getValueFromHash(hash, "_ship", Hashtable.class));
-        priceCargo = getValueFromHash(hash, "_priceCargo", priceCargo, int[].class);
-
-        Game.getCurrentGame().getMercenaries()[CrewMemberId.COMMANDER.castToInt()] = this;
-        Strings.CrewMemberNames[CrewMemberId.COMMANDER.castToInt()] = getValueFromHash(hash, "_name",
-                Strings.CrewMemberNames[CrewMemberId.COMMANDER.castToInt()]);
-    }
-
     void payInterest() {
         if (getDebt() > 0) {
             int interest = Math.max(1, (int) (getDebt() * Consts.IntRate));
@@ -58,27 +39,6 @@ public class Commander extends CrewMember {
                 setCash(0);
             }
         }
-    }
-
-    @Override
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_cash", cash);
-        hash.add("_debt", debt);
-        hash.add("_killsPirate", killsPirate);
-        hash.add("_killsPolice", killsPolice);
-        hash.add("_killsTrader", killsTrader);
-        hash.add("_policeRecordScore", policeRecordScore);
-        hash.add("_reputationScore", reputationScore);
-        hash.add("_days", days);
-        hash.add("_insurance", insurance);
-        hash.add("_noclaim", noClaim);
-        hash.add("_ship", ship.serialize());
-        hash.add("_priceCargo", priceCargo);
-        hash.add("_name", getName());
-
-        return hash;
     }
 
     public boolean isTradeShip(ShipSpec specToBuy, int netPrice) {

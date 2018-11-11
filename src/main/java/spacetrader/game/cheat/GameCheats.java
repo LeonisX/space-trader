@@ -8,9 +8,11 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.Util;
 
+import java.io.Serializable;
+
 // TODO removes refs to gui...
 @CheatCode
-public class GameCheats {
+public class GameCheats implements Serializable {
 
     private final Game game;
     private boolean cheatMode = false;

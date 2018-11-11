@@ -1,17 +1,22 @@
 package spacetrader.game;
 
-import spacetrader.game.enums.EquipmentType;
-import spacetrader.game.enums.GadgetType;
-import spacetrader.game.enums.SkillType;
-import spacetrader.game.enums.TechLevel;
-import spacetrader.game.enums.EquipmentSubType;
-import spacetrader.util.Hashtable;
+import spacetrader.game.enums.*;
 import spacetrader.util.Log;
 
-public class Gadget extends Equipment {
+import java.io.Serializable;
+
+public class Gadget extends Equipment implements Serializable {
+
+    static final long serialVersionUID = 13L;
 
     private GadgetType type;
     private SkillType skillBonus;
+
+    public Gadget(EquipmentType equipType, int price, TechLevel minTechLevel, int chance, GadgetType type, SkillType skillBonus) {
+        super(equipType, price, minTechLevel, chance);
+        this.type = type;
+        this.skillBonus = skillBonus;
+    }
 
     public Gadget(GadgetType type, SkillType skillBonus, int price, TechLevel minTechLevel, int chance) {
         super(EquipmentType.GADGET, price, minTechLevel, chance);
@@ -19,25 +24,9 @@ public class Gadget extends Equipment {
         this.skillBonus = skillBonus;
     }
 
-    public Gadget(Hashtable hash) {
-        super(hash);
-        type = GadgetType.fromInt(getValueFromHash(hash, "_type", Integer.class));
-        skillBonus = (getValueFromHash(hash, "_skillBonus", SkillType.NA, SkillType.class));
-    }
-
     @Override
     public Equipment clone() {
         return new Gadget(type, skillBonus, getPrice(), getMinimumTechLevel(), getChance());
-    }
-
-    @Override
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_type", type.castToInt());
-        hash.add("_skillBonus", skillBonus.castToInt());
-
-        return hash;
     }
 
     @Override

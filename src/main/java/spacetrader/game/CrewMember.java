@@ -6,12 +6,14 @@ import spacetrader.game.enums.SkillType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class CrewMember extends STSerializableObject {
+public class CrewMember implements Serializable {
+
+    static final long serialVersionUID = 15L;
 
     private CrewMemberId id;
     private int[] skills = new int[4];
@@ -34,24 +36,6 @@ public class CrewMember extends STSerializableObject {
         setEngineer(baseCrewMember.getEngineer());
         currentSystemId = baseCrewMember.getCurrentSystemId();
         skills = baseCrewMember.getSkills();
-    }
-
-    CrewMember(Hashtable hash) {
-        super();
-        id = CrewMemberId.fromInt(getValueFromHash(hash, "_id", Integer.class));
-        skills = getValueFromHash(hash, "_skills", skills, int[].class);
-        currentSystemId = StarSystemId.fromInt(getValueFromHash(hash, "_curSystemId", currentSystemId, Integer.class));
-    }
-
-    public @Override
-    Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_id", id);
-        hash.add("_skills", skills);
-        hash.add("_curSystemId", currentSystemId);
-
-        return hash;
     }
 
     private void changeRandomSkill(int amount) {

@@ -5,6 +5,7 @@ import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
+import spacetrader.game.exceptions.GameEndException;
 import spacetrader.util.Functions;
 
 import static spacetrader.game.Strings.*;

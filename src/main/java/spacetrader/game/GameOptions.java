@@ -1,9 +1,10 @@
 package spacetrader.game;
 
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 
-public class GameOptions extends STSerializableObject {
+import java.io.Serializable;
+
+public class GameOptions implements Serializable {
 
     /**
      * Automatically ignores pirates when it is safe to do so
@@ -76,27 +77,6 @@ public class GameOptions extends STSerializableObject {
         }
     }
 
-    GameOptions(Hashtable hash) {
-        super();
-        alwaysIgnorePirates = getValueFromHash(hash, "_alwaysIgnorePirates", alwaysIgnorePirates);
-        alwaysIgnorePolice = getValueFromHash(hash, "_alwaysIgnorePolice", alwaysIgnorePolice);
-        alwaysIgnoreTradeInOrbit = getValueFromHash(hash, "_alwaysIgnoreTradeInOrbit",
-                alwaysIgnoreTradeInOrbit);
-        alwaysIgnoreTraders = getValueFromHash(hash, "_alwaysIgnoreTraders", alwaysIgnoreTraders);
-        autoFuel = getValueFromHash(hash, "_autoFuel", autoFuel);
-        autoRepair = getValueFromHash(hash, "_autoRepair", autoRepair);
-        continuousAttack = getValueFromHash(hash, "_continuousAttack", continuousAttack);
-        continuousAttackFleeing = getValueFromHash(hash, "_continuousAttackFleeing", continuousAttackFleeing);
-        disableOpponents = getValueFromHash(hash, "_disableOpponents", disableOpponents);
-        newsAutoPay = getValueFromHash(hash, "_newsAutoPay", newsAutoPay);
-        newsAutoShow = getValueFromHash(hash, "_newsAutoShow", newsAutoShow);
-        remindLoans = getValueFromHash(hash, "_remindLoans", remindLoans);
-        reserveMoney = getValueFromHash(hash, "_reserveMoney", reserveMoney);
-        showTrackedRange = getValueFromHash(hash, "_showTrackedRange", showTrackedRange);
-        trackAutoOff = getValueFromHash(hash, "_trackAutoOff", trackAutoOff);
-        leaveEmpty = getValueFromHash(hash, "_leaveEmpty", leaveEmpty);
-    }
-
     public void copyValues(GameOptions source) {
         setAlwaysIgnorePirates(source.isAlwaysIgnorePirates());
         setAlwaysIgnorePolice(source.isAlwaysIgnorePolice());
@@ -119,42 +99,18 @@ public class GameOptions extends STSerializableObject {
     public void loadFromDefaults(boolean errorIfFileNotFound) {
         GameOptions defaults;
 
-        Object obj = Functions.loadFile(Consts.DefaultSettingsFile, !errorIfFileNotFound);
+        Object obj = Functions.readObjectFromFile(Consts.DefaultSettingsFile, !errorIfFileNotFound).orElse(null);
         if (obj == null) {
             defaults = new GameOptions(false);
         } else {
-            defaults = new GameOptions((Hashtable) obj);
+            defaults = (GameOptions) obj;
         }
 
         copyValues(defaults);
     }
 
     public void saveAsDefaults() {
-        Functions.saveFile(Consts.DefaultSettingsFile, serialize());
-    }
-
-    public @Override
-    Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_alwaysIgnorePirates", alwaysIgnorePirates);
-        hash.add("_alwaysIgnorePolice", alwaysIgnorePolice);
-        hash.add("_alwaysIgnoreTradeInOrbit", alwaysIgnoreTradeInOrbit);
-        hash.add("_alwaysIgnoreTraders", alwaysIgnoreTraders);
-        hash.add("_autoFuel", autoFuel);
-        hash.add("_autoRepair", autoRepair);
-        hash.add("_continuousAttack", continuousAttack);
-        hash.add("_continuousAttackFleeing", continuousAttackFleeing);
-        hash.add("_disableOpponents", disableOpponents);
-        hash.add("_newsAutoPay", newsAutoPay);
-        hash.add("_newsAutoShow", newsAutoShow);
-        hash.add("_remindLoans", remindLoans);
-        hash.add("_reserveMoney", reserveMoney);
-        hash.add("_showTrackedRange", showTrackedRange);
-        hash.add("_trackAutoOff", trackAutoOff);
-        hash.add("_leaveEmpty", leaveEmpty);
-
-        return hash;
+        Functions.writeObjectToFile(Consts.DefaultSettingsFile, this);
     }
 
     public boolean isAlwaysIgnorePirates() {

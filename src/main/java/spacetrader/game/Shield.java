@@ -1,17 +1,25 @@
 package spacetrader.game;
 
 
+import spacetrader.game.enums.EquipmentSubType;
 import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.ShieldType;
 import spacetrader.game.enums.TechLevel;
-import spacetrader.game.enums.EquipmentSubType;
-import spacetrader.util.Hashtable;
 import spacetrader.util.Log;
 
-public class Shield extends Equipment {
+import java.io.Serializable;
+
+public class Shield extends Equipment implements Serializable {
+
+    static final long serialVersionUID = 12L;
+
     private ShieldType type;
     private int power;
     private int charge;
+
+    public Shield(EquipmentType equipType, int price, TechLevel minTechLevel, int chance) {
+        super(equipType, price, minTechLevel, chance);
+    }
 
     public Shield(ShieldType type, int power, int price, TechLevel minTechLevel, int chance) {
         super(EquipmentType.SHIELD, price, minTechLevel, chance);
@@ -20,27 +28,10 @@ public class Shield extends Equipment {
         this.charge = chance;
     }
 
-    public Shield(Hashtable hash) {
-        super(hash);
-        type = ShieldType.fromInt(getValueFromHash(hash, "_type", Integer.class));
-        power = getValueFromHash(hash, "_power", Integer.class);
-        charge = getValueFromHash(hash, "_charge", Integer.class);
-    }
-
     public Equipment clone() {
         Shield shield = new Shield(type, power, getPrice(), getMinimumTechLevel(), getChance());
         shield.setCharge(charge);
         return shield;
-    }
-
-    public Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.put("_type", type);
-        hash.put("_power", power);
-        hash.put("_charge", charge);
-
-        return hash;
     }
 
     public boolean isTypeEquals(Object type) {

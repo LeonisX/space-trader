@@ -8,6 +8,7 @@ import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.exceptions.GameEndException;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 

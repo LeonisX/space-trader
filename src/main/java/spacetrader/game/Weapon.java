@@ -4,14 +4,20 @@ import spacetrader.game.enums.EquipmentSubType;
 import spacetrader.game.enums.EquipmentType;
 import spacetrader.game.enums.TechLevel;
 import spacetrader.game.enums.WeaponType;
-import spacetrader.util.Hashtable;
 import spacetrader.util.Log;
 
-public class Weapon extends Equipment {
+import java.io.Serializable;
+
+public class Weapon extends Equipment implements Serializable {
+
+    static final long serialVersionUID = 11L;
 
     private WeaponType type;
     private int power;
     private boolean disabling;
+
+    public Weapon() {
+    }
 
     public Weapon(WeaponType type, int power, boolean disabling, int price, TechLevel minTechLevel, int chance) {
         super(EquipmentType.WEAPON, price, minTechLevel, chance);
@@ -20,27 +26,9 @@ public class Weapon extends Equipment {
         this.disabling = disabling;
     }
 
-    public Weapon(Hashtable hash) {
-        super(hash);
-        type = WeaponType.fromInt(getValueFromHash(hash, "_type", Integer.class));
-        power = getValueFromHash(hash, "_power", Integer.class);
-        disabling = getValueFromHash(hash, "_disabling", false);
-    }
-
     public @Override
     Equipment clone() {
         return new Weapon(type, power, disabling, getPrice(), getMinimumTechLevel(), getChance());
-    }
-
-    public @Override
-    Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_type", type.castToInt());
-        hash.add("_power", power);
-        hash.add("_disabling", disabling);
-
-        return hash;
     }
 
     @Override

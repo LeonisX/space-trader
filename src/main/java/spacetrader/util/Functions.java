@@ -4,10 +4,11 @@ import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.gui.SpaceTrader;
 import spacetrader.guifacade.GuiFacade;
-import spacetrader.stub.BinaryFormatter;
-import spacetrader.stub.SerializationException;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import java.util.prefs.Preferences;
 
@@ -173,7 +174,7 @@ public class Functions {
             seedY = DEF_SEED_Y;
     }
 
-    public static Long versionToLong(String version) {
+    static Long versionToLong(String version) {
         List<Integer> subVersions = Arrays.stream(version.split("\\.")).map(s -> s.replaceAll("[^\\d.]", ""))
                 .filter(s -> !s.isEmpty()).map(Integer::valueOf).collect(toList());
 
@@ -190,19 +191,21 @@ public class Functions {
                 .orElse(new HighScoreRecord[3]);
     }
 
-    public static void writeObjectToFile(String fileName, Object object) {
+    public static boolean writeObjectToFile(String fileName, Object object) {
         try {
             FileOutputStream fileOut = new FileOutputStream(fileName);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(object);
             objectOut.close();
+            return true;
         } catch (Exception ex) {
             //TODO
             ex.printStackTrace();
         }
+        return false;
     }
 
-    private static Optional<Object> readObjectFromFile(String fileName, boolean ignoreMissingFile) {
+    public static Optional<Object> readObjectFromFile(String fileName, boolean ignoreMissingFile) {
         try {
             FileInputStream fileIn = new FileInputStream(fileName);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
@@ -211,57 +214,11 @@ public class Functions {
             return Optional.ofNullable(result);
         } catch (Exception ex) {
             if (!ignoreMissingFile) {
+                //TODO
                 ex.printStackTrace();
             }
         }
         return Optional.empty();
-    }
-
-    public static Object loadFile(String fileName, boolean ignoreMissingFile) {
-        FileInputStream inStream = null;
-
-        try {
-            inStream = new FileInputStream(fileName);
-            return (new BinaryFormatter()).deserialize(inStream);
-        } catch (FileNotFoundException e) {
-            if (!ignoreMissingFile)
-                GuiFacade.alert(AlertType.FileErrorOpen, fileName, e.getMessage());
-        } catch (IOException ex) {
-            GuiFacade.alert(AlertType.FileErrorOpen, fileName, ex.getMessage());
-        } catch (SerializationException ex) {
-            GuiFacade.alert(AlertType.FileErrorOpen, fileName, Strings.FileFormatBad);
-        } finally {
-            if (inStream != null)
-                try {
-                    inStream.close();
-                } catch (IOException e) {
-                    Log.write("Can't close inStream");
-                }
-        }
-        return null;
-    }
-
-    public static boolean saveFile(String fileName, Object toSerialize) {
-        FileOutputStream outStream = null;
-
-        try {
-            new File(fileName).createNewFile();
-            outStream = new FileOutputStream(fileName, false);
-            (new BinaryFormatter()).serialize(outStream, toSerialize);
-            return true;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            GuiFacade.alert(AlertType.FileErrorSave, fileName, ex.getMessage());
-        } finally {
-            if (outStream != null)
-                try {
-                    outStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        }
-
-        return false;
     }
 
     private static Preferences getPreferences() {

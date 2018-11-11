@@ -4,20 +4,24 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
+import spacetrader.game.exceptions.GameEndException;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
-import spacetrader.util.Hashtable;
 import spacetrader.util.Util;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Game extends STSerializableObject implements SpaceTraderGame, SystemTracker, CurrentSystemMgr {
+public class Game implements Serializable, SpaceTraderGame, SystemTracker, CurrentSystemMgr {
+
+    static final long serialVersionUID = 110L;
 
     private static Game game;
+    private final Game innerGame; // Copy of game. Need for serialization only.
+
     private final Commander commander;
     @CheatCode
     private final GameCheats cheats;
@@ -79,7 +83,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     private int chanceOfVeryRareEncounter = 5; // Rare encounters not done yet.
     private ArrayList<VeryRareEncounter> veryRareEncounters = new ArrayList<>(6); // Array of Very Options
     private GameOptions options = new GameOptions(true); // The rest of the member variables are not saved between games.
-    private MainWindow parentWin;
+    private transient MainWindow parentWin;
     private boolean encounterContinueFleeing = false;
     private boolean encounterContinueAttacking = false;
     private boolean encounterCmdrFleeing = false;
@@ -91,6 +95,7 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
     public Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer,
                 MainWindow parentWin) {
         game = this;
+        innerGame = this;
         this.parentWin = parentWin;
         this.difficulty = difficulty;
 
@@ -124,79 +129,16 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         }
     }
 
-    public Game(Hashtable hash, MainWindow parentWin) {
-        super();
-        game = this;
-        this.parentWin = parentWin;
-
-        String version = getValueFromHash(hash, "_version", "", String.class);
-        if (Functions.versionToLong(version).compareTo(Functions.versionToLong(GlobalAssets.getVersion())) > 0) {
-            throw new FutureVersionException();
-        }
-
-        universe = (StarSystem[]) arrayListToArray(getValueFromHash(hash, "_universe", ArrayList.class), "StarSystem");
-        wormholes = getValueFromHash(hash, "_wormholes", wormholes, int[].class);
-        mercenaries = (CrewMember[]) arrayListToArray(getValueFromHash(hash, "_mercenaries", ArrayList.class),
-                "CrewMember");
-        commander = new Commander(getValueFromHash(hash, "_commander", Hashtable.class));
-        dragonfly = new Ship(getValueFromHash(hash, "_dragonfly", dragonfly.serialize(), Hashtable.class));
-        scarab = new Ship(getValueFromHash(hash, "_scarab", scarab.serialize(), Hashtable.class));
-        scorpion = new Ship(getValueFromHash(hash, "_scorpion", scorpion.serialize(), Hashtable.class));
-        spaceMonster = new Ship(getValueFromHash(hash, "_spaceMonster", spaceMonster.serialize(), Hashtable.class));
-        opponent = new Ship(getValueFromHash(hash, "_opponent", opponent.serialize(), Hashtable.class));
-        chanceOfTradeInOrbit = getValueFromHash(hash, "_chanceOfTradeInOrbit", chanceOfTradeInOrbit);
-        clicks = getValueFromHash(hash, "_clicks", clicks);
-        raided = getValueFromHash(hash, "_raided", raided);
-        inspected = getValueFromHash(hash, "_inspected", inspected);
-        tribbleMessage = getValueFromHash(hash, "_tribbleMessage", tribbleMessage);
-        arrivedViaWormhole = getValueFromHash(hash, "_arrivedViaWormhole", arrivedViaWormhole);
-        paidForNewspaper = getValueFromHash(hash, "_paidForNewspaper", paidForNewspaper);
-        litterWarning = getValueFromHash(hash, "_litterWarning", litterWarning);
-        newsEvents = new ArrayList(Arrays.asList((Integer[]) getValueFromHash(hash, "_newsEvents", newsEvents
-                .toArray(new Integer[0]))));
-        difficulty = Difficulty.fromInt(getValueFromHash(hash, "_difficulty", difficulty, Integer.class));
-        cheats = new GameCheats(this);
-        cheats.setCheatMode(getValueFromHash(hash, "_cheatEnabled", cheats.isCheatMode()));
-        autoSave = getValueFromHash(hash, "_autoSave", autoSave);
-        easyEncounters = getValueFromHash(hash, "_easyEncounters", easyEncounters);
-        endStatus = GameEndType.fromInt(getValueFromHash(hash, "_endStatus", endStatus, Integer.class));
-        encounterType = EncounterType.fromInt(getValueFromHash(hash, "_encounterType", encounterType, Integer.class));
-        selectedSystemId = StarSystemId.fromInt(getValueFromHash(hash, "_selectedSystemId", selectedSystemId,
-                Integer.class));
-        warpSystemId = StarSystemId.fromInt(getValueFromHash(hash, "_warpSystemId", warpSystemId, Integer.class));
-        trackedSystemId = StarSystemId.fromInt(getValueFromHash(hash, "_trackedSystemId", trackedSystemId,
-                Integer.class));
-        targetWormhole = getValueFromHash(hash, "_targetWormhole", targetWormhole);
-        priceCargoBuy = getValueFromHash(hash, "_priceCargoBuy", priceCargoBuy, int[].class);
-        priceCargoSell = getValueFromHash(hash, "_priceCargoSell", priceCargoSell, int[].class);
-        questStatusArtifact = getValueFromHash(hash, "_questStatusArtifact", questStatusArtifact);
-        questStatusDragonfly = getValueFromHash(hash, "_questStatusDragonfly", questStatusDragonfly);
-        questStatusExperiment = getValueFromHash(hash, "_questStatusExperiment", questStatusExperiment);
-        questStatusGemulon = getValueFromHash(hash, "_questStatusGemulon", questStatusGemulon);
-        questStatusJapori = getValueFromHash(hash, "_questStatusJapori", questStatusJapori);
-        questStatusJarek = getValueFromHash(hash, "_questStatusJarek", questStatusJarek);
-        questStatusMoon = getValueFromHash(hash, "_questStatusMoon", questStatusMoon);
-        questStatusPrincess = getValueFromHash(hash, "_questStatusPrincess", questStatusPrincess);
-        questStatusReactor = getValueFromHash(hash, "_questStatusReactor", questStatusReactor);
-        questStatusScarab = getValueFromHash(hash, "_questStatusScarab", questStatusScarab);
-        questStatusSculpture = getValueFromHash(hash, "_questStatusSculpture", questStatusSculpture);
-        questStatusSpaceMonster = getValueFromHash(hash, "_questStatusSpaceMonster", questStatusSpaceMonster);
-        questStatusWild = getValueFromHash(hash, "_questStatusWild", questStatusWild);
-        fabricRipProbability = getValueFromHash(hash, "_fabricRipProbability", fabricRipProbability);
-        justLootedMarie = getValueFromHash(hash, "_justLootedMarie", justLootedMarie);
-        canSuperWarp = getValueFromHash(hash, "_canSuperWarp", canSuperWarp);
-        chanceOfVeryRareEncounter = getValueFromHash(hash, "_chanceOfVeryRareEncounter", chanceOfVeryRareEncounter);
-        veryRareEncounters = new ArrayList(Arrays.asList(getValueFromHash(hash, "_veryRareEncounters",
-                veryRareEncounters.toArray(new Integer[0]))));
-        options = new GameOptions(getValueFromHash(hash, "_options", options.serialize(), Hashtable.class));
-    }
-
     public static Game getCurrentGame() {
         return game;
     }
 
     public static void setCurrentGame(Game value) {
         game = value;
+    }
+
+    public Game getInnerGame() {
+        return innerGame;
     }
 
     private void arrested() {
@@ -3199,64 +3141,6 @@ public class Game extends STSerializableObject implements SpaceTraderGame, Syste
         if (getPaidForNewspaper()) {
             GuiFacade.alert(AlertType.Alert, getNewspaperHead(), getNewspaperText());
         }
-    }
-
-    public @Override
-    Hashtable serialize() {
-        Hashtable hash = super.serialize();
-
-        hash.add("_version", GlobalAssets.getVersion());
-        hash.add("_universe", arrayToArrayList(universe));
-        hash.add("_commander", commander.serialize());
-        hash.add("_wormholes", wormholes);
-        hash.add("_mercenaries", arrayToArrayList(mercenaries));
-        hash.add("_dragonfly", dragonfly.serialize());
-        hash.add("_scarab", scarab.serialize());
-        hash.add("_scorpion", scorpion.serialize());
-        hash.add("_spaceMonster", spaceMonster.serialize());
-        hash.add("_opponent", opponent.serialize());
-        hash.add("_chanceOfTradeInOrbit", chanceOfTradeInOrbit);
-        hash.add("_clicks", clicks);
-        hash.add("_raided", raided);
-        hash.add("_inspected", inspected);
-        hash.add("_tribbleMessage", tribbleMessage);
-        hash.add("_arrivedViaWormhole", arrivedViaWormhole);
-        hash.add("_paidForNewspaper", paidForNewspaper);
-        hash.add("_litterWarning", litterWarning);
-        hash.add("_newsEvents", arrayListToIntArray(newsEvents));
-        hash.add("_difficulty", difficulty.castToInt());
-        hash.add("_cheatEnabled", cheats.isCheatMode());
-        hash.add("_autoSave", autoSave);
-        hash.add("_easyEncounters", easyEncounters);
-        hash.add("_endStatus", endStatus.castToInt());
-        hash.add("_encounterType", encounterType.castToInt());
-        hash.add("_selectedSystemId", selectedSystemId.castToInt());
-        hash.add("_warpSystemId", warpSystemId.castToInt());
-        hash.add("_trackedSystemId", trackedSystemId.castToInt());
-        hash.add("_targetWormhole", targetWormhole);
-        hash.add("_priceCargoBuy", priceCargoBuy);
-        hash.add("_priceCargoSell", priceCargoSell);
-        hash.add("_questStatusArtifact", questStatusArtifact);
-        hash.add("_questStatusDragonfly", questStatusDragonfly);
-        hash.add("_questStatusExperiment", questStatusExperiment);
-        hash.add("_questStatusGemulon", questStatusGemulon);
-        hash.add("_questStatusJapori", questStatusJapori);
-        hash.add("_questStatusJarek", questStatusJarek);
-        hash.add("_questStatusMoon", questStatusMoon);
-        hash.add("_questStatusPrincess", questStatusPrincess);
-        hash.add("_questStatusReactor", questStatusReactor);
-        hash.add("_questStatusScarab", questStatusScarab);
-        hash.add("_questStatusSculpture", questStatusSculpture);
-        hash.add("_questStatusSpaceMonster", questStatusSpaceMonster);
-        hash.add("_questStatusWild", questStatusWild);
-        hash.add("_fabricRipProbability", fabricRipProbability);
-        hash.add("_justLootedMarie", justLootedMarie);
-        hash.add("_canSuperWarp", canSuperWarp);
-        hash.add("_chanceOfVeryRareEncounter", chanceOfVeryRareEncounter);
-        hash.add("_veryRareEncounters", arrayListToIntArray(veryRareEncounters));
-        hash.add("_options", options.serialize());
-
-        return hash;
     }
 
     // Returns true if an encounter occurred.
