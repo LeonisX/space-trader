@@ -64,15 +64,15 @@ public class Graphics {
                 rect.getX(), rect.getY(), rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight(), null);
     }
 
-    public Size measureString(String text, java.awt.Font font) {
+    public Dimension measureString(String text, java.awt.Font font) {
         if (graphics == null) {
-            return new Size(text.length() * 5, 30);
+            return new Dimension(text.length() * 5, 30);
         }
 
         FontMetrics metrics = graphics.getFontMetrics(font);
         int w = metrics.stringWidth(text);
         int h = metrics.getHeight();
-        return new Size(w, h);
+        return new Dimension(w, h);
     }
 
     public static void paintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {

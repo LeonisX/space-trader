@@ -1,7 +1,5 @@
 package spacetrader.stub;
 
-import spacetrader.controls.Size;
-
 import java.awt.*;
 import java.util.HashMap;
 
@@ -22,9 +20,9 @@ public class ValuesBundle extends HashMap<String, Object> {
         return Double.valueOf(getString(key));
     }
 
-    public Size getSize(String key) {
+    public Dimension getSize(String key) {
         //System.out.println("getSize: " + key);
-        return new Size(getInt(key + ".width"), getInt(key + ".height"));
+        return new Dimension(getInt(key + ".width"), getInt(key + ".height"));
     }
 
     public Point getLocation(String key) {

@@ -111,7 +111,7 @@ public class BaseComponent implements IName {
     }
 
     public void setSize(int width, int height) {
-        Size size = new Size(width, height);
+        Dimension size = new Dimension(width, height);
         swingComponent.setSize(size);
     }
 
