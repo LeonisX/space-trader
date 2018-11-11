@@ -290,10 +290,10 @@ class FunctionsTest extends Specification {
 
         Game.game = game;
 
-        Functions.writeObjectToFile(fileName, game)
+        IOUtils.writeObjectToFile(fileName, game)
 
         when:
-        Game savedGame = Functions.readObjectFromFile(fileName, false).get()
+        Game savedGame = IOUtils.readObjectFromFile(fileName, false).get()
 
         then:
         game == savedGame
