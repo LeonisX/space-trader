@@ -66,7 +66,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## TODO
 
 * Different image sizes, font sizes (config)
-* Special object for save states
 * SaveFileDialog - full localization
 * Full Russian description
 * Installers: http://www.jrsoftware.org/isdl.php
@@ -74,7 +73,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Minor tasks
 
-* Need to update font sizes. Dump all too
+* Need to update font sizes. Dump all too.
 
 ### TODO list of Jay French
 
