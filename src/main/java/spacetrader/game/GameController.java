@@ -5,6 +5,7 @@ import spacetrader.game.exceptions.FutureVersionException;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.Functions;
+import spacetrader.util.IOUtils;
 import spacetrader.util.Util;
 
 /**
@@ -47,15 +48,15 @@ public class GameController {
     //TODO ???
     public void clearHighScores() {
         HighScoreRecord[] highScores = new HighScoreRecord[3];
-        Functions.writeObjectToFile(Consts.HighScoreFile, highScores);
+        IOUtils.writeObjectToFile(Consts.HighScoreFile, highScores);
     }
 
     private void addHighScore(HighScoreRecord highScore) {
-        HighScoreRecord[] highScores = Functions.getHighScores();
+        HighScoreRecord[] highScores = IOUtils.getHighScores();
         highScores[0] = highScore;
         Util.sort(highScores);
 
-        Functions.writeObjectToFile(Consts.HighScoreFile, highScores);
+        IOUtils.writeObjectToFile(Consts.HighScoreFile, highScores);
     }
 
     public void gameEnd() {
@@ -81,7 +82,7 @@ public class GameController {
 
         HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.getScore(), game.getEndStatus(),
                 game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
-        if (candidate.compareTo(Functions.getHighScores()[0]) > 0) {
+        if (candidate.compareTo(IOUtils.getHighScores()[0]) > 0) {
             if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
             } else {
@@ -98,7 +99,7 @@ public class GameController {
 
     public static GameController loadGame(String fileName, MainWindow mainWindow) {
         try {
-            Game game = (Game) Functions.readObjectFromFile(fileName, false).orElse(null);
+            Game game = (Game) IOUtils.readObjectFromFile(fileName, false).orElse(null);
             if (game != null) {
                 game.setParentWindow(mainWindow);
                 Game.setCurrentGame(game);
@@ -118,7 +119,7 @@ public class GameController {
     }
 
     public void saveGame(String fileName, boolean saveFileName) {
-        if (Functions.writeObjectToFile(fileName, game) && saveFileName)
+        if (IOUtils.writeObjectToFile(fileName, game) && saveFileName)
             saveGameFile = fileName;
 
         saveGameDays = game.getCommander().getDays();

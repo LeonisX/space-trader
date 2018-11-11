@@ -13,8 +13,8 @@ import spacetrader.game.enums.Size;
 import spacetrader.guifacade.GuiEngine;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
-import spacetrader.stub.Directory;
 import spacetrader.util.Functions;
+import spacetrader.util.IOUtils;
 import spacetrader.util.Path;
 import spacetrader.util.ReflectionUtils;
 
@@ -776,8 +776,8 @@ public class FormShipyard extends SpaceTraderForm {
 
         // Add the user-created templates.
         ArrayList<ShipTemplate> userTemplates = new ArrayList<>();
-        for (String fileName : Directory.getFiles(Consts.CustomTemplatesDirectory, "*.sst")) {
-            Functions.readObjectFromFile(fileName, true).map(t -> {
+        for (String fileName : IOUtils.getFiles(Consts.CustomTemplatesDirectory, "*.sst")) {
+            IOUtils.readObjectFromFile(fileName, true).map(t -> {
                 ShipTemplate template = (ShipTemplate) t;
                 if (sizes.contains(template.getSize())) {
                     userTemplates.add(template);
@@ -953,7 +953,7 @@ public class FormShipyard extends SpaceTraderForm {
                     template.setImageIndex(imgIndex);
                 }
 
-                Functions.writeObjectToFile(saveDialog.getFileName(), template);
+                IOUtils.writeObjectToFile(saveDialog.getFileName(), template);
 
                 loadTemplateList();
             }

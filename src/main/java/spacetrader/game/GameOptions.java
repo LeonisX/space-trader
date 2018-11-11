@@ -1,6 +1,6 @@
 package spacetrader.game;
 
-import spacetrader.util.Functions;
+import spacetrader.util.IOUtils;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -104,7 +104,7 @@ public class GameOptions implements Serializable {
     public void loadFromDefaults(boolean errorIfFileNotFound) {
         GameOptions defaults;
 
-        Object obj = Functions.readObjectFromFile(Consts.DefaultSettingsFile, !errorIfFileNotFound).orElse(null);
+        Object obj = IOUtils.readObjectFromFile(Consts.DefaultSettingsFile, !errorIfFileNotFound).orElse(null);
         if (obj == null) {
             defaults = new GameOptions(false);
         } else {
@@ -115,7 +115,7 @@ public class GameOptions implements Serializable {
     }
 
     public void saveAsDefaults() {
-        Functions.writeObjectToFile(Consts.DefaultSettingsFile, this);
+        IOUtils.writeObjectToFile(Consts.DefaultSettingsFile, this);
     }
 
     public boolean isAlwaysIgnorePirates() {

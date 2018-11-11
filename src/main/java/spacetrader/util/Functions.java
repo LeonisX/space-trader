@@ -185,63 +185,6 @@ public class Functions {
         return longVersion;
     }
 
-    public static HighScoreRecord[] getHighScores() {
-        return readObjectFromFile(Consts.HighScoreFile, true)
-                .map(o -> (HighScoreRecord[]) o)
-                .orElse(new HighScoreRecord[3]);
-    }
-
-    public static boolean writeObjectToFile(String fileName, Object object) {
-        try {
-            ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(fileName));
-            objectOut.writeObject(object);
-            objectOut.close();
-            return true;
-        } catch (Exception ex) {
-            //TODO
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
-    public static Optional<Object> readObjectFromFile(String fileName, boolean ignoreMissingFile) {
-        try {
-            FileInputStream fileIn = new FileInputStream(fileName);
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-            Object result = objectIn.readObject();
-            fileIn.close();
-            return Optional.ofNullable(result);
-        } catch (Exception ex) {
-            if (!ignoreMissingFile) {
-                //TODO
-                ex.printStackTrace();
-            }
-        }
-        return Optional.empty();
-    }
-
-    private static Preferences getPreferences() {
-        return Preferences.userNodeForPackage(SpaceTrader.class);
-    }
-
-    public static String getRegistrySetting(String settingName, String defaultValue) {
-        try {
-            return getPreferences().get(settingName, defaultValue);
-        } catch (Exception e) {
-            GuiFacade.alert(AlertType.RegistryError, e.getMessage());
-        }
-        return defaultValue;
-    }
-
-
-    public static void setRegistrySetting(String settingName, String settingValue) {
-        try {
-            getPreferences().put(settingName, settingValue);
-        } catch (NullPointerException ex) {
-            GuiFacade.alert(AlertType.RegistryError, ex.getMessage());
-        }
-    }
-
     public static boolean wormholeExists(StarSystem a, StarSystem b) {
         return wormholeExists(a.getId().castToInt(), (b == null) ? -1 : b.getId().castToInt());
     }

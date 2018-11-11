@@ -12,8 +12,7 @@ import spacetrader.game.enums.GameEndType;
 import spacetrader.game.enums.Language;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
-import spacetrader.stub.Directory;
-import spacetrader.util.Functions;
+import spacetrader.util.IOUtils;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
@@ -376,8 +375,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 Consts.CustomTemplatesDirectory, Consts.DataDirectory, Consts.SaveDirectory};
 
         for (String path : paths) {
-            if (!Directory.exists(path)) {
-                Directory.createDirectory(path);
+            if (!IOUtils.exists(path)) {
+                IOUtils.createDirectory(path);
             }
         }
 
@@ -420,19 +419,18 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void spaceTraderWindowClosing(WindowEvent we) {
         if (we.getID() == WindowEvent.WINDOW_CLOSING && getFrame().getState() == Frame.NORMAL) {
-            Functions.setRegistrySetting("x", Integer.toString(getFrame().getX()));
-            Functions.setRegistrySetting("y", Integer.toString(getFrame().getY()));
+            IOUtils.setRegistrySetting("x", Integer.toString(getFrame().getX()));
+            IOUtils.setRegistrySetting("y", Integer.toString(getFrame().getY()));
         }
     }
-
 
     private void spaceTraderClosed() {
         FormsOwnerTree.pop(this);
     }
 
     private void spaceTraderLoad() {
-        left = Integer.parseInt(Functions.getRegistrySetting("x", "-1"));
-        top = Integer.parseInt(Functions.getRegistrySetting("y", "-1"));
+        left = Integer.parseInt(IOUtils.getRegistrySetting("x", "-1"));
+        top = Integer.parseInt(IOUtils.getRegistrySetting("y", "-1"));
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 

@@ -10,7 +10,7 @@ import spacetrader.gui.SpaceTrader;
 import spacetrader.stub.PropertiesLoader;
 import spacetrader.stub.StringsBundle;
 import spacetrader.stub.ValuesBundle;
-import spacetrader.util.Functions;
+import spacetrader.util.IOUtils;
 
 import java.awt.*;
 
@@ -124,11 +124,11 @@ public class GlobalAssets {
 
     public static void setLanguage(Language language) {
         GlobalAssets.language = language;
-        Functions.setRegistrySetting("language", language.toString());
+        IOUtils.setRegistrySetting("language", language.toString());
     }
 
     public static void loadLanguageFromRegistry() {
-        String lang = Functions.getRegistrySetting("language", Language.ENGLISH.toString());
+        String lang = IOUtils.getRegistrySetting("language", Language.ENGLISH.toString());
         try {
             language = Language.valueOf(lang.toUpperCase());
         } catch (IllegalArgumentException e) {

@@ -8,6 +8,7 @@ import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.HighScoreRecord;
 import spacetrader.game.Strings;
 import spacetrader.util.Functions;
+import spacetrader.util.IOUtils;
 import spacetrader.util.ReflectionUtils;
 
 public class FormViewHighScores extends SpaceTraderForm {
@@ -33,7 +34,7 @@ public class FormViewHighScores extends SpaceTraderForm {
         Label[] lblScore = new Label[]{scoreLabelValue1, scoreLabelValue2, scoreLabelValue3};
         Label[] lblStatus = new Label[]{statusLabelValue1, statusLabelValue2, statusLabelValue3};
 
-        HighScoreRecord[] highScores = Functions.getHighScores();
+        HighScoreRecord[] highScores = IOUtils.getHighScores();
         for (int i = highScores.length - 1; i >= 0 && highScores[i] != null; i--) {
             lblName[2 - i].setText(highScores[i].getName());
             lblScore[2 - i].setText(Functions.formatNumber(highScores[i].getScore() / 10) + "." + highScores[i].getScore() % 10 + "%");
