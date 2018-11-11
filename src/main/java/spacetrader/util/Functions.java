@@ -35,7 +35,7 @@ public class Functions {
     }
 
     public static String formatNumber(int num) {
-        return String.format("%,d", num);
+        return String.format(GlobalAssets.getLanguage().getLocale(), "%,d", num);
     }
 
     public static String formatList(List<String> listItems) {
@@ -43,11 +43,11 @@ public class Functions {
     }
 
     public static String formatMoney(int num) {
-        return String.format("%,d %s", num, Strings.CargoCredit);
+        return String.format(GlobalAssets.getLanguage().getLocale(), "%,d %s", num, Strings.CargoCredit);
     }
 
     public static String formatPercent(int num) {
-        return String.format("%,d%%", num);
+        return String.format(GlobalAssets.getLanguage().getLocale(), "%,d%%", num);
     }
 
     public static String plural(int num, String unit) {
