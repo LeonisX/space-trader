@@ -21,7 +21,7 @@ import static spacetrader.gui.ChartsGraphicsConsts.*;
 public class GalacticChartPanel extends Panel {
 
     private final Pen DEFAULT_PEN = new Pen(Color.BLACK);
-    private final Brush DEFAULT_BRUSH = new SolidBrush(Color.WHITE);
+    private final Brush DEFAULT_BRUSH = new Brush(Color.WHITE);
 
     private final SpaceTrader mainWindow;
 

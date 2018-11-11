@@ -23,7 +23,7 @@ public class ShortRangeChartPanel extends Panel {
     private final ImageList ilChartImages;
 
     private final Pen DEFAULT_PEN = new Pen(Color.BLACK);
-    private final Brush DEFAULT_BRUSH = new SolidBrush(Color.WHITE);
+    private final Brush DEFAULT_BRUSH = new Brush(Color.WHITE);
 
     private SystemTracker game = null;
     private Commander commander;
@@ -118,14 +118,14 @@ public class ShortRangeChartPanel extends Panel {
                     int dX2 = (int) Math.round(4 * (trackSys.getY() - curSys.getY()) / (double) dist);
                     int dY2 = (int) Math.round(4 * (curSys.getX() - trackSys.getX()) / (double) dist);
 
-                    e.getGraphics().fillPolygon(new SolidBrush(new Color(220, 20, 60)), new Point[]{
+                    e.getGraphics().fillPolygon(new Brush(new Color(220, 20, 60)), new Point[]{
                             new Point(centerX + dX, centerY + dY), new Point(centerX - dX2, centerY - dY2),
                             new Point(centerX + dX2, centerY + dY2)});
                 }
 
                 if (game.isShowTrackedRange())
                     e.getGraphics().drawString(stringVars(ChartDistance, plural(dist, DistanceUnit),
-                            trackSys.getName()), font, new SolidBrush(Color.BLACK), 4,
+                            trackSys.getName()), font, new Brush(Color.BLACK), 4,
                             shortRangeChartPicture.getHeight() - 8);
             }
 
@@ -163,7 +163,7 @@ public class ShortRangeChartPanel extends Panel {
                             }
                         } else {
                             Dimension size = e.getGraphics().measureString(universe[i].getName(), getFont());
-                            e.getGraphics().drawString(universe[i].getName(), smallFont, new SolidBrush(Color.black),
+                            e.getGraphics().drawString(universe[i].getName(), smallFont, new Brush(Color.black),
                                     x - size.width / 2 + OFF_X, y /*- size.Height*/ - 5);
                             // implementations differ as to which point we start the string at. --aviv
                         }
