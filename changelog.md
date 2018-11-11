@@ -3,6 +3,12 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+12.11.2018. v.2.13.15
+
+* Save/load game and options using serialization
+* Set locale with language (need for correct number formatting)
+* Move all IO functions to IOUtils
+
 11.11.2018. v.2.11.13
 
 * Keep main window position and language in registry
