@@ -85,7 +85,6 @@ public class FormEquipment extends SpaceTraderForm {
         setText("Buy/Sell Equipment");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setAutoScaleBaseSize(5, 13);
         setClientSize(572, 341);
         setMaximizeBox(false);
         setMinimizeBox(false);

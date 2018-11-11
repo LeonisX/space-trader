@@ -8,6 +8,11 @@ public class SaveFileDialog extends FileDialog {
     }
 
     @Override
+    public void setApproveButtonText(String text) {
+        super.setApproveButtonText(text);
+    }
+
+    @Override
     public String getFileName() {
         return Path.defaultExtension(super.getFileName(), ".sav");
     }

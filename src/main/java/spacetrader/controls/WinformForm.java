@@ -16,7 +16,6 @@ public class WinformForm extends WinformPane {
 
     private DialogResult result;
     // Must encapsulate most of these.
-    private Size autoScaleBaseSize;
     private boolean showInTaskbar;
     private boolean minimizeBox;
     private boolean maximizeBox;
@@ -80,19 +79,6 @@ public class WinformForm extends WinformPane {
     }
 
     protected void performLayout() {
-    }
-
-    public Size getAutoScaleBaseSize() {
-        return autoScaleBaseSize;
-    }
-
-    //TODO replace with setAutoScaleBaseSize(int width, int height)
-    public void setAutoScaleBaseSize(Size autoScaleBaseSize) {
-        this.autoScaleBaseSize = autoScaleBaseSize;
-    }
-
-    public void setAutoScaleBaseSize(int width, int height) {
-        this.autoScaleBaseSize = new Size(width, height);
     }
 
     public String getTitle() {
