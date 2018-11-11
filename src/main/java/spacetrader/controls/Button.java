@@ -4,7 +4,6 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FlatStyle;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class Button extends BaseComponent {
@@ -30,9 +29,9 @@ public class Button extends BaseComponent {
     }
 
     @Override
-    public void setSize(Dimension size) {
+    public void setSize(int width, int height) {
         // width should be bigger because font is bigger(?).
-        super.setSize(new Dimension(size.width, size.height));
+        super.setSize(width, height);
     }
 
     public JButton asJButton() {

@@ -88,9 +88,7 @@ public class BaseComponent implements ISupportInitialize, IName {
     }
 
     public void setHeight(int height) {
-        Dimension size = (Dimension) getSize().clone();
-        size.height = height;
-        setSize(size);
+        setSize((int) getSize().getWidth(), height);
     }
 
     public int getWidth() {
@@ -100,7 +98,7 @@ public class BaseComponent implements ISupportInitialize, IName {
     public void setWidth(int width) {
         Dimension size = (Dimension) getSize().clone();
         size.width = width;
-        setSize(size);
+        setSize(width, (int) getSize().getHeight());
     }
 
     public void setLocation(int x, int y) {
@@ -109,12 +107,6 @@ public class BaseComponent implements ISupportInitialize, IName {
 
     Dimension getSize() {
         return swingComponent.getSize();
-    }
-
-    //TODO replace with setSize(int width, int height) {
-    public void setSize(Dimension size) {
-        //swingComponent.setPreferredSize(size);
-        swingComponent.setSize(size);
     }
 
     public void setSize(int width, int height) {

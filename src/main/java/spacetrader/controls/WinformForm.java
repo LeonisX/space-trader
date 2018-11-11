@@ -1,11 +1,11 @@
 package spacetrader.controls;
 
-import javax.swing.*;
-import java.awt.Dialog.ModalityType;
-import java.awt.*;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
+
+import javax.swing.*;
+import java.awt.Dialog.ModalityType;
 
 // TODO make Closing etc work.
 public class WinformForm extends WinformPane {
@@ -170,17 +170,9 @@ public class WinformForm extends WinformPane {
     }
 
     public void setClientSize(int width, int height) {
-        setClientSize(new Dimension(width, height));
-    }
-
-    public void setClientSize(Dimension clientSize) {
+        setSize(width, height);
         // bigger, cause decorations count in swing.
-        if (clientSize == null) {
-            System.out.println("null here");
-            return;
-        }
-        setSize(clientSize);
-        //setSize(new Dimension(clientSize.width + 10, clientSize.height + 30));
+        //setSize(width + 10, height + 30));
     }
 
     public String getText() {
