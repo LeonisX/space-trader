@@ -26,15 +26,9 @@ public class ResourceManager {
                 classToPath(className));
     }
 
-    //TODO language
-    public ResourceManager(String stringBankName) {
-        this(classLoader.getResource(stringBankName + ".properties"), stringBankName);
-    }
-
     private static String classToPath(Class<?> className) {
         String path = className.getCanonicalName().replace('.', '/');
         path = path.substring(0, path.lastIndexOf('/') + 1);
-//		System.out.println("classToPath " + path);
         return path;
     }
 
@@ -65,9 +59,5 @@ public class ResourceManager {
 
     public static Object getImage(String imageName) {
         return new Bitmap(classLoader.getResource(imageName.trim()));
-    }
-
-    public String getString(String key) {
-        return properties.getProperty(key);
     }
 }
