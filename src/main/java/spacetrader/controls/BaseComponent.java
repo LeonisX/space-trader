@@ -1,15 +1,16 @@
 package spacetrader.controls;
 
+import spacetrader.controls.enums.BorderStyle;
+import spacetrader.controls.enums.ControlBinding;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import spacetrader.controls.enums.BorderStyle;
-import spacetrader.controls.enums.ControlBinding;
 
-public class BaseComponent implements ISupportInitialize, IName {
+public class BaseComponent implements IName {
 
     static final Font DEFAULT_FONT = new Font(spacetrader.controls.Font.WINDOWS_DEFAULT_FONT_FAMILY, Font.PLAIN, 11);
 
@@ -245,17 +246,5 @@ public class BaseComponent implements ISupportInitialize, IName {
 
     MouseListener getMouseListener() {
         return new WinformMouseListener(this, click, doubleClick);
-    }
-
-    public void suspendLayout() {
-        // TODO Auto-generated method stub
-    }
-
-    public void beginInit() {
-        // TODO Auto-generated method stub
-    }
-
-    public void endInit() {
-        // TODO Auto-generated method stub
     }
 }

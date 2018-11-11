@@ -40,10 +40,6 @@ public class FormBuyRepairs extends WinformForm {
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(nothingButton);
-        
-        //TODO need??
-        numericUpDown.beginInit();
-        suspendLayout();
 
         questionLabel.setAutoSize(true);
         questionLabel.setLocation(8, 14);
@@ -83,8 +79,6 @@ public class FormBuyRepairs extends WinformForm {
         nothingButton.setText("Nothing");
 
         controls.addAll(questionLabel, numericUpDown, okButton, maxButton, nothingButton);
-        
-        numericUpDown.endInit();
 
         ReflectionUtils.loadControlsData(this);
     }

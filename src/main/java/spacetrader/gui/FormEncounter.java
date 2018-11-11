@@ -157,7 +157,6 @@ public class FormEncounter extends SpaceTraderForm {
     private void initializeComponent() {
         ResourceManager resources = new ResourceManager(FormEncounter.class);
         ReflectionUtils.setAllComponentNames(this);
-        suspendLayout();
 
         setName("formEncounter");
         setText("Encounter");

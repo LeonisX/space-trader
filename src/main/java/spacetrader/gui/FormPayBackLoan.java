@@ -48,9 +48,6 @@ public class FormPayBackLoan extends SpaceTraderForm {
         setAcceptButton(okButton);
         setCancelButton(nothingButton);
 
-        numAmount.beginInit();
-        suspendLayout();
-
         statementLabelValue.setAutoSize(true);
         statementLabelValue.setLocation(8, 8);
         //statementLabelValue.setSize(176, 13);
@@ -97,8 +94,6 @@ public class FormPayBackLoan extends SpaceTraderForm {
         nothingButton.setText("Nothing");
 
         controls.addAll(statementLabelValue, questionLabel, numAmount, okButton, maxButton, nothingButton);
-
-        numAmount.endInit();
 
         ReflectionUtils.loadControlsData(this);
     }

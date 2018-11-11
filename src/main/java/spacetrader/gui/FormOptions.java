@@ -71,9 +71,6 @@ public class FormOptions extends SpaceTraderForm {
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(cancelButton);
-        
-        emptyNumericUpDown.beginInit();
-        suspendLayout();
 
         fuelCheckBox.setLocation(8, 8);
         fuelCheckBox.setSize(245, 16);
@@ -289,8 +286,6 @@ public class FormOptions extends SpaceTraderForm {
                 ignorePiratesCheckBox, ignorePoliceCheckBox, ignoreTradersCheckBox, ignoreDealingTradersCheckBox,
                 continuousAttackCheckBox, attackFleeingCheckBox, disableOpponentsCheckBox, okButton, cancelButton,
                 saveButton, loadButton);
-        
-        emptyNumericUpDown.endInit();
 
         ReflectionUtils.loadControlsData(this);
     }

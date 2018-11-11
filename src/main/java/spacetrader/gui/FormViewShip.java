@@ -49,8 +49,6 @@ public class FormViewShip extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        suspendLayout();
-
         typeLabel.setAutoSize(true);
         typeLabel.setFont(FontCollection.bold825);
         typeLabel.setLocation(8, 8);

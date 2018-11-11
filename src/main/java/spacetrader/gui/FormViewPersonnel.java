@@ -58,8 +58,6 @@ public class FormViewPersonnel extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        suspendLayout();
-
         currentCrewPanel.setLocation(8, 8);
         currentCrewPanel.setSize(155, 120);
         currentCrewPanel.setTabStop(false);

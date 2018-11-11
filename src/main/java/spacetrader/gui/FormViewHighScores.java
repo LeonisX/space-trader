@@ -63,8 +63,6 @@ public class FormViewHighScores extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        suspendLayout();
-
         rankLabel1.setAutoSize(true);
         rankLabel1.setLocation(8, 8);
         //rankLabel1.setSize(14, 13);

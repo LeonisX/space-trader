@@ -94,8 +94,6 @@ public class FormPlunder extends SpaceTraderForm {
         setShowInTaskbar(false);
         setAcceptButton(doneButton);
         setCancelButton(doneButton);
-        
-        suspendLayout();
 
         commodityLabel0.setLocation(8, 8);
         //commodityLabel0.setSize(36, 13);

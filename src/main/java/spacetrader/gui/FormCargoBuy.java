@@ -83,9 +83,6 @@ public class FormCargoBuy extends SpaceTraderForm {
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(noneButton);
-        
-        numericUpDown.beginInit();
-        suspendLayout();
 
         //TODO delete all texts & sizes
         statementLabelValue.setAutoSize(true);
@@ -152,8 +149,6 @@ public class FormCargoBuy extends SpaceTraderForm {
 
         controls.addAll(statementLabelValue, availableLabelValue, questionLabel, numericUpDown, affordLabelValue,
                 okButton, allButton, noneButton);
-
-        numericUpDown.endInit();
 
         ReflectionUtils.loadControlsData(this);
     }

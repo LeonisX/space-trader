@@ -56,9 +56,6 @@ public class FormAlertTest extends SpaceTraderForm {
     private void initializeComponent() {
         ReflectionUtils.setAllComponentNames(this);
 
-        this.boxAlert.suspendLayout();
-        this.panel1.suspendLayout();
-        this.suspendLayout();
         //
         // lblAlertType
         //

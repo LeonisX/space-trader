@@ -5,7 +5,7 @@ import spacetrader.controls.swingextra.JStatusBarSection;
 
 import java.awt.*;
 
-public class StatusBarPanel implements ISupportInitialize, IName {
+public class StatusBarPanel implements IName {
 
     private final StatusBarPanelAutoSize autoSize;
     private final JStatusBarSection jPanel = new JStatusBarSection(" ");
@@ -40,14 +40,6 @@ public class StatusBarPanel implements ISupportInitialize, IName {
         int height = jPanel.getPreferredSize().height;
         jPanel.setPreferredSize(new Dimension(width, height));
         jPanel.setMinimumSize(new Dimension(width, height));
-    }
-
-    public void beginInit() {
-        // TODO Auto-generated method stub
-    }
-
-    public void endInit() {
-        // TODO Auto-generated method stub
     }
 
     @Override

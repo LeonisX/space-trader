@@ -97,10 +97,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
 
         ReflectionUtils.setAllComponentNames(this);
-        //this.suspendLayout();
 
         //this.setClientSize(GlobalAssets.getDimensions().getSize(this.getName()));
-        //this.setAutoScaleBaseSize(new jwinforms.Size(5, 13));
         this.setClientSize(798, 505);
         controls.addAll(horizontalLine, dockPanel, cargoPanel, targetSystemPanel, galacticChartPanel,
                 shortRangeChartPanel, systemPanel, shipyardPanel);
@@ -150,14 +148,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         galacticChartPanel = new GalacticChartPanel(this, GlobalAssets.getChartImages());
         shortRangeChartPanel = new ShortRangeChartPanel(this, GlobalAssets.getChartImages());
         targetSystemPanel = new TargetSystemPanel(this);
-
-        systemPanel.suspendLayout();
-        dockPanel.suspendLayout();
-        cargoPanel.suspendLayout();
-        shipyardPanel.suspendLayout();
-        galacticChartPanel.suspendLayout();
-        shortRangeChartPanel.suspendLayout();
-        targetSystemPanel.suspendLayout();
 
         // system   cargocargocargocargocargoc
         // system   cargocargocargocargocargoc
@@ -355,7 +345,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void initializeStatusBar() {
         statusBar = new SpaceTraderStatusBar(this);
-        statusBar.beginInit();
         statusBar.initializeComponent();
     }
 

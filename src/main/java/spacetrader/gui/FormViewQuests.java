@@ -41,8 +41,6 @@ public class FormViewQuests extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        suspendLayout();
-
         questsLabelValue.setLinkArea(new LinkArea(0, 0));
         questsLabelValue.setLocation(8, 8);
         questsLabelValue.setSize(378, 342);

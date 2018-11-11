@@ -146,19 +146,6 @@ public class FormShipyard extends SpaceTraderForm {
 
         ResourceManager resources = new ResourceManager(FormShipyard.class);
 
-        welcomePanel.suspendLayout();
-        infoPanel.suspendLayout();
-        costsPanel.suspendLayout();
-        allocationPanel.suspendLayout();
-        hullStrengthNum.beginInit();
-        cargoBaysNum.beginInit();
-        crewQuartersNum.beginInit();
-        fuelTanksNum.beginInit();
-        shieldSlotsNum.beginInit();
-        gadgetSlotsNum.beginInit();
-        weaponsSlotsNum.beginInit();
-        this.suspendLayout();
-
         welcomePanel.setLocation(8, 0);
         welcomePanel.setSize(310, 204);
         welcomePanel.setTabStop(false);
@@ -696,14 +683,6 @@ public class FormShipyard extends SpaceTraderForm {
 
         controls.addAll(disabledPctTipLabel, welcomePanel, disabledNameTipLabel, infoPanel, allocationPanel,
                 costsPanel, cancelButton, constructButton);
-
-        hullStrengthNum.endInit();
-        cargoBaysNum.endInit();
-        crewQuartersNum.endInit();
-        fuelTanksNum.endInit();
-        shieldSlotsNum.endInit();
-        gadgetSlotsNum.endInit();
-        weaponsSlotsNum.endInit();
 
         ReflectionUtils.loadControlsData(this);
     }

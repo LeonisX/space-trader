@@ -85,8 +85,6 @@ public class FormJettison extends SpaceTraderForm {
         setShowInTaskbar(false);
         setAcceptButton(doneButton);
         setCancelButton(doneButton);
-        
-        suspendLayout();
 
         jettisonAllButton9.setLocation(102, 220);
         jettisonAllButton9.setSize(32, 22);

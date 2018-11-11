@@ -65,8 +65,6 @@ public class FormViewCommander extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        suspendLayout();
-
         nameLabel.setAutoSize(true);
         nameLabel.setFont(FontCollection.bold825);
         nameLabel.setLocation(8, 9);

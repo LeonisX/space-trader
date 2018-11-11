@@ -43,9 +43,6 @@ public class FormGetLoan extends SpaceTraderForm {
         setAcceptButton(okButton);
         setCancelButton(nothingButton);
 
-        ((ISupportInitialize) (numAmount)).beginInit();
-        suspendLayout();
-
         statementLabelValue.setAutoSize(true);
         statementLabelValue.setLocation(8, 8);
         //statementLabelValue.setSize(189, 13);
@@ -91,8 +88,6 @@ public class FormGetLoan extends SpaceTraderForm {
         nothingButton.setSize(53, 22);
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");
-
-        ((ISupportInitialize) (numAmount)).endInit();
 
         controls.addAll(Arrays.asList(statementLabelValue, nothingButton, maxButton, okButton, numAmount, questionLabel));
 

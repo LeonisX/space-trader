@@ -36,8 +36,6 @@ class ShipyardPanel extends Panel {
         setText("Shipyard");
         setSize(193, 173);
         setTabStop(false);
-        
-        suspendLayout();
 
         shipsForSaleLabel.setAutoSize(true);
         shipsForSaleLabel.setLocation(8, 20);

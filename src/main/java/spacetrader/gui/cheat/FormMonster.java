@@ -84,8 +84,6 @@ public class FormMonster extends SpaceTraderForm {
         this.setMinimizeBox(false);
         this.setShowInTaskbar(false);
         this.setCancelButton(closeButton);
-        
-        this.suspendLayout();
 
         topHorizontalLine.setLocation(4, 40);
         topHorizontalLine.setWidth(609);

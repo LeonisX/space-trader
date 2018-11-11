@@ -35,8 +35,6 @@ public class FormFind extends SpaceTraderForm {
         setAcceptButton(okButton);
         setCancelButton(cancelButton);
 
-        this.suspendLayout();
-
         questionLabel.setAutoSize(true);
         questionLabel.setLocation(8, 8);
         //questionLabel.setSize(177, 13);

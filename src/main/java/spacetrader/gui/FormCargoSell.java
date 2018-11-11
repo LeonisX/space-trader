@@ -75,9 +75,6 @@ public class FormCargoSell extends SpaceTraderForm {
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(noneButton);
-        
-        numericUpDown.beginInit();
-        suspendLayout();
 
         statementLabelValue.setAutoSize(true);
         statementLabelValue.setLocation(8, 8);
@@ -138,8 +135,6 @@ public class FormCargoSell extends SpaceTraderForm {
 
         controls.addAll(statementLabelValue, paidLabelValue, profitLabelValue, questionLabel, numericUpDown,
                 okButton, allButton, noneButton);
-
-        numericUpDown.endInit();
 
         ReflectionUtils.loadControlsData(this);
     }

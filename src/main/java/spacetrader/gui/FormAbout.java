@@ -32,8 +32,6 @@ public class FormAbout extends WinformForm {
         setMinimizeBox(false);
         setShowInTaskbar(false);
         setCancelButton(closeButton);
-        
-        suspendLayout();
 
         titleLabel.setAutoSize(true);
         titleLabel.setFont(FontCollection.bold10);

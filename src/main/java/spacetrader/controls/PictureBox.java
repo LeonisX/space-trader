@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.enums.PictureBoxSizeMode;
 
-public class PictureBox extends BaseComponent implements ISupportInitialize {
+public class PictureBox extends BaseComponent {
 
     public PictureBoxSizeMode sizeMode;
     private ImageMouseListener mouseListener;

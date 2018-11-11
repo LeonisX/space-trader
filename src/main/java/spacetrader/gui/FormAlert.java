@@ -718,8 +718,6 @@ public class FormAlert extends SpaceTraderForm {
             }
         });
 
-        this.suspendLayout();
-
         //TODO delete all sizes and locations
         messageLabel.setFont(FontCollection.regular825);
         messageLabel.setLocation(8, 8);

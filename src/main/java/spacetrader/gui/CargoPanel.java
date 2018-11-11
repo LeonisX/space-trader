@@ -205,8 +205,6 @@ class CargoPanel extends Panel {
         setText("Cargo");
         setSize(535, 305);
         setTabStop(false);
-        
-        this.suspendLayout();
 
         this.anchor = AnchorStyles.TOP_RIGHT;
 

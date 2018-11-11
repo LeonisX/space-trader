@@ -18,11 +18,6 @@ public class Panel extends BaseComponent {
         asJPanel().setBorder(border);
     }
 
-    @Override
-    public void suspendLayout() {
-        // TODO Auto-generated method stub
-    }
-
     public WinformJPanel getControls() {
         return controls;
     }

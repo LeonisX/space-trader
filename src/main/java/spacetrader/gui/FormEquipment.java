@@ -81,11 +81,6 @@ public class FormEquipment extends SpaceTraderForm {
     private void initializeComponent() {
         ReflectionUtils.setAllComponentNames(this);
 
-        currentInventoryPanel.suspendLayout();
-        equipmentForSalePanel.suspendLayout();
-        equipmentInformationPanel.suspendLayout();
-        suspendLayout();
-
         setName("formEquipment");
         setText("Buy/Sell Equipment");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);

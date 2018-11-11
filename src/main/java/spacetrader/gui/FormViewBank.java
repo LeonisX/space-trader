@@ -64,8 +64,6 @@ public class FormViewBank extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        suspendLayout();
-
         loanLabel.setAutoSize(true);
         loanLabel.setFont(FontCollection.bold12);
         loanLabel.setLocation(8, 8);

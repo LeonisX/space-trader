@@ -120,8 +120,6 @@ public class FormShipList extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        suspendLayout();
-
         buyButton0.setLocation(20, 8);
         buyButton0.setTabIndex(1);
 

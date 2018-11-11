@@ -48,8 +48,6 @@ public class FormCosts extends SpaceTraderForm {
         setMinimizeBox(false);
         setShowInTaskbar(false);
         setCancelButton(closeButton);
-        
-        suspendLayout();
 
         mercenariesLabel.setAutoSize(true);
         mercenariesLabel.setFont(FontCollection.bold825);

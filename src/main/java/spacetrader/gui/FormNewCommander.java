@@ -49,12 +49,6 @@ public class FormNewCommander extends SpaceTraderForm {
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(closeButton);
-        
-        numPilot.beginInit();
-        numFighter.beginInit();
-        numTrader.beginInit();
-        numEngineer.beginInit();
-        suspendLayout();
 
         nameLabel.setAutoSize(true);
         nameLabel.setLocation(8, 8);
@@ -220,11 +214,6 @@ public class FormNewCommander extends SpaceTraderForm {
         controls.addAll(nameLabel, nameTextBox, difficultyLabel, difficultyComboBox, skillPointsLabel,
                 skillPointsLabelValue, skillPointsRemainingLabel, pilotLabel, numPilot, fighterLabel, numFighter,
                 traderLabel, numTrader, engineerLabel, numEngineer, okButton, closeButton);
-        
-        numPilot.endInit();
-        numFighter.endInit();
-        numTrader.endInit();
-        numEngineer.endInit();
 
         ReflectionUtils.loadControlsData(this);
     }

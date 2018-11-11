@@ -52,26 +52,6 @@ class SpaceTraderStatusBar extends StatusBar {
         statusBarPanelCosts.setWidth(140);
 
         panels.addAll(statusBarPanelCash, statusBarPanelBays, statusBarPanelCosts, statusBarPanelExtra);
-        
-        endInit();
-    }
-
-    @Override
-    public void beginInit() {
-        //TODO need?
-        statusBarPanelCash.beginInit();
-        statusBarPanelBays.beginInit();
-        statusBarPanelCosts.beginInit();
-        statusBarPanelExtra.beginInit();
-    }
-
-    @Override
-    public void endInit() {
-        super.endInit();
-        statusBarPanelCash.endInit();
-        statusBarPanelBays.endInit();
-        statusBarPanelCosts.endInit();
-        statusBarPanelExtra.endInit();
     }
 
     void update() {
