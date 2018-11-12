@@ -67,29 +67,18 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## TODO
 
 * Different image sizes, font sizes (config)
-* SaveFileDialog - full localization
-* Full Russian description
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
+* Full Russian description
 * Dig about Star Trader for C16
 
 ### Minor tasks
 
 * Need to update font sizes. Dump all too.
 
-### TODO list of Jay French
-
-* make shipyard news advertisements
-* rework escape pod sequence
-* create images for trade goods
-* passenger modules
-* courier quests
-* more very rare encounters
-
 ## Feature requests
 
 * Show in Cargo planet names (target)
-* Save last selected language as default
 * Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
 
 ## Known bugs:
@@ -106,19 +95,20 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Bold font for labels on main screen, formEncounter. Source: new `tahomabd.ttf`
 
+## TODO list of Jay French
+
+* make shipyard news advertisements
+* rework escape pod sequence
+* create images for trade goods
+* passenger modules
+* courier quests
+* more very rare encounters
+
 ## Far perspectives
 
+* Quests engine
 * JavaFX UI
 * Full-windowed
 * Site
 * FAQ, description
-* Quests engine
 * New interesting quests
-
-* Declension engine
- * http://icu-project.org/apiref/icu4j46/com/ibm/icu/text/PluralFormat.html
- * https://gist.github.com/stuartgunter/1501385
- * https://github.com/nespera/inflect
- * https://github.com/atteo/evo-inflector
- * https://docs.oracle.com/javase/tutorial/i18n/format/choiceFormat.html
- * https://github.com/plural4j/plural4j
