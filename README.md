@@ -11,6 +11,7 @@ Useful Source Repositories:
 * [Space Trader from Peter Spronk on GitHub](https://github.com/videogamepreservation/spacetrader)
 * [Space Trader from Jay French on GitHub](https://github.com/SpaceTraderGame/SpaceTrader-Windows)
 * [Android version of Space Trader from Russel Wolf aka brucelet](https://bitbucket.org/brucelet/space-trader/src)
+* [Dark Nova - iOS, Android sources](https://github.com/deadjim/dark-nova-android)
 
 [Other implementations on GitHub](https://github.com/search?q=space+trader)
 
@@ -70,6 +71,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Full Russian description
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
+* Dig about Star Trader for C16
 
 ### Minor tasks
 
