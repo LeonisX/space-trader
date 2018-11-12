@@ -651,12 +651,11 @@ public class FormShipyard extends SpaceTraderForm {
 
         if (!GlobalAssets.getStrings().isEmpty()) {
             openDialog.setFilter(GlobalAssets.getStrings().get("formShipyard.openDialog.filter"));
-            openDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.openDialog.title"));
+            openDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.openDialog"));
 
-            saveDialog.setDefaultExt(GlobalAssets.getStrings().get("formShipyard.saveDialog.defaultExt"));
             saveDialog.setFileName(GlobalAssets.getStrings().get("formShipyard.saveDialog.fileName"));
             saveDialog.setFilter(GlobalAssets.getStrings().get("formShipyard.saveDialog.filter"));
-            saveDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.saveDialog.title"));
+            saveDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.saveDialog"));
         }
 
         disabledNameTipLabel.setBackground(SystemColors.INFO);

@@ -164,7 +164,8 @@ public class ReflectionUtils {
                 .replace(".null.layeredPane", "")
                 .replace(".null.contentPane", "")
                 .replace(".null", "")
-                .replace(".WinformJPanel", "");
+                .replace(".WinformJPanel", "")
+                .replace(".GTKFileChooser", "");
     }
 
     public static void dumpControlsStrings(Component component, String prefix) {
@@ -263,6 +264,9 @@ public class ReflectionUtils {
         if (component instanceof JLabel && text != null && !text.isEmpty()) {
             JLabel jLabel = (JLabel) component;
             getBaseComponent(jLabel).ifPresent(label -> ((spacetrader.controls.Label) label).setText(text));
+            if (!getBaseComponent(jLabel).isPresent()) {
+                jLabel.setText(text);
+            }
             resizeIfNeed(((JLabel) component));
         }
 

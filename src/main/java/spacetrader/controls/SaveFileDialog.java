@@ -2,14 +2,12 @@ package spacetrader.controls;
 
 import spacetrader.util.Path;
 
+import javax.swing.*;
+
 public class SaveFileDialog extends FileDialog {
 
     public SaveFileDialog() {
-    }
-
-    @Override
-    public void setApproveButtonText(String text) {
-        super.setApproveButtonText(text);
+        super(new JFileChooser());
     }
 
     @Override

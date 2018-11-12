@@ -1,30 +1,47 @@
 package spacetrader.controls;
 
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.game.GlobalAssets;
+import spacetrader.util.ReflectionUtils;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.File;
-import spacetrader.controls.enums.DialogResult;
 
-public class FileDialog {
+public class FileDialog extends BaseComponent {
 
-    private final JFileChooser chooser = new JFileChooser();
+    private final JFileChooser chooser;
+
+    private String name = "fileDialog";
 
     private String approveButtonText;
-    //TODO
-    private String string;
-    private String defaultExt;
     private String title;
+
+    FileDialog(Component swingComponent) {
+        super(swingComponent);
+        chooser = (JFileChooser) swingComponent;
+    }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    void setApproveButtonText(String approveButtonText) {
+    public void setApproveButtonText(String approveButtonText) {
         this.approveButtonText = approveButtonText;
     }
 
     public DialogResult showDialog(WinformPane owner) {
+        ReflectionUtils.dumpControlsStrings(chooser, getName());
+        ReflectionUtils.loadControlsData(this);
+        ReflectionUtils.loadControlsStrings(chooser, getName(), GlobalAssets.getStrings());
+
+        chooser.setDialogTitle(title);
+        JPanel panel = (JPanel) chooser.getComponent(0);
+        panel.removeAll();
+        panel.setMaximumSize(new Dimension(panel.getWidth(), 8));
+
         int returnVal = chooser.showDialog(owner.asSwingObject(), approveButtonText);
 
         switch (returnVal) {
@@ -43,23 +60,28 @@ public class FileDialog {
     }
 
     public void setFilter(String filter) {
-        //setFilter("Windows Bitmaps (*.bmp)|*bmp")
         String[] parts = filter.split("\\|");
 
-        String desc = parts[0];
-        String[] extensions = parts[1].split(";");
-        // I assume the format is "*.bmp;*.txt;*.gif".
-        for (int i = 0; i < extensions.length; i++) {
-            String extension = extensions[i];
-            extensions[i] = extension.substring(extension.lastIndexOf('.') + 1);
+        chooser.getChoosableFileFilters();
+        chooser.removeChoosableFileFilter(chooser.getChoosableFileFilters()[0]);
+
+        for (int i = 0; i < parts.length / 2; i++) {
+            String desc = parts[i * 2];
+            String[] extensions = parts[i * 2 + 1].split(";");
+            // I assume the format is "*.bmp;*.txt;*.gif".
+            for (int j = 0; j < extensions.length; j++) {
+                String extension = extensions[j];
+                extensions[j] = extension.substring(extension.lastIndexOf('.') + 1);
+            }
+
+            FileFilter filefilter = new FileNameExtensionFilter(desc, extensions);
+
+            if (extensions.length == 1 && extensions[0].equals("*")) {
+                chooser.addChoosableFileFilter(new AcceptAllFileFilter(desc));
+            } else {
+                chooser.addChoosableFileFilter(filefilter);
+            }
         }
-
-        FileFilter filefilter = new FileNameExtensionFilter(desc, extensions);
-        chooser.setFileFilter(filefilter);
-    }
-
-    public void setDefaultExt(String defaultExt) {
-        this.defaultExt = defaultExt;
     }
 
     public String getFileName() {
@@ -68,5 +90,32 @@ public class FileDialog {
 
     public void setFileName(String fileName) {
         chooser.setSelectedFile(new File(fileName));
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private class AcceptAllFileFilter extends FileFilter {
+
+        private final String description;
+
+        AcceptAllFileFilter(String description) {
+            this.description = description;
+        }
+
+        public boolean accept(File f) {
+            return true;
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 }
