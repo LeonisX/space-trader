@@ -354,19 +354,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializeDialogs() {
-        openFileDialog = new OpenFileDialog();
-        saveFileDialog = new SaveFileDialog();
-
-        if (!GlobalAssets.getStrings().isEmpty()) {
-            openFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
-            openFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.openFileDialog"));
-            openFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.openFileDialog.approveButton"));
-
-            saveFileDialog.setFileName(GlobalAssets.getStrings().get("mainWindow.saveFileDialog.fileName"));
-            saveFileDialog.setFilter(GlobalAssets.getStrings().get("mainWindow.fileDialogs.filter"));
-            saveFileDialog.setTitle(GlobalAssets.getStrings().getTitle("mainWindow.saveFileDialog"));
-            saveFileDialog.setApproveButtonText(GlobalAssets.getStrings().getText("mainWindow.saveFileDialog.approveButton"));
-        }
+        openFileDialog = new OpenFileDialog(getName());
+        saveFileDialog = new SaveFileDialog(getName());
     }
 
     // Make sure all directories exists.

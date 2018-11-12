@@ -91,8 +91,8 @@ public class FormShipyard extends SpaceTraderForm {
     private Label disabledPctTipLabel = new Label();
     private Label disabledNameTipLabel = new Label();
 
-    private OpenFileDialog openDialog = new OpenFileDialog();
-    private SaveFileDialog saveDialog = new SaveFileDialog();
+    private OpenFileDialog openDialog;
+    private SaveFileDialog saveDialog;
 
     private Image[] customImages = new Image[Consts.ImagesPerShip];
     private ImageList shipyardLogosImageList = new ImageList();
@@ -139,6 +139,9 @@ public class FormShipyard extends SpaceTraderForm {
         setShowInTaskbar(false);
         setAcceptButton(constructButton);
         setCancelButton(cancelButton);
+
+        openDialog = new OpenFileDialog(getName());
+        saveDialog = new SaveFileDialog(getName());
 
         ResourceManager resources = new ResourceManager(FormShipyard.class);
 
@@ -648,15 +651,6 @@ public class FormShipyard extends SpaceTraderForm {
         shipyardLogosImageList.setImageStream(((ImageListStreamer) (resources
                 .getObject("ilShipyardLogos.ImageStream"))));
         shipyardLogosImageList.setTransparentColor(Color.BLACK);
-
-        if (!GlobalAssets.getStrings().isEmpty()) {
-            openDialog.setFilter(GlobalAssets.getStrings().get("formShipyard.openDialog.filter"));
-            openDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.openDialog"));
-
-            saveDialog.setFileName(GlobalAssets.getStrings().get("formShipyard.saveDialog.fileName"));
-            saveDialog.setFilter(GlobalAssets.getStrings().get("formShipyard.saveDialog.filter"));
-            saveDialog.setTitle(GlobalAssets.getStrings().getTitle("formShipyard.saveDialog"));
-        }
 
         disabledNameTipLabel.setBackground(SystemColors.INFO);
         disabledNameTipLabel.setBorderStyle(BorderStyle.FIXED_SINGLE);
