@@ -38,6 +38,7 @@ public class FileDialog extends BaseComponent {
         ReflectionUtils.loadControlsStrings(chooser, getName(), GlobalAssets.getStrings());
 
         chooser.setDialogTitle(title);
+        chooser.setAcceptAllFileFilterUsed(false);
         JPanel panel = (JPanel) chooser.getComponent(0);
         panel.removeAll();
         panel.setMaximumSize(new Dimension(panel.getWidth(), 8));
@@ -61,9 +62,6 @@ public class FileDialog extends BaseComponent {
 
     public void setFilter(String filter) {
         String[] parts = filter.split("\\|");
-
-        chooser.getChoosableFileFilters();
-        chooser.removeChoosableFileFilter(chooser.getChoosableFileFilters()[0]);
 
         for (int i = 0; i < parts.length / 2; i++) {
             String desc = parts[i * 2];
