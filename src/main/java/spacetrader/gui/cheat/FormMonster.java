@@ -1,10 +1,10 @@
 package spacetrader.gui.cheat;
 
 import spacetrader.controls.*;
-import spacetrader.controls.enums.BorderStyle;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FormBorderStyle;
-import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.controls.BoxLayout;
+import spacetrader.controls.Button;
+import spacetrader.controls.Label;
+import spacetrader.controls.enums.*;
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.SomeStringsForCheatSwitch;
@@ -15,6 +15,9 @@ import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 import spacetrader.util.Util;
+
+import javax.swing.*;
+import java.awt.*;
 
 @CheatCode
 public class FormMonster extends SpaceTraderForm {
@@ -62,6 +65,9 @@ public class FormMonster extends SpaceTraderForm {
     private Integer[] questSystemIds;
     private Integer[] shipyardSystemIds;
 
+    private FontMetrics metrics;
+
+
     public FormMonster() {
         initializeComponent();
 
@@ -87,21 +93,18 @@ public class FormMonster extends SpaceTraderForm {
 
         topHorizontalLine.setLocation(4, 40);
         topHorizontalLine.setWidth(609);
-        topHorizontalLine.setTabStop(false);
 
         questsLabel.setAutoSize(true);
+        questsLabel.setControlBinding(ControlBinding.CENTER);
         questsLabel.setFont(FontCollection.bold10);
-        questsLabel.setLocation(88, 4);
-        questsLabel.setSize(50, 19);
-        questsLabel.setTabIndex(134);
+        questsLabel.setLocation(130, 4);
+        //questsLabel.setSize(50, 19);
         questsLabel.setText("Quests");
 
         questsSystemLabel.setAutoSize(true);
         questsSystemLabel.setFont(FontCollection.bold825);
-        questsSystemLabel.setLocation(13, 24);
-        questsSystemLabel.setSize(43, 16);
-        questsSystemLabel.setTabIndex(1);
-        questsSystemLabel.setTabStop(true);
+        questsSystemLabel.setLocation(23, 24);
+        //questsSystemLabel.setSize(43, 16);
         questsSystemLabel.setText("System");
         questsSystemLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -112,10 +115,8 @@ public class FormMonster extends SpaceTraderForm {
 
         questsDescrLabel.setAutoSize(true);
         questsDescrLabel.setFont(FontCollection.bold825);
-        questsDescrLabel.setLocation(85, 24);
-        questsDescrLabel.setSize(63, 16);
-        questsDescrLabel.setTabIndex(2);
-        questsDescrLabel.setTabStop(true);
+        questsDescrLabel.setLocation(90, 24);
+        //questsDescrLabel.setSize(63, 16);
         questsDescrLabel.setText("Description");
         questsDescrLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -124,21 +125,18 @@ public class FormMonster extends SpaceTraderForm {
             }
         });
 
-        questsPanel.autoScroll = true;
+        //questsPanel.autoScroll = true;
         questsPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        questsPanel.controls.addAll(questsPanelDescrLabel, questPanelSystemsLabel);
+        //questsPanel.controls.addAll(questPanelSystemsLabel, questsPanelDescrLabel);
         questsPanel.setLocation(8, 44);
-        questsPanel.setSize(222, 242);
-        questsPanel.setTabIndex(159);
+        questsPanel.setSize(242, 270);
 
-        questsPanelDescrLabel.setLocation(76, 4);
-        questsPanelDescrLabel.setSize(120, 370);
-        questsPanelDescrLabel.setTabIndex(48);
+        metrics = questsPanelDescrLabel.asSwingObject().getFontMetrics(questsPanelDescrLabel.asSwingObject().getFont());
 
+        questPanelSystemsLabel.setAutoSize(false);
         questPanelSystemsLabel.setLinkArea(new LinkArea(0, 0));
         questPanelSystemsLabel.setLocation(4, 4);
-        questPanelSystemsLabel.setSize(68, 370);
-        questPanelSystemsLabel.setTabIndex(12);
+        questPanelSystemsLabel.setSize(80, 370);
         questPanelSystemsLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -146,23 +144,76 @@ public class FormMonster extends SpaceTraderForm {
             }
         });
 
-        verticalLine.setLocation(234, 8);
-        verticalLine.setHeight(357);
-        verticalLine.setTabStop(false);
+        questPanelSystemsLabel.setAutoSize(false);
+        questsPanelDescrLabel.setLocation(90, 4);
+        questsPanelDescrLabel.setSize(140, 370);
+
+        shipyardsLabel.setAutoSize(true);
+        shipyardsLabel.setControlBinding(ControlBinding.CENTER);
+        shipyardsLabel.setFont(FontCollection.bold10);
+        shipyardsLabel.setLocation(130, 336);
+        //shipyardsLabel.setSize(68, 19);
+        shipyardsLabel.setText("Shipyards");
+
+        shipyardsSystemLabel.setAutoSize(true);
+        shipyardsSystemLabel.setFont(FontCollection.bold825);
+        shipyardsSystemLabel.setLocation(23, 356);
+        //shipyardsSystemLabel.setSize(43, 16);
+        shipyardsSystemLabel.setText("System");
+        shipyardsSystemLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+            @Override
+            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
+                sortLinkClicked(sender);
+            }
+        });
+
+        shipyardsDescrLabel.setAutoSize(true);
+        shipyardsDescrLabel.setFont(FontCollection.bold825);
+        shipyardsDescrLabel.setLocation(90, 356);
+        //shipyardsDescrLabel.setSize(63, 16);
+        shipyardsDescrLabel.setText("Description");
+        shipyardsDescrLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+            @Override
+            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
+                sortLinkClicked(sender);
+            }
+        });
+
+        shipyardHorizontalLine.setLocation(4, 372);
+        shipyardHorizontalLine.setWidth(250);
+
+        shipyardsPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
+        shipyardsPanel.controls.addAll(shipyardSystemsLabelValue, shipyardsDescrLabelValue);
+        shipyardsPanel.setLocation(8, 376);
+        shipyardsPanel.setSize(242, 93);
+
+        shipyardsDescrLabelValue.setLocation(76, 4);
+        shipyardsDescrLabelValue.setSize(120, 93);
+
+        shipyardSystemsLabelValue.setLinkArea(new LinkArea(0, 0));
+        shipyardSystemsLabelValue.setLocation(4, 4);
+        shipyardSystemsLabelValue.setSize(68, 93);
+        shipyardSystemsLabelValue.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+            @Override
+            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
+                systemLinkClicked(e);
+            }
+        });
+
+        verticalLine.setLocation(254, 8);
+        verticalLine.setHeight(460);
 
         mercenariesLabel.setAutoSize(true);
+        mercenariesLabel.setControlBinding(ControlBinding.CENTER);
         mercenariesLabel.setFont(FontCollection.bold10);
-        mercenariesLabel.setLocation(348, 4);
-        mercenariesLabel.setSize(84, 19);
-        mercenariesLabel.setTabIndex(141);
+        mercenariesLabel.setLocation(430, 4);
+        //mercenariesLabel.setSize(84, 19);
         mercenariesLabel.setText("Mercenaries");
 
         mercenariesIdLabel.setAutoSize(true);
         mercenariesIdLabel.setFont(FontCollection.bold825);
-        mercenariesIdLabel.setLocation(247, 24);
-        mercenariesIdLabel.setSize(16, 16);
-        mercenariesIdLabel.setTabIndex(5);
-        mercenariesIdLabel.setTabStop(true);
+        mercenariesIdLabel.setLocation(267, 24);
+        //mercenariesIdLabel.setSize(16, 16);
         mercenariesIdLabel.setText("ID");
         mercenariesIdLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -173,10 +224,8 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesNameLabel.setAutoSize(true);
         mercenariesNameLabel.setFont(FontCollection.bold825);
-        mercenariesNameLabel.setLocation(268, 24);
-        mercenariesNameLabel.setSize(35, 16);
-        mercenariesNameLabel.setTabIndex(6);
-        mercenariesNameLabel.setTabStop(true);
+        mercenariesNameLabel.setLocation(288, 24);
+        //mercenariesNameLabel.setSize(35, 16);
         mercenariesNameLabel.setText("Name");
         mercenariesNameLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -187,10 +236,8 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesSkillPilotLabel.setAutoSize(true);
         mercenariesSkillPilotLabel.setFont(FontCollection.bold825);
-        mercenariesSkillPilotLabel.setLocation(341, 24);
-        mercenariesSkillPilotLabel.setSize(12, 16);
-        mercenariesSkillPilotLabel.setTabIndex(7);
-        mercenariesSkillPilotLabel.setTabStop(true);
+        mercenariesSkillPilotLabel.setLocation(361, 24);
+        //mercenariesSkillPilotLabel.setSize(12, 16);
         mercenariesSkillPilotLabel.setText("P");
         mercenariesSkillPilotLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -201,10 +248,8 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesSkillFighterLabel.setAutoSize(true);
         mercenariesSkillFighterLabel.setFont(FontCollection.bold825);
-        mercenariesSkillFighterLabel.setLocation(362, 24);
-        mercenariesSkillFighterLabel.setSize(11, 16);
-        mercenariesSkillFighterLabel.setTabIndex(8);
-        mercenariesSkillFighterLabel.setTabStop(true);
+        mercenariesSkillFighterLabel.setLocation(382, 24);
+        //mercenariesSkillFighterLabel.setSize(11, 16);
         mercenariesSkillFighterLabel.setText("F");
         mercenariesSkillFighterLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -215,10 +260,8 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesSkillTraderLabel.setAutoSize(true);
         mercenariesSkillTraderLabel.setFont(FontCollection.bold825);
-        mercenariesSkillTraderLabel.setLocation(382, 24);
-        mercenariesSkillTraderLabel.setSize(11, 16);
-        mercenariesSkillTraderLabel.setTabIndex(9);
-        mercenariesSkillTraderLabel.setTabStop(true);
+        mercenariesSkillTraderLabel.setLocation(402, 24);
+        //mercenariesSkillTraderLabel.setSize(11, 16);
         mercenariesSkillTraderLabel.setText("T");
         mercenariesSkillTraderLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -229,10 +272,8 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesSkillEngineerLabel.setAutoSize(true);
         mercenariesSkillEngineerLabel.setFont(FontCollection.bold825);
-        mercenariesSkillEngineerLabel.setLocation(401, 24);
-        mercenariesSkillEngineerLabel.setSize(12, 16);
-        mercenariesSkillEngineerLabel.setTabIndex(10);
-        mercenariesSkillEngineerLabel.setTabStop(true);
+        mercenariesSkillEngineerLabel.setLocation(421, 24);
+        //mercenariesSkillEngineerLabel.setSize(12, 16);
         mercenariesSkillEngineerLabel.setText("E");
         mercenariesSkillEngineerLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -243,10 +284,8 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesSystemLabel.setAutoSize(true);
         mercenariesSystemLabel.setFont(FontCollection.bold825);
-        mercenariesSystemLabel.setLocation(425, 24);
-        mercenariesSystemLabel.setSize(43, 16);
-        mercenariesSystemLabel.setTabIndex(11);
-        mercenariesSystemLabel.setTabStop(true);
+        mercenariesSystemLabel.setLocation(445, 24);
+        //mercenariesSystemLabel.setSize(43, 16);
         mercenariesSystemLabel.setText("System");
         mercenariesSystemLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
@@ -258,33 +297,27 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesPanel.autoScroll = true;
         mercenariesPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        mercenariesPanel.controls.addAll(mercenariesPanelSkillsPilotLabel, mercenariesPanelSkillsFighter,
-                mercenariesPanelSkillsTrader, mercenariesPanelSkillsEngineer, mercenariesPanelSystems,
-                mercenariesPanelIds, mercenariesPanelNames, mercenariesPanelSystems2);
-        mercenariesPanel.setLocation(239, 44);
+        mercenariesPanel.controls.addAll(mercenariesPanelIds, mercenariesPanelNames,
+                mercenariesPanelSkillsPilotLabel, mercenariesPanelSkillsFighter, mercenariesPanelSkillsTrader,
+                mercenariesPanelSkillsEngineer, mercenariesPanelSystems, mercenariesPanelSystems2);
+        mercenariesPanel.setLocation(259, 44);
         mercenariesPanel.setSize(371, 677);
-        mercenariesPanel.setTabIndex(158);
 
         mercenariesPanelSkillsPilotLabel.setLocation(93, 4);
         mercenariesPanelSkillsPilotLabel.setSize(20, 673);
-        mercenariesPanelSkillsPilotLabel.setTabIndex(144);
 
         mercenariesPanelSkillsFighter.setLocation(113, 4);
         mercenariesPanelSkillsFighter.setSize(20, 673);
-        mercenariesPanelSkillsFighter.setTabIndex(145);
 
         mercenariesPanelSkillsTrader.setLocation(133, 4);
         mercenariesPanelSkillsTrader.setSize(20, 673);
-        mercenariesPanelSkillsTrader.setTabIndex(146);
 
         mercenariesPanelSkillsEngineer.setLocation(153, 4);
         mercenariesPanelSkillsEngineer.setSize(20, 673);
-        mercenariesPanelSkillsEngineer.setTabIndex(147);
 
         mercenariesPanelSystems.setLinkArea(new LinkArea(0, 0));
         mercenariesPanelSystems.setLocation(185, 4);
         mercenariesPanelSystems.setSize(160, 405);
-        mercenariesPanelSystems.setTabIndex(14);
         mercenariesPanelSystems.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
@@ -294,77 +327,14 @@ public class FormMonster extends SpaceTraderForm {
 
         mercenariesPanelIds.setLocation(0, 4);
         mercenariesPanelIds.setSize(23, 673);
-        mercenariesPanelIds.setTabIndex(142);
 
         mercenariesPanelNames.setLocation(28, 4);
         mercenariesPanelNames.setSize(69, 673);
-        mercenariesPanelNames.setTabIndex(141);
 
         mercenariesPanelSystems2.setLinkArea(new LinkArea(0, 0));
         mercenariesPanelSystems2.setLocation(185, 401);
         mercenariesPanelSystems2.setSize(160, 673);
-        mercenariesPanelSystems2.setTabIndex(148);
         mercenariesPanelSystems2.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
-            @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                systemLinkClicked(e);
-            }
-        });
-
-        shipyardsLabel.setAutoSize(true);
-        shipyardsLabel.setFont(FontCollection.bold10);
-        shipyardsLabel.setLocation(79, 298);
-        shipyardsLabel.setSize(68, 19);
-        shipyardsLabel.setTabIndex(155);
-        shipyardsLabel.setText("Shipyards");
-
-        shipyardsSystemLabel.setAutoSize(true);
-        shipyardsSystemLabel.setFont(FontCollection.bold825);
-        shipyardsSystemLabel.setLocation(13, 318);
-        shipyardsSystemLabel.setSize(43, 16);
-        shipyardsSystemLabel.setTabIndex(3);
-        shipyardsSystemLabel.setTabStop(true);
-        shipyardsSystemLabel.setText("System");
-        shipyardsSystemLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
-            @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
-            }
-        });
-
-        shipyardsDescrLabel.setAutoSize(true);
-        shipyardsDescrLabel.setFont(FontCollection.bold825);
-        shipyardsDescrLabel.setLocation(85, 318);
-        shipyardsDescrLabel.setSize(63, 16);
-        shipyardsDescrLabel.setTabIndex(4);
-        shipyardsDescrLabel.setTabStop(true);
-        shipyardsDescrLabel.setText("Description");
-        shipyardsDescrLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
-            @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
-            }
-        });
-
-        shipyardHorizontalLine.setLocation(4, 334);
-        shipyardHorizontalLine.setWidth(222);
-        shipyardHorizontalLine.setTabStop(false);
-
-        shipyardsPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        shipyardsPanel.controls.addAll(shipyardsDescrLabelValue, shipyardSystemsLabelValue);
-        shipyardsPanel.setLocation(8, 338);
-        shipyardsPanel.setSize(222, 93);
-        shipyardsPanel.setTabIndex(160);
-
-        shipyardsDescrLabelValue.setLocation(76, 4);
-        shipyardsDescrLabelValue.setSize(120, 93);
-        shipyardsDescrLabelValue.setTabIndex(158);
-
-        shipyardSystemsLabelValue.setLinkArea(new LinkArea(0, 0));
-        shipyardSystemsLabelValue.setLocation(4, 4);
-        shipyardSystemsLabelValue.setSize(68, 93);
-        shipyardSystemsLabelValue.setTabIndex(13);
-        shipyardSystemsLabelValue.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
             @Override
             public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
                 systemLinkClicked(e);
@@ -383,6 +353,8 @@ public class FormMonster extends SpaceTraderForm {
                 mercenariesSystemLabel, mercenariesPanel, topHorizontalLine, verticalLine);
         controls.addAll(shipyardsLabel, shipyardsSystemLabel, shipyardsDescrLabel, shipyardHorizontalLine, shipyardsPanel);
         controls.add(closeButton);
+
+        ReflectionUtils.loadControlsData(this);
     }
 
     private int compare(int a, int b, String sortWhat, String sortBy) {
@@ -505,17 +477,16 @@ public class FormMonster extends SpaceTraderForm {
         sort("S", "S"); // Sort shipyards by system name.
     }
 
-    //TODO scale 15
     private void setLabelHeights() {
-        int questHeight = (int) Math.ceil(questSystemIds.length * 15) + 1;
+        int questHeight = (int) Math.ceil(questSystemIds.length * metrics.getHeight()) + 1;
         questsPanelDescrLabel.setHeight(questHeight);
         questPanelSystemsLabel.setHeight(questHeight);
 
-        int shipyardHeight = (int) Math.ceil(shipyardSystemIds.length * 15) + 1;
+        int shipyardHeight = (int) Math.ceil(shipyardSystemIds.length * metrics.getHeight()) + 1;
         shipyardsDescrLabelValue.setHeight(shipyardHeight);
         shipyardSystemsLabelValue.setHeight(shipyardHeight);
 
-        int mercHeight = (int) Math.ceil(mercIds.length * 15) + 1;
+        int mercHeight = (int) Math.ceil(mercIds.length * metrics.getHeight()) + 1;
         mercenariesPanelIds.setHeight(mercHeight);
         mercenariesPanelNames.setHeight(mercHeight);
         mercenariesPanelSkillsPilotLabel.setHeight(mercHeight);
@@ -525,10 +496,10 @@ public class FormMonster extends SpaceTraderForm {
 
         // Due to a limitation of the LinkLabel control, no more than 32 links
         // can exist in the LinkLabel.
-        mercenariesPanelSystems.setHeight((int) Math.ceil(Math.min(mercIds.length, SPLIT_SYSTEMS) * 15) + 1);
+        mercenariesPanelSystems.setHeight((int) Math.ceil(Math.min(mercIds.length, SPLIT_SYSTEMS) * metrics.getHeight()) + 1);
         if (mercIds.length > SPLIT_SYSTEMS) {
             mercenariesPanelSystems2.setVisible(true);
-            mercenariesPanelSystems2.setHeight((int) Math.ceil((mercIds.length - SPLIT_SYSTEMS) * 15) + 1);
+            mercenariesPanelSystems2.setHeight((int) Math.ceil((mercIds.length - SPLIT_SYSTEMS) * metrics.getHeight()) + 1);
             mercenariesPanelSystems2.setTop(mercenariesPanelSystems.getTop() + mercenariesPanelSystems.getHeight());
         } else {
             mercenariesPanelSystems2.setVisible(false);
@@ -617,41 +588,67 @@ public class FormMonster extends SpaceTraderForm {
     }
 
     private void updateQuests() {
-        questPanelSystemsLabel.setText("");
-        questsPanelDescrLabel.setText("");
-        questPanelSystemsLabel.getLinks().clear();
+        //TODO X_AXIS
+        questsPanel.setLayout(new BoxLayout((JPanel) questsPanel.asSwingObject(), javax.swing.BoxLayout.X_AXIS));
+
+        SimplePanel leftPanel = new SimplePanel();
+        leftPanel.setSize(90, questsPanel.getHeight());
+        leftPanel.setLayout(new BoxLayout((JPanel) leftPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
+
+        //TODO constructor with text
+        Label dummyLabel = new Label();
+        dummyLabel.setText("       ");
+
+        SimplePanel rightPanel = new SimplePanel();
+        rightPanel.setSize(160, questsPanel.getHeight());
+        rightPanel.setLayout(new BoxLayout((JPanel) rightPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
+
+        questsPanel.addAll(leftPanel, dummyLabel, rightPanel);
 
         for (Integer questSystemId : questSystemIds) {
             StarSystem system = game.getUniverse()[questSystemId];
-            int start = questPanelSystemsLabel.getText().length();
 
-            questPanelSystemsLabel.setText(questPanelSystemsLabel.getText() + (system.getName() + Strings.newline));
-            questsPanelDescrLabel.setText(questsPanelDescrLabel.getText() + (system.specialEvent().getTitle() + Strings.newline));
+            Label label = new Label();
+            label.setAutoSize(true);
+            label.setText("   " + system.getName());
+            leftPanel.add(label);
 
-            questPanelSystemsLabel.getLinks().add(start, system.getName().length(), system.getName());
+            label = new Label();
+            label.setAutoSize(true);
+            label.setText(system.specialEvent().getTitle());
+            rightPanel.add(label);
         }
-
-        questPanelSystemsLabel.setText(questPanelSystemsLabel.getText().trim());
-        questsPanelDescrLabel.setText(questsPanelDescrLabel.getText().trim());
     }
 
     private void updateShipyards() {
-        shipyardSystemsLabelValue.setText("");
-        shipyardsDescrLabelValue.setText("");
-        shipyardSystemsLabelValue.getLinks().clear();
+        shipyardsPanel.setLayout(new BoxLayout((JPanel) shipyardsPanel.asSwingObject(), javax.swing.BoxLayout.X_AXIS));
 
-        for (Integer shipyardSystemId : shipyardSystemIds) {
-            StarSystem system = game.getUniverse()[shipyardSystemId];
-            int start = shipyardSystemsLabelValue.getText().length();
+        SimplePanel leftPanel = new SimplePanel();
+        leftPanel.setSize(90, shipyardsPanel.getHeight());
+        leftPanel.setLayout(new BoxLayout((JPanel) leftPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
 
-            shipyardSystemsLabelValue.setText(shipyardSystemsLabelValue.getText() + (system.getName() + Strings.newline));
-            shipyardsDescrLabelValue.setText(shipyardsDescrLabelValue.getText() + (system.getShipyard().getName() + Strings.newline));
+        Label dummyLabel = new Label();
+        dummyLabel.setText("        ");
 
-            shipyardSystemsLabelValue.getLinks().add(start, system.getName().length(), system.getName());
+        SimplePanel rightPanel = new SimplePanel();
+        rightPanel.setSize(160, shipyardsPanel.getHeight());
+        rightPanel.setLayout(new BoxLayout((JPanel) rightPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
+
+        shipyardsPanel.addAll(leftPanel, dummyLabel, rightPanel);
+
+        for (Integer questSystemId : shipyardSystemIds) {
+            StarSystem system = game.getUniverse()[questSystemId];
+
+            Label label = new Label();
+            label.setAutoSize(true);
+            label.setText("   " + system.getName());
+            leftPanel.add(label);
+
+            label = new Label();
+            label.setAutoSize(true);
+            label.setText(system.getShipyard().getName());
+            rightPanel.add(label);
         }
-
-        shipyardSystemsLabelValue.setText(shipyardSystemsLabelValue.getText().trim());
-        shipyardsDescrLabelValue.setText(shipyardsDescrLabelValue.getText().trim());
     }
 
     private void systemLinkClicked(LinkLabelLinkClickedEventArgs e) {

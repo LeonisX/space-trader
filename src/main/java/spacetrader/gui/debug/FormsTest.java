@@ -10,6 +10,7 @@ import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.*;
 import spacetrader.game.enums.*;
 import spacetrader.gui.*;
+import spacetrader.gui.cheat.FormMonster;
 import spacetrader.guifacade.GuiEngine;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -54,6 +55,8 @@ public class FormsTest extends SpaceTraderForm {
     private Button formViewPersonnelButton = new Button();
     private Button formViewQuestsButton = new Button();
     private Button formViewShipButton = new Button();
+
+    private Button formMonsterButton = new Button();
 
     public static void main(String[] args) {
         Launcher.runForm(new FormsTest());
@@ -401,8 +404,17 @@ public class FormsTest extends SpaceTraderForm {
             }
         });
 
+        formMonsterButton.setLocation(8, 180);
+        formMonsterButton.setSize(125, 22);
+        formMonsterButton.setText("FormMonster");
+        formMonsterButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                Launcher.runForm(new FormMonster());
+            }
+        });
+
         mainPanel2.getControls().addAll(formViewBankButton, formViewCommanderButton, formViewHighScoresButton,
-                formViewPersonnelButton, formViewQuestsButton, formViewShipButton);
+                formViewPersonnelButton, formViewQuestsButton, formViewShipButton, formMonsterButton);
 
         controls.addAll(languagesPanel, mainPanel, encounterPanel, mainPanel2/*, boxAlert*/);
 

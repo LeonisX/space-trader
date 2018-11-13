@@ -19,4 +19,8 @@ public class SimplePanel extends BaseComponent {
     public void addAll(BaseComponent... controls) {
         Arrays.stream(controls).forEach(control -> ((JPanel) swingComponent).add(control.swingComponent));
     }
+
+    public void setLayout(Layout layout) {
+        ((JPanel) swingComponent).setLayout(layout.getLayout());
+    }
 }
