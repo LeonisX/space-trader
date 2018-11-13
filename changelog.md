@@ -3,6 +3,14 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+13.11.2018. v.2.17.21
+
+* Full translation for File Dialogs
+* FormMonsters and FormViewQuests now fully workable.
+* Docs: game overview and specifications
+
+* Remove unused classes: AnchorStyles, ComboBoxStyle, FlatStyle, Link*.
+
 12.11.2018. v.2.13.15
 
 * Save/load game and options using serialization
