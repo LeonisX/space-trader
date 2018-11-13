@@ -3,7 +3,6 @@ package spacetrader.gui.debug;
 import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.ComboBoxStyle;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
@@ -135,7 +134,6 @@ public class FormsTest extends SpaceTraderForm {
 
         languagesPanel.getControls().add(languagesComboBox);
 
-        languagesComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         languagesComboBox.setLocation(8, 21);
         languagesComboBox.setSize(104, 21);
         languagesComboBox.setTabIndex(4);
@@ -225,7 +223,6 @@ public class FormsTest extends SpaceTraderForm {
 
         encounterPanel.getControls().addAll(encounterComboBox, formEncounterButton);
 
-        encounterComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         encounterComboBox.setLocation(8, 20);
         encounterComboBox.setSize(160, 21);
         encounterComboBox.setTabIndex(10);

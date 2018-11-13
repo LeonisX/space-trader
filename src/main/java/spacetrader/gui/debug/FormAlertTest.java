@@ -124,7 +124,6 @@ public class FormAlertTest extends SpaceTraderForm {
         //
         // selAlertType
         //
-        this.selAlertType.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         this.selAlertType.setLocation(72, 16);
         this.selAlertType.setName("selAlertType");
         this.selAlertType.setSize(200, 21);
@@ -185,7 +184,6 @@ public class FormAlertTest extends SpaceTraderForm {
         //
         // selSpecialEvent
         //
-        this.selSpecialEvent.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         this.selSpecialEvent.setLocation(88, 16);
         this.selSpecialEvent.setName("selSpecialEvent");
         this.selSpecialEvent.setSize(104, 21);

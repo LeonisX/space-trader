@@ -212,7 +212,6 @@ public class FormShipyard extends SpaceTraderForm {
         templateLabel.setTabIndex(20);
         templateLabel.setText("Template:");
 
-        templateComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         templateComboBox.setLocation(80, 23);
         templateComboBox.setSize(152, 21);
         templateComboBox.setTabIndex(1);
@@ -273,7 +272,6 @@ public class FormShipyard extends SpaceTraderForm {
         sizeLabel.setTabIndex(18);
         sizeLabel.setText("Size:");
 
-        sizeComboBox.setDropDownStyle(ComboBoxStyle.DROP_DOWN_LIST);
         sizeComboBox.setLocation(80, 67);
         sizeComboBox.setSize(222, 21);
         sizeComboBox.setTabIndex(5);

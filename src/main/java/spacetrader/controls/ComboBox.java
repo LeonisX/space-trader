@@ -1,13 +1,10 @@
 package spacetrader.controls;
 
 import javax.swing.*;
-import spacetrader.controls.enums.ComboBoxStyle;
 
 public class ComboBox<T> extends BaseComponent {
 
     private final MyComboBoxModel<T> items = new MyComboBoxModel<>();
-    // probably don't care.
-    private ComboBoxStyle dropDownStyle;
 
     public ComboBox() {
         super(new JComboBox<T>());
@@ -16,14 +13,6 @@ public class ComboBox<T> extends BaseComponent {
 
     public MyComboBoxModel<T> getItems() {
         return items;
-    }
-
-    public ComboBoxStyle getDropDownStyle() {
-        return dropDownStyle;
-    }
-
-    public void setDropDownStyle(ComboBoxStyle dropDownStyle) {
-        this.dropDownStyle = dropDownStyle;
     }
 
     @SuppressWarnings("unchecked")
