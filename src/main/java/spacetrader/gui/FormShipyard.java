@@ -244,7 +244,6 @@ public class FormShipyard extends SpaceTraderForm {
             }
         });
 
-        saveButton.setFlatStyle(FlatStyle.FLAT);
         saveButton.setLocation(236, 45);
         saveButton.setSize(67, 20);
         saveButton.setTabIndex(4);

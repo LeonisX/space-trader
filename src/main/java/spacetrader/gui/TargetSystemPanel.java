@@ -3,7 +3,6 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.ControlBinding;
-import spacetrader.controls.enums.FlatStyle;
 import spacetrader.game.*;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.util.Functions;
@@ -81,7 +80,6 @@ class TargetSystemPanel extends Panel {
 
         nextSystemButton.setAutoWidth(true);
         nextSystemButton.setControlBinding(ControlBinding.RIGHT);
-        nextSystemButton.setFlatStyle(FlatStyle.FLAT);
         nextSystemButton.setLocation(190, 21);
         nextSystemButton.setSize(18, 18);
         nextSystemButton.setTabIndex(58);

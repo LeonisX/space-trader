@@ -348,7 +348,6 @@ public class FormEquipment extends SpaceTraderForm {
 
         buyButton.setAutoWidth(true);
         buyButton.setControlBinding(ControlBinding.CENTER);
-        buyButton.setFlatStyle(FlatStyle.FLAT);
         buyButton.setLocation(46, 287);
         buyButton.setSize(58, 22);
         buyButton.setTabIndex(7);

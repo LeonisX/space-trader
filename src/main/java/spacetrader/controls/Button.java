@@ -1,7 +1,6 @@
 package spacetrader.controls;
 
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.controls.enums.FlatStyle;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -52,19 +51,5 @@ public class Button extends BaseComponent {
         userAction.putValue(AbstractAction.NAME, getText());
         asJButton().setAction(userAction);
         super.setClick(click);
-    }
-
-    public void setFlatStyle(FlatStyle flatStyle) {
-        // In Ubuntu buttons are ugly. Disabled flat
-        /*switch (flatStyle) {
-            case FLAT:
-                asJButton().setBorder(BorderFactory.createLineBorder(Color.black));
-                return;
-
-            default:
-                throw new Error("Unknown FlatStyle");
-        }*/
-        // I think this is default.
-        //asJButton().setBorder(BorderFactory.createRaisedBevelBorder());
     }
 }
