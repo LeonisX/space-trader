@@ -16,7 +16,16 @@ public class Label extends BaseComponent {
 
 
     public Label() {
-        super(new JLabel());
+        this(new JLabel());
+    }
+
+    public Label(String text) {
+        this();
+        asJLabel().setText(text);
+    }
+
+    public Label(JLabel label) {
+        super(label);
         asJLabel().putClientProperty("baseComponent", this);
     }
 
@@ -96,7 +105,7 @@ public class Label extends BaseComponent {
         asJLabel().setIcon(new ImageIcon(image.asSwingImage()));
     }
 
-    private JLabel asJLabel() {
+    JLabel asJLabel() {
         return (JLabel) swingComponent;
     }
 }

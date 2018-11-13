@@ -3,12 +3,13 @@ package spacetrader.controls;
 import javax.swing.*;
 import java.util.Arrays;
 
-public class SimplePanel extends BaseComponent {
+public class SimpleHPanel extends BaseComponent {
 
-    public SimplePanel controls = this;
+    public SimpleHPanel controls = this;
 
-    public SimplePanel() {
+    public SimpleHPanel() {
         super(new JPanel());
+        ((JPanel) asSwingObject()).setLayout(new BoxLayout((JPanel)  asSwingObject(), BoxLayout.X_AXIS));
     }
 
     public void add(BaseComponent control) {
@@ -17,5 +18,10 @@ public class SimplePanel extends BaseComponent {
 
     public void addAll(BaseComponent... controls) {
         Arrays.stream(controls).forEach(control -> ((JPanel) swingComponent).add(control.swingComponent));
+    }
+
+    public void removeAll() {
+        ((JPanel) swingComponent).removeAll();
+        ((JPanel) swingComponent).revalidate();
     }
 }

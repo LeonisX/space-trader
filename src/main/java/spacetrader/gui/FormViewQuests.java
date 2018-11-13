@@ -14,14 +14,16 @@ import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class FormViewQuests extends SpaceTraderForm {
 
     Game game = Game.getCurrentGame();
 
     private Button closeButton = new Button();
-    private LinkLabel questsLabelValue = new LinkLabel();
+    private SimpleVPanel questsPanel = new SimpleVPanel();
 
     public FormViewQuests() {
         initializeComponent();
@@ -33,7 +35,7 @@ public class FormViewQuests extends SpaceTraderForm {
 
         setName("formViewQuests");
         setText("Quests");
-        setClientSize(378, 325);
+        setClientSize(450, 160);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);
@@ -41,35 +43,8 @@ public class FormViewQuests extends SpaceTraderForm {
         setShowInTaskbar(false);
         setCancelButton(closeButton);
 
-        questsLabelValue.setLinkArea(new LinkArea(0, 0));
-        questsLabelValue.setLocation(8, 8);
-        questsLabelValue.setSize(378, 342);
-        /*questsLabelValue.setText("Kill the space monster at Acamar."
-                + "\n\n"
-                + "Get your lightning shield at Zalkon."
-                + "\n\n"
-                + "Deliver antidote to Japori."
-                + "\n\n"
-                + "Deliver the alien artifact to Professor Berger at some hi-tech system."
-                + "\n\n"
-                + "Bring ambassador Jarek to Devidia.  Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades."
-                + "\n\n"
-                + "Inform Gemulon about alien invasion within 8 days."
-                + "\n\n"
-                + "Stop Dr. Fehler's experiment at Daled within 8 days."
-                + "\n\n"
-                + "Deliver the unstable reactor to Nix before it consumes all its fuel."
-                + "\n\n"
-                + "Find and destroy the Scarab (which is hiding at the exit to a wormhole)."
-                + "\n\n"
-                + "Smuggle Jonathan Wild to Kravat.  Wild is getting impatient, and will no longer aid your crew along the way."
-                + "\n\n" + "Get rid of those pesky tribbles." + "\n\n"
-                + "Claim your moon at Utopia.");*/
-        questsLabelValue.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                questsLabelValueClicked(e);
-            }
-        });
+        questsPanel.setLocation(8, 8);
+        questsPanel.setSize(440, 160);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setLocation(-32, -32);
@@ -77,29 +52,44 @@ public class FormViewQuests extends SpaceTraderForm {
         closeButton.setTabStop(false);
         //closeButton.setText("X");
 
-        controls.addAll(questsLabelValue, closeButton);
+        controls.addAll(questsPanel, closeButton);
 
         ReflectionUtils.loadControlsData(this);
     }
 
     private void updateAll() {
+        questsPanel.asJPanel().removeAll();
         List<String> quests = getQuestStrings();
+        List<String> systemNames = Arrays.asList(Strings.SystemNames);
+
         if (quests.isEmpty()) {
-            questsLabelValue.setText(Strings.QuestNone);
+            Label label = new Label(Strings.QuestNone);
+            label.setAutoSize(true);
+            questsPanel.asJPanel().add(label.asSwingObject());
         } else {
-            questsLabelValue.setText(String.join(Strings.newline + Strings.newline, quests));
+            quests.forEach(quest -> {
+                Label label = new Label("  ");
+                label.setSize(100, 7);
+                questsPanel.asJPanel().add(label.asSwingObject());
 
-            for (int i = 0; i < Strings.SystemNames.length; i++) {
-                String systemName = Strings.SystemNames[i];
-                int start = 0;
-                int index;
 
-                //TODO simplify
-                while ((index = questsLabelValue.getText().indexOf(systemName, start)) >= 0) {
-                    questsLabelValue.getLinks().add(index, systemName.length(), systemName);
-                    start = index + systemName.length();
+                Optional<String> systemName = systemNames.stream().filter(quest::contains).findFirst();
+                if (systemName.isPresent()) {
+                    LinkLabel linkLabel = new LinkLabel(quest);
+                    linkLabel.setAutoSize(true);
+                    linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
+                        public void handle(Object sender) {
+                            questsLabelValueClicked(systemName.get());
+                        }
+                    });
+                    questsPanel.asJPanel().add(linkLabel.asSwingObject());
+                } else {
+                    label = new Label(quest);
+                    label.setAutoSize(true);
+                    questsPanel.asJPanel().add(label.asSwingObject());
+                    System.out.println("Can't find system for quest: " + quest);
                 }
-            }
+            });
         }
     }
 
@@ -247,8 +237,8 @@ public class FormViewQuests extends SpaceTraderForm {
         return quests;
     }
 
-    private void questsLabelValueClicked(LinkLabelLinkClickedEventArgs e) {
-        game.setSelectedSystemByName(e.getLink().getLinkData().toString());
+    private void questsLabelValueClicked(String systemName) {
+        game.setSelectedSystemByName(systemName);
         game.getParentWindow().updateAll();
         close();
     }

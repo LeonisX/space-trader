@@ -1,8 +1,7 @@
 package spacetrader.gui.cheat;
 
-import spacetrader.controls.*;
-import spacetrader.controls.BoxLayout;
 import spacetrader.controls.Button;
+import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.enums.*;
 import spacetrader.game.*;
@@ -16,20 +15,21 @@ import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 import spacetrader.util.Util;
 
-import javax.swing.*;
 import java.awt.*;
 
 @CheatCode
 public class FormMonster extends SpaceTraderForm {
 
-    private static final int SPLIT_SYSTEMS = 31;
+    private static final String THREE_SPACES = "   ";
+    private static final String FIVE_SPACES = "     ";
+    private static final String EIGHT_SPACES = "        ";
 
     private final Game game = Game.getCurrentGame();
 
     private Button closeButton = new Button();
-    private SimplePanel mercenariesPanel = new SimplePanel();
-    private SimplePanel questsPanel = new SimplePanel();
-    private SimplePanel shipyardsPanel = new SimplePanel();
+    private SimpleHPanel mercenariesPanel = new SimpleHPanel();
+    private SimpleHPanel questsPanel = new SimpleHPanel();
+    private SimpleHPanel shipyardsPanel = new SimpleHPanel();
     private HorizontalLine topHorizontalLine = new HorizontalLine();
     private VerticalLine verticalLine = new VerticalLine();
     private HorizontalLine shipyardHorizontalLine = new HorizontalLine();
@@ -47,14 +47,6 @@ public class FormMonster extends SpaceTraderForm {
     private LinkLabel questsDescrLabel = new LinkLabel();
     private LinkLabel shipyardsSystemLabel = new LinkLabel();
     private LinkLabel shipyardsDescrLabel = new LinkLabel();
-    private Label mercenariesPanelIds = new Label();
-    private Label mercenariesPanelNames = new Label();
-    private Label mercenariesPanelSkillsPilotLabel = new Label();
-    private Label mercenariesPanelSkillsFighter = new Label();
-    private Label mercenariesPanelSkillsTrader = new Label();
-    private Label mercenariesPanelSkillsEngineer = new Label();
-    private LinkLabel mercenariesPanelSystems = new LinkLabel();
-    private LinkLabel mercenariesPanelSystems2 = new LinkLabel();
     private LinkLabel questPanelSystemsLabel = new LinkLabel();
     private Label questsPanelDescrLabel = new Label();
     private LinkLabel shipyardSystemsLabelValue = new LinkLabel();
@@ -73,8 +65,6 @@ public class FormMonster extends SpaceTraderForm {
 
         populateIdArrays();
 
-        setLabelHeights();
-
         updateAll();
     }
 
@@ -85,14 +75,14 @@ public class FormMonster extends SpaceTraderForm {
         this.setText("Monster.com Job Listing");
         this.setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         this.setStartPosition(FormStartPosition.CENTER_PARENT);
-        this.setClientSize(617, 720);
+        this.setClientSize(638, 700);
         this.setMaximizeBox(false);
         this.setMinimizeBox(false);
         this.setShowInTaskbar(false);
         this.setCancelButton(closeButton);
 
         topHorizontalLine.setLocation(4, 40);
-        topHorizontalLine.setWidth(609);
+        topHorizontalLine.setWidth(628);
 
         questsLabel.setAutoSize(true);
         questsLabel.setControlBinding(ControlBinding.CENTER);
@@ -106,10 +96,10 @@ public class FormMonster extends SpaceTraderForm {
         questsSystemLabel.setLocation(23, 24);
         //questsSystemLabel.setSize(43, 16);
         questsSystemLabel.setText("System");
-        questsSystemLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        questsSystemLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "S");
             }
         });
 
@@ -118,10 +108,10 @@ public class FormMonster extends SpaceTraderForm {
         questsDescrLabel.setLocation(90, 24);
         //questsDescrLabel.setSize(63, 16);
         questsDescrLabel.setText("Description");
-        questsDescrLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        questsDescrLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "D");
             }
         });
 
@@ -134,13 +124,12 @@ public class FormMonster extends SpaceTraderForm {
         metrics = questsPanelDescrLabel.asSwingObject().getFontMetrics(questsPanelDescrLabel.asSwingObject().getFont());
 
         questPanelSystemsLabel.setAutoSize(false);
-        questPanelSystemsLabel.setLinkArea(new LinkArea(0, 0));
         questPanelSystemsLabel.setLocation(4, 4);
         questPanelSystemsLabel.setSize(80, 370);
-        questPanelSystemsLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        questPanelSystemsLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                systemLinkClicked(e);
+            public void handle(Object sender) {
+                systemLinkClicked(sender);
             }
         });
 
@@ -160,10 +149,10 @@ public class FormMonster extends SpaceTraderForm {
         shipyardsSystemLabel.setLocation(23, 356);
         //shipyardsSystemLabel.setSize(43, 16);
         shipyardsSystemLabel.setText("System");
-        shipyardsSystemLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        shipyardsSystemLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "S");
             }
         });
 
@@ -172,10 +161,10 @@ public class FormMonster extends SpaceTraderForm {
         shipyardsDescrLabel.setLocation(90, 356);
         //shipyardsDescrLabel.setSize(63, 16);
         shipyardsDescrLabel.setText("Description");
-        shipyardsDescrLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        shipyardsDescrLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "D");
             }
         });
 
@@ -190,13 +179,12 @@ public class FormMonster extends SpaceTraderForm {
         shipyardsDescrLabelValue.setLocation(76, 4);
         shipyardsDescrLabelValue.setSize(120, 93);
 
-        shipyardSystemsLabelValue.setLinkArea(new LinkArea(0, 0));
         shipyardSystemsLabelValue.setLocation(4, 4);
         shipyardSystemsLabelValue.setSize(68, 93);
-        shipyardSystemsLabelValue.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        shipyardSystemsLabelValue.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                systemLinkClicked(e);
+            public void handle(Object sender) {
+                systemLinkClicked(sender);
             }
         });
 
@@ -215,131 +203,89 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesIdLabel.setLocation(267, 24);
         //mercenariesIdLabel.setSize(16, 16);
         mercenariesIdLabel.setText("ID");
-        mercenariesIdLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        mercenariesIdLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "I");
             }
         });
 
         mercenariesNameLabel.setAutoSize(true);
         mercenariesNameLabel.setFont(FontCollection.bold825);
-        mercenariesNameLabel.setLocation(288, 24);
+        mercenariesNameLabel.setLocation(280, 24);
         //mercenariesNameLabel.setSize(35, 16);
         mercenariesNameLabel.setText("Name");
-        mercenariesNameLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        mercenariesNameLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "N");
             }
         });
 
         mercenariesSkillPilotLabel.setAutoSize(true);
         mercenariesSkillPilotLabel.setFont(FontCollection.bold825);
-        mercenariesSkillPilotLabel.setLocation(361, 24);
+        mercenariesSkillPilotLabel.setLocation(400, 24);
         //mercenariesSkillPilotLabel.setSize(12, 16);
         mercenariesSkillPilotLabel.setText("P");
-        mercenariesSkillPilotLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        mercenariesSkillPilotLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "P");
             }
         });
 
         mercenariesSkillFighterLabel.setAutoSize(true);
         mercenariesSkillFighterLabel.setFont(FontCollection.bold825);
-        mercenariesSkillFighterLabel.setLocation(382, 24);
+        mercenariesSkillFighterLabel.setLocation(420, 24);
         //mercenariesSkillFighterLabel.setSize(11, 16);
         mercenariesSkillFighterLabel.setText("F");
-        mercenariesSkillFighterLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        mercenariesSkillFighterLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "F");
             }
         });
 
         mercenariesSkillTraderLabel.setAutoSize(true);
         mercenariesSkillTraderLabel.setFont(FontCollection.bold825);
-        mercenariesSkillTraderLabel.setLocation(402, 24);
+        mercenariesSkillTraderLabel.setLocation(440, 24);
         //mercenariesSkillTraderLabel.setSize(11, 16);
         mercenariesSkillTraderLabel.setText("T");
-        mercenariesSkillTraderLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        mercenariesSkillTraderLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "T");
             }
         });
 
         mercenariesSkillEngineerLabel.setAutoSize(true);
         mercenariesSkillEngineerLabel.setFont(FontCollection.bold825);
-        mercenariesSkillEngineerLabel.setLocation(421, 24);
+        mercenariesSkillEngineerLabel.setLocation(460, 24);
         //mercenariesSkillEngineerLabel.setSize(12, 16);
         mercenariesSkillEngineerLabel.setText("E");
-        mercenariesSkillEngineerLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        mercenariesSkillEngineerLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "E");
             }
         });
 
         mercenariesSystemLabel.setAutoSize(true);
         mercenariesSystemLabel.setFont(FontCollection.bold825);
-        mercenariesSystemLabel.setLocation(445, 24);
+        mercenariesSystemLabel.setLocation(500, 24);
         //mercenariesSystemLabel.setSize(43, 16);
         mercenariesSystemLabel.setText("System");
-        mercenariesSystemLabel.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
+        mercenariesSystemLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                sortLinkClicked(sender);
+            public void handle(Object sender) {
+                sortLinkClicked(sender, "S");
             }
         });
 
 
-        mercenariesPanel.autoScroll = true;
         mercenariesPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        mercenariesPanel.controls.addAll(mercenariesPanelIds, mercenariesPanelNames,
-                mercenariesPanelSkillsPilotLabel, mercenariesPanelSkillsFighter, mercenariesPanelSkillsTrader,
-                mercenariesPanelSkillsEngineer, mercenariesPanelSystems, mercenariesPanelSystems2);
         mercenariesPanel.setLocation(259, 44);
-        mercenariesPanel.setSize(371, 677);
-
-        mercenariesPanelSkillsPilotLabel.setLocation(93, 4);
-        mercenariesPanelSkillsPilotLabel.setSize(20, 673);
-
-        mercenariesPanelSkillsFighter.setLocation(113, 4);
-        mercenariesPanelSkillsFighter.setSize(20, 673);
-
-        mercenariesPanelSkillsTrader.setLocation(133, 4);
-        mercenariesPanelSkillsTrader.setSize(20, 673);
-
-        mercenariesPanelSkillsEngineer.setLocation(153, 4);
-        mercenariesPanelSkillsEngineer.setSize(20, 673);
-
-        mercenariesPanelSystems.setLinkArea(new LinkArea(0, 0));
-        mercenariesPanelSystems.setLocation(185, 4);
-        mercenariesPanelSystems.setSize(160, 405);
-        mercenariesPanelSystems.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
-            @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                systemLinkClicked(e);
-            }
-        });
-
-        mercenariesPanelIds.setLocation(0, 4);
-        mercenariesPanelIds.setSize(23, 673);
-
-        mercenariesPanelNames.setLocation(28, 4);
-        mercenariesPanelNames.setSize(69, 673);
-
-        mercenariesPanelSystems2.setLinkArea(new LinkArea(0, 0));
-        mercenariesPanelSystems2.setLocation(185, 401);
-        mercenariesPanelSystems2.setSize(160, 673);
-        mercenariesPanelSystems2.setLinkClicked(new EventHandler<Object, LinkLabelLinkClickedEventArgs>() {
-            @Override
-            public void handle(Object sender, LinkLabelLinkClickedEventArgs e) {
-                systemLinkClicked(e);
-            }
-        });
+        mercenariesPanel.setSize(371, 650);
 
         closeButton.setDialogResult(DialogResult.CANCEL);
         closeButton.setLocation(-32, -32);
@@ -477,35 +423,6 @@ public class FormMonster extends SpaceTraderForm {
         sort("S", "S"); // Sort shipyards by system name.
     }
 
-    private void setLabelHeights() {
-        int questHeight = (int) Math.ceil(questSystemIds.length * metrics.getHeight()) + 1;
-        questsPanelDescrLabel.setHeight(questHeight);
-        questPanelSystemsLabel.setHeight(questHeight);
-
-        int shipyardHeight = (int) Math.ceil(shipyardSystemIds.length * metrics.getHeight()) + 1;
-        shipyardsDescrLabelValue.setHeight(shipyardHeight);
-        shipyardSystemsLabelValue.setHeight(shipyardHeight);
-
-        int mercHeight = (int) Math.ceil(mercIds.length * metrics.getHeight()) + 1;
-        mercenariesPanelIds.setHeight(mercHeight);
-        mercenariesPanelNames.setHeight(mercHeight);
-        mercenariesPanelSkillsPilotLabel.setHeight(mercHeight);
-        mercenariesPanelSkillsFighter.setHeight(mercHeight);
-        mercenariesPanelSkillsTrader.setHeight(mercHeight);
-        mercenariesPanelSkillsEngineer.setHeight(mercHeight);
-
-        // Due to a limitation of the LinkLabel control, no more than 32 links
-        // can exist in the LinkLabel.
-        mercenariesPanelSystems.setHeight((int) Math.ceil(Math.min(mercIds.length, SPLIT_SYSTEMS) * metrics.getHeight()) + 1);
-        if (mercIds.length > SPLIT_SYSTEMS) {
-            mercenariesPanelSystems2.setVisible(true);
-            mercenariesPanelSystems2.setHeight((int) Math.ceil((mercIds.length - SPLIT_SYSTEMS) * metrics.getHeight()) + 1);
-            mercenariesPanelSystems2.setTop(mercenariesPanelSystems.getTop() + mercenariesPanelSystems.getHeight());
-        } else {
-            mercenariesPanelSystems2.setVisible(false);
-        }
-    }
-
     private void sort(String sortWhat, String sortBy) {
         Integer[] array;
         switch (SomeStringsForCheatSwitch.valueOf(sortWhat)) {
@@ -540,125 +457,136 @@ public class FormMonster extends SpaceTraderForm {
     }
 
     private void updateMercs() {
-        mercenariesPanelIds.setText("");
-        mercenariesPanelNames.setText("");
-        mercenariesPanelSkillsPilotLabel.setText("");
-        mercenariesPanelSkillsFighter.setText("");
-        mercenariesPanelSkillsTrader.setText("");
-        mercenariesPanelSkillsEngineer.setText("");
-        mercenariesPanelSystems.setText("");
-        mercenariesPanelSystems2.setText("");
-        mercenariesPanelSystems.getLinks().clear();
-        mercenariesPanelSystems2.getLinks().clear();
+        SimpleVPanel idsPanel = createVPanel(20);
+        SimpleVPanel namesPanel = createVPanel(160);
+        SimpleVPanel pPanel = createVPanel(20);
+        SimpleVPanel fPanel = createVPanel(20);
+        SimpleVPanel tPanel = createVPanel(20);
+        SimpleVPanel ePanel = createVPanel(20);
+        SimpleVPanel systemPanel = createVPanel(90);
 
-        for (int i = 0; i < mercIds.length; i++) {
-            CrewMember merc = game.getMercenaries()[mercIds[i]];
-            boolean link = (merc.getCurrentSystem() != null) && !game.getCommander().getShip().hasCrew(merc.getId());
+        mercenariesPanel.removeAll();
+        mercenariesPanel.addAll(idsPanel, namesPanel, pPanel, fPanel, tPanel, ePanel, systemPanel);
 
-            mercenariesPanelIds.setText(mercenariesPanelIds.getText() + ((merc.getId().castToInt()) + Strings.newline));
-            mercenariesPanelNames.setText(mercenariesPanelNames.getText() + (merc.getName() + Strings.newline));
-            mercenariesPanelSkillsPilotLabel.setText(mercenariesPanelSkillsPilotLabel.getText() + (merc.getPilot() + Strings.newline));
-            mercenariesPanelSkillsFighter.setText(mercenariesPanelSkillsFighter.getText() + (merc.getFighter() + Strings.newline));
-            mercenariesPanelSkillsTrader.setText(mercenariesPanelSkillsTrader.getText() + (merc.getTrader() + Strings.newline));
-            mercenariesPanelSkillsEngineer.setText(mercenariesPanelSkillsEngineer.getText() + (merc.getEngineer() + Strings.newline));
+        for (Integer mercId : mercIds) {
+            CrewMember merc = game.getMercenaries()[mercId];
 
-            if (i < SPLIT_SYSTEMS) {
-                int start = mercenariesPanelSystems.getText().length();
-                mercenariesPanelSystems.setText(mercenariesPanelSystems.getText() + (currentSystemDisplay(merc) + Strings.newline));
-                if (link) {
-                    mercenariesPanelSystems.getLinks().add(start, merc.getCurrentSystem().getName().length(), merc.getCurrentSystem().getName());
-                }
+            Label label = new Label(THREE_SPACES + merc.getId().castToInt());
+            label.setAutoSize(true);
+            idsPanel.asJPanel().add(label.asSwingObject());
+
+            label = new Label(EIGHT_SPACES + merc.getName() + FIVE_SPACES);
+            label.setAutoSize(true);
+            namesPanel.asJPanel().add(label.asSwingObject());
+
+            label = new Label(THREE_SPACES + merc.getPilot());
+            label.setAutoSize(true);
+            pPanel.asJPanel().add(label.asSwingObject());
+
+            label = new Label(THREE_SPACES + merc.getFighter());
+            label.setAutoSize(true);
+            fPanel.asJPanel().add(label.asSwingObject());
+
+            label = new Label(THREE_SPACES + merc.getTrader());
+            label.setAutoSize(true);
+            tPanel.asJPanel().add(label.asSwingObject());
+
+            label = new Label(THREE_SPACES + merc.getEngineer() + EIGHT_SPACES);
+            label.setAutoSize(true);
+            ePanel.asJPanel().add(label.asSwingObject());
+
+            if ((merc.getCurrentSystem() != null) && !game.getCommander().getShip().hasCrew(merc.getId())) {
+                LinkLabel linkLabel = new LinkLabel(currentSystemDisplay(merc));
+                linkLabel.setAutoSize(true);
+                linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
+                    @Override
+                    public void handle(Object sender) {
+                        systemLinkClicked(sender);
+                    }
+                });
+                systemPanel.asJPanel().add(linkLabel.asSwingObject());
             } else {
-                int start = mercenariesPanelSystems2.getText().length();
-                mercenariesPanelSystems2.setText(mercenariesPanelSystems2.getText() + (currentSystemDisplay(merc) + Strings.newline));
-                if (link) {
-                    mercenariesPanelSystems2.getLinks().add(start, merc.getCurrentSystem().getName().length(), merc.getCurrentSystem().getName());
-                }
+                label = new Label(currentSystemDisplay(merc));
+                label.setAutoSize(true);
+                systemPanel.asJPanel().add(label.asSwingObject());
             }
         }
-
-        mercenariesPanelIds.setText(mercenariesPanelIds.getText().trim());
-        mercenariesPanelNames.setText(mercenariesPanelNames.getText().trim());
-        mercenariesPanelSkillsPilotLabel.setText(mercenariesPanelSkillsPilotLabel.getText().trim());
-        mercenariesPanelSkillsFighter.setText(mercenariesPanelSkillsFighter.getText().trim());
-        mercenariesPanelSkillsTrader.setText(mercenariesPanelSkillsTrader.getText().trim());
-        mercenariesPanelSkillsEngineer.setText(mercenariesPanelSkillsEngineer.getText().trim());
-        mercenariesPanelSystems.setText(mercenariesPanelSystems.getText().trim());
-        mercenariesPanelSystems2.setText(mercenariesPanelSystems2.getText().trim());
     }
 
     private void updateQuests() {
-        //TODO X_AXIS
-        questsPanel.setLayout(new BoxLayout((JPanel) questsPanel.asSwingObject(), javax.swing.BoxLayout.X_AXIS));
+        SimpleVPanel dummyPanel = createVPanel(10);
+        SimpleVPanel systemPanel = createVPanel(90);
+        SimpleVPanel descrPanel = createVPanel(160);
+        questsPanel.removeAll();
+        questsPanel.addAll(dummyPanel, systemPanel, descrPanel);
 
-        SimplePanel leftPanel = new SimplePanel();
-        leftPanel.setSize(90, questsPanel.getHeight());
-        leftPanel.setLayout(new BoxLayout((JPanel) leftPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
-
-        //TODO constructor with text
-        Label dummyLabel = new Label();
-        dummyLabel.setText("       ");
-
-        SimplePanel rightPanel = new SimplePanel();
-        rightPanel.setSize(160, questsPanel.getHeight());
-        rightPanel.setLayout(new BoxLayout((JPanel) rightPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
-
-        questsPanel.addAll(leftPanel, dummyLabel, rightPanel);
+        dummyPanel.asJPanel().add(new Label(THREE_SPACES).asSwingObject());
 
         for (Integer questSystemId : questSystemIds) {
             StarSystem system = game.getUniverse()[questSystemId];
 
-            Label label = new Label();
-            label.setAutoSize(true);
-            label.setText("   " + system.getName());
-            leftPanel.add(label);
+            LinkLabel linkLabel = new LinkLabel(system.getName());
+            linkLabel.setAutoSize(true);
+            linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
+                @Override
+                public void handle(Object sender) {
+                    systemLinkClicked(sender);
+                }
+            });
+            systemPanel.asJPanel().add(linkLabel.asSwingObject());
 
-            label = new Label();
+            Label label = new Label(EIGHT_SPACES + system.specialEvent().getTitle());
             label.setAutoSize(true);
-            label.setText(system.specialEvent().getTitle());
-            rightPanel.add(label);
+            descrPanel.asJPanel().add(label.asSwingObject());
         }
+        questsSystemLabel.setLeft(metrics.stringWidth(THREE_SPACES) + 10);
+        questsDescrLabel.setLeft(systemPanel.getWidth());
     }
 
     private void updateShipyards() {
-        shipyardsPanel.setLayout(new BoxLayout((JPanel) shipyardsPanel.asSwingObject(), javax.swing.BoxLayout.X_AXIS));
+        SimpleVPanel dummyPanel = createVPanel(10);
+        SimpleVPanel systemPanel = createVPanel(90);
+        SimpleVPanel descrPanel = createVPanel(160);
+        shipyardsPanel.removeAll();
+        shipyardsPanel.addAll(dummyPanel, systemPanel, descrPanel);
 
-        SimplePanel leftPanel = new SimplePanel();
-        leftPanel.setSize(90, shipyardsPanel.getHeight());
-        leftPanel.setLayout(new BoxLayout((JPanel) leftPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
+        dummyPanel.asJPanel().add(new Label(THREE_SPACES).asSwingObject());
 
-        Label dummyLabel = new Label();
-        dummyLabel.setText("        ");
+        for (Integer shipyardSystemId : shipyardSystemIds) {
+            StarSystem system = game.getUniverse()[shipyardSystemId];
 
-        SimplePanel rightPanel = new SimplePanel();
-        rightPanel.setSize(160, shipyardsPanel.getHeight());
-        rightPanel.setLayout(new BoxLayout((JPanel) rightPanel.asSwingObject(), javax.swing.BoxLayout.Y_AXIS));
+            LinkLabel linkLabel = new LinkLabel(system.getName());
+            linkLabel.setAutoSize(true);
+            linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
+                @Override
+                public void handle(Object sender) {
+                    systemLinkClicked(sender);
+                }
+            });
+            systemPanel.asJPanel().add(linkLabel.asSwingObject());
 
-        shipyardsPanel.addAll(leftPanel, dummyLabel, rightPanel);
-
-        for (Integer questSystemId : shipyardSystemIds) {
-            StarSystem system = game.getUniverse()[questSystemId];
-
-            Label label = new Label();
+            Label label = new Label(EIGHT_SPACES + system.getShipyard().getName());
             label.setAutoSize(true);
-            label.setText("   " + system.getName());
-            leftPanel.add(label);
-
-            label = new Label();
-            label.setAutoSize(true);
-            label.setText(system.getShipyard().getName());
-            rightPanel.add(label);
+            descrPanel.asJPanel().add(label.asSwingObject());
         }
+        shipyardsSystemLabel.setLeft(metrics.stringWidth(THREE_SPACES) + 10);
+        shipyardsDescrLabel.setLeft(systemPanel.getWidth());
     }
 
-    private void systemLinkClicked(LinkLabelLinkClickedEventArgs e) {
-        Game.getCurrentGame().setSelectedSystemByName(e.getLink().getLinkData().toString());
+    private SimpleVPanel createVPanel(int width) {
+        SimpleVPanel panel = new SimpleVPanel();
+        panel.setSize(width, questsPanel.getHeight());
+        return panel;
+    }
+
+    private void systemLinkClicked(Object sender) {
+        Game.getCurrentGame().setSelectedSystemByName(((LinkLabel) sender).getText().trim());
         Game.getCurrentGame().getParentWindow().updateAll();
         close();
     }
 
-    private void sortLinkClicked(Object sender) {
-        sort(((LinkLabel) sender).getName().substring(0, 1).toUpperCase(), ((LinkLabel) sender).getText().substring(0, 1));
+    private void sortLinkClicked(Object sender, String key) {
+        sort(((LinkLabel) sender).getName().trim().substring(0, 1).toUpperCase(), key);
         updateAll();
     }
 }

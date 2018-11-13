@@ -1,28 +1,54 @@
 package spacetrader.controls;
 
-public class LinkLabel extends Label {
+import spacetrader.controls.swingextra.JLinkLabel;
 
-    private LinkHolder links = new LinkHolder();
-    private EventHandler<Object, LinkLabelLinkClickedEventArgs> linkClicked;
-    private LinkArea linkArea;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-    public LinkHolder getLinks() {
-        return links;
+public class LinkLabel extends Label implements MouseListener {
+
+    private SimpleEventHandler<Object> linkClicked;
+
+    public LinkLabel() {
+        super(new JLinkLabel());
     }
 
-    public void setLinks(LinkHolder links) {
-        this.links = links;
+    public LinkLabel(String text) {
+        this();
+        this.setText(text);
     }
 
-    public EventHandler<Object, LinkLabelLinkClickedEventArgs> getLinkClicked() {
-        return linkClicked;
-    }
-
-    public void setLinkClicked(EventHandler<Object, LinkLabelLinkClickedEventArgs> linkClicked) {
+    public void setLinkClicked(SimpleEventHandler<Object> linkClicked) {
         this.linkClicked = linkClicked;
+        asJLinkLabel().addMouseListener(this);
     }
 
-    public void setLinkArea(LinkArea linkArea) {
-        this.linkArea = linkArea;
+    private JLinkLabel asJLinkLabel() {
+        return (JLinkLabel) swingComponent;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        linkClicked.handle(this);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
