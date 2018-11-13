@@ -8,19 +8,24 @@ import java.util.HashMap;
  */
 public class StringsBundle extends HashMap<String, String> {
 
-    public String getString(String key) {
+    public String get(String... keys) {
         //System.out.println("getString: " + key);
-        return this.get(key);
+        return super.get(String.join(".", keys));
     }
 
-    public String getText(String key) {
+    public String getString(String... keys) {
+        //System.out.println("getString: " + key);
+        return this.get(String.join(".", keys));
+    }
+
+    public String getText(String... keys) {
         //System.out.println("getText: " + key);
-        return this.get(key + ".text");
+        return this.get(String.join(".", keys) + ".text");
     }
 
-    public String getTitle(String key) {
+    public String getTitle(String... keys) {
         //System.out.println("getTitle: " + key);
-        return this.get(key + ".title");
+        return this.get(String.join(".", keys) + ".title");
     }
 
 }

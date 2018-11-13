@@ -24,11 +24,11 @@ public class FileDialog extends BaseComponent {
         chooser = (JFileChooser) swingComponent;
     }
 
-    public void setTitle(String title) {
+    void setTitle(String title) {
         this.title = title;
     }
 
-    public void setApproveButtonText(String approveButtonText) {
+    void setApproveButtonText(String approveButtonText) {
         this.approveButtonText = approveButtonText;
     }
 
