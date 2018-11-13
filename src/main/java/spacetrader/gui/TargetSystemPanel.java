@@ -1,7 +1,6 @@
 package spacetrader.gui;
 
 import spacetrader.controls.*;
-import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.game.*;
 import spacetrader.game.exceptions.GameEndException;
@@ -59,8 +58,6 @@ class TargetSystemPanel extends Panel {
     }
 
     void initializeComponent() {
-        anchor = AnchorStyles.TOP_RIGHT;
-
         setText("Target System");
         setSize(219, 173);
         setTabStop(false);

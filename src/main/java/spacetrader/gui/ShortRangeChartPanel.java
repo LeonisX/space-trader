@@ -3,7 +3,6 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.Font;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.MouseButtons;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.*;
@@ -63,8 +62,6 @@ public class ShortRangeChartPanel extends Panel {
                 shortRangeChartPictureMouseDown(e);
             }
         });
-
-        anchor = AnchorStyles.TOP_RIGHT;
 
         getControls().add(shortRangeChartPicture);
 

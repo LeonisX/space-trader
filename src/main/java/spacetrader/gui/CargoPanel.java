@@ -5,7 +5,6 @@ import spacetrader.controls.*;
 import spacetrader.controls.Font;
 import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
-import spacetrader.controls.enums.AnchorStyles;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.game.*;
 
@@ -201,8 +200,6 @@ class CargoPanel extends Panel {
         setText("Cargo");
         setSize(535, 305);
         setTabStop(false);
-
-        this.anchor = AnchorStyles.TOP_RIGHT;
 
         horizontalLine.setLocation(8, 52);
         horizontalLine.setWidth(519);

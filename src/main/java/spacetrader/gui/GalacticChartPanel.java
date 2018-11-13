@@ -52,8 +52,6 @@ public class GalacticChartPanel extends Panel {
     }
 
     void initializeComponent() {
-        anchor = AnchorStyles.TOP_RIGHT;
-
         setText("Galactic Chart");
         setBackground(SystemColors.CONTROL);
         setSize(191, 175);

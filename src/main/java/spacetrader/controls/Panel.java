@@ -2,13 +2,11 @@ package spacetrader.controls;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import spacetrader.controls.enums.AnchorStyles;
 
 public class Panel extends BaseComponent {
 
     private final WinformJPanel controls;
     private final TitledBorder border;
-    protected AnchorStyles anchor;
 
     public Panel() {
         super(new WinformJPanel(null));
