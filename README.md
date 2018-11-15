@@ -67,6 +67,46 @@ Space travel consists of a four-step procedure:
 * *Docking at the target space port*. When you have reached the target space port, you are safe from interventions by other ships, and you can dock at your leisure after you have asked permission of the control tower.
 A few solar systems are lucky to have a wormhole nearby. A wormhole is a rift in the space-time continuum, which leads directly from one place in the galaxy to another. You can use the wormhole to travel to another system in an instant, even if that other system is at the other end of the galaxy. You can only enter a wormhole from the space port of the system that owns it. That system will tax you for the use of the wormhole. The tax depends on your ship type: poor traders with a small ship pay considerably less than rich traders with a huge ship. On the plus side: you won't spend any fuel travelling through a wormhole, which compensates partly for the tax. 
 
+## Skills and Mercenaries
+
+There are four basic skills important to a trader. You will probably excel in one or two skills, and lack in the others. However, you can compensate for that by hiring mercenaries. Mercenaries have skills just like you, and if a mercenary is, for instance, a better pilot than you are, he or she will take over your piloting duties when needed. Mercenaries can sometimes be hired at a space port. Just examine the Personnel Roster to see if anyone is available. If you hire a mercenary, you have to pay him or her a certain amount of credits daily. You have to cough these up right before you warp, otherwise the mercenary simply won't travel with you, but instead return to his or her home system. 
+
+### Pilot
+
+The pilot skill determines how well you pilot your ship. A high piloting skill will enable you to flee from attacks easily, dodge attacks, and to stay on the tail of fleeing ships if you want to keep attacking them. This makes the piloting skill important to both traders and pirates. A navigating system will enhance your piloting capabilities. 
+
+### Fighter
+
+The fighter skill determines how well you handle your weapons, in particular, how easy it is for you hit another ship. A trader who isn't interested in a pirating or bounty hunting career hasn't that much use of this skill, but for a pirate it is an absolute must. A targeting system will enhance your fighting capabilities. 
+
+### Trader
+
+The trader skill determines what prices you must pay for trade goods, ships and equipment. A good trader can reduce prices up to 10%. This makes a high trader skill invaluable for traders, while pirates have less use for it. In the early stages of your life as a trader you might have a hard time getting any money if you work with low trading capabilities. 
+
+### Engineer
+
+The engineer skill determines how well you keep your ship in shape. A good engineer may keep your hull and shields intact during a fight, will repair them quicker while travelling, and may even enhance your weaponry a bit so it does more damage. This makes the engineer skill important for both traders and pirates. An auto-repair system will enhance the engineering capabilities. 
+
+## An Encounter in Space
+
+Sooner or later you will encounter other ships in space. Depending on the type of encounter, several things can happen. 
+
+### An Encounter with a Trader
+
+When you encounter a trader, the trader will usually ignore you. Occasionally a trader will hail you to ask whether you want to trade some goods. The deal offered might be good, but the trader might try to rip you off. Caveat emptor. If you have a bad reputation, the trader might flee on sight. A trader will never initiate an attack, but may respond aggressively when you do. While fighting, you have the option to continue attacking or to flee. If a trader finds the fight goes bad for him and he can't manage to flee from you, he will often surrender to you. If he surrenders, you may continue attacking, but you best accept his offer, because after that you can plunder his cargo holds. If you don't have enough room to store all the nice goods you rob, you can dump some of your own cargo is space. Beware, however, that space littering is frowned upon by the police and such actions will go on your record if they are noticed. 
+
+### An Encounter with a Pirate
+
+A pirate will usually attack as soon as he sees you, unless your reputation is such that he is afraid of you, in which case he might flee. While fighting a pirate, you can attack him or try to flee. You can even surrender to him, but in that case he will plunder your cargo holds. If you think you are smart and have nothing in your holds, he will extort cash from you under the threat of blowing your ship up. Surrender is therefore a bad option, though it is better than fighting to the death. In rare cases a pirate might decide to surrender to you. Plundering his ship usually isn't as profitable as plundering a trader, because a pirate tends to travel with many empty holds to store the goods he intends to get by robbing traders. 
+
+### An Encounter with the Police
+
+As long as you are an honest trader, the police will usually ignore you. They may ask you to submit to an inspection of your cargo bays. As long as you are not carrying illegal goods (firearms or narcotics), you have nothing to worry about: they will search your holds, apologize, and up the status on your police record, indicating that you are someone who doesn't need to be searched that often. However, if you are carrying illegal goods, you best not let them search you, because then they will impound the illegal goods and fine you. Instead of agreeing to an inspection, you can try to bribe them. Depending on the type of government of the system, this is either impossible (if they are incorruptible), or costs an amount of money depending on how easy police officers under such a government can be bribed. It is always a good idea to explore the option of bribery: you can decide not to bribe them when you see how much money they want, but you might get away cheap. The other options you have are to flee, or to attack them, in which case they will certainly attack you. Both fleeing and attacking will seriously damage your standing with the police. When your police record indicates that you are a criminal, police ships won't ask for an inspection anymore, but will attack you on sight. If your reputation indicates that you are too dangerous an opponent for them, they also might flee immediately. When they consider you a really dangerous criminal, they will send more and better ships after you. You can surrender to the police, as long as you are not considered a psychopath they rather take in dead. If you do, you will be taken to a court of law and tried. You will have to spend some time in prison and pay a fine. If you don't have the credits to settle your fine, the police will sell your ship and will pay the fine out of the profits. If they need to do that, they will usually supply you with a second-hand Flea when you leave prison. To avoid you having to pay huge interests on a loan, if you have the credits, the police will usually also settle those debts from your cash. Also remember that you can't pay your mercenaries and insurance from your cell, so your hired hands will leave you and your insurance will be stopped. 
+
+### Destruction
+
+When things come to a fight, and no-one manages to escape and no-one surrenders, the fight will end in the destruction of one or both ships. If you get destroyed, and you have no escape pod, you will perish with your ship. If you survive and your opponent gets killed, if you are lucky one of the cargo canisters from his ship will drift in your direction and you can pick it up. 
+
 ## How to start
 
 The game is written in Java 8. While it is still in active development, and I don't have time to make a friendly installer for it.
