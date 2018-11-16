@@ -107,6 +107,51 @@ As long as you are an honest trader, the police will usually ignore you. They ma
 
 When things come to a fight, and no-one manages to escape and no-one surrenders, the fight will end in the destruction of one or both ships. If you get destroyed, and you have no escape pod, you will perish with your ship. If you survive and your opponent gets killed, if you are lucky one of the cargo canisters from his ship will drift in your direction and you can pick it up. 
 
+## Trade Goods
+
+There are ten different goods you can trade. The first four (water, furs, food and ore) are natural resources, which are cheapest in low-tech systems. The other six (games, firearms, medicine, machines, narcotics and robots) are industrial goods and are cheapest in high-tech systems. Basically, the price of natural goods increases with the tech level, while the price of industrial goods decreases. 
+The price indications mentioned below are prices which you can expect when no special situations take place and systems don't have any special resources. Special situations and special resources can dramatically influence the price you have to pay or the price you get for trade goods. Your best bet is to exploit these special circumstances, because they are your ticket to quick richness. 
+
+### Water
+
+Water can be bought and sold in any system. Prices will vary mostly in the 30 to 54 credits range. Desert planets will pay usually pay extra for water, while on planets with sweetwater oceans it can be pretty cheap. During a drought, the price of water will rise considerably. 
+
+### Furs
+
+Furs are made from the hides of animals indigenous to a system. They can be bought on any system. Prices will vary mostly in the 250 to 320 credits range. A lifeless system will pay more for furs, and a system with rich fauna will have them available cheaply. During a cold spell, the price of furs will certainly increase. 
+
+### Food
+
+Except for pre-agricultural systems, food can be bought in all systems. Prices will vary mostly in the 105 to 135 credits range. The soil quality will influence the price of food: rich soil makes it cheaper, poor soil more expensive. When there is a crop failure, the price of food will rise. 
+
+### Ore
+
+Ore consists of raw materials, which are usually bought by hi-tech systems from low-tech systems, so they can use them to produce hi-tech goods. Agricultural systems won't have developed enough to be able to mine ore, but you can buy it in any system with a higher tech level. Prices will vary mostly in the 390 to 490 credits range. The abundance of minerals in a system influences the price of ore: it's cheap in a mineral rich system, and expensive in a mineral poor system. During war time, ore is needed for the production of ammunition and therefore quite expensive.
+ 
+### Games
+
+Games are used for relaxation and entertainment, whether they are board games, computer games or dolls. After a system has gone through medieval times and people have become free spirits, games get produced and sold. Prices will vary mostly in the 180 to 240 credits range. They will be cheaper if the solar system that sells them has a particularly artistic populace. You best sell them to systems where people are bored, since this will fetch you the highest price. 
+
+### Firearms
+
+The GGF strictly forbids the trade in firearms, and the patrolling police will impound them if they find them in your cargo holds. However, once docked you will often be able to sell them for a good price, unless the government is so strict that people don't dare to trade them. Firearms which are of interest as trade goods (even if only for their collector's value) are produced in systems which have at least left the middle ages behind them. Prices vary mostly in the 725 to 1175 credits range. A warlike population will produce more weapons than usual and will sell them therefore cheaper. Of course, where there is a war they will sell for considerably higher prices. 
+
+### Medicine
+
+Medicine is produced by early industrial systems and higher tech levels. Prices vary mostly in the 510 to 630 credits range. Systems which have special herbs as natural resources can produce them cheaper, while systems which suffer under a plague will pay a lot for them. 
+
+### Machines
+
+Machines are produced by early industrial systems and higher tech levels. Prices vary mostly in the 690 to 810 credits range. Where there is a lack of workers, you'll find machines sell the best.
+
+### Narcotics
+
+Like firearms, the GGF strictly forbids trafficking drugs. However, they are often in high demand, even in low-tech systems, and it can be very worth your while to try to sneak them past the police. Industrial systems and higher tech levels can produce them. Prices vary mostly in the 2625 to 3500 credits range. Some systems find there are weird mushrooms among their natural resources, which produce excellent drugs for a cheap price. You best sell them in systems where people are bored. 
+
+### Robots
+
+Robots are the ultimate hi-tech good, and a system needs at least to have entered the post-industrial era to produce them. Prices vary mostly in the 3950 to 4400 credits range. Especially systems which lack workers have a need for robots and will pay the most for them. 
+
 ## How to start
 
 The game is written in Java 8. While it is still in active development, and I don't have time to make a friendly installer for it.
