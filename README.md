@@ -152,6 +152,41 @@ Like firearms, the GGF strictly forbids trafficking drugs. However, they are oft
 
 Robots are the ultimate hi-tech good, and a system needs at least to have entered the post-industrial era to produce them. Prices vary mostly in the 3950 to 4400 credits range. Especially systems which lack workers have a need for robots and will pay the most for them. 
 
+## Equipment
+
+Available equipment for your ship consists of weapons, shields, gadgets and an escape pod. 
+
+### Weapons
+
+There are three types of lasers: pulse lasers, beam lasers and military lasers. The tech level of a system determines whether and which lasers are sold there. Military lasers are the best, but also the most expensive. If you have more than one weapon slot on your ship, it is probably wise to first fill them all before you start to buy better lasers. Two pulse lasers often do more damage than one beam laser, and are cheaper overall. If you have no weapon slots on your ship, or have bought no weapons, you won't be able to attack. 
+
+In the extended version of the game, another laser model was added that was available after the quest was completed, as well as two types of disruptors, very interesting tools that disable electronics on an enemy ship, turning off all of its systems, including the life support system.
+
+### Shields
+
+There are two types of shields: energy shields and reflective shields. The tech level of a system determines whether and which shields are sold there. Reflective shields are the best. Shields protect your hull from damage. When you are attacked, first your shields are depleted, and only after they have been reduced to zero percent, your hull is damaged. During your travels, your shields are automatically recharging, and while you are docked at a space port they always recharge to 100%.
+
+In the extended version of the game one more quest shield is available.
+
+### Gadgets
+
+There are five types of gadgets available. The tech level of a system determines whether and which gadgets are sold there. 
+* For a beginning trader, the most interesting gadget is probably 5 extra cargo bays. These are fairly cheap and allow you to carry more cargo, so you probably earn them back quickly. If there is more than one gadget slot on your ship, you can even install more than one of this gadget, increasing your cargo bays even more. 
+* A navigating system helps you piloting your ship.
+* An auto-repair system helps your engineering functions.
+* A targeting system helps you handle your weaponry. 
+* A cloaking device is perhaps the most interesting gadget a trader can buy. It is very expensive, but it allows you to travel through space undetected, as long as you don't attack. However, a good engineer might detect a cloaked ship by its warp signature. The only way to avoid being detected is to employ your own engineering skills to fluctuate your warp signature. If a ship you pass has a better engineer than your own ship, you can't expect to stay undetected, though. But even if you are detected, your cloaking device is useful, since it makes you more difficult to hit and you can escape more easily.
+
+In the extended version of the game you can get two more very interesting and useful quest gadgets.
+
+### Escape Pod
+
+An escape pod can be bought at the Ship Yard. If you have one installed, when your ship gets destroyed it is activated automatically and ejects your crew and yourself. The Space Corps will pick you up in a few days time and drop you off at a nearby system. There you can convert the pod to a ship and continue your journey, though your original ship and cargo will be lost. 
+
+### Insurance
+
+If you have an escape pod installed, you can at the bank buy insurance for your ship. If you have insurance the bank will refund your ship's trade-in value in the case of an escape pod ejection. You have to pay a daily rate, which depends on the worth of your ship, for the insurance. This rate will drop 1% for every day you don't claim, up to a reduction of 90%. Since the no-claim gets transferred to a new ship when you buy one, it may be useful to rack up your no-claim days with a cheap ship, before you buy an expensive one. Note that after an ejection, you have to buy a new escape pod and thus new insurance. Your no-claim will be reset to 0%. 
+
 ## How to start
 
 The game is written in Java 8. While it is still in active development, and I don't have time to make a friendly installer for it.
