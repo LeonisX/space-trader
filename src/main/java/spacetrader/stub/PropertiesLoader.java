@@ -14,12 +14,12 @@ public class PropertiesLoader {
     private final static Pattern LEFT_TRIM_PATTERN = Pattern.compile("^\\s+");
     private final static Pattern RIGHT_TRIM_PATTERN = Pattern.compile("\\s+$");
 
-    public static ValuesBundle getValuesBundle(String name) {
+    public static ObjectsBundle getValuesBundle(String name) {
         return getValuesBundle(name, true);
     }
 
     /**
-     * Loads key=value String->Object pairs as ValuesBundle.
+     * Loads key=value String->Object pairs as ObjectsBundle.
      *
      * # these comments will be removed
      * // these comments, if they are at the string start will be removed
@@ -32,18 +32,18 @@ public class PropertiesLoader {
      *
      * @param name                   name of file with strings
      * @param trimSingleLineComments trim single line comments at the end of strings
-     * @return Map<String, Object> as ValuesBundle
+     * @return Map<String, Object> as ObjectsBundle
      */
-    private static ValuesBundle getValuesBundle(String name, boolean trimSingleLineComments) {
-        ValuesBundle valuesBundle = new ValuesBundle();
+    private static ObjectsBundle getValuesBundle(String name, boolean trimSingleLineComments) {
+        ObjectsBundle objectsBundle = new ObjectsBundle();
         getResourceAsFilteredStream(name).forEach(s -> {
             String[] pair = s.split("=", 2);
             if (trimSingleLineComments && pair[1].contains("//")) {
                 pair[1] = trimTrailComment(pair[1]);
             }
-            valuesBundle.put(pair[0], pair[1]);
+            objectsBundle.put(pair[0], pair[1]);
         });
-        return valuesBundle;
+        return objectsBundle;
     }
 
     public static StringsBundle getStringsBundle(String name) {

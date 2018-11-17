@@ -7,9 +7,9 @@ import spacetrader.controls.ResourceManager;
 import spacetrader.game.enums.Language;
 import spacetrader.game.enums.ShipType;
 import spacetrader.gui.SpaceTrader;
+import spacetrader.stub.ObjectsBundle;
 import spacetrader.stub.PropertiesLoader;
 import spacetrader.stub.StringsBundle;
-import spacetrader.stub.ValuesBundle;
 import spacetrader.util.IOUtils;
 
 import java.awt.*;
@@ -29,7 +29,7 @@ public class GlobalAssets {
     private static ImageList ilShipImages;
 
     private static StringsBundle strings = new StringsBundle();
-    private static ValuesBundle dimensions = new ValuesBundle();
+    private static ObjectsBundle dimensions = new ObjectsBundle();
     private static String version;
 
     public static void initializeImages() {
@@ -78,7 +78,7 @@ public class GlobalAssets {
         return strings;
     }
 
-    public static ValuesBundle getDimensions() {
+    public static ObjectsBundle getDimensions() {
         return dimensions;
     }
 

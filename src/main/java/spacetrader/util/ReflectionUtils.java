@@ -4,8 +4,8 @@ import spacetrader.controls.BaseComponent;
 import spacetrader.controls.IName;
 import spacetrader.game.GlobalAssets;
 import spacetrader.game.Strings;
+import spacetrader.stub.ObjectsBundle;
 import spacetrader.stub.StringsBundle;
-import spacetrader.stub.ValuesBundle;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -218,17 +218,17 @@ public class ReflectionUtils {
         loadControlsDimensions(component.asSwingObject(), component.getName(), GlobalAssets.getDimensions());
     }
 
-    private static void loadControlsDimensions(Component component, String prefix, ValuesBundle valuesBundle) {
+    private static void loadControlsDimensions(Component component, String prefix, ObjectsBundle objectsBundle) {
         prefix = formatPropertyName(prefix);
         if (component.getName() != null && !component.getName().startsWith("null.")) {
             double scale = 1.0;
             //TODO delete
-            if (valuesBundle.get(prefix + ".width") != null) {
-                Dimension dimension = valuesBundle.getSize(prefix);
+            if (objectsBundle.get(prefix + ".width") != null) {
+                Dimension dimension = objectsBundle.getSize(prefix);
                 dimension.setSize(dimension.getWidth() * scale, dimension.getHeight() * scale);
                 component.setSize(dimension);
                 if (!(component instanceof JFrame)) {
-                    Point point = valuesBundle.getLocation(prefix);
+                    Point point = objectsBundle.getLocation(prefix);
                     point.setLocation(point.getX() * scale, point.getY() * scale);
                     component.setLocation(point);
                 }
@@ -239,7 +239,7 @@ public class ReflectionUtils {
         if (component instanceof java.awt.Container) {
             for (Component child : ((java.awt.Container) component).getComponents()) {
                 String name = /*child.getName() == null ? child.getClass().getSimpleName() :*/ child.getName();
-                loadControlsDimensions(child, prefix + "." + name, valuesBundle);
+                loadControlsDimensions(child, prefix + "." + name, objectsBundle);
             }
         }
     }

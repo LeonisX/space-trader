@@ -3,7 +3,7 @@ package spacetrader.stub;
 import java.awt.*;
 import java.util.HashMap;
 
-public class ValuesBundle extends HashMap<String, Object> {
+public class ObjectsBundle extends HashMap<String, Object> {
 
     public String getString(String key) {
         //System.out.println("getString: " + key);
