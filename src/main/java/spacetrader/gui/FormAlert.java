@@ -457,9 +457,9 @@ public class FormAlert extends SpaceTraderForm {
             case JailShipSold:
                 return new FormAlert(AlertsJailShipSoldTitle, AlertsJailShipSoldMessage, AlertsOk, DialogResult.OK,
                         null, DialogResult.NONE, args);
-            case JarekTakenHome:
+            /*case JarekTakenHome:
                 return new FormAlert(AlertsJarekTakenHomeTitle, AlertsJarekTakenHomeMessage, AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, args);
+                        null, DialogResult.NONE, args);*/
             case LeavingIFInsurance:
                 return new FormAlert(AlertsLeavingIFInsuranceTitle, AlertsLeavingIFInsuranceMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
@@ -581,10 +581,10 @@ public class FormAlert extends SpaceTraderForm {
             case SpecialNotEnoughBays:
                 return new FormAlert(AlertsSpecialNotEnoughBaysTitle, AlertsSpecialNotEnoughBaysMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case SpecialPassengerConcernedJarek:
+            /*case SpecialPassengerConcernedJarek:
                 return new FormAlert(AlertsSpecialPassengerConcernedJarekTitle,
                         AlertsSpecialPassengerConcernedJarekMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
+                        DialogResult.OK, null, DialogResult.NONE, args);*/
             case SpecialPassengerConcernedPrincess:
                 return new FormAlert(AlertsSpecialPassengerConcernedPrincessTitle,
                         AlertsSpecialPassengerConcernedPrincessMessage, AlertsOk, DialogResult.OK,
@@ -593,10 +593,10 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsSpecialPassengerConcernedWildTitle,
                         AlertsSpecialPassengerConcernedWildMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case SpecialPassengerImpatientJarek:
+            /*case SpecialPassengerImpatientJarek:
                 return new FormAlert(AlertsSpecialPassengerImpatientJarekTitle,
                         AlertsSpecialPassengerImpatientJarekMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
+                        DialogResult.OK, null, DialogResult.NONE, args);*/
             case SpecialPassengerImpatientPrincess:
                 return new FormAlert(AlertsSpecialPassengerImpatientPrincessTitle,
                         AlertsSpecialPassengerImpatientPrincessMessage, AlertsOk,

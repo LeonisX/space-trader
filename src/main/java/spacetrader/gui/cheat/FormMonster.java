@@ -8,6 +8,8 @@ import spacetrader.game.*;
 import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.enums.ShipyardId;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.quest.Phase;
 import spacetrader.gui.FontCollection;
 import spacetrader.gui.SpaceTraderForm;
 import spacetrader.stub.ArrayList;
@@ -16,6 +18,8 @@ import spacetrader.util.ReflectionUtils;
 import spacetrader.util.Util;
 
 import java.awt.*;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @CheatCode
 public class FormMonster extends SpaceTraderForm {
@@ -307,8 +311,8 @@ public class FormMonster extends SpaceTraderForm {
         int compareVal = 0;
 
         if (sortWhat.equals("M")) { // Mercenaries
-            CrewMember crewMemberA = game.getMercenaries()[a];
-            CrewMember crewMemberB = game.getMercenaries()[b];
+            CrewMember crewMemberA = game.getMercenaries().get(a);
+            CrewMember crewMemberB = game.getMercenaries().get(b);
 
             boolean strCompare = false;
             Object valA = null;
@@ -316,8 +320,8 @@ public class FormMonster extends SpaceTraderForm {
 
             switch (SomeStringsForCheatSwitch.valueOf(sortBy)) {
                 case I: // Id
-                    valA = crewMemberA.getId().castToInt();
-                    valB = crewMemberB.getId().castToInt();
+                    valA = crewMemberA.getId();
+                    valB = crewMemberB.getId();
                     break;
                 case N: // Name
                     valA = crewMemberA.getName();
@@ -397,16 +401,18 @@ public class FormMonster extends SpaceTraderForm {
         // Populate the mercenary ids array.
         ArrayList<Integer> ids = new ArrayList<>();
         for (CrewMember merc : game.getMercenaries()) {
-            if (!Util.arrayContains(Consts.SpecialCrewMemberIds, merc.getId())) {
-                ids.add(merc.getId().castToInt());
+            if (!Util.arrayContains(Consts.SpecialCrewMemberIds, merc.getCrewMemberId()) && merc.getId() < 1000) {
+                ids.add(merc.getId());
             }
         }
         mercIds = ids.toArray(new Integer[0]);
 
         // Populate the quest and shipyard system ids arrays.
-        ArrayList<Integer> quests = new ArrayList<>();
+        Set<Integer> quests = game.getQuestsHolder().getPhases()
+                 .map(p -> p.getStarSystemId().castToInt()).collect(Collectors.toSet());
         ArrayList<Integer> shipyards = new ArrayList<>();
         for (StarSystem system : game.getUniverse()) {
+            //TODO remove after all quests
             if (system.showSpecialButton()) {
                 quests.add(system.getId().castToInt());
             }
@@ -414,6 +420,7 @@ public class FormMonster extends SpaceTraderForm {
                 shipyards.add(system.getId().castToInt());
             }
         }
+
         questSystemIds = quests.toArray(new Integer[0]);
         shipyardSystemIds = shipyards.toArray(new Integer[0]);
 
@@ -469,9 +476,9 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesPanel.addAll(idsPanel, namesPanel, pPanel, fPanel, tPanel, ePanel, systemPanel);
 
         for (Integer mercId : mercIds) {
-            CrewMember merc = game.getMercenaries()[mercId];
+            CrewMember merc = game.getMercenaries().get(mercId);
 
-            Label label = new Label(THREE_SPACES + merc.getId().castToInt());
+            Label label = new Label(THREE_SPACES + merc.getId());
             label.setAutoSize(true);
             idsPanel.asJPanel().add(label.asSwingObject());
 
@@ -522,8 +529,14 @@ public class FormMonster extends SpaceTraderForm {
 
         dummyPanel.asJPanel().add(new Label(THREE_SPACES).asSwingObject());
 
+        Game.getCurrentGame().getQuestsHolder().getPhases()
+                .forEach(p -> System.out.println(p.getStarSystemId().castToInt() + ": " + p.getStarSystemId() + ": " + p.getTitle()));
+
         for (Integer questSystemId : questSystemIds) {
             StarSystem system = game.getUniverse()[questSystemId];
+
+            System.out.println(system.getId().castToInt() + ": " + system.getId() + ": " + system.getName()
+                    + ": " + (system.specialEvent() == null ? null : system.specialEvent().getType()));
 
             LinkLabel linkLabel = new LinkLabel(system.getName());
             linkLabel.setAutoSize(true);
@@ -535,7 +548,14 @@ public class FormMonster extends SpaceTraderForm {
             });
             systemPanel.asJPanel().add(linkLabel.asSwingObject());
 
-            Label label = new Label(EIGHT_SPACES + system.specialEvent().getTitle());
+            //TODO simplify after quests system
+            String title = (system.specialEvent() != null && !system.specialEvent().getType().equals(SpecialEventType.ASSIGNED))
+                    ? system.specialEvent().getTitle()
+                    : game.getQuestsHolder().getPhases()
+                    //TODO filter by quest/phase status???
+                    .filter(p -> p.getStarSystemId().castToInt() == questSystemId).findFirst().map(Phase::getTitle)
+                    .orElseThrow(() -> new IllegalStateException("Can't find system with ID: " + questSystemId));
+            Label label = new Label(EIGHT_SPACES + title);
             label.setAutoSize(true);
             descrPanel.asJPanel().add(label.asSwingObject());
         }

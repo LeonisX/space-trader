@@ -4,6 +4,8 @@ import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.VeryRareEncounter;
+import spacetrader.game.quest.EventName;
+import spacetrader.game.quest.QuestsHolder;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.Util;
@@ -42,6 +44,8 @@ public class GameCheats implements Serializable {
         String third = words.length > 2 ? words[2] : "";
         int num1 = Functions.isInt(second) ? Integer.parseInt(second) : 0;
         int num2 = Functions.isInt(third) ? Integer.parseInt(third) : 0;
+
+        QuestsHolder.fireEvent(EventName.IS_CONSIDER_CHEAT);
 
         if (cheatMode) {
             switch (SomeStringsForCheatSwitch.find(first)) {
@@ -116,11 +120,11 @@ public class GameCheats implements Serializable {
                     ship.setFuel(Math.max(0, Math.min(ship.getFuelTanks(), num1)));
                     break;
                 case Knack:
-                    if (num1 >= 0 && num1 < game.getMercenaries().length) {
+                    if (num1 >= 0 && num1 < game.getMercenaries().size()) {
                         String[] skills = third.split(",");
-                        for (int i = 0; i < game.getMercenaries()[num1].getSkills().length && i < skills.length; i++) {
+                        for (int i = 0; i < game.getMercenaries().get(num1).getSkills().length && i < skills.length; i++) {
                             if (Functions.isInt(skills[i])) {
-                                game.getMercenaries()[num1].getSkills()[i] = Math.max(1, Math.min(Consts.MaxSkill, Integer
+                                game.getMercenaries().get(num1).getSkills()[i] = Math.max(1, Math.min(Consts.MaxSkill, Integer
                                         .parseInt(skills[i])));
                             }
                         }
@@ -139,10 +143,10 @@ public class GameCheats implements Serializable {
                     game.setAutoSave(true);
                     break;
                 case Posse:
-                    if (num1 > 0 && num1 < ship.getCrew().length && num2 > 0 && num2 < game.getMercenaries().length
+                    if (num1 > 0 && num1 < ship.getCrew().length && num2 > 0 && num2 <= game.getMercenaries().size() - 2 // minus NA, SPECIAL
                             && !Util.arrayContains(Consts.SpecialCrewMemberIds, (CrewMemberId.fromInt(num2)))) {
                         int skill = ship.getTrader();
-                        ship.getCrew()[num1] = game.getMercenaries()[num2];
+                        ship.getCrew()[num1] = game.getMercenaries().get(num2);
                         if (ship.getTrader() != skill) {
                             game.recalculateBuyPrices(game.getCommander().getCurrentSystem());
                         }
@@ -177,9 +181,9 @@ public class GameCheats implements Serializable {
                         case Japori:
                             game.setQuestStatusJapori(Math.max(0, num2));
                             break;
-                        case Jarek:
+                        /*case Jarek:
                             game.setQuestStatusJarek(Math.max(0, num2));
-                            break;
+                            break;*/
                         case Moon:
                             game.setQuestStatusMoon(Math.max(0, num2));
                             break;
@@ -207,7 +211,7 @@ public class GameCheats implements Serializable {
                                     + Strings.CheatsExperiment + ": " + game.getQuestStatusExperiment() + Strings.newline
                                     + Strings.CheatsGemulon + ": " + game.getQuestStatusGemulon() + Strings.newline
                                     + Strings.CheatsJapori + ": " + game.getQuestStatusJapori() + Strings.newline
-                                    + Strings.CheatsJarek + ": " + game.getQuestStatusJarek() + Strings.newline
+                                    //+ Strings.CheatsJarek + ": " + game.getQuestStatusJarek() + Strings.newline
                                     + Strings.CheatsMoon + ": " + game.getQuestStatusMoon() + Strings.newline
                                     + Strings.CheatsPrincess + ": " + game.getQuestStatusPrincess() + Strings.newline
                                     + Strings.CheatsReactor + ": " + game.getQuestStatusReactor() + Strings.newline

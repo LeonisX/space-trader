@@ -270,7 +270,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
             hireFireButton.setText(game.getCommander().getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
                     : Strings.MercenaryHire);
-            hireFireVisible = rateVisible || (selectedCrewMember.getId() == CrewMemberId.ZEETHIBAL);
+            hireFireVisible = rateVisible || (selectedCrewMember.getId() == CrewMemberId.ZEETHIBAL.castToInt());
         }
 
         nameLabelValue.setVisible(visible);

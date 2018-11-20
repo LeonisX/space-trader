@@ -278,7 +278,7 @@ public class Consts {
 
     //TODO was ArrayList
     public static CrewMemberId[] SpecialCrewMemberIds = new CrewMemberId[]{ // new ArrayList(
-            CrewMemberId.COMMANDER, CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN, CrewMemberId.JAREK,
+            CrewMemberId.COMMANDER, CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN, /*CrewMemberId.JAREK,*/
             CrewMemberId.OPPONENT, CrewMemberId.PRINCESS, CrewMemberId.SCARAB, CrewMemberId.SCORPION,
             CrewMemberId.SPACE_MONSTER, CrewMemberId.WILD};
 
@@ -302,9 +302,9 @@ public class Consts {
             new SpecialEvent(SpecialEventType.GemulonRescued, 0, 0, true),
             new SpecialEvent(SpecialEventType.Japori, 0, 1, false),
             new SpecialEvent(SpecialEventType.JaporiDelivery, 0, 0, true),
-            new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
-            new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
-            new SpecialEvent(SpecialEventType.Lottery, -1000, 0, true),
+            //new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
+            //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
+            //new SpecialEvent(SpecialEventType.Lottery, -1000, 0, true),
             new SpecialEvent(SpecialEventType.Moon, 500000, 4, false),
             new SpecialEvent(SpecialEventType.MoonRetirement, 0, 0, false),
             new SpecialEvent(SpecialEventType.Reactor, 0, 0, false),
@@ -328,7 +328,8 @@ public class Consts {
             new SpecialEvent(SpecialEventType.PrincessInthara, 0, 0, true),
             new SpecialEvent(SpecialEventType.PrincessQonos, 0, 0, false),
             new SpecialEvent(SpecialEventType.PrincessQuantum, 0, 0, false),
-            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true)
+            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true),
+            new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 
     public static TradeItem[] TradeItems = new TradeItem[]{

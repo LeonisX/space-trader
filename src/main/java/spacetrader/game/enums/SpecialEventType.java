@@ -22,9 +22,9 @@ public enum SpecialEventType implements SpaceTraderEnum {
     GemulonRescued, // = 16,
     Japori, // = 17,
     JaporiDelivery, // = 18,
-    Jarek, // = 19,
-    JarekGetsOut, // = 20,
-    Lottery, // = 21,
+    //Jarek, // = 19,
+    //JarekGetsOut, // = 20,
+    //Lottery, // = 21,
     Moon, // = 22,
     MoonRetirement, // = 23,
     Reactor, // = 24,
@@ -48,7 +48,8 @@ public enum SpecialEventType implements SpaceTraderEnum {
     PrincessInthara, // = 42,
     PrincessQonos, // = 43,
     PrincessQuantum, // = 44,
-    PrincessReturned; // = 45
+    PrincessReturned, // = 45
+    ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {
         return values()[i + 1];

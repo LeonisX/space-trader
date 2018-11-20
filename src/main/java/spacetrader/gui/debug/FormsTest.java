@@ -78,7 +78,7 @@ public class FormsTest extends SpaceTraderForm {
         game.getCommander().setCash(65535);
         game.getCommander().getShip().setCrewQuarters(5);
         game.getCommander().getShip().setCrewMembers(new CrewMember[5]);
-        game.getCommander().getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries()[0];
+        game.getCommander().getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries().get(0);
         game.getCommander().getShip().setFuelTanks(24);
         game.getCommander().getShip().setFuel(10);
         game.getCommander().getShip().setHullStrength(100);
@@ -109,7 +109,7 @@ public class FormsTest extends SpaceTraderForm {
         game.getSelectedSystem().setShipyardId(ShipyardId.INCOM);
         game.getSelectedSystem().setTechLevel(TechLevel.HI_TECH);
         game.warpDirect();
-        game.getSelectedSystem().getMercenariesForHire().add(Game.getCurrentGame().getMercenaries()[0]);
+        game.getSelectedSystem().getMercenariesForHire().add(Game.getCurrentGame().getMercenaries().get(0));
         game.getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
 
         initializeComponent();

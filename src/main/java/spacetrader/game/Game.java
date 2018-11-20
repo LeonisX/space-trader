@@ -5,6 +5,8 @@ import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.EventName;
+import spacetrader.game.quest.QuestsHolder;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
@@ -12,9 +14,7 @@ import spacetrader.util.Functions;
 import spacetrader.util.Util;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Game implements Serializable, SpaceTraderGame, SystemTracker, CurrentSystemMgr {
@@ -30,7 +30,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     // Game Data
     private StarSystem[] universe;
     private int[] wormholes = new int[6];
-    private CrewMember[] mercenaries = new CrewMember[Strings.CrewMemberNames.length];
+    private List<CrewMember> mercenaries = new ArrayList<>(Arrays.asList(new CrewMember[Strings.CrewMemberNames.length]));
     private Ship dragonfly = new Ship(ShipType.DRAGONFLY);
     private Ship scarab = new Ship(ShipType.SCARAB);
     private Ship scorpion = new Ship(ShipType.SCORPION);
@@ -66,7 +66,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     private int questStatusGemulon = 0; // 0 = not given yet, 1-7 = days from start, 8 = too late, 9 = in time, 10 = done
     private int questStatusJapori = 0; // 0 = no disease, 1 = Go to Japori (always at least 10 medicine
     // canisters), 2 = Assignment finished or canceled
-    private int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
+    //private int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
     private int questStatusMoon = 0; // 0 = not bought, 1 = bought, 2 = claimed
     private int questStatusPrincess = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara, 3 =
     // Go to Qonos, 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
@@ -93,6 +93,10 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     private boolean encounterOppFleeing = false;
     private boolean encounterOppHit = false;
 
+    private QuestsHolder questsHolder;
+
+    private GameController gameController;
+
     private Game() {
         // need for tests
     }
@@ -103,14 +107,18 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.parentWin = parentWin;
         this.difficulty = difficulty;
 
-        // Keep Generating a new universe until isPlaceSpecialEvents and isPlaceShipyards return true,
+        questsHolder = QuestsHolder.initializeQuestsHolder();
+
+        // Keep Generating a new universe until isSpecialEventsInPlace and isShipyardsInPlace return true,
         // indicating all special events and shipyards were placed.
         do {
+            questsHolder.rollbackTransaction();
+            questsHolder.startTransaction();
             generateUniverse();
-        } while (!(isPlaceSpecialEvents() && isPlaceShipyards()));
+        } while (!(isSpecialEventsInPlace() && isShipyardsInPlace()));
 
-        commander = initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer,
-                StarSystemId.NA));
+        initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer, StarSystemId.NA));
+
         generateCrewMemberList();
 
         createShips();
@@ -118,10 +126,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         calculatePrices(commander.getCurrentSystem());
 
         resetVeryRareEncounters();
-
-        if (getDifficulty().castToInt() < Difficulty.NORMAL.castToInt()) {
-            commander.getCurrentSystem().setSpecialEventType(SpecialEventType.Lottery);
-        }
 
         cheats = new GameCheats();
         if (name.length() == 0) {
@@ -131,6 +135,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             setEasyEncounters(true);
             setCanSuperWarp(true);
         }
+
+        QuestsHolder.fireEvent(EventName.AFTER_GAME_INITIALIZE);
     }
 
     public static Game getCurrentGame() {
@@ -195,10 +201,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             }
         }
 
-        if (commander.getShip().isJarekOnBoard()) {
+        QuestsHolder.fireEvent(EventName.ARRESTED);
+
+        /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
             setQuestStatusJarek(SpecialEvent.STATUS_JAREK_NOT_STARTED);
-        }
+        }*/
 
         if (commander.getShip().isPrincessOnBoard()) {
             GuiFacade.alert(AlertType.PrincessTakenHome);
@@ -559,13 +567,13 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.questStatusMoon = questStatusMoon;
     }
 
-    public int getQuestStatusJarek() {
+    /*public int getQuestStatusJarek() {
         return questStatusJarek;
     }
 
     public void setQuestStatusJarek(int questStatusJarek) {
         this.questStatusJarek = questStatusJarek;
-    }
+    }*/
 
     public int getQuestStatusJapori() {
         return questStatusJapori;
@@ -960,7 +968,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     }
 
     private void createShips() {
-        getDragonfly().getCrew()[0] = getMercenaries()[CrewMemberId.DRAGONFLY.castToInt()];
+        getDragonfly().getCrew()[0] = mercenaries.get(CrewMemberId.DRAGONFLY.castToInt());
         getDragonfly().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         getDragonfly().addEquipment(Consts.Weapons[WeaponType.PULSE_LASER.castToInt()]);
         getDragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
@@ -969,11 +977,11 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         getDragonfly().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         getDragonfly().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-        getScarab().getCrew()[0] = getMercenaries()[CrewMemberId.SCARAB.castToInt()];
+        getScarab().getCrew()[0] = mercenaries.get(CrewMemberId.SCARAB.castToInt());
         getScarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         getScarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
 
-        scorpion.getCrew()[0] = getMercenaries()[CrewMemberId.SCORPION.castToInt()];
+        scorpion.getCrew()[0] = mercenaries.get(CrewMemberId.SCORPION.castToInt());
         scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         scorpion.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
@@ -981,7 +989,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         scorpion.addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         scorpion.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-        spaceMonster.getCrew()[0] = getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()];
+        spaceMonster.getCrew()[0] = mercenaries.get(CrewMemberId.SPACE_MONSTER.castToInt());
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
@@ -2199,10 +2207,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
         }
 
-        if (commander.getShip().isJarekOnBoard()) {
+        QuestsHolder.fireEvent(EventName.ESCAPE_WITH_POD);
+
+        /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
             setQuestStatusJarek(SpecialEvent.STATUS_JAREK_NOT_STARTED);
-        }
+        }*/
 
         if (commander.getShip().isPrincessOnBoard()) {
             GuiFacade.alert(AlertType.PrincessTakenHome);
@@ -2264,29 +2274,34 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         // Wild, Jonathan Wild earns his keep now - JAF.
         // Jarek, Ambassador Jarek earns his keep now - JAF.
         // Dummy pilots for opponents.
-        getMercenaries()[CrewMemberId.ZEETHIBAL.castToInt()] = new CrewMember(CrewMemberId.ZEETHIBAL, 5, 5, 5, 5,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.OPPONENT.castToInt()] = new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.WILD.castToInt()] = new CrewMember(CrewMemberId.WILD, 7, 10, 2, 5, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.JAREK.castToInt()] = new CrewMember(CrewMemberId.JAREK, 3, 2, 10, 4, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.PRINCESS.castToInt()] = new CrewMember(CrewMemberId.PRINCESS, 4, 3, 8, 9,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()] = new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10,
-                10, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.DRAGONFLY.castToInt()] = new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1,
-                6 + d, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.SCARAB.castToInt()] = new CrewMember(CrewMemberId.SCARAB, 5 + d, 6 + d, 1, 6 + d,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.SCORPION.castToInt()] = new CrewMember(CrewMemberId.SCORPION, 8 + d, 8 + d, 1,
-                6 + d, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()] = new CrewMember(CrewMemberId.SPACE_MONSTER, 8 + d, 8 + d,
-                1, 1 + d, StarSystemId.NA);
+        mercenaries.set(CrewMemberId.ZEETHIBAL.castToInt(), new CrewMember(CrewMemberId.ZEETHIBAL, 5, 5, 5, 5,
+                StarSystemId.NA));
+        mercenaries.set(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5,
+                StarSystemId.NA));
+        mercenaries.set(CrewMemberId.WILD.castToInt(), new CrewMember(CrewMemberId.WILD, 7, 10, 2, 5, StarSystemId.NA));
+
+        QuestsHolder.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST);
+
+        // Jarek TODO remove after finish this quest
+
+        // getMercenaries()[CrewMemberId.JAREK.castToInt()] = new CrewMember(CrewMemberId.JAREK, 3, 2, 10, 4, StarSystemId.NA);
+        mercenaries.set(CrewMemberId.PRINCESS.castToInt(), new CrewMember(CrewMemberId.PRINCESS, 4, 3, 8, 9,
+                StarSystemId.NA));
+        mercenaries.set(CrewMemberId.FAMOUS_CAPTAIN.castToInt(), new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10,
+                10, StarSystemId.NA));
+        mercenaries.set(CrewMemberId.DRAGONFLY.castToInt(), new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1,
+                6 + d, StarSystemId.NA));
+        mercenaries.set(CrewMemberId.SCARAB.castToInt(), new CrewMember(CrewMemberId.SCARAB, 5 + d, 6 + d, 1, 6 + d,
+                StarSystemId.NA));
+        mercenaries.set(CrewMemberId.SCORPION.castToInt(), new CrewMember(CrewMemberId.SCORPION, 8 + d, 8 + d, 1,
+                6 + d, StarSystemId.NA));
+        mercenaries.set(CrewMemberId.SPACE_MONSTER.castToInt(), new CrewMember(CrewMemberId.SPACE_MONSTER, 8 + d, 8 + d,
+                1, 1 + d, StarSystemId.NA));
 
         // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
-        for (int i = 1; i < getMercenaries().length; i++) {
+        for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, SPECIAL
             // Only create a CrewMember Object if one doesn't already exist in this slot in the array.
-            if (getMercenaries()[i] == null) {
+            if (mercenaries.get(i) == null) {
                 StarSystemId id;
                 boolean ok = false;
 
@@ -2298,8 +2313,9 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                     }
                 } while (!ok);
 
-                getMercenaries()[i] = new CrewMember(CrewMemberId.fromInt(i), Functions.randomSkill(),
-                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), id);
+                mercenaries.set(i, new CrewMember(CrewMemberId.fromInt(i), Functions.randomSkill(),
+                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), id)
+                );
             }
         }
     }
@@ -2320,6 +2336,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.getMinimumTechLevel().castToInt(), polSys
                     .getMaximumTechLevel().castToInt() + 1));
 
+            //TODO in quest
             // Galvon must be a Monarchy.
             if (id == StarSystemId.Galvon) {
                 size = Size.LARGE;
@@ -2483,7 +2500,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 commander.increaseRandomSkill();
                 commander.increaseRandomSkill();
                 break;
-            case Jarek:
+            /*case Jarek:
                 if (commander.getShip().getFreeCrewQuartersCount() == 0) {
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                     remove = false;
@@ -2497,9 +2514,9 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             case JarekGetsOut:
                 setQuestStatusJarek(SpecialEvent.STATUS_JAREK_DONE);
                 commander.getShip().fire(CrewMemberId.JAREK);
-                break;
-            case Lottery:
-                break;
+                break;*/
+            /*case Lottery:
+                break;*/
             case Moon:
                 GuiFacade.alert(AlertType.SpecialMoonBought);
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_BOUGHT);
@@ -2521,7 +2538,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                     remove = false;
                 } else {
-                    CrewMember princess = getMercenaries()[CrewMemberId.PRINCESS.castToInt()];
+                    CrewMember princess = mercenaries.get(CrewMemberId.PRINCESS.castToInt());
                     GuiFacade.alert(AlertType.SpecialPassengerOnBoard, princess.getName());
                     commander.getShip().hire(princess);
                 }
@@ -2537,7 +2554,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 }
                 break;
             case PrincessReturned:
-                commander.getShip().fire(CrewMemberId.PRINCESS);
+                commander.getShip().fire(CrewMemberId.PRINCESS.castToInt());
                 curSys.setSpecialEventType(SpecialEventType.PrincessQuantum);
                 setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_RETURNED);
                 remove = false;
@@ -2641,7 +2658,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                     GuiFacade.alert(AlertType.WildWontBoardReactor);
                     remove = false;
                 } else {
-                    CrewMember wild = getMercenaries()[CrewMemberId.WILD.castToInt()];
+                    CrewMember wild = mercenaries.get(CrewMemberId.WILD.castToInt());
                     GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
                     commander.getShip().hire(wild);
                     setQuestStatusWild(SpecialEvent.STATUS_WILD_STARTED);
@@ -2653,7 +2670,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 break;
             case WildGetsOut:
                 // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
-                CrewMember zeethibal = getMercenaries()[CrewMemberId.ZEETHIBAL.castToInt()];
+                CrewMember zeethibal = mercenaries.get(CrewMemberId.ZEETHIBAL.castToInt());
                 zeethibal.setCurrentSystem(getUniverse()[StarSystemId.Kravat.castToInt()]);
                 int lowest1 = commander.nthLowestSkill(1);
                 int lowest2 = commander.nthLowestSkill(2);
@@ -2663,7 +2680,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
                 setQuestStatusWild(SpecialEvent.STATUS_WILD_DONE);
                 commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-                commander.getShip().fire(CrewMemberId.WILD);
+                commander.getShip().fire(CrewMemberId.WILD.castToInt());
                 recalculateSellPrices(curSys);
                 break;
         }
@@ -2730,7 +2747,9 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             setFabricRipProbability(getFabricRipProbability() - num);
         }
 
-        if (commander.getShip().isJarekOnBoard()) {
+        QuestsHolder.fireEvent(EventName.ON_INCREMENT_DAYS);
+
+        /*if (commander.getShip().isJarekOnBoard()) {
             if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT / 2) {
                 GuiFacade.alert(AlertType.SpecialPassengerConcernedJarek);
             } else if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT - 1) {
@@ -2744,17 +2763,17 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             if (getQuestStatusJarek() < SpecialEvent.STATUS_JAREK_IMPATIENT) {
                 setQuestStatusJarek(getQuestStatusJarek() + 1);
             }
-        }
+        }*/
 
         if (commander.getShip().isPrincessOnBoard()) {
             if (getQuestStatusPrincess() == (SpecialEvent.STATUS_PRINCESS_IMPATIENT + SpecialEvent.STATUS_PRINCESS_RESCUED) / 2) {
                 GuiFacade.alert(AlertType.SpecialPassengerConcernedPrincess);
             } else if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT - 1) {
                 GuiFacade.alert(AlertType.SpecialPassengerImpatientPrincess);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setPilot(0);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setFighter(0);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setTrader(0);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setEngineer(0);
+                mercenaries.get(CrewMemberId.PRINCESS.castToInt()).setPilot(0);
+                mercenaries.get(CrewMemberId.PRINCESS.castToInt()).setFighter(0);
+                mercenaries.get(CrewMemberId.PRINCESS.castToInt()).setTrader(0);
+                mercenaries.get(CrewMemberId.PRINCESS.castToInt()).setEngineer(0);
             }
 
             if (getQuestStatusPrincess() < SpecialEvent.STATUS_PRINCESS_IMPATIENT) {
@@ -2767,10 +2786,10 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 GuiFacade.alert(AlertType.SpecialPassengerConcernedWild);
             } else if (getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT - 1) {
                 GuiFacade.alert(AlertType.SpecialPassengerImpatientWild);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setPilot(0);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setFighter(0);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setTrader(0);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setEngineer(0);
+                mercenaries.get(CrewMemberId.WILD.castToInt()).setPilot(0);
+                mercenaries.get(CrewMemberId.WILD.castToInt()).setFighter(0);
+                mercenaries.get(CrewMemberId.WILD.castToInt()).setTrader(0);
+                mercenaries.get(CrewMemberId.WILD.castToInt()).setEngineer(0);
             }
 
             if (getQuestStatusWild() < SpecialEvent.STATUS_WILD_IMPATIENT) {
@@ -2779,10 +2798,10 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
     }
 
-    private Commander initializeCommander(String name, CrewMember commanderCrewMember) {
-        Commander commander = new Commander(commanderCrewMember);
-        getMercenaries()[CrewMemberId.COMMANDER.castToInt()] = commander;
-        Strings.CrewMemberNames[CrewMemberId.COMMANDER.castToInt()] = name;
+    private void initializeCommander(String name, CrewMember commanderCrewMember) {
+        commander = new Commander(commanderCrewMember);
+        mercenaries.set(commander.getId(), commander);
+        Strings.CrewMemberNames[commander.getId()] = name;
 
         while (commander.getCurrentSystem() == null) {
             StarSystem system = getUniverse()[Functions.getRandom(getUniverse().length)];
@@ -2805,7 +2824,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
 
         commander.getCurrentSystem().setVisited(true);
-        return commander;
     }
 
     private void newsAddEvent(NewsEvent newEvent) {
@@ -2813,6 +2831,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     }
 
     private void newsAddEventsOnArrival() {
+        QuestsHolder.fireEvent(EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL);
         if (commander.getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
             switch (commander.getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
@@ -2876,11 +2895,11 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                         newsAddEvent(NewsEvent.JaporiDelivery);
                     }
                     break;
-                case JarekGetsOut:
+                /*case JarekGetsOut:
                     if (commander.getShip().isJarekOnBoard()) {
                         newsAddEvent(NewsEvent.JarekGetsOut);
                     }
-                    break;
+                    break;*/
                 case Princess:
                     newsAddEvent(NewsEvent.Princess);
                     break;
@@ -2960,9 +2979,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         incDays(1);
     }
 
-    private boolean isPlaceShipyards() {
-        boolean goodUniverse = true;
-
+    private boolean isShipyardsInPlace() {
         ArrayList<Integer> systemIdList = new ArrayList<>();
         for (int system = 0; system < getUniverse().length; system++) {
             if (getUniverse()[system].getTechLevel() == TechLevel.HI_TECH) {
@@ -2971,7 +2988,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
 
         if (systemIdList.size() < Consts.Shipyards.length) {
-            goodUniverse = false;
+            return false;
         } else {
             // Assign the shipyards to High-Tech systems.
             for (int shipyard = 0; shipyard < Consts.Shipyards.length; shipyard++) {
@@ -2979,13 +2996,11 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                         .setShipyardId(ShipyardId.fromInt(shipyard));
             }
         }
-
-        return goodUniverse;
+        return true;
     }
 
-    private boolean isPlaceSpecialEvents() {
+    private boolean isSpecialEventsInPlace() {
         boolean goodUniverse = true;
-        int system;
 
         getUniverse()[StarSystemId.Baratas.castToInt()].setSpecialEventType(SpecialEventType.DragonflyBaratas);
         getUniverse()[StarSystemId.Melina.castToInt()].setSpecialEventType(SpecialEventType.DragonflyMelina);
@@ -2994,7 +3009,9 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         getUniverse()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentStopped);
         getUniverse()[StarSystemId.Gemulon.castToInt()].setSpecialEventType(SpecialEventType.GemulonRescued);
         getUniverse()[StarSystemId.Japori.castToInt()].setSpecialEventType(SpecialEventType.JaporiDelivery);
-        getUniverse()[StarSystemId.Devidia.castToInt()].setSpecialEventType(SpecialEventType.JarekGetsOut);
+
+        QuestsHolder.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
+        //getUniverse()[StarSystemId.Devidia.castToInt()].setSpecialEventType(SpecialEventType.JarekGetsOut);
         getUniverse()[StarSystemId.Utopia.castToInt()].setSpecialEventType(SpecialEventType.MoonRetirement);
         getUniverse()[StarSystemId.Nix.castToInt()].setSpecialEventType(SpecialEventType.ReactorDelivered);
         getUniverse()[StarSystemId.Acamar.castToInt()].setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
@@ -3006,22 +3023,21 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         getUniverse()[StarSystemId.Qonos.castToInt()].setSpecialEventType(SpecialEventType.PrincessQonos);
 
         // Assign a wormhole location endpoint for the Scarab.
-        for (system = 0; system < getWormholes().length
-                && getUniverse()[getWormholes()[system]].getSpecialEventType() != SpecialEventType.NA; system++) {
-        }
-        if (system < getWormholes().length) {
-            getUniverse()[getWormholes()[system]].setSpecialEventType(SpecialEventType.ScarabDestroyed);
+        OptionalInt freeWormhole = Arrays.stream(getWormholes())
+                .filter(wormhole -> getUniverse()[wormhole].getSpecialEventType() == SpecialEventType.NA).findAny();
+        if (freeWormhole.isPresent()) {
+            getUniverse()[freeWormhole.getAsInt()].setSpecialEventType(SpecialEventType.ScarabDestroyed);
         } else {
             goodUniverse = false;
         }
 
-        // Find a Hi-Tech system without a special event.
+        // Find a Hi-Tech system without a special event for ArtifactDelivery.
         if (goodUniverse) {
-            for (system = 0; system < getUniverse().length
-                    && !(getUniverse()[system].getSpecialEventType() == SpecialEventType.NA && getUniverse()[system].getTechLevel() == TechLevel.HI_TECH); system++) {
-            }
-            if (system < getUniverse().length) {
-                getUniverse()[system].setSpecialEventType(SpecialEventType.ArtifactDelivery);
+            Optional<StarSystem> freeHiTechSystem = Arrays.stream(getUniverse())
+                    .filter(universe -> universe.getSpecialEventType() == SpecialEventType.NA
+                            && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
+            if (freeHiTechSystem.isPresent()) {
+                freeHiTechSystem.get().setSpecialEventType(SpecialEventType.ArtifactDelivery);
             } else {
                 goodUniverse = false;
             }
@@ -3048,6 +3064,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
 
         // Assign the rest of the events randomly.
+        //TODO remove after all quests
+        int system;
         if (goodUniverse) {
             for (int i = 0; i < Consts.SpecialEvents.length; i++) {
                 for (int j = 0; j < Consts.SpecialEvents[i].getOccurrence(); j++) {
@@ -3058,6 +3076,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                     getUniverse()[system].setSpecialEventType(Consts.SpecialEvents[i].getType());
                 }
             }
+        }
+
+        if (goodUniverse) {
+            QuestsHolder.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
+        } else {
+            //TODO rollback quest holder transaction
         }
 
         return goodUniverse;
@@ -3104,7 +3128,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     }
 
     public void selectNextSystemWithinRange(boolean forward) {
-        int[] dest = Destinations();
+        int[] dest = getDestinations();
 
         if (dest.length > 0) {
             int index = spacetrader.util.Util.bruteSeek(dest, getWarpSystemId().castToInt());
@@ -3260,7 +3284,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return getInsuranceCosts() + getInterestCosts() + getMercenaryCosts() + getWormholeCosts();
     }
 
-    private int[] Destinations() {
+    private int[] getDestinations() {
         ArrayList<Integer> list = new ArrayList<>();
 
         for (int i = 0; i < getUniverse().length; i++)
@@ -3276,6 +3300,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return ids;
     }
 
+    //TODO return castToInt
     public Difficulty getDifficulty() {
         return difficulty;
     }
@@ -3598,7 +3623,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return total;
     }
 
-    public CrewMember[] getMercenaries() {
+    public List<CrewMember> getMercenaries() {
         return mercenaries;
     }
 
@@ -3797,6 +3822,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return getOptions().isShowTrackedRange();
     }
 
+    //TODO add all quests
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -3819,7 +3845,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 questStatusExperiment == game.questStatusExperiment &&
                 questStatusGemulon == game.questStatusGemulon &&
                 questStatusJapori == game.questStatusJapori &&
-                questStatusJarek == game.questStatusJarek &&
+                //questStatusJarek == game.questStatusJarek &&
                 questStatusMoon == game.questStatusMoon &&
                 questStatusPrincess == game.questStatusPrincess &&
                 questStatusReactor == game.questStatusReactor &&
@@ -3842,7 +3868,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 Objects.equals(cheats, game.cheats) &&
                 Arrays.equals(universe, game.universe) &&
                 Arrays.equals(wormholes, game.wormholes) &&
-                Arrays.equals(mercenaries, game.mercenaries) &&
+                mercenaries.equals(game.mercenaries) &&
                 Objects.equals(dragonfly, game.dragonfly) &&
                 Objects.equals(scarab, game.scarab) &&
                 Objects.equals(scorpion, game.scorpion) &&
@@ -3862,13 +3888,14 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 Objects.equals(parentWin, game.parentWin);
     }
 
+    //TODO add all quests
     @Override
     public int hashCode() {
         int result = Objects.hash(commander, cheats, dragonfly, scarab, scorpion, spaceMonster, opponent,
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, tribbleMessage, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, newsEvents, difficulty, autoSave, easyEncounters, endStatus,
                 encounterType, selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
-                questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori, questStatusJarek,
+                questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori, /*questStatusJarek,*/
                 questStatusMoon, questStatusPrincess, questStatusReactor, questStatusScarab, questStatusSculpture,
                 questStatusSpaceMonster, questStatusWild, fabricRipProbability, justLootedMarie, canSuperWarp,
                 chanceOfVeryRareEncounter, veryRareEncounters, options, parentWin, encounterContinueFleeing,
@@ -3876,9 +3903,29 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 encounterOppFleeing, encounterOppHit);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
-        result = 31 * result + Arrays.hashCode(mercenaries);
+        result = 31 * result + mercenaries.hashCode();
         result = 31 * result + Arrays.hashCode(priceCargoBuy);
         result = 31 * result + Arrays.hashCode(priceCargoSell);
         return result;
+    }
+
+    public void setController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
+    public GameController getController() {
+        return gameController;
+    }
+
+    public StarSystemId getCurrentSystemId() {
+        return commander.getCurrentSystemId();
+    }
+
+    public QuestsHolder getQuestsHolder() {
+        return questsHolder;
+    }
+
+    public void setQuestsHolder(QuestsHolder questsHolder) {
+        this.questsHolder = questsHolder;
     }
 }

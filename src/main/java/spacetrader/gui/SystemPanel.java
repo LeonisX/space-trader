@@ -9,6 +9,8 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.EventName;
+import spacetrader.game.quest.QuestsHolder;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
@@ -206,6 +208,8 @@ class SystemPanel extends Panel {
             if (specialButton.isVisible()) {
                 setToolTip(specialButton, system.specialEvent().getTitle());
             }
+
+            QuestsHolder.fireEvent(EventName.BEFORE_SPECIAL_BUTTON_SHOW, specialButton);
         }
     }
 
@@ -219,35 +223,40 @@ class SystemPanel extends Panel {
     }
 
     private void specialButtonClick() {
+        //TODO remove after all quests
         SpecialEvent specEvent = commander.getCurrentSystem().specialEvent();
-        String button1Text, button2Text;
-        DialogResult button1Result, button2Result;
+        if (specEvent != null) {
+            String button1Text, button2Text;
+            DialogResult button1Result, button2Result;
 
-        if (specEvent.isMessageOnly()) {
-            button1Text = Strings.AlertsOk;
-            button2Text = null;
-            button1Result = DialogResult.OK;
-            button2Result = DialogResult.NONE;
-        } else {
-            button1Text = Strings.AlertsYes;
-            button2Text = Strings.AlertsNo;
-            button1Result = DialogResult.YES;
-            button2Result = DialogResult.NO;
-        }
+            if (specEvent.isMessageOnly()) {
+                button1Text = Strings.AlertsOk;
+                button2Text = null;
+                button1Result = DialogResult.OK;
+                button2Result = DialogResult.NONE;
+            } else {
+                button1Text = Strings.AlertsYes;
+                button2Text = Strings.AlertsNo;
+                button1Result = DialogResult.YES;
+                button2Result = DialogResult.NO;
+            }
 
-        FormAlert alert = new FormAlert(specEvent.getTitle(), specEvent.getString(), button1Text, button1Result,
-                button2Text, button2Result, null);
-        if (alert.showDialog() != DialogResult.NO) {
-            if (commander.getCashToSpend() < specEvent.getPrice())
-                GuiFacade.alert(AlertType.SpecialIF);
-            else {
-                try {
-                    game.handleSpecialEvent();
-                } catch (GameEndException ex) {
-                    controller.gameEnd();
+            FormAlert alert = new FormAlert(specEvent.getTitle(), specEvent.getString(), button1Text, button1Result,
+                    button2Text, button2Result, null);
+            if (alert.showDialog() != DialogResult.NO) {
+                if (commander.getCashToSpend() < specEvent.getPrice())
+                    GuiFacade.alert(AlertType.SpecialIF);
+                else {
+                    try {
+                        game.handleSpecialEvent();
+                    } catch (GameEndException ex) {
+                        controller.gameEnd();
+                    }
                 }
             }
         }
+
+        QuestsHolder.fireEvent(EventName.SPECIAL_BUTTON_CLICKED, specialButton);
 
         mainWindow.updateAll();
     }

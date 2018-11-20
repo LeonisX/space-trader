@@ -225,6 +225,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* When quest - change status
+* When finish - make sure - remove from listeners, unsubscribe all
+* When show monsters - show unfinished quests or also show status
+* When fireEvent - filter all non-active quests
+
 * Different image sizes, font sizes (config)
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin

@@ -6,7 +6,6 @@ import spacetrader.game.enums.SkillType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
-import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -16,7 +15,9 @@ public class CrewMember implements Serializable {
 
     static final long serialVersionUID = 15L;
 
-    private CrewMemberId id;
+    private int id;
+    //TODO remove in future
+    private CrewMemberId crewMemberId;
     private int[] skills = new int[4];
     private StarSystemId currentSystemId; // StarSystemId.NA
 
@@ -24,8 +25,13 @@ public class CrewMember implements Serializable {
         // need for tests
     }
 
-    CrewMember(CrewMemberId id, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
+    public CrewMember(CrewMemberId crewMemberId, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
+        this(crewMemberId, crewMemberId.castToInt(), pilot, fighter, trader, engineer, curSystemId);
+    }
+
+    public CrewMember(CrewMemberId crewMemberId, int id, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
         this.id = id;
+        this.crewMemberId = crewMemberId;
         setPilot(pilot);
         setFighter(fighter);
         setTrader(trader);
@@ -34,7 +40,8 @@ public class CrewMember implements Serializable {
     }
 
     CrewMember(CrewMember baseCrewMember) {
-        id = baseCrewMember.getId();
+        this.id = baseCrewMember.getId();
+        this.crewMemberId = baseCrewMember.getCrewMemberId();
         setPilot(baseCrewMember.getPilot());
         setFighter(baseCrewMember.getFighter());
         setTrader(baseCrewMember.getTrader());
@@ -149,12 +156,17 @@ public class CrewMember implements Serializable {
         skills[SkillType.FIGHTER.castToInt()] = value;
     }
 
-    public CrewMemberId getId() {
+    /*public CrewMemberId getId() {
         return id;
-    }
+    }*/
 
     public String getName() {
-        return Strings.CrewMemberNames[id.castToInt()];
+        if (id >= 1000) {
+            return Game.getCurrentGame().getQuestsHolder().getQuests().stream()
+                    .filter(q -> q.getSpecialCrewId() == id).findFirst().get().getCrewMemberName();
+        } else {
+            return Strings.CrewMemberNames[id];
+        }
     }
 
     public int getPilot() {
@@ -166,7 +178,7 @@ public class CrewMember implements Serializable {
     }
 
     public int getRate() {
-        return (Util.arrayContains(Consts.SpecialCrewMemberIds, getId()) || getId() == CrewMemberId.ZEETHIBAL)
+        return (id >= 1000 || getCrewMemberId() == CrewMemberId.ZEETHIBAL)
                 ? 0 : (getPilot() + getFighter() + getTrader() + getEngineer()) * 3;
     }
 
@@ -182,12 +194,24 @@ public class CrewMember implements Serializable {
         skills[SkillType.TRADER.castToInt()] = value;
     }
 
-    public void setId(CrewMemberId id) {
+    public void setSkills(int[] skills) {
+        this.skills = skills;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setSkills(int[] skills) {
-        this.skills = skills;
+    public CrewMemberId getCrewMemberId() {
+        return crewMemberId;
+    }
+
+    public void setCrewMemberId(CrewMemberId crewMemberId) {
+        this.crewMemberId = crewMemberId;
     }
 
     @Override

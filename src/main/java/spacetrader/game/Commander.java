@@ -287,4 +287,8 @@ public class Commander extends CrewMember implements Serializable {
         result = 31 * result + Arrays.hashCode(priceCargo);
         return result;
     }
+
+    public void spendCash(int cashToSpend) {
+        cash -= cashToSpend;
+    }
 }

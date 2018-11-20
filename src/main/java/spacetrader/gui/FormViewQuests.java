@@ -10,6 +10,8 @@ import spacetrader.game.SpecialEvent;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.quest.EventName;
+import spacetrader.game.quest.QuestsHolder;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -172,15 +174,15 @@ public class FormViewQuests extends SpaceTraderForm {
                     if (game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT) {
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturningImpatient,
-                                game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
+                                game.getMercenaries().get(CrewMemberId.PRINCESS.castToInt()).getName()));
                     } else {
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturning,
-                                game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
+                                game.getMercenaries().get(CrewMemberId.PRINCESS.castToInt()).getName()));
                     }
                 } else {
                     quests.add(Functions.stringVars(Strings.QuestPrincessReturn,
-                            game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
+                            game.getMercenaries().get(CrewMemberId.PRINCESS.castToInt()).getName()));
                 }
                 break;
             case SpecialEvent.STATUS_PRINCESS_RETURNED:
@@ -210,13 +212,15 @@ public class FormViewQuests extends SpaceTraderForm {
             quests.add(Strings.QuestArtifact);
         }
 
-        if (game.getCommander().getShip().isJarekOnBoard()) {
+        QuestsHolder.fireEvent(EventName.ON_GET_QUESTS_STRINGS);
+
+        /*if (game.getCommander().getShip().isJarekOnBoard()) {
             if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT) {
                 quests.add(Strings.QuestJarekImpatient);
             } else {
                 quests.add(Strings.QuestJarek);
             }
-        }
+        }*/
 
         if (game.getCommander().getShip().isWildOnBoard()) {
             if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT) {

@@ -263,8 +263,8 @@ public class Strings {
     public static String AlertsJailMercenariesLeaveMessage = "Any mercenaries who were traveling with you have left.";
     public static String AlertsJailShipSoldTitle = "Ship Sold";
     public static String AlertsJailShipSoldMessage = "Because you don't have the credits to pay your fine, your ship is sold.";
-    public static String AlertsJarekTakenHomeTitle = "Jarek Taken Home";
-    public static String AlertsJarekTakenHomeMessage = "The Space Corps decides to give ambassador Jarek a lift home to Devidia.";
+    /*public static String AlertsJarekTakenHomeTitle = "Jarek Taken Home";
+    public static String AlertsJarekTakenHomeMessage = "The Space Corps decides to give ambassador Jarek a lift home to Devidia.";*/
     public static String AlertsLeavingIFInsuranceTitle = "Not Enough Money";
     public static String AlertsLeavingIFInsuranceMessage = "You don't have enough cash to pay for your insurance.";
     public static String AlertsLeavingIFMercenariesTitle = "Pay Mercenaries";
@@ -350,14 +350,14 @@ public class Strings {
     public static String AlertsSpecialNoQuartersMessage = "There are currently no free crew quarters on your ship.";
     public static String AlertsSpecialNotEnoughBaysTitle = "Not Enough Bays";
     public static String AlertsSpecialNotEnoughBaysMessage = "You don't have enough empty cargo bays at the moment.";
-    public static String AlertsSpecialPassengerConcernedJarekTitle = "Ship's Comm.";
-    public static String AlertsSpecialPassengerConcernedJarekMessage = "Commander? Jarek here. Do you require any assitance in charting a course to Devidia?";
+    /*public static String AlertsSpecialPassengerConcernedJarekTitle = "Ship's Comm.";
+    public static String AlertsSpecialPassengerConcernedJarekMessage = "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?";*/
     public static String AlertsSpecialPassengerConcernedPrincessTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerConcernedPrincessMessage = "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?";
     public static String AlertsSpecialPassengerConcernedWildTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerConcernedWildMessage = "Bridge? This is Jonathan. Are we there yet? Heh, heh. Sorry, I couldn't resist.";
-    public static String AlertsSpecialPassengerImpatientJarekTitle = "Ship's Comm.";
-    public static String AlertsSpecialPassengerImpatientJarekMessage = "Captain! This is the Ambassador speaking. We should have been there by now?!";
+    /*public static String AlertsSpecialPassengerImpatientJarekTitle = "Ship's Comm.";
+    public static String AlertsSpecialPassengerImpatientJarekMessage = "Captain! This is the Ambassador speaking. We should have been there by now?!";*/
     public static String AlertsSpecialPassengerImpatientPrincessTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerImpatientPrincessMessage = "Sir! Are you taking me home or merely taking the place of my previous captors?!";
     public static String AlertsSpecialPassengerImpatientWildTitle = "Ship's Comm.";
@@ -466,7 +466,7 @@ public class Strings {
     public static String CheatsExperiment = "Experiment";
     public static String CheatsGemulon = "Gemulon";
     public static String CheatsJapori = "Japori";
-    public static String CheatsJarek = "Jarek";
+    /*public static String CheatsJarek = "Jarek";*/
     public static String CheatsMoon = "Moon";
     public static String CheatsPrincess = "Princess";
     public static String CheatsReactor = "Reactor";
@@ -594,9 +594,9 @@ public class Strings {
     public static String QuestGemulonFuel = "Get your fuel compactor at Gemulon.";
     public static String QuestGemulonInformDays = "Inform Gemulon about alien invasion within ^1.";
     public static String QuestGemulonInformTomorrow = "Inform Gemulon about alien invasion by tomorrow.";
-    public static String QuestJarek = "Take ambassador Jarek to Devidia.";
+    /*public static String QuestJarek = "Take ambassador Jarek to Devidia.";
     public static String QuestJarekImpatient = QuestJarek + newline
-            + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.";
+            + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.";*/
     public static String QuestJaporiDeliver = "Deliver antidote to Japori.";
     public static String QuestMoon = "Claim your moon at Utopia.";
     public static String QuestPrincessCentauri = "Follow the Scorpion to Centauri.";
@@ -661,7 +661,7 @@ public class Strings {
     public static String SpecialCargoArtifact = "An alien artifact.";
     public static String SpecialCargoExperiment = "A portable singularity.";
     public static String SpecialCargoJapori = "10 bays of antidote.";
-    public static String SpecialCargoJarek = "A haggling computer.";
+    /*public static String SpecialCargoJarek = "A haggling computer.";*/
     public static String SpecialCargoNone = "No special items.";
     public static String SpecialCargoReactor = "An unstable reactor taking up 5 bays.";
     public static String SpecialCargoSculpture = "A stolen plastic sculpture of a man holding some kind of light sword.";
@@ -698,7 +698,7 @@ public class Strings {
             // The rest are mercenaries added JAF
             "Opponent", // crew of opponent mantis, pirate, police, and trader ships
             "Wild", // now earns his keep!
-            "Jarek", // now earns his keep!
+            //"Jarek", // now earns his keep!
             "Captain", // crew of famous captain ships
             "Dragonfly", // dummy crew member used in opponent ship
             "Scarab", // dummy crew member used in opponent ship
@@ -782,7 +782,7 @@ public class Strings {
             "Citizens Mourn Destruction of Captain Huie's Ship!",
             "Editorial: We Must Help Japori!",
             "Disease Antidotes Arrive! Health Officials Optimistic.",
-            "Ambassador Jarek Returns from Crisis.",
+            //"Ambassador Jarek Returns from Crisis.",
             "Security Scandal: Test Craft Confirmed Stolen.",
             "Wormhole Traffic Delayed as Stolen Craft Destroyed.",
             "Wormhole Travelers Harassed by Unusual Ship!",
@@ -971,9 +971,9 @@ public class Strings {
             "This information of the arrival of the alien invasion force allows us to prepare a defense. You have saved our way of life. As a reward, we have a fuel compactor gadget for you, which will increase the travel distance by 3 parsecs for any ship. Return here to get it installed.",
             "A strange disease has invaded the Japori system. We would like you to deliver these ten canisters of special antidote to Japori. Note that, if you accept, ten of your cargo bays will remain in use on your way to Japori. Do you accept this mission?",
             "Thank you for delivering the medicine to us. We don't have any money to reward you, but we do have an alien fast-learning machine with which we will increase your skills.",
-            "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?",
-            "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment.",
-            "You are lucky! While docking on the space port, you receive a message that you won 1000 credits in a lottery. The prize had been added to your account.",
+            //"A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?",
+            //"Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment.",
+            //"You are lucky! While docking on the space port, you receive a message that you won 1000 credits in a lottery. The prize had been added to your account.",
             "There is a small but habitable moon for sale in the Utopia system, for the very reasonable sum of half a million credits. If you accept it, you can retire to it and live a peaceful, happy, and wealthy life. Do you wish to buy it?",
             "Welcome to the Utopia system. Your own moon is available for you to retire to it, if you feel inclined to do that. Are you ready to retire and lead a happy, peaceful, and wealthy life?",
             "Galactic criminal Henry Morgan wants this illegal ion reactor delivered to Nix. It's a very dangerous mission! The reactor and its fuel are bulky, taking up 15 bays. Worse, it's not stable -- its resonant energy will weaken your shields and hull strength while it's aboard your ship. Are you willing to deliver it?",
@@ -989,7 +989,7 @@ public class Strings {
             "An eccentric alien billionaire wants to buy your collection of tribbles and offers half a credit for each of them. Do you accept his offer?",
             "Law Enforcement is closing in on notorious criminal kingpin Jonathan Wild. He would reward you handsomely for smuggling him home to Kravat. You'd have to avoid capture by the Police on the way. Are you willing to give him a berth?",
             "Jonathan Wild is most grateful to you for spiriting him to safety. As a reward, he has one of his Cyber Criminals hack into the Police Database, and clean up your record. He also offers you the opportunity to take his talented nephew Zeethibal along as a Mercenary with no pay.",
-            "A hooded figure approaches you and asks if you'd be willing to deliver some recently aquired merchandise to Endor. He's holding a small sculpture of a man holding some kind of light sword that you strongly suspect was stolen. It appears to be made of plastic and not very valuable. \"I'll pay you 2,000 credits now, plus 15,000 on delivery,\" the figure says. After seeing the look on your face he adds, \"It's a collector's item. Will you deliver it or not?\"",
+            "A hooded figure approaches you and asks if you'd be willing to deliver some recently acquired merchandise to Endor. He's holding a small sculpture of a man holding some kind of light sword that you strongly suspect was stolen. It appears to be made of plastic and not very valuable. \"I'll pay you 2,000 credits now, plus 15,000 on delivery,\" the figure says. After seeing the look on your face he adds, \"It's a collector's item. Will you deliver it or not?\"",
             "Yet another dark, hooded figure approaches. \"Do you have the action fig- umm, the sculpture?\" You hand it over and hear what sounds very much like a giggle from under the hood. \"I know you were promised 15,000 credits on delivery, but I'm strapped for cash right now. However, I have something better for you. I have an acquaintance who can install hidden compartments in your ship.\" Return with an empty gadget slot when you're ready to have it installed.",
             "You're taken to a warehouse and whisked through the door. A grubby alien of some humanoid species - you're not sure which one - approaches. \"So you're the being who needs Hidden Compartments. Should I install them in your ship?\" (It requires a free gadget slot.)",
             "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.",
@@ -1006,7 +1006,7 @@ public class Strings {
             "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
             "Alien Invasion", "Fuel Compactor", "Gemulon Invaded",
             "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
-            "Ambassador Jarek", "Jarek Gets Out", "Lottery Winner",
+            /*"Ambassador Jarek", "Jarek Gets Out", "Lottery Winner",*/
             "Moon For Sale", "Retirement", "Morgan's Reactor",
             "Reactor Delivered", "Install Morgan's Laser", "Scarab Stolen",
             "Scarab Destroyed", "Upgrade Hull", "Skill Increase",
@@ -1015,7 +1015,9 @@ public class Strings {
             "Stolen Sculpture", "Sculpture Delivered",
             "Install Hidden Compartments", "Kidnapped", "Aggressive Ship",
             "Dangerous Scorpion", "Royal Rescue", "Quantum Disruptor",
-            "Royal Return"};
+            "Royal Return",
+            //TODO delete
+    "ASSIGNED"};
 
     public static String[] SpecialResources = new String[]{"Nothing Special",
             "Mineral Rich", "Mineral Poor", "Desert", "Sweetwater Oceans",

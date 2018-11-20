@@ -7,6 +7,7 @@ import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -52,7 +53,7 @@ public class Ship extends ShipSpec implements Serializable {
             addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
             addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-            getCrew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
+            getCrew()[0] = Game.getCurrentGame().getMercenaries().get(CrewMemberId.FAMOUS_CAPTAIN.castToInt());
         } else if (oppType == OpponentType.BOTTLE) {
             setValues(ShipType.BOTTLE);
         } else {
@@ -154,7 +155,7 @@ public class Ship extends ShipSpec implements Serializable {
         }
     }
 
-    public void fire(CrewMemberId crewId) {
+    public void fire(int crewId) {
         int skill = getTrader();
         boolean found = false;
         CrewMember merc = null;
@@ -213,10 +214,10 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     private void generateOpponentAddCrew() {
-        CrewMember[] mercs = Game.getCurrentGame().getMercenaries();
+        List<CrewMember> mercs = Game.getCurrentGame().getMercenaries();
         Difficulty diff = Game.getCurrentGame().getDifficulty();
 
-        getCrew()[0] = mercs[CrewMemberId.OPPONENT.castToInt()];
+        getCrew()[0] = mercs.get(CrewMemberId.OPPONENT.castToInt());
         getCrew()[0].setPilot(1 + Functions.getRandom(Consts.MaxSkill));
         getCrew()[0].setFighter(1 + Functions.getRandom(Consts.MaxSkill));
         getCrew()[0].setTrader(1 + Functions.getRandom(Consts.MaxSkill));
@@ -241,7 +242,7 @@ public class Ship extends ShipSpec implements Serializable {
         for (int i = 1; i < numCrew; i++) {
             // Keep getting a new random mercenary until we have a non-special one.
             while (getCrew()[i] == null || Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId())) {
-                getCrew()[i] = mercs[Functions.getRandom(mercs.length)];
+                getCrew()[i] = mercs.get(Functions.getRandom(mercs.size()));
             }
         }
     }
@@ -488,14 +489,8 @@ public class Ship extends ShipSpec implements Serializable {
         return index;
     }
 
-    public boolean hasCrew(CrewMemberId id) {
-        boolean found = false;
-        for (int i = 0; i < getCrew().length && !found; i++) {
-            if (getCrew()[i] != null && getCrew()[i].getId() == id) {
-                found = true;
-            }
-        }
-        return found;
+    public boolean hasCrew(int id) {
+        return Arrays.stream(getCrew()).anyMatch(c -> c.getId() == id);
     }
 
     boolean hasEquipment(Equipment item) {
@@ -881,8 +876,10 @@ public class Ship extends ShipSpec implements Serializable {
         return gadgets;
     }
 
+    //TODO get from quest`
     private boolean isHagglingComputerOnBoard() {
-        return isCommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
+        //return isCommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
+        return isCommandersShip() && true;
     }
 
     private int getHiddenCargoBays() {
@@ -906,8 +903,12 @@ public class Ship extends ShipSpec implements Serializable {
         return isWildOnBoard() || isReactorOnBoard() || isSculptureOnBoard();
     }
 
-    public boolean isJarekOnBoard() {
+    /*public boolean isJarekOnBoard() {
         return hasCrew(CrewMemberId.JAREK);
+    }*/
+    //TODO get from quest
+    public boolean isJarekOnBoard() {
+        return true;
     }
 
     public int getPilot() {
@@ -915,7 +916,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public boolean isPrincessOnBoard() {
-        return hasCrew(CrewMemberId.PRINCESS);
+        return hasCrew(CrewMemberId.PRINCESS.castToInt());
     }
 
     public boolean isReactorOnBoard() {
@@ -1047,7 +1048,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public boolean isWildOnBoard() {
-        return hasCrew(CrewMemberId.WILD);
+        return hasCrew(CrewMemberId.WILD.castToInt());
     }
 
     // For test purposes

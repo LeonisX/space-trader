@@ -35,10 +35,10 @@ public class SpecialEvent {
     public final static int STATUS_JAPORI_IN_TRANSIT = 1;
     public final static int STATUS_JAPORI_DONE = 2;
 
-    public final static int STATUS_JAREK_NOT_STARTED = 0;
+    /*public final static int STATUS_JAREK_NOT_STARTED = 0;
     public final static int STATUS_JAREK_STARTED = 1;
     public final static int STATUS_JAREK_IMPATIENT = 11;
-    public final static int STATUS_JAREK_DONE = 12;
+    public final static int STATUS_JAREK_DONE = 12;*/
 
     public final static int STATUS_MOON_NOT_STARTED = 0;
     public final static int STATUS_MOON_BOUGHT = 1;

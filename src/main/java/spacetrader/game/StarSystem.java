@@ -4,10 +4,7 @@ import spacetrader.game.enums.*;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class StarSystem implements Serializable {
 
@@ -103,7 +100,7 @@ public class StarSystem implements Serializable {
             case Artifact:
             case Dragonfly:
             case Experiment:
-            case Jarek:
+            //case Jarek:
                 show = game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
                 break;
             case ArtifactDelivery:
@@ -132,7 +129,7 @@ public class StarSystem implements Serializable {
             case Gemulon:
             case GemulonFuel:
             case GemulonInvaded:
-            case Lottery:
+            //case Lottery:
             case ReactorLaser:
             case PrincessQuantum:
             case SculptureHiddenBays:
@@ -160,9 +157,9 @@ public class StarSystem implements Serializable {
             case JaporiDelivery:
                 show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT;
                 break;
-            case JarekGetsOut:
+            /*case JarekGetsOut:
                 show = game.getCommander().getShip().isJarekOnBoard();
-                break;
+                break;*/
             case Moon:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
                         && game.getCommander().getWorth() > SpecialEvent.MOON_COST * .8;
@@ -251,12 +248,12 @@ public class StarSystem implements Serializable {
 
     public List<CrewMember> getMercenariesForHire() {
         Commander cmdr = Game.getCurrentGame().getCommander();
-        CrewMember[] mercs = Game.getCurrentGame().getMercenaries();
-        ArrayList<CrewMember> forHire = new ArrayList<>(3);
+        List<CrewMember> mercs = Game.getCurrentGame().getMercenaries();
+        List<CrewMember> forHire = new ArrayList<>();
 
-        for (int i = 1; i < mercs.length; i++) {
-            if (mercs[i].getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().hasCrew(mercs[i].getId())) {
-                forHire.add(mercs[i]);
+        for (CrewMember merc: mercs) {
+            if (merc.getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().hasCrew(merc.getId())) {
+                forHire.add(merc);
             }
         }
 
