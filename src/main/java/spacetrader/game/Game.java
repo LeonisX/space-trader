@@ -2980,6 +2980,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     }
 
     private boolean isShipyardsInPlace() {
+        boolean goodUniverse = true;
+
         ArrayList<Integer> systemIdList = new ArrayList<>();
         for (int system = 0; system < getUniverse().length; system++) {
             if (getUniverse()[system].getTechLevel() == TechLevel.HI_TECH) {
@@ -2988,7 +2990,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
 
         if (systemIdList.size() < Consts.Shipyards.length) {
-            return false;
+            goodUniverse = false;
         } else {
             // Assign the shipyards to High-Tech systems.
             for (int shipyard = 0; shipyard < Consts.Shipyards.length; shipyard++) {
@@ -2996,7 +2998,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                         .setShipyardId(ShipyardId.fromInt(shipyard));
             }
         }
-        return true;
+        return goodUniverse;
     }
 
     private boolean isSpecialEventsInPlace() {
@@ -3080,8 +3082,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
         if (goodUniverse) {
             QuestsHolder.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
-        } else {
-            //TODO rollback quest holder transaction
         }
 
         return goodUniverse;

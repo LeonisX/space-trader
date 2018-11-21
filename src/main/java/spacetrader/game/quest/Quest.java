@@ -38,4 +38,5 @@ public interface Quest {
 
     int getSpecialCrewId();
 
+    String getSpecialCargoTitle();
 }

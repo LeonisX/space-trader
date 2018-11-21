@@ -13,6 +13,7 @@ import spacetrader.util.Functions;
 
 import java.util.List;
 
+import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.EventName.*;
 
 
@@ -66,10 +67,6 @@ import static spacetrader.game.quest.EventName.*;
 //                    break;
 
 
-/*        news:
-        "Ambassador Jarek Returns from Crisis.",*/
-
-
 //TODO Arrested
 // if (commander.getShip().isJarekOnBoard()) {
 //            GuiFacade.alert(AlertType.JarekTakenHome);
@@ -81,9 +78,6 @@ import static spacetrader.game.quest.EventName.*;
 //            GuiFacade.alert(AlertType.JarekTakenHome);
 //            setQuestStatusJarek(SpecialEvent.STATUS_JAREK_NOT_STARTED);
 //        }
-
-// public static String CheatsJarek = "Jarek";
-
 
 // TODO IS_CONSIDER_CHEAT
 // case Status: {
@@ -115,15 +109,6 @@ import static spacetrader.game.quest.EventName.*;
 //            }
 //        }
 
-/*
-public static String QuestJarek = "Take ambassador Jarek to Devidia.";
-
-public static String QuestJarekImpatient = QuestJarek + newline
-        + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.";
-
-*/
-
-
 // ALERTS
 
 
@@ -143,21 +128,7 @@ public static String QuestJarekImpatient = QuestJarek + newline
 //                return new FormAlert(AlertsJarekTakenHomeTitle, AlertsJarekTakenHomeMessage, AlertsOk, DialogResult.OK,
 //                        null, DialogResult.NONE, args);
 
-/*
 
-public static String AlertsSpecialPassengerConcernedJarekTitle = "Ship's Comm.";
-public static String AlertsSpecialPassengerConcernedJarekMessage = "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?";
-
-public static String AlertsSpecialPassengerImpatientJarekTitle = "Ship's Comm.";
-public static String AlertsSpecialPassengerImpatientJarekMessage = "Captain! This is the Ambassador speaking. We should have been there by now?!";
-
-public static String AlertsJarekTakenHomeTitle = "Jarek Taken Home";
-public static String AlertsJarekTakenHomeMessage = "The Space Corps decides to give ambassador Jarek a lift home to Devidia.";
-
-*/
-
-
-// public static String SpecialCargoJarek = "A haggling computer.";
 
 enum QuestStatus implements SpaceTraderEnum {
 
@@ -178,6 +149,24 @@ class JarekQuest extends AbstractQuest {
 
     private static String CREW_MEMBER_NAME = "Jarek";     // Mercenary
 
+    //TODO link
+    private static String SPECIAL_CARGO_TITLE = "A haggling computer.";
+
+    //TODO link
+    private static String CHEATS_TITLE = "Jarek";
+
+    //TODO link
+    //news:
+    private static String NEWS = "Ambassador Jarek Returns from Crisis.";
+
+
+    private static String[] QUESTS = {
+            "Take ambassador Jarek to Devidia.",
+            //TODO optimize???
+            "Take ambassador Jarek to Devidia." + newline
+                    + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades."
+    };
+
     private static String[] MESSAGE_TITLES = {
             "Ambassador Jarek",
             "Jarek Gets Out"
@@ -186,6 +175,18 @@ class JarekQuest extends AbstractQuest {
     private static String[] MESSAGE_BODIES = {
             "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?",
             "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment."
+    };
+
+    private static String[] ALERT_TITLES = {
+            "Ship's Comm.",     // AlertsSpecialPassengerConcernedJarekTitle
+            "Ship's Comm.",     // AlertsSpecialPassengerImpatientJarekTitle
+            "Jarek Taken Home"  // AlertsJarekTakenHomeTitle
+    };
+
+    private static String[] ALERT_BODIES = {
+            "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?",    // AlertsSpecialPassengerConcernedJarekMessage
+            "Captain! This is the Ambassador speaking. We should have been there by now?!",             // AlertsSpecialPassengerImpatientJarekMessage
+            "The Space Corps decides to give ambassador Jarek a lift home to Devidia."                  // AlertsJarekTakenHomeMessage
     };
 
     // Constants
@@ -224,6 +225,7 @@ class JarekQuest extends AbstractQuest {
         getPhases().get(0).registerListener();
     }
 
+    //TODO setters for translation
     @Override
     public String[] getMessageTitles() {
         return MESSAGE_TITLES;
@@ -237,6 +239,11 @@ class JarekQuest extends AbstractQuest {
     @Override
     public String getCrewMemberName() {
         return CREW_MEMBER_NAME;
+    }
+
+    @Override
+    public String getSpecialCargoTitle() {
+        return SPECIAL_CARGO_TITLE;
     }
 
     //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
@@ -324,6 +331,26 @@ case Jarek:
 
         private void onSpecialButtonClicked(Object object) {
             specialButtonClick(object, this);
+
+            // TODO Special button click
+// handleSpecialEvent()
+// case Jarek:
+//                if (commander.getShip().getFreeCrewQuartersCount() == 0) {
+//                    GuiFacade.alert(AlertType.SpecialNoQuarters);
+//                    remove = false;
+//                } else {
+//                    CrewMember jarek = getMercenaries()[CrewMemberId.JAREK.castToInt()];
+//                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
+//                    commander.getShip().hire(jarek);
+//                    setQuestStatusJarek(SpecialEvent.STATUS_JAREK_STARTED);
+//                }
+//                break;
+//            case JarekGetsOut:
+//                setQuestStatusJarek(SpecialEvent.STATUS_JAREK_DONE);
+//                commander.getShip().fire(CrewMemberId.JAREK);
+// TODO end quest
+//                break;
+
         }
 
 
