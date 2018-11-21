@@ -6,14 +6,19 @@ import java.util.stream.Stream;
 
 public class QuestsHolder implements Serializable {
 
+
+    //TODO interpret news from quests by id
+
     private volatile List<Quest> quests = new ArrayList<>();
     private volatile Map<EventName, List<Quest>> eventListeners;
 
     private volatile int specialCrewIdCounter = 1000;
+    private volatile int newsIdCounter = 1000;
 
     private int transactionStart = -1;
 
     private static QuestsHolder questsHolder;
+
 
     public static QuestsHolder initializeQuestsHolder() {
         questsHolder = new QuestsHolder();
@@ -29,6 +34,10 @@ public class QuestsHolder implements Serializable {
 
     public static int generateSpecialCrewId() {
         return questsHolder.specialCrewIdCounter++;
+    }
+
+    public static int generateNewsId() {
+        return questsHolder.newsIdCounter++;
     }
 
     public List<Quest> getQuests() {

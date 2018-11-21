@@ -61,6 +61,16 @@ class LotteryQuest extends AbstractQuest {
         return null;
     }
 
+    @Override
+    public String getSpecialCargoTitle() {
+        return null;
+    }
+
+    @Override
+    public String getNewsTitle() {
+        return null;
+    }
+
     class FirstPhase extends Phase {
 
         //TODO need???

@@ -25,7 +25,7 @@ public enum NewsEvent implements SpaceTraderEnum {
     CaptHuieDestroyed, // = 20,
     Japori, // = 21,
     JaporiDelivery, // = 22,
-    JarekGetsOut, // = 23,
+    //JarekGetsOut, // = 23,
     Scarab, // = 24,
     ScarabDestroyed, // = 25,
     ScarabHarass, // = 26,

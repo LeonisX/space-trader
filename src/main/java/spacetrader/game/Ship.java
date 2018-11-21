@@ -903,14 +903,6 @@ public class Ship extends ShipSpec implements Serializable {
         return isWildOnBoard() || isReactorOnBoard() || isSculptureOnBoard();
     }
 
-    /*public boolean isJarekOnBoard() {
-        return hasCrew(CrewMemberId.JAREK);
-    }*/
-    //TODO get from quest
-    public boolean isJarekOnBoard() {
-        return true;
-    }
-
     public int getPilot() {
         return getSkills()[SkillType.PILOT.castToInt()];
     }

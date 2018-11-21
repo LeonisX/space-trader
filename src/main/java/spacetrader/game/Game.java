@@ -45,7 +45,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     private boolean arrivedViaWormhole = false; // flag to indicate whether player arrived on current planet via wormhole
     private boolean paidForNewspaper = false; // once you buy a paper on a system, you don't have to pay again.
     private boolean litterWarning = false; // Warning against littering has been issued.
-    private ArrayList<NewsEvent> newsEvents = new ArrayList<>(30); // Current Selections
+    private ArrayList<Integer> newsEvents = new ArrayList<>(); // Current Selections
     private Difficulty difficulty; // Difficulty.NORMAL
     private boolean autoSave = false;
     private boolean easyEncounters = false;
@@ -179,7 +179,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
         if (commander.getShip().isWildOnBoard()) {
             GuiFacade.alert(AlertType.WildArrested);
-            newsAddEvent(NewsEvent.WildArrested);
+            newsAddEvent(NewsEvent.WildArrested.castToInt());
             setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
         }
 
@@ -948,7 +948,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                                 commander.setPoliceRecordScore(commander.getPoliceRecordScore() - 1);
                             }
 
-                            newsAddEvent(NewsEvent.CaughtLittering);
+                            newsAddEvent(NewsEvent.CaughtLittering.castToInt());
                         }
                     }
                 }
@@ -1857,13 +1857,13 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
                         switch (getEncounterType()) {
                             case CAPTAIN_AHAB:
-                                newsAddEvent(NewsEvent.CaptAhabAttacked);
+                                newsAddEvent(NewsEvent.CaptAhabAttacked.castToInt());
                                 break;
                             case CAPTAIN_CONRAD:
-                                newsAddEvent(NewsEvent.CaptConradAttacked);
+                                newsAddEvent(NewsEvent.CaptConradAttacked.castToInt());
                                 break;
                             case CAPTAIN_HUIE:
-                                newsAddEvent(NewsEvent.CaptHuieAttacked);
+                                newsAddEvent(NewsEvent.CaptHuieAttacked.castToInt());
                                 break;
                         }
 
@@ -2135,7 +2135,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 }
 
                 // bump news flag from attacked to ship destroyed
-                newsReplaceEvent(getNewsLatestEvent(), NewsEvent.fromInt(getNewsLatestEvent().castToInt() + 1));
+                newsReplaceEvent(getNewsLatestEvent(), getNewsLatestEvent() + 1);
                 break;
             case DRAGONFLY_ATTACK:
                 encounterDefeatDragonfly();
@@ -2222,7 +2222,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         if (commander.getShip().isWildOnBoard()) {
             GuiFacade.alert(AlertType.WildArrested);
             commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreCaughtWithWild);
-            newsAddEvent(NewsEvent.WildArrested);
+            newsAddEvent(NewsEvent.WildArrested.castToInt());
             setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
         }
 
@@ -2740,7 +2740,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 setFabricRipProbability(Consts.FabricRipInitialProbability);
                 getUniverse()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentFailed);
                 GuiFacade.alert(AlertType.SpecialExperimentPerformed);
-                newsAddEvent(NewsEvent.ExperimentPerformed);
+                newsAddEvent(NewsEvent.ExperimentPerformed.castToInt());
             }
         } else if (getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_PERFORMED
                 && getFabricRipProbability() > 0) {
@@ -2826,8 +2826,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         commander.getCurrentSystem().setVisited(true);
     }
 
-    private void newsAddEvent(NewsEvent newEvent) {
-        getNewsEvents().add(newEvent);
+    public void newsAddEvent(int newEventId) {
+        getNewsEvents().add(newEventId);
     }
 
     private void newsAddEventsOnArrival() {
@@ -2836,63 +2836,63 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             switch (commander.getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
                     if (commander.getShip().isArtifactOnBoard()) {
-                        newsAddEvent(NewsEvent.ArtifactDelivery);
+                        newsAddEvent(NewsEvent.ArtifactDelivery.castToInt());
                     }
                     break;
                 case Dragonfly:
-                    newsAddEvent(NewsEvent.Dragonfly);
+                    newsAddEvent(NewsEvent.Dragonfly.castToInt());
                     break;
                 case DragonflyBaratas:
                     if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS) {
-                        newsAddEvent(NewsEvent.DragonflyBaratas);
+                        newsAddEvent(NewsEvent.DragonflyBaratas.castToInt());
                     }
                     break;
                 case DragonflyDestroyed:
                     if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON) {
-                        newsAddEvent(NewsEvent.DragonflyZalkon);
+                        newsAddEvent(NewsEvent.DragonflyZalkon.castToInt());
                     } else if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_DESTROYED) {
-                        newsAddEvent(NewsEvent.DragonflyDestroyed);
+                        newsAddEvent(NewsEvent.DragonflyDestroyed.castToInt());
                     }
                     break;
                 case DragonflyMelina:
                     if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA) {
-                        newsAddEvent(NewsEvent.DragonflyMelina);
+                        newsAddEvent(NewsEvent.DragonflyMelina.castToInt());
                     }
                     break;
                 case DragonflyRegulas:
                     if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_REGULAS) {
-                        newsAddEvent(NewsEvent.DragonflyRegulas);
+                        newsAddEvent(NewsEvent.DragonflyRegulas.castToInt());
                     }
                     break;
                 case ExperimentFailed:
-                    newsAddEvent(NewsEvent.ExperimentFailed);
+                    newsAddEvent(NewsEvent.ExperimentFailed.castToInt());
                     break;
                 case ExperimentStopped:
                     if (getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
                             && getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
-                        newsAddEvent(NewsEvent.ExperimentStopped);
+                        newsAddEvent(NewsEvent.ExperimentStopped.castToInt());
                     }
                     break;
                 case Gemulon:
-                    newsAddEvent(NewsEvent.Gemulon);
+                    newsAddEvent(NewsEvent.Gemulon.castToInt());
                     break;
                 case GemulonRescued:
                     if (getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED) {
                         if (getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-                            newsAddEvent(NewsEvent.GemulonRescued);
+                            newsAddEvent(NewsEvent.GemulonRescued.castToInt());
                         } else {
-                            newsAddEvent(NewsEvent.GemulonInvaded);
+                            newsAddEvent(NewsEvent.GemulonInvaded.castToInt());
                         }
                     }
                     break;
                 case Japori:
                     if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_NOT_STARTED) {
-                        newsAddEvent(NewsEvent.Japori);
+                        newsAddEvent(NewsEvent.Japori.castToInt());
                     }
                     break;
                 case JaporiDelivery:
                     if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-                        newsAddEvent(NewsEvent.JaporiDelivery);
+                        newsAddEvent(NewsEvent.JaporiDelivery.castToInt());
                     }
                     break;
                 /*case JarekGetsOut:
@@ -2901,67 +2901,67 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                     }
                     break;*/
                 case Princess:
-                    newsAddEvent(NewsEvent.Princess);
+                    newsAddEvent(NewsEvent.Princess.castToInt());
                     break;
                 case PrincessCentauri:
                     if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI) {
-                        newsAddEvent(NewsEvent.PrincessCentauri);
+                        newsAddEvent(NewsEvent.PrincessCentauri.castToInt());
                     }
                     break;
                 case PrincessInthara:
                     if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_INTHARA) {
-                        newsAddEvent(NewsEvent.PrincessInthara);
+                        newsAddEvent(NewsEvent.PrincessInthara.castToInt());
                     }
                     break;
                 case PrincessQonos:
                     if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_QONOS) {
-                        newsAddEvent(NewsEvent.PrincessQonos);
+                        newsAddEvent(NewsEvent.PrincessQonos.castToInt());
                     } else if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RESCUED) {
-                        newsAddEvent(NewsEvent.PrincessRescued);
+                        newsAddEvent(NewsEvent.PrincessRescued.castToInt());
                     }
                     break;
                 case PrincessReturned:
                     if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RETURNED) {
-                        newsAddEvent(NewsEvent.PrincessReturned);
+                        newsAddEvent(NewsEvent.PrincessReturned.castToInt());
                     }
                     break;
                 case Scarab:
-                    newsAddEvent(NewsEvent.Scarab);
+                    newsAddEvent(NewsEvent.Scarab.castToInt());
                     break;
                 case ScarabDestroyed:
                     if (getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
-                        newsAddEvent(NewsEvent.ScarabHarass);
+                        newsAddEvent(NewsEvent.ScarabHarass.castToInt());
                     } else if (getQuestStatusScarab() >= SpecialEvent.STATUS_SCARAB_DESTROYED) {
-                        newsAddEvent(NewsEvent.ScarabDestroyed);
+                        newsAddEvent(NewsEvent.ScarabDestroyed.castToInt());
                     }
                     break;
                 case Sculpture:
-                    newsAddEvent(NewsEvent.SculptureStolen);
+                    newsAddEvent(NewsEvent.SculptureStolen.castToInt());
                     break;
                 case SculptureDelivered:
-                    newsAddEvent(NewsEvent.SculptureTracked);
+                    newsAddEvent(NewsEvent.SculptureTracked.castToInt());
                     break;
                 case SpaceMonsterKilled:
                     if (getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
-                        newsAddEvent(NewsEvent.SpaceMonster);
+                        newsAddEvent(NewsEvent.SpaceMonster.castToInt());
                     } else if (getQuestStatusSpaceMonster() >= SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED) {
-                        newsAddEvent(NewsEvent.SpaceMonsterKilled);
+                        newsAddEvent(NewsEvent.SpaceMonsterKilled.castToInt());
                     }
                     break;
                 case WildGetsOut:
                     if (commander.getShip().isWildOnBoard()) {
-                        newsAddEvent(NewsEvent.WildGetsOut);
+                        newsAddEvent(NewsEvent.WildGetsOut.castToInt());
                     }
                     break;
             }
         }
     }
 
-    private NewsEvent getNewsLatestEvent() {
+    private int getNewsLatestEvent() {
         return getNewsEvents().get(getNewsEvents().size() - 1);
     }
 
-    private void newsReplaceEvent(NewsEvent oldEvent, NewsEvent newEvent) {
+    private void newsReplaceEvent(int oldEvent, int newEvent) {
         if (getNewsEvents().indexOf(oldEvent) >= 0) {
             getNewsEvents().remove(oldEvent);
         }
@@ -3236,7 +3236,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 setArrivedViaWormhole(Functions.wormholeExists(commander.getCurrentSystem(), getWarpSystem()));
 
                 if (viaSingularity) {
-                    newsAddEvent(NewsEvent.ExperimentArrival);
+                    newsAddEvent(NewsEvent.ExperimentArrival.castToInt());
                 } else {
                     normalDeparture((viaSingularity || getArrivedViaWormhole())
                             ? 0 : Functions.distance(commander.getCurrentSystem(), getWarpSystem()));
@@ -3627,7 +3627,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return mercenaries;
     }
 
-    private ArrayList<NewsEvent> getNewsEvents() {
+    private ArrayList<Integer> getNewsEvents() {
         return newsEvents;
     }
 
@@ -3646,10 +3646,15 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         // generated each time for the same "version" of the newspaper. -JAF
         Functions.randSeed(curSys.getId().castToInt(), commander.getDays());
 
-        for (NewsEvent newsEvent : getNewsEvents()) {
-            items.add(Functions.stringVars(Strings.NewsEvent[(newsEvent).castToInt()],
-                    new String[]{commander.getName(), commander.getCurrentSystem().getName(),
-                            commander.getShip().getName()}));
+        for (Integer newsEventId : getNewsEvents()) {
+            if (newsEventId < 1000) {
+                items.add(Functions.stringVars(Strings.NewsEvent[newsEventId],
+                        new String[]{commander.getName(), commander.getCurrentSystem().getName(),
+                                commander.getShip().getName()}));
+            } else {
+                Game.getCurrentGame().getQuestsHolder().getQuests().stream()
+                        .filter(q -> q.getNewsId() == newsEventId).findFirst().get().getNewsTitle();
+            }
         }
 
         if (curSys.getSystemPressure() != SystemPressure.NONE) {

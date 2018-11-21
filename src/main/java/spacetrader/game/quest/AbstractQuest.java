@@ -31,7 +31,9 @@ public abstract class AbstractQuest implements Quest, Serializable {
     String messageTitle;
     String messageBody;
 
-    private int specialCrewId = Integer.MIN_VALUE;
+    private int specialCrewId = QuestsHolder.generateSpecialCrewId();
+
+    private int newsId = QuestsHolder.generateNewsId();
 
     //StarSystemId starSystemId;
 
@@ -124,6 +126,16 @@ public abstract class AbstractQuest implements Quest, Serializable {
     public void setSpecialCrewId(int specialCrewId) {
         this.specialCrewId = specialCrewId;
     }
+
+    @Override
+    public int getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
+    }
+
 
     // Special methods
 
