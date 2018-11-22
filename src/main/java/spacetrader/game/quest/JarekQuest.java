@@ -1,20 +1,20 @@
 package spacetrader.game.quest;
 
 import spacetrader.controls.Button;
-import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
+import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
-import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-import static spacetrader.game.Strings.AlertsOk;
 import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.EventName.*;
 
@@ -28,6 +28,10 @@ enum QuestStatus implements SpaceTraderEnum {
     }
 }
 
+enum AlertName {
+    SpecialPassengerConcernedJarek, SpecialPassengerImpatientJarek, JarekTakenHome
+}
+
 class JarekQuest extends AbstractQuest {
 
     public final static int STATUS_JAREK_NOT_STARTED = 0;
@@ -37,14 +41,10 @@ class JarekQuest extends AbstractQuest {
 
     private static String CREW_MEMBER_NAME = "Jarek";     // Mercenary
 
-    //TODO link
     private static String SPECIAL_CARGO_TITLE = "A haggling computer.";
 
-    //TODO link
     private static String CHEATS_TITLE = "Jarek";
 
-    //TODO link
-    //news:
     private static String NEWS = "Ambassador Jarek Returns from Crisis.";
 
     private static String[] QUESTS = {
@@ -54,26 +54,21 @@ class JarekQuest extends AbstractQuest {
                     + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades."
     };
 
-    private static String[] MESSAGE_TITLES = {
-            "Ambassador Jarek",
-            "Jarek Gets Out"
+    private static QuestDialog[] DIALOGS = new QuestDialog[]{
+            new QuestDialog("Ambassador Jarek",
+                    "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?",
+                    MessageType.DIALOG
+                    ),
+            new QuestDialog("Jarek Gets Out",
+                    "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment.",
+                    MessageType.ALERT
+            )
     };
 
-    private static String[] MESSAGE_BODIES = {
-            "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?",
-            "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment."
-    };
-
-    private static String[] ALERT_TITLES = {
-            "Ship's Comm.",     // AlertsSpecialPassengerConcernedJarekTitle
-            "Ship's Comm.",     // AlertsSpecialPassengerImpatientJarekTitle
-            "Jarek Taken Home"  // AlertsJarekTakenHomeTitle
-    };
-
-    private static String[] ALERT_BODIES = {
-            "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?",    // AlertsSpecialPassengerConcernedJarekMessage
-            "Captain! This is the Ambassador speaking. We should have been there by now?!",             // AlertsSpecialPassengerImpatientJarekMessage
-            "The Space Corps decides to give ambassador Jarek a lift home to Devidia."                  // AlertsJarekTakenHomeMessage
+    private static AlertDialog[] ALERTS = new AlertDialog[]{
+            new AlertDialog("Ship's Comm.", "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?"),
+            new AlertDialog("Ship's Comm.", "Captain! This is the Ambassador speaking. We should have been there by now?!"),
+            new AlertDialog("Jarek Taken Home", "The Space Corps decides to give ambassador Jarek a lift home to Devidia."),
     };
 
     // Constants
@@ -81,7 +76,6 @@ class JarekQuest extends AbstractQuest {
     private static final int OCCURRENCE = 1;
     //private static final SpecialEventType TYPE = SpecialEventType.Jarek;
     private static final int CASH_TO_SPEND = 0;
-    private static final boolean MESSAGE_ONLY = false;
 
     private int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
@@ -91,17 +85,18 @@ class JarekQuest extends AbstractQuest {
     private CrewMember jarek = new CrewMember(CrewMemberId.SPECIAL, getSpecialCrewId(), 3, 2, 10, 4, StarSystemId.NA);
     private boolean jarekOnBoard;
 
+    private UUID shipBarCode = UUID.randomUUID();
+
     JarekQuest() {
         setQuest(this);
         repeatable = REPEATABLE;
         occurrence = OCCURRENCE;
         //this.type = TYPE;
         cashToSpend = CASH_TO_SPEND;
-        messageOnly = MESSAGE_ONLY;
 
         List<Phase> phases = new ArrayList<>();
-        phases.add(new JarekQuest.FirstPhase(cashToSpend, messageOnly));
-        phases.add(new JarekQuest.SecondPhase(cashToSpend, messageOnly));
+        phases.add(new JarekQuest.FirstPhase(cashToSpend));
+        phases.add(new JarekQuest.SecondPhase(cashToSpend));
         setPhases(phases);
 
         setSpecialCrewId(QuestsHolder.generateSpecialCrewId());
@@ -109,6 +104,16 @@ class JarekQuest extends AbstractQuest {
         registerListener();
     }
 
+    private boolean isHagglingComputerOnBoard() {
+        return Game.getCurrentGame().getCommander().getShip().getBarCode() == shipBarCode && questStatusJarek == STATUS_JAREK_DONE;
+    }
+
+    @Override
+    public void affectSkills(int[] skills) {
+        if (isHagglingComputerOnBoard()) {
+            ++skills[SkillType.TRADER.castToInt()];
+        }
+    }
 
     // Register listener
     public void registerListener() {
@@ -116,25 +121,9 @@ class JarekQuest extends AbstractQuest {
         getPhases().get(1).registerListener();
     }
 
-    //TODO setters for translation
-    @Override
-    public String[] getMessageTitles() {
-        return MESSAGE_TITLES;
-    }
-
-    @Override
-    public String[] getMessageBodies() {
-        return MESSAGE_BODIES;
-    }
-
     @Override
     public String getCrewMemberName() {
         return CREW_MEMBER_NAME;
-    }
-
-    @Override
-    public String getSpecialCargoTitle() {
-        return SPECIAL_CARGO_TITLE;
     }
 
     @Override
@@ -147,28 +136,21 @@ class JarekQuest extends AbstractQuest {
     class FirstPhase extends Phase {
 
         //TODO need???
-        FirstPhase(int cashToSpend, boolean messageOnly) {
-            super(cashToSpend, messageOnly);
+        FirstPhase(int cashToSpend) {
+            super(cashToSpend);
         }
 
         @Override
         public String getTitle() {
-            return MESSAGE_TITLES[0];
+            return DIALOGS[0].getTitle();
         }
 
         @Override
         public void registerListener() {
-            registerOperation(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsRandomly);
-        }
-
-        @Override
-        public String getMessageTitle() {
-            return MESSAGE_TITLES[0];
-        }
-
-        @Override
-        public String getMessageBody() {
-            return MESSAGE_BODIES[0];
+            registerOperation(ON_ASSIGN_EVENTS_RANDOMLY, this::onAssignEventsRandomly);
+            registerOperation(IS_CONSIDER_CHEAT, this::onIsConsiderCheat);
+            registerOperation(IS_CONSIDER_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
+            registerOperation(ON_DISPLAY_SPECIAL_CARGO, this::onDisplaySpecialCargo);
         }
 
         private void onAssignEventsRandomly(Object object) {
@@ -189,12 +171,45 @@ class JarekQuest extends AbstractQuest {
             registerOperation(BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         }
 
+
+        private void onBeforeSpecialButtonShow(Object object) {
+            if (Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious &&
+                    Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId())) {
+                if (!((Button) object).isVisible()) {
+                    ((Button) object).setVisible(true);
+                    ((Button) object).asJButton().setToolTipText(getMessageTitle());
+                    registerOperation(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
+                }
+            }
+        }
+
+        private void onSpecialButtonClicked(Object object) {
+            specialButtonClick(object, DIALOGS[0], () -> {
+                jarekOnBoard = true;
+
+                if (Game.getCurrentGame().getCommander().getShip().getFreeCrewQuartersCount() == 0) {
+                    GuiFacade.alert(AlertType.SpecialNoQuarters);
+                } else {
+                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
+                    Game.getCurrentGame().getCommander().getShip().hire(jarek);
+                    questStatusJarek = STATUS_JAREK_STARTED;
+                    Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+                    registerOperation(ON_INCREMENT_DAYS, this::onIncrementDays);
+                    registerOperation(ON_ARRESTED, this::onArrested);
+                    registerOperation(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
+                    registerOperation(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
+                    unRegisterOperation(BEFORE_SPECIAL_BUTTON_SHOW);
+                    unRegisterOperation(SPECIAL_BUTTON_CLICKED);
+                }
+            });
+        }
+
         private void onIncrementDays(Object object) {
             if (jarekOnBoard) {
                 if (questStatusJarek == STATUS_JAREK_IMPATIENT / 2) {
-                    specialPassengerConcernedJarek();
+                    showAlert(ALERTS[AlertName.SpecialPassengerConcernedJarek.ordinal()]);
                 } else if (questStatusJarek == STATUS_JAREK_IMPATIENT - 1) {
-                    specialPassengerImpatientJarek();
+                    showAlert(ALERTS[AlertName.SpecialPassengerImpatientJarek.ordinal()]);
                     jarek.setPilot(0);
                     jarek.setFighter(0);
                     jarek.setTrader(0);
@@ -209,59 +224,42 @@ class JarekQuest extends AbstractQuest {
 
         private void onArrested(Object object) {
             if (jarekOnBoard) {
-                jarekTakenHome();
+                showAlert(ALERTS[AlertName.JarekTakenHome.ordinal()]);
                 questStatusJarek = STATUS_JAREK_NOT_STARTED;
             }
         }
 
         private void onEscapeWithPod(Object object) {
             if (jarekOnBoard) {
-                jarekTakenHome();
+                showAlert(ALERTS[AlertName.JarekTakenHome.ordinal()]);
                 questStatusJarek = STATUS_JAREK_NOT_STARTED;
             }
         }
 
         private void onIsConsiderCheat(Object object) {
-            if (jarekOnBoard) {
-                jarekTakenHome();
-                questStatusJarek = STATUS_JAREK_NOT_STARTED;
+            CheatWords cheatWords = (CheatWords) object;
+            if (cheatWords.getFirst().equals("Status") && cheatWords.getSecond().equals("Jarek")) {
+                questStatusJarek = Math.max(0, cheatWords.getNum2());
+                cheatWords.setCheat(true);
             }
         }
 
-        private DialogResult specialPassengerConcernedJarek() {
-            return new FormAlert(ALERT_TITLES[0],
-                        ALERT_BODIES[0], AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, null).showDialog();
+        @SuppressWarnings("unchecked")
+        private void onIsConsiderDefaultCheat(Object object) {
+                Map<String, Integer> map = (Map<String, Integer>) object;
+            map.put(CHEATS_TITLE, questStatusJarek);
+
         }
 
-        private DialogResult specialPassengerImpatientJarek() {
-            return new FormAlert(ALERT_TITLES[1],
-                        ALERT_BODIES[1], AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, null).showDialog();
-        }
-
-        private DialogResult jarekTakenHome() {
-            return new FormAlert(ALERT_TITLES[2], ALERT_BODIES[2], AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, null).showDialog();
-        }
-
-
-// TODO IS_CONSIDER_CHEAT
-// case Status: {
-//                    switch (SomeStringsForCheatSwitch.find(second)) {
-//                        case Jarek:
-//                            game.setQuestStatusJarek(Math.max(0, num2));
-//                            break;
-// default:
-// + Strings.CheatsJarek + ": " + game.getQuestStatusJarek() + Strings.newline
-
+        @SuppressWarnings("unchecked")
         private void onDisplaySpecialCargo(Object object) {
-            if (questStatusJarek == STATUS_JAREK_DONE) {
+            if (isHagglingComputerOnBoard()) {
                 ((ArrayList<String>) object).add(SPECIAL_CARGO_TITLE);
             }
         }
 
-
+        //TODO
+        @SuppressWarnings("unchecked")
         private void onGetQuestsStrings(Object object) {
             if (jarekOnBoard) {
                 if (questStatusJarek == STATUS_JAREK_IMPATIENT) {
@@ -271,60 +269,24 @@ class JarekQuest extends AbstractQuest {
                 }
             }
         }
-
-        private void onBeforeSpecialButtonShow(Object object) {
-            if (Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious &&
-                    Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId())) {
-                if (!((Button) object).isVisible()) {
-                    ((Button) object).setVisible(true);
-                    ((Button) object).asJButton().setToolTipText(getMessageTitle());
-                    registerOperation(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
-                }
-            }
-        }
-
-        private void onSpecialButtonClicked(Object object) {
-            specialButtonClick(object, this);
-
-            jarekOnBoard = true;
-
-            if (Game.getCurrentGame().getCommander().getShip().getFreeCrewQuartersCount() == 0) {
-                GuiFacade.alert(AlertType.SpecialNoQuarters);
-            } else {
-                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
-                Game.getCurrentGame().getCommander().getShip().hire(jarek);
-                //setQuestStatusJarek(SpecialEvent.STATUS_JAREK_STARTED);
-                Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-            }
-        }
     }
 
     //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
     class SecondPhase extends Phase {
 
-        //TODO need???
-        SecondPhase(int cashToSpend, boolean messageOnly) {
-            super(cashToSpend, messageOnly);
+        SecondPhase(int cashToSpend) {
+            super(cashToSpend);
         }
 
         @Override
         public String getTitle() {
-            return MESSAGE_TITLES[1];
+            return DIALOGS[1].getTitle();
         }
 
         @Override
         public void registerListener() {
             registerOperation(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsManual);
-        }
-
-        @Override
-        public String getMessageTitle() {
-            return MESSAGE_TITLES[1];
-        }
-
-        @Override
-        public String getMessageBody() {
-            return MESSAGE_BODIES[1];
+            registerOperation(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
         }
 
         private void onAssignEventsManual(Object object) {
@@ -347,22 +309,23 @@ class JarekQuest extends AbstractQuest {
         }
 
         private void onSpecialButtonClicked(Object object) {
-            specialButtonClick(object, this);
-            questStatusJarek = STATUS_JAREK_DONE;
-            Game.getCurrentGame().getCommander().getShip().fire(getSpecialCrewId());
-            // TODO end quest
-            jarekOnBoard = false;
-            int[] skills = Game.getCurrentGame().getCommander().getSkills();
-            skills[SkillType.TRADER.castToInt()]++;
-            //TODO probably - increase skill if computer on board. After escape - loose it.
-            Game.getCurrentGame().getCommander().setSkills(skills);
-            //TODO for phase
-            unRegisterAllOperations();
+            specialButtonClick(object, DIALOGS[0], () -> {
+                questStatusJarek = STATUS_JAREK_DONE;
+                Game.getCurrentGame().getCommander().getShip().fire(getSpecialCrewId());
+                // TODO end quest
+                jarekOnBoard = false;
+                int[] skills = Game.getCurrentGame().getCommander().getSkills();
+                skills[SkillType.TRADER.castToInt()]++;
+                shipBarCode = Game.getCurrentGame().getCommander().getShip().getBarCode();
+                Game.getCurrentGame().getCommander().setSkills(skills);
+                unRegisterOperation(BEFORE_SPECIAL_BUTTON_SHOW);
+                unRegisterOperation(SPECIAL_BUTTON_CLICKED);
+                unRegisterOperation(ON_NEWS_ADD_EVENT_ON_ARRIVAL);
+            });
         }
 
-
         private void onNewsAddEventOnArrival(Object object) {
-            if (jarekOnBoard) {
+            if (jarekOnBoard && Game.getCurrentGame().getCurrentSystemId() == StarSystemId.Devidia) {
                 Game.getCurrentGame().newsAddEvent(getNewsId());
             }
         }

@@ -1,6 +1,7 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.QuestsHolder;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.Util;
@@ -35,6 +36,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public Ship(ShipType type) {
+        super();
         setValues(type);
     }
 
@@ -876,11 +878,10 @@ public class Ship extends ShipSpec implements Serializable {
         return gadgets;
     }
 
-    //TODO get from quest`
-    private boolean isHagglingComputerOnBoard() {
+    /*private boolean isHagglingComputerOnBoard() {
         //return isCommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
         return isCommandersShip() && true;
-    }
+    }*/
 
     private int getHiddenCargoBays() {
         int bays = 0;
@@ -1032,7 +1033,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public int getTrader() {
-        return getSkills()[SkillType.TRADER.castToInt()] + (isHagglingComputerOnBoard() ? 1 : 0);
+        return QuestsHolder.affectSkills(getSkills())[SkillType.TRADER.castToInt()];
     }
 
     public Weapon[] getWeapons() {

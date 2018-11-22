@@ -225,10 +225,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Fix fireEvent
-* Finish Jarek quest
 * When quest - change status
-* When finish - make sure - remove from listeners, unsubscribe all
 * When show monsters - show unfinished quests or also show status
 * When fireEvent - filter all non-active quests
 

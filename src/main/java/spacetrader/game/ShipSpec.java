@@ -7,11 +7,13 @@ import spacetrader.guifacade.GuiEngine;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ShipSpec implements Serializable {
 
     static final long serialVersionUID = 151L;
 
+    private UUID barCode;
     private ShipType type = ShipType.CUSTOM;
     private Size size = Size.TINY;
     private int cargoBays = 0;
@@ -33,11 +35,13 @@ public class ShipSpec implements Serializable {
     private int imageIndex = Consts.ShipImgUseDefault;
 
     ShipSpec() {
+        barCode = UUID.randomUUID();
     }
 
     ShipSpec(ShipType type, Size size, int cargoBays, int weaponSlots, int shieldSlots, int gadgetSlots,
              int crewQuarters, int fuelTanks, int fuelCost, int hullStrength, int repairCost, int price, int occurrence,
              Activity police, Activity pirates, Activity traders, TechLevel minTechLevel) {
+        super();
         this.type = type;
         this.size = size;
         this.cargoBays = cargoBays;
@@ -284,6 +288,10 @@ public class ShipSpec implements Serializable {
 
     public boolean isHullUpgraded() {
         return hullUpgraded;
+    }
+
+    public UUID getBarCode() {
+        return barCode;
     }
 
     @Override

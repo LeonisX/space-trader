@@ -136,14 +136,15 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.newsId = newsId;
     }
 
+    @Override
+    public void affectSkills(int[] skills) {
+    }
 
-    // Special methods
-
-    void specialButtonClick(Object object, Phase phase) {
+    void specialButtonClick(Object object, QuestDialog dialog, Runnable operation) {
         String button1Text, button2Text;
         DialogResult button1Result, button2Result;
 
-        if (phase.isMessageOnly()) {
+        if (dialog.getMessageType() == MessageType.ALERT) {
             button1Text = Strings.AlertsOk;
             button2Text = null;
             button1Result = DialogResult.OK;
@@ -155,20 +156,25 @@ public abstract class AbstractQuest implements Quest, Serializable {
             button2Result = DialogResult.NO;
         }
 
-        FormAlert alert = new FormAlert(phase.getMessageTitle(), phase.getMessageBody(), button1Text, button1Result,
+        FormAlert alert = new FormAlert(dialog.getTitle(), dialog.getBody(), button1Text, button1Result,
                 button2Text, button2Result, null);
+
         if (alert.showDialog() != DialogResult.NO) {
-            if (Game.getCurrentGame().getCommander().getCashToSpend() < phase.getCashToSpend())
+            if (Game.getCurrentGame().getCommander().getCashToSpend() < getPrice())
                 GuiFacade.alert(AlertType.SpecialIF);
             else {
                 try {
                     ((Button) object).setVisible(false);
-                    Game.getCurrentGame().getCommander().spendCash(phase.getCashToSpend());
-                    unRegisterAllOperations();
+                    Game.getCurrentGame().getCommander().spendCash(getPrice());
+                    operation.run();
                 } catch (GameEndException ex) {
                     Game.getCurrentGame().getController().gameEnd();
                 }
             }
         }
+    }
+
+    void showAlert(AlertDialog dialog) {
+        new FormAlert(dialog.getTitle(), dialog.getBody(), Strings.AlertsOk, DialogResult.OK, null, DialogResult.NONE, null);
     }
 }

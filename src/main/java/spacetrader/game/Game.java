@@ -201,7 +201,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             }
         }
 
-        QuestsHolder.fireEvent(EventName.ARRESTED);
+        QuestsHolder.fireEvent(EventName.ON_ARRESTED);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
@@ -2207,7 +2207,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
         }
 
-        QuestsHolder.fireEvent(EventName.ESCAPE_WITH_POD);
+        QuestsHolder.fireEvent(EventName.ON_ESCAPE_WITH_POD);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);

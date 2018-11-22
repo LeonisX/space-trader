@@ -40,6 +40,12 @@ public class QuestsHolder implements Serializable {
         return questsHolder.newsIdCounter++;
     }
 
+    public static int[] affectSkills(int[] skills) {
+        int[] skillsCopy = skills.clone();
+        questsHolder.getQuests().forEach(q -> q.affectSkills(skillsCopy));
+        return skillsCopy;
+    }
+
     public List<Quest> getQuests() {
         return quests;
     }

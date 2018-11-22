@@ -12,10 +12,6 @@ public interface Quest {
 
     UUID getId();
 
-    String[] getMessageTitles();
-
-    String[] getMessageBodies();
-
     //TODO specialized??? QuestWithMercenary?
     String getCrewMemberName();
 
@@ -38,9 +34,9 @@ public interface Quest {
 
     int getSpecialCrewId();
 
-    String getSpecialCargoTitle();
-
     int getNewsId();
 
     String getNewsTitle();
+
+    void affectSkills(int[] skillsCopy);
 }
