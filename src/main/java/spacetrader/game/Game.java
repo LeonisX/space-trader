@@ -3647,14 +3647,10 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         Functions.randSeed(curSys.getId().castToInt(), commander.getDays());
 
         for (Integer newsEventId : getNewsEvents()) {
-            if (newsEventId < 1000) {
-                items.add(Functions.stringVars(Strings.NewsEvent[newsEventId],
-                        new String[]{commander.getName(), commander.getCurrentSystem().getName(),
-                                commander.getShip().getName()}));
-            } else {
-                Game.getCurrentGame().getQuestsHolder().getQuests().stream()
-                        .filter(q -> q.getNewsId() == newsEventId).findFirst().get().getNewsTitle();
-            }
+            String eventName = (newsEventId < 1000) ? Strings.NewsEvent[newsEventId] : QuestsHolder.getNewsTitle(newsEventId);
+
+            items.add(Functions.stringVars(eventName, new String[]{commander.getName(),
+                    commander.getCurrentSystem().getName(), commander.getShip().getName()}));
         }
 
         if (curSys.getSystemPressure() != SystemPressure.NONE) {

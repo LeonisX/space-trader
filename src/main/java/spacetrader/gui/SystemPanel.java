@@ -8,6 +8,7 @@ import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.EventName;
 import spacetrader.game.quest.QuestsHolder;
@@ -225,7 +226,7 @@ class SystemPanel extends Panel {
     private void specialButtonClick() {
         //TODO remove after all quests
         SpecialEvent specEvent = commander.getCurrentSystem().specialEvent();
-        if (specEvent != null) {
+        if (specEvent != null && specEvent.getType() != SpecialEventType.ASSIGNED) {
             String button1Text, button2Text;
             DialogResult button1Result, button2Result;
 

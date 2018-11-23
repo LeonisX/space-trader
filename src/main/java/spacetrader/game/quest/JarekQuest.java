@@ -17,6 +17,8 @@ import java.util.UUID;
 
 import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.EventName.*;
+import static spacetrader.game.quest.MessageType.ALERT;
+import static spacetrader.game.quest.MessageType.DIALOG;
 
 enum QuestStatus implements SpaceTraderEnum {
 
@@ -34,10 +36,10 @@ enum AlertName {
 
 class JarekQuest extends AbstractQuest {
 
-    public final static int STATUS_JAREK_NOT_STARTED = 0;
-    public final static int STATUS_JAREK_STARTED = 1;
-    public final static int STATUS_JAREK_IMPATIENT = 11;
-    public final static int STATUS_JAREK_DONE = 12;
+    private final static int STATUS_JAREK_NOT_STARTED = 0;
+    private final static int STATUS_JAREK_STARTED = 1;
+    private final static int STATUS_JAREK_IMPATIENT = 11;
+    private final static int STATUS_JAREK_DONE = 12;
 
     private static String CREW_MEMBER_NAME = "Jarek";     // Mercenary
 
@@ -49,20 +51,12 @@ class JarekQuest extends AbstractQuest {
 
     private static String[] QUESTS = {
             "Take ambassador Jarek to Devidia.",
-            //TODO optimize???
-            "Take ambassador Jarek to Devidia." + newline
-                    + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades."
+            "Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades."
     };
 
     private static QuestDialog[] DIALOGS = new QuestDialog[]{
-            new QuestDialog("Ambassador Jarek",
-                    "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?",
-                    MessageType.DIALOG
-                    ),
-            new QuestDialog("Jarek Gets Out",
-                    "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment.",
-                    MessageType.ALERT
-            )
+            new QuestDialog(DIALOG, "Ambassador Jarek", "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?"),
+            new QuestDialog(ALERT, "Jarek Gets Out", "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment.")
     };
 
     private static AlertDialog[] ALERTS = new AlertDialog[]{
@@ -73,8 +67,7 @@ class JarekQuest extends AbstractQuest {
 
     // Constants
     private static final boolean REPEATABLE = false;
-    private static final int OCCURRENCE = 1;
-    //private static final SpecialEventType TYPE = SpecialEventType.Jarek;
+    public static int OCCURRENCE = 1;
     private static final int CASH_TO_SPEND = 0;
 
     private int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
@@ -87,16 +80,15 @@ class JarekQuest extends AbstractQuest {
 
     private UUID shipBarCode = UUID.randomUUID();
 
-    JarekQuest() {
+    public JarekQuest(Integer id) {
+        setId(id);
         setQuest(this);
         repeatable = REPEATABLE;
-        occurrence = OCCURRENCE;
-        //this.type = TYPE;
         cashToSpend = CASH_TO_SPEND;
 
         List<Phase> phases = new ArrayList<>();
-        phases.add(new JarekQuest.FirstPhase(cashToSpend));
-        phases.add(new JarekQuest.SecondPhase(cashToSpend));
+        phases.add(new JarekQuest.FirstPhase());
+        phases.add(new JarekQuest.SecondPhase());
         setPhases(phases);
 
         setSpecialCrewId(QuestsHolder.generateSpecialCrewId());
@@ -135,11 +127,6 @@ class JarekQuest extends AbstractQuest {
     //new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
     class FirstPhase extends Phase {
 
-        //TODO need???
-        FirstPhase(int cashToSpend) {
-            super(cashToSpend);
-        }
-
         @Override
         public String getTitle() {
             return DIALOGS[0].getTitle();
@@ -177,14 +164,14 @@ class JarekQuest extends AbstractQuest {
                     Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId())) {
                 if (!((Button) object).isVisible()) {
                     ((Button) object).setVisible(true);
-                    ((Button) object).asJButton().setToolTipText(getMessageTitle());
+                    ((Button) object).asJButton().setToolTipText(getTitle());
                     registerOperation(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
                 }
             }
         }
 
         private void onSpecialButtonClicked(Object object) {
-            specialButtonClick(object, DIALOGS[0], () -> {
+            showDialogAndProcessResult(object, DIALOGS[0], () -> {
                 jarekOnBoard = true;
 
                 if (Game.getCurrentGame().getCommander().getShip().getFreeCrewQuartersCount() == 0) {
@@ -246,7 +233,7 @@ class JarekQuest extends AbstractQuest {
 
         @SuppressWarnings("unchecked")
         private void onIsConsiderDefaultCheat(Object object) {
-                Map<String, Integer> map = (Map<String, Integer>) object;
+            Map<String, Integer> map = (Map<String, Integer>) object;
             map.put(CHEATS_TITLE, questStatusJarek);
 
         }
@@ -274,10 +261,6 @@ class JarekQuest extends AbstractQuest {
     //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
     class SecondPhase extends Phase {
 
-        SecondPhase(int cashToSpend) {
-            super(cashToSpend);
-        }
-
         @Override
         public String getTitle() {
             return DIALOGS[1].getTitle();
@@ -302,14 +285,14 @@ class JarekQuest extends AbstractQuest {
             if (jarekOnBoard) {
                 if (!((Button) object).isVisible()) {
                     ((Button) object).setVisible(true);
-                    ((Button) object).asJButton().setToolTipText(getMessageTitle());
+                    ((Button) object).asJButton().setToolTipText(getTitle());
                     registerOperation(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
                 }
             }
         }
 
         private void onSpecialButtonClicked(Object object) {
-            specialButtonClick(object, DIALOGS[0], () -> {
+            showDialogAndProcessResult(object, DIALOGS[0], () -> {
                 questStatusJarek = STATUS_JAREK_DONE;
                 Game.getCurrentGame().getCommander().getShip().fire(getSpecialCrewId());
                 // TODO end quest

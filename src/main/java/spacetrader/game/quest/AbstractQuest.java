@@ -15,15 +15,13 @@ import java.util.function.Consumer;
 
 public abstract class AbstractQuest implements Quest, Serializable {
 
-    public UUID id = UUID.randomUUID();
+    public int id;
 
     private Quest quest;
     private List<Phase> phases;
 
     //TODO enum: random, disposable, repeatable
     boolean repeatable;
-    int occurrence;
-    //SpecialEventType type;
 
     int cashToSpend;
     boolean messageOnly;
@@ -52,13 +50,13 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     @Override
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    public String getMessageTitle() {
-        return messageTitle;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -76,10 +74,16 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return cashToSpend;
     }
 
-    /*@Override
-    public StarSystemId getStarSystemId() {
-        return starSystemId;
-    }*/
+
+    @Override
+    public String getCrewMemberName() {
+        return null;
+    }
+
+    @Override
+    public String getNewsTitle() {
+        return null;
+    }
 
     @Override
     public Consumer<Object> getCurrentOperation(EventName eventName) {
@@ -140,7 +144,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
     public void affectSkills(int[] skills) {
     }
 
-    void specialButtonClick(Object object, QuestDialog dialog, Runnable operation) {
+    void showDialogAndProcessResult(Object object, QuestDialog dialog, Runnable operation) {
         String button1Text, button2Text;
         DialogResult button1Result, button2Result;
 

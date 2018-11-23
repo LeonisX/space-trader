@@ -371,8 +371,8 @@ public class FormMonster extends SpaceTraderForm {
 
                 switch (SomeStringsForCheatSwitch.valueOf(sortWhat)) {
                     case Q: // Quests
-                        nameA = starSystemA.specialEvent().getTitle();
-                        nameB = starSystemB.specialEvent().getTitle();
+                        nameA = getQuestTitle(starSystemA, a);
+                        nameB = getQuestTitle(starSystemB, b);
                         break;
                     case S: // Shipyards
                         nameA = starSystemA.getShipyard().getName();
@@ -548,19 +548,23 @@ public class FormMonster extends SpaceTraderForm {
             });
             systemPanel.asJPanel().add(linkLabel.asSwingObject());
 
-            //TODO simplify after quests system
-            String title = (system.specialEvent() != null && !system.specialEvent().getType().equals(SpecialEventType.ASSIGNED))
-                    ? system.specialEvent().getTitle()
-                    : game.getQuestsHolder().getPhases()
-                    //TODO filter by quest/phase status???
-                    .filter(p -> p.getStarSystemId().castToInt() == questSystemId).findFirst().map(Phase::getTitle)
-                    .orElseThrow(() -> new IllegalStateException("Can't find system with ID: " + questSystemId));
-            Label label = new Label(EIGHT_SPACES + title);
+
+            Label label = new Label(EIGHT_SPACES + getQuestTitle(system, questSystemId));
             label.setAutoSize(true);
             descrPanel.asJPanel().add(label.asSwingObject());
         }
         questsSystemLabel.setLeft(metrics.stringWidth(THREE_SPACES) + 10);
         questsDescrLabel.setLeft(systemPanel.getWidth());
+    }
+
+    //TODO simplify after quests system
+    private String getQuestTitle(StarSystem system, Integer questSystemId) {
+        return  (system.specialEvent() != null && !system.specialEvent().getType().equals(SpecialEventType.ASSIGNED))
+                ? system.specialEvent().getTitle()
+                : game.getQuestsHolder().getPhases()
+                //TODO filter by quest/phase status???
+                .filter(p -> p.getStarSystemId().castToInt() == questSystemId).findFirst().map(Phase::getTitle)
+                .orElseThrow(() -> new IllegalStateException("Can't find system with ID: " + questSystemId));
     }
 
     private void updateShipyards() {

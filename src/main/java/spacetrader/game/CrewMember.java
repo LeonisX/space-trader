@@ -4,6 +4,7 @@ import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.SkillType;
 import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.quest.QuestsHolder;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
@@ -161,12 +162,7 @@ public class CrewMember implements Serializable {
     }*/
 
     public String getName() {
-        if (id >= 1000) {
-            return Game.getCurrentGame().getQuestsHolder().getQuests().stream()
-                    .filter(q -> q.getSpecialCrewId() == id).findFirst().get().getCrewMemberName();
-        } else {
-            return Strings.CrewMemberNames[id];
-        }
+        return (id >= 1000) ? QuestsHolder.getCrewMemberName(id) : Strings.CrewMemberNames[id];
     }
 
     public int getPilot() {

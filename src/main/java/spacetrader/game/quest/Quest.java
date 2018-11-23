@@ -10,12 +10,12 @@ public interface Quest {
 
     void setQuest(Quest quest);
 
-    UUID getId();
+    int getId();
+
+    void setId(int id);
 
     //TODO specialized??? QuestWithMercenary?
     String getCrewMemberName();
-
-    String getMessageTitle();
 
     String getMessageBody();
 
@@ -26,7 +26,6 @@ public interface Quest {
     //StarSystemId getStarSystemId();
 
     Consumer<Object> getCurrentOperation(EventName eventName);
-
 
     List<Phase> getPhases();
 
