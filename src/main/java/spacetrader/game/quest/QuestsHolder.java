@@ -49,7 +49,6 @@ public class QuestsHolder implements Serializable {
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
     }
 
     private void setQuestsMap(Map<Integer, Quest> map) {

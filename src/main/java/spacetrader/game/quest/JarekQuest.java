@@ -91,7 +91,7 @@ class JarekQuest extends AbstractQuest {
         phases.add(new JarekQuest.SecondPhase());
         setPhases(phases);
 
-        setSpecialCrewId(QuestsHolder.generateSpecialCrewId());
+        setSpecialCrewId(jarek.getId());
 
         registerListener();
     }
@@ -172,13 +172,12 @@ class JarekQuest extends AbstractQuest {
 
         private void onSpecialButtonClicked(Object object) {
             showDialogAndProcessResult(object, DIALOGS[0], () -> {
-                jarekOnBoard = true;
-
                 if (Game.getCurrentGame().getCommander().getShip().getFreeCrewQuartersCount() == 0) {
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                 } else {
                     GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
                     Game.getCurrentGame().getCommander().getShip().hire(jarek);
+                    jarekOnBoard = true;
                     questStatusJarek = STATUS_JAREK_STARTED;
                     Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
                     registerOperation(ON_INCREMENT_DAYS, this::onIncrementDays);

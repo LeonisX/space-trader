@@ -492,7 +492,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public boolean hasCrew(int id) {
-        return Arrays.stream(getCrew()).anyMatch(c -> c.getId() == id);
+        return Arrays.stream(getCrew()).filter(Objects::nonNull).anyMatch(c -> c.getId() == id);
     }
 
     boolean hasEquipment(Equipment item) {
