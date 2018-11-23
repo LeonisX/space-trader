@@ -225,7 +225,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* MonsterCom doesn't show all quests
+* On any planet starts Lottery quest
+* Jarek doesn't land on Devidia
 * When quest - change status
 * When show monsters - show unfinished quests or also show status
 * When fireEvent - filter all non-active quests
