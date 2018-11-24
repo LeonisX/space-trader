@@ -3,11 +3,7 @@ package spacetrader;
 import spacetrader.controls.BaseComponent;
 import spacetrader.game.Game;
 import spacetrader.game.GlobalAssets;
-import spacetrader.game.enums.CargoBuyOp;
-import spacetrader.game.enums.CargoSellOp;
-import spacetrader.game.enums.Difficulty;
-import spacetrader.game.enums.ShipyardId;
-import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.enums.*;
 import spacetrader.gui.*;
 import spacetrader.gui.cheat.FormMonster;
 import spacetrader.guifacade.GuiEngine;
@@ -24,6 +20,10 @@ public class SpaceTraderDevApp {
 
     public static void main(String[] args) {
         try {
+            //String.format(format, date, source, logger, level, message, thrown);
+            //                        1      2      3       4       5        6
+            System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT [%4$-7s] %2$s %5$s %6$s%n");
+
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             UIManager.put("swing.boldMetal", Boolean.FALSE);
         } catch (Exception e) {
