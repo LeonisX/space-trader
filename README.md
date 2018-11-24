@@ -225,13 +225,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* QuestState -> Strings, languages
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
-* FormMonster: show quest status string
-* FormMonster: order by quest status (title)
 * CheatsMenu - add other debug windows
 * On debug - don't wait splash screen
 * On debug - show new game dialog
+* MonsterCom - second click - order reverse
 
 * Jarek doesn't land on Devidia
 * Some optimizations, based on quest status

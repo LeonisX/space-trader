@@ -914,6 +914,10 @@ public class Strings {
             "Cold Snap Continues!", "Serious Crop Failure! Must We Ration?",
             "Jobless Rate at All-Time Low!"};
 
+    //TODO remove unneeded
+    public static String[] QuestStates = new String[]{"Inactive", "Scheduled", "Subscribed", "Active", "Suspended",
+            "Failed", "Finished", "Unknown"};
+
     public static String[] PoliceRecordNames = new String[]{"Psychopath", "Villain", "Criminal", "Crook", "Dubious",
             "Clean", "Lawful", "Trusted", "Liked", "Hero"};
 
