@@ -456,7 +456,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         setLeft(left);
         setTop(top);
 
-        GuiFacade.alert(AlertType.AppStart);
+        if (!GlobalAssets.isDebug()) {
+            GuiFacade.alert(AlertType.AppStart);
+        }
     }
 
     private void exitGameMenuItemClick() {
