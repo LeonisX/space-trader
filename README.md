@@ -224,14 +224,18 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Have a nice game
 
 ## TODO
-        
-private static final Logger LOGGER = Logger.getLogger(LotteryQuest.class.getName());
 
-* On any planet starts Lottery quest
+* QuestState -> Strings, languages
+* FormMonsterMenuItem, ChestsMenu -> Strings, languages
+* FormMonster: show quest status string
+* FormMonster: order by quest status (title)
+* CheatsMenu - add other debug windows
+* On debug - don't wait splash screen
+* On debug - show new game dialog
+
 * Jarek doesn't land on Devidia
 * Some optimizations, based on quest status
 * Jarek: on arrested, escapePod - fail quest, or let try again?
-* When show monsters - show unfinished quests or also show status
 * When fireEvent - filter all non-active quests
 
 * Different image sizes, font sizes (config)

@@ -10,6 +10,7 @@ import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.game.enums.Language;
+import spacetrader.gui.cheat.FormMonster;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.IOUtils;
@@ -56,6 +57,9 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private MenuItem englishMenuItem = new MenuItem();
     private MenuItem russianMenuItem = new MenuItem();
     private MenuItem optionsMenuItem = new MenuItem();
+
+    private SubMenu cheatsSubMenu = new SubMenu();
+    private MenuItem formMonsterMenuItem = new MenuItem();
 
     private SubMenu helpSubMenu = new SubMenu();
     private MenuItem aboutMenuItem = new MenuItem();
@@ -178,7 +182,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     }
 
     private void initializeMenu() {
-        mainMenu.addAll(gameSubMenu, viewSubMenu, helpSubMenu);
+        mainMenu.addAll(gameSubMenu, viewSubMenu, cheatsSubMenu, helpSubMenu);
 
         gameSubMenu.addAll(newGameMenuItem, loadGameMenuItem, saveGameMenuItem, saveGameAsMenuItem, separator(), 
                 retireGameMenuItem, separator(), exitGameMenuItem);
@@ -330,6 +334,20 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         });
 
+        cheatsSubMenu.addAll(formMonsterMenuItem);
+
+        //TODO hide if not cheats
+        cheatsSubMenu.setText("Cheats");
+
+        formMonsterMenuItem.setEnabled(false);
+        formMonsterMenuItem.setText("Monster.com");
+        formMonsterMenuItem.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                new FormMonster().showDialog();
+            }
+        });
+
         helpSubMenu.add(aboutMenuItem);
         helpSubMenu.setText("&Help");
 
@@ -382,6 +400,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         personnelMenuItem.setEnabled(enabled);
         questsMenuItem.setEnabled(enabled);
         bankMenuItem.setEnabled(enabled);
+
+        formMonsterMenuItem.setEnabled(enabled);
     }
 
     public void updateAll() {
