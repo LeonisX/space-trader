@@ -13,6 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static spacetrader.game.enums.AlertType.EncounterDrinkContents;
 
@@ -23,6 +26,11 @@ public class SpaceTraderDevApp {
             //String.format(format, date, source, logger, level, message, thrown);
             //                        1      2      3       4       5        6
             System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT [%4$-7s] %2$s %5$s %6$s%n");
+            Logger.getLogger("").setLevel(Level.ALL);
+            for (Handler handler : Logger.getLogger("").getHandlers()) {
+                handler.setLevel(Level.ALL);
+                handler.setFilter(record -> record.getLoggerName().startsWith("spacetrader"));
+            }
 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             UIManager.put("swing.boldMetal", Boolean.FALSE);

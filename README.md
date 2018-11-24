@@ -224,18 +224,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Have a nice game
 
 ## TODO
-
-
-/*Logger.getLogger("").setLevel(Level.ALL);
-for (Handler handler : Logger.getLogger("").getHandlers()) {
-handler.setLevel(Level.ALL);
-}*/
-
-System.setProperty("java.util.logging.ConsoleHandler.level", "ALL");
-            
+        
 private static final Logger LOGGER = Logger.getLogger(LotteryQuest.class.getName());
-
-LOGGER.info("TRO-LO-LO");
 
 * On any planet starts Lottery quest
 * Jarek doesn't land on Devidia
