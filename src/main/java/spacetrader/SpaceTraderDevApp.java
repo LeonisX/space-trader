@@ -38,6 +38,7 @@ public class SpaceTraderDevApp {
             throw new RuntimeException(e);
         }
 
+        GlobalAssets.setDebug(true);
         GlobalAssets.loadVersion();
         GlobalAssets.loadLanguageFromRegistry();
         GlobalAssets.loadStrings();
@@ -57,6 +58,7 @@ public class SpaceTraderDevApp {
         Game.setCurrentGame(null);
 
         spaceTrader.showWindow();
+        spaceTrader.newGameMenuItemClick();
     }
 
 

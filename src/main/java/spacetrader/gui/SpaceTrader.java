@@ -126,7 +126,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 spaceTraderClosed();
             }
         });
-
         this.setLoad(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
@@ -194,7 +193,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         newGameMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                mnuGameNew_Click();
+                newGameMenuItemClick();
             }
         });
 
@@ -465,7 +464,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         close();
     }
 
-    private void mnuGameNew_Click() {
+    public void newGameMenuItemClick() {
         FormNewCommander form = new FormNewCommander();
         if ((game == null || commander.getDays() == controller.getSaveGameDays() || GuiFacade.alert(AlertType.GameAbandonConfirm) == DialogResult.YES)
                 && form.showDialog(this) == DialogResult.OK) {

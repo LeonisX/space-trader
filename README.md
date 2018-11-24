@@ -227,7 +227,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * CheatsMenu - add other debug windows
-* On debug - show new game dialog
 * MonsterCom - second click - order reverse
 
 * Jarek doesn't land on Devidia
