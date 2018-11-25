@@ -225,11 +225,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* After the message about the lottery, a dialogue with Jarek appears
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * CheatsMenu - add other debug windows
 * MonsterCom - second click - order reverse
-
-* Jarek doesn't land on Devidia
 * Some optimizations, based on quest status
 * Jarek: on arrested, escapePod - fail quest, or let try again?
 * When fireEvent - filter all non-active quests

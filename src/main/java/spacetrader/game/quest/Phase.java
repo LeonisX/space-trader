@@ -4,6 +4,7 @@ import spacetrader.game.enums.StarSystemId;
 
 import java.io.Serializable;
 
+//TODO may be Phase or System? Only methods for title, starSystemId???
 public abstract class Phase implements Serializable {
 
     private StarSystemId starSystemId;

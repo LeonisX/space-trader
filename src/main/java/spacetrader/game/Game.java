@@ -3272,6 +3272,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         arrive();
     }
 
+    //TODO may be static?
     public Commander getCommander() {
         return commander;
     }
@@ -3929,4 +3930,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     public void setQuestsHolder(QuestsHolder questsHolder) {
         this.questsHolder = questsHolder;
     }
+
+
 }

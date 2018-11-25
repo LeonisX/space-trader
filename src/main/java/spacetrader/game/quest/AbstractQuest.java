@@ -20,6 +20,8 @@ public abstract class AbstractQuest implements Quest, Serializable {
     private Quest quest;
     private List<Phase> phases;
 
+    private QuestState questState = QuestState.INACTIVE;
+
     //TODO enum: random, disposable, repeatable
     boolean repeatable;
 
@@ -141,7 +143,23 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     @Override
+    public QuestState getQuestState() {
+        return questState;
+    }
+
+    public void setQuestState(QuestState questState) {
+        this.questState = questState;
+    }
+
+    @Override
     public void affectSkills(int[] skills) {
+    }
+
+    void showSpecialButton(Object object, String title) {
+        if (!((Button) object).isVisible()) {
+            ((Button) object).setVisible(true);
+            ((Button) object).asJButton().setToolTipText(title);
+        }
     }
 
     void showDialogAndProcessResult(Object object, QuestDialog dialog, Runnable operation) {

@@ -37,5 +37,7 @@ public interface Quest {
 
     String getNewsTitle();
 
+    QuestState getQuestState();
+
     void affectSkills(int[] skillsCopy);
 }

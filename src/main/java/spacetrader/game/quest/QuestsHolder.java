@@ -2,13 +2,17 @@ package spacetrader.game.quest;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
 public class QuestsHolder implements Serializable {
+
+    private static final Logger log = Logger.getLogger(LotteryQuest.class.getName());
 
     private volatile Map<Integer, Quest> quests;
     private volatile Map<EventName, List<Integer>> eventListeners;
@@ -32,13 +36,16 @@ public class QuestsHolder implements Serializable {
         initialize(LotteryQuest.class);
         initialize(JarekQuest.class);
 
+        log.fine("initialized");
         return questsHolder;
     }
 
 
     private static void initialize(Class<? extends Quest> clazz) {
         try {
-            int occurrence = Math.max(clazz.getField("OCCURRENCE").getInt(null), 1);
+            Field field = clazz.getDeclaredField("OCCURRENCE");
+            field.setAccessible(true);
+            int occurrence = Math.max(field.getInt(null), 1);
             for (int i = 0; i < occurrence; i++) {
                 Integer id = generateQuestId();
                 Constructor<?> c = clazz.getConstructor(id.getClass());
@@ -72,8 +79,10 @@ public class QuestsHolder implements Serializable {
     }
 
     public static int[] affectSkills(int[] skills) {
+        //log.fine("affectSkills: " + Arrays.toString(skills));
         int[] skillsCopy = skills.clone();
         questsHolder.getQuests().forEach(q -> q.affectSkills(skillsCopy));
+        //log.fine("skillsCopy: " + Arrays.toString(skillsCopy));
         return skillsCopy;
     }
 
@@ -82,12 +91,14 @@ public class QuestsHolder implements Serializable {
     }
 
     public static void fireEvent(EventName eventName) {
+        log.fine(eventName.toString());
         questsHolder.getEventListeners().entrySet().stream().filter(e -> e.getKey().equals(eventName))
                 .forEach(listener -> new ArrayList<>(listener.getValue())
                         .forEach(l -> questsHolder.quests.get(l).getCurrentOperation(eventName).accept(null)));
     }
 
     public static void fireEvent(EventName eventName, Object object) {
+        log.fine(eventName.toString() + "; " + object.toString());
         questsHolder.getEventListeners().entrySet().stream().filter(e -> e.getKey().equals(eventName))
                 .forEach(entry -> new ArrayList<>(entry.getValue()).forEach(q -> {
                     if (questsHolder.quests.get(q).getCurrentOperation(eventName) != null) {
@@ -97,14 +108,17 @@ public class QuestsHolder implements Serializable {
     }
 
     public static void subscribe(EventName eventName, Quest quest) {
+        log.fine(eventName.toString() + "; " + quest.toString());
         questsHolder.getEventListeners().get(eventName).add(quest.getId());
     }
 
     public static void unSubscribe(EventName eventName, Quest quest) {
+        log.fine(eventName.toString() + "; " + quest.toString());
         questsHolder.getEventListeners().get(eventName).removeIf(q -> q.getClass().equals(quest.getClass()));
     }
 
     public static void unSubscribeAll(Quest quest) {
+        log.fine(quest.toString());
         questsHolder.getEventListeners().forEach((key, value) -> unSubscribe(key, quest));
     }
 
@@ -131,16 +145,25 @@ public class QuestsHolder implements Serializable {
 
     //TODO test
     public void startTransaction() {
+        log.fine("" + questCounter);
         transactionStart = questCounter;
     }
 
     //TODO test
     public void rollbackTransaction() {
         if (transactionStart >= 0) {
+            log.fine("started");
             List<Integer> toRemove = quests.keySet().stream().filter(k -> k > transactionStart).collect(toList());
+            log.fine(toRemove.toString());
 
+            log.fine(quests.toString());
             toRemove.forEach(key -> quests.remove(key));
+            log.fine(quests.toString());
+            log.fine(eventListeners.toString());
             eventListeners.values().forEach(e -> e.removeAll(toRemove));
+            log.fine(eventListeners.toString());
+        } else {
+            log.fine("skipped");
         }
         transactionStart = -1;
     }
