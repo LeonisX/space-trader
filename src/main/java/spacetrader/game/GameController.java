@@ -29,7 +29,9 @@ public class GameController {
     public GameController(Game game, MainWindow spaceTrader) {
         this.game = game;
         mainWindow = spaceTrader;
-        game.setController(this);
+        if (game != null) {
+            game.setController(this);
+        }
     }
 
     public void cargoBuy(int tradeItem, boolean max) {
