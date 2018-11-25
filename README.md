@@ -10,7 +10,8 @@ Useful Source Repositories:
 
 * [Space Trader from Peter Spronk on GitHub](https://github.com/videogamepreservation/spacetrader)
 * [Space Trader from Jay French on GitHub](https://github.com/SpaceTraderGame/SpaceTrader-Windows)
-* [Android version of Space Trader from Russel Wolf aka brucelet](https://bitbucket.org/brucelet/space-trader/src)
+* [Android version of Space Trader from Russel Wolf aka brucelet](https://bitbucket.org/brucelet/space-trader/src), [Official site](http://spacetrader.brucelet.com/)
+* [Android version of Space Trader from Benjamin Schieder aka blind-coder](https://github.com/blind-coder/SpaceTrader), [Official site](https://www.benjamin-schieder.de/)
 * [Dark Nova - iOS, Android sources](https://github.com/deadjim/dark-nova-android)
 
 [Other implementations on GitHub](https://github.com/search?q=space+trader)
@@ -225,12 +226,12 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Test all
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * CheatsMenu - add other debug windows
 * MonsterCom - second click - order reverse
 * Some optimizations, based on quest status
 * Jarek: on arrested, escapePod - fail quest, or let try again? Check in Windows version
-* When fireEvent - filter all non-active quests
 
 * Different image sizes, font sizes (config)
 * Installers: http://www.jrsoftware.org/isdl.php
