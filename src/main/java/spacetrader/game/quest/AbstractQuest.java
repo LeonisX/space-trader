@@ -22,14 +22,9 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     private QuestState questState = QuestState.INACTIVE;
 
-    //TODO enum: random, disposable, repeatable
-    boolean repeatable;
+    Repeatable repeatable;
 
     int cashToSpend;
-    boolean messageOnly;
-
-    String messageTitle;
-    String messageBody;
 
     private int specialCrewId = QuestsHolder.generateSpecialCrewId();
 
@@ -59,16 +54,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
     @Override
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Override
-    public String getMessageBody() {
-        return messageBody;
-    }
-
-    @Override
-    public boolean isMessageOnly() {
-        return messageOnly;
     }
 
     @Override
@@ -104,14 +89,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
     public void unRegisterAllOperations() {
         QuestsHolder.unSubscribeAll(quest);
         operations.clear();
-    }
-
-    public Map<EventName, Consumer<Object>> getOperations() {
-        return operations;
-    }
-
-    public void setOperations(Map<EventName, Consumer<Object>> operations) {
-        this.operations = operations;
     }
 
     @Override

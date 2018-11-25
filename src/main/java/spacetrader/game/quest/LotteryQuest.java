@@ -20,7 +20,7 @@ class LotteryQuest extends AbstractQuest {
     private static QuestDialog DIALOG = new QuestDialog(ALERT, "Lottery Winner",
             "You are lucky! While docking on the space port, you receive a message that you won 1000 credits in a lottery. The prize had been added to your account.");
 
-    private static final boolean REPEATABLE = false;
+    private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 0;
 
     public LotteryQuest(Integer id) {
@@ -28,7 +28,6 @@ class LotteryQuest extends AbstractQuest {
         setQuest(this);
         repeatable = REPEATABLE;
         cashToSpend = CASH_TO_SPEND;
-        messageOnly = MESSAGE_ONLY;
 
         List<Phase> phases = new ArrayList<>();
         phases.add(new FirstPhase());

@@ -17,9 +17,7 @@ public interface Quest {
     //TODO specialized??? QuestWithMercenary?
     String getCrewMemberName();
 
-    String getMessageBody();
-
-    boolean isMessageOnly();
+    int getSpecialCrewId();
 
     int getPrice();
 
@@ -32,8 +30,6 @@ public interface Quest {
     Phase getPhase(int index);
 
     void setPhases(List<Phase> phases);
-
-    int getSpecialCrewId();
 
     int getNewsId();
 

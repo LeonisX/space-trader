@@ -58,7 +58,7 @@ class JarekQuest extends AbstractQuest {
     private final static int STATUS_JAREK_IMPATIENT = 11;
     private final static int STATUS_JAREK_DONE = 12;
 
-    private static final boolean REPEATABLE = false;
+    private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 1;
     private static final int CASH_TO_SPEND = 0;
 
