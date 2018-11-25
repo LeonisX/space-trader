@@ -36,7 +36,7 @@ public class GameCheats implements Serializable {
      */
     public boolean isConsiderCheat(String[] wordsArray, GameController controller) {
         Game game = Game.getCurrentGame();
-        Ship ship = Game.getCommander().getShip();
+        Ship ship = Game.getShip();
 
         CheatWords words = CheatWords.parseWords(wordsArray);
 

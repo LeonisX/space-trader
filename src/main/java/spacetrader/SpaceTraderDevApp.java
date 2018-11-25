@@ -64,7 +64,7 @@ public class SpaceTraderDevApp {
 
     private static void dumpAll(SpaceTrader spaceTrader) {
         Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
-        Game.getCommander().getShip().getCargo()[1] = 12;
+        Game.getShip().getCargo()[1] = 12;
         game.setSelectedSystemId(StarSystemId.Aldea);
         game.warpDirect();
         Game.getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);

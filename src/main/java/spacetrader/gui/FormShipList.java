@@ -99,9 +99,9 @@ public class FormShipList extends SpaceTraderForm {
         initializeComponent();
         
         updateAll();
-        info(Game.getCommander().getShip().getType().castToInt());
+        info(Game.getShip().getType().castToInt());
 
-        if (Game.getCommander().getShip().getTribbles() > 0 && !game.getTribbleMessage()) {
+        if (Game.getShip().getTribbles() > 0 && !game.getTribbleMessage()) {
             GuiFacade.alert(AlertType.TribblesTradeIn);
             game.setTribbleMessage(true);
         }
@@ -424,11 +424,11 @@ public class FormShipList extends SpaceTraderForm {
             if (Consts.ShipSpecs[i].getMinimumTechLevel().castToInt() > Game.getCommander().getCurrentSystem()
                     .getTechLevel().castToInt()) {
                 priceLabels[i].setText(Strings.CargoBuyNA);
-            } else if (Consts.ShipSpecs[i].getType() == Game.getCommander().getShip().getType()) {
+            } else if (Consts.ShipSpecs[i].getType() == Game.getShip().getType()) {
                 priceLabels[i].setText(Strings.ShipBuyGotOne);
             } else {
                 buyButtons[i].setVisible(true);
-                prices[i] = Consts.ShipSpecs[i].getPrice() - Game.getCommander().getShip().getWorth(false);
+                prices[i] = Consts.ShipSpecs[i].getPrice() - Game.getShip().getWorth(false);
                 priceLabels[i].setText(Functions.formatMoney(prices[i]));
             }
         }

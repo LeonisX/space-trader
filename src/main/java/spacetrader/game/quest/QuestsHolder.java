@@ -66,15 +66,15 @@ public class QuestsHolder implements Serializable {
         return quests;
     }
 
-    public static int generateSpecialCrewId() {
+    static int generateSpecialCrewId() {
         return questsHolder.specialCrewIdCounter++;
     }
 
-    public static int generateNewsId() {
+    static int generateNewsId() {
         return questsHolder.newsIdCounter++;
     }
 
-    public static int generateQuestId() {
+    private static int generateQuestId() {
         return questsHolder.questCounter++;
     }
 
@@ -107,30 +107,30 @@ public class QuestsHolder implements Serializable {
                 }));
     }
 
-    public static void subscribe(EventName eventName, Quest quest) {
+    static void subscribe(EventName eventName, Quest quest) {
         log.fine(eventName.toString() + "; " + quest.toString());
         questsHolder.getEventListeners().get(eventName).add(quest.getId());
     }
 
-    public static void unSubscribe(EventName eventName, Quest quest) {
+    static void unSubscribe(EventName eventName, Quest quest) {
         log.fine(eventName.toString() + "; " + quest.toString());
         questsHolder.getEventListeners().get(eventName).removeIf(q -> q.getClass().equals(quest.getClass()));
     }
 
-    public static void unSubscribeAll(Quest quest) {
+    static void unSubscribeAll(Quest quest) {
         log.fine(quest.toString());
         questsHolder.getEventListeners().forEach((key, value) -> unSubscribe(key, quest));
     }
 
-    public Map<EventName, List<Integer>> getEventListeners() {
+    private Map<EventName, List<Integer>> getEventListeners() {
         return eventListeners;
     }
 
-    public void setEventListeners(Map<EventName, List<Integer>> eventListeners) {
+    private void setEventListeners(Map<EventName, List<Integer>> eventListeners) {
         this.eventListeners = eventListeners;
     }
 
-    //TODO optimize
+    //TODO optimize need???
     public Stream<Phase> getPhases() {
         return getQuests().stream().flatMap(q -> q.getPhases().stream());
     }

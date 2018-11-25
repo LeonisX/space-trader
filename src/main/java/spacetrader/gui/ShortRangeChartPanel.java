@@ -24,7 +24,7 @@ public class ShortRangeChartPanel extends Panel {
     private final Pen DEFAULT_PEN = new Pen(Color.BLACK);
     private final Brush DEFAULT_BRUSH = new Brush(Color.WHITE);
 
-    private SystemTracker game = null;
+    private Game game = null;
     private Commander commander;
 
     private PictureBox shortRangeChartPicture = new PictureBox();
@@ -36,7 +36,7 @@ public class ShortRangeChartPanel extends Panel {
         ilChartImages = images;
     }
 
-    void setGame(SystemTracker game, Commander commander) {
+    void setGame(Game game, Commander commander) {
         this.game = game;
         this.commander = commander;
     }

@@ -18,6 +18,12 @@ public class LinkLabel extends Label implements MouseListener {
         this.setText(text);
     }
 
+    @Override
+    public LinkLabel withAutoSize(boolean autoSize) {
+        setAutoSize(autoSize);
+        return this;
+    }
+
     public void setLinkClicked(SimpleEventHandler<Object> linkClicked) {
         this.linkClicked = linkClicked;
         asJLinkLabel().addMouseListener(this);

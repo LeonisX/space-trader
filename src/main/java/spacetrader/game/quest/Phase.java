@@ -4,14 +4,22 @@ import spacetrader.game.enums.StarSystemId;
 
 import java.io.Serializable;
 
-//TODO may be Phase or System? Only methods for title, starSystemId???
 public abstract class Phase implements Serializable {
+
+    private int id;
+    private QuestDialog[] dialogs;
 
     private StarSystemId starSystemId;
 
-    public abstract String getTitle();
+    private Quest quest;
 
-    public abstract void registerListener();
+    public String getTitle() {
+        return dialogs[id].getTitle();
+    }
+
+    public QuestDialog getDialog() {
+        return dialogs[id];
+    }
 
     public StarSystemId getStarSystemId() {
         return starSystemId;
@@ -23,4 +31,23 @@ public abstract class Phase implements Serializable {
 
     public abstract boolean canBeExecuted();
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDialogs(QuestDialog[] dialogs) {
+        this.dialogs = dialogs;
+    }
+
+    public Quest getQuest() {
+        return quest;
+    }
+
+    public void setQuest(Quest quest) {
+        this.quest = quest;
+    }
 }

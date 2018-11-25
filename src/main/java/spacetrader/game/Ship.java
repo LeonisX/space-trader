@@ -59,9 +59,9 @@ public class Ship extends ShipSpec implements Serializable {
         } else if (oppType == OpponentType.BOTTLE) {
             setValues(ShipType.BOTTLE);
         } else {
-            int tries = (oppType == OpponentType.MANTIS) ? Game.getCurrentGame().getDifficulty().castToInt() + 1
+            int tries = (oppType == OpponentType.MANTIS) ? Game.getDifficultyId() + 1
                     : Math.max(1, Game.getCommander().getWorth() / 150000
-                            + Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
+                            + Game.getDifficultyId() - Difficulty.NORMAL.castToInt());
 
             generateOpponentShip(oppType);
             generateOpponentAddCrew();
@@ -192,7 +192,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     private void generateOpponentAddCargo(boolean pirate) {
         if (getCargoBays() > 0) {
-            Difficulty diff = Game.getCurrentGame().getDifficulty();
+            Difficulty diff = Game.getDifficulty();
             int baysToFill = getCargoBays();
 
             if (diff.castToInt() >= Difficulty.NORMAL.castToInt()) {
@@ -217,7 +217,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     private void generateOpponentAddCrew() {
         List<CrewMember> mercs = Game.getCurrentGame().getMercenaries();
-        Difficulty diff = Game.getCurrentGame().getDifficulty();
+        Difficulty diff = Game.getDifficulty();
 
         getCrew()[0] = mercs.get(CrewMemberId.OPPONENT.castToInt());
         getCrew()[0].setPilot(1 + Functions.getRandom(Consts.MaxSkill));
@@ -253,7 +253,7 @@ public class Ship extends ShipSpec implements Serializable {
         if (getGadgetSlots() > 0) {
             int numGadgets;
 
-            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE) {
+            if (Game.getDifficulty() == Difficulty.IMPOSSIBLE) {
                 numGadgets = getGadgetSlots();
             } else {
                 numGadgets = Functions.getRandom(getGadgetSlots() + 1);
@@ -318,7 +318,7 @@ public class Ship extends ShipSpec implements Serializable {
         if (getShieldSlots() > 0) {
             int numShields;
 
-            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE) {
+            if (Game.getDifficulty() == Difficulty.IMPOSSIBLE) {
                 numShields = getShieldSlots();
             } else {
                 numShields = Functions.getRandom(getShieldSlots() + 1);
@@ -359,7 +359,7 @@ public class Ship extends ShipSpec implements Serializable {
         if (getWeaponSlots() > 0) {
             int numWeapons;
 
-            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE) {
+            if (Game.getDifficulty() == Difficulty.IMPOSSIBLE) {
                 numWeapons = getWeaponSlots();
             } else if (getWeaponSlots() == 1) {
                 numWeapons = 1;
@@ -417,7 +417,7 @@ public class Ship extends ShipSpec implements Serializable {
                 case PIRATE:
                     // Pirates become better when you get richer
                     tries = 1 + cmdr.getWorth() / 100000;
-                    tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
+                    tries = Math.max(1, tries + Game.getDifficultyId()
                             - Difficulty.NORMAL.castToInt());
                     break;
                 case POLICE:
@@ -431,7 +431,7 @@ public class Ship extends ShipSpec implements Serializable {
                     } else {
                         tries = 1;
                     }
-                    tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
+                    tries = Math.max(1, tries + Game.getDifficultyId()
                             - Difficulty.NORMAL.castToInt());
                     break;
             }
@@ -766,7 +766,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     boolean isCommandersShip() {
-        return this == Game.getCommander().getShip();
+        return this == Game.getShip();
     }
 
     public CrewMember[] getCrew() {
@@ -970,7 +970,7 @@ public class Ship extends ShipSpec implements Serializable {
                 }
             }
 
-            skills[skill] = Math.max(1, Game.getCurrentGame().getDifficulty().adjustSkill(max));
+            skills[skill] = Math.max(1, Game.getDifficulty().adjustSkill(max));
         }
 
         // Adjust skills based on any gadgets on board.

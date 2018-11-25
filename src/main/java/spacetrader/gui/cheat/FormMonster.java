@@ -8,9 +8,8 @@ import spacetrader.game.*;
 import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.enums.ShipyardId;
-import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.Phase;
-import spacetrader.game.quest.Quest;
 import spacetrader.game.quest.QuestState;
 import spacetrader.gui.FontCollection;
 import spacetrader.gui.SpaceTraderForm;
@@ -305,7 +304,7 @@ public class FormMonster extends SpaceTraderForm {
 
     private String currentSystemDisplay(CrewMember merc) {
         return (null == merc.getCurrentSystem() ? Strings.Unknown
-                : (Game.getCommander().getShip().hasCrew(merc.getId()) ? Functions.stringVars(Strings.MercOnBoard, merc
+                : (Game.getShip().hasCrew(merc.getId()) ? Functions.stringVars(Strings.MercOnBoard, merc
                 .getCurrentSystem().getName()) : merc.getCurrentSystem().getName()));
     }
 
@@ -321,7 +320,12 @@ public class FormMonster extends SpaceTraderForm {
 
         // Populate the quest and shipyard system ids arrays.
         questSystems.addAll(game.getQuestsHolder().getPhases()
-                 .map(p -> p.getStarSystemId().castToInt()).map(this::createQuestRow).collect(Collectors.toList()));
+                 .map(p ->
+                     (null == p.getStarSystemId())
+                             ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown , p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])
+                 : createQuestRow(p)
+                 )
+                .collect(Collectors.toList()));
         for (StarSystem system : game.getUniverse()) {
             //TODO remove after all quests
             if (system.showSpecialButton()) {
@@ -339,34 +343,22 @@ public class FormMonster extends SpaceTraderForm {
     }
 
     private Row createQuestRow(int systemId) {
-        StarSystem system = game.getUniverse()[systemId];
-        return new Row(systemId, system.getName(), getQuestTitle(system, systemId),
-                Strings.QuestStates[getQuestState(system, systemId).ordinal()]);
+        StarSystem system = Game.getStarSystem(systemId);
+        String title = system.specialEvent().getTitle();
+        String state = Strings.QuestStates[QuestState.UNKNOWN.ordinal()];
+        return new Row(systemId, system.getName(), title, state);
+    }
+
+    private Row createQuestRow(Phase phase) {
+        int systemId = (null == phase.getStarSystemId()) ? StarSystemId.NA.castToInt() : phase.getStarSystemId().castToInt();
+        String systemName = (systemId < 0) ? Strings.Unknown : Game.getStarSystem(systemId).getName();
+        return new Row(systemId, systemName, phase.getTitle(), Strings.QuestStates[phase.getQuest().getQuestState().ordinal()]);
     }
 
     private Row createShipyardRow(int systemId) {
-        StarSystem system = game.getUniverse()[systemId];
+        StarSystem system = Game.getStarSystem(systemId);
         return new Row(systemId, system.getName(), system.getShipyard().getName(),
                 Strings.ShipyardSkills[system.getShipyard().getSkill().castToInt()]);
-    }
-
-    //TODO simplify after quests system
-    private String getQuestTitle(StarSystem system, Integer questSystemId) {
-        return  (system.specialEvent() != null && !system.specialEvent().getType().equals(SpecialEventType.ASSIGNED))
-                ? system.specialEvent().getTitle()
-                : game.getQuestsHolder().getPhases()
-                //TODO filter by quest/phase status???
-                .filter(p -> p.getStarSystemId().castToInt() == questSystemId).findFirst().map(Phase::getTitle)
-                .orElseThrow(() -> new IllegalStateException("Can't find system with ID: " + questSystemId));
-    }
-
-    //TODO simplify after quests system
-    private QuestState getQuestState(StarSystem system, Integer questSystemId) {
-        return (system.specialEvent() != null && !system.specialEvent().getType().equals(SpecialEventType.ASSIGNED))
-                ? QuestState.UNKNOWN
-                : game.getQuestsHolder().getQuests().stream().filter(q -> q.getPhases().stream()
-                .anyMatch(p -> p.getStarSystemId().castToInt() == questSystemId)).map(Quest::getQuestState).findFirst()
-                .orElseThrow(() -> new IllegalStateException("Can't find system with ID: " + questSystemId));
     }
 
     private void sortMercenaries(String sortBy) {
@@ -458,45 +450,41 @@ public class FormMonster extends SpaceTraderForm {
         for (Integer mercId : mercIds) {
             CrewMember merc = game.getMercenaries().get(mercId);
 
-            Label label = new Label(THREE_SPACES + merc.getId());
-            label.setAutoSize(true);
+            Label label = new Label(THREE_SPACES + merc.getId()).withAutoSize(true);
             idsPanel.asJPanel().add(label.asSwingObject());
 
-            label = new Label(EIGHT_SPACES + merc.getName() + FIVE_SPACES);
-            label.setAutoSize(true);
+            label = new Label(EIGHT_SPACES + merc.getName() + FIVE_SPACES).withAutoSize(true);
             namesPanel.asJPanel().add(label.asSwingObject());
 
-            label = new Label(THREE_SPACES + merc.getPilot());
-            label.setAutoSize(true);
+            label = new Label(THREE_SPACES + merc.getPilot()).withAutoSize(true);
             pPanel.asJPanel().add(label.asSwingObject());
 
-            label = new Label(THREE_SPACES + merc.getFighter());
-            label.setAutoSize(true);
+            label = new Label(THREE_SPACES + merc.getFighter()).withAutoSize(true);
             fPanel.asJPanel().add(label.asSwingObject());
 
-            label = new Label(THREE_SPACES + merc.getTrader());
-            label.setAutoSize(true);
+            label = new Label(THREE_SPACES + merc.getTrader()).withAutoSize(true);
             tPanel.asJPanel().add(label.asSwingObject());
 
-            label = new Label(THREE_SPACES + merc.getEngineer() + EIGHT_SPACES);
-            label.setAutoSize(true);
+            label = new Label(THREE_SPACES + merc.getEngineer() + EIGHT_SPACES).withAutoSize(true);
             ePanel.asJPanel().add(label.asSwingObject());
 
-            if ((merc.getCurrentSystem() != null) && !Game.getCommander().getShip().hasCrew(merc.getId())) {
-                LinkLabel linkLabel = new LinkLabel(currentSystemDisplay(merc));
-                linkLabel.setAutoSize(true);
-                linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
-                    @Override
-                    public void handle(Object sender) {
-                        systemLinkClicked(sender);
-                    }
-                });
-                systemPanel.asJPanel().add(linkLabel.asSwingObject());
-            } else {
-                label = new Label(currentSystemDisplay(merc));
-                label.setAutoSize(true);
-                systemPanel.asJPanel().add(label.asSwingObject());
-            }
+            label = optionalLinkLabel((merc.getCurrentSystem() != null) && !Game.getShip().hasCrew(merc.getId()), currentSystemDisplay(merc));
+            systemPanel.asJPanel().add(label.asSwingObject());
+        }
+    }
+
+    private Label optionalLinkLabel(boolean condition, String systemName) {
+        if (condition) {
+            LinkLabel linkLabel = new LinkLabel(systemName).withAutoSize(true);
+            linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
+                @Override
+                public void handle(Object sender) {
+                    systemLinkClicked(sender);
+                }
+            });
+            return linkLabel;
+        } else {
+            return new Label(systemName).withAutoSize(true);
         }
     }
 
@@ -511,22 +499,13 @@ public class FormMonster extends SpaceTraderForm {
         dummyPanel.asJPanel().add(new Label(THREE_SPACES).asSwingObject());
 
         for (Row questSystem : questSystems) {
-            LinkLabel linkLabel = new LinkLabel(questSystem.getSystem());
-            linkLabel.setAutoSize(true);
-            linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
-                @Override
-                public void handle(Object sender) {
-                    systemLinkClicked(sender);
-                }
-            });
-            systemPanel.asJPanel().add(linkLabel.asSwingObject());
+            Label label = optionalLinkLabel(questSystem.getSystemId() != StarSystemId.NA.castToInt(), questSystem.getSystem());
+            systemPanel.asJPanel().add(label.asSwingObject());
 
-            Label label = new Label(THREE_SPACES + questSystem.getDescription());
-            label.setAutoSize(true);
+            label = new Label(THREE_SPACES + questSystem.getDescription()).withAutoSize(true);
             descrPanel.asJPanel().add(label.asSwingObject());
 
-            label = new Label(THREE_SPACES + questSystem.getFeature());
-            label.setAutoSize(true);
+            label = new Label(THREE_SPACES + questSystem.getFeature()).withAutoSize(true);
             statusPanel.asJPanel().add(label.asSwingObject());
         }
         questsSystemLabel.setLeft(metrics.stringWidth(THREE_SPACES) + 10);
@@ -544,8 +523,7 @@ public class FormMonster extends SpaceTraderForm {
         dummyPanel.asJPanel().add(new Label(THREE_SPACES).asSwingObject());
 
         for (Row shipyardSystem : shipyardSystems) {
-            LinkLabel linkLabel = new LinkLabel(shipyardSystem.getSystem());
-            linkLabel.setAutoSize(true);
+            LinkLabel linkLabel = new LinkLabel(shipyardSystem.getSystem()).withAutoSize(true);
             linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
                 @Override
                 public void handle(Object sender) {
@@ -554,12 +532,10 @@ public class FormMonster extends SpaceTraderForm {
             });
             systemPanel.asJPanel().add(linkLabel.asSwingObject());
 
-            Label label = new Label(THREE_SPACES + shipyardSystem.getDescription());
-            label.setAutoSize(true);
+            Label label = new Label(THREE_SPACES + shipyardSystem.getDescription()).withAutoSize(true);
             descrPanel.asJPanel().add(label.asSwingObject());
 
-            label = new Label(THREE_SPACES + shipyardSystem.getFeature());
-            label.setAutoSize(true);
+            label = new Label(THREE_SPACES + shipyardSystem.getFeature()).withAutoSize(true);
             statusPanel.asJPanel().add(label.asSwingObject());
         }
         shipyardsSystemLabel.setLeft(metrics.stringWidth(THREE_SPACES) + 10);

@@ -22,7 +22,7 @@ public class StarSystem implements Serializable {
     private boolean visited = false;
     private ShipyardId shipyardId = ShipyardId.NA;
 
-    private StarSystem() {
+    public StarSystem() {
         // need for tests
     }
 
@@ -53,8 +53,8 @@ public class StarSystem implements Serializable {
                 // Because of the enormous profits possible, there shouldn't be
                 // too many robots or narcotics available.
                 if (i >= TradeItemType.NARCOTICS.castToInt()) {
-                    tradeItems[i] = ((tradeItems[i] * (5 - Game.getCurrentGame().getDifficulty().castToInt())) /
-                            (6 - Game.getCurrentGame().getDifficulty().castToInt())) + 1;
+                    tradeItems[i] = ((tradeItems[i] * (5 - Game.getDifficultyId())) /
+                            (6 - Game.getDifficultyId())) + 1;
                 }
 
                 if (this.getSpecialResource() == Consts.TradeItems[i].getResourceLowPrice()) {
@@ -104,10 +104,10 @@ public class StarSystem implements Serializable {
                 show = Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
                 break;
             case ArtifactDelivery:
-                show = Game.getCommander().getShip().isArtifactOnBoard();
+                show = Game.getShip().isArtifactOnBoard();
                 break;
             case CargoForSale:
-                show = Game.getCommander().getShip().getFreeCargoBays() >= 3;
+                show = Game.getShip().getFreeCargoBays() >= 3;
                 break;
             case DragonflyBaratas:
                 show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_NOT_STARTED
@@ -158,7 +158,7 @@ public class StarSystem implements Serializable {
                 show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT;
                 break;
             /*case JarekGetsOut:
-                show = Game.getCommander().getShip().isJarekOnBoard();
+                show = Game.getShip().isJarekOnBoard();
                 break;*/
             case Moon:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
@@ -181,10 +181,10 @@ public class StarSystem implements Serializable {
                 break;
             case PrincessQonos:
                 show = game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RESCUED
-                        && !Game.getCommander().getShip().isPrincessOnBoard();
+                        && !Game.getShip().isPrincessOnBoard();
                 break;
             case PrincessReturned:
-                show = Game.getCommander().getShip().isPrincessOnBoard();
+                show = Game.getShip().isPrincessOnBoard();
                 break;
             case Reactor:
                 show = game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_NOT_STARTED
@@ -192,7 +192,7 @@ public class StarSystem implements Serializable {
                         && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
             case ReactorDelivered:
-                show = Game.getCommander().getShip().isReactorOnBoard();
+                show = Game.getShip().isReactorOnBoard();
                 break;
             case Scarab:
                 show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_NOT_STARTED
@@ -214,10 +214,10 @@ public class StarSystem implements Serializable {
                 show = game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED;
                 break;
             case TribbleBuyer:
-                show = Game.getCommander().getShip().getTribbles() > 0;
+                show = Game.getShip().getTribbles() > 0;
                 break;
             case WildGetsOut:
-                show = Game.getCommander().getShip().isWildOnBoard();
+                show = Game.getShip().isWildOnBoard();
                 break;
         }
 

@@ -123,7 +123,7 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (Game.getCommander().getShip().isReactorOnBoard()) {
+        if (Game.getShip().isReactorOnBoard()) {
             if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_FUEL_OK) {
                 quests.add(Strings.QuestReactor);
             } else {
@@ -170,7 +170,7 @@ public class FormViewQuests extends SpaceTraderForm {
                 quests.add(Strings.QuestPrincessQonos);
                 break;
             case SpecialEvent.STATUS_PRINCESS_RESCUED:
-                if (Game.getCommander().getShip().isPrincessOnBoard()) {
+                if (Game.getShip().isPrincessOnBoard()) {
                     if (game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT) {
                         quests.add(Functions.stringVars(
                                 Strings.QuestPrincessReturningImpatient,
@@ -202,7 +202,7 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (Game.getCommander().getShip().isSculptureOnBoard()) {
+        if (Game.getShip().isSculptureOnBoard()) {
             quests.add(Strings.QuestSculpture);
         } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
             quests.add(Strings.QuestSculptureHiddenBays);
@@ -214,7 +214,7 @@ public class FormViewQuests extends SpaceTraderForm {
 
         QuestsHolder.fireEvent(EventName.ON_GET_QUESTS_STRINGS);
 
-        /*if (Game.getCommander().getShip().isJarekOnBoard()) {
+        /*if (Game.getShip().isJarekOnBoard()) {
             if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT) {
                 quests.add(Strings.QuestJarekImpatient);
             } else {
@@ -222,7 +222,7 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }*/
 
-        if (Game.getCommander().getShip().isWildOnBoard()) {
+        if (Game.getShip().isWildOnBoard()) {
             if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT) {
                 quests.add(Strings.QuestWildImpatient);
             } else {
@@ -230,7 +230,7 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (Game.getCommander().getShip().getTribbles() > 0) {
+        if (Game.getShip().getTribbles() > 0) {
             quests.add(Strings.QuestTribbles);
         }
 

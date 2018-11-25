@@ -38,4 +38,6 @@ public interface Quest {
     QuestState getQuestState();
 
     void affectSkills(int[] skillsCopy);
+
+    boolean isQuestIsActive();
 }

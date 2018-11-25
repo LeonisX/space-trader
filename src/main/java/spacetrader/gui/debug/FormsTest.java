@@ -74,21 +74,21 @@ public class FormsTest extends SpaceTraderForm {
         Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
 
         game.setParentWindow(new SpaceTrader(null));
-        Game.getCommander().getShip().getCargo()[1] = 12;
+        Game.getShip().getCargo()[1] = 12;
         Game.getCommander().setCash(65535);
-        Game.getCommander().getShip().setCrewQuarters(5);
-        Game.getCommander().getShip().setCrewMembers(new CrewMember[5]);
-        Game.getCommander().getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries().get(0);
-        Game.getCommander().getShip().setFuelTanks(24);
-        Game.getCommander().getShip().setFuel(10);
-        Game.getCommander().getShip().setHullStrength(100);
-        Game.getCommander().getShip().setHull(50);
-        Game.getCommander().getShip().setGadgetSlots(10);
-        Game.getCommander().getShip().setShieldSlots(10);
-        Game.getCommander().getShip().setWeaponSlots(10);
-        Game.getCommander().getShip().setWeapons(new Weapon[Game.getCommander().getShip().getWeaponSlots()]);
-        Game.getCommander().getShip().setShields(new Shield[Game.getCommander().getShip().getShieldSlots()]);
-        Game.getCommander().getShip().setGadgets(new Gadget[Game.getCommander().getShip().getGadgetSlots()]);
+        Game.getShip().setCrewQuarters(5);
+        Game.getShip().setCrewMembers(new CrewMember[5]);
+        Game.getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries().get(0);
+        Game.getShip().setFuelTanks(24);
+        Game.getShip().setFuel(10);
+        Game.getShip().setHullStrength(100);
+        Game.getShip().setHull(50);
+        Game.getShip().setGadgetSlots(10);
+        Game.getShip().setShieldSlots(10);
+        Game.getShip().setWeaponSlots(10);
+        Game.getShip().setWeapons(new Weapon[Game.getShip().getWeaponSlots()]);
+        Game.getShip().setShields(new Shield[Game.getShip().getShieldSlots()]);
+        Game.getShip().setGadgets(new Gadget[Game.getShip().getGadgetSlots()]);
         game.setQuestStatusGemulon(1);
         game.setQuestStatusJapori(1);
         game.setQuestStatusPrincess(1);
@@ -96,13 +96,13 @@ public class FormsTest extends SpaceTraderForm {
         Game.getCommander().setReputationScore(10);
 
         for (int i = 0; i < Consts.Weapons.length; i++) {
-            Game.getCommander().getShip().addEquipment(Consts.Weapons[i]);
+            Game.getShip().addEquipment(Consts.Weapons[i]);
         }
         for (int i = 0; i < Consts.Shields.length; i++) {
-            Game.getCommander().getShip().addEquipment(Consts.Shields[i]);
+            Game.getShip().addEquipment(Consts.Shields[i]);
         }
         for (int i = 0; i < Consts.Gadgets.length; i++) {
-            Game.getCommander().getShip().addEquipment(Consts.Gadgets[i]);
+            Game.getShip().addEquipment(Consts.Gadgets[i]);
         }
 
         game.setSelectedSystemId(StarSystemId.Aldea);

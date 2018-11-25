@@ -40,6 +40,10 @@ public class CrewMember implements Serializable {
         currentSystemId = curSystemId;
     }
 
+    public static CrewMember specialCrewMember(int id, int pilot, int fighter, int trader, int engineer) {
+        return new CrewMember(CrewMemberId.SPECIAL, id, pilot, fighter, trader,  engineer, StarSystemId.NA);
+    }
+
     CrewMember(CrewMember baseCrewMember) {
         this.id = baseCrewMember.getId();
         this.crewMemberId = baseCrewMember.getCrewMemberId();
@@ -62,9 +66,9 @@ public class CrewMember implements Serializable {
         if (skillIdList.size() > 0) {
             int skillId = skillIdList.get(Functions.getRandom(skillIdList.size()));
 
-            int curTrader = Game.getCommander().getShip().getTrader();
+            int curTrader = Game.getShip().getTrader();
             skills[skillId] += amount;
-            if (Game.getCommander().getShip().getTrader() != curTrader) {
+            if (Game.getShip().getTrader() != curTrader) {
                 Game.getCurrentGame().recalculateBuyPrices(Game.getCommander().getCurrentSystem());
             }
         }
@@ -105,7 +109,7 @@ public class CrewMember implements Serializable {
     void tonicTweakRandomSkill() {
         int[] oldSkills = Arrays.copyOf(skills, skills.length);
 
-        if (Game.getCurrentGame().getDifficulty().castToInt() < Difficulty.HARD.castToInt()) {
+        if (Game.getDifficultyId() < Difficulty.HARD.castToInt()) {
             // add one to a random skill, subtract one from a random skill
             while (skills[0] == oldSkills[0] && skills[1] == oldSkills[1] && skills[2] == oldSkills[2]
                     && skills[3] == oldSkills[3]) {
@@ -126,7 +130,7 @@ public class CrewMember implements Serializable {
     }
 
     public StarSystem getCurrentSystem() {
-        return (currentSystemId == StarSystemId.NA) ? null : Game.getCurrentGame().getUniverse()[currentSystemId.castToInt()];
+        return (currentSystemId == StarSystemId.NA) ? null : Game.getStarSystem(currentSystemId);
     }
 
     void setCurrentSystem(StarSystem value) {

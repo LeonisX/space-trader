@@ -17,7 +17,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
+public class Game implements Serializable {
 
     static final long serialVersionUID = 110L;
 
@@ -925,7 +925,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                 int maxAmount = (op == CargoSellOp.SELL_TRADER) ? Math.min(qtyInHand, getOpponent().getFreeCargoBays())
                         : qtyInHand;
                 if (op == CargoSellOp.DUMP) {
-                    unitCost = 5 * (getDifficulty().castToInt() + 1);
+                    unitCost = 5 * (getDifficultyId() + 1);
                     maxAmount = Math.min(maxAmount, commander.getCashToSpend() / unitCost);
                 }
                 int price = unitPrice > 0 ? unitPrice : -unitCost;
@@ -941,7 +941,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                     commander.setCash(commander.getCash() + totalPrice);
 
                     if (op == CargoSellOp.JETTISON) {
-                        if (Functions.getRandom(10) < getDifficulty().castToInt() + 1) {
+                        if (Functions.getRandom(10) < getDifficultyId() + 1) {
                             if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreDubious) {
                                 commander.setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
                             } else {
@@ -1114,7 +1114,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
             } else if (!getInspected()
                     && (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreClean
                     || (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreLawful && Functions
-                    .getRandom(12 - getDifficulty().castToInt()) < 1) || (commander
+                    .getRandom(12 - getDifficultyId()) < 1) || (commander
                     .getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful && Functions.getRandom(40) == 0))) {
                 // If you're reputation is dubious, the police will inspect you
                 // If your record is clean, the police will inspect you with a
@@ -1147,7 +1147,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
             }
         } else {
             // Check if it is time for an encounter
-            int encounter = Functions.getRandom(44 - (2 * getDifficulty().castToInt()));
+            int encounter = Functions.getRandom(44 - (2 * getDifficultyId()));
             int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore(
                     commander.getPoliceRecordScore()).getType().castToInt());
 
@@ -1170,7 +1170,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                 trader = true;
             } else if (commander.getShip().isWildOnBoard() && getWarpSystem().getId() == StarSystemId.Kravat) {
                 // if you're coming in to Kravat & you have Wild onboard, there'll be swarms o' cops.
-                police = Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - getDifficulty().castToInt()));
+                police = Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - getDifficultyId()));
             } else if (commander.getShip().isArtifactOnBoard() && Functions.getRandom(20) <= 3) {
                 mantis = true;
             }
@@ -1325,7 +1325,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
             if (getEncounterType() == EncounterType.BOTTLE_GOOD) {
                 // two points if you're on beginner-normal, one otherwise
                 commander.increaseRandomSkill();
-                if (getDifficulty().castToInt() <= Difficulty.NORMAL.castToInt()) {
+                if (getDifficultyId() <= Difficulty.NORMAL.castToInt()) {
                     commander.increaseRandomSkill();
                 }
                 GuiFacade.alert(AlertType.EncounterTonicConsumedGood);
@@ -1424,7 +1424,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
             if (getEncounterCmdrFleeing()
                     && (getDifficulty() == Difficulty.BEGINNER || (Functions.getRandom(7) + commander
                     .getShip().getPilot() / 3) * 2 >= Functions.getRandom(getOpponent().getPilot())
-                    * (2 + getDifficulty().castToInt()))) {
+                    * (2 + getDifficultyId()))) {
                 GuiFacade.alert((getEncounterCmdrHit() ? AlertType.EncounterEscapedHit : AlertType.EncounterEscaped));
                 escaped = true;
             } else if (getEncounterOppFleeing()
@@ -1518,8 +1518,8 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
 
                         // Reactor on board -- damage is boosted!
                         if (defender.isReactorOnBoard()) {
-                            damage *= (int) (1 + (getDifficulty().castToInt() + 1)
-                                    * (getDifficulty().castToInt() < Difficulty.NORMAL.castToInt() ? 0.25 : 0.33));
+                            damage *= (int) (1 + (getDifficultyId() + 1)
+                                    * (getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0.25 : 0.33));
                         }
 
                         // First, shields are depleted
@@ -1547,7 +1547,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                             // it is always 2.
                             damage = Math.min(damage, defender.getHullStrength()
                                     / (defender.isCommandersShip() ? Math.max(1, spacetrader.game.enums.Difficulty.IMPOSSIBLE
-                                    .castToInt() - getDifficulty().castToInt()) : 2));
+                                    .castToInt() - getDifficultyId()) : 2));
 
                             // If the hull is hardened, damage is halved.
                             if (getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
@@ -1617,7 +1617,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
             // Add points to the appropriate skill - two points if
             // beginner-normal, one otherwise.
             commander.getSkills()[skill] = Math.min(Consts.MaxSkill, commander.getSkills()[skill]
-                    + (getDifficulty().castToInt() <= Difficulty.NORMAL.castToInt() ? 2 : 1));
+                    + (getDifficultyId() <= Difficulty.NORMAL.castToInt() ? 2 : 1));
 
             GuiFacade.alert(AlertType.SpecialTrainingCompleted);
         }
@@ -1651,8 +1651,8 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
     private void encounterScoop() {
         // Chance 50% to pick something up on Normal level, 33% on Hard level, 25% on
         // Impossible level, and 100% on Easy or Beginner.
-        if ((getDifficulty().castToInt() < Difficulty.NORMAL.castToInt()
-                || Functions.getRandom(getDifficulty().castToInt()) == 0) && getOpponent().getFilledCargoBays() > 0) {
+        if ((getDifficultyId() < Difficulty.NORMAL.castToInt()
+                || Functions.getRandom(getDifficultyId()) == 0) && getOpponent().getFilledCargoBays() > 0) {
             // Changed this to actually pick a good that was in the opponent's cargo hold - JAF.
             int index = Functions.getRandom(getOpponent().getFilledCargoBays());
             int tradeItem = -1;
@@ -1911,9 +1911,9 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
         } else if (commander.getShip().isDetectableIllegalCargoOrPassengers()
                 || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
             // Bribe depends on how easy it is to bribe the police and commander's current worth
-            int diffMod = 10 + 5 * (Difficulty.IMPOSSIBLE.castToInt() - getDifficulty().castToInt());
+            int diffMod = 10 + 5 * (Difficulty.IMPOSSIBLE.castToInt() - getDifficultyId());
             int passMod = commander.getShip().isIllegalSpecialCargo()
-                    ? (getDifficulty().castToInt() <= Difficulty.NORMAL.castToInt() ? 2 : 3)
+                    ? (getDifficultyId() <= Difficulty.NORMAL.castToInt() ? 2 : 3)
                     : 1;
 
             int bribe = Math.max(100, Math.min(10000, (int) Math.ceil((double) commander.getWorth()
@@ -1948,7 +1948,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                 int scoreMod = (getEncounterType() == EncounterType.POLICE_INSPECT) ? Consts.ScoreFleePolice
                         : Consts.ScoreAttackPolice;
                 int scoreMin = (getEncounterType() == EncounterType.POLICE_INSPECT) ? Consts.PoliceRecordScoreDubious
-                        - (getDifficulty().castToInt() < Difficulty.NORMAL.castToInt() ? 0 : 1)
+                        - (getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0 : 1)
                         : Consts.PoliceRecordScoreCriminal;
 
                 setEncounterType(EncounterType.POLICE_ATTACK);
@@ -1976,7 +1976,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                     int fine = (int) Math.max(100, Math.min(10000,
                             Math.ceil((double) commander.getWorth()
                                     / ((Difficulty.IMPOSSIBLE.castToInt()
-                                    - getDifficulty().castToInt() + 2) * 10) / 50) * 50));
+                                    - getDifficultyId() + 2) * 10) / 50) * 50));
                     int cashPayment = Math.min(commander.getCash(), fine);
                     commander.setDebt(commander.getDebt() + (fine - cashPayment));
                     commander.setCash(commander.getCash() - cashPayment);
@@ -2264,7 +2264,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
 
     private void generateCrewMemberList() {
         int[] used = new int[getUniverse().length];
-        int d = getDifficulty().castToInt();
+        int d = getDifficultyId();
 
         // Zeethibal may be on Kravat
         used[StarSystemId.Kravat.castToInt()] = 1;
@@ -2708,8 +2708,8 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
         } else if (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreDubious) {
             commander.setPoliceRecordScore(
                     Math.min(Consts.PoliceRecordScoreDubious, commander.getPoliceRecordScore() + num
-                            / (getDifficulty().castToInt() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
-                            : getDifficulty().castToInt())));
+                            / (getDifficultyId() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
+                            : getDifficultyId())));
         }
 
         // The Space Monster's strength increases 5% per day until it is back to full strength.
@@ -3150,7 +3150,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
 
     public void showNewspaper() {
         if (!getPaidForNewspaper()) {
-            int cost = getDifficulty().castToInt() + 1;
+            int cost = getDifficultyId() + 1;
 
             if (commander.getCash() < cost) {
                 GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.plural(cost, Strings.MoneyUnit));
@@ -3272,12 +3272,8 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
         arrive();
     }
 
-    public static Commander getCommander() {
-        return (getCurrentGame() == null) ? null : getCurrentGame().commander;
-    }
-
     private int getCountDownStart() {
-        return getDifficulty().castToInt() + 3;
+        return getDifficultyId() + 3;
     }
 
     public int getCurrentCosts() {
@@ -3298,11 +3294,6 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
         }
 
         return ids;
-    }
-
-    //TODO return castToInt
-    public Difficulty getDifficulty() {
-        return difficulty;
     }
 
     public Ship getDragonfly() {
@@ -3671,7 +3662,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
         // This is then modified by adding 10% for every level of play less than impossible
         boolean realNews = false;
         //TODO ???
-        int minProbability = Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10 * (5 - getDifficulty().castToInt());
+        int minProbability = Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10 * (5 - getDifficultyId());
         for (int i = 0; i < getUniverse().length; i++) {
             if (getUniverse()[i].destIsOk() && getUniverse()[i] != curSys) {
                 // Special stories that always get shown: moon, millionaire, shipyard
@@ -3689,7 +3680,7 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                 // And not-always-shown stories
                 if (getUniverse()[i].getSystemPressure() != SystemPressure.NONE
                         && Functions.getRandom2(100) <= Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10
-                        * (5 - getDifficulty().castToInt())) {
+                        * (5 - getDifficultyId())) {
                     int index = Functions.getRandom2(Strings.NewsPressureExternal.length);
                     String baseStr = Strings.NewsPressureExternal[index];
                     String pressure = Strings.NewsPressureExternalPressures[getUniverse()[i].getSystemPressure().castToInt()];
@@ -3743,12 +3734,12 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
                 modifier = 95;
                 break;
             case BOUGHT_MOON:
-                daysMoon = Math.max(0, (getDifficulty().castToInt() + 1) * 100 - commander.getDays());
+                daysMoon = Math.max(0, (getDifficultyId() + 1) * 100 - commander.getDays());
                 modifier = 100;
                 break;
         }
 
-        return (getDifficulty().castToInt() + 1) * modifier * (daysMoon * 1000 + worth) / 250000;
+        return (getDifficultyId() + 1) * modifier * (daysMoon * 1000 + worth) / 250000;
     }
 
     public StarSystem getSelectedSystem() {
@@ -3918,10 +3909,6 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
         return gameController;
     }
 
-    public StarSystemId getCurrentSystemId() {
-        return commander.getCurrentSystemId();
-    }
-
     public QuestsHolder getQuestsHolder() {
         return questsHolder;
     }
@@ -3930,7 +3917,37 @@ public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
         this.questsHolder = questsHolder;
     }
 
-    public static boolean isCurrentSystem(StarSystemId starSystemId) {
-        return Game.getCurrentGame().getCurrentSystemId().equals(starSystemId);
+
+    public static Commander getCommander() {
+        return getCurrentGame().commander;
     }
+
+    public static Ship getShip() {
+        return getCommander().getShip();
+    }
+
+    public static StarSystemId getCurrentSystemId() {
+        return getCommander().getCurrentSystemId();
+    }
+
+    public static boolean isCurrentSystemIs(StarSystemId starSystemId) {
+        return getCurrentSystemId().equals(starSystemId);
+    }
+
+    public static StarSystem getStarSystem(StarSystemId starSystemId) {
+        return Game.getCurrentGame().getUniverse()[starSystemId.castToInt()];
+    }
+
+    public static StarSystem getStarSystem(int starSystemId) {
+        return Game.getCurrentGame().getUniverse()[starSystemId];
+    }
+
+    public static Difficulty getDifficulty() {
+        return getCurrentGame().difficulty;
+    }
+
+    public static int getDifficultyId() {
+        return getDifficulty().castToInt();
+    }
+
 }

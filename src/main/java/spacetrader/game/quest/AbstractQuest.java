@@ -8,33 +8,48 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.GuiFacade;
+import spacetrader.stub.ArrayList;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public abstract class AbstractQuest implements Quest, Serializable {
 
     public int id;
-
     private Quest quest;
-    private List<Phase> phases;
+    private Repeatable repeatable;
+    private int cashToSpend;
+
+    private List<Phase> phases = new ArrayList<>();
 
     private QuestState questState = QuestState.INACTIVE;
-
-    Repeatable repeatable;
-
-    int cashToSpend;
 
     private int specialCrewId = QuestsHolder.generateSpecialCrewId();
 
     private int newsId = QuestsHolder.generateNewsId();
 
-    //StarSystemId starSystemId;
-
     private Map<EventName, Consumer<Object>> operations = new HashMap<>();
 
     // Common methods
+
+    void initialize(Integer id, Quest quest, Repeatable repeatable, int cashToSpend, int occurrence) {
+        this.id = id;
+        this.quest = quest;
+        this.repeatable = repeatable;
+        this.cashToSpend = cashToSpend;
+    }
+
+    void initializePhases(QuestDialog[] dialogs, Phase... phases) {
+        for (int i = 0; i < phases.length; i++) {
+            phases[i].setId(i);
+            phases[i].setDialogs(dialogs);
+            phases[i].setQuest(quest);
+            getPhases().add(phases[i]);
+        }
+    }
 
     @Override
     public Quest getQuest() {
@@ -136,6 +151,13 @@ public abstract class AbstractQuest implements Quest, Serializable {
     public void affectSkills(int[] skills) {
     }
 
+    public abstract void registerListener();
+
+    @Override
+    public boolean isQuestIsActive() {
+        return questState == QuestState.ACTIVE;
+    }
+
     void showSpecialButton(Object object, String title) {
         if (!((Button) object).isVisible()) {
             ((Button) object).setVisible(true);
@@ -163,12 +185,12 @@ public abstract class AbstractQuest implements Quest, Serializable {
                 button2Text, button2Result, null);
 
         if (alert.showDialog() != DialogResult.NO) {
-            if (Game.getCurrentGame().getCommander().getCashToSpend() < getPrice())
+            if (Game.getCommander().getCashToSpend() < getPrice())
                 GuiFacade.alert(AlertType.SpecialIF);
             else {
                 try {
                     ((Button) object).setVisible(false);
-                    Game.getCurrentGame().getCommander().spendCash(getPrice());
+                    Game.getCommander().spendCash(getPrice());
                     operation.run();
                 } catch (GameEndException ex) {
                     Game.getCurrentGame().getController().gameEnd();

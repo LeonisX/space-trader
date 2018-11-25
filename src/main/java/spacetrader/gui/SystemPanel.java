@@ -21,7 +21,7 @@ import java.util.List;
 class SystemPanel extends Panel {
 
     private final SpaceTrader mainWindow;
-    private CurrentSystemMgr game = null;
+    private Game game = null;
     private GameController controller = null;
     private Commander commander;
 
@@ -56,7 +56,7 @@ class SystemPanel extends Panel {
         this.mainWindow = mainWindow;
     }
 
-    void setGame(CurrentSystemMgr game, GameController controller, Commander commander) {
+    void setGame(Game game, GameController controller, Commander commander) {
         this.game = game;
         this.controller = controller;
         this.commander = commander;

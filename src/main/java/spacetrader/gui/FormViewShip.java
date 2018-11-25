@@ -18,7 +18,7 @@ import spacetrader.util.ReflectionUtils;
 public class FormViewShip extends SpaceTraderForm {
 
     private Game game = Game.getCurrentGame();
-    private Ship ship = Game.getCommander().getShip();
+    private Ship ship = Game.getShip();
 
     private Button closeButton = new Button();
     private Label typeLabel = new Label();

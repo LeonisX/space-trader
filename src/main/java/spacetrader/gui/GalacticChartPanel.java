@@ -28,7 +28,7 @@ public class GalacticChartPanel extends Panel {
 
     private final ImageList ilChartImages;
 
-    private SystemTracker game = null;
+    private Game game = null;
     private GameController controller = null;
     private Commander commander;
     private GameCheats cheats;
