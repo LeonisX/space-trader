@@ -76,7 +76,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return cashToSpend;
     }
 
-
     @Override
     public String getCrewMemberName() {
         return null;
@@ -118,6 +117,11 @@ public abstract class AbstractQuest implements Quest, Serializable {
     @Override
     public List<Phase> getPhases() {
         return phases;
+    }
+
+    @Override
+    public Phase getPhase(int index) {
+        return phases.get(index);
     }
 
     @Override

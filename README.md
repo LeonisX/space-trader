@@ -225,7 +225,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Trigger for before button click, button click; Trigger as special method in Quest override
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * CheatsMenu - add other debug windows
 * MonsterCom - second click - order reverse

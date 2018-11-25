@@ -20,4 +20,7 @@ public abstract class Phase implements Serializable {
     public void setStarSystemId(StarSystemId starSystemId) {
         this.starSystemId = starSystemId;
     }
+
+    public abstract boolean canBeExecuted();
+
 }

@@ -34,7 +34,7 @@ class LotteryQuest extends AbstractQuest {
         phases.add(new FirstPhase());
         setPhases(phases);
 
-        getPhases().get(0).registerListener();
+        getPhase(0).registerListener();
         log.fine("started...");
     }
 
@@ -53,6 +53,11 @@ class LotteryQuest extends AbstractQuest {
         }
 
         @Override
+        public boolean canBeExecuted() {
+            return (getQuestState() == QuestState.ACTIVE) && Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId());
+        }
+
+        @Override
         public String getTitle() {
             return DIALOG.getTitle();
         }
@@ -65,16 +70,24 @@ class LotteryQuest extends AbstractQuest {
 
         private void onBeforeSpecialButtonShow(Object object) {
             log.fine(Game.getCurrentGame().getCurrentSystemId() + " ~ " + getStarSystemId());
-            if (Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId())) {
+            if (canBeExecuted()) {
+                log.fine("executed");
                 showSpecialButton(object, DIALOG.getTitle());
+            } else {
+                log.fine("skipped");
             }
         }
 
         private void onSpecialButtonClicked(Object object) {
             log.fine("");
-            showDialogAndProcessResult(object, DIALOG, LotteryQuest.this::unRegisterAllOperations);
-            setQuestState(QuestState.FINISHED);
-            QuestsHolder.unSubscribeAll(getQuest());
+            if (canBeExecuted()) {
+                showDialogAndProcessResult(object, DIALOG, LotteryQuest.this::unRegisterAllOperations);
+                setQuestState(QuestState.FINISHED);
+                QuestsHolder.unSubscribeAll(getQuest());
+                log.fine("executed");
+            } else {
+                log.fine("skipped");
+            }
         }
     }
 

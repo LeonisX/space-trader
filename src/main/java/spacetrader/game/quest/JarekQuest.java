@@ -99,7 +99,7 @@ class JarekQuest extends AbstractQuest {
 
     // Register listener
     private void registerListener() {
-        getPhases().get(0).registerListener();
+        getPhase(0).registerListener();
         //getPhases().get(1).registerListener();
         log.fine("registered");
     }
@@ -200,7 +200,7 @@ class JarekQuest extends AbstractQuest {
             log.fine("");
             StarSystem starSystem = Game.getCurrentGame().getUniverse()[StarSystemId.Devidia.castToInt()];
             starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-            getPhases().get(1).setStarSystemId(starSystem.getId());
+            getPhase(1).setStarSystemId(starSystem.getId());
         }
 
         private void onAssignEventsRandomly(Object object) {
@@ -221,11 +221,10 @@ class JarekQuest extends AbstractQuest {
 
         private void onBeforeSpecialButtonShow(Object object) {
             log.finest(Game.getCurrentGame().getCurrentSystemId() + " ~ " + getStarSystemId());
-            if (Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious &&
-                    Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId()) && !jarekOnBoard) {
+            if (getPhase(0).canBeExecuted()) {
                 log.fine("phase #1");
                 showSpecialButton(object, DIALOGS[0].getTitle());
-            } else if (jarekOnBoard && Game.getCurrentGame().getSelectedSystemId() == StarSystemId.Devidia) {
+            } else if (getPhase(1).canBeExecuted()) {
                 log.fine("phase #2");
                 showSpecialButton(object, DIALOGS[1].getTitle());
             } else {
@@ -234,17 +233,7 @@ class JarekQuest extends AbstractQuest {
         }
 
         private void onSpecialButtonClicked(Object object) {
-            if (jarekOnBoard && Game.getCurrentGame().getSelectedSystemId() == StarSystemId.Devidia) {
-                log.fine("phase #2");
-                showDialogAndProcessResult(object, DIALOGS[1], () -> {
-                    questStatusJarek = STATUS_JAREK_DONE;
-                    Game.getCurrentGame().getCommander().getShip().fire(getSpecialCrewId());
-                    jarekOnBoard = false;
-                    shipBarCode = Game.getCurrentGame().getCommander().getShip().getBarCode();
-                    setQuestState(QuestState.FINISHED);
-                    QuestsHolder.unSubscribeAll(getQuest());
-                });
-            } else {
+            if (getPhase(0).canBeExecuted()) {
                 log.fine("phase #1");
                 showDialogAndProcessResult(object, DIALOGS[0], () -> {
                     if (Game.getCurrentGame().getCommander().getShip().getFreeCrewQuartersCount() == 0) {
@@ -258,7 +247,26 @@ class JarekQuest extends AbstractQuest {
                         Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
                     }
                 });
+            } else if (getPhase(1).canBeExecuted()) {
+                log.fine("phase #2");
+                showDialogAndProcessResult(object, DIALOGS[1], () -> {
+                    questStatusJarek = STATUS_JAREK_DONE;
+                    Game.getCurrentGame().getCommander().getShip().fire(getSpecialCrewId());
+                    jarekOnBoard = false;
+                    shipBarCode = Game.getCurrentGame().getCommander().getShip().getBarCode();
+                    setQuestState(QuestState.FINISHED);
+                    QuestsHolder.unSubscribeAll(getQuest());
+                });
+            } else {
+                log.fine("skipped");
             }
+        }
+
+        @Override
+        public boolean canBeExecuted() {
+            return (getQuestState() == QuestState.ACTIVE)
+                    && Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+                    && Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId()) && !jarekOnBoard;
         }
 
         private void onIncrementDays(Object object) {
@@ -319,6 +327,11 @@ class JarekQuest extends AbstractQuest {
         public String getTitle() {
             return DIALOGS[1].getTitle();
         }
-
+        
+        @Override
+        public boolean canBeExecuted() {
+            return (getQuestState() == QuestState.ACTIVE) && 
+                    jarekOnBoard && Game.getCurrentGame().getSelectedSystemId() == StarSystemId.Devidia;
+        }
     }
 }

@@ -29,6 +29,8 @@ public interface Quest {
 
     List<Phase> getPhases();
 
+    Phase getPhase(int index);
+
     void setPhases(List<Phase> phases);
 
     int getSpecialCrewId();
