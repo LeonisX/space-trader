@@ -64,7 +64,7 @@ class LotteryQuest extends AbstractQuest {
         }
 
         private void onBeforeSpecialButtonShow(Object object) {
-            log.fine("");
+            log.fine(Game.getCurrentGame().getCurrentSystemId() + " ~ " + getStarSystemId());
             if (Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId())) {
                 showSpecialButton(object, DIALOG.getTitle());
             }

@@ -13,6 +13,7 @@ import spacetrader.util.Functions;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.EventName.*;
@@ -24,6 +25,8 @@ enum AlertName {
 }
 
 class JarekQuest extends AbstractQuest {
+
+    private static final Logger log = Logger.getLogger(LotteryQuest.class.getName());
 
     private final static int STATUS_JAREK_NOT_STARTED = 0;
     private final static int STATUS_JAREK_STARTED = 1;
@@ -80,6 +83,7 @@ class JarekQuest extends AbstractQuest {
         setSpecialCrewId(jarek.getId());
 
         registerListener();
+        log.fine("started...");
     }
 
     private boolean isHagglingComputerOnBoard() {
@@ -97,6 +101,7 @@ class JarekQuest extends AbstractQuest {
     private void registerListener() {
         getPhases().get(0).registerListener();
         //getPhases().get(1).registerListener();
+        log.fine("registered");
     }
 
     @Override
@@ -119,41 +124,53 @@ class JarekQuest extends AbstractQuest {
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
+        //TODO check status in cheats
         if (cheatWords.getFirst().equals("Status") && cheatWords.getSecond().equals("Jarek")) {
             questStatusJarek = Math.max(0, cheatWords.getNum2());
             cheatWords.setCheat(true);
+            log.fine("consider cheat");
+        } else {
+            log.fine("not consider cheat");
         }
     }
 
     @SuppressWarnings("unchecked")
     private void onIsConsiderDefaultCheat(Object object) {
-        Map<String, Integer> map = (Map<String, Integer>) object;
-        map.put(CHEATS_TITLE, questStatusJarek);
-
+        log.fine("");
+        ((Map<String, Integer>) object).put(CHEATS_TITLE, questStatusJarek);
     }
 
     @SuppressWarnings("unchecked")
     private void onDisplaySpecialCargo(Object object) {
         if (isHagglingComputerOnBoard()) {
+            log.fine(SPECIAL_CARGO_TITLE);
             ((ArrayList<String>) object).add(SPECIAL_CARGO_TITLE);
+        } else {
+            log.fine("Don't show " + SPECIAL_CARGO_TITLE);
         }
     }
 
     // TODO repeat quest, or fail???
     private void onArrested(Object object) {
         if (jarekOnBoard) {
+            log.fine("Arrested + Jarek");
             showAlert(ALERTS[AlertName.JarekTakenHome.ordinal()]);
             questStatusJarek = STATUS_JAREK_NOT_STARTED;
             setQuestState(QuestState.FAILED);
+        } else {
+            log.fine("Arrested w/o Jarek");
         }
     }
 
     // TODO repeat quest, or fail???
     private void onEscapeWithPod(Object object) {
         if (jarekOnBoard) {
+            log.fine("Escaped + Jarek");
             showAlert(ALERTS[AlertName.JarekTakenHome.ordinal()]);
             questStatusJarek = STATUS_JAREK_NOT_STARTED;
             setQuestState(QuestState.FAILED);
+        } else {
+            log.fine("Escaped w/o Jarek");
         }
     }
 
@@ -181,6 +198,7 @@ class JarekQuest extends AbstractQuest {
         }
 
         private void onAssignEventsManual(Object object) {
+            log.fine("");
             StarSystem starSystem = Game.getCurrentGame().getUniverse()[StarSystemId.Devidia.castToInt()];
             starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
             getPhases().get(1).setStarSystemId(starSystem.getId());
@@ -194,24 +212,31 @@ class JarekQuest extends AbstractQuest {
 
             Game.getCurrentGame().getUniverse()[system].setSpecialEventType(SpecialEventType.ASSIGNED);
             setStarSystemId(Game.getCurrentGame().getUniverse()[system].getId());
+            log.fine(getStarSystemId().toString());
         }
 
         private void onGenerateCrewMemberList(Object object) {
+            log.fine("");
             Game.getCurrentGame().getMercenaries().add(jarek);
         }
 
         private void onBeforeSpecialButtonShow(Object object) {
+            log.finest(Game.getCurrentGame().getCurrentSystemId() + " ~ " + getStarSystemId());
             if (Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious &&
                     Game.getCurrentGame().getCurrentSystemId().equals(getStarSystemId()) && !jarekOnBoard) {
+                log.fine("phase #1");
                 showSpecialButton(object, DIALOGS[0].getTitle());
-            }
-            if (jarekOnBoard && Game.getCurrentGame().getSelectedSystemId() == StarSystemId.Devidia) {
+            } else if (jarekOnBoard && Game.getCurrentGame().getSelectedSystemId() == StarSystemId.Devidia) {
+                log.fine("phase #2");
                 showSpecialButton(object, DIALOGS[1].getTitle());
+            } else {
+                log.fine("skipped");
             }
         }
 
         private void onSpecialButtonClicked(Object object) {
             if (jarekOnBoard && Game.getCurrentGame().getSelectedSystemId() == StarSystemId.Devidia) {
+                log.fine("phase #2");
                 showDialogAndProcessResult(object, DIALOGS[1], () -> {
                     questStatusJarek = STATUS_JAREK_DONE;
                     Game.getCurrentGame().getCommander().getShip().fire(getSpecialCrewId());
@@ -221,6 +246,7 @@ class JarekQuest extends AbstractQuest {
                     QuestsHolder.unSubscribeAll(getQuest());
                 });
             } else {
+                log.fine("phase #1");
                 showDialogAndProcessResult(object, DIALOGS[0], () -> {
                     if (Game.getCurrentGame().getCommander().getShip().getFreeCrewQuartersCount() == 0) {
                         GuiFacade.alert(AlertType.SpecialNoQuarters);
@@ -238,6 +264,7 @@ class JarekQuest extends AbstractQuest {
 
         private void onIncrementDays(Object object) {
             if (jarekOnBoard) {
+                log.fine(questStatusJarek + "");
                 if (questStatusJarek == STATUS_JAREK_IMPATIENT / 2) {
                     showAlert(ALERTS[AlertName.SpecialPassengerConcernedJarek.ordinal()]);
                 } else if (questStatusJarek == STATUS_JAREK_IMPATIENT - 1) {
@@ -251,6 +278,8 @@ class JarekQuest extends AbstractQuest {
                 if (questStatusJarek < STATUS_JAREK_IMPATIENT) {
                     questStatusJarek++;
                 }
+            } else {
+                log.fine("skipped");
             }
         }
 
@@ -260,15 +289,22 @@ class JarekQuest extends AbstractQuest {
             if (jarekOnBoard) {
                 if (questStatusJarek == STATUS_JAREK_IMPATIENT) {
                     ((ArrayList<String>) object).add(QUESTS[1]);
+                    log.fine(QUESTS[1]);
                 } else {
                     ((ArrayList<String>) object).add(QUESTS[0]);
+                    log.fine(QUESTS[0]);
                 }
+            } else {
+                log.fine("skipped");
             }
         }
 
         private void onNewsAddEventOnArrival(Object object) {
             if (jarekOnBoard && Game.getCurrentGame().getCurrentSystemId() == StarSystemId.Devidia) {
+                log.fine("" + getNewsId());
                 Game.getCurrentGame().newsAddEvent(getNewsId());
+            } else {
+                log.fine("skipped");
             }
         }
     }

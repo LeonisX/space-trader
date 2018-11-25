@@ -225,12 +225,13 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* After the message about the lottery, a dialogue with Jarek appears
+* Trigger for before button click, button click; Trigger as special method in Quest override
+* Cheats - check Status in cheats, not in Quest
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * CheatsMenu - add other debug windows
 * MonsterCom - second click - order reverse
 * Some optimizations, based on quest status
-* Jarek: on arrested, escapePod - fail quest, or let try again?
+* Jarek: on arrested, escapePod - fail quest, or let try again? Check in Windows version
 * When fireEvent - filter all non-active quests
 
 * Different image sizes, font sizes (config)
