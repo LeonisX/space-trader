@@ -23,7 +23,7 @@ import java.awt.*;
 public class FormShipyard extends SpaceTraderForm {
 
     private final Game game = Game.getCurrentGame();
-    private final Shipyard shipyard = Game.getCurrentGame().getCommander().getCurrentSystem().getShipyard();
+    private final Shipyard shipyard = Game.getCommander().getCurrentSystem().getShipyard();
 
     private final ShipType[] imgTypes = new ShipType[]{ShipType.FLEA, ShipType.GNAT, ShipType.FIREFLY,
             ShipType.MOSQUITO, ShipType.BUMBLEBEE, ShipType.BEETLE, ShipType.HORNET, ShipType.GRASSHOPPER,
@@ -692,7 +692,7 @@ public class FormShipyard extends SpaceTraderForm {
             ShipTemplate template = (ShipTemplate) templateComboBox.getSelectedItem();
 
             if (template.getName().equals(Strings.ShipNameCurrentShip)) {
-                shipNameTextBox.setText(game.getCommander().getShip().getName());
+                shipNameTextBox.setText(Game.getCommander().getShip().getName());
             } else if (template.getName().endsWith(Strings.ShipNameTemplateSuffixDefault)
                     || template.getName().endsWith(Strings.ShipNameTemplateSuffixMinimum)) {
                 shipNameTextBox.setText("");
@@ -742,7 +742,7 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void loadTemplateList() {
-        ShipTemplate currentShip = new ShipTemplate(game.getCommander().getShip(), Strings.ShipNameCurrentShip);
+        ShipTemplate currentShip = new ShipTemplate(Game.getCommander().getShip(), Strings.ShipNameCurrentShip);
         templateComboBox.getItems().addElement(currentShip);
 
         templateComboBox.getItems().addElement(Consts.ShipTemplateSeparator);
@@ -884,7 +884,7 @@ public class FormShipyard extends SpaceTraderForm {
 
     private void constructButtonClick() {
         if (constructButtonEnabled()) {
-            if (game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
+            if (Game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
                     .getText())) {
                 Strings.ShipNames[ShipType.CUSTOM.castToInt()] = shipNameTextBox.getText();
 
@@ -893,10 +893,10 @@ public class FormShipyard extends SpaceTraderForm {
                 }
 
                 // Replace the current custom images with the new ones.
-                if (game.getCommander().getShip().getImageIndex() == ShipType.CUSTOM.castToInt()) {
+                if (Game.getCommander().getShip().getImageIndex() == ShipType.CUSTOM.castToInt()) {
                     GuiEngine.getImageProvider().setCustomShipImages(customImages);
 
-                    game.getCommander().getShip().updateCustomImageOffsetConstants();
+                    Game.getCommander().getShip().updateCustomImageOffsetConstants();
                 }
 
                 GuiFacade.alert(AlertType.ShipDesignThanks, shipyard.getName());

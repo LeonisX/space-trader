@@ -449,7 +449,7 @@ public class FormEquipment extends SpaceTraderForm {
 
     private void buy() {
         if (selectedEquipment != null && !sellSideSelected) {
-            Commander commander = game.getCommander();
+            Commander commander = Game.getCommander();
             EquipmentType baseType = selectedEquipment.getEquipmentType();
 
             if (baseType == EquipmentType.GADGET && commander.getShip().hasGadget(((Gadget) selectedEquipment).getType())
@@ -510,7 +510,7 @@ public class FormEquipment extends SpaceTraderForm {
                 // 2 to the total cancels those out.
                 int slot = sellWeaponsListBox.getSelectedIndex() + sellShieldsListBox.getSelectedIndex()
                         + sellGadgetsListBox.getSelectedIndex() + 2;
-                Commander commander = game.getCommander();
+                Commander commander = Game.getCommander();
 
                 if (selectedEquipment.getEquipmentType() == EquipmentType.GADGET
                         && (((Gadget) selectedEquipment).getType() == GadgetType.EXTRA_CARGO_BAYS
@@ -537,7 +537,7 @@ public class FormEquipment extends SpaceTraderForm {
         sellShieldsListBox.getItems().clear();
         sellGadgetsListBox.getItems().clear();
 
-        Ship ship = Game.getCurrentGame().getCommander().getShip();
+        Ship ship = Game.getCommander().getShip();
 
         for (Equipment equipment : ship.getEquipmentsByType(EquipmentType.WEAPON)) {
             sellWeaponsListBox.getItems().addElement(equipment == null ? FREE_SLOT : equipment);

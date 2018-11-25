@@ -83,8 +83,8 @@ public class GameController {
         GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10), Functions
                 .formatNumber(game.getScore() % 10));
 
-        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.getScore(), game.getEndStatus(),
-                game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
+        HighScoreRecord candidate = new HighScoreRecord(Game.getCommander().getName(), game.getScore(), game.getEndStatus(),
+                Game.getCommander().getDays(), Game.getCommander().getWorth(), game.getDifficulty());
         if (candidate.compareTo(IOUtils.getHighScores()[0]) > 0) {
             if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
@@ -108,7 +108,7 @@ public class GameController {
                 Game.setCurrentGame(game);
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
-                gameController.setSaveGameDays(game.getCommander().getDays());
+                gameController.setSaveGameDays(Game.getCommander().getDays());
 
                 mainWindow.setGame(game);
                 mainWindow.setInGameControlsEnabled(true);
@@ -125,7 +125,7 @@ public class GameController {
         if (IOUtils.writeObjectToFile(fileName, game) && saveFileName)
             saveGameFile = fileName;
 
-        saveGameDays = game.getCommander().getDays();
+        saveGameDays = Game.getCommander().getDays();
     }
 
     public void autoSaveOnArrival() {

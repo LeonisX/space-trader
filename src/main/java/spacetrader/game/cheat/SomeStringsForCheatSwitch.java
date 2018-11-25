@@ -37,7 +37,7 @@ public enum SomeStringsForCheatSwitch {
     Experiment,
     Gemulon,
     Japori,
-    Jarek,
+    //Jarek,
     Moon,
     Reactor,
     Princess,

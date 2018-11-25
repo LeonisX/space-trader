@@ -64,10 +64,10 @@ public class SpaceTraderDevApp {
 
     private static void dumpAll(SpaceTrader spaceTrader) {
         Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
-        game.getCommander().getShip().getCargo()[1] = 12;
+        Game.getCommander().getShip().getCargo()[1] = 12;
         game.setSelectedSystemId(StarSystemId.Aldea);
         game.warpDirect();
-        Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
+        Game.getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
 
         List<BaseComponent> components = Arrays.asList(
                 spaceTrader,

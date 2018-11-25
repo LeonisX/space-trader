@@ -258,7 +258,7 @@ public class FormViewCommander extends SpaceTraderForm {
     }
 
     private void initializeScreen() {
-        Commander cmdr = game.getCommander();
+        Commander cmdr = Game.getCommander();
 
         nameLabelValue.setText(cmdr.getName());
         difficultyLabelValue.setText(Strings.DifficultyLevels[game.getDifficulty().castToInt()]);

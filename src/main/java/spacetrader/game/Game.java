@@ -17,7 +17,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Game implements Serializable, SpaceTraderGame, SystemTracker, CurrentSystemMgr {
+public class Game implements Serializable, SystemTracker, CurrentSystemMgr {
 
     static final long serialVersionUID = 110L;
 
@@ -3272,9 +3272,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         arrive();
     }
 
-    //TODO may be static?
-    public Commander getCommander() {
-        return commander;
+    public static Commander getCommander() {
+        return (getCurrentGame() == null) ? null : getCurrentGame().commander;
     }
 
     private int getCountDownStart() {
@@ -3931,5 +3930,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.questsHolder = questsHolder;
     }
 
-
+    public static boolean isCurrentSystem(StarSystemId starSystemId) {
+        return Game.getCurrentGame().getCurrentSystemId().equals(starSystemId);
+    }
 }

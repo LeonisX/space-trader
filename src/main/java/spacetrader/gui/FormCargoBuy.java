@@ -26,7 +26,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         initializeComponent();
 
         Game game = Game.getCurrentGame();
-        Commander cmdr = game.getCommander();
+        Commander cmdr = Game.getCommander();
         numericUpDown.setMaximum(maxAmount);
         numericUpDown.setMinimum(Math.min(maxAmount, 1));
         numericUpDown.setValue(numericUpDown.getMinimum());

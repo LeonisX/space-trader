@@ -62,10 +62,10 @@ public class CrewMember implements Serializable {
         if (skillIdList.size() > 0) {
             int skillId = skillIdList.get(Functions.getRandom(skillIdList.size()));
 
-            int curTrader = Game.getCurrentGame().getCommander().getShip().getTrader();
+            int curTrader = Game.getCommander().getShip().getTrader();
             skills[skillId] += amount;
-            if (Game.getCurrentGame().getCommander().getShip().getTrader() != curTrader) {
-                Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+            if (Game.getCommander().getShip().getTrader() != curTrader) {
+                Game.getCurrentGame().recalculateBuyPrices(Game.getCommander().getCurrentSystem());
             }
         }
     }

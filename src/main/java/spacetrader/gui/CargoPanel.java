@@ -22,8 +22,7 @@ class CargoPanel extends Panel {
     private static final String TARGET_PRICE_NA = "-----------";
     private static final String TARGET_DIFF_NA = "------------";
     private static final String TARGET_PERCENTAGE_NA = "--------";
-                    
-    private SpaceTraderGame game = null;
+
     private GameController controller = null;
 
     private Button buyMaxButton0 = new Button();
@@ -189,8 +188,7 @@ class CargoPanel extends Panel {
     CargoPanel() {
     }
 
-    void setGame(SpaceTraderGame game, GameController controller) {
-        this.game = game;
+    void setGame(GameController controller) {
         this.controller = controller;
     }
 
@@ -836,7 +834,9 @@ class CargoPanel extends Panel {
         Arrays.stream(sellAllButtonArray).forEach(button -> button.setText(Strings.CargoAll));
         Arrays.stream(buyMaxButtonArray).forEach(button -> button.setText(Strings.CargoMax));
 
-        if (game == null || game.getCommander().getCurrentSystem() == null) {
+        Game game = Game.getCurrentGame();
+
+        if (game == null || Game.getCommander().getCurrentSystem() == null) {
             for (int i = 0; i < sellPriceArray.length; i++) {
                 sellPriceArray[i].setText("");
                 buyPriceArray[i].setText("");
@@ -852,7 +852,7 @@ class CargoPanel extends Panel {
         }
         int[] buy = game.getPriceCargoBuy();
         int[] sell = game.getPriceCargoSell();
-        Commander commander = game.getCommander();
+        Commander commander = Game.getCommander();
         StarSystem warpSystem = game.getWarpSystem();
 
         for (int i = 0; i < sellPriceArray.length; i++) {

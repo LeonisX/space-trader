@@ -23,7 +23,7 @@ public class FormBuyRepairs extends WinformForm {
     public FormBuyRepairs() {
         initializeComponent();
 
-        Commander cmdr = Game.getCurrentGame().getCommander();
+        Commander cmdr = Game.getCommander();
         numericUpDown.setMaximum(Math.min(cmdr.getCash(),
                 (cmdr.getShip().getHullStrength() - cmdr.getShip().getHull()) * cmdr.getShip().getRepairCost()));
         numericUpDown.setValue(numericUpDown.getMaximum());

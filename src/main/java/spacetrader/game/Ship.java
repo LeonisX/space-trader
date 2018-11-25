@@ -60,7 +60,7 @@ public class Ship extends ShipSpec implements Serializable {
             setValues(ShipType.BOTTLE);
         } else {
             int tries = (oppType == OpponentType.MANTIS) ? Game.getCurrentGame().getDifficulty().castToInt() + 1
-                    : Math.max(1, Game.getCurrentGame().getCommander().getWorth() / 150000
+                    : Math.max(1, Game.getCommander().getWorth() / 150000
                             + Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
 
             generateOpponentShip(oppType);
@@ -173,7 +173,7 @@ public class Ship extends ShipSpec implements Serializable {
         }
 
         if (getTrader() != skill) {
-            Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+            Game.getCurrentGame().recalculateBuyPrices(Game.getCommander().getCurrentSystem());
         }
 
         if (merc != null && !Util.arrayContains(Consts.SpecialCrewMemberIds, (merc.getId()))) {
@@ -183,7 +183,7 @@ public class Ship extends ShipSpec implements Serializable {
             merc.setCurrentSystemId(StarSystemId.NA);
             while (merc.getCurrentSystemId() == StarSystemId.NA) {
                 StarSystem system = universe[Functions.getRandom(universe.length)];
-                if (Functions.distance(system, Game.getCurrentGame().getCommander().getCurrentSystem()) < Consts.MaxRange) {
+                if (Functions.distance(system, Game.getCommander().getCurrentSystem()) < Consts.MaxRange) {
                     merc.setCurrentSystemId(system.getId());
                 }
             }
@@ -404,7 +404,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     private void generateOpponentShip(OpponentType oppType) {
-        Commander cmdr = Game.getCurrentGame().getCommander();
+        Commander cmdr = Game.getCommander();
         PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().getPoliticalSystem();
 
         if (oppType == OpponentType.MANTIS) {
@@ -533,7 +533,7 @@ public class Ship extends ShipSpec implements Serializable {
     // *************************************************************************
     boolean hasTradeableItems() {
         boolean found = false;
-        boolean criminal = Game.getCurrentGame().getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
+        boolean criminal = Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
         tradeableItems = new boolean[10];
 
         for (int i = 0; i < getCargo().length; i++) {
@@ -581,7 +581,7 @@ public class Ship extends ShipSpec implements Serializable {
         }
 
         if (getTrader() != skill) {
-            Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+            Game.getCurrentGame().recalculateBuyPrices(Game.getCommander().getCurrentSystem());
         }
     }
 
@@ -682,7 +682,7 @@ public class Ship extends ShipSpec implements Serializable {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (Consts.TradeItems[i].isIllegal()) {
                 getCargo()[i] = 0;
-                Game.getCurrentGame().getCommander().getPriceCargo()[i] = 0;
+                Game.getCommander().getPriceCargo()[i] = 0;
             }
         }
     }
@@ -719,7 +719,7 @@ public class Ship extends ShipSpec implements Serializable {
     public int getWorth(boolean forInsurance) {
         int price = getBaseWorth(forInsurance);
         for (int i = 0; i < cargo.length; i++) {
-            price += Game.getCurrentGame().getCommander().getPriceCargo()[i];
+            price += Game.getCommander().getPriceCargo()[i];
         }
 
         return price;
@@ -760,13 +760,13 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     boolean isCloaked() {
-        int oppEng = isCommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCurrentGame().getCommander()
+        int oppEng = isCommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCommander()
                 .getShip().getEngineer();
         return hasGadget(GadgetType.CLOAKING_DEVICE) && getEngineer() > oppEng;
     }
 
     boolean isCommandersShip() {
-        return this == Game.getCurrentGame().getCommander().getShip();
+        return this == Game.getCommander().getShip();
     }
 
     public CrewMember[] getCrew() {

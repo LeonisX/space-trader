@@ -21,13 +21,7 @@ import static java.util.stream.Collectors.joining;
 @CheatCode
 public class GameCheats implements Serializable {
 
-    private final transient Game game;
-
     private boolean cheatMode = false;
-
-    public GameCheats() {
-        game = Game.getCurrentGame();
-    }
 
     public boolean isCheatMode() {
         return cheatMode;
@@ -41,7 +35,8 @@ public class GameCheats implements Serializable {
      * @return false if did anything, true if didn't recognized word (i.e., need to search for a system).
      */
     public boolean isConsiderCheat(String[] wordsArray, GameController controller) {
-        Ship ship = game.getCommander().getShip();
+        Game game = Game.getCurrentGame();
+        Ship ship = Game.getCommander().getShip();
 
         CheatWords words = CheatWords.parseWords(wordsArray);
 
@@ -59,7 +54,7 @@ public class GameCheats implements Serializable {
                         ship.getShields()[words.getNum1()] = (Shield) Consts.Shields[words.getNum2()].clone();
                     break;
                 case DeLorean:
-                    game.getCommander().setDays(Math.max(0, words.getNum1()));
+                    Game.getCommander().setDays(Math.max(0, words.getNum1()));
                     break;
                 case Diamond:
                     ship.setHullUpgraded(!ship.getHullUpgraded());
@@ -81,7 +76,7 @@ public class GameCheats implements Serializable {
                     }
                     break;
                 case Fame:
-                    game.getCommander().setReputationScore(Math.max(0, words.getNum1()));
+                    Game.getCommander().setReputationScore(Math.max(0, words.getNum1()));
                     break;
                 case Go:
                     game.setSelectedSystemByName(words.getSecond());
@@ -96,22 +91,22 @@ public class GameCheats implements Serializable {
                 case Ice: {
                     switch (SomeStringsForCheatSwitch.find(words.getSecond())) {
                         case Pirate:
-                            game.getCommander().setKillsPirate(Math.max(0, words.getNum2()));
+                            Game.getCommander().setKillsPirate(Math.max(0, words.getNum2()));
                             break;
                         case Police:
-                            game.getCommander().setKillsPolice(Math.max(0, words.getNum2()));
+                            Game.getCommander().setKillsPolice(Math.max(0, words.getNum2()));
                             break;
                         case Trader:
-                            game.getCommander().setKillsTrader(Math.max(0, words.getNum2()));
+                            Game.getCommander().setKillsTrader(Math.max(0, words.getNum2()));
                             break;
                     }
                 }
                 break;
                 case Indemnity:
-                    game.getCommander().setNoClaim(Math.max(0, words.getNum1()));
+                    Game.getCommander().setNoClaim(Math.max(0, words.getNum1()));
                     break;
                 case IOU:
-                    game.getCommander().setDebt(Math.max(0, words.getNum1()));
+                    Game.getCommander().setDebt(Math.max(0, words.getNum1()));
                     break;
                 case Iron:
                     if (words.getNum1() >= 0 && words.getNum1() < ship.getWeapons().length && words.getNum2() >= 0 && words.getNum2() < Consts.Weapons.length) {
@@ -150,18 +145,18 @@ public class GameCheats implements Serializable {
                         int skill = ship.getTrader();
                         ship.getCrew()[words.getNum1()] = game.getMercenaries().get(words.getNum2());
                         if (ship.getTrader() != skill) {
-                            game.recalculateBuyPrices(game.getCommander().getCurrentSystem());
+                            game.recalculateBuyPrices(Game.getCommander().getCurrentSystem());
                         }
                     }
                     break;
                 case RapSheet:
-                    game.getCommander().setPoliceRecordScore(words.getNum1());
+                    Game.getCommander().setPoliceRecordScore(words.getNum1());
                     break;
                 case Rarity:
                     game.setChanceOfVeryRareEncounter(Math.max(0, Math.min(1000, words.getNum1())));
                     break;
                 case Scratch:
-                    game.getCommander().setCash(Math.max(0, words.getNum1()));
+                    Game.getCommander().setCash(Math.max(0, words.getNum1()));
                     break;
                 case Skin:
                     ship.setHull(Math.max(0, Math.min(ship.getHullStrength(), words.getNum1())));

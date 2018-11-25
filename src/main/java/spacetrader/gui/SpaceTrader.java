@@ -424,7 +424,6 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         }
     }
 
-
     private void spaceTraderWindowClosing(WindowEvent we) {
         if (we.getID() == WindowEvent.WINDOW_CLOSING && getFrame().getState() == Frame.NORMAL) {
             IOUtils.setRegistrySetting("x", Integer.toString(getFrame().getX()));
@@ -565,13 +564,14 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         updateAll();
     }
 
+    //TODO need??????
     public void setGame(Game game) {
         this.game = game;
         controller = new GameController(game, this);
-        commander = (game == null) ? null : game.getCommander();
+        commander = Game.getCommander();
 
         dockPanel.setGame(commander);
-        cargoPanel.setGame(game, controller);
+        cargoPanel.setGame(controller);
         targetSystemPanel.setGame(game, controller, commander);
         galacticChartPanel.setGame(game, controller, commander);
         shortRangeChartPanel.setGame(game, commander);
