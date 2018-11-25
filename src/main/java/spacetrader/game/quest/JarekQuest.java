@@ -28,11 +28,6 @@ class JarekQuest extends AbstractQuest {
 
     private static final Logger log = Logger.getLogger(LotteryQuest.class.getName());
 
-    private final static int STATUS_JAREK_NOT_STARTED = 0;
-    private final static int STATUS_JAREK_STARTED = 1;
-    private final static int STATUS_JAREK_IMPATIENT = 11;
-    private final static int STATUS_JAREK_DONE = 12;
-
     private static String CREW_MEMBER_NAME = "Jarek";     // Mercenary
 
     private static String SPECIAL_CARGO_TITLE = "A haggling computer.";
@@ -58,6 +53,11 @@ class JarekQuest extends AbstractQuest {
     };
 
     // Constants
+    private final static int STATUS_JAREK_NOT_STARTED = 0;
+    private final static int STATUS_JAREK_STARTED = 1;
+    private final static int STATUS_JAREK_IMPATIENT = 11;
+    private final static int STATUS_JAREK_DONE = 12;
+
     private static final boolean REPEATABLE = false;
     private static final int OCCURRENCE = 1;
     private static final int CASH_TO_SPEND = 0;
@@ -115,8 +115,8 @@ class JarekQuest extends AbstractQuest {
     }
 
     private void registerGlobalListeners() {
-        registerOperation(IS_CONSIDER_CHEAT, this::onIsConsiderCheat);
-        registerOperation(IS_CONSIDER_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
+        registerOperation(IS_CONSIDER_STATUS_CHEAT, this::onIsConsiderCheat);
+        registerOperation(IS_CONSIDER_STATUS_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
         registerOperation(ON_DISPLAY_SPECIAL_CARGO, this::onDisplaySpecialCargo);
         registerOperation(ON_ARRESTED, this::onArrested);
         registerOperation(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
@@ -124,8 +124,7 @@ class JarekQuest extends AbstractQuest {
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
-        //TODO check status in cheats
-        if (cheatWords.getFirst().equals("Status") && cheatWords.getSecond().equals("Jarek")) {
+        if (cheatWords.getSecond().equals(CHEATS_TITLE)) {
             questStatusJarek = Math.max(0, cheatWords.getNum2());
             cheatWords.setCheat(true);
             log.fine("consider cheat");

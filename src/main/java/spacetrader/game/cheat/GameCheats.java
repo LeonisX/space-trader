@@ -46,8 +46,6 @@ public class GameCheats implements Serializable {
         CheatWords words = CheatWords.parseWords(wordsArray);
 
         if (cheatMode) {
-            QuestsHolder.fireEvent(EventName.IS_CONSIDER_CHEAT, words);
-
             if (words.isCheat()) {
                 return true;
             }
@@ -169,6 +167,8 @@ public class GameCheats implements Serializable {
                     ship.setHull(Math.max(0, Math.min(ship.getHullStrength(), words.getNum1())));
                     break;
                 case Status: {
+                    QuestsHolder.fireEvent(EventName.IS_CONSIDER_STATUS_CHEAT, words);
+
                     switch (SomeStringsForCheatSwitch.find(words.getSecond())) {
                         case Artifact:
                             game.setQuestStatusArtifact(Math.max(0, words.getNum2()));
@@ -226,7 +226,7 @@ public class GameCheats implements Serializable {
                                     + Strings.CheatsWild + ": " + game.getQuestStatusWild() + Strings.newline;
 
                             Map<String, Integer> strings = new HashMap<>();
-                            QuestsHolder.fireEvent(EventName.IS_CONSIDER_DEFAULT_CHEAT, strings);
+                            QuestsHolder.fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);
 
                             text = text + strings.entrySet().stream()
                                     .map(e -> e.getKey() + ": " + e.getValue()).collect(joining(Strings.newline));
