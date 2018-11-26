@@ -21,7 +21,9 @@ public class Game implements Serializable {
 
     static final long serialVersionUID = 110L;
 
-    private static Game game;
+    private static volatile Game game;
+
+    private QuestsHolder questsHolder;
 
     private Commander commander;
     @CheatCode
@@ -92,8 +94,6 @@ public class Game implements Serializable {
     private boolean encounterOppFleeingPrev = false;
     private boolean encounterOppFleeing = false;
     private boolean encounterOppHit = false;
-
-    private QuestsHolder questsHolder;
 
     private GameController gameController;
 

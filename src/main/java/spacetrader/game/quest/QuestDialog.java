@@ -1,6 +1,8 @@
 package spacetrader.game.quest;
 
-public class QuestDialog extends AlertDialog {
+import java.io.Serializable;
+
+public class QuestDialog extends AlertDialog implements Serializable {
 
     private final MessageType messageType;
 

@@ -69,11 +69,30 @@ class JarekQuest extends AbstractQuest {
     public JarekQuest(Integer id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
         initializePhases(DIALOGS, new JarekPhase(), new JarekGetsOutPhase());
+        initializeTransitionMap();
 
         setSpecialCrewId(jarek.getId());
 
         registerListener();
         log.fine("started...");
+    }
+
+    @Override
+    public void initializeTransitionMap() {
+        super.initializeTransitionMap();
+        getTransitionMap().put(IS_CONSIDER_STATUS_CHEAT, this::onIsConsiderCheat);
+        getTransitionMap().put(IS_CONSIDER_STATUS_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
+        getTransitionMap().put(ON_DISPLAY_SPECIAL_CARGO, this::onDisplaySpecialCargo);
+        getTransitionMap().put(ON_ARRESTED, this::onArrested);
+        getTransitionMap().put(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
+        getTransitionMap().put(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsManual);
+        getTransitionMap().put(ON_ASSIGN_EVENTS_RANDOMLY, this::onAssignEventsRandomly);
+        getTransitionMap().put(ON_GENERATE_CREW_MEMBER_LIST, this::onGenerateCrewMemberList);
+        getTransitionMap().put(BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
+        getTransitionMap().put(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
+        getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
+        getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
+        getTransitionMap().put(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
     }
 
     private boolean isHagglingComputerOnBoard() {
@@ -89,19 +108,7 @@ class JarekQuest extends AbstractQuest {
 
     @Override
     public void registerListener() {
-        registerOperation(IS_CONSIDER_STATUS_CHEAT, this::onIsConsiderCheat);
-        registerOperation(IS_CONSIDER_STATUS_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
-        registerOperation(ON_DISPLAY_SPECIAL_CARGO, this::onDisplaySpecialCargo);
-        registerOperation(ON_ARRESTED, this::onArrested);
-        registerOperation(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
-        registerOperation(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsManual);
-        registerOperation(ON_ASSIGN_EVENTS_RANDOMLY, this::onAssignEventsRandomly);
-        registerOperation(ON_GENERATE_CREW_MEMBER_LIST, this::onGenerateCrewMemberList);
-        registerOperation(BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
-        registerOperation(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
-        registerOperation(ON_INCREMENT_DAYS, this::onIncrementDays);
-        registerOperation(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
-        registerOperation(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
+        getTransitionMap().keySet().forEach(this::registerOperation);
         log.fine("registered");
     }
 
@@ -287,6 +294,11 @@ class JarekQuest extends AbstractQuest {
                     && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
                     && Game.isCurrentSystemIs(getStarSystemId()) && !jarekOnBoard;
         }
+
+        @Override
+        public String toString() {
+            return "FirstPhase{} " + super.toString();
+        }
     }
 
     //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
@@ -296,10 +308,25 @@ class JarekQuest extends AbstractQuest {
         public boolean canBeExecuted() {
             return isQuestIsActive() && jarekOnBoard && Game.isCurrentSystemIs(StarSystemId.Devidia);
         }
+
+        @Override
+        public String toString() {
+            return "JarekGetsOutPhase{} " + super.toString();
+        }
     }
     
     private Phase getPhase(JarekQuestStatus status) {
         return getPhase(status.ordinal());
+    }
+
+    @Override
+    public String toString() {
+        return "JarekQuest{" +
+                "questStatusJarek=" + questStatusJarek +
+                ", jarek=" + jarek +
+                ", jarekOnBoard=" + jarekOnBoard +
+                ", shipBarCode=" + shipBarCode +
+                "} " + super.toString();
     }
 }
 

@@ -1,6 +1,8 @@
 package spacetrader.game.quest;
 
-public class AlertDialog {
+import java.io.Serializable;
+
+public class AlertDialog implements Serializable {
 
     private final String title;
     private final String body;

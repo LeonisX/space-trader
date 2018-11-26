@@ -19,12 +19,15 @@ import spacetrader.util.ReflectionUtils;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Logger;
 
 import static spacetrader.controls.MenuItem.separator;
 import static spacetrader.game.enums.Language.ENGLISH;
 import static spacetrader.game.enums.Language.RUSSIAN;
 
 public class SpaceTrader extends WinformWindow implements MainWindow {
+
+    private static final Logger log = Logger.getLogger(SpaceTrader.class.getName());
 
     private SystemPanel systemPanel;
     private DockPanel dockPanel;
@@ -487,13 +490,15 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 && openFileDialog.showDialog(this) == DialogResult.OK) {
 
             controller = GameController.loadGame(openFileDialog.getFileName(), this);
+            log.finest("Loaded: " + Game.getCurrentGame().getQuestsHolder().toString());
         }
     }
 
     private void saveGameMenuItemClick() {
         if (Game.getCurrentGame() != null) {
             if (controller.getSaveGameFile() != null) {
-                controller.saveGame(controller.getSaveGameFile(), false);
+                log.finest(Game.getCurrentGame().getQuestsHolder().toString());
+                controller.saveGame("Saved: " + controller.getSaveGameFile(), false);
             } else {
                 saveGameAsMenuItemClick();
             }
@@ -502,6 +507,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void saveGameAsMenuItemClick() {
         if (Game.getCurrentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
+            log.finest("Saved: " + Game.getCurrentGame().getQuestsHolder().toString());
             controller.saveGame(saveFileDialog.getFileName(), true);
         }
     }

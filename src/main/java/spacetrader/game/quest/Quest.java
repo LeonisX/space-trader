@@ -23,7 +23,9 @@ public interface Quest {
 
     //StarSystemId getStarSystemId();
 
-    Consumer<Object> getCurrentOperation(EventName eventName);
+    void initializeTransitionMap();
+
+    Consumer<Object> getOperation(EventName eventName);
 
     List<Phase> getPhases();
 

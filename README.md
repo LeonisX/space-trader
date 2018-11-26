@@ -232,6 +232,9 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * MonsterCom - second click - order reverse
 * Some optimizations, based on quest status
 * Jarek: on arrested, escapePod - fail quest, or let try again? Check in Windows version
+* FileDialogs - hide translation logs
+* All quests: add SerialID
+
 
 * Different image sizes, font sizes (config)
 * Installers: http://www.jrsoftware.org/isdl.php

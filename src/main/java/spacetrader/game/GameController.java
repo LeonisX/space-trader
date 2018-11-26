@@ -2,11 +2,14 @@ package spacetrader.game;
 
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.FutureVersionException;
+import spacetrader.game.quest.QuestsHolder;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.Functions;
 import spacetrader.util.IOUtils;
 import spacetrader.util.Util;
+
+import java.io.Serializable;
 
 /**
  * This is kind-a temp class, to hold functions that are moved from the gui classes (VIEW) downwards. There is already a
@@ -17,7 +20,7 @@ import spacetrader.util.Util;
  *
  * @author Aviv
  */
-public class GameController {
+public class GameController implements Serializable {
 
     private static final String SAVE_ARRIVAL = "autosave_arrival.sav";
     private static final String SAVE_DEPARTURE = "autosave_departure.sav";
@@ -106,6 +109,8 @@ public class GameController {
             if (game != null) {
                 game.setParentWindow(mainWindow);
                 Game.setCurrentGame(game);
+                QuestsHolder.setQuestsHolder(game.getQuestsHolder());
+                QuestsHolder.initializeTransitionMaps();
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
                 gameController.setSaveGameDays(Game.getCommander().getDays());

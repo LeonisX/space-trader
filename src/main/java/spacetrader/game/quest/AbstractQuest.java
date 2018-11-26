@@ -22,16 +22,17 @@ public abstract class AbstractQuest implements Quest, Serializable {
     private Quest quest;
     private Repeatable repeatable;
     private int cashToSpend;
+    private int occurrence;
 
     private List<Phase> phases = new ArrayList<>();
 
-    private QuestState questState = QuestState.INACTIVE;
+    private QuestState questState;
 
-    private int specialCrewId = QuestsHolder.generateSpecialCrewId();
+    private int specialCrewId;
 
-    private int newsId = QuestsHolder.generateNewsId();
+    private int newsId;
 
-    private Map<EventName, Consumer<Object>> operations = new HashMap<>();
+    transient private Map<EventName, Consumer<Object>> transitionMap;
 
     // Common methods
 
@@ -40,6 +41,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.quest = quest;
         this.repeatable = repeatable;
         this.cashToSpend = cashToSpend;
+        this.occurrence = occurrence;
+        questState = QuestState.INACTIVE;
+        specialCrewId = QuestsHolder.generateSpecialCrewId();
+        newsId = QuestsHolder.generateNewsId();
     }
 
     void initializePhases(QuestDialog[] dialogs, Phase... phases) {
@@ -47,8 +52,19 @@ public abstract class AbstractQuest implements Quest, Serializable {
             phases[i].setId(i);
             phases[i].setDialogs(dialogs);
             phases[i].setQuest(quest);
+            //TODO need???
+            phases[i].setPhaseId(id + i);
             getPhases().add(phases[i]);
         }
+    }
+
+    Map<EventName, Consumer<Object>> getTransitionMap() {
+        return transitionMap;
+    }
+
+    @Override
+    public void initializeTransitionMap() {
+        transitionMap = new HashMap<>();
     }
 
     @Override
@@ -87,23 +103,23 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     @Override
-    public Consumer<Object> getCurrentOperation(EventName eventName) {
-        return operations.get(eventName);
+    public Consumer<Object> getOperation(EventName eventName) {
+        /*if (transitionMap.isEmpty()) {
+            quest.initializeTransitionMap();
+        }*/
+        return transitionMap.get(eventName);
     }
 
-    void registerOperation(EventName eventName, Consumer<Object> operation) {
-        operations.put(eventName, operation);
+    void registerOperation(EventName eventName) {
         QuestsHolder.subscribe(eventName, this);
     }
 
     void unRegisterOperation(EventName eventName) {
         QuestsHolder.unSubscribe(eventName, this);
-        operations.remove(eventName);
     }
 
-    public void unRegisterAllOperations() {
+    void unRegisterAllOperations() {
         QuestsHolder.unSubscribeAll(quest);
-        operations.clear();
     }
 
     @Override
@@ -125,7 +141,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return specialCrewId;
     }
 
-    public void setSpecialCrewId(int specialCrewId) {
+    void setSpecialCrewId(int specialCrewId) {
         this.specialCrewId = specialCrewId;
     }
 
@@ -143,7 +159,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return questState;
     }
 
-    public void setQuestState(QuestState questState) {
+    void setQuestState(QuestState questState) {
         this.questState = questState;
     }
 
@@ -201,5 +217,19 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     void showAlert(AlertDialog dialog) {
         new FormAlert(dialog.getTitle(), dialog.getBody(), Strings.AlertsOk, DialogResult.OK, null, DialogResult.NONE, null);
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractQuest{" +
+                "id=" + id +
+                ", repeatable=" + repeatable +
+                ", cashToSpend=" + cashToSpend +
+                ", occurrence=" + occurrence +
+                ", phases=" + phases +
+                ", questState=" + questState +
+                ", specialCrewId=" + specialCrewId +
+                ", newsId=" + newsId +
+                '}';
     }
 }

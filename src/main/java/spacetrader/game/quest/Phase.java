@@ -7,6 +7,7 @@ import java.io.Serializable;
 public abstract class Phase implements Serializable {
 
     private int id;
+    private int phaseId;
     private QuestDialog[] dialogs;
 
     private StarSystemId starSystemId;
@@ -49,5 +50,22 @@ public abstract class Phase implements Serializable {
 
     public void setQuest(Quest quest) {
         this.quest = quest;
+    }
+
+    public int getPhaseId() {
+        return phaseId;
+    }
+
+    public void setPhaseId(int phaseId) {
+        this.phaseId = phaseId;
+    }
+
+    @Override
+    public String toString() {
+        return "Phase{" +
+                "id=" + id +
+                ", phaseId=" + phaseId +
+                ", starSystemId=" + starSystemId +
+                '}';
     }
 }

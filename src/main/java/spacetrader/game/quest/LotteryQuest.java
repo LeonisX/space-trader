@@ -24,17 +24,24 @@ class LotteryQuest extends AbstractQuest {
     public LotteryQuest(Integer id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
         initializePhases(DIALOGS, new FirstPhase());
+        initializeTransitionMap();
 
         registerListener();
         log.fine("started...");
     }
 
     @Override
+    public void initializeTransitionMap() {
+        super.initializeTransitionMap();
+        getTransitionMap().put(AFTER_GAME_INITIALIZE, this::onAfterGameInitialize);
+        getTransitionMap().put(BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
+        getTransitionMap().put(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
+    }
+
+    @Override
     public void registerListener() {
         if (Game.getDifficultyId() < Difficulty.NORMAL.castToInt()) {
-            registerOperation(AFTER_GAME_INITIALIZE, this::onAfterGameInitialize);
-            registerOperation(BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
-            registerOperation(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
+            getTransitionMap().keySet().forEach(this::registerOperation);
             log.fine("registered");
         } else {
             log.fine("not registered");
@@ -75,5 +82,15 @@ class LotteryQuest extends AbstractQuest {
         public boolean canBeExecuted() {
             return isQuestIsActive() && Game.isCurrentSystemIs(getStarSystemId());
         }
+
+        @Override
+        public String toString() {
+            return "FirstPhase{} " + super.toString();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "LotteryQuest{} " + super.toString();
     }
 }
