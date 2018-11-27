@@ -43,13 +43,13 @@ public class Button extends BaseComponent {
 
     @Override
     public void setClick(final EventHandler<Object, EventArgs> click) {
-        Action userAction = new AbstractAction() {
+        /*Action userAction = new AbstractAction() {
             public void actionPerformed(ActionEvent arg0) {
                 click.handle(Button.this, null);
             }
         };
         userAction.putValue(AbstractAction.NAME, getText());
-        asJButton().setAction(userAction);
+        asJButton().setAction(userAction);*/
         super.setClick(click);
     }
 }
