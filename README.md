@@ -226,6 +226,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Control panel
 * Test all
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * CheatsMenu - add other debug windows
@@ -234,6 +235,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Jarek: on arrested, escapePod - fail quest, or let try again? Check in Windows version
 * FileDialogs - hide translation logs
 * All quests: add SerialID
+* QuestsHolder - QuestsSystem; non-static
 
 
 * Different image sizes, font sizes (config)
@@ -253,6 +255,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Known bugs:
 
+* When finish game - see > 100% percents, but in HighScores all OK.
 * Many dialogs don't allow to close them from [x]
 * FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
 * FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,
