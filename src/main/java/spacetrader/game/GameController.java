@@ -31,7 +31,7 @@ public class GameController implements Serializable {
 
     public GameController(Game game, MainWindow spaceTrader) {
         this.game = game;
-        mainWindow = spaceTrader;
+        this.mainWindow = spaceTrader;
         if (game != null) {
             game.setController(this);
         }
@@ -159,5 +159,9 @@ public class GameController implements Serializable {
 
     public void setSaveGameDays(int saveGameDays) {
         this.saveGameDays = saveGameDays;
+    }
+
+    public MainWindow getMainWindow() {
+        return mainWindow;
     }
 }

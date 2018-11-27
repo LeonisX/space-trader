@@ -1148,8 +1148,7 @@ public class Game implements Serializable {
         } else {
             // Check if it is time for an encounter
             int encounter = Functions.getRandom(44 - (2 * getDifficultyId()));
-            int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore(
-                    commander.getPoliceRecordScore()).getType().castToInt());
+            int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore().getType().castToInt());
 
             // encounters are half as likely if you're in a flea.
             if (commander.getShip().getType() == ShipType.FLEA) {
@@ -2694,7 +2693,7 @@ public class Game implements Serializable {
         }
     }
 
-    private void incDays(int num) {
+    public void incDays(int num) {
         commander.setDays(commander.getDays() + num);
 
         if (commander.getInsurance()) {
@@ -3950,4 +3949,7 @@ public class Game implements Serializable {
         return getDifficulty().castToInt();
     }
 
+    public static void setDifficulty(Difficulty difficulty) {
+        getCurrentGame().difficulty = difficulty;
+    }
 }

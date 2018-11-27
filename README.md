@@ -226,13 +226,15 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Control panel
+* FormInput, FormViewCommander translate
+* Debug controls in forms
 * Test all
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * CheatsMenu - add other debug windows
 * MonsterCom - second click - order reverse
 * Some optimizations, based on quest status
 * Jarek: on arrested, escapePod - fail quest, or let try again? Check in Windows version
+* Jarek: even, if angry - gift computer???
 * FileDialogs - hide translation logs
 * All quests: add SerialID
 * QuestsHolder - QuestsSystem; non-static
