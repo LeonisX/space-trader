@@ -42,4 +42,6 @@ public interface Quest {
     void affectSkills(int[] skillsCopy);
 
     boolean isQuestIsActive();
+
+    boolean isQuestIsInactive();
 }

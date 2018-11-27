@@ -7,6 +7,7 @@ import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.gui.FormAlert;
+import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 
@@ -174,6 +175,11 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return questState == QuestState.ACTIVE;
     }
 
+    @Override
+    public boolean isQuestIsInactive() {
+        return questState == QuestState.INACTIVE;
+    }
+
     void showSpecialButton(Object object, String title) {
         if (!((Button) object).isVisible()) {
             ((Button) object).setVisible(true);
@@ -215,8 +221,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
         }
     }
 
+    @Facaded
     void showAlert(AlertDialog dialog) {
-        new FormAlert(dialog.getTitle(), dialog.getBody(), Strings.AlertsOk, DialogResult.OK, null, DialogResult.NONE, null);
+        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getBody(), Strings.AlertsOk, DialogResult.OK, null, DialogResult.NONE, null);
+        formAlert.showDialog();
     }
 
     @Override

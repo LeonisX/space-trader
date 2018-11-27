@@ -40,24 +40,20 @@ class LotteryQuest extends AbstractQuest {
 
     @Override
     public void registerListener() {
-        if (Game.getDifficultyId() < Difficulty.NORMAL.castToInt()) {
-            getTransitionMap().keySet().forEach(this::registerOperation);
-            log.fine("registered");
-        } else {
-            log.fine("not registered");
-        }
+        getTransitionMap().keySet().forEach(this::registerOperation);
+        log.fine("registered");
     }
 
     private void onAfterGameInitialize(Object object) {
         log.fine("");
         getPhase(0).setStarSystemId(Game.getCurrentSystemId());
-        setQuestState(QuestState.ACTIVE);
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
         log.fine(Game.getCurrentSystemId() + " ~ " + getPhase(0).getStarSystemId());
-        if (getPhase(0).canBeExecuted()) {
+        if (getPhase(0).canBeExecuted() && isQuestIsInactive()) {
             log.fine("executed");
+            setQuestState(QuestState.ACTIVE);
             showSpecialButton(object, DIALOGS[0].getTitle());
         } else {
             log.fine("skipped");
@@ -66,10 +62,9 @@ class LotteryQuest extends AbstractQuest {
 
     private void onSpecialButtonClicked(Object object) {
         log.fine("");
-        if (getPhase(0).canBeExecuted()) {
+        if (getPhase(0).canBeExecuted() && isQuestIsActive()) {
             showDialogAndProcessResult(object, DIALOGS[0], LotteryQuest.this::unRegisterAllOperations);
             setQuestState(QuestState.FINISHED);
-            QuestsHolder.unSubscribeAll(getQuest());
             log.fine("executed");
         } else {
             log.fine("skipped");
@@ -80,7 +75,8 @@ class LotteryQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return isQuestIsActive() && Game.isCurrentSystemIs(getStarSystemId());
+            return Game.isCurrentSystemIs(getStarSystemId())
+                    && (Game.getDifficultyId() < Difficulty.NORMAL.castToInt());
         }
 
         @Override

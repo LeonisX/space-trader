@@ -61,7 +61,7 @@ class JarekQuest extends AbstractQuest {
 
     private int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
-    private CrewMember jarek = CrewMember.specialCrewMember(getSpecialCrewId(), 3, 2, 10, 4);
+    private CrewMember jarek;
     private boolean jarekOnBoard;
 
     private UUID shipBarCode = UUID.randomUUID();
@@ -71,6 +71,7 @@ class JarekQuest extends AbstractQuest {
         initializePhases(DIALOGS, new JarekPhase(), new JarekGetsOutPhase());
         initializeTransitionMap();
 
+        jarek = CrewMember.specialCrewMember(getSpecialCrewId(), 3, 2, 10, 4);
         setSpecialCrewId(jarek.getId());
 
         registerListener();
@@ -149,7 +150,7 @@ class JarekQuest extends AbstractQuest {
         if (getPhase(Jarek).canBeExecuted()) {
             log.finest("phase #1 : " + Game.getCurrentSystemId() + " ~ " + getPhase(Jarek).getStarSystemId());
             showSpecialButton(object, getPhase(Jarek).getTitle());
-        } else if (getPhase(JarekGetsOut).canBeExecuted()) {
+        } else if (getPhase(JarekGetsOut).canBeExecuted() && isQuestIsActive()) {
             log.finest("phase #2 : " + Game.getCurrentSystemId() + " ~ " + getPhase(JarekGetsOut).getStarSystemId());
             showSpecialButton(object, getPhase(JarekGetsOut).getTitle());
         } else {
@@ -172,7 +173,7 @@ class JarekQuest extends AbstractQuest {
                     Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
                 }
             });
-        } else if (getPhase(JarekGetsOut).canBeExecuted()) {
+        } else if (getPhase(JarekGetsOut).canBeExecuted() && isQuestIsActive()) {
             log.fine("phase #2");
             showDialogAndProcessResult(object, getPhase(JarekGetsOut).getDialog(), () -> {
                 questStatusJarek = STATUS_JAREK_DONE;
@@ -290,8 +291,7 @@ class JarekQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return isQuestIsActive()
-                    && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
                     && Game.isCurrentSystemIs(getStarSystemId()) && !jarekOnBoard;
         }
 
@@ -306,7 +306,7 @@ class JarekQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return isQuestIsActive() && jarekOnBoard && Game.isCurrentSystemIs(StarSystemId.Devidia);
+            return jarekOnBoard && Game.isCurrentSystemIs(StarSystemId.Devidia);
         }
 
         @Override

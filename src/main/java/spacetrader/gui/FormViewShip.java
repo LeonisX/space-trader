@@ -209,7 +209,7 @@ public class FormViewShip extends SpaceTraderForm {
             specialCargo.add(Strings.SpecialCargoArtifact);
         }
 
-        QuestsHolder.fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO);
+        QuestsHolder.fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO, specialCargo);
 
         /*if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE) {
             specialCargo.add(Strings.SpecialCargoJarek);
