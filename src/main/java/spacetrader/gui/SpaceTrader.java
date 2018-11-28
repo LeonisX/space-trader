@@ -63,6 +63,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private SubMenu cheatsSubMenu = new SubMenu();
     private MenuItem formMonsterMenuItem = new MenuItem();
+    private MenuItem formShipyardMenuItem = new MenuItem();
 
     private SubMenu helpSubMenu = new SubMenu();
     private MenuItem aboutMenuItem = new MenuItem();
@@ -246,7 +247,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         });
 
-        viewSubMenu.addAll(commanderMenuItem, shipMenuItem, personnelMenuItem, questsMenuItem, bankMenuItem, 
+        viewSubMenu.addAll(commanderMenuItem, shipMenuItem, personnelMenuItem, questsMenuItem, bankMenuItem,
                 separator(), highScoresMenuItem, separator(), languagesSubMenu, optionsMenuItem);
 
         viewSubMenu.setText("&View");
@@ -336,7 +337,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         });
 
-        cheatsSubMenu.addAll(formMonsterMenuItem);
+        cheatsSubMenu.addAll(formMonsterMenuItem, formShipyardMenuItem);
 
         //TODO hide if not cheats
         cheatsSubMenu.setText("Cheats");
@@ -349,6 +350,16 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 new FormMonster().showDialog();
             }
         });
+
+        formShipyardMenuItem.setEnabled(false);
+        formShipyardMenuItem.setText("Shipyard");
+        formShipyardMenuItem.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                new FormShipyard(0).showDialog();
+            }
+        });
+
 
         helpSubMenu.add(aboutMenuItem);
         helpSubMenu.setText("&Help");
@@ -404,6 +415,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         bankMenuItem.setEnabled(enabled);
 
         formMonsterMenuItem.setEnabled(enabled);
+        formShipyardMenuItem.setEnabled(enabled);
     }
 
     public void updateAll() {

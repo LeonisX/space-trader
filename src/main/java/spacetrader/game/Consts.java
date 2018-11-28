@@ -268,7 +268,7 @@ public class Consts {
                     Activity.NA, Activity.NA, TechLevel.UNAVAILABLE)
     };
 
-    static Shipyard[] Shipyards = new Shipyard[]{
+    public static Shipyard[] Shipyards = new Shipyard[]{
             new Shipyard(ShipyardId.CORELLIAN, Size.LARGE, ShipyardSkill.CREW_QUARTERS),
             new Shipyard(ShipyardId.INCOM, Size.MEDIUM, ShipyardSkill.SHIELD_SLOT_UNITS),
             new Shipyard(ShipyardId.KUAT, Size.HUGE, ShipyardSkill.HULL_PER_UNIT),

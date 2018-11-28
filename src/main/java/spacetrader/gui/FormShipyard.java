@@ -23,7 +23,7 @@ import java.awt.*;
 public class FormShipyard extends SpaceTraderForm {
 
     private final Game game = Game.getCurrentGame();
-    private final Shipyard shipyard = Game.getCommander().getCurrentSystem().getShipyard();
+    private final Shipyard shipyard;
 
     private final ShipType[] imgTypes = new ShipType[]{ShipType.FLEA, ShipType.GNAT, ShipType.FIREFLY,
             ShipType.MOSQUITO, ShipType.BUMBLEBEE, ShipType.BEETLE, ShipType.HORNET, ShipType.GRASSHOPPER,
@@ -102,6 +102,16 @@ public class FormShipyard extends SpaceTraderForm {
     private ArrayList<Size> sizes = null;
 
     public FormShipyard() {
+        shipyard = Game.getCommander().getCurrentSystem().getShipyard();
+        initializeForm();
+    }
+
+    FormShipyard(int shipyardId) {
+        shipyard = Consts.Shipyards[shipyardId];
+        initializeForm();
+    }
+
+    private void initializeForm() {
         initializeComponent();
 
         this.setText(Functions.stringVars(Strings.ShipyardTitle, shipyard.getName()));
@@ -113,7 +123,7 @@ public class FormShipyard extends SpaceTraderForm {
         skillDescriptionLabelValue.setText(Strings.ShipyardSkillDescriptions[shipyard.getSkill().castToInt()]);
         warningLabelValue
                 .setText(Functions.stringVars(Strings.ShipyardWarning, Integer.toString(Shipyard.PENALTY_FIRST_PCT),
-                Integer.toString(Shipyard.PENALTY_SECOND_PCT)));
+                        Integer.toString(Shipyard.PENALTY_SECOND_PCT)));
 
         openDialog.setInitialDirectory(Consts.CustomImagesDirectory);
         saveDialog.setInitialDirectory(Consts.CustomTemplatesDirectory);
