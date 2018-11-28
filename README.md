@@ -221,29 +221,40 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Those who wish to improve the Russian translation are invited. [Download script](english-russian.xls)
 * Everyone who wants to translate the game into their native language is also welcome. Write to me, I'll tell you what you need to do.
+* Also, I will be glad to anyone who offers a fascinating quest, any interesting name for the planet, or the name of a mercenary.
 * Any suggestions and recommendations are welcome.
 * Have a nice game
 
 ## TODO
 
-* FormInput, FormViewCommander translate
-* Debug controls in forms
-* Test all
-* FormMonsterMenuItem, ChestsMenu -> Strings, languages
-* MonsterCom - second click - order reverse
-* Some optimizations, based on quest status
-* Jarek: on arrested, escapePod - fail quest, or let try again? Check in Windows version
-* Jarek: even, if angry - gift computer???
-* FileDialogs - hide translation logs
+* Save last search phase in Find form
 * All quests: add SerialID
 * QuestsHolder - QuestsSystem; non-static
+
+### Jarek
+
+* Jarek: on arrested, escapePod - fail quest, no second try. What interesting - when arrest - Jarek will stay
+* Jarek: even, if angry - gift computer - YES
+
+### Monster.com
+
+* Monster.com - cheat, form name
+* MonsterCom: Show only current phase of quest. CheckBox for full view
+* MonsterCom - second click - order reverse
+
+### Translate
+
+* FormInput, FormViewCommander translate
+* FormMonsterMenuItem, ChestsMenu -> Strings, languages
+* FileDialogs - hide translation logs
 * FormTests, FormAlertTests - refactor, translate
 
+### Other
 
 * Different image sizes, font sizes (config)
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
-* Full Russian description
+* Full Russian description, FAQ
 * Dig about Star Trader for C16
 
 ### Minor tasks
@@ -279,9 +290,9 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Far perspectives
 
-* Quests engine
+* ~~Quests engine~~
 * JavaFX UI
 * Full-windowed
 * Site
-* FAQ, description
+* ~~FAQ, description~~
 * New interesting quests
