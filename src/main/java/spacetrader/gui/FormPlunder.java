@@ -11,8 +11,6 @@ import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.Strings;
-import spacetrader.game.enums.Difficulty;
-import spacetrader.gui.debug.Launcher;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.ReflectionUtils;
 
@@ -69,12 +67,6 @@ public class FormPlunder extends SpaceTraderForm {
 
 
     private Button jettisonButton = new Button();
-
-    public static void main(String[] args) {
-        new Game("name", Difficulty.BEGINNER,8,8,8,8, null);
-        FormPlunder form = new FormPlunder();
-        Launcher.runForm(form);
-    }
 
     public FormPlunder() {
         initializeComponent();

@@ -57,10 +57,6 @@ public class FormsTest extends SpaceTraderForm {
 
     private Button formMonsterButton = new Button();
 
-    public static void main(String[] args) {
-        Launcher.runForm(new FormsTest());
-    }
-
     public FormsTest() {
         GlobalAssets.loadLanguageFromRegistry();
         GlobalAssets.loadVersion();
@@ -71,46 +67,48 @@ public class FormsTest extends SpaceTraderForm {
         // Need to initialize pluralMap
         ReflectionUtils.loadStrings(GlobalAssets.getStrings());
 
-        Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
+        if (null == Game.getCurrentGame()) {
+            Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
 
-        game.setParentWindow(new SpaceTrader(null));
-        Game.getShip().getCargo()[1] = 12;
-        Game.getCommander().setCash(65535);
-        Game.getShip().setCrewQuarters(5);
-        Game.getShip().setCrewMembers(new CrewMember[5]);
-        Game.getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries().get(0);
-        Game.getShip().setFuelTanks(24);
-        Game.getShip().setFuel(10);
-        Game.getShip().setHullStrength(100);
-        Game.getShip().setHull(50);
-        Game.getShip().setGadgetSlots(10);
-        Game.getShip().setShieldSlots(10);
-        Game.getShip().setWeaponSlots(10);
-        Game.getShip().setWeapons(new Weapon[Game.getShip().getWeaponSlots()]);
-        Game.getShip().setShields(new Shield[Game.getShip().getShieldSlots()]);
-        Game.getShip().setGadgets(new Gadget[Game.getShip().getGadgetSlots()]);
-        game.setQuestStatusGemulon(1);
-        game.setQuestStatusJapori(1);
-        game.setQuestStatusPrincess(1);
-        game.setQuestStatusSculpture(1);
-        Game.getCommander().setReputationScore(10);
+            game.setParentWindow(new SpaceTrader(null));
+            Game.getShip().getCargo()[1] = 12;
+            Game.getCommander().setCash(65535);
+            Game.getShip().setCrewQuarters(5);
+            Game.getShip().setCrewMembers(new CrewMember[5]);
+            Game.getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries().get(0);
+            Game.getShip().setFuelTanks(24);
+            Game.getShip().setFuel(10);
+            Game.getShip().setHullStrength(100);
+            Game.getShip().setHull(50);
+            Game.getShip().setGadgetSlots(10);
+            Game.getShip().setShieldSlots(10);
+            Game.getShip().setWeaponSlots(10);
+            Game.getShip().setWeapons(new Weapon[Game.getShip().getWeaponSlots()]);
+            Game.getShip().setShields(new Shield[Game.getShip().getShieldSlots()]);
+            Game.getShip().setGadgets(new Gadget[Game.getShip().getGadgetSlots()]);
+            game.setQuestStatusGemulon(1);
+            game.setQuestStatusJapori(1);
+            game.setQuestStatusPrincess(1);
+            game.setQuestStatusSculpture(1);
+            Game.getCommander().setReputationScore(10);
 
-        for (int i = 0; i < Consts.Weapons.length; i++) {
-            Game.getShip().addEquipment(Consts.Weapons[i]);
-        }
-        for (int i = 0; i < Consts.Shields.length; i++) {
-            Game.getShip().addEquipment(Consts.Shields[i]);
-        }
-        for (int i = 0; i < Consts.Gadgets.length; i++) {
-            Game.getShip().addEquipment(Consts.Gadgets[i]);
-        }
+            for (int i = 0; i < Consts.Weapons.length; i++) {
+                Game.getShip().addEquipment(Consts.Weapons[i]);
+            }
+            for (int i = 0; i < Consts.Shields.length; i++) {
+                Game.getShip().addEquipment(Consts.Shields[i]);
+            }
+            for (int i = 0; i < Consts.Gadgets.length; i++) {
+                Game.getShip().addEquipment(Consts.Gadgets[i]);
+            }
 
-        game.setSelectedSystemId(StarSystemId.Aldea);
-        game.getSelectedSystem().setShipyardId(ShipyardId.INCOM);
-        game.getSelectedSystem().setTechLevel(TechLevel.HI_TECH);
-        game.warpDirect();
-        game.getSelectedSystem().getMercenariesForHire().add(Game.getCurrentGame().getMercenaries().get(0));
-        Game.getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
+            game.setSelectedSystemId(StarSystemId.Aldea);
+            game.getSelectedSystem().setShipyardId(ShipyardId.INCOM);
+            game.getSelectedSystem().setTechLevel(TechLevel.HI_TECH);
+            game.warpDirect();
+            game.getSelectedSystem().getMercenariesForHire().add(Game.getCurrentGame().getMercenaries().get(0));
+            Game.getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
+        }
 
         initializeComponent();
     }
@@ -156,7 +154,7 @@ public class FormsTest extends SpaceTraderForm {
         formAboutButton.setText("FormAbout");
         formAboutButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormAbout());
+                new FormAbout().showDialog();
             }
         });
 
@@ -165,7 +163,7 @@ public class FormsTest extends SpaceTraderForm {
         formAlertsButton.setText("FormAlert");
         formAlertsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormAlertTest());
+                new FormAlertTest().showDialog();
             }
         });
 
@@ -174,7 +172,7 @@ public class FormsTest extends SpaceTraderForm {
         formBuyFuelButton.setText("FormBuyFuel");
         formBuyFuelButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormBuyFuel());
+                new FormBuyFuel().showDialog();
             }
         });
 
@@ -183,7 +181,7 @@ public class FormsTest extends SpaceTraderForm {
         formBuyRepairsButton.setText("FormBuyRepairs");
         formBuyRepairsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormBuyRepairs());
+                new FormBuyRepairs().showDialog();
             }
         });
 
@@ -192,7 +190,7 @@ public class FormsTest extends SpaceTraderForm {
         formCargoBuyButton.setText("FormCargoBuy");
         formCargoBuyButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormCargoBuy(1, 1, CargoBuyOp.BUY_TRADER));
+                new FormCargoBuy(1, 1, CargoBuyOp.BUY_TRADER).showDialog();
             }
         });
 
@@ -201,7 +199,7 @@ public class FormsTest extends SpaceTraderForm {
         formCargoSellButton.setText("FormCargoSell");
         formCargoSellButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255));
+                new FormCargoSell(1, 1, CargoSellOp.JETTISON, 255).showDialog();
             }
         });
 
@@ -210,7 +208,7 @@ public class FormsTest extends SpaceTraderForm {
         formCostsButton.setText("FormCosts");
         formCostsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormCosts());
+                new FormCosts().showDialog();
             }
         });
 
@@ -232,7 +230,7 @@ public class FormsTest extends SpaceTraderForm {
             public void handle(Object sender, EventArgs e) {
                 Game.getCurrentGame().isDetermineVeryRareEncounter();
                 Game.getCurrentGame().setEncounterType((EncounterType) encounterComboBox.getSelectedItem());
-                Launcher.runForm(new FormEncounter());
+                new FormEncounter().showDialog();
             }
         });
 
@@ -242,7 +240,7 @@ public class FormsTest extends SpaceTraderForm {
         formEncounterButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
                 Game.getCurrentGame().isDetermineEncounter();
-                Launcher.runForm(new FormEncounter());
+                new FormEncounter().showDialog();
             }
         });
 
@@ -252,7 +250,7 @@ public class FormsTest extends SpaceTraderForm {
         formEquipmentButton.setText("FormEquipment");
         formEquipmentButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormEquipment());
+                new FormEquipment().showDialog();
             }
         });
 
@@ -261,7 +259,7 @@ public class FormsTest extends SpaceTraderForm {
         formFindButton.setText("FormFind");
         formFindButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormFind());
+                new FormFind().showDialog();
             }
         });
 
@@ -270,7 +268,7 @@ public class FormsTest extends SpaceTraderForm {
         formGetLoanButton.setText("FormGetLoan");
         formGetLoanButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormGetLoan(25000));
+                new FormGetLoan(25000).showDialog();
             }
         });
 
@@ -279,7 +277,7 @@ public class FormsTest extends SpaceTraderForm {
         formJettisonButton.setText("FormJettison");
         formJettisonButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormJettison());
+                new FormJettison().showDialog();
             }
         });
 
@@ -288,7 +286,7 @@ public class FormsTest extends SpaceTraderForm {
         formNewCommanderButton.setText("FormNewCommander");
         formNewCommanderButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormNewCommander());
+                new FormNewCommander().showDialog();
             }
         });
 
@@ -297,7 +295,7 @@ public class FormsTest extends SpaceTraderForm {
         formOptionsButton.setText("FormOptions");
         formOptionsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormOptions());
+                new FormOptions().showDialog();
             }
         });
 
@@ -306,7 +304,7 @@ public class FormsTest extends SpaceTraderForm {
         formPayBackLoanButton.setText("FormPayBackLoan");
         formPayBackLoanButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormPayBackLoan());
+                new FormPayBackLoan().showDialog();
             }
         });
 
@@ -315,7 +313,7 @@ public class FormsTest extends SpaceTraderForm {
         formPlunderButton.setText("FormPlunder");
         formPlunderButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormPlunder());
+                new FormPlunder().showDialog();
             }
         });
 
@@ -324,7 +322,7 @@ public class FormsTest extends SpaceTraderForm {
         formShipListButton.setText("FormShipList");
         formShipListButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormShipList());
+                new FormShipList().showDialog();
             }
         });
 
@@ -333,7 +331,7 @@ public class FormsTest extends SpaceTraderForm {
         formShipyardButton.setText("FormShipyard");
         formShipyardButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormShipyard());
+                new FormShipyard().showDialog();
             }
         });
 
@@ -352,7 +350,7 @@ public class FormsTest extends SpaceTraderForm {
         formViewBankButton.setText("FormViewBank");
         formViewBankButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormViewBank());
+                new FormViewBank().showDialog();
             }
         });
 
@@ -361,7 +359,7 @@ public class FormsTest extends SpaceTraderForm {
         formViewCommanderButton.setText("FormViewCommander");
         formViewCommanderButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormViewCommander());
+                new FormViewCommander().showDialog();
             }
         });
 
@@ -370,7 +368,7 @@ public class FormsTest extends SpaceTraderForm {
         formViewHighScoresButton.setText("FormViewHighScores");
         formViewHighScoresButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormViewHighScores());
+                new FormViewHighScores().showDialog();
             }
         });
 
@@ -379,7 +377,7 @@ public class FormsTest extends SpaceTraderForm {
         formViewPersonnelButton.setText("FormViewPersonnel");
         formViewPersonnelButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormViewPersonnel());
+                new FormViewPersonnel().showDialog();
             }
         });
 
@@ -388,7 +386,7 @@ public class FormsTest extends SpaceTraderForm {
         formViewQuestsButton.setText("FormViewQuests");
         formViewQuestsButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormViewQuests());
+                new FormViewQuests().showDialog();
             }
         });
 
@@ -397,7 +395,7 @@ public class FormsTest extends SpaceTraderForm {
         formViewShipButton.setText("FormViewShip");
         formViewShipButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormViewShip());
+                new FormViewShip().showDialog();
             }
         });
 
@@ -406,7 +404,7 @@ public class FormsTest extends SpaceTraderForm {
         formMonsterButton.setText("FormMonster");
         formMonsterButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Launcher.runForm(new FormMonster());
+                new FormMonster().showDialog();
             }
         });
 

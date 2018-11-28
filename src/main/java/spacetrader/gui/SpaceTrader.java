@@ -11,6 +11,8 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.game.enums.Language;
 import spacetrader.gui.cheat.FormMonster;
+import spacetrader.gui.debug.FormAlertTest;
+import spacetrader.gui.debug.FormsTest;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.IOUtils;
@@ -64,6 +66,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private SubMenu cheatsSubMenu = new SubMenu();
     private MenuItem formMonsterMenuItem = new MenuItem();
     private MenuItem formShipyardMenuItem = new MenuItem();
+    private MenuItem formTestMenuItem = new MenuItem();
+    private MenuItem formAlertTestMenuItem = new MenuItem();
 
     private SubMenu helpSubMenu = new SubMenu();
     private MenuItem aboutMenuItem = new MenuItem();
@@ -337,9 +341,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             }
         });
 
-        cheatsSubMenu.addAll(formMonsterMenuItem, formShipyardMenuItem);
 
-        //TODO hide if not cheats
+        cheatsSubMenu.addAll(formMonsterMenuItem, formShipyardMenuItem, separator(),
+                formTestMenuItem, formAlertTestMenuItem);
+
         cheatsSubMenu.setText("Cheats");
 
         formMonsterMenuItem.setEnabled(false);
@@ -357,6 +362,24 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             @Override
             public void handle(Object sender, EventArgs e) {
                 new FormShipyard(0).showDialog();
+            }
+        });
+
+        //formTestMenuItem.setEnabled(false);
+        formTestMenuItem.setText("Forms test");
+        formTestMenuItem.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                new FormsTest().showDialog();
+            }
+        });
+
+        //formAlertTestMenuItem.setEnabled(false);
+        formAlertTestMenuItem.setText("Alerts test");
+        formAlertTestMenuItem.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                new FormAlertTest().showDialog();
             }
         });
 
