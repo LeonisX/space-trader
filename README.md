@@ -239,7 +239,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ### Monster.com
 
 * Monster.com - cheat, form name
-* MonsterCom: Show only current phase of quest. CheckBox for full view
+* MonsterCom: Show only current phase of quest. CheckBox for full view (only for cheat/debug)
 * MonsterCom - second click - order reverse
 
 ### Translate
