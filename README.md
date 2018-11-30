@@ -252,6 +252,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Other
 
+* Buy/Sell equipment - CheckBox, which offers all equipment in debug/cheat modes
 * Different image sizes, font sizes (config)
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
