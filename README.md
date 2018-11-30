@@ -227,9 +227,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Shipyard - when new shipyard - can receive 600%
 * Save last search phase in Find form
 * All quests: add SerialID
 * QuestsSystem: non-static
+* After deal in ShipYard - alert in center of screen
 
 ### Jarek
 
