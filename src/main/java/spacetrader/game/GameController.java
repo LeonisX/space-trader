@@ -2,7 +2,7 @@ package spacetrader.game;
 
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.FutureVersionException;
-import spacetrader.game.quest.QuestsHolder;
+import spacetrader.game.quest.QuestSystem;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.Functions;
@@ -109,8 +109,8 @@ public class GameController implements Serializable {
             if (game != null) {
                 game.setParentWindow(mainWindow);
                 Game.setCurrentGame(game);
-                QuestsHolder.setQuestsHolder(game.getQuestsHolder());
-                QuestsHolder.initializeTransitionMaps();
+                QuestSystem.setQuestSystem(game.getQuestSystem());
+                QuestSystem.initializeTransitionMaps();
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
                 gameController.setSaveGameDays(Game.getCommander().getDays());

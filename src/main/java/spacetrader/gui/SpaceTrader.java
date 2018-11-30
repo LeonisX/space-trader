@@ -525,14 +525,14 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 && openFileDialog.showDialog(this) == DialogResult.OK) {
 
             controller = GameController.loadGame(openFileDialog.getFileName(), this);
-            log.finest("Loaded: " + Game.getCurrentGame().getQuestsHolder().toString());
+            log.finest("Loaded: " + Game.getCurrentGame().getQuestSystem().toString());
         }
     }
 
     private void saveGameMenuItemClick() {
         if (Game.getCurrentGame() != null) {
             if (controller.getSaveGameFile() != null) {
-                log.finest(Game.getCurrentGame().getQuestsHolder().toString());
+                log.finest(Game.getCurrentGame().getQuestSystem().toString());
                 controller.saveGame("Saved: " + controller.getSaveGameFile(), false);
             } else {
                 saveGameAsMenuItemClick();
@@ -542,7 +542,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void saveGameAsMenuItemClick() {
         if (Game.getCurrentGame() != null && saveFileDialog.showDialog(this) == DialogResult.OK) {
-            log.finest("Saved: " + Game.getCurrentGame().getQuestsHolder().toString());
+            log.finest("Saved: " + Game.getCurrentGame().getQuestSystem().toString());
             controller.saveGame(saveFileDialog.getFileName(), true);
         }
     }

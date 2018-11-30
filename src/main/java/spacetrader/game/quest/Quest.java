@@ -1,7 +1,9 @@
 package spacetrader.game.quest;
 
+import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.QuestState;
+
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 public interface Quest {

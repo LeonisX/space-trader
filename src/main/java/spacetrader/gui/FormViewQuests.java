@@ -10,8 +10,8 @@ import spacetrader.game.SpecialEvent;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.SpecialEventType;
-import spacetrader.game.quest.EventName;
-import spacetrader.game.quest.QuestsHolder;
+import spacetrader.game.quest.QuestSystem;
+import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -212,7 +212,7 @@ public class FormViewQuests extends SpaceTraderForm {
             quests.add(Strings.QuestArtifact);
         }
 
-        QuestsHolder.fireEvent(EventName.ON_GET_QUESTS_STRINGS);
+        QuestSystem.fireEvent(EventName.ON_GET_QUESTS_STRINGS);
 
         /*if (Game.getShip().isJarekOnBoard()) {
             if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT) {

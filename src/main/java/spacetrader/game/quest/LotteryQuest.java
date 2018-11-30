@@ -2,12 +2,14 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Game;
 import spacetrader.game.enums.Difficulty;
+import spacetrader.game.quest.enums.QuestState;
+import spacetrader.game.quest.enums.Repeatable;
 
 import java.util.logging.Logger;
 
-import static spacetrader.game.quest.EventName.*;
-import static spacetrader.game.quest.MessageType.ALERT;
-import static spacetrader.game.quest.Repeatable.DISPOSABLE;
+import static spacetrader.game.quest.enums.EventName.*;
+import static spacetrader.game.quest.enums.MessageType.ALERT;
+import static spacetrader.game.quest.enums.Repeatable.DISPOSABLE;
 
 class LotteryQuest extends AbstractQuest {
 

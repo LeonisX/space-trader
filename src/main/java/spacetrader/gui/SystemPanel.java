@@ -10,8 +10,8 @@ import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.exceptions.GameEndException;
-import spacetrader.game.quest.EventName;
-import spacetrader.game.quest.QuestsHolder;
+import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.QuestSystem;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
@@ -210,7 +210,7 @@ class SystemPanel extends Panel {
                 setToolTip(specialButton, system.specialEvent().getTitle());
             }
 
-            QuestsHolder.fireEvent(EventName.BEFORE_SPECIAL_BUTTON_SHOW, specialButton);
+            QuestSystem.fireEvent(EventName.BEFORE_SPECIAL_BUTTON_SHOW, specialButton);
         }
     }
 
@@ -257,7 +257,7 @@ class SystemPanel extends Panel {
             }
         }
 
-        QuestsHolder.fireEvent(EventName.SPECIAL_BUTTON_CLICKED, specialButton);
+        QuestSystem.fireEvent(EventName.SPECIAL_BUTTON_CLICKED, specialButton);
 
         mainWindow.updateAll();
     }

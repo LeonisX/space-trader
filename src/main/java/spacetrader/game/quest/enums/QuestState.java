@@ -1,4 +1,4 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.enums;
 
 public enum QuestState {
 

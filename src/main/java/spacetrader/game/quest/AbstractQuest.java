@@ -6,6 +6,10 @@ import spacetrader.game.Game;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.MessageType;
+import spacetrader.game.quest.enums.QuestState;
+import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
@@ -44,8 +48,8 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.cashToSpend = cashToSpend;
         this.occurrence = occurrence;
         questState = QuestState.INACTIVE;
-        specialCrewId = QuestsHolder.generateSpecialCrewId();
-        newsId = QuestsHolder.generateNewsId();
+        specialCrewId = QuestSystem.generateSpecialCrewId();
+        newsId = QuestSystem.generateNewsId();
     }
 
     void initializePhases(QuestDialog[] dialogs, Phase... phases) {
@@ -112,15 +116,15 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     void registerOperation(EventName eventName) {
-        QuestsHolder.subscribe(eventName, this);
+        QuestSystem.subscribe(eventName, this);
     }
 
     void unRegisterOperation(EventName eventName) {
-        QuestsHolder.unSubscribe(eventName, this);
+        QuestSystem.unSubscribe(eventName, this);
     }
 
     void unRegisterAllOperations() {
-        QuestsHolder.unSubscribeAll(quest);
+        QuestSystem.unSubscribeAll(quest);
     }
 
     @Override

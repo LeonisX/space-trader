@@ -4,7 +4,7 @@ import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.SkillType;
 import spacetrader.game.enums.StarSystemId;
-import spacetrader.game.quest.QuestsHolder;
+import spacetrader.game.quest.QuestSystem;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
@@ -166,7 +166,7 @@ public class CrewMember implements Serializable {
     }*/
 
     public String getName() {
-        return (id >= 1000) ? QuestsHolder.getCrewMemberName(id) : Strings.CrewMemberNames[id];
+        return (id >= 1000) ? QuestSystem.getCrewMemberName(id) : Strings.CrewMemberNames[id];
     }
 
     public int getPilot() {

@@ -229,7 +229,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Save last search phase in Find form
 * All quests: add SerialID
-* QuestsHolder - QuestsSystem; non-static
+* QuestsSystem: non-static
 
 ### Jarek
 
@@ -244,6 +244,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Translate
 
+* Translate all quests
 * FormInput, FormViewCommander translate
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * FileDialogs - hide translation logs

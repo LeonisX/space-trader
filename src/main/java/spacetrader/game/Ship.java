@@ -1,7 +1,7 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.QuestsHolder;
+import spacetrader.game.quest.QuestSystem;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.Util;
@@ -1033,7 +1033,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public int getTrader() {
-        return QuestsHolder.affectSkills(getSkills())[SkillType.TRADER.castToInt()];
+        return QuestSystem.affectSkills(getSkills())[SkillType.TRADER.castToInt()];
     }
 
     public Weapon[] getWeapons() {

@@ -9,8 +9,8 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.*;
 import spacetrader.game.enums.GadgetType;
-import spacetrader.game.quest.EventName;
-import spacetrader.game.quest.QuestsHolder;
+import spacetrader.game.quest.QuestSystem;
+import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -209,7 +209,7 @@ public class FormViewShip extends SpaceTraderForm {
             specialCargo.add(Strings.SpecialCargoArtifact);
         }
 
-        QuestsHolder.fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO, specialCargo);
+        QuestSystem.fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO, specialCargo);
 
         /*if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE) {
             specialCargo.add(Strings.SpecialCargoJarek);

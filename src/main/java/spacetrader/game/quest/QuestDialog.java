@@ -1,5 +1,7 @@
 package spacetrader.game.quest;
 
+import spacetrader.game.quest.enums.MessageType;
+
 import java.io.Serializable;
 
 public class QuestDialog extends AlertDialog implements Serializable {

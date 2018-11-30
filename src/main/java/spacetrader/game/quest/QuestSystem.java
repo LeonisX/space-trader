@@ -1,5 +1,7 @@
 package spacetrader.game.quest;
 
+import spacetrader.game.quest.enums.EventName;
+
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -10,9 +12,9 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
-public class QuestsHolder implements Serializable {
+public class QuestSystem implements Serializable {
 
-    private static final Logger log = Logger.getLogger(QuestsHolder.class.getName());
+    private static final Logger log = Logger.getLogger(QuestSystem.class.getName());
 
     private volatile Map<Integer, Quest> quests;
     private volatile Map<EventName, List<Integer>> eventListeners;
@@ -23,20 +25,20 @@ public class QuestsHolder implements Serializable {
 
     private transient int transactionStart = -1;
 
-    private static QuestsHolder questsHolder;
+    private static QuestSystem questSystem;
 
-    public static QuestsHolder initializeQuestsHolder() {
-        questsHolder = new QuestsHolder();
+    public static QuestSystem initializeQuestsHolder() {
+        questSystem = new QuestSystem();
 
-        questsHolder.setQuestsMap(new HashMap<>());
-        questsHolder.setEventListeners(new HashMap<>());
-        Arrays.stream(EventName.values()).forEach(e -> questsHolder.eventListeners.put(e, new ArrayList<>()));
+        questSystem.setQuestsMap(new HashMap<>());
+        questSystem.setEventListeners(new HashMap<>());
+        Arrays.stream(EventName.values()).forEach(e -> questSystem.eventListeners.put(e, new ArrayList<>()));
 
         initialize(LotteryQuest.class);
         initialize(JarekQuest.class);
 
         log.fine("initialized");
-        return questsHolder;
+        return questSystem;
     }
 
     private static void initialize(Class<? extends Quest> clazz) {
@@ -48,7 +50,7 @@ public class QuestsHolder implements Serializable {
                 Integer id = generateQuestId();
                 Constructor<?> c = clazz.getConstructor(id.getClass());
                 Quest quest = (Quest) c.newInstance(id);
-                questsHolder.getQuestsMap().put(id, quest);
+                questSystem.getQuestsMap().put(id, quest);
             }
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
@@ -64,21 +66,21 @@ public class QuestsHolder implements Serializable {
     }
 
     static int generateSpecialCrewId() {
-        return questsHolder.specialCrewIdCounter++;
+        return questSystem.specialCrewIdCounter++;
     }
 
     static int generateNewsId() {
-        return questsHolder.newsIdCounter++;
+        return questSystem.newsIdCounter++;
     }
 
     private static int generateQuestId() {
-        return 10000 * questsHolder.questCounter++;
+        return 10000 * questSystem.questCounter++;
     }
 
     public static int[] affectSkills(int[] skills) {
         //log.fine("affectSkills: " + Arrays.toString(skills));
         int[] skillsCopy = skills.clone();
-        questsHolder.getQuests().forEach(q -> q.affectSkills(skillsCopy));
+        questSystem.getQuests().forEach(q -> q.affectSkills(skillsCopy));
         //log.fine("skillsCopy: " + Arrays.toString(skillsCopy));
         return skillsCopy;
     }
@@ -89,39 +91,39 @@ public class QuestsHolder implements Serializable {
 
     public static void fireEvent(EventName eventName) {
         log.fine(eventName.toString());
-        questsHolder.getEventListeners().get(eventName).forEach(q -> {
-            if (questsHolder.quests.get(q).getOperation(eventName) != null) {
-                questsHolder.quests.get(q).getOperation(eventName).accept(null);
+        questSystem.getEventListeners().get(eventName).forEach(q -> {
+            if (questSystem.quests.get(q).getOperation(eventName) != null) {
+                questSystem.quests.get(q).getOperation(eventName).accept(null);
             }
         });
     }
 
     public static void fireEvent(EventName eventName, Object object) {
         log.fine(eventName.toString() + "; " + object.toString());
-        questsHolder.getEventListeners().get(eventName).forEach(q -> {
-            if (questsHolder.quests.get(q).getOperation(eventName) != null) {
-                questsHolder.quests.get(q).getOperation(eventName).accept(object);
+        questSystem.getEventListeners().get(eventName).forEach(q -> {
+            if (questSystem.quests.get(q).getOperation(eventName) != null) {
+                questSystem.quests.get(q).getOperation(eventName).accept(object);
             }
         });
     }
 
     public static void initializeTransitionMaps() {
-        questsHolder.quests.values().forEach(Quest::initializeTransitionMap);
+        questSystem.quests.values().forEach(Quest::initializeTransitionMap);
     }
 
     static void subscribe(EventName eventName, Quest quest) {
         log.fine(eventName.toString() + "; " + quest.getClass().getName());
-        questsHolder.getEventListeners().get(eventName).add(quest.getId());
+        questSystem.getEventListeners().get(eventName).add(quest.getId());
     }
 
     static void unSubscribe(EventName eventName, Quest quest) {
         log.fine(eventName.toString() + "; " + quest.getClass().getName());
-        questsHolder.getEventListeners().get(eventName).removeIf(q -> q.getClass().equals(quest.getClass()));
+        questSystem.getEventListeners().get(eventName).removeIf(q -> q.getClass().equals(quest.getClass()));
     }
 
     static void unSubscribeAll(Quest quest) {
         log.fine(quest.toString());
-        questsHolder.getEventListeners().forEach((key, value) -> unSubscribe(key, quest));
+        questSystem.getEventListeners().forEach((key, value) -> unSubscribe(key, quest));
     }
 
     private Map<EventName, List<Integer>> getEventListeners() {
@@ -134,23 +136,23 @@ public class QuestsHolder implements Serializable {
 
     //TODO optimize need???
     public static Stream<Phase> getPhasesStream() {
-        return questsHolder.getQuests().stream().flatMap(q -> q.getPhases().stream());
+        return questSystem.getQuests().stream().flatMap(q -> q.getPhases().stream());
     }
 
     public static String getNewsTitle(int newsEventId) {
-        return questsHolder.getQuests().stream().filter(q -> q.getNewsId() == newsEventId).findFirst().get().getNewsTitle();
+        return questSystem.getQuests().stream().filter(q -> q.getNewsId() == newsEventId).findFirst().get().getNewsTitle();
     }
 
     public static String getCrewMemberName(int id) {
-        return questsHolder.getQuests().stream().filter(q -> q.getSpecialCrewId() == id).findFirst().get().getCrewMemberName();
+        return questSystem.getQuests().stream().filter(q -> q.getSpecialCrewId() == id).findFirst().get().getCrewMemberName();
     }
 
-    public static QuestsHolder getQuestsHolder() {
-        return questsHolder;
+    public static QuestSystem getQuestSystem() {
+        return questSystem;
     }
 
-    public static void setQuestsHolder(QuestsHolder questsHolder) {
-        QuestsHolder.questsHolder = questsHolder;
+    public static void setQuestSystem(QuestSystem questSystem) {
+        QuestSystem.questSystem = questSystem;
     }
 
     //TODO test
@@ -180,7 +182,7 @@ public class QuestsHolder implements Serializable {
 
     @Override
     public String toString() {
-        return "QuestsHolder{" +
+        return "QuestSystem{" +
                 "quests=" + quests +
                 ", eventListeners=" + eventListeners +
                 ", questCounter=" + questCounter +

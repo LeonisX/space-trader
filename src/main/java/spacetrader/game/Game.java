@@ -5,8 +5,8 @@ import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
-import spacetrader.game.quest.EventName;
-import spacetrader.game.quest.QuestsHolder;
+import spacetrader.game.quest.QuestSystem;
+import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
@@ -23,7 +23,7 @@ public class Game implements Serializable {
 
     private static volatile Game game;
 
-    private QuestsHolder questsHolder;
+    private QuestSystem questSystem;
 
     private Commander commander;
     @CheatCode
@@ -107,13 +107,13 @@ public class Game implements Serializable {
         this.parentWin = parentWin;
         this.difficulty = difficulty;
 
-        questsHolder = QuestsHolder.initializeQuestsHolder();
+        questSystem = QuestSystem.initializeQuestsHolder();
 
         // Keep Generating a new universe until isSpecialEventsInPlace and isShipyardsInPlace return true,
         // indicating all special events and shipyards were placed.
         do {
-            questsHolder.rollbackTransaction();
-            questsHolder.startTransaction();
+            questSystem.rollbackTransaction();
+            questSystem.startTransaction();
             generateUniverse();
         } while (!(isSpecialEventsInPlace() && isShipyardsInPlace()));
 
@@ -136,7 +136,7 @@ public class Game implements Serializable {
             setCanSuperWarp(true);
         }
 
-        QuestsHolder.fireEvent(EventName.AFTER_GAME_INITIALIZE);
+        QuestSystem.fireEvent(EventName.AFTER_GAME_INITIALIZE);
     }
 
     public static Game getCurrentGame() {
@@ -201,7 +201,7 @@ public class Game implements Serializable {
             }
         }
 
-        QuestsHolder.fireEvent(EventName.ON_ARRESTED);
+        QuestSystem.fireEvent(EventName.ON_ARRESTED);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
@@ -2206,7 +2206,7 @@ public class Game implements Serializable {
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
         }
 
-        QuestsHolder.fireEvent(EventName.ON_ESCAPE_WITH_POD);
+        QuestSystem.fireEvent(EventName.ON_ESCAPE_WITH_POD);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
@@ -2279,7 +2279,7 @@ public class Game implements Serializable {
                 StarSystemId.NA));
         mercenaries.set(CrewMemberId.WILD.castToInt(), new CrewMember(CrewMemberId.WILD, 7, 10, 2, 5, StarSystemId.NA));
 
-        QuestsHolder.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST);
+        QuestSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST);
 
         // Jarek TODO remove after finish this quest
 
@@ -2746,7 +2746,7 @@ public class Game implements Serializable {
             setFabricRipProbability(getFabricRipProbability() - num);
         }
 
-        QuestsHolder.fireEvent(EventName.ON_INCREMENT_DAYS);
+        QuestSystem.fireEvent(EventName.ON_INCREMENT_DAYS);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT / 2) {
@@ -2830,7 +2830,7 @@ public class Game implements Serializable {
     }
 
     private void newsAddEventsOnArrival() {
-        QuestsHolder.fireEvent(EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL);
+        QuestSystem.fireEvent(EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL);
         if (commander.getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
             switch (commander.getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
@@ -3011,7 +3011,7 @@ public class Game implements Serializable {
         getUniverse()[StarSystemId.Gemulon.castToInt()].setSpecialEventType(SpecialEventType.GemulonRescued);
         getUniverse()[StarSystemId.Japori.castToInt()].setSpecialEventType(SpecialEventType.JaporiDelivery);
 
-        QuestsHolder.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
+        QuestSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
         //getUniverse()[StarSystemId.Devidia.castToInt()].setSpecialEventType(SpecialEventType.JarekGetsOut);
         getUniverse()[StarSystemId.Utopia.castToInt()].setSpecialEventType(SpecialEventType.MoonRetirement);
         getUniverse()[StarSystemId.Nix.castToInt()].setSpecialEventType(SpecialEventType.ReactorDelivered);
@@ -3080,7 +3080,7 @@ public class Game implements Serializable {
         }
 
         if (goodUniverse) {
-            QuestsHolder.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
+            QuestSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
         }
 
         return goodUniverse;
@@ -3637,7 +3637,7 @@ public class Game implements Serializable {
         Functions.randSeed(curSys.getId().castToInt(), commander.getDays());
 
         for (Integer newsEventId : getNewsEvents()) {
-            String eventName = (newsEventId < 1000) ? Strings.NewsEvent[newsEventId] : QuestsHolder.getNewsTitle(newsEventId);
+            String eventName = (newsEventId < 1000) ? Strings.NewsEvent[newsEventId] : QuestSystem.getNewsTitle(newsEventId);
 
             items.add(Functions.stringVars(eventName, new String[]{commander.getName(),
                     commander.getCurrentSystem().getName(), commander.getShip().getName()}));
@@ -3908,12 +3908,12 @@ public class Game implements Serializable {
         return gameController;
     }
 
-    public QuestsHolder getQuestsHolder() {
-        return questsHolder;
+    public QuestSystem getQuestSystem() {
+        return questSystem;
     }
 
-    public void setQuestsHolder(QuestsHolder questsHolder) {
-        this.questsHolder = questsHolder;
+    public void setQuestSystem(QuestSystem questSystem) {
+        this.questSystem = questSystem;
     }
 
 
