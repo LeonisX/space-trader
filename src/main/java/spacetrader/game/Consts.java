@@ -264,8 +264,10 @@ public class Consts {
                     Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.CUSTOM, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.SCORPION, Size.HUGE, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
-                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE)
+            new ShipSpec(ShipType.QUEST, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
+                    Activity.NA, TechLevel.UNAVAILABLE),
+            /*new ShipSpec(ShipType.SCORPION, Size.HUGE, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
+                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE)*/
     };
 
     public static Shipyard[] Shipyards = new Shipyard[]{
@@ -279,7 +281,7 @@ public class Consts {
     //TODO was ArrayList
     public static CrewMemberId[] SpecialCrewMemberIds = new CrewMemberId[]{ // new ArrayList(
             CrewMemberId.COMMANDER, CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN, /*CrewMemberId.JAREK,*/
-            CrewMemberId.OPPONENT, CrewMemberId.PRINCESS, CrewMemberId.SCARAB, CrewMemberId.SCORPION,
+            CrewMemberId.OPPONENT, /*CrewMemberId.PRINCESS,*/ CrewMemberId.SCARAB, /*CrewMemberId.SCORPION,*/
             CrewMemberId.SPACE_MONSTER, CrewMemberId.WILD};
 
     public static SpecialEvent[] SpecialEvents = new SpecialEvent[]{
@@ -323,12 +325,12 @@ public class Consts {
             new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
             new SpecialEvent(SpecialEventType.SculptureDelivered, 0, 0, true),
             new SpecialEvent(SpecialEventType.SculptureHiddenBays, 0, 0, false),
-            new SpecialEvent(SpecialEventType.Princess, 0, 0, true),
+            /*new SpecialEvent(SpecialEventType.Princess, 0, 0, true),
             new SpecialEvent(SpecialEventType.PrincessCentauri, 0, 0, true),
             new SpecialEvent(SpecialEventType.PrincessInthara, 0, 0, true),
             new SpecialEvent(SpecialEventType.PrincessQonos, 0, 0, false),
             new SpecialEvent(SpecialEventType.PrincessQuantum, 0, 0, false),
-            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true),
+            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true),*/
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

@@ -129,7 +129,7 @@ public class Commander extends CrewMember implements Serializable {
                     (add[0] || add[1] || add[2] || addPod ? Strings.ShipBuyTransfer : "")) == DialogResult.YES) {
                 CrewMember[] oldCrew = getShip().getCrew();
 
-                setShip(new Ship(specToBuy.getType()));
+                setShip(new Ship(specToBuy));
                 setCash(getCash() - (netPrice + extraCost));
 
                 for (int i = 0; i < Math.min(oldCrew.length, getShip().getCrew().length); i++) {
@@ -283,7 +283,7 @@ public class Commander extends CrewMember implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), cash, debt, killsPirate, killsPolice, killsTrader, policeRecordScore, reputationScore, days, insurance, noClaim, ship);
+        int result = Objects.hash(super.hashCode(), cash, debt, killsPirate, killsPolice, killsTrader, policeRecordScore, reputationScore, days, insurance, noClaim/*, ship*/);
         result = 31 * result + Arrays.hashCode(priceCargo);
         return result;
     }

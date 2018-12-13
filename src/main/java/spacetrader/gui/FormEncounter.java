@@ -563,7 +563,7 @@ public class FormEncounter extends SpaceTraderForm {
                 break;
             case DRAGONFLY_ATTACK:
             case FAMOUS_CAPTAIN_ATTACK:
-            case SCORPION_ATTACK:
+            case QUEST_ATTACK:
             case SPACE_MONSTER_ATTACK:
             case TRADER_ATTACK:
                 visible[ATTACK] = true;
@@ -577,7 +577,7 @@ public class FormEncounter extends SpaceTraderForm {
             case PIRATE_FLEE:
             case PIRATE_IGNORE:
             case SCARAB_IGNORE:
-            case SCORPION_IGNORE:
+            case QUEST_IGNORE:
             case SPACE_MONSTER_IGNORE:
             case TRADER_FLEE:
             case TRADER_IGNORE:

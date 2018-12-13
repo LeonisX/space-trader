@@ -38,10 +38,10 @@ public class ShipSpec implements Serializable {
         barCode = UUID.randomUUID();
     }
 
-    ShipSpec(ShipType type, Size size, int cargoBays, int weaponSlots, int shieldSlots, int gadgetSlots,
-             int crewQuarters, int fuelTanks, int fuelCost, int hullStrength, int repairCost, int price, int occurrence,
-             Activity police, Activity pirates, Activity traders, TechLevel minTechLevel) {
-        super();
+    public ShipSpec(ShipType type, Size size, int cargoBays, int weaponSlots, int shieldSlots, int gadgetSlots,
+                    int crewQuarters, int fuelTanks, int fuelCost, int hullStrength, int repairCost, int price, int occurrence,
+                    Activity police, Activity pirates, Activity traders, TechLevel minTechLevel) {
+        //super();
         this.type = type;
         this.size = size;
         this.cargoBays = cargoBays;
@@ -58,31 +58,29 @@ public class ShipSpec implements Serializable {
         this.police = police;
         this.pirates = pirates;
         this.traders = traders;
-        minTech = minTechLevel;
+        this.minTech = minTechLevel;
     }
 
-    protected void setValues(ShipType type) {
-        int typeInt = type.castToInt();
-
-        this.type = type;
-        size = Consts.ShipSpecs[typeInt].size;
-        cargoBays = Consts.ShipSpecs[typeInt].cargoBays;
-        weaponSlots = Consts.ShipSpecs[typeInt].weaponSlots;
-        shieldSlots = Consts.ShipSpecs[typeInt].shieldSlots;
-        gadgetSlots = Consts.ShipSpecs[typeInt].gadgetSlots;
-        crewQuarters = Consts.ShipSpecs[typeInt].crewQuarters;
-        fuelTanks = Consts.ShipSpecs[typeInt].fuelTanks;
-        fuelCost = Consts.ShipSpecs[typeInt].fuelCost;
-        hullStrength = Consts.ShipSpecs[typeInt].hullStrength;
-        repairCost = Consts.ShipSpecs[typeInt].repairCost;
-        price = Consts.ShipSpecs[typeInt].price;
-        occurrence = Consts.ShipSpecs[typeInt].occurrence;
-        police = Consts.ShipSpecs[typeInt].police;
-        pirates = Consts.ShipSpecs[typeInt].pirates;
-        traders = Consts.ShipSpecs[typeInt].traders;
-        minTech = Consts.ShipSpecs[typeInt].minTech;
-        hullUpgraded = Consts.ShipSpecs[typeInt].hullUpgraded;
-        imageIndex = Consts.ShipSpecs[typeInt].imageIndex;
+    protected void setValues(ShipSpec shipSpec) {
+        this.type = shipSpec.type;
+        size = shipSpec.size;
+        cargoBays = shipSpec.cargoBays;
+        weaponSlots = shipSpec.weaponSlots;
+        shieldSlots = shipSpec.shieldSlots;
+        gadgetSlots = shipSpec.gadgetSlots;
+        crewQuarters = shipSpec.crewQuarters;
+        fuelTanks = shipSpec.fuelTanks;
+        fuelCost = shipSpec.fuelCost;
+        hullStrength = shipSpec.hullStrength;
+        repairCost = shipSpec.repairCost;
+        price = shipSpec.price;
+        occurrence = shipSpec.occurrence;
+        police = shipSpec.police;
+        pirates = shipSpec.pirates;
+        traders = shipSpec.traders;
+        minTech = shipSpec.minTech;
+        hullUpgraded = shipSpec.hullUpgraded;
+        imageIndex = shipSpec.imageIndex;
     }
 
     int getSlotsCount(EquipmentType type) {

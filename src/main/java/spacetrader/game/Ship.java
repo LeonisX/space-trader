@@ -1,6 +1,7 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.QuestSystem;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
@@ -8,9 +9,11 @@ import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
+
+import static spacetrader.game.quest.enums.EventName.ON_GET_STEALABLE_CARGO;
 
 public class Ship extends ShipSpec implements Serializable {
 
@@ -38,6 +41,11 @@ public class Ship extends ShipSpec implements Serializable {
     public Ship(ShipType type) {
         super();
         setValues(type);
+    }
+
+    public Ship(ShipSpec shipSpec) {
+        super();
+        setValues(shipSpec);
     }
 
     public Ship(OpponentType oppType) {
@@ -216,7 +224,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     private void generateOpponentAddCrew() {
-        List<CrewMember> mercs = Game.getCurrentGame().getMercenaries();
+        Map<Integer, CrewMember> mercs = Game.getCurrentGame().getMercenaries();
         Difficulty diff = Game.getDifficulty();
 
         getCrew()[0] = mercs.get(CrewMemberId.OPPONENT.castToInt());
@@ -687,10 +695,17 @@ public class Ship extends ShipSpec implements Serializable {
         }
     }
 
-    @Override
     public void setValues(ShipType type) {
-        super.setValues(type);
+        setValues(Consts.ShipSpecs[type.castToInt()]);
+    }
 
+    @Override
+    public void setValues(ShipSpec shipSpec) {
+        super.setValues(shipSpec);
+        initializeShip();
+    }
+
+    private void initializeShip() {
         weapons = new Weapon[getWeaponSlots()];
         shields = new Shield[getShieldSlots()];
         gadgets = new Gadget[getGadgetSlots()];
@@ -703,7 +718,7 @@ public class Ship extends ShipSpec implements Serializable {
         return getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.QUANTUM_DISRUPTOR);
     }
 
-    int getWeaponStrength(WeaponType min, WeaponType max) {
+    public int getWeaponStrength(WeaponType min, WeaponType max) {
         int total = 0;
 
         for (int i = 0; i < getWeapons().length; i++) {
@@ -759,7 +774,7 @@ public class Ship extends ShipSpec implements Serializable {
         return bays + getExtraCargoBays() + getHiddenCargoBays();
     }
 
-    boolean isCloaked() {
+    public boolean isCloaked() {
         int oppEng = isCommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCommander()
                 .getShip().getEngineer();
         return hasGadget(GadgetType.CLOAKING_DEVICE) && getEngineer() > oppEng;
@@ -908,9 +923,9 @@ public class Ship extends ShipSpec implements Serializable {
         return getSkills()[SkillType.PILOT.castToInt()];
     }
 
-    public boolean isPrincessOnBoard() {
+    /*public boolean isPrincessOnBoard() {
         return hasCrew(CrewMemberId.PRINCESS.castToInt());
-    }
+    }*/
 
     public boolean isReactorOnBoard() {
         int status = Game.getCurrentGame().getQuestStatusReactor();
@@ -1013,10 +1028,12 @@ public class Ship extends ShipSpec implements Serializable {
         tradeItems.sort();
         tradeItems.reverse();
 
-        int hidden = getHiddenCargoBays();
-        if (isPrincessOnBoard()) {
+        IntContainer intContainer = new IntContainer(getHiddenCargoBays());
+        QuestSystem.fireEvent(ON_GET_STEALABLE_CARGO, intContainer);
+        int hidden = intContainer.getValue();
+        /*if (isPrincessOnBoard()) {
             hidden--;
-        }
+        }*/
         if (isSculptureOnBoard()) {
             hidden--;
         }

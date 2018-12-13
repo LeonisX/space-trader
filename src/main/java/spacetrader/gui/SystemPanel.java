@@ -210,7 +210,7 @@ class SystemPanel extends Panel {
                 setToolTip(specialButton, system.specialEvent().getTitle());
             }
 
-            QuestSystem.fireEvent(EventName.BEFORE_SPECIAL_BUTTON_SHOW, specialButton);
+            QuestSystem.fireEvent(EventName.ON_BEFORE_SPECIAL_BUTTON_SHOW, specialButton);
         }
     }
 
@@ -257,7 +257,7 @@ class SystemPanel extends Panel {
             }
         }
 
-        QuestSystem.fireEvent(EventName.SPECIAL_BUTTON_CLICKED, specialButton);
+        QuestSystem.fireEvent(EventName.ON_SPECIAL_BUTTON_CLICKED, specialButton);
 
         mainWindow.updateAll();
     }

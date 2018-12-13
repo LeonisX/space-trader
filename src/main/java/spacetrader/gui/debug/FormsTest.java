@@ -88,7 +88,6 @@ public class FormsTest extends SpaceTraderForm {
             Game.getShip().setGadgets(new Gadget[Game.getShip().getGadgetSlots()]);
             game.setQuestStatusGemulon(1);
             game.setQuestStatusJapori(1);
-            game.setQuestStatusPrincess(1);
             game.setQuestStatusSculpture(1);
             Game.getCommander().setReputationScore(10);
 

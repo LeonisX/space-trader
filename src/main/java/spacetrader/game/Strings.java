@@ -142,8 +142,8 @@ public class Strings {
     public static String AlertsEncounterPiratesExamineReactorMessage = "The pirates poke around the Ion Reactor while trying to figure out if it's valuable. They finally conclude that the Reactor is worthless, not to mention dangerous, and leave it on your ship.";
     public static String AlertsEncounterPiratesFindNoCargoTitle = "Pirates Find No Cargo";
     public static String AlertsEncounterPiratesFindNoCargoMessage = "The pirates are very angry that they find no cargo on your ship. To stop them from destroying you, you have no choice but to pay them an amount equal to 5% of your current worth - ^1.";
-    public static String AlertsEncounterPiratesSurrenderPrincessTitle = "You Have the Princess";
-    public static String AlertsEncounterPiratesSurrenderPrincessMessage = "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!";
+    //public static String AlertsEncounterPiratesSurrenderPrincessTitle = "You Have the Princess";
+    //public static String AlertsEncounterPiratesSurrenderPrincessMessage = "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!";
     public static String AlertsEncounterPiratesTakeSculptureTitle = "Pirates Take Sculpture";
     public static String AlertsEncounterPiratesTakeSculptureMessage = "As the pirates ransack your ship, they find the stolen sculpture. \"This is worth thousands!\" one pirate exclaims, as he stuffs it into his pack.";
     public static String AlertsEncounterPoliceBribeTitle = "Bribe";
@@ -230,7 +230,7 @@ public class Strings {
     public static String AlertsGameClearHighScoresTitle = "Clear High Scores";
     public static String AlertsGameClearHighScoresMessage = "Are you sure you wish to clear the high score table?";
     public static String AlertsGameEndBoughtMoonTitle = "You Have Retired";
-    public static String AlertsGameEndBoughtMoonGirlTitle = "You Have Retired with the Princess";
+    //public static String AlertsGameEndBoughtMoonGirlTitle = "You Have Retired with the Princess";
     public static String AlertsGameEndHighScoreAchievedTitle = "Congratulations!";
     public static String AlertsGameEndHighScoreAchievedMessage = "You have made the high-score list!";
     public static String AlertsGameEndHighScoreCheatTitle = "Naughty, Naughty!";
@@ -288,8 +288,8 @@ public class Strings {
     public static String AlertsOptionsNoGameMessage = "You don't have a game open, so you can only change the default options.";
     public static String AlertsPreciousHiddenTitle = "Precious Cargo Hidden";
     public static String AlertsPreciousHiddenMessage = "You quickly hide ^1 in your hidden cargo bays before the pirates board your ship. This would never work with the police, but pirates are usually in more of a hurry.";
-    public static String AlertsPrincessTakenHomeTitle = "Princess Taken Home";
-    public static String AlertsPrincessTakenHomeMessage = "The Space Corps decides to give the Princess a ride home to Galvon since you obviously weren't up to the task.";
+    //public static String AlertsPrincessTakenHomeTitle = "Princess Taken Home";
+    //public static String AlertsPrincessTakenHomeMessage = "The Space Corps decides to give the Princess a ride home to Galvon since you obviously weren't up to the task.";
     public static String AlertsReactorConfiscatedTitle = "Police Confiscate Reactor";
     public static String AlertsReactorConfiscatedMessage = "The Police confiscate the Ion reactor as evidence of your dealings with unsavory characters.";
     public static String AlertsReactorDestroyedTitle = "Reactor Destroyed";
@@ -352,14 +352,14 @@ public class Strings {
     public static String AlertsSpecialNotEnoughBaysMessage = "You don't have enough empty cargo bays at the moment.";
     /*public static String AlertsSpecialPassengerConcernedJarekTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerConcernedJarekMessage = "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?";*/
-    public static String AlertsSpecialPassengerConcernedPrincessTitle = "Ship's Comm.";
-    public static String AlertsSpecialPassengerConcernedPrincessMessage = "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?";
+    /*public static String AlertsSpecialPassengerConcernedPrincessTitle = "Ship's Comm.";
+    public static String AlertsSpecialPassengerConcernedPrincessMessage = "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?";*/
     public static String AlertsSpecialPassengerConcernedWildTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerConcernedWildMessage = "Bridge? This is Jonathan. Are we there yet? Heh, heh. Sorry, I couldn't resist.";
     /*public static String AlertsSpecialPassengerImpatientJarekTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerImpatientJarekMessage = "Captain! This is the Ambassador speaking. We should have been there by now?!";*/
-    public static String AlertsSpecialPassengerImpatientPrincessTitle = "Ship's Comm.";
-    public static String AlertsSpecialPassengerImpatientPrincessMessage = "Sir! Are you taking me home or merely taking the place of my previous captors?!";
+    /*public static String AlertsSpecialPassengerImpatientPrincessTitle = "Ship's Comm.";
+    public static String AlertsSpecialPassengerImpatientPrincessMessage = "Sir! Are you taking me home or merely taking the place of my previous captors?!";*/
     public static String AlertsSpecialPassengerImpatientWildTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerImpatientWildMessage = "Commander! Wild here. What's taking us so long?!";
     public static String AlertsSpecialPassengerOnBoardTitle = "Passenger On Board";
@@ -468,7 +468,7 @@ public class Strings {
     public static String CheatsJapori = "Japori";
     /*public static String CheatsJarek = "Jarek";*/
     public static String CheatsMoon = "Moon";
-    public static String CheatsPrincess = "Princess";
+    //public static String CheatsPrincess = "Princess";
     public static String CheatsReactor = "Reactor";
     public static String CheatsScarab = "Scarab";
     public static String CheatsSculpture = "Sculpture";
@@ -497,7 +497,7 @@ public class Strings {
     public static String EncounterActionOppHit = "You hit the ^1.";
     public static String EncounterActionOppMissed = "You missed the ^1.";
     public static String EncounterActionOppSurrender = "The ^1 hails that they wish to surrender to you.";
-    public static String EncounterHidePrincess = "the Princess";
+    //public static String EncounterHidePrincess = "the Princess";
     public static String EncounterHideSculpture = "the stolen sculpture";
     public static String EncounterHullStrength = "Hull at ^1%";
     public static String EncounterPiratesDestroyed = "destroyed";
@@ -527,8 +527,8 @@ public class Strings {
     public static String EncounterPretextSpaceMonster = "a horrifying ^1";
     public static String EncounterPretextStolen = "a stolen ^1";
     public static String EncounterPretextTrader = "a trader ^1";
-    public static String EncounterPrincessRescued = newline + newline
-            + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\"";
+    /*public static String EncounterPrincessRescued = newline + newline
+            + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\"";*/
     public static String EncounterShieldStrength = "Shields at ^1%";
     public static String EncounterShieldNone = "No Shields";
     public static String EncounterShipCaptain = "Captain";
@@ -599,14 +599,14 @@ public class Strings {
             + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.";*/
     public static String QuestJaporiDeliver = "Deliver antidote to Japori.";
     public static String QuestMoon = "Claim your moon at Utopia.";
-    public static String QuestPrincessCentauri = "Follow the Scorpion to Centauri.";
+    /*public static String QuestPrincessCentauri = "Follow the Scorpion to Centauri.";
     public static String QuestPrincessInthara = "Follow the Scorpion to Inthara.";
     public static String QuestPrincessQonos = "Follow the Scorpion to Qonos.";
     public static String QuestPrincessQuantum = "Get your Quantum Disruptor at Galvon.";
     public static String QuestPrincessReturn = "Transport ^1 from Qonos to Galvon.";
     public static String QuestPrincessReturning = "Return ^1 to Galvon.";
     public static String QuestPrincessReturningImpatient = QuestPrincessReturning + newline
-            + "She is becoming anxious to arrive at home, and is no longer of any help in engineering functions.";
+            + "She is becoming anxious to arrive at home, and is no longer of any help in engineering functions.";*/
     public static String QuestReactor = "Deliver the unstable reactor to Nix for Henry Morgan.";
     public static String QuestReactorFuel = "Deliver the unstable reactor to Nix before it consumes all its fuel.";
     public static String QuestReactorLaser = "Get your special laser at Nix.";
@@ -718,8 +718,8 @@ public class Strings {
             "Taggart", // From Galaxy Quest
             "Vansen", // From Space: Above and Beyond
             "Xizor", // From Star Wars: Shadows of the Empire
-            "Ziyal", // From ST: Deep Space 9
-            "Scorpion" // dummy crew member used in opponent ship
+            //"Ziyal", // From ST: Deep Space 9
+            //"Scorpion" // dummy crew member used in opponent ship
     };
 
     public static String[] DifficultyLevels = new String[]{"Beginner", "Easy", "Normal", "Hard", "Impossible"};
@@ -792,12 +792,13 @@ public class Strings {
             "Rumors Suggest Known Criminal J. Wild May Come to Kravat!",
             "Priceless collector's item stolen from home of Geurge Locas!",
             "Space Corps follows ^3 with alleged stolen sculpture to ^2.",
-            "Member of Royal Family kidnapped!",
+            /*"Member of Royal Family kidnapped!",
             "Aggressive Ship Seen in Orbit Around Centauri",
             "Dangerous Scorpion Damages Several Other Ships Near Inthara",
             "Kidnappers Holding Out at Qonos",
             "Scorpion Defeated! Kidnapped Member of Galvon Royal Family Freed!",
-            "Beloved Royal Returns Home!"};
+            "Beloved Royal Returns Home!"*/
+    };
 
     public static String[][] NewsHeadlines = new String[][]{
             new String[]{"Riots, Looting Mar Factional Negotiations.",
@@ -996,12 +997,13 @@ public class Strings {
             "A hooded figure approaches you and asks if you'd be willing to deliver some recently acquired merchandise to Endor. He's holding a small sculpture of a man holding some kind of light sword that you strongly suspect was stolen. It appears to be made of plastic and not very valuable. \"I'll pay you 2,000 credits now, plus 15,000 on delivery,\" the figure says. After seeing the look on your face he adds, \"It's a collector's item. Will you deliver it or not?\"",
             "Yet another dark, hooded figure approaches. \"Do you have the action fig- umm, the sculpture?\" You hand it over and hear what sounds very much like a giggle from under the hood. \"I know you were promised 15,000 credits on delivery, but I'm strapped for cash right now. However, I have something better for you. I have an acquaintance who can install hidden compartments in your ship.\" Return with an empty gadget slot when you're ready to have it installed.",
             "You're taken to a warehouse and whisked through the door. A grubby alien of some humanoid species - you're not sure which one - approaches. \"So you're the being who needs Hidden Compartments. Should I install them in your ship?\" (It requires a free gadget slot.)",
-            "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.",
+            /*"A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.",
             "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara.",
             "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next.",
             "The Galvonian Ambassador to Qonos approaches you. The Princess needs a ride home. Will you take her? I don't think she'll feel safe with anyone else.",
             "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?",
-            "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\""};
+            "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\""*/
+    };
 
     public static String[] SpecialEventTitles = new String[]{
             "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
@@ -1017,9 +1019,8 @@ public class Strings {
             "Space Monster", "Monster Killed", "Merchant Prince",
             "Tribble Buyer", "Jonathan Wild", "Wild Gets Out",
             "Stolen Sculpture", "Sculpture Delivered",
-            "Install Hidden Compartments", "Kidnapped", "Aggressive Ship",
-            "Dangerous Scorpion", "Royal Rescue", "Quantum Disruptor",
-            "Royal Return",
+            "Install Hidden Compartments",
+            //"Kidnapped", "Aggressive Ship", "Dangerous Scorpion", "Royal Rescue", "Quantum Disruptor", "Royal Return",
             //TODO delete
     "ASSIGNED"};
 

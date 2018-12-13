@@ -1,5 +1,8 @@
 package spacetrader.game.quest;
 
+import spacetrader.game.CrewMember;
+import spacetrader.game.Game;
+import spacetrader.game.ShipSpec;
 import spacetrader.game.quest.enums.EventName;
 
 import java.io.Serializable;
@@ -14,14 +17,24 @@ import static java.util.stream.Collectors.toList;
 
 public class QuestSystem implements Serializable {
 
+    static final long serialVersionUID = -1771570019223312592L;
+
     private static final Logger log = Logger.getLogger(QuestSystem.class.getName());
 
     private volatile Map<Integer, Quest> quests;
     private volatile Map<EventName, List<Integer>> eventListeners;
 
+    private Map<Integer, Quest> questMercenaries = new HashMap<>();
+    private Map<Integer, Quest> questNews = new HashMap<>();
+    //private Map<Integer, Quest> questShipSpecs = new HashMap<>();
+    private Map<Integer, Quest> questGameEndTypes = new HashMap<>();
+
     private volatile int questCounter = 1;
     private volatile int specialCrewIdCounter = 1000;
     private volatile int newsIdCounter = 1000;
+    private volatile int encounterIdCounter = 1000;
+    private volatile int shipSpecIdCounter = 1000;
+    private volatile int gameEndTypeIdCounter = 1000;
 
     private transient int transactionStart = -1;
 
@@ -36,6 +49,7 @@ public class QuestSystem implements Serializable {
 
         initialize(LotteryQuest.class);
         initialize(JarekQuest.class);
+        initialize(PrincessQuest.class);
 
         log.fine("initialized");
         return questSystem;
@@ -57,6 +71,33 @@ public class QuestSystem implements Serializable {
         }
     }
 
+    static CrewMember registerNewSpecialCrewMember(CrewMember crewMember, Quest quest) {
+        Game.getCurrentGame().getMercenaries().put(crewMember.getId(), crewMember);
+        questSystem.questMercenaries.put(crewMember.getId(), quest);
+        return crewMember;
+    }
+
+    static void registerNews(int newsId, Quest quest) {
+        questSystem.questNews.put(newsId, quest);
+    }
+
+    static int registerNewShipSpec(ShipSpec shipSpec, AbstractQuest quest) {
+        int shipSpecId = generateShipSpecIdCounter();
+        Game.getCurrentGame().getShipSpecs().put(shipSpecId, shipSpec);
+        //questSystem.questShipSpecs.put(shipSpecId, quest);
+        return shipSpecId;
+    }
+
+    static int registerNewGameEndType(AbstractQuest quest) {
+        int gameEndTypeId = generateGameEndTypeIdCounter();
+        questSystem.questGameEndTypes.put(gameEndTypeId, quest);
+        return gameEndTypeId;
+    }
+
+    public static void initializeLoggers() {
+        questSystem.quests.values().forEach(q -> q.initializeLogger(q));
+    }
+
     private void setQuestsMap(Map<Integer, Quest> map) {
         quests = map;
     }
@@ -71,6 +112,18 @@ public class QuestSystem implements Serializable {
 
     static int generateNewsId() {
         return questSystem.newsIdCounter++;
+    }
+
+    static int generateEncounterId() {
+        return questSystem.encounterIdCounter++;
+    }
+
+    private static int generateShipSpecIdCounter() {
+        return questSystem.shipSpecIdCounter++;
+    }
+
+    private static int generateGameEndTypeIdCounter() {
+        return questSystem.gameEndTypeIdCounter++;
     }
 
     private static int generateQuestId() {
@@ -90,21 +143,25 @@ public class QuestSystem implements Serializable {
     }
 
     public static void fireEvent(EventName eventName) {
-        log.fine(eventName.toString());
-        questSystem.getEventListeners().get(eventName).forEach(q -> {
-            if (questSystem.quests.get(q).getOperation(eventName) != null) {
-                questSystem.quests.get(q).getOperation(eventName).accept(null);
-            }
-        });
+        if (Game.getCurrentGame() != null) {
+            log.fine(eventName.toString());
+            questSystem.getEventListeners().get(eventName).forEach(q -> {
+                if (questSystem.quests.get(q).getOperation(eventName) != null) {
+                    questSystem.quests.get(q).getOperation(eventName).accept(null);
+                }
+            });
+        }
     }
 
     public static void fireEvent(EventName eventName, Object object) {
-        log.fine(eventName.toString() + "; " + object.toString());
-        questSystem.getEventListeners().get(eventName).forEach(q -> {
-            if (questSystem.quests.get(q).getOperation(eventName) != null) {
-                questSystem.quests.get(q).getOperation(eventName).accept(object);
-            }
-        });
+        if (Game.getCurrentGame() != null) {
+            log.fine(eventName.toString() + "; " + object.toString());
+            questSystem.getEventListeners().get(eventName).forEach(q -> {
+                if (questSystem.quests.get(q).getOperation(eventName) != null) {
+                    questSystem.quests.get(q).getOperation(eventName).accept(object);
+                }
+            });
+        }
     }
 
     public static void initializeTransitionMaps() {
@@ -140,11 +197,15 @@ public class QuestSystem implements Serializable {
     }
 
     public static String getNewsTitle(int newsEventId) {
-        return questSystem.getQuests().stream().filter(q -> q.getNewsId() == newsEventId).findFirst().get().getNewsTitle();
+        return questSystem.questNews.get(newsEventId).getNewsTitle(newsEventId);
     }
 
     public static String getCrewMemberName(int id) {
-        return questSystem.getQuests().stream().filter(q -> q.getSpecialCrewId() == id).findFirst().get().getCrewMemberName();
+        return questSystem.questMercenaries.get(id).getCrewMemberName(id);
+    }
+
+    public static String getGameCompletionText(int gameEndTypeId) {
+        return questSystem.questGameEndTypes.get(gameEndTypeId).getGameCompletionText();
     }
 
     public static QuestSystem getQuestSystem() {
@@ -191,4 +252,5 @@ public class QuestSystem implements Serializable {
                 ", transactionStart=" + transactionStart +
                 '}';
     }
+
 }

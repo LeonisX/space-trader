@@ -34,13 +34,13 @@ public enum NewsEvent implements SpaceTraderEnum {
     WildArrested, // = 29,
     WildGetsOut, // = 30,
     SculptureStolen, // = 31,
-    SculptureTracked, // = 32,
-    Princess, // = 33,
-    PrincessCentauri, // = 34,
-    PrincessInthara, // = 35,
-    PrincessQonos, // = 36,
-    PrincessRescued, // = 37,
-    PrincessReturned;// = 38
+    SculptureTracked; // = 32,
+    //Princess, // = 33,
+    //PrincessCentauri, // = 34,
+    //PrincessInthara, // = 35,
+    //PrincessQonos, // = 36,
+    //PrincessRescued, // = 37,
+    //PrincessReturned;// = 38
 
     public static NewsEvent fromInt(int i) {
         return values()[i];

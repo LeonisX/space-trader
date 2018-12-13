@@ -312,7 +312,7 @@ public class FormMonster extends SpaceTraderForm {
     private void populateIdArrays() {
         // Populate the mercenary ids array.
         ArrayList<Integer> ids = new ArrayList<>();
-        for (CrewMember merc : game.getMercenaries()) {
+        for (CrewMember merc : game.getMercenaries().values()) {
             if (!Util.arrayContains(Consts.SpecialCrewMemberIds, merc.getCrewMemberId()) && merc.getId() < 1000) {
                 ids.add(merc.getId());
             }
@@ -321,11 +321,11 @@ public class FormMonster extends SpaceTraderForm {
 
         // Populate the quest and shipyard system ids arrays.
         questSystems.addAll(QuestSystem.getPhasesStream()
-                 .map(p ->
-                     (null == p.getStarSystemId())
-                             ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown , p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])
-                 : createQuestRow(p)
-                 )
+                .map(p ->
+                        (null == p.getStarSystemId())
+                                ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown, p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])
+                                : createQuestRow(p)
+                )
                 .collect(Collectors.toList()));
         for (StarSystem system : game.getUniverse()) {
             //TODO remove after all quests

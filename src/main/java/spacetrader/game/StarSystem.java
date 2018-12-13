@@ -131,7 +131,7 @@ public class StarSystem implements Serializable {
             case GemulonInvaded:
             //case Lottery:
             case ReactorLaser:
-            case PrincessQuantum:
+            //case PrincessQuantum:
             case SculptureHiddenBays:
             case Skill:
             case SpaceMonster:
@@ -167,7 +167,7 @@ public class StarSystem implements Serializable {
             case MoonRetirement:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;
                 break;
-            case Princess:
+            /*case Princess:
                 show = Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
                         && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
@@ -185,7 +185,7 @@ public class StarSystem implements Serializable {
                 break;
             case PrincessReturned:
                 show = Game.getShip().isPrincessOnBoard();
-                break;
+                break;*/
             case Reactor:
                 show = game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_NOT_STARTED
                         && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
@@ -248,7 +248,7 @@ public class StarSystem implements Serializable {
 
     public List<CrewMember> getMercenariesForHire() {
         Commander cmdr = Game.getCommander();
-        List<CrewMember> mercs = Game.getCurrentGame().getMercenaries();
+        Collection<CrewMember> mercs = Game.getCurrentGame().getMercenaries().values();
         List<CrewMember> forHire = new ArrayList<>();
 
         for (CrewMember merc: mercs) {

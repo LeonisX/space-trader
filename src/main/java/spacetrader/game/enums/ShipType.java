@@ -18,7 +18,8 @@ public enum ShipType implements SpaceTraderEnum {
     SCARAB,        // 13
     BOTTLE,        // 14
     CUSTOM,        // 15
-    SCORPION;    // 16
+    //SCORPION;    // 16
+    QUEST;
 
     public static ShipType fromInt(int i) {
         return values()[i];

@@ -227,20 +227,37 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* v Game ending with Princess
+* What to do with ending title?? It's too long :(
+* Commander status - Всеобщий любимец (70) under button
 * Shipyard - when new shipyard - can receive 600%
 * Save last search phase in Find form
-* All quests: add SerialID
 * QuestsSystem: non-static
 * After deal in ShipYard - alert in center of screen
+* Encounters procedures from Game to separate class???
+
+### Princess
+
+* Full refactor of quest, write docs for all quest events (ON_...), reorder them
+* v Special Button doesn't disappear
+* v Strange bug in Commander.hashCode
+* Increase difficulty, depends on game difficulty (days to delivery)
+* v Encounters
+* v ShipSpec - in game map: ID -> ShipSpec
+* v Add Scorpion ShipSpec
+* v Create ship by this spec ID
+* v Register Girl end type
+* v Process game ending with Girl
 
 ### Jarek
 
 * Jarek: on arrested, escapePod - fail quest, no second try. What interesting - when arrest - Jarek will stay
 * Jarek: even, if angry - gift computer - YES
+* Increase difficulty, depends on game difficulty (days to delivery). Don't give computer when > Normal, instead money
 
 ### Monster.com
 
-* Monster.com - cheat, form name
+* Monster.com - rename cheat, form name (not MonsterCom)
 * MonsterCom: Show only current phase of quest. CheckBox for full view (only for cheat/debug)
 * MonsterCom - second click - order reverse
 

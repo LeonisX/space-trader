@@ -56,13 +56,13 @@ public enum CrewMemberId implements SpaceTraderEnum {
     TAGGART, // = 50,
     VANSEN, // = 51,
     XIZOR, // = 52,
-    PRINCESS, // = 53,
-    SCORPION,// = 54
-    SPECIAL;
+    //PRINCESS, // = 53,
+    //SCORPION,// = 54
+    QUEST;
 
     public static CrewMemberId fromInt(int i) {
         if (i >= 1000) {
-            return SPECIAL;
+            return QUEST;
         }
         return values()[i + 1];
     }

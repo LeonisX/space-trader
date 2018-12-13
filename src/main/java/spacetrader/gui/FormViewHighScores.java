@@ -7,6 +7,8 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.HighScoreRecord;
 import spacetrader.game.Strings;
+import spacetrader.game.enums.GameEndType;
+import spacetrader.game.quest.QuestSystem;
 import spacetrader.util.Functions;
 import spacetrader.util.IOUtils;
 import spacetrader.util.ReflectionUtils;
@@ -38,9 +40,12 @@ public class FormViewHighScores extends SpaceTraderForm {
         for (int i = highScores.length - 1; i >= 0 && highScores[i] != null; i--) {
             lblName[2 - i].setText(highScores[i].getName());
             lblScore[2 - i].setText(Functions.formatNumber(highScores[i].getScore() / 10) + "." + highScores[i].getScore() % 10 + "%");
+            String gameCompletion = highScores[i].getType() < GameEndType.QUEST.castToInt()
+                    ? Strings.GameCompletionTypes[highScores[i].getType()]
+                    : QuestSystem.getGameCompletionText(highScores[i].getType());
             lblStatus[2 - i].setText(Functions.stringVars(Strings.HighScoreStatus, new String[]
                     {
-                            Strings.GameCompletionTypes[highScores[i].getType().castToInt()],
+                            gameCompletion,
                             Integer.toString(highScores[i].getDays()),
                             Functions.plural(highScores[i].getWorth(), Strings.MoneyUnit),
                             Strings.DifficultyLevels[highScores[i].getDifficulty().castToInt()].toLowerCase()

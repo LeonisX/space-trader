@@ -20,12 +20,10 @@ import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
-import static spacetrader.game.quest.JarekQuestStatus.Jarek;
-import static spacetrader.game.quest.JarekQuestStatus.JarekGetsOut;
+import static spacetrader.game.quest.JarekQuestPhase.Jarek;
+import static spacetrader.game.quest.JarekQuestPhase.JarekGetsOut;
 
 class JarekQuest extends AbstractQuest {
-
-    private static final Logger log = Logger.getLogger(LotteryQuest.class.getName());
 
     private static final String CREW_MEMBER_NAME = "Jarek";     // Mercenary
 
@@ -33,7 +31,7 @@ class JarekQuest extends AbstractQuest {
 
     private static final String CHEATS_TITLE = "Jarek";
 
-    private static final String NEWS = "Ambassador Jarek Returns from Crisis.";
+    private static final String[] NEWS = {"Ambassador Jarek Returns from Crisis."};
 
     private static final String[] QUESTS = {
             "Take ambassador Jarek to Devidia.",
@@ -73,8 +71,9 @@ class JarekQuest extends AbstractQuest {
         initializePhases(DIALOGS, new JarekPhase(), new JarekGetsOutPhase());
         initializeTransitionMap();
 
-        jarek = CrewMember.specialCrewMember(getSpecialCrewId(), 3, 2, 10, 4);
-        setSpecialCrewId(jarek.getId());
+        jarek = registerNewSpecialCrewMember(3, 2, 10, 4);
+
+        registerNews(1);
 
         registerListener();
         log.fine("started...");
@@ -91,8 +90,8 @@ class JarekQuest extends AbstractQuest {
         getTransitionMap().put(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsManual);
         getTransitionMap().put(ON_ASSIGN_EVENTS_RANDOMLY, this::onAssignEventsRandomly);
         getTransitionMap().put(ON_GENERATE_CREW_MEMBER_LIST, this::onGenerateCrewMemberList);
-        getTransitionMap().put(BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
-        getTransitionMap().put(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
+        getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
+        getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
         getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
         getTransitionMap().put(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
@@ -116,13 +115,13 @@ class JarekQuest extends AbstractQuest {
     }
 
     @Override
-    public String getCrewMemberName() {
+    public String getCrewMemberName(int id) {
         return CREW_MEMBER_NAME;
     }
 
     @Override
-    public String getNewsTitle() {
-        return NEWS;
+    public String getNewsTitle(int newsId) {
+        return NEWS[newsId];
     }
 
     private void onAssignEventsManual(Object object) {
@@ -145,18 +144,36 @@ class JarekQuest extends AbstractQuest {
 
     private void onGenerateCrewMemberList(Object object) {
         log.fine("");
-        Game.getCurrentGame().getMercenaries().add(jarek);
+        Game.getCurrentGame().getMercenaries().put(jarek.getId(), jarek);
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
-        if (getPhase(Jarek).canBeExecuted()) {
-            log.finest("phase #1 : " + Game.getCurrentSystemId() + " ~ " + getPhase(Jarek).getStarSystemId());
-            showSpecialButton(object, getPhase(Jarek).getTitle());
-        } else if (getPhase(JarekGetsOut).canBeExecuted() && isQuestIsActive()) {
-            log.finest("phase #2 : " + Game.getCurrentSystemId() + " ~ " + getPhase(JarekGetsOut).getStarSystemId());
-            showSpecialButton(object, getPhase(JarekGetsOut).getTitle());
-        } else {
-            log.fine("skipped : " + Game.getCurrentSystemId());
+        getPhases().forEach(phase -> showSpecialButtonIfCanBeExecuted(object, phase));
+    }
+
+    //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
+    class JarekPhase extends Phase { //new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
+        @Override
+        public boolean canBeExecuted() {
+            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+                    && !jarekOnBoard && isDesiredSystem();
+        }
+
+        @Override
+        public String toString() {
+            return "JarekPhase{} " + super.toString();
+        }
+    }
+
+    class JarekGetsOutPhase extends Phase { //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
+        @Override
+        public boolean canBeExecuted() {
+            return jarekOnBoard && isDesiredSystem();
+        }
+
+        @Override
+        public String toString() {
+            return "JarekGetsOutPhase{} " + super.toString();
         }
     }
 
@@ -179,7 +196,7 @@ class JarekQuest extends AbstractQuest {
             log.fine("phase #2");
             showDialogAndProcessResult(object, getPhase(JarekGetsOut).getDialog(), () -> {
                 questStatusJarek = STATUS_JAREK_DONE;
-                Game.getShip().fire(getSpecialCrewId());
+                Game.getShip().fire(jarek.getId());
                 jarekOnBoard = false;
                 shipBarCode = Game.getShip().getBarCode();
                 setQuestState(QuestState.FINISHED);
@@ -218,11 +235,11 @@ class JarekQuest extends AbstractQuest {
         }
     }
 
-    // TODO repeat quest, or fail???
+    // TODO repeat if < normal, otherwise fail
     private void onArrested(Object object) {
         if (jarekOnBoard) {
             log.fine("Arrested + Jarek");
-            showAlert(ALERTS[AlertName.JarekTakenHome.ordinal()]);
+            showAlert(ALERTS[JarekAlertName.JarekTakenHome.ordinal()]);
             questStatusJarek = STATUS_JAREK_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
@@ -230,11 +247,11 @@ class JarekQuest extends AbstractQuest {
         }
     }
 
-    // TODO repeat quest, or fail???
+    // TODO repeat if < normal, otherwise fail
     private void onEscapeWithPod(Object object) {
         if (jarekOnBoard) {
             log.fine("Escaped + Jarek");
-            showAlert(ALERTS[AlertName.JarekTakenHome.ordinal()]);
+            showAlert(ALERTS[JarekAlertName.JarekTakenHome.ordinal()]);
             questStatusJarek = STATUS_JAREK_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
@@ -246,9 +263,9 @@ class JarekQuest extends AbstractQuest {
         if (jarekOnBoard) {
             log.fine(questStatusJarek + "");
             if (questStatusJarek == STATUS_JAREK_IMPATIENT / 2) {
-                showAlert(ALERTS[AlertName.SpecialPassengerConcernedJarek.ordinal()]);
+                showAlert(ALERTS[JarekAlertName.SpecialPassengerConcernedJarek.ordinal()]);
             } else if (questStatusJarek == STATUS_JAREK_IMPATIENT - 1) {
-                showAlert(ALERTS[AlertName.SpecialPassengerImpatientJarek.ordinal()]);
+                showAlert(ALERTS[JarekAlertName.SpecialPassengerImpatientJarek.ordinal()]);
                 jarek.setPilot(0);
                 jarek.setFighter(0);
                 jarek.setTrader(0);
@@ -280,45 +297,15 @@ class JarekQuest extends AbstractQuest {
 
     private void onNewsAddEventOnArrival(Object object) {
         if (jarekOnBoard && Game.isCurrentSystemIs(StarSystemId.Devidia)) {
-            log.fine("" + getNewsId());
-            Game.getCurrentGame().newsAddEvent(getNewsId());
+            log.fine("" + getNewsIds().get(0));
+            Game.getNews().addEvent(getNewsIds().get(0));
         } else {
             log.fine("skipped");
         }
     }
-
-    //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
-    //new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
-    class JarekPhase extends Phase {
-
-        @Override
-        public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
-                    && Game.isCurrentSystemIs(getStarSystemId()) && !jarekOnBoard;
-        }
-
-        @Override
-        public String toString() {
-            return "FirstPhase{} " + super.toString();
-        }
-    }
-
-    //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
-    class JarekGetsOutPhase extends Phase {
-
-        @Override
-        public boolean canBeExecuted() {
-            return jarekOnBoard && Game.isCurrentSystemIs(StarSystemId.Devidia);
-        }
-
-        @Override
-        public String toString() {
-            return "JarekGetsOutPhase{} " + super.toString();
-        }
-    }
     
-    private Phase getPhase(JarekQuestStatus status) {
-        return getPhase(status.ordinal());
+    private Phase getPhase(JarekQuestPhase phase) {
+        return getPhase(phase.ordinal());
     }
 
     @Override
@@ -332,10 +319,10 @@ class JarekQuest extends AbstractQuest {
     }
 }
 
-enum AlertName {
+enum JarekAlertName {
     SpecialPassengerConcernedJarek, SpecialPassengerImpatientJarek, JarekTakenHome
 }
 
-enum JarekQuestStatus {
+enum JarekQuestPhase {
     Jarek, JarekGetsOut
 }

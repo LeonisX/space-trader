@@ -79,7 +79,7 @@ public class FormAlert extends SpaceTraderForm {
         this.setText(title);
     }
 
-    private FormAlert(String title, int imageIndex) {
+    public FormAlert(String title, int imageIndex) {
         initializeComponent();
         // Make sure the extra spacetrader.controls are hidden.
         messageLabel.setVisible(false);
@@ -290,9 +290,9 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterPiratesFindNoCargo:
                 return new FormAlert(AlertsEncounterPiratesFindNoCargoTitle, AlertsEncounterPiratesFindNoCargoMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterPiratesSurrenderPrincess:
+            /*case EncounterPiratesSurrenderPrincess:
                 return new FormAlert(AlertsEncounterPiratesSurrenderPrincessTitle, AlertsEncounterPiratesSurrenderPrincessMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case EncounterPiratesTakeSculpture:
                 return new FormAlert(AlertsEncounterPiratesTakeSculptureTitle, AlertsEncounterPiratesTakeSculptureMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -406,8 +406,8 @@ public class FormAlert extends SpaceTraderForm {
                         DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case GameEndBoughtMoon:
                 return new FormAlert(AlertsGameEndBoughtMoonTitle, GameEndType.BOUGHT_MOON.castToInt());
-            case GameEndBoughtMoonGirl:
-                return new FormAlert(AlertsGameEndBoughtMoonGirlTitle, GameEndType.BOUGHT_MOON_GIRL.castToInt());
+            /*case GameEndBoughtMoonGirl:
+                return new FormAlert(AlertsGameEndBoughtMoonGirlTitle, GameEndType.BOUGHT_MOON_GIRL.castToInt());*/
             case GameEndHighScoreAchieved:
                 return new FormAlert(AlertsGameEndHighScoreAchievedTitle, AlertsGameEndHighScoreAchievedMessage, AlertsOk, DialogResult.OK,
                         null, DialogResult.NONE, args);
@@ -491,9 +491,9 @@ public class FormAlert extends SpaceTraderForm {
             case PreciousHidden:
                 return new FormAlert(AlertsPreciousHiddenTitle, AlertsPreciousHiddenMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case PrincessTakenHome:
+            /*case PrincessTakenHome:
                 return new FormAlert(AlertsPrincessTakenHomeTitle, AlertsPrincessTakenHomeMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case ReactorConfiscated:
                 return new FormAlert(AlertsReactorConfiscatedTitle, AlertsReactorConfiscatedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -585,10 +585,10 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsSpecialPassengerConcernedJarekTitle,
                         AlertsSpecialPassengerConcernedJarekMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);*/
-            case SpecialPassengerConcernedPrincess:
+            /*case SpecialPassengerConcernedPrincess:
                 return new FormAlert(AlertsSpecialPassengerConcernedPrincessTitle,
                         AlertsSpecialPassengerConcernedPrincessMessage, AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, args);
+                        null, DialogResult.NONE, args);*/
             case SpecialPassengerConcernedWild:
                 return new FormAlert(AlertsSpecialPassengerConcernedWildTitle,
                         AlertsSpecialPassengerConcernedWildMessage, AlertsOk,
@@ -597,10 +597,10 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsSpecialPassengerImpatientJarekTitle,
                         AlertsSpecialPassengerImpatientJarekMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);*/
-            case SpecialPassengerImpatientPrincess:
+            /*case SpecialPassengerImpatientPrincess:
                 return new FormAlert(AlertsSpecialPassengerImpatientPrincessTitle,
                         AlertsSpecialPassengerImpatientPrincessMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
+                        DialogResult.OK, null, DialogResult.NONE, args);*/
             case SpecialPassengerImpatientWild:
                 return new FormAlert(AlertsSpecialPassengerImpatientWildTitle, AlertsSpecialPassengerImpatientWildMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);

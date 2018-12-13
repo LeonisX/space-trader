@@ -1,5 +1,6 @@
 package spacetrader.game.quest;
 
+import spacetrader.game.Game;
 import spacetrader.game.enums.StarSystemId;
 
 import java.io.Serializable;
@@ -16,6 +17,10 @@ public abstract class Phase implements Serializable {
 
     public String getTitle() {
         return dialogs[id].getTitle();
+    }
+
+    public boolean isDesiredSystem() {
+        return Game.isCurrentSystemIs(starSystemId);
     }
 
     public QuestDialog getDialog() {

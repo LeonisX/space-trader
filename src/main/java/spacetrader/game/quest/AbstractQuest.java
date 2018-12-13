@@ -2,7 +2,9 @@ package spacetrader.game.quest;
 
 import spacetrader.controls.Button;
 import spacetrader.controls.enums.DialogResult;
+import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
+import spacetrader.game.ShipSpec;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.GameEndException;
@@ -20,8 +22,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 public abstract class AbstractQuest implements Quest, Serializable {
+
+    transient public Logger log;
 
     public int id;
     private Quest quest;
@@ -33,9 +38,9 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     private QuestState questState;
 
-    private int specialCrewId;
+    private List<Integer> specialCrewIds = new ArrayList<>();
 
-    private int newsId;
+    private List<Integer> newsIds = new ArrayList<>();
 
     transient private Map<EventName, Consumer<Object>> transitionMap;
 
@@ -48,8 +53,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.cashToSpend = cashToSpend;
         this.occurrence = occurrence;
         questState = QuestState.INACTIVE;
-        specialCrewId = QuestSystem.generateSpecialCrewId();
-        newsId = QuestSystem.generateNewsId();
+        initializeLogger(quest);
     }
 
     void initializePhases(QuestDialog[] dialogs, Phase... phases) {
@@ -60,6 +64,33 @@ public abstract class AbstractQuest implements Quest, Serializable {
             //TODO need???
             phases[i].setPhaseId(id + i);
             getPhases().add(phases[i]);
+        }
+    }
+
+    public void initializeLogger(Quest quest) {
+        log = Logger.getLogger(quest.getClass().getName());
+    }
+
+    CrewMember registerNewSpecialCrewMember(int pilot, int fighter, int trader, int engineer) {
+        CrewMember crewMember =
+                CrewMember.specialCrewMember(QuestSystem.generateSpecialCrewId(), pilot, fighter, trader, engineer);
+        specialCrewIds.add(crewMember.getId());
+        return QuestSystem.registerNewSpecialCrewMember(crewMember, this);
+    }
+
+    int registerNewShipSpec(ShipSpec shipSpec) {
+        return QuestSystem.registerNewShipSpec(shipSpec, this);
+    }
+
+    int registerNewGameEndType() {
+        return QuestSystem.registerNewGameEndType(this);
+    }
+
+    void registerNews(int count) {
+        for (int i = 0; i < count; i++) {
+            int newsId = QuestSystem.generateNewsId();
+            newsIds.add(newsId);
+            QuestSystem.registerNews(newsId, quest);
         }
     }
 
@@ -98,16 +129,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     @Override
-    public String getCrewMemberName() {
-        return null;
-    }
-
-    @Override
-    public String getNewsTitle() {
-        return null;
-    }
-
-    @Override
     public Consumer<Object> getOperation(EventName eventName) {
         /*if (transitionMap.isEmpty()) {
             quest.initializeTransitionMap();
@@ -142,21 +163,20 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.phases = phases;
     }
 
-    public int getSpecialCrewId() {
-        return specialCrewId;
+    public List<Integer> getSpecialCrewIds() {
+        return specialCrewIds;
     }
 
-    void setSpecialCrewId(int specialCrewId) {
-        this.specialCrewId = specialCrewId;
+    void setSpecialCrewIds(List<Integer> specialCrewIds) {
+        this.specialCrewIds = specialCrewIds;
     }
 
-    @Override
-    public int getNewsId() {
-        return newsId;
+    public List<Integer> getNewsIds() {
+        return newsIds;
     }
 
-    public void setNewsId(int newsId) {
-        this.newsId = newsId;
+    public void setNewsIds(List<Integer> newsIds) {
+        this.newsIds = newsIds;
     }
 
     @Override
@@ -182,6 +202,28 @@ public abstract class AbstractQuest implements Quest, Serializable {
     @Override
     public boolean isQuestIsInactive() {
         return questState == QuestState.INACTIVE;
+    }
+
+    @Override
+    public String getCrewMemberName(int id) {
+        return null;
+    }
+
+    @Override
+    public String getGameCompletionText() {
+        return "";
+    }
+
+    @Override
+    public String getNewsTitle(int newsId) {
+        return null;
+    }
+
+    void showSpecialButtonIfCanBeExecuted(Object object, Phase phase) {
+        if (phase.canBeExecuted()) {
+            log.finest("phase `" + phase.getTitle() + "` : " + Game.getCurrentSystemId() + " ~ " + phase.getStarSystemId());
+            showSpecialButton(object, phase.getTitle());
+        }
     }
 
     void showSpecialButton(Object object, String title) {
@@ -240,8 +282,8 @@ public abstract class AbstractQuest implements Quest, Serializable {
                 ", occurrence=" + occurrence +
                 ", phases=" + phases +
                 ", questState=" + questState +
-                ", specialCrewId=" + specialCrewId +
-                ", newsId=" + newsId +
+                //", specialCrewId=" + specialCrewId +
+                ", newsIds=" + newsIds +
                 '}';
     }
 }

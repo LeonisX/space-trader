@@ -1,6 +1,7 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.GameEndType;
 import spacetrader.game.exceptions.FutureVersionException;
 import spacetrader.game.quest.QuestSystem;
 import spacetrader.guifacade.GuiFacade;
@@ -10,6 +11,9 @@ import spacetrader.util.IOUtils;
 import spacetrader.util.Util;
 
 import java.io.Serializable;
+
+import static spacetrader.game.quest.enums.EventName.ON_BEFORE_GAME_END;
+import static spacetrader.game.quest.enums.EventName.ON_GAME_END_ALERT;
 
 /**
  * This is kind-a temp class, to hold functions that are moved from the gui classes (VIEW) downwards. There is already a
@@ -68,26 +72,32 @@ public class GameController implements Serializable {
     public void gameEnd() {
         mainWindow.setInGameControlsEnabled(false);
 
-        AlertType alertType = AlertType.Alert;
-        switch (game.getEndStatus()) {
-            case KILLED:
-                alertType = AlertType.GameEndKilled;
-                break;
-            case RETIRED:
-                alertType = AlertType.GameEndRetired;
-                break;
-            case BOUGHT_MOON:
-                alertType = AlertType.GameEndBoughtMoon;
-                break;
-        }
+        QuestSystem.fireEvent(ON_BEFORE_GAME_END);
 
-        GuiFacade.alert(alertType);
+        if (game.getEndStatus() < 1000) {
+
+            AlertType alertType = AlertType.Alert;
+            switch (GameEndType.fromInt(game.getEndStatus())) {
+                case KILLED:
+                    alertType = AlertType.GameEndKilled;
+                    break;
+                case RETIRED:
+                    alertType = AlertType.GameEndRetired;
+                    break;
+                case BOUGHT_MOON:
+                    alertType = AlertType.GameEndBoughtMoon;
+                    break;
+            }
+            GuiFacade.alert(alertType);
+        } else {
+            QuestSystem.fireEvent(ON_GAME_END_ALERT);
+        }
 
         GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10), Functions
                 .formatNumber(game.getScore() % 10));
 
         HighScoreRecord candidate = new HighScoreRecord(Game.getCommander().getName(), game.getScore(), game.getEndStatus(),
-                Game.getCommander().getDays(), Game.getCommander().getWorth(), game.getDifficulty());
+                Game.getCommander().getDays(), Game.getCommander().getWorth(), Game.getDifficulty());
         if (candidate.compareTo(IOUtils.getHighScores()[0]) > 0) {
             if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
@@ -101,6 +111,7 @@ public class GameController implements Serializable {
 
         Game.setCurrentGame(null);
         mainWindow.setGame(null);
+        mainWindow.updateAll();
     }
 
     public static GameController loadGame(String fileName, MainWindow mainWindow) {
@@ -111,6 +122,7 @@ public class GameController implements Serializable {
                 Game.setCurrentGame(game);
                 QuestSystem.setQuestSystem(game.getQuestSystem());
                 QuestSystem.initializeTransitionMaps();
+                QuestSystem.initializeLoggers();
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
                 gameController.setSaveGameDays(Game.getCommander().getDays());
@@ -127,8 +139,9 @@ public class GameController implements Serializable {
     }
 
     public void saveGame(String fileName, boolean saveFileName) {
-        if (IOUtils.writeObjectToFile(fileName, game) && saveFileName)
+        if (IOUtils.writeObjectToFile(fileName, game) && saveFileName) {
             saveGameFile = fileName;
+        }
 
         saveGameDays = Game.getCommander().getDays();
     }

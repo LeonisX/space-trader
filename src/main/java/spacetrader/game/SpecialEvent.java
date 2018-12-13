@@ -44,14 +44,14 @@ public class SpecialEvent {
     public final static int STATUS_MOON_BOUGHT = 1;
     public final static int STATUS_MOON_DONE = 2;
 
-    public final static int STATUS_PRINCESS_NOT_STARTED = 0;
+    /*public final static int STATUS_PRINCESS_NOT_STARTED = 0;
     public final static int STATUS_PRINCESS_FLY_CENTAURI = 1;
     public final static int STATUS_PRINCESS_FLY_INTHARA = 2;
     public final static int STATUS_PRINCESS_FLY_QONOS = 3;
     public final static int STATUS_PRINCESS_RESCUED = 4;
     public final static int STATUS_PRINCESS_IMPATIENT = 14;
     public final static int STATUS_PRINCESS_RETURNED = 15;
-    public final static int STATUS_PRINCESS_DONE = 16;
+    public final static int STATUS_PRINCESS_DONE = 16;*/
 
     public final static int STATUS_REACTOR_NOT_STARTED = 0;
     public final static int STATUS_REACTOR_FUEL_OK = 1;

@@ -159,7 +159,7 @@ public class FormViewQuests extends SpaceTraderForm {
                 break;
         }
 
-        switch (game.getQuestStatusPrincess()) {
+        /*switch (game.getQuestStatusPrincess()) {
             case SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI:
                 quests.add(Strings.QuestPrincessCentauri);
                 break;
@@ -188,7 +188,7 @@ public class FormViewQuests extends SpaceTraderForm {
             case SpecialEvent.STATUS_PRINCESS_RETURNED:
                 quests.add(Strings.QuestPrincessQuantum);
                 break;
-        }
+        }*/
 
         if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
             quests.add(Strings.QuestScarabFind);

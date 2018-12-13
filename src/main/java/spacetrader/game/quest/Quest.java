@@ -1,5 +1,6 @@
 package spacetrader.game.quest;
 
+import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.QuestState;
 
@@ -16,10 +17,9 @@ public interface Quest {
 
     void setId(int id);
 
-    //TODO specialized??? QuestWithMercenary?
-    String getCrewMemberName();
+    String getCrewMemberName(int id);
 
-    int getSpecialCrewId();
+    List<Integer> getSpecialCrewIds();
 
     int getPrice();
 
@@ -35,9 +35,7 @@ public interface Quest {
 
     void setPhases(List<Phase> phases);
 
-    int getNewsId();
-
-    String getNewsTitle();
+    String getNewsTitle(int newsId);
 
     QuestState getQuestState();
 
@@ -46,4 +44,8 @@ public interface Quest {
     boolean isQuestIsActive();
 
     boolean isQuestIsInactive();
+
+    String getGameCompletionText();
+
+    void initializeLogger(Quest quest);
 }

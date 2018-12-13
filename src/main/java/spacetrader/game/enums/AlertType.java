@@ -59,7 +59,7 @@ public enum AlertType implements SpaceTraderEnum {
     EncounterPiratesBounty,
     EncounterPiratesExamineReactor,
     EncounterPiratesFindNoCargo,
-    EncounterPiratesSurrenderPrincess,
+    //EncounterPiratesSurrenderPrincess,
     EncounterPiratesTakeSculpture,
     EncounterPoliceBribe,
     EncounterPoliceBribeCant,
@@ -98,7 +98,7 @@ public enum AlertType implements SpaceTraderEnum {
     GameAbandonConfirm,
     GameClearHighScores,
     GameEndBoughtMoon,
-    GameEndBoughtMoonGirl,
+    //GameEndBoughtMoonGirl,
     GameEndHighScoreAchieved,
     GameEndHighScoreCheat,
     GameEndHighScoreMissed,
@@ -127,7 +127,7 @@ public enum AlertType implements SpaceTraderEnum {
     NewGameMoreSkillPoints,
     OptionsNoGame,
     PreciousHidden,
-    PrincessTakenHome,
+    //PrincessTakenHome,
     ReactorConfiscated,
     ReactorDestroyed,
     ReactorOnBoard,
@@ -158,10 +158,10 @@ public enum AlertType implements SpaceTraderEnum {
     SpecialNoQuarters,
     SpecialNotEnoughBays,
     //SpecialPassengerConcernedJarek,
-    SpecialPassengerConcernedPrincess,
+    //SpecialPassengerConcernedPrincess,
     SpecialPassengerConcernedWild,
     //SpecialPassengerImpatientJarek,
-    SpecialPassengerImpatientPrincess,
+    //SpecialPassengerImpatientPrincess,
     SpecialPassengerImpatientWild,
     SpecialPassengerOnBoard,
     SpecialSealedCanisters,
@@ -189,7 +189,8 @@ public enum AlertType implements SpaceTraderEnum {
     WildWontBoardLaser,
     WildWontBoardReactor,
     WildWontStayAboardLaser,
-    WildWontStayAboardReactor;
+    WildWontStayAboardReactor,
+    Quest; //TODO need???
 
     @Override
     public int castToInt() {

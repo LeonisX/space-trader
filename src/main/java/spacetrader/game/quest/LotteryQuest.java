@@ -5,15 +5,11 @@ import spacetrader.game.enums.Difficulty;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 
-import java.util.logging.Logger;
-
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.Repeatable.DISPOSABLE;
 
 class LotteryQuest extends AbstractQuest {
-
-    private static final Logger log = Logger.getLogger(LotteryQuest.class.getName());
 
     private static final Repeatable REPEATABLE = DISPOSABLE;
     private static final int OCCURRENCE = 0;
@@ -36,8 +32,8 @@ class LotteryQuest extends AbstractQuest {
     public void initializeTransitionMap() {
         super.initializeTransitionMap();
         getTransitionMap().put(AFTER_GAME_INITIALIZE, this::onAfterGameInitialize);
-        getTransitionMap().put(BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
-        getTransitionMap().put(SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
+        getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
+        getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
     }
 
     @Override

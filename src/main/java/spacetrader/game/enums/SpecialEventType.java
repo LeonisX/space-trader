@@ -43,12 +43,12 @@ public enum SpecialEventType implements SpaceTraderEnum {
     Sculpture, // = 37,
     SculptureDelivered, // = 38,
     SculptureHiddenBays, // = 39,
-    Princess, // = 40,
+    /*Princess, // = 40,
     PrincessCentauri, // = 41,
     PrincessInthara, // = 42,
     PrincessQonos, // = 43,
     PrincessQuantum, // = 44,
-    PrincessReturned, // = 45
+    PrincessReturned, // = 45*/
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

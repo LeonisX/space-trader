@@ -439,6 +439,8 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         formMonsterMenuItem.setEnabled(enabled);
         formShipyardMenuItem.setEnabled(enabled);
+
+        systemPanel.update();
     }
 
     public void updateAll() {
@@ -533,7 +535,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         if (Game.getCurrentGame() != null) {
             if (controller.getSaveGameFile() != null) {
                 log.finest(Game.getCurrentGame().getQuestSystem().toString());
-                controller.saveGame("Saved: " + controller.getSaveGameFile(), false);
+                controller.saveGame(controller.getSaveGameFile(), false);
             } else {
                 saveGameAsMenuItemClick();
             }
@@ -565,7 +567,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
     private void retireGameMenuItemClick() {
         if (GuiFacade.alert(AlertType.GameRetire) == DialogResult.YES) {
-            game.setEndStatus(GameEndType.RETIRED);
+            game.setEndStatus(GameEndType.RETIRED.castToInt());
             controller.gameEnd();
             updateAll();
         }
