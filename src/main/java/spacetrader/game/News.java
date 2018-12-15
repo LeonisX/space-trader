@@ -18,10 +18,6 @@ public class News implements Serializable {
     //TODO
     //static final long serialVersionUID = 110L;
 
-    private static Game game = Game.getCurrentGame();
-    private static Commander commander = Game.getCommander();
-    private static StarSystem[] universe = game.getUniverse();
-
     private ArrayList<Integer> newsEvents = new ArrayList<>(); // News for current system
 
     public void addEvent(int newEventId) {
@@ -34,10 +30,10 @@ public class News implements Serializable {
 
     void addEventsOnArrival() {
         QuestSystem.fireEvent(EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL);
-        if (commander.getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
-            switch (commander.getCurrentSystem().getSpecialEventType()) {
+        if (Game.getCommander().getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
+            switch (Game.getCommander().getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
-                    if (commander.getShip().isArtifactOnBoard()) {
+                    if (Game.getCommander().getShip().isArtifactOnBoard()) {
                         addEvent(NewsEvent.ArtifactDelivery.castToInt());
                     }
                     break;
@@ -45,24 +41,24 @@ public class News implements Serializable {
                     addEvent(NewsEvent.Dragonfly.castToInt());
                     break;
                 case DragonflyBaratas:
-                    if (game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS) {
+                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS) {
                         addEvent(NewsEvent.DragonflyBaratas.castToInt());
                     }
                     break;
                 case DragonflyDestroyed:
-                    if (game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON) {
+                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON) {
                         addEvent(NewsEvent.DragonflyZalkon.castToInt());
-                    } else if (game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_DESTROYED) {
+                    } else if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_DESTROYED) {
                         addEvent(NewsEvent.DragonflyDestroyed.castToInt());
                     }
                     break;
                 case DragonflyMelina:
-                    if (game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA) {
+                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA) {
                         addEvent(NewsEvent.DragonflyMelina.castToInt());
                     }
                     break;
                 case DragonflyRegulas:
-                    if (game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_REGULAS) {
+                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_REGULAS) {
                         addEvent(NewsEvent.DragonflyRegulas.castToInt());
                     }
                     break;
@@ -70,8 +66,8 @@ public class News implements Serializable {
                     addEvent(NewsEvent.ExperimentFailed.castToInt());
                     break;
                 case ExperimentStopped:
-                    if (game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
-                            && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
+                    if (Game.getCurrentGame().getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
+                            && Game.getCurrentGame().getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
                         addEvent(NewsEvent.ExperimentStopped.castToInt());
                     }
                     break;
@@ -79,8 +75,8 @@ public class News implements Serializable {
                     addEvent(NewsEvent.Gemulon.castToInt());
                     break;
                 case GemulonRescued:
-                    if (game.getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED) {
-                        if (game.getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
+                    if (Game.getCurrentGame().getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED) {
+                        if (Game.getCurrentGame().getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
                             addEvent(NewsEvent.GemulonRescued.castToInt());
                         } else {
                             addEvent(NewsEvent.GemulonInvaded.castToInt());
@@ -88,12 +84,12 @@ public class News implements Serializable {
                     }
                     break;
                 case Japori:
-                    if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_NOT_STARTED) {
+                    if (Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_NOT_STARTED) {
                         addEvent(NewsEvent.Japori.castToInt());
                     }
                     break;
                 case JaporiDelivery:
-                    if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
+                    if (Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
                         addEvent(NewsEvent.JaporiDelivery.castToInt());
                     }
                     break;
@@ -131,9 +127,9 @@ public class News implements Serializable {
                     addEvent(NewsEvent.Scarab.castToInt());
                     break;
                 case ScarabDestroyed:
-                    if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
+                    if (Game.getCurrentGame().getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
                         addEvent(NewsEvent.ScarabHarass.castToInt());
-                    } else if (game.getQuestStatusScarab() >= SpecialEvent.STATUS_SCARAB_DESTROYED) {
+                    } else if (Game.getCurrentGame().getQuestStatusScarab() >= SpecialEvent.STATUS_SCARAB_DESTROYED) {
                         addEvent(NewsEvent.ScarabDestroyed.castToInt());
                     }
                     break;
@@ -144,14 +140,14 @@ public class News implements Serializable {
                     addEvent(NewsEvent.SculptureTracked.castToInt());
                     break;
                 case SpaceMonsterKilled:
-                    if (game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
+                    if (Game.getCurrentGame().getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
                         addEvent(NewsEvent.SpaceMonster.castToInt());
-                    } else if (game.getQuestStatusSpaceMonster() >= SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED) {
+                    } else if (Game.getCurrentGame().getQuestStatusSpaceMonster() >= SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED) {
                         addEvent(NewsEvent.SpaceMonsterKilled.castToInt());
                     }
                     break;
                 case WildGetsOut:
-                    if (commander.getShip().isWildOnBoard()) {
+                    if (Game.getCommander().getShip().isWildOnBoard()) {
                         addEvent(NewsEvent.WildGetsOut.castToInt());
                     }
                     break;
@@ -175,10 +171,10 @@ public class News implements Serializable {
     }
 
     String getNewspaperHead() {
-        String[] heads = Strings.NewsMastheads[commander.getCurrentSystem().getPoliticalSystemType().castToInt()];
-        String head = heads[commander.getCurrentSystem().getId().castToInt() % heads.length];
+        String[] heads = Strings.NewsMastheads[Game.getCommander().getCurrentSystem().getPoliticalSystemType().castToInt()];
+        String head = heads[Game.getCommander().getCurrentSystem().getId().castToInt() % heads.length];
 
-        return Functions.stringVars(head, commander.getCurrentSystem().getName());
+        return Functions.stringVars(head, Game.getCommander().getCurrentSystem().getName());
     }
 
     private String getNewspaperText(Integer newsEventId) {
@@ -186,29 +182,29 @@ public class News implements Serializable {
     }
 
     String getNewspapersText() {
-        StarSystem curSys = commander.getCurrentSystem();
+        StarSystem curSys = Game.getCommander().getCurrentSystem();
         List<String> news = new ArrayList<>();
 
         // We're using the getRandom2 function so that the same number is
         // generated each time for the same "version" of the newspaper. -JAF
-        Functions.randSeed(curSys.getId().castToInt(), commander.getDays());
+        Functions.randSeed(curSys.getId().castToInt(), Game.getCommander().getDays());
 
         for (Integer newsEventId : newsEvents) {
-            news.add(Functions.stringVars(getNewspaperText(newsEventId), new String[]{commander.getName(),
-                    commander.getCurrentSystem().getName(), commander.getShip().getName()}));
+            news.add(Functions.stringVars(getNewspaperText(newsEventId), new String[]{Game.getCommander().getName(),
+                    Game.getCommander().getCurrentSystem().getName(), Game.getCommander().getShip().getName()}));
         }
 
         if (curSys.getSystemPressure() != SystemPressure.NONE) {
             news.add(Strings.NewsPressureInternal[curSys.getSystemPressure().castToInt()]);
         }
 
-        if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
+        if (Game.getCommander().getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
             String baseStr = Strings.NewsPoliceRecordPsychopath[Functions
                     .getRandom2(Strings.NewsPoliceRecordPsychopath.length)];
-            news.add(Functions.stringVars(baseStr, commander.getName(), curSys.getName()));
-        } else if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreHero) {
+            news.add(Functions.stringVars(baseStr, Game.getCommander().getName(), curSys.getName()));
+        } else if (Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreHero) {
             String baseStr = Strings.NewsPoliceRecordHero[Functions.getRandom2(Strings.NewsPoliceRecordHero.length)];
-            news.add(Functions.stringVars(baseStr, commander.getName(), curSys.getName()));
+            news.add(Functions.stringVars(baseStr, Game.getCommander().getName(), curSys.getName()));
         }
 
         // and now, finally, useful news (if any)
@@ -217,7 +213,7 @@ public class News implements Serializable {
         boolean realNews = false;
         //TODO ???
         int minProbability = Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10 * (5 - Game.getDifficultyId());
-        for (StarSystem starSystem : universe) {
+        for (StarSystem starSystem : Game.getCurrentGame().getUniverse()) {
             if (starSystem.destIsOk() && starSystem != curSys) {
                 // Special stories that always get shown: moon, millionaire, shipyard
                 if (starSystem.getSpecialEventType() != SpecialEventType.NA) {
