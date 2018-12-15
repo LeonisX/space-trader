@@ -1,5 +1,6 @@
 package spacetrader.game.quest;
 
+import spacetrader.controls.Rectangle;
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
@@ -61,6 +62,9 @@ enum PrincessEncounters {
 }
 
 class PrincessQuest extends AbstractQuest {
+
+    //TODO implement
+    private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(2, 0, 60, 0);
 
     //"Ziyal", // From ST: Deep Space 9
     //"Scorpion" // dummy crew member used in opponent ship
@@ -199,6 +203,11 @@ class PrincessQuest extends AbstractQuest {
         getTransitionMap().put(ON_BEFORE_GAME_END, this::onBeforeGameEnd);
         getTransitionMap().put(ON_GAME_END_ALERT, this::onGameEndAlert);
         getTransitionMap().put(ON_GET_GAME_SCORE, this::onGetGameScore);
+    }
+
+    @Override
+    public Rectangle getShipImageOffset() {
+        return SHIP_IMAGE_OFFSET;
     }
 
     private void onBeforeGameEnd(Object object) {

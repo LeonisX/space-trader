@@ -236,18 +236,16 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * After deal in ShipYard - alert in center of screen
 * Encounters procedures from Game to separate class???
 * Correlian - hull strength - 200 minimum, no max. Cargo bays - no limit
+* Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
+* On sell, plunder, jettison - show goods with bold
 
 ## JAF version
 
 * Disabled - when shields off
 * Scorpion - full shields and hull
-* With princess and pirates - die, but don't surrender. If hidden cargo bays - hide
-* Bug - after prison - Ziyal onboard, can finish quest
-* Bug - when any ship is disabled - can destroy hull to 0%, but ship still alive
 
 ### Princess
 
-* Strange behavior on Princess and pirate surrender
 * Full refactor of quest, write docs for all quest events (ON_...), reorder them
 * v Special Button doesn't disappear
 * v Strange bug in Commander.hashCode
@@ -259,6 +257,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * v Register Girl end type
 * v Process game ending with Girl
 * v Game ending with Princess
+* Strange bug (after game loading) - Scorpion - on screen hull == 0, but I see 100%. And can't decrease, only disable.
+* Load images for Scorpion
 
 ### Jarek
 
@@ -320,6 +320,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * passenger modules
 * courier quests
 * more very rare encounters
+* Bug - after prison - Ziyal onboard, can finish quest
 
 ## Far perspectives
 

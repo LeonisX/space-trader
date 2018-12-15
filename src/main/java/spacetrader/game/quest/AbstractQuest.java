@@ -1,6 +1,7 @@
 package spacetrader.game.quest;
 
 import spacetrader.controls.Button;
+import spacetrader.controls.Rectangle;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
@@ -216,6 +217,11 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     @Override
     public String getNewsTitle(int newsId) {
+        return null;
+    }
+
+    @Override
+    public Rectangle getShipImageOffset() {
         return null;
     }
 

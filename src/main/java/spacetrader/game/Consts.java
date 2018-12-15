@@ -225,7 +225,7 @@ public class Consts {
             new Rectangle(7, 0, 49, 0), // Scarab
             new Rectangle(9, 0, 46, 0), // Bottle
             new Rectangle(2, 0, 60, 0), // Custom
-            new Rectangle(2, 0, 60, 0) // Scorpion
+            new Rectangle(2, 0, 60, 0) // Scorpion //TODO in quest
     };
 
     public static ShipSpec[] ShipSpecs = new ShipSpec[]{

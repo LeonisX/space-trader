@@ -1,6 +1,6 @@
 package spacetrader.game.quest;
 
-import spacetrader.game.quest.containers.ScoreContainer;
+import spacetrader.controls.Rectangle;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.QuestState;
 
@@ -48,4 +48,6 @@ public interface Quest {
     String getGameCompletionText();
 
     void initializeLogger(Quest quest);
+
+    Rectangle getShipImageOffset();
 }
