@@ -1017,8 +1017,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     // Sort all cargo based on value and put some of it in hidden bays, if they are present.
     ArrayList<Integer> getStealableCargo() {
-        // Put all of the cargo items in a list and sort it. Reverse it so the
-        // most expensive items are first.
+        // Put all of the cargo items in a list and sort it. Reverse it so the most expensive items are first.
         ArrayList<Integer> tradeItems = new ArrayList<>();
         for (int tradeItem = 0; tradeItem < getCargo().length; tradeItem++) {
             for (int count = 0; count < getCargo()[tradeItem]; count++) {
@@ -1039,6 +1038,7 @@ public class Ship extends ShipSpec implements Serializable {
         }
 
         if (hidden > 0) {
+            hidden = Math.min(hidden, tradeItems.size());
             tradeItems.removeRange(0, hidden);
         }
 
