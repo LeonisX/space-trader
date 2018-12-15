@@ -2026,9 +2026,13 @@ public class Game implements Serializable {
     public EncounterResult getEncounterVerifySurrender() {
         EncounterResult result = EncounterResult.CONTINUE;
 
-        QuestSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN);
+        BooleanContainer container = new BooleanContainer(false);
 
-        if (getOpponent().getType() == ShipType.MANTIS) {
+        QuestSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN, container);
+
+        if (container.getValue()) {
+            // If princess on board and no hidden cargo bays - continue fight to die.
+        } else if (getOpponent().getType() == ShipType.MANTIS) {
             if (commander.getShip().isArtifactOnBoard()) {
                 if (GuiFacade.alert(AlertType.EncounterAliensSurrender) == DialogResult.YES) {
                     GuiFacade.alert(AlertType.ArtifactRelinquished);
@@ -2057,7 +2061,7 @@ public class Game implements Serializable {
                 /*if (commander.getShip().isPrincessOnBoard()) {
                     precious.add(Strings.EncounterHidePrincess);
                 }*/
-                QuestSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN, precious);
+                QuestSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_HIDDEN, precious);
                 if (commander.getShip().isSculptureOnBoard()) {
                     precious.add(Strings.EncounterHideSculpture);
                 }

@@ -24,8 +24,8 @@ import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
 enum PrincessAlertName {
-    SpecialPassengerConcernedPrincess, SpecialPassengerImpatientPrincess, PrincessTakenHome,
-    EncounterPiratesSurrenderPrincess, GameEndBoughtMoonGirl
+    SpecialPassengerConcernedPrincess, SpecialPassengerImpatientPrincess, EncounterPiratesSurrenderPrincess,
+    PrincessTakenHome, GameEndBoughtMoonGirl
 }
 
 enum PrincessNewsEvents {
@@ -265,8 +265,10 @@ class PrincessQuest extends AbstractQuest {
     }
 
     private void onEncounterVerifySurrenderNoHidden(Object object) {
-        if (princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+        if (princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
+                && game.getEncounterType() == EncounterType.PIRATE_ATTACK) {
             showAlert(ALERTS[PrincessAlertName.EncounterPiratesSurrenderPrincess.ordinal()]);
+            ((BooleanContainer) object).setValue(true);
         }
     }
 
