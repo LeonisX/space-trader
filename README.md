@@ -227,7 +227,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* v Game ending with Princess
+* Standard game, Extended game
 * What to do with ending title?? It's too long :(
 * Commander status - Всеобщий любимец (70) under button
 * Shipyard - when new shipyard - can receive 600%
@@ -235,9 +235,19 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * QuestsSystem: non-static
 * After deal in ShipYard - alert in center of screen
 * Encounters procedures from Game to separate class???
+* Correlian - hull strength - 200 minimum, no max. Cargo bays - no limit
+
+## JAF version
+
+* Disabled - when shields off
+* Scorpion - full shields and hull
+* With princess and pirates - die, but don't surrender. If hidden cargo bays - hide
+* Bug - after prison - Ziyal onboard, can finish quest
+* Bug - when any ship is disabled - can destroy hull to 0%, but ship still alive
 
 ### Princess
 
+* Strange behavior on Princess and pirate surrender
 * Full refactor of quest, write docs for all quest events (ON_...), reorder them
 * v Special Button doesn't disappear
 * v Strange bug in Commander.hashCode
@@ -248,6 +258,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * v Create ship by this spec ID
 * v Register Girl end type
 * v Process game ending with Girl
+* v Game ending with Princess
 
 ### Jarek
 
@@ -260,6 +271,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Monster.com - rename cheat, form name (not MonsterCom)
 * MonsterCom: Show only current phase of quest. CheckBox for full view (only for cheat/debug)
 * MonsterCom - second click - order reverse
+* Negative values for slots, ...
 
 ### Translate
 
