@@ -134,20 +134,20 @@ public class FormMonster extends SpaceTraderForm {
         questsPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
         //questsPanel.controls.addAll(questPanelSystemsLabel, questsPanelDescrLabel);
         questsPanel.setLocation(8, 44);
-        questsPanel.setSize(322, 310);
+        questsPanel.setSize(322, 450);
 
         metrics = questsPanel.asSwingObject().getFontMetrics(questsPanel.asSwingObject().getFont());
 
         shipyardsLabel.setAutoSize(true);
         shipyardsLabel.setControlBinding(ControlBinding.CENTER);
         shipyardsLabel.setFont(FontCollection.bold10);
-        shipyardsLabel.setLocation(170, 366);
+        shipyardsLabel.setLocation(170, 506);
         //shipyardsLabel.setSize(68, 19);
         shipyardsLabel.setText("Shipyards");
 
         shipyardsSystemLabel.setAutoSize(true);
         shipyardsSystemLabel.setFont(FontCollection.bold825);
-        shipyardsSystemLabel.setLocation(23, 386);
+        shipyardsSystemLabel.setLocation(23, 526);
         //shipyardsSystemLabel.setSize(43, 16);
         shipyardsSystemLabel.setText("System");
         shipyardsSystemLabel.setLinkClicked(new SimpleEventHandler<Object>() {
@@ -159,7 +159,7 @@ public class FormMonster extends SpaceTraderForm {
 
         shipyardsDescrLabel.setAutoSize(true);
         shipyardsDescrLabel.setFont(FontCollection.bold825);
-        shipyardsDescrLabel.setLocation(60, 386);
+        shipyardsDescrLabel.setLocation(60, 526);
         //shipyardsDescrLabel.setSize(63, 16);
         shipyardsDescrLabel.setText("Description");
         shipyardsDescrLabel.setLinkClicked(new SimpleEventHandler<Object>() {
@@ -171,7 +171,7 @@ public class FormMonster extends SpaceTraderForm {
 
         shipyardsFeatureLabel.setAutoSize(true);
         shipyardsFeatureLabel.setFont(FontCollection.bold825);
-        shipyardsFeatureLabel.setLocation(190, 386);
+        shipyardsFeatureLabel.setLocation(190, 526);
         shipyardsFeatureLabel.setText("Specialization");
         shipyardsFeatureLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
@@ -180,15 +180,15 @@ public class FormMonster extends SpaceTraderForm {
             }
         });
 
-        shipyardHorizontalLine.setLocation(4, 402);
+        shipyardHorizontalLine.setLocation(4, 542);
         shipyardHorizontalLine.setWidth(330);
 
         shipyardsPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        shipyardsPanel.setLocation(8, 406);
+        shipyardsPanel.setLocation(8, 546);
         shipyardsPanel.setSize(322, 93);
 
         verticalLine.setLocation(334, 8);
-        verticalLine.setHeight(500);
+        verticalLine.setHeight(640);
 
         mercenariesLabel.setAutoSize(true);
         mercenariesLabel.setControlBinding(ControlBinding.CENTER);
