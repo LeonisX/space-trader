@@ -2036,7 +2036,6 @@ public class Game implements Serializable {
                 paidForNewspaper == game.paidForNewspaper &&
                 litterWarning == game.litterWarning &&
                 autoSave == game.autoSave &&
-                //easyEncounters == game.easyEncounters &&
                 targetWormhole == game.targetWormhole &&
                 questStatusArtifact == game.questStatusArtifact &&
                 questStatusDragonfly == game.questStatusDragonfly &&
@@ -2054,14 +2053,6 @@ public class Game implements Serializable {
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
-                /*chanceOfVeryRareEncounter == game.chanceOfVeryRareEncounter &&
-                encounterContinueFleeing == game.encounterContinueFleeing &&
-                encounterContinueAttacking == game.encounterContinueAttacking &&
-                encounterCmdrFleeing == game.encounterCmdrFleeing &&
-                encounterCmdrHit == game.encounterCmdrHit &&
-                encounterOppFleeingPrev == game.encounterOppFleeingPrev &&
-                encounterOppFleeing == game.encounterOppFleeing &&
-                encounterOppHit == game.encounterOppHit &&*/
                 Objects.equals(commander, game.commander) &&
                 Objects.equals(cheats, game.cheats) &&
                 Arrays.equals(universe, game.universe) &&
@@ -2075,13 +2066,11 @@ public class Game implements Serializable {
                 Objects.equals(news, game.news) &&
                 difficulty == game.difficulty &&
                 endStatus == game.endStatus &&
-                //encounterType == game.encounterType &&
                 selectedSystemId == game.selectedSystemId &&
                 warpSystemId == game.warpSystemId &&
                 trackedSystemId == game.trackedSystemId &&
                 Arrays.equals(priceCargoBuy, game.priceCargoBuy) &&
                 Arrays.equals(priceCargoSell, game.priceCargoSell) &&
-                //Objects.equals(veryRareEncounters, game.veryRareEncounters) &&
                 Objects.equals(options, game.options) &&
                 Objects.equals(parentWin, game.parentWin);
     }
@@ -2091,14 +2080,12 @@ public class Game implements Serializable {
     public int hashCode() {
         int result = Objects.hash(commander, cheats, dragonfly, scarab, /*scorpion,*/ spaceMonster, opponent,
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, tribbleMessage, arrivedViaWormhole,
-                paidForNewspaper, litterWarning, news, difficulty, autoSave, /*easyEncounters,*/ endStatus,
-                /*encounterType,*/ selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
+                paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
+                selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
                 questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori, /*questStatusJarek,*/
                 questStatusMoon, /*questStatusPrincess,*/ questStatusReactor, questStatusScarab, questStatusSculpture,
                 questStatusSpaceMonster, questStatusWild, fabricRipProbability, justLootedMarie, canSuperWarp,
-                /*chanceOfVeryRareEncounter, veryRareEncounters,*/ options, parentWin/*, encounterContinueFleeing,
-                encounterContinueAttacking, encounterCmdrFleeing, encounterCmdrHit, encounterOppFleeingPrev,
-                encounterOppFleeing, encounterOppHit*/);
+                options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
         result = 31 * result + mercenaries.hashCode();
@@ -2182,9 +2169,5 @@ public class Game implements Serializable {
 
     public Encounter getEncounter() {
         return encounter;
-    }
-
-    public void setEncounter(Encounter encounter) {
-        this.encounter = encounter;
     }
 }
