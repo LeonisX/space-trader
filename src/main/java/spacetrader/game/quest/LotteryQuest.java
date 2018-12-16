@@ -49,7 +49,7 @@ class LotteryQuest extends AbstractQuest {
 
     private void onBeforeSpecialButtonShow(Object object) {
         log.fine(Game.getCurrentSystemId() + " ~ " + getPhase(0).getStarSystemId());
-        if (getPhase(0).canBeExecuted() && isQuestIsInactive()) {
+        if (getPhase(0).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
             log.fine("executed");
             setQuestState(QuestState.ACTIVE);
             showSpecialButton(object, DIALOGS[0].getTitle());
