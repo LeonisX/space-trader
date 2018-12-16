@@ -83,6 +83,7 @@ public class ShipSpec implements Serializable {
         minTech = shipSpec.minTech;
         hullUpgraded = shipSpec.hullUpgraded;
         imageIndex = shipSpec.imageIndex;
+        id = shipSpec.id;
     }
 
     public ShipSpec withId(int id) {
