@@ -30,7 +30,7 @@ public class Shield extends Equipment implements Serializable {
         super(EquipmentType.SHIELD, price, minTechLevel, chance);
         this.type = type;
         this.power = power;
-        this.charge = chance;
+        this.charge = power;
     }
 
     public Equipment clone() {
