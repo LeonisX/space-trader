@@ -46,7 +46,7 @@ public class QuestSystem implements Serializable {
 
         initialize(LotteryQuest.class);
         initialize(JarekQuest.class);
-        initialize(PrincessQuest.class);
+        //initialize(PrincessQuest.class);
 
         log.fine("initialized");
     }
@@ -250,4 +250,8 @@ public class QuestSystem implements Serializable {
                 '}';
     }
 
+    //TODO localize manual too.
+    public void localizeQuests(Quest quest) {
+        quest.localize();
+    }
 }

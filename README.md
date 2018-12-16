@@ -227,6 +227,12 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Localize quests on start, change language
+* Refactor Jarek
+* Implement Princess
+* Detailed test all quests with 2 languages 
+
+
 * Standard game, Extended game
 * What to do with ending title?? It's too long :(
 * Commander status - Всеобщий любимец (70) under button

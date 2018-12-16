@@ -1,9 +1,6 @@
 package spacetrader.game.quest;
 
-import spacetrader.game.Consts;
-import spacetrader.game.CrewMember;
-import spacetrader.game.Game;
-import spacetrader.game.StarSystem;
+import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SkillType;
@@ -11,47 +8,94 @@ import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
+import spacetrader.stub.StringsBundle;
 import spacetrader.util.Functions;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
 import static spacetrader.game.Strings.newline;
-import static spacetrader.game.quest.JarekQuestPhase.Jarek;
-import static spacetrader.game.quest.JarekQuestPhase.JarekGetsOut;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
 class JarekQuest extends AbstractQuest {
 
-    private static final String CREW_MEMBER_NAME = "Jarek";     // Mercenary
+    enum Phases implements SimpleValueEnumWithPhase<QuestDialog> {
+        Jarek(new QuestDialog(DIALOG, "Ambassador Jarek", "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?")),
+        JarekGetsOut(new QuestDialog(ALERT, "Jarek Gets Out", "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment."));
 
-    private static final String SPECIAL_CARGO_TITLE = "A haggling computer.";
+        private QuestDialog value;
+        private Phase phase;
+        Phases(QuestDialog value) { this.value = value; }
+        @Override public QuestDialog getValue() { return value; }
+        @Override public void setValue(QuestDialog value) { this.value = value; }
+        @Override public Phase getPhase() { return phase; }
+        @Override public void setPhase(Phase phase) {this.phase = phase; }
+    }
 
-    private static final String CHEATS_TITLE = "Jarek";
+    enum Quests implements SimpleValueEnum<String> {
+        QuestJarek("Take ambassador Jarek to Devidia."),
+        QuestJarekImpatient("Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.");
 
-    private static final String[] NEWS = {"Ambassador Jarek Returns from Crisis."};
+        private String value;
+        Quests(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
-    private static final String[] QUESTS = {
-            "Take ambassador Jarek to Devidia.",
-            "Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades."
-    };
+    enum Alerts implements SimpleValueEnum<AlertDialog> {
+        SpecialPassengerConcernedJarek("Ship's Comm.", "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?"),
+        SpecialPassengerImpatientJarek("Ship's Comm.", "Captain! This is the Ambassador speaking. We should have been there by now?!"),
+        JarekTakenHome("Jarek Taken Home", "The Space Corps decides to give ambassador Jarek a lift home to Devidia.");
 
-    private static final QuestDialog[] DIALOGS = new QuestDialog[]{
-            new QuestDialog(DIALOG, "Ambassador Jarek", "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?"),
-            new QuestDialog(ALERT, "Jarek Gets Out", "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment.")
-    };
+        private AlertDialog value;
+        Alerts(String title, String body) { this.value = new AlertDialog(title, body); }
+        @Override public AlertDialog getValue() { return value; }
+        @Override public void setValue(AlertDialog value) { this.value = value; }
+    }
 
-    private static final AlertDialog[] ALERTS = new AlertDialog[]{
-            new AlertDialog("Ship's Comm.", "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?"),
-            new AlertDialog("Ship's Comm.", "Captain! This is the Ambassador speaking. We should have been there by now?!"),
-            new AlertDialog("Jarek Taken Home", "The Space Corps decides to give ambassador Jarek a lift home to Devidia."),
-    };
+    enum News implements SimpleValueEnum<String> {
+        AmbassadorJarekReturnsFromCrisis("Ambassador Jarek Returns from Crisis.");
+
+        private String value;
+        News(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
+
+    enum CrewNames implements SimpleValueEnum<String> {
+        Jarek("Jarek");
+
+        private String value;
+        CrewNames(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
+
+    enum SpecialCargo implements SimpleValueEnum<String> {
+        HagglingComputer("A haggling computer.");
+        private String value;
+        SpecialCargo(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
+
+    enum CheatTitles implements SimpleValueEnum<String> {
+        Jarek("Jarek");
+        private String value;
+        CheatTitles(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
     // Constants
+    //TODO switch to phases
     private final static int STATUS_JAREK_NOT_STARTED = 0;
     private final static int STATUS_JAREK_STARTED = 1;
     private final static int STATUS_JAREK_IMPATIENT = 11;
@@ -70,7 +114,8 @@ class JarekQuest extends AbstractQuest {
 
     public JarekQuest(Integer id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
-        initializePhases(DIALOGS, new JarekPhase(), new JarekGetsOutPhase());
+
+        initializePhases(Phases.values(), new JarekPhase(), new JarekGetsOutPhase());
         initializeTransitionMap();
 
         jarek = registerNewSpecialCrewMember(3, 2, 10, 4);
@@ -78,6 +123,10 @@ class JarekQuest extends AbstractQuest {
         registerNews(1);
 
         registerListener();
+
+        //TODO remove later
+        //localize();
+        dumpAllStrings();
         log.fine("started...");
     }
 
@@ -118,19 +167,57 @@ class JarekQuest extends AbstractQuest {
 
     @Override
     public String getCrewMemberName(int id) {
-        return CREW_MEMBER_NAME;
+        return CrewNames.values()[0].getValue();
+    }
+
+    @Override
+    public void dumpAllStrings() {
+        System.out.println("\n\n\n## Jarek Quest\n\n# Phases:");
+        Arrays.stream(Phases.values()).forEach(q -> {
+            System.out.println(q.name() + "Title=" + q.getValue().getTitle());
+            System.out.println(q.name() + "Message=" + q.getValue().getMessage());
+        });
+        System.out.println("\n# Quests:");
+        Arrays.stream(Quests.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
+        System.out.println("\n# Alerts:");
+        Arrays.stream(Alerts.values()).forEach(q -> {
+            System.out.println(q.name() + "Title=" + q.getValue().getTitle());
+            System.out.println(q.name() + "Message=" + q.getValue().getMessage());
+        });
+        System.out.println("\n# News:");
+        Arrays.stream(News.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
+        System.out.println("\n# Crew Member Names:");
+        Arrays.stream(CrewNames.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
+        System.out.println("\n# Special Cargo Titles:");
+        Arrays.stream(SpecialCargo.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
+        System.out.println("\n# Cheats Titles:");
+        Arrays.stream(CheatTitles.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
+    }
+
+    @Override
+    public void localize() {
+        StringsBundle strings = GlobalAssets.getStrings();
+
+        Arrays.stream(Phases.values()).forEach(q ->
+                q.setValue(new QuestDialog(q.getValue().getMessageType(), strings.get(q.name() + "Title"), strings.get(q.name() + "Message"))));
+        Arrays.stream(CrewNames.values()).forEach(q -> q.setValue(strings.get(q.name())));
+        Arrays.stream(SpecialCargo.values()).forEach(q -> q.setValue(strings.get(q.name())));
+        Arrays.stream(CheatTitles.values()).forEach(q -> q.setValue(strings.get(q.name())));
+        Arrays.stream(Quests.values()).forEach(q -> q.setValue(strings.get(q.name())));
+        Arrays.stream(Alerts.values()).forEach(q ->
+                q.setValue(new AlertDialog(strings.get(q.name() + "Title"), strings.get(q.name() + "Message"))));
     }
 
     @Override
     public String getNewsTitle(int newsId) {
-        return NEWS[newsId];
+        return News.values()[newsId].getValue();
     }
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Devidia);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        getPhase(JarekGetsOut).setStarSystemId(starSystem.getId());
+        Phases.JarekGetsOut.getPhase().setStarSystemId(starSystem.getId());
     }
 
     private void onAssignEventsRandomly(Object object) {
@@ -140,8 +227,8 @@ class JarekQuest extends AbstractQuest {
         } while (Game.getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
 
         Game.getStarSystem(system).setSpecialEventType(SpecialEventType.ASSIGNED);
-        getPhase(Jarek).setStarSystemId(Game.getStarSystem(system).getId());
-        log.fine(getPhase(Jarek).getStarSystemId().toString());
+        Phases.Jarek.getPhase().setStarSystemId(Game.getStarSystem(system).getId());
+        log.fine(Phases.Jarek.getPhase().getStarSystemId().toString());
     }
 
     private void onGenerateCrewMemberList(Object object) {
@@ -180,9 +267,9 @@ class JarekQuest extends AbstractQuest {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        if (getPhase(Jarek).canBeExecuted()) {
+        if (Phases.Jarek.getPhase().canBeExecuted()) {
             log.fine("phase #1");
-            showDialogAndProcessResult(object, getPhase(Jarek).getDialog(), () -> {
+            showDialogAndProcessResult(object, Phases.Jarek.getValue(), () -> {
                 if (Game.getShip().getFreeCrewQuartersCount() == 0) {
                     GuiFacade.alert(AlertType.SpecialNoQuarters);
                 } else {
@@ -194,9 +281,9 @@ class JarekQuest extends AbstractQuest {
                     Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
                 }
             });
-        } else if (getPhase(JarekGetsOut).canBeExecuted() && isQuestIsActive()) {
+        } else if (Phases.JarekGetsOut.getPhase().canBeExecuted() && isQuestIsActive()) {
             log.fine("phase #2");
-            showDialogAndProcessResult(object, getPhase(JarekGetsOut).getDialog(), () -> {
+            showDialogAndProcessResult(object, Phases.JarekGetsOut.getValue(), () -> {
                 questStatusJarek = STATUS_JAREK_DONE;
                 Game.getShip().fire(jarek.getId());
                 jarekOnBoard = false;
@@ -212,7 +299,7 @@ class JarekQuest extends AbstractQuest {
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
-        if (cheatWords.getSecond().equals(CHEATS_TITLE)) {
+        if (cheatWords.getSecond().equals(CheatTitles.Jarek.getValue())) {
             questStatusJarek = Math.max(0, cheatWords.getNum2());
             cheatWords.setCheat(true);
             log.fine("consider cheat");
@@ -224,16 +311,16 @@ class JarekQuest extends AbstractQuest {
     @SuppressWarnings("unchecked")
     private void onIsConsiderDefaultCheat(Object object) {
         log.fine("");
-        ((Map<String, Integer>) object).put(CHEATS_TITLE, questStatusJarek);
+        ((Map<String, Integer>) object).put(CheatTitles.Jarek.getValue(), questStatusJarek);
     }
 
     @SuppressWarnings("unchecked")
     private void onDisplaySpecialCargo(Object object) {
         if (isHagglingComputerOnBoard()) {
-            log.fine(SPECIAL_CARGO_TITLE);
-            ((ArrayList<String>) object).add(SPECIAL_CARGO_TITLE);
+            log.fine(SpecialCargo.HagglingComputer.getValue());
+            ((ArrayList<String>) object).add(SpecialCargo.HagglingComputer.getValue());
         } else {
-            log.fine("Don't show " + SPECIAL_CARGO_TITLE);
+            log.fine("Don't show " + SpecialCargo.HagglingComputer.getValue());
         }
     }
 
@@ -241,7 +328,7 @@ class JarekQuest extends AbstractQuest {
     private void onArrested(Object object) {
         if (jarekOnBoard) {
             log.fine("Arrested + Jarek");
-            showAlert(ALERTS[JarekAlertName.JarekTakenHome.ordinal()]);
+            showAlert(Alerts.JarekTakenHome.getValue());
             questStatusJarek = STATUS_JAREK_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
@@ -253,7 +340,7 @@ class JarekQuest extends AbstractQuest {
     private void onEscapeWithPod(Object object) {
         if (jarekOnBoard) {
             log.fine("Escaped + Jarek");
-            showAlert(ALERTS[JarekAlertName.JarekTakenHome.ordinal()]);
+            showAlert(Alerts.JarekTakenHome.getValue());
             questStatusJarek = STATUS_JAREK_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
@@ -265,9 +352,9 @@ class JarekQuest extends AbstractQuest {
         if (jarekOnBoard) {
             log.fine(questStatusJarek + "");
             if (questStatusJarek == STATUS_JAREK_IMPATIENT / 2) {
-                showAlert(ALERTS[JarekAlertName.SpecialPassengerConcernedJarek.ordinal()]);
+                showAlert(Alerts.SpecialPassengerConcernedJarek.getValue());
             } else if (questStatusJarek == STATUS_JAREK_IMPATIENT - 1) {
-                showAlert(ALERTS[JarekAlertName.SpecialPassengerImpatientJarek.ordinal()]);
+                showAlert(Alerts.SpecialPassengerImpatientJarek.getValue());
                 jarek.setPilot(0);
                 jarek.setFighter(0);
                 jarek.setTrader(0);
@@ -286,11 +373,11 @@ class JarekQuest extends AbstractQuest {
     private void onGetQuestsStrings(Object object) {
         if (jarekOnBoard) {
             if (questStatusJarek == STATUS_JAREK_IMPATIENT) {
-                ((ArrayList<String>) object).add(QUESTS[1]);
-                log.fine(QUESTS[1]);
+                ((ArrayList<String>) object).add(Quests.QuestJarekImpatient.getValue());
+                log.fine(Quests.QuestJarekImpatient.getValue());
             } else {
-                ((ArrayList<String>) object).add(QUESTS[0]);
-                log.fine(QUESTS[0]);
+                ((ArrayList<String>) object).add(Quests.QuestJarek.getValue());
+                log.fine(Quests.QuestJarek.getValue());
             }
         } else {
             log.fine("skipped");
@@ -305,10 +392,6 @@ class JarekQuest extends AbstractQuest {
             log.fine("skipped");
         }
     }
-    
-    private Phase getPhase(JarekQuestPhase phase) {
-        return getPhase(phase.ordinal());
-    }
 
     @Override
     public String toString() {
@@ -319,12 +402,4 @@ class JarekQuest extends AbstractQuest {
                 ", shipBarCode=" + shipBarCode +
                 "} " + super.toString();
     }
-}
-
-enum JarekAlertName {
-    SpecialPassengerConcernedJarek, SpecialPassengerImpatientJarek, JarekTakenHome
-}
-
-enum JarekQuestPhase {
-    Jarek, JarekGetsOut
 }

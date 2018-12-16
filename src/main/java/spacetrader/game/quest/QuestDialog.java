@@ -8,8 +8,8 @@ public class QuestDialog extends AlertDialog implements Serializable {
 
     private final MessageType messageType;
 
-    public QuestDialog(MessageType messageType, String title, String body) {
-        super(title, body);
+    public QuestDialog(MessageType messageType, String title, String message) {
+        super(title, message);
         this.messageType = messageType;
     }
 

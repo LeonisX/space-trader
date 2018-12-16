@@ -2,29 +2,28 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Game;
 import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
 
 import java.io.Serializable;
 
 public abstract class Phase implements Serializable {
 
+    //TODO need???
     private int id;
+    //TODO need???
     private int phaseId;
-    private QuestDialog[] dialogs;
 
     private StarSystemId starSystemId;
 
     private Quest quest;
+    private SimpleValueEnumWithPhase<QuestDialog> questPhase;
 
     public String getTitle() {
-        return dialogs[id].getTitle();
+        return questPhase.getValue().getTitle();
     }
 
     public boolean isDesiredSystem() {
         return Game.isCurrentSystemIs(starSystemId);
-    }
-
-    public QuestDialog getDialog() {
-        return dialogs[id];
     }
 
     public StarSystemId getStarSystemId() {
@@ -43,10 +42,6 @@ public abstract class Phase implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setDialogs(QuestDialog[] dialogs) {
-        this.dialogs = dialogs;
     }
 
     public Quest getQuest() {
@@ -72,5 +67,13 @@ public abstract class Phase implements Serializable {
                 ", phaseId=" + phaseId +
                 ", starSystemId=" + starSystemId +
                 '}';
+    }
+
+    public SimpleValueEnumWithPhase<QuestDialog> getQuestPhase() {
+        return questPhase;
+    }
+
+    public void setQuestPhase(SimpleValueEnumWithPhase<QuestDialog> questPhase) {
+        this.questPhase = questPhase;
     }
 }

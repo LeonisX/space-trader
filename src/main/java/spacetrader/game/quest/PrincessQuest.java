@@ -10,6 +10,8 @@ import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
@@ -18,104 +20,110 @@ import spacetrader.util.Functions;
 import java.util.Map;
 
 import static spacetrader.game.Strings.newline;
-import static spacetrader.game.quest.PrincessEncounters.*;
-import static spacetrader.game.quest.PrincessQuestPhase.*;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-enum PrincessAlertName {
-    SpecialPassengerConcernedPrincess, SpecialPassengerImpatientPrincess, EncounterPiratesSurrenderPrincess,
-    PrincessTakenHome, GameEndBoughtMoonGirl
-}
+class PrincessQuest /*extends AbstractQuest*/ {
+/*
+    enum QuestPhases implements SimpleValueEnumWithPhase<QuestDialog> {
+        Princess(new QuestDialog(ALERT, "Kidnapped", "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.")),
+        PrincessCentauri(new QuestDialog(ALERT, "Aggressive Ship", "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara.")),
+        PrincessInthara(new QuestDialog(ALERT, "Dangerous Scorpion", "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next.")),
+        PrincessQonos(new QuestDialog(DIALOG, "Royal Rescue", "The Galvonian Ambassador to Qonos approaches you. The Princess needs a ride home. Will you take her? I don't think she'll feel safe with anyone else.")),
+        PrincessReturned(new QuestDialog(ALERT, "Royal Return", "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\"")),
+        PrincessQuantum(new QuestDialog(DIALOG, "Quantum Disruptor", "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?"));
 
-enum PrincessNewsEvents {
-    Princess,           // Galvon
-    PrincessCentauri,
-    PrincessInthara,
-    PrincessQonos,
-    PrincessRescued,
-    PrincessReturned
-}
+        private QuestDialog value;
+        private Phase phase;
+        QuestPhases(QuestDialog value) { this.value = value; }
+        @Override public QuestDialog getValue() { return value; }
+        @Override public void setValue(QuestDialog value) { this.value = value; }
+        @Override public Phase getPhase() { return phase; }
+        @Override public void setPhase(Phase phase) {this.phase = phase; }
+    }
 
-enum QuestPrincess {
-    QuestPrincessCentauri,
-    QuestPrincessInthara,
-    QuestPrincessQonos,
-    QuestPrincessReturn,
-    QuestPrincessReturning,
-    QuestPrincessReturningImpatient,
-    QuestPrincessQuantum
-}
+    enum QuestClues implements SimpleValueEnum<String> {
+        QuestPrincessCentauri("Follow the Scorpion to Centauri."),
+        QuestPrincessInthara("Follow the Scorpion to Inthara."),
+        QuestPrincessQonos("Follow the Scorpion to Qonos."),
+        QuestPrincessReturn("Transport ^1 from Qonos to Galvon."),
+        QuestPrincessReturning("Return ^1 to Galvon."),
+        QuestPrincessReturningImpatient("Return ^1 to Galvon." + newline
+                + "She is becoming anxious to arrive at home, and is no longer of any help in engineering functions."),
+        QuestPrincessQuantum("Get your Quantum Disruptor at Galvon.");
 
-enum PrincessQuestPhase {
-    Princess,
-    PrincessCentauri,
-    PrincessInthara,
-    PrincessQonos,
-    PrincessReturned,
-    PrincessQuantum
-}
+        private String value;
+        QuestClues(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
-enum PrincessEncounters {
-    EncounterPretextScorpion, EncounterPrincessRescued, EncounterHidePrincess
-}
+    enum Alerts implements SimpleValueEnum<AlertDialog> {
+        SpecialPassengerConcernedPrincess("Ship's Comm.", "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?"),
+        SpecialPassengerImpatientPrincess("Ship's Comm.", "Sir! Are you taking me home or merely taking the place of my previous captors?!"),
+        EncounterPiratesSurrenderPrincess("You Have the Princess", "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!"),
+        PrincessTakenHome("Princess Taken Home", "The Space Corps decides to give the Princess a ride home to Galvon since you obviously weren't up to the task."),
+        GameEndBoughtMoonGirl("You Have Retired with the Princess", "");
 
-class PrincessQuest extends AbstractQuest {
+        private AlertDialog value;
+        Alerts(String title, String body) { this.value = new AlertDialog(title, body); }
+        @Override public AlertDialog getValue() { return value; }
+        @Override public void setValue(AlertDialog value) { this.value = value; }
+    }
 
-    //"Ziyal", // From ST: Deep Space 9
-    //"Scorpion" // dummy crew member used in opponent ship
-    //PRINCESS, // = 53,
-    //SCORPION,// = 54
-    private static final String[] CREW_MEMBER_NAMES = {"Ziyal", "Scorpion"};     // Mercenary
+    enum News implements SimpleValueEnum<String> {
+        Princess("Member of Royal Family kidnapped!"),
+        PrincessCentauri("Aggressive Ship Seen in Orbit Around Centauri"),
+        PrincessInthara("Dangerous Scorpion Damages Several Other Ships Near Inthara"),
+        PrincessQonos("Kidnappers Holding Out at Qonos"),
+        PrincessRescued("Scorpion Defeated! Kidnapped Member of Galvon Royal Family Freed!"),
+        PrincessReturned("Beloved Royal Returns Home!");
 
-    private static final String CHEATS_TITLE = "Princess";
+        private String value;
+        News(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
-    private static final String[] NEWS = {
-            "Member of Royal Family kidnapped!",
-            "Aggressive Ship Seen in Orbit Around Centauri",
-            "Dangerous Scorpion Damages Several Other Ships Near Inthara",
-            "Kidnappers Holding Out at Qonos",
-            "Scorpion Defeated! Kidnapped Member of Galvon Royal Family Freed!",
-            "Beloved Royal Returns Home!"
-    };
+    enum Encounters implements SimpleValueEnum<String> {
+        PretextScorpion("the kidnappers in a ^1"),
+        PrincessRescued(newline + newline + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\""),
+        HidePrincess("the Princess");
 
-    private static final String[] QUESTS = {
-            "Follow the Scorpion to Centauri.",     // QuestPrincessCentauri
-            "Follow the Scorpion to Inthara.",      // QuestPrincessInthara
-            "Follow the Scorpion to Qonos.",        // QuestPrincessQonos
-            "Transport ^1 from Qonos to Galvon.",   // QuestPrincessReturn
-            "Return ^1 to Galvon.",                 // QuestPrincessReturning
-            "Return ^1 to Galvon." + newline        // QuestPrincessReturningImpatient
-                    + "She is becoming anxious to arrive at home, and is no longer of any help in engineering functions.",
-            "Get your Quantum Disruptor at Galvon.",// QuestPrincessQuantum
-    };
+        private String value;
+        Encounters(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
-    private static final QuestDialog[] DIALOGS = new QuestDialog[]{
-            new QuestDialog(ALERT, "Kidnapped", "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri."),
-            new QuestDialog(ALERT, "Aggressive Ship", "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara."),
-            new QuestDialog(ALERT, "Dangerous Scorpion", "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next."),
-            new QuestDialog(DIALOG, "Royal Rescue", "The Galvonian Ambassador to Qonos approaches you. The Princess needs a ride home. Will you take her? I don't think she'll feel safe with anyone else."),
-            new QuestDialog(ALERT, "Royal Return", "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\""),
-            new QuestDialog(DIALOG, "Quantum Disruptor", "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?")
-    };
+    enum GameEnding implements SimpleValueEnum<String> {
+        ClaimedMoonWithPrincess("Claimed moon with Princess");
+        private String value;
+        GameEnding(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
-    private static final AlertDialog[] ALERTS = new AlertDialog[]{
-            new AlertDialog("Ship's Comm.", "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?"), // AlertsSpecialPassengerConcernedPrincessTitle
-            new AlertDialog("Ship's Comm.", "Sir! Are you taking me home or merely taking the place of my previous captors?!"), // AlertsSpecialPassengerImpatientPrincessTitle
-            new AlertDialog("You Have the Princess", "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!"), // AlertsEncounterPiratesSurrenderPrincessTitle
-            new AlertDialog("Princess Taken Home", "The Space Corps decides to give the Princess a ride home to Galvon since you obviously weren't up to the task."), // AlertsPrincessTakenHomeTitle
-            new AlertDialog("You Have Retired with the Princess", "") // AlertsGameEndBoughtMoonGirlTitle
-    };
+    enum CrewMemberNames implements SimpleValueEnum<String> {
+        ZiyalName("Ziyal"),
+        ScorpionName("Scorpion");
 
-    public static final String[] ENCOUNTERS = {
-            "the kidnappers in a ^1",
-            newline + newline + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\"",
-            "the Princess"
-    };
+        private String value;
+        CrewMemberNames(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
-    private static final String GAME_COMPLETION = "Claimed moon with Princess";
+    enum CheatTitles implements SimpleValueEnum<String> {
+        PrincessCheatsTitle("Princess");
+        private String value;
+        CheatTitles(String value) { this.value = value; }
+        @Override public String getValue() { return value; }
+        @Override public void setValue(String value) { this.value = value; }
+    }
 
+    //TODO switch to phases
     // Constants
     private final static int STATUS_PRINCESS_NOT_STARTED = 0;
     private final static int STATUS_PRINCESS_FLY_CENTAURI = 1;
@@ -149,7 +157,7 @@ class PrincessQuest extends AbstractQuest {
 
     public PrincessQuest(Integer id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
-        initializePhases(DIALOGS, new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
+        initializePhases(QuestPhases.values(), new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
                 new PrincessQonosPhase(), new PrincessReturnedPhase(), new PrincessQuantumPhase());
         initializeTransitionMap();
 
@@ -157,7 +165,7 @@ class PrincessQuest extends AbstractQuest {
         princess = registerNewSpecialCrewMember(4, 3, 8, 9);
         scorpionCrew = registerNewSpecialCrewMember(8 + d, 8 + d, 1, 6 + d);
 
-        registerNews(NEWS.length);
+        registerNews(News.values().length);
 
         gameEndTypeId = registerNewGameEndType();
 
@@ -211,6 +219,25 @@ class PrincessQuest extends AbstractQuest {
     @Override
     public Integer getShipImageIndex() {
         return SHIP_IMAGE_INDEX;
+    }
+
+    @Override
+    public void dumpAllStrings() {
+        QuestPhases
+                QuestClues
+        Alerts
+                News
+        Encounters
+                GameEnding
+        CrewMemberNames
+                CheatTitles
+
+
+    }
+
+    @Override
+    public void localize() {
+
     }
 
     private void onBeforeGameEnd(Object object) {
@@ -311,8 +338,8 @@ class PrincessQuest extends AbstractQuest {
     }
 
     private void onEncounterExecuteActionOpponentDisabled(Object object) {
-/*        switch (game.getOpponent().getType()) {
-            case SCORPION:*/
+*//*        switch (game.getOpponent().getType()) {
+            case SCORPION:*//*
         if (game.getOpponent().getBarCode() == scorpion.getBarCode()) {
                 Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
                 Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
@@ -383,7 +410,7 @@ class PrincessQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem() /*&& !isQuestIsActive()*/
+            return !princessOnBoard && isDesiredSystem() *//*&& !isQuestIsActive()*//*
                     && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
                     && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage
                     && questStatusPrincess == STATUS_PRINCESS_NOT_STARTED;
@@ -399,7 +426,7 @@ class PrincessQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem() /*&& isQuestIsActive()*/
+            return !princessOnBoard && isDesiredSystem() *//*&& isQuestIsActive()*//*
                     && questStatusPrincess == STATUS_PRINCESS_FLY_CENTAURI;
         }
 
@@ -413,7 +440,7 @@ class PrincessQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem() /*&& isQuestIsActive()*/
+            return !princessOnBoard && isDesiredSystem() *//*&& isQuestIsActive()*//*
                     && questStatusPrincess == STATUS_PRINCESS_FLY_INTHARA;
         }
 
@@ -427,7 +454,7 @@ class PrincessQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem() /*&& isQuestIsActive()*/
+            return !princessOnBoard && isDesiredSystem() *//*&& isQuestIsActive()*//*
                     && questStatusPrincess == STATUS_PRINCESS_RESCUED;
         }
 
@@ -441,7 +468,7 @@ class PrincessQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return princessOnBoard && isDesiredSystem() /*&& isQuestIsActive()*/
+            return princessOnBoard && isDesiredSystem() *//*&& isQuestIsActive()*//*
                     && questStatusPrincess >= STATUS_PRINCESS_RESCUED
                     && questStatusPrincess <= STATUS_PRINCESS_IMPATIENT;
         }
@@ -456,7 +483,7 @@ class PrincessQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem() /*&& isQuestIsActive()*/
+            return !princessOnBoard && isDesiredSystem() *//*&& isQuestIsActive()*//*
                     && questStatusPrincess == STATUS_PRINCESS_RETURNED;
         }
 
@@ -665,6 +692,6 @@ class PrincessQuest extends AbstractQuest {
                 ", princessOnBoard=" + princessOnBoard +
                 ", scorpion=" + scorpion +
                 "} " + super.toString();
-    }
+    }*/
 }
 

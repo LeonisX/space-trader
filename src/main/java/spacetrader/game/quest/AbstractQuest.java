@@ -9,10 +9,7 @@ import spacetrader.game.ShipSpec;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.GameEndException;
-import spacetrader.game.quest.enums.EventName;
-import spacetrader.game.quest.enums.MessageType;
-import spacetrader.game.quest.enums.QuestState;
-import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.*;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
@@ -57,16 +54,19 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.occurrence = occurrence;
         questState = QuestState.INACTIVE;
         initializeLogger(quest);
+        //TODO return
+        //quest.localize();
     }
 
-    void initializePhases(QuestDialog[] dialogs, Phase... phases) {
+    void initializePhases(SimpleValueEnumWithPhase<QuestDialog>[] values, Phase... phases) {
         for (int i = 0; i < phases.length; i++) {
             phases[i].setId(i);
-            phases[i].setDialogs(dialogs);
+            phases[i].setQuestPhase(values[i]);
             phases[i].setQuest(quest);
             //TODO need???
             phases[i].setPhaseId(id + i);
             getPhases().add(phases[i]);
+            values[i].setPhase(phases[i]);
         }
     }
 
@@ -99,6 +99,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     Map<EventName, Consumer<Object>> getTransitionMap() {
         return transitionMap;
+    }
+
+    @Override
+    public void dumpAllStrings() {
     }
 
     @Override
@@ -262,7 +266,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
             button2Result = DialogResult.NO;
         }
 
-        FormAlert alert = new FormAlert(dialog.getTitle(), dialog.getBody(), button1Text, button1Result,
+        FormAlert alert = new FormAlert(dialog.getTitle(), dialog.getMessage(), button1Text, button1Result,
                 button2Text, button2Result, null);
 
         if (alert.showDialog() != DialogResult.NO) {
@@ -282,7 +286,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     @Facaded
     void showAlert(AlertDialog dialog) {
-        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getBody(), Strings.AlertsOk, DialogResult.OK, null, DialogResult.NONE, null);
+        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), Strings.AlertsOk, DialogResult.OK, null, DialogResult.NONE, null);
         formAlert.showDialog();
     }
 

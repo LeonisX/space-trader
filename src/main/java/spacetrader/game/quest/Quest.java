@@ -25,6 +25,8 @@ public interface Quest {
 
     //StarSystemId getStarSystemId();
 
+    void dumpAllStrings();
+
     void initializeTransitionMap();
 
     Consumer<Object> getOperation(EventName eventName);
@@ -52,4 +54,6 @@ public interface Quest {
     Rectangle getShipImageOffset();
 
     Integer getShipImageIndex();
+
+    void localize();
 }
