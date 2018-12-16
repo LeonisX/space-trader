@@ -81,7 +81,7 @@ public class PoliticalSystem {
         return activityPirates;
     }
 
-    Activity getActivityTraders() {
+    public Activity getActivityTraders() {
         return activityTraders;
     }
 
@@ -93,7 +93,7 @@ public class PoliticalSystem {
         return maxTech;
     }
 
-    int getBribeLevel() {
+    public int getBribeLevel() {
         return bribeLevel;
     }
 

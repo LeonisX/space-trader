@@ -68,7 +68,7 @@ public class Shield extends Equipment implements Serializable {
         return charge;
     }
 
-    void setCharge(int charge) {
+    public void setCharge(int charge) {
         this.charge = charge;
     }
 

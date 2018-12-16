@@ -63,10 +63,10 @@ public class GameCheats implements Serializable {
                     break;
                 case Events:
                     if (words.getSecond().equals("Reset")) {
-                        game.resetVeryRareEncounters();
+                        game.getEncounter().resetVeryRareEncounters();
                     } else {
                         StringBuilder textBuilder = new StringBuilder();
-                        for (VeryRareEncounter veryRareEncounter : game.getVeryRareEncounters()) {
+                        for (VeryRareEncounter veryRareEncounter : game.getEncounter().getVeryRareEncounters()) {
                             textBuilder.append(Strings.VeryRareEncounters[veryRareEncounter.castToInt()]).append(Strings.newline);
                         }
                         String text = textBuilder.toString().trim();
@@ -152,7 +152,7 @@ public class GameCheats implements Serializable {
                     Game.getCommander().setPoliceRecordScore(words.getNum1());
                     break;
                 case Rarity:
-                    game.setChanceOfVeryRareEncounter(Math.max(0, Math.min(1000, words.getNum1())));
+                    game.getEncounter().setChanceOfVeryRareEncounter(Math.max(0, Math.min(1000, words.getNum1())));
                     break;
                 case Scratch:
                     Game.getCommander().setCash(Math.max(0, words.getNum1()));
@@ -247,7 +247,7 @@ public class GameCheats implements Serializable {
                     ship.setTribbles(Math.max(0, words.getNum1()));
                     break;
                 case Yellow:
-                    game.setEasyEncounters(true);
+                    game.getEncounter().setEasyEncounters(true);
                     break;
                 default:
                     return true;

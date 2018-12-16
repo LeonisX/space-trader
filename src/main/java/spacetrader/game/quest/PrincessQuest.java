@@ -264,7 +264,7 @@ class PrincessQuest extends AbstractQuest {
     private void onDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatusPrincess == STATUS_PRINCESS_FLY_QONOS) {
             game.setOpponent(scorpion);
-            game.setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -278,7 +278,7 @@ class PrincessQuest extends AbstractQuest {
 
     private void onEncounterVerifySurrenderNoHidden(Object object) {
         if (princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
-                && game.getEncounterType() == EncounterType.PIRATE_ATTACK) {
+                && game.getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK) {
             showAlert(ALERTS[PrincessAlertName.EncounterPiratesSurrenderPrincess.ordinal()]);
             ((BooleanContainer) object).setValue(true);
         }
@@ -318,7 +318,7 @@ class PrincessQuest extends AbstractQuest {
                 Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
                 questStatusPrincess = STATUS_PRINCESS_RESCUED;
 
-                GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounterShipText(), ENCOUNTERS[EncounterPrincessRescued.ordinal()]);
+                GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), ENCOUNTERS[EncounterPrincessRescued.ordinal()]);
 
                 Game.getCommander().setReputationScore(
                         //TODO getOpponent().getType() == 16

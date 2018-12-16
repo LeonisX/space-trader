@@ -1,5 +1,6 @@
 package spacetrader.gui;
 
+import spacetrader.Encounter;
 import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Graphics;
@@ -41,6 +42,7 @@ public class FormEncounter extends SpaceTraderForm {
     private static final int INT = 12;
 
     private final Game game = Game.getCurrentGame();
+    private final Encounter encounter = game.getEncounter();
     private final Ship commanderShip = Game.getShip();
     private final Ship opponent = game.getOpponent();
 
@@ -132,10 +134,10 @@ public class FormEncounter extends SpaceTraderForm {
         initializeComponent();
 
         // Set up the Game encounter variables.
-        game.encounterBegin();
+        encounter.encounterBegin();
 
         // Enable the control box (the X button) if cheats are enabled.
-        if (game.isEasyEncounters()) {
+        if (encounter.isEasyEncounters()) {
             setControlBox(true);
         }
 
@@ -143,14 +145,14 @@ public class FormEncounter extends SpaceTraderForm {
         updateTribbles();
         updateButtons();
 
-        if (game.getEncounterImageIndex() >= 0) {
-            encounterTypePicture.setImage(encounterTypeImageList.getImages()[game.getEncounterImageIndex()]);
+        if (encounter.getEncounterImageIndex() >= 0) {
+            encounterTypePicture.setImage(encounterTypeImageList.getImages()[encounter.getEncounterImageIndex()]);
         } else {
             encounterTypePicture.setVisible(false);
         }
 
-        encounterLabelValue.setText(game.getEncounterTextInitial());
-        actionLabelValue.setText(game.getEncounterActionInitial());
+        encounterLabelValue.setText(encounter.getEncounterTextInitial());
+        actionLabelValue.setText(encounter.getEncounterActionInitial());
     }
 
     private void initializeComponent() {
@@ -518,21 +520,21 @@ public class FormEncounter extends SpaceTraderForm {
     private void disableAuto() {
         timer.stop();
 
-        game.setEncounterContinueFleeing(false);
-        game.setEncounterContinueAttacking(false);
+        encounter.setEncounterContinueFleeing(false);
+        encounter.setEncounterContinueAttacking(false);
         interruptButton.setVisible(false);
         continuousPicture.setVisible(false);
     }
 
     private void executeAction() {
-        if ((result = game.getEncounterExecuteAction()) == EncounterResult.CONTINUE) {
+        if ((result = encounter.getEncounterExecuteAction()) == EncounterResult.CONTINUE) {
             updateButtons();
             updateShipStats();
 
-            encounterLabelValue.setText(game.getEncounterText());
-            actionLabelValue.setText(game.getEncounterAction());
+            encounterLabelValue.setText(encounter.getEncounterText());
+            actionLabelValue.setText(encounter.getEncounterAction());
 
-            if (game.getEncounterContinueFleeing() || game.getEncounterContinueAttacking()) {
+            if (encounter.getEncounterContinueFleeing() || encounter.getEncounterContinueAttacking()) {
                 timer.start();
             }
         } else {
@@ -548,7 +550,7 @@ public class FormEncounter extends SpaceTraderForm {
     private void updateButtons() {
         boolean[] visible = new boolean[buttons.length];
 
-        switch (game.getEncounterType()) {
+        switch (encounter.getEncounterType()) {
             case BOTTLE_GOOD:
             case BOTTLE_OLD:
                 visible[DRINK] = true;
@@ -623,7 +625,7 @@ public class FormEncounter extends SpaceTraderForm {
                 break;
         }
 
-        if (game.getEncounterContinueAttacking() || game.getEncounterContinueFleeing()) {
+        if (encounter.getEncounterContinueAttacking() || encounter.getEncounterContinueFleeing()) {
             visible[INT] = true;
         }
 
@@ -680,25 +682,25 @@ public class FormEncounter extends SpaceTraderForm {
     private void attackButtonClick() {
         disableAuto();
 
-        if (game.isEncounterVerifyAttack()) {
+        if (encounter.isEncounterVerifyAttack()) {
             executeAction();
         }
     }
 
     private void boardButtonClick() {
-        if (game.isEncounterVerifyBoard()) {
+        if (encounter.isEncounterVerifyBoard()) {
             exit(EncounterResult.NORMAL);
         }
     }
 
     private void bribeButtonClick() {
-        if (game.isEncounterVerifyBribe()) {
+        if (encounter.isEncounterVerifyBribe()) {
             exit(EncounterResult.NORMAL);
         }
     }
 
     private void drinkButtonClick() {
-        game.encounterDrink();
+        encounter.encounterDrink();
 
         exit(EncounterResult.NORMAL);
     }
@@ -706,7 +708,7 @@ public class FormEncounter extends SpaceTraderForm {
     private void fleeButtonClick() {
         disableAuto();
 
-        if (game.isEncounterVerifyFlee()) {
+        if (encounter.isEncounterVerifyFlee()) {
             executeAction();
         }
     }
@@ -722,7 +724,7 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void meetButtonClick() {
-        game.encounterMeet();
+        encounter.encounterMeet();
 
         exit(EncounterResult.NORMAL);
     }
@@ -730,13 +732,13 @@ public class FormEncounter extends SpaceTraderForm {
     private void plunderButtonClick() {
         disableAuto();
 
-        game.encounterPlunder();
+        encounter.encounterPlunder();
 
         exit(EncounterResult.NORMAL);
     }
 
     private void submitButtonClick() {
-        if (game.isEncounterVerifySubmit()) {
+        if (encounter.isEncounterVerifySubmit()) {
             exit(commanderShip.isIllegalSpecialCargo() ? EncounterResult.ARRESTED : EncounterResult.NORMAL);
         }
     }
@@ -744,19 +746,19 @@ public class FormEncounter extends SpaceTraderForm {
     private void surrenderButtonClick() {
         disableAuto();
 
-        if ((result = game.getEncounterVerifySurrender()) != EncounterResult.CONTINUE) {
+        if ((result = encounter.getEncounterVerifySurrender()) != EncounterResult.CONTINUE) {
             close();
         }
     }
 
     private void tradeButtonClick() {
-        game.encounterTrade();
+        encounter.encounterTrade();
 
         exit(EncounterResult.NORMAL);
     }
 
     private void yieldButtonClick() {
-        if ((result = game.getEncounterVerifyYield()) != EncounterResult.CONTINUE) {
+        if ((result = encounter.getEncounterVerifyYield()) != EncounterResult.CONTINUE) {
             close();
         }
     }

@@ -154,7 +154,7 @@ public class News implements Serializable {
         }
     }
 
-    void replaceLastAttackedEventWithDestroyedEvent() {
+    public void replaceLastAttackedEventWithDestroyedEvent() {
         int oldEvent = newsEvents.get(newsEvents.size() - 1);
         int newEvent = oldEvent + 1;
 

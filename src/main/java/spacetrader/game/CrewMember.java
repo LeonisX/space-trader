@@ -76,7 +76,7 @@ public class CrewMember implements Serializable {
     // *************************************************************************
     // Increase one of the skills.
     // *************************************************************************
-    void increaseRandomSkill() {
+    public void increaseRandomSkill() {
         changeRandomSkill(1);
     }
 
@@ -105,7 +105,7 @@ public class CrewMember implements Serializable {
     // *************************************************************************
     // Randomly tweak the skills.
     // *************************************************************************
-    void tonicTweakRandomSkill() {
+    public void tonicTweakRandomSkill() {
         int[] oldSkills = Arrays.copyOf(skills, skills.length);
 
         if (Game.getDifficultyId() < Difficulty.HARD.castToInt()) {
@@ -136,7 +136,7 @@ public class CrewMember implements Serializable {
         currentSystemId = value.getId();
     }
 
-    StarSystemId getCurrentSystemId() {
+    public StarSystemId getCurrentSystemId() {
         return currentSystemId;
     }
 

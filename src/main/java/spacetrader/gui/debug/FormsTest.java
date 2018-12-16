@@ -227,8 +227,8 @@ public class FormsTest extends SpaceTraderForm {
         encounterComboBox.setSelectedIndexChanged(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                Game.getCurrentGame().isDetermineVeryRareEncounter();
-                Game.getCurrentGame().setEncounterType((EncounterType) encounterComboBox.getSelectedItem());
+                Game.getCurrentGame().getEncounter().isDetermineVeryRareEncounter();
+                Game.getCurrentGame().getEncounter().setEncounterType((EncounterType) encounterComboBox.getSelectedItem());
                 new FormEncounter().showDialog();
             }
         });
@@ -238,7 +238,7 @@ public class FormsTest extends SpaceTraderForm {
         formEncounterButton.setText("FormEncounter");
         formEncounterButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                Game.getCurrentGame().isDetermineEncounter();
+                Game.getCurrentGame().getEncounter().isDetermineEncounter();
                 new FormEncounter().showDialog();
             }
         });
