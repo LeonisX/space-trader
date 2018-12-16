@@ -1,24 +1,7 @@
 package spacetrader.game;
 
 import spacetrader.controls.Rectangle;
-import spacetrader.game.enums.Activity;
-import spacetrader.game.enums.CrewMemberId;
-import spacetrader.game.enums.GadgetType;
-import spacetrader.game.enums.PoliceRecordType;
-import spacetrader.game.enums.PoliticalSystemType;
-import spacetrader.game.enums.ReputationType;
-import spacetrader.game.enums.ShieldType;
-import spacetrader.game.enums.ShipType;
-import spacetrader.game.enums.ShipyardId;
-import spacetrader.game.enums.ShipyardSkill;
-import spacetrader.game.enums.Size;
-import spacetrader.game.enums.SkillType;
-import spacetrader.game.enums.SpecialEventType;
-import spacetrader.game.enums.SpecialResource;
-import spacetrader.game.enums.SystemPressure;
-import spacetrader.game.enums.TechLevel;
-import spacetrader.game.enums.TradeItemType;
-import spacetrader.game.enums.WeaponType;
+import spacetrader.game.enums.*;
 import spacetrader.util.Path;
 
 public class Consts {
