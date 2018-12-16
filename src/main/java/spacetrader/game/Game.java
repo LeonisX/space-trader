@@ -440,25 +440,26 @@ public class Game implements Serializable {
 
     private void updatePressuresAndQuantitiesOnArrival() {
         for (int i = 0; i < getUniverse().length; i++) {
+            StarSystem starSystem = getStarSystem(i);
             if (Functions.getRandom(100) < 15) {
-                getUniverse()[i].setSystemPressure((SystemPressure.fromInt(
-                        getUniverse()[i].getSystemPressure() == SystemPressure.NONE ? Functions
+                starSystem.setSystemPressure((SystemPressure.fromInt(
+                        starSystem.getSystemPressure() == SystemPressure.NONE ? Functions
                                 .getRandom(SystemPressure.WAR.castToInt(), SystemPressure.EMPLOYMENT.castToInt() + 1)
                                 : SystemPressure.NONE.castToInt())));
             }
 
-            if (getUniverse()[i].getCountDown() > 0) {
-                getUniverse()[i].setCountDown(getUniverse()[i].getCountDown() - 1);
+            if (starSystem.getCountDown() > 0) {
+                starSystem.setCountDown(starSystem.getCountDown() - 1);
 
-                if (getUniverse()[i].getCountDown() > getCountDownStart()) {
-                    getUniverse()[i].setCountDown(getCountDownStart());
-                } else if (getUniverse()[i].getCountDown() <= 0) {
-                    getUniverse()[i].initializeTradeItems();
+                if (starSystem.getCountDown() > getCountDownStart()) {
+                    starSystem.setCountDown(getCountDownStart());
+                } else if (starSystem.getCountDown() <= 0) {
+                    starSystem.initializeTradeItems();
                 } else {
                     for (int j = 0; j < Consts.TradeItems.length; j++) {
                         if (getWarpSystem().isItemTraded(Consts.TradeItems[j])) {
-                            getUniverse()[i].getTradeItems()[j] = Math
-                                    .max(0, getUniverse()[i].getTradeItems()[j] + Functions.getRandom(-4, 5));
+                            starSystem.getTradeItems()[j] = Math
+                                    .max(0, starSystem.getTradeItems()[j] + Functions.getRandom(-4, 5));
                         }
                     }
                 }
@@ -941,9 +942,9 @@ public class Game implements Serializable {
         if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             int system;
             for (system = 0; system < getUniverse().length
-                    && getUniverse()[system].getSpecialEventType() != SpecialEventType.Japori; system++) {
+                    && getStarSystem(system).getSpecialEventType() != SpecialEventType.Japori; system++) {
             }
-            GuiFacade.alert(AlertType.AntidoteDestroyed, getUniverse()[system].getName());
+            GuiFacade.alert(AlertType.AntidoteDestroyed, getStarSystem(system).getName());
             setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_NOT_STARTED);
         }
 
@@ -994,14 +995,14 @@ public class Game implements Serializable {
         int bestDistance = 999;
         int system = -1;
         for (int i = 0; i < getUniverse().length; i++) {
-            int distance = Functions.distance(getUniverse()[baseSystem.castToInt()], getUniverse()[i]);
-            if (distance >= 70 && distance < bestDistance && getUniverse()[i].getSpecialEventType() == SpecialEventType.NA) {
+            int distance = Functions.distance(getStarSystem(baseSystem), getStarSystem(i));
+            if (distance >= 70 && distance < bestDistance && getStarSystem(i).getSpecialEventType() == SpecialEventType.NA) {
                 system = i;
                 bestDistance = distance;
             }
         }
         if (system >= 0) {
-            getUniverse()[system].setSpecialEventType(specEvent);
+            getStarSystem(system).setSpecialEventType(specEvent);
         }
 
         return (system >= 0);
@@ -1107,12 +1108,12 @@ public class Game implements Serializable {
                     boolean tooClose = false;
                     for (int j = 0; j < i && !tooClose; j++) {
                         // Minimum distance between any two systems not to be accepted.
-                        if (Functions.distance(getUniverse()[j], x, y) < Consts.MinDistance) {
+                        if (Functions.distance(getStarSystem(j), x, y) < Consts.MinDistance) {
                             tooClose = true;
                         }
 
                         // There should be at least one system which is close enough.
-                        if (Functions.distance(getUniverse()[j], x, y) < Consts.CloseDistance) {
+                        if (Functions.distance(getStarSystem(j), x, y) < Consts.CloseDistance) {
                             closeFound = true;
                         }
                     }
@@ -1128,12 +1129,12 @@ public class Game implements Serializable {
         for (int i = 0; i < getUniverse().length; i++) {
             int j = Functions.getRandom(getUniverse().length);
             if (!Functions.wormholeExists(j, -1)) {
-                int x = getUniverse()[i].getX();
-                int y = getUniverse()[i].getY();
-                getUniverse()[i].setX(getUniverse()[j].getX());
-                getUniverse()[i].setY(getUniverse()[j].getY());
-                getUniverse()[j].setX(x);
-                getUniverse()[j].setY(y);
+                int x = getStarSystem(i).getX();
+                int y = getStarSystem(i).getY();
+                getStarSystem(i).setX(getStarSystem(j).getX());
+                getStarSystem(i).setY(getStarSystem(j).getY());
+                getStarSystem(j).setX(x);
+                getStarSystem(j).setY(y);
 
                 int w = Util.bruteSeek(getWormholes(), i);
                 if (w >= 0) {
@@ -1407,7 +1408,7 @@ public class Game implements Serializable {
             case WildGetsOut:
                 // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
                 CrewMember zeethibal = mercenaries.get(CrewMemberId.ZEETHIBAL.castToInt());
-                zeethibal.setCurrentSystem(getUniverse()[StarSystemId.Kravat.castToInt()]);
+                zeethibal.setCurrentSystem(getStarSystem(StarSystemId.Kravat));
                 int lowest1 = commander.nthLowestSkill(1);
                 int lowest2 = commander.nthLowestSkill(2);
                 for (int i = 0; i < zeethibal.getSkills().length; i++) {
@@ -1458,7 +1459,7 @@ public class Game implements Serializable {
                 && getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
             setQuestStatusGemulon(Math.min(getQuestStatusGemulon() + num, SpecialEvent.STATUS_GEMULON_TOO_LATE));
             if (getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-                StarSystem gemulon = getUniverse()[StarSystemId.Gemulon.castToInt()];
+                StarSystem gemulon = getStarSystem(StarSystemId.Gemulon);
                 gemulon.setSpecialEventType(SpecialEventType.GemulonInvaded);
                 gemulon.setTechLevel(TechLevel.PRE_AGRICULTURAL);
                 gemulon.setPoliticalSystemType(PoliticalSystemType.ANARCHY);
@@ -1474,7 +1475,7 @@ public class Game implements Serializable {
             setQuestStatusExperiment(Math.min(getQuestStatusExperiment() + num, SpecialEvent.STATUS_EXPERIMENT_PERFORMED));
             if (getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
                 setFabricRipProbability(Consts.FabricRipInitialProbability);
-                getUniverse()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentFailed);
+                getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentFailed);
                 GuiFacade.alert(AlertType.SpecialExperimentPerformed);
                 news.addEvent(NewsEvent.ExperimentPerformed);
             }
@@ -1540,7 +1541,7 @@ public class Game implements Serializable {
         Strings.CrewMemberNames[commander.getId()] = name;
 
         while (commander.getCurrentSystem() == null) {
-            StarSystem system = getUniverse()[Functions.getRandom(getUniverse().length)];
+            StarSystem system = getStarSystem(Functions.getRandom(getUniverse().length));
             if (system.getSpecialEventType() == SpecialEventType.NA
                     && system.getTechLevel().castToInt() > TechLevel.PRE_AGRICULTURAL.castToInt()
                     && system.getTechLevel().castToInt() < TechLevel.HI_TECH.castToInt()) {
@@ -1548,7 +1549,7 @@ public class Game implements Serializable {
                 int close = 0;
                 for (int i = 0; i < getUniverse().length && close < 3; i++) {
                     if (i != system.getId().castToInt()
-                            && Functions.distance(getUniverse()[i], system) <= commander.getShip().getFuelTanks()) {
+                            && Functions.distance(getStarSystem(i), system) <= commander.getShip().getFuelTanks()) {
                         close++;
                     }
                 }
@@ -1574,7 +1575,7 @@ public class Game implements Serializable {
 
         ArrayList<Integer> systemIdList = new ArrayList<>();
         for (int system = 0; system < getUniverse().length; system++) {
-            if (getUniverse()[system].getTechLevel() == TechLevel.HI_TECH) {
+            if (getStarSystem(system).getTechLevel() == TechLevel.HI_TECH) {
                 systemIdList.add(system);
             }
         }
@@ -1584,7 +1585,7 @@ public class Game implements Serializable {
         } else {
             // Assign the shipyards to High-Tech systems.
             for (int shipyard = 0; shipyard < Consts.Shipyards.length; shipyard++) {
-                getUniverse()[systemIdList.get(Functions.getRandom(systemIdList.size()))]
+                getStarSystem(systemIdList.get(Functions.getRandom(systemIdList.size())))
                         .setShipyardId(ShipyardId.fromInt(shipyard));
             }
         }
@@ -1594,31 +1595,31 @@ public class Game implements Serializable {
     private boolean isSpecialEventsInPlace() {
         boolean goodUniverse = true;
 
-        getUniverse()[StarSystemId.Baratas.castToInt()].setSpecialEventType(SpecialEventType.DragonflyBaratas);
-        getUniverse()[StarSystemId.Melina.castToInt()].setSpecialEventType(SpecialEventType.DragonflyMelina);
-        getUniverse()[StarSystemId.Regulas.castToInt()].setSpecialEventType(SpecialEventType.DragonflyRegulas);
-        getUniverse()[StarSystemId.Zalkon.castToInt()].setSpecialEventType(SpecialEventType.DragonflyDestroyed);
-        getUniverse()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentStopped);
-        getUniverse()[StarSystemId.Gemulon.castToInt()].setSpecialEventType(SpecialEventType.GemulonRescued);
-        getUniverse()[StarSystemId.Japori.castToInt()].setSpecialEventType(SpecialEventType.JaporiDelivery);
+        getStarSystem(StarSystemId.Baratas).setSpecialEventType(SpecialEventType.DragonflyBaratas);
+        getStarSystem(StarSystemId.Melina).setSpecialEventType(SpecialEventType.DragonflyMelina);
+        getStarSystem(StarSystemId.Regulas).setSpecialEventType(SpecialEventType.DragonflyRegulas);
+        getStarSystem(StarSystemId.Zalkon).setSpecialEventType(SpecialEventType.DragonflyDestroyed);
+        getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentStopped);
+        getStarSystem(StarSystemId.Gemulon).setSpecialEventType(SpecialEventType.GemulonRescued);
+        getStarSystem(StarSystemId.Japori).setSpecialEventType(SpecialEventType.JaporiDelivery);
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
-        //getUniverse()[StarSystemId.Devidia.castToInt()].setSpecialEventType(SpecialEventType.JarekGetsOut);
-        getUniverse()[StarSystemId.Utopia.castToInt()].setSpecialEventType(SpecialEventType.MoonRetirement);
-        getUniverse()[StarSystemId.Nix.castToInt()].setSpecialEventType(SpecialEventType.ReactorDelivered);
-        getUniverse()[StarSystemId.Acamar.castToInt()].setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
-        getUniverse()[StarSystemId.Kravat.castToInt()].setSpecialEventType(SpecialEventType.WildGetsOut);
-        getUniverse()[StarSystemId.Endor.castToInt()].setSpecialEventType(SpecialEventType.SculptureDelivered);
-        /*getUniverse()[StarSystemId.Galvon.castToInt()].setSpecialEventType(SpecialEventType.Princess);
-        getUniverse()[StarSystemId.Centauri.castToInt()].setSpecialEventType(SpecialEventType.PrincessCentauri);
-        getUniverse()[StarSystemId.Inthara.castToInt()].setSpecialEventType(SpecialEventType.PrincessInthara);
-        getUniverse()[StarSystemId.Qonos.castToInt()].setSpecialEventType(SpecialEventType.PrincessQonos);*/
+        //getStarSystem(StarSystemId.Devidia).setSpecialEventType(SpecialEventType.JarekGetsOut);
+        getStarSystem(StarSystemId.Utopia).setSpecialEventType(SpecialEventType.MoonRetirement);
+        getStarSystem(StarSystemId.Nix).setSpecialEventType(SpecialEventType.ReactorDelivered);
+        getStarSystem(StarSystemId.Acamar).setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
+        getStarSystem(StarSystemId.Kravat).setSpecialEventType(SpecialEventType.WildGetsOut);
+        getStarSystem(StarSystemId.Endor).setSpecialEventType(SpecialEventType.SculptureDelivered);
+        /*getStarSystem(StarSystemId.Galvon.castToInt()].setSpecialEventType(SpecialEventType.Princess);
+        getStarSystem(StarSystemId.Centauri.castToInt()].setSpecialEventType(SpecialEventType.PrincessCentauri);
+        getStarSystem(StarSystemId.Inthara.castToInt()].setSpecialEventType(SpecialEventType.PrincessInthara);
+        getStarSystem(StarSystemId.Qonos.castToInt()].setSpecialEventType(SpecialEventType.PrincessQonos);*/
 
         // Assign a wormhole location endpoint for the Scarab.
         OptionalInt freeWormhole = Arrays.stream(getWormholes())
-                .filter(wormhole -> getUniverse()[wormhole].getSpecialEventType() == SpecialEventType.NA).findAny();
+                .filter(wormhole -> getStarSystem(wormhole).getSpecialEventType() == SpecialEventType.NA).findAny();
         if (freeWormhole.isPresent()) {
-            getUniverse()[freeWormhole.getAsInt()].setSpecialEventType(SpecialEventType.ScarabDestroyed);
+            getStarSystem(freeWormhole.getAsInt()).setSpecialEventType(SpecialEventType.ScarabDestroyed);
         } else {
             goodUniverse = false;
         }
@@ -1663,9 +1664,9 @@ public class Game implements Serializable {
                 for (int j = 0; j < Consts.SpecialEvents[i].getOccurrence(); j++) {
                     do {
                         system = Functions.getRandom(getUniverse().length);
-                    } while (getUniverse()[system].getSpecialEventType() != SpecialEventType.NA);
+                    } while (getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
 
-                    getUniverse()[system].setSpecialEventType(Consts.SpecialEvents[i].getType());
+                    getStarSystem(system).setSpecialEventType(Consts.SpecialEvents[i].getType());
                 }
             }
         }
@@ -1719,7 +1720,7 @@ public class Game implements Serializable {
                 index = (dest.length + index + (forward ? 1 : -1)) % dest.length;
             }
 
-            if (Functions.wormholeExists(commander.getCurrentSystem(), getUniverse()[dest[index]])) {
+            if (Functions.wormholeExists(commander.getCurrentSystem(), getStarSystem(dest[index]))) {
                 setSelectedSystemId(commander.getCurrentSystemId());
                 setTargetWormhole(true);
             } else {
@@ -1864,7 +1865,7 @@ public class Game implements Serializable {
         ArrayList<Integer> list = new ArrayList<>();
 
         for (int i = 0; i < getUniverse().length; i++)
-            if (getUniverse()[i].destIsOk()) {
+            if (getStarSystem(i).destIsOk()) {
                 list.add(i);
             }
 
@@ -1952,8 +1953,24 @@ public class Game implements Serializable {
         return (getDifficultyId() + 1) * score.getModifier() * (score.getDaysMoon() * 1000 + score.getWorth()) / 250000;
     }
 
+    public static StarSystemId getCurrentSystemId() {
+        return getCommander().getCurrentSystemId();
+    }
+
+    public static boolean isCurrentSystemIs(StarSystemId starSystemId) {
+        return getCurrentSystemId().equals(starSystemId);
+    }
+
+    public static StarSystem getStarSystem(StarSystemId starSystemId) {
+        return getStarSystem(starSystemId.castToInt());
+    }
+
+    public static StarSystem getStarSystem(int starSystemId) {
+        return Game.getCurrentGame().getUniverse()[starSystemId];
+    }
+
     public StarSystem getSelectedSystem() {
-        return (selectedSystemId == StarSystemId.NA ? null : getUniverse()[selectedSystemId.castToInt()]);
+        return (selectedSystemId == StarSystemId.NA ? null : getStarSystem(selectedSystemId));
     }
 
     public StarSystemId getSelectedSystemId() {
@@ -1969,12 +1986,28 @@ public class Game implements Serializable {
     public void setSelectedSystemByName(String value) {
         boolean found = false;
         for (int i = 0; i < getUniverse().length && !found; i++) {
-            String name = getUniverse()[i].getName();
+            String name = getStarSystem(i).getName();
             if (name.toLowerCase().contains(value.toLowerCase())) {
                 setSelectedSystemId(StarSystemId.fromInt(i));
                 found = true;
             }
         }
+    }
+
+    public StarSystem getTrackedSystem() {
+        return (trackedSystemId == StarSystemId.NA ? null : getStarSystem(trackedSystemId));
+    }
+
+    public StarSystem[] getUniverse() {
+        return universe;
+    }
+
+    public StarSystem getWarpSystem() {
+        return (warpSystemId == StarSystemId.NA) ? null : getStarSystem(warpSystemId);
+    }
+
+    private StarSystemId getWarpSystemId() {
+        return warpSystemId;
     }
 
     public boolean isTargetWormhole() {
@@ -1988,23 +2021,6 @@ public class Game implements Serializable {
             int wormIndex = Util.bruteSeek(getWormholes(), getSelectedSystemId().castToInt());
             warpSystemId = StarSystemId.fromInt(getWormholes()[(wormIndex + 1) % getWormholes().length]);
         }
-    }
-
-    public StarSystem getTrackedSystem() {
-        return (trackedSystemId == StarSystemId.NA ? null : getUniverse()[trackedSystemId.castToInt()]);
-    }
-
-    public StarSystem[] getUniverse() {
-        return universe;
-    }
-
-    public StarSystem getWarpSystem() {
-        return (warpSystemId == StarSystemId.NA) ? null : getUniverse()[warpSystemId.castToInt()];
-
-    }
-
-    private StarSystemId getWarpSystemId() {
-        return warpSystemId;
     }
 
     public int getWormholeCosts() {
@@ -2117,22 +2133,6 @@ public class Game implements Serializable {
 
     public static Ship getShip() {
         return getCommander().getShip();
-    }
-
-    public static StarSystemId getCurrentSystemId() {
-        return getCommander().getCurrentSystemId();
-    }
-
-    public static boolean isCurrentSystemIs(StarSystemId starSystemId) {
-        return getCurrentSystemId().equals(starSystemId);
-    }
-
-    public static StarSystem getStarSystem(StarSystemId starSystemId) {
-        return Game.getCurrentGame().getUniverse()[starSystemId.castToInt()];
-    }
-
-    public static StarSystem getStarSystem(int starSystemId) {
-        return Game.getCurrentGame().getUniverse()[starSystemId];
     }
 
     public static Difficulty getDifficulty() {
