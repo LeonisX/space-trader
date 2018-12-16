@@ -238,7 +238,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
 * On sell, plunder, jettison - show goods with bold
 * After disabling can fully destroy without encounter ending
-* Sell - All button - sell only one 
+* Sell - add goods to planet
 
 ### Princess
 

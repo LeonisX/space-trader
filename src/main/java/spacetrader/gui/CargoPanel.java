@@ -903,7 +903,7 @@ class CargoPanel extends Panel {
     }
 
     private void buySellButtonClick(String buttonName) {
-        boolean all = buttonName.endsWith("AllButton");
+        boolean all = buttonName.contains("AllButton") || buttonName.contains("MaxButton");
         int index = Integer.parseInt(buttonName.substring(buttonName.length() - 1));
 
         if (!buttonName.startsWith("buy")) {
