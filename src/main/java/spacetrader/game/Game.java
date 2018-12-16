@@ -116,7 +116,8 @@ public class Game implements Serializable {
         this.parentWin = parentWin;
         this.difficulty = difficulty;
 
-        questSystem = QuestSystem.initializeQuestsHolder();
+        questSystem = new QuestSystem();
+        questSystem.initializeQuestsHolder();
 
         // Keep Generating a new universe until isSpecialEventsInPlace and isShipyardsInPlace return true,
         // indicating all special events and shipyards were placed.
@@ -132,7 +133,7 @@ public class Game implements Serializable {
 
         shipSpecs = Arrays.stream(Consts.ShipSpecs).map(e -> e.withId(e.getType().castToInt())).collect(Collectors.toMap(ShipSpec::getId, e -> e));
         shipSpecs.remove(ShipType.QUEST.castToInt());
-        QuestSystem.fireEvent(AFTER_SHIP_SPECS_INITIALIZED);
+        questSystem.fireEvent(AFTER_SHIP_SPECS_INITIALIZED);
 
         createShips();
 
@@ -154,7 +155,7 @@ public class Game implements Serializable {
 
         news = new News();
 
-        QuestSystem.fireEvent(EventName.AFTER_GAME_INITIALIZE);
+        questSystem.fireEvent(EventName.AFTER_GAME_INITIALIZE);
     }
 
     public static Game getCurrentGame() {
@@ -219,7 +220,7 @@ public class Game implements Serializable {
             }
         }
 
-        QuestSystem.fireEvent(EventName.ON_ARRESTED);
+        questSystem.fireEvent(EventName.ON_ARRESTED);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
@@ -1012,7 +1013,7 @@ public class Game implements Serializable {
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
 
-        QuestSystem.fireEvent(ON_CREATE_SHIP);
+        questSystem.fireEvent(ON_CREATE_SHIP);
 
     }
 
@@ -1067,7 +1068,7 @@ public class Game implements Serializable {
             showEncounter.setValue(true);
         }
 
-        QuestSystem.fireEvent(EventName.ON_DETERMINE_NON_RANDOM_ENCOUNTER, showEncounter);
+        questSystem.fireEvent(EventName.ON_DETERMINE_NON_RANDOM_ENCOUNTER, showEncounter);
 
         return showEncounter.getValue();
     }
@@ -1411,7 +1412,7 @@ public class Game implements Serializable {
         } else if (getOpponentDisabled()) {
             BooleanContainer specialShipDisabled = new BooleanContainer(false);
 
-            QuestSystem.fireEvent(ON_ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, specialShipDisabled);
+            questSystem.fireEvent(ON_ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, specialShipDisabled);
 
             if (specialShipDisabled.getValue()) {
                 result = EncounterResult.NORMAL;
@@ -1593,7 +1594,7 @@ public class Game implements Serializable {
                     setOpponentDisabled(true);
                 }
 
-                QuestSystem.fireEvent(ON_ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, defender);
+                questSystem.fireEvent(ON_ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, defender);
 
                 // Make sure the Scorpion doesn't get destroyed.
                 /*if (defender.getType() == ShipType.SCORPION && defender.getHull() == 0) {
@@ -1791,7 +1792,7 @@ public class Game implements Serializable {
         boolean attack = true;
 
         BooleanContainer cantAttackScorpion = new BooleanContainer(false);
-        QuestSystem.fireEvent(ON_ENCOUNTER_VERIFY_ATTACK, cantAttackScorpion);
+        questSystem.fireEvent(ON_ENCOUNTER_VERIFY_ATTACK, cantAttackScorpion);
 
         if (cantAttackScorpion.getValue()) {
             attack = false;
@@ -2028,7 +2029,7 @@ public class Game implements Serializable {
 
         BooleanContainer container = new BooleanContainer(false);
 
-        QuestSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN, container);
+        questSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN, container);
 
         if (container.getValue()) {
             // If princess on board and no hidden cargo bays - continue fight to die.
@@ -2061,7 +2062,7 @@ public class Game implements Serializable {
                 /*if (commander.getShip().isPrincessOnBoard()) {
                     precious.add(Strings.EncounterHidePrincess);
                 }*/
-                QuestSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_HIDDEN, precious);
+                questSystem.fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_HIDDEN, precious);
                 if (commander.getShip().isSculptureOnBoard()) {
                     precious.add(Strings.EncounterHideSculpture);
                 }
@@ -2239,7 +2240,7 @@ public class Game implements Serializable {
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
         }
 
-        QuestSystem.fireEvent(EventName.ON_ESCAPE_WITH_POD);
+        questSystem.fireEvent(EventName.ON_ESCAPE_WITH_POD);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             GuiFacade.alert(AlertType.JarekTakenHome);
@@ -2310,7 +2311,7 @@ public class Game implements Serializable {
         mercenaries.put(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5, StarSystemId.NA));
         mercenaries.put(CrewMemberId.WILD.castToInt(), new CrewMember(CrewMemberId.WILD, 7, 10, 2, 5, StarSystemId.NA));
 
-        QuestSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST);
+        questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST);
 
         // Jarek TODO remove after finish this quest
 
@@ -2770,7 +2771,7 @@ public class Game implements Serializable {
             setFabricRipProbability(getFabricRipProbability() - num);
         }
 
-        QuestSystem.fireEvent(EventName.ON_INCREMENT_DAYS);
+        questSystem.fireEvent(EventName.ON_INCREMENT_DAYS);
 
         /*if (commander.getShip().isJarekOnBoard()) {
             if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT / 2) {
@@ -2889,7 +2890,7 @@ public class Game implements Serializable {
         getUniverse()[StarSystemId.Gemulon.castToInt()].setSpecialEventType(SpecialEventType.GemulonRescued);
         getUniverse()[StarSystemId.Japori.castToInt()].setSpecialEventType(SpecialEventType.JaporiDelivery);
 
-        QuestSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
+        questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
         //getUniverse()[StarSystemId.Devidia.castToInt()].setSpecialEventType(SpecialEventType.JarekGetsOut);
         getUniverse()[StarSystemId.Utopia.castToInt()].setSpecialEventType(SpecialEventType.MoonRetirement);
         getUniverse()[StarSystemId.Nix.castToInt()].setSpecialEventType(SpecialEventType.ReactorDelivered);
@@ -2958,7 +2959,7 @@ public class Game implements Serializable {
         }
 
         if (goodUniverse) {
-            QuestSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
+            questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
         }
 
         return goodUniverse;
@@ -3465,7 +3466,7 @@ public class Game implements Serializable {
                 // These should never be the initial encounter type.
                 break;
             default:
-                QuestSystem.fireEvent(EventName.ON_GET_ENCOUNTER_TEXT_INITIAL, encounterPretext);
+                questSystem.fireEvent(EventName.ON_GET_ENCOUNTER_TEXT_INITIAL, encounterPretext);
 
         }
 
@@ -3529,7 +3530,7 @@ public class Game implements Serializable {
                     break;
             }
         } else {
-            QuestSystem.fireEvent(ON_GET_GAME_SCORE, score);
+            questSystem.fireEvent(ON_GET_GAME_SCORE, score);
         }
 
         return (getDifficultyId() + 1) * score.getModifier() * (score.getDaysMoon() * 1000 + score.getWorth()) / 250000;

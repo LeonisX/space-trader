@@ -2,7 +2,6 @@ package spacetrader.game;
 
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.IntContainer;
-import spacetrader.game.quest.QuestSystem;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.Util;
@@ -1028,7 +1027,7 @@ public class Ship extends ShipSpec implements Serializable {
         tradeItems.reverse();
 
         IntContainer intContainer = new IntContainer(getHiddenCargoBays());
-        QuestSystem.fireEvent(ON_GET_STEALABLE_CARGO, intContainer);
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_STEALABLE_CARGO, intContainer);
         int hidden = intContainer.getValue();
         /*if (isPrincessOnBoard()) {
             hidden--;
@@ -1050,7 +1049,7 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public int getTrader() {
-        return QuestSystem.affectSkills(getSkills())[SkillType.TRADER.castToInt()];
+        return Game.getCurrentGame().getQuestSystem().affectSkills(getSkills())[SkillType.TRADER.castToInt()];
     }
 
     public Weapon[] getWeapons() {

@@ -232,12 +232,13 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Commander status - Всеобщий любимец (70) under button
 * Shipyard - when new shipyard - can receive 600%
 * Save last search phase in Find form
-* QuestsSystem: non-static
 * After deal in ShipYard - alert in center of screen
 * Encounters procedures from Game to separate class???
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
 * Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
 * On sell, plunder, jettison - show goods with bold
+* After disabling can fully destroy without encounter ending
+* Sell - All button - sell only one 
 
 ### Princess
 

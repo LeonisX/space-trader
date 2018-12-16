@@ -5,7 +5,10 @@ import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.*;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.SkillType;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.guifacade.GuiFacade;
@@ -14,14 +17,13 @@ import spacetrader.util.Functions;
 
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import static spacetrader.game.Strings.newline;
+import static spacetrader.game.quest.JarekQuestPhase.Jarek;
+import static spacetrader.game.quest.JarekQuestPhase.JarekGetsOut;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
-import static spacetrader.game.quest.JarekQuestPhase.Jarek;
-import static spacetrader.game.quest.JarekQuestPhase.JarekGetsOut;
 
 class JarekQuest extends AbstractQuest {
 
@@ -200,7 +202,7 @@ class JarekQuest extends AbstractQuest {
                 jarekOnBoard = false;
                 shipBarCode = Game.getShip().getBarCode();
                 setQuestState(QuestState.FINISHED);
-                QuestSystem.unSubscribeAll(getQuest());
+                game.getQuestSystem().unSubscribeAll(getQuest());
             });
         } else {
             log.fine("skipped");

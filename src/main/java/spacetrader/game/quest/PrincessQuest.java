@@ -147,8 +147,6 @@ class PrincessQuest extends AbstractQuest {
 
     private int gameEndTypeId;
 
-    private Game game = Game.getCurrentGame();
-
     public PrincessQuest(Integer id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
         initializePhases(DIALOGS, new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
@@ -518,7 +516,7 @@ class PrincessQuest extends AbstractQuest {
                     Game.getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
                     questStatusPrincess = STATUS_PRINCESS_DONE;
                     setQuestState(QuestState.FINISHED);
-                    QuestSystem.unSubscribeAll(getQuest());
+                    game.getQuestSystem().unSubscribeAll(getQuest());
                 }
             });
         } else {

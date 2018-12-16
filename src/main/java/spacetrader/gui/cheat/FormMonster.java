@@ -10,7 +10,6 @@ import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.Phase;
-import spacetrader.game.quest.QuestSystem;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.gui.FontCollection;
 import spacetrader.gui.SpaceTraderForm;
@@ -320,7 +319,7 @@ public class FormMonster extends SpaceTraderForm {
         mercIds = ids.toArray(new Integer[0]);
 
         // Populate the quest and shipyard system ids arrays.
-        questSystems.addAll(QuestSystem.getPhasesStream()
+        questSystems.addAll(game.getQuestSystem().getPhasesStream()
                 .map(p ->
                         (null == p.getStarSystemId())
                                 ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown, p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])

@@ -4,7 +4,6 @@ import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.VeryRareEncounter;
-import spacetrader.game.quest.QuestSystem;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
@@ -162,7 +161,7 @@ public class GameCheats implements Serializable {
                     ship.setHull(Math.max(0, Math.min(ship.getHullStrength(), words.getNum1())));
                     break;
                 case Status: {
-                    QuestSystem.fireEvent(EventName.IS_CONSIDER_STATUS_CHEAT, words);
+                    game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_CHEAT, words);
 
                     switch (SomeStringsForCheatSwitch.find(words.getSecond())) {
                         case Artifact:
@@ -221,7 +220,7 @@ public class GameCheats implements Serializable {
                                     + Strings.CheatsWild + ": " + game.getQuestStatusWild() + Strings.newline;
 
                             Map<String, Integer> strings = new HashMap<>();
-                            QuestSystem.fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);
+                            game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);
 
                             text = text + strings.entrySet().stream()
                                     .map(e -> e.getKey() + ": " + e.getValue()).collect(joining(Strings.newline));

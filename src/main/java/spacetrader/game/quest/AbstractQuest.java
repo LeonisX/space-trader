@@ -27,6 +27,8 @@ import java.util.logging.Logger;
 
 public abstract class AbstractQuest implements Quest, Serializable {
 
+    Game game = Game.getCurrentGame();
+
     transient public Logger log;
 
     public int id;
@@ -74,24 +76,24 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     CrewMember registerNewSpecialCrewMember(int pilot, int fighter, int trader, int engineer) {
         CrewMember crewMember =
-                CrewMember.specialCrewMember(QuestSystem.generateSpecialCrewId(), pilot, fighter, trader, engineer);
+                CrewMember.specialCrewMember(game.getQuestSystem().generateSpecialCrewId(), pilot, fighter, trader, engineer);
         specialCrewIds.add(crewMember.getId());
-        return QuestSystem.registerNewSpecialCrewMember(crewMember, this);
+        return game.getQuestSystem().registerNewSpecialCrewMember(crewMember, this);
     }
 
     int registerNewShipSpec(ShipSpec shipSpec) {
-        return QuestSystem.registerNewShipSpec(shipSpec, this);
+        return game.getQuestSystem().registerNewShipSpec(shipSpec, this);
     }
 
     int registerNewGameEndType() {
-        return QuestSystem.registerNewGameEndType(this);
+        return game.getQuestSystem().registerNewGameEndType(this);
     }
 
     void registerNews(int count) {
         for (int i = 0; i < count; i++) {
-            int newsId = QuestSystem.generateNewsId();
+            int newsId = game.getQuestSystem().generateNewsId();
             newsIds.add(newsId);
-            QuestSystem.registerNews(newsId, quest);
+            game.getQuestSystem().registerNews(newsId, quest);
         }
     }
 
@@ -138,15 +140,15 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     void registerOperation(EventName eventName) {
-        QuestSystem.subscribe(eventName, this);
+        game.getQuestSystem().subscribe(eventName, this);
     }
 
     void unRegisterOperation(EventName eventName) {
-        QuestSystem.unSubscribe(eventName, this);
+        game.getQuestSystem().unSubscribe(eventName, this);
     }
 
     void unRegisterAllOperations() {
-        QuestSystem.unSubscribeAll(quest);
+        game.getQuestSystem().unSubscribeAll(quest);
     }
 
     @Override

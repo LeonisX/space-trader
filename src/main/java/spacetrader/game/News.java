@@ -4,7 +4,6 @@ import spacetrader.game.enums.NewsEvent;
 import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.SystemPressure;
-import spacetrader.game.quest.QuestSystem;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
@@ -29,7 +28,7 @@ public class News implements Serializable {
     }
 
     void addEventsOnArrival() {
-        QuestSystem.fireEvent(EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL);
+        Game.getCurrentGame().getQuestSystem().fireEvent(EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL);
         if (Game.getCommander().getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
             switch (Game.getCommander().getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
@@ -178,7 +177,7 @@ public class News implements Serializable {
     }
 
     private String getNewspaperText(Integer newsEventId) {
-        return (newsEventId < 1000) ? Strings.NewsEvent[newsEventId] : QuestSystem.getNewsTitle(newsEventId);
+        return (newsEventId < 1000) ? Strings.NewsEvent[newsEventId] : Game.getCurrentGame().getQuestSystem().getNewsTitle(newsEventId);
     }
 
     String getNewspapersText() {

@@ -3,7 +3,6 @@ package spacetrader.game;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.GameEndType;
 import spacetrader.game.exceptions.FutureVersionException;
-import spacetrader.game.quest.QuestSystem;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.Functions;
@@ -72,7 +71,7 @@ public class GameController implements Serializable {
     public void gameEnd() {
         mainWindow.setInGameControlsEnabled(false);
 
-        QuestSystem.fireEvent(ON_BEFORE_GAME_END);
+        game.getQuestSystem().fireEvent(ON_BEFORE_GAME_END);
 
         if (game.getEndStatus() < 1000) {
 
@@ -90,7 +89,7 @@ public class GameController implements Serializable {
             }
             GuiFacade.alert(alertType);
         } else {
-            QuestSystem.fireEvent(ON_GAME_END_ALERT);
+            game.getQuestSystem().fireEvent(ON_GAME_END_ALERT);
         }
 
         GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10), Functions
@@ -120,9 +119,9 @@ public class GameController implements Serializable {
             if (game != null) {
                 game.setParentWindow(mainWindow);
                 Game.setCurrentGame(game);
-                QuestSystem.setQuestSystem(game.getQuestSystem());
-                QuestSystem.initializeTransitionMaps();
-                QuestSystem.initializeLoggers();
+                //QuestSystem.setQuestSystem(game.getQuestSystem());
+                game.getQuestSystem().initializeTransitionMaps();
+                game.getQuestSystem().initializeLoggers();
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
                 gameController.setSaveGameDays(Game.getCommander().getDays());

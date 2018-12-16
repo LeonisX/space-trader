@@ -3,7 +3,6 @@ package spacetrader.game;
 import spacetrader.controls.Graphics;
 import spacetrader.controls.Image;
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.QuestSystem;
 import spacetrader.guifacade.GuiEngine;
 
 import java.io.Serializable;
@@ -233,7 +232,7 @@ public class ShipSpec implements Serializable {
 
     public int getImageIndex() {
         if (imageIndex == Consts.ShipImgUseDefault) {
-            return (id < 1000) ? getType().castToInt() : QuestSystem.getShipImageIndex(id);
+            return (id < 1000) ? getType().castToInt() : Game.getCurrentGame().getQuestSystem().getShipImageIndex(id);
         } else {
             return imageIndex;
         }

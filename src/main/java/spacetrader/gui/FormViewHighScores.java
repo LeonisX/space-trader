@@ -5,10 +5,10 @@ import spacetrader.controls.Label;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.game.Game;
 import spacetrader.game.HighScoreRecord;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.GameEndType;
-import spacetrader.game.quest.QuestSystem;
 import spacetrader.util.Functions;
 import spacetrader.util.IOUtils;
 import spacetrader.util.ReflectionUtils;
@@ -42,7 +42,7 @@ public class FormViewHighScores extends SpaceTraderForm {
             lblScore[2 - i].setText(Functions.formatNumber(highScores[i].getScore() / 10) + "." + highScores[i].getScore() % 10 + "%");
             String gameCompletion = highScores[i].getType() < GameEndType.QUEST.castToInt()
                     ? Strings.GameCompletionTypes[highScores[i].getType()]
-                    : QuestSystem.getGameCompletionText(highScores[i].getType());
+                    : Game.getCurrentGame().getQuestSystem().getGameCompletionText(highScores[i].getType());
             lblStatus[2 - i].setText(Functions.stringVars(Strings.HighScoreStatus, new String[]
                     {
                             gameCompletion,
