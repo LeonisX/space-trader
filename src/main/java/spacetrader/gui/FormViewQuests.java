@@ -210,7 +210,7 @@ public class FormViewQuests extends SpaceTraderForm {
             quests.add(Strings.QuestArtifact);
         }
 
-        game.getQuestSystem().fireEvent(EventName.ON_GET_QUESTS_STRINGS);
+        game.getQuestSystem().fireEvent(EventName.ON_GET_QUESTS_STRINGS, quests);
 
         /*if (Game.getShip().isJarekOnBoard()) {
             if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT) {

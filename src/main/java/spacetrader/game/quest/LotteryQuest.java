@@ -51,9 +51,13 @@ class LotteryQuest extends AbstractQuest {
 
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
-        String title = Functions.stringVars(QUESTS[0], Game.getStarSystem(getPhase(0).getStarSystemId()).getName());
-        ((ArrayList<String>) object).add(title);
-        log.fine(title);
+        if (getPhase(0).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
+            String title = Functions.stringVars(QUESTS[0], Game.getStarSystem(getPhase(0).getStarSystemId()).getName());
+            ((ArrayList<String>) object).add(title);
+            log.fine(title);
+        } else {
+            log.fine("skipped");
+        }
     }
 
     private void onAfterGameInitialize(Object object) {
