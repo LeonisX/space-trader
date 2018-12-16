@@ -230,11 +230,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Standard game, Extended game
 * What to do with ending title?? It's too long :(
 * Commander status - Всеобщий любимец (70) under button
-* Shipyard - when new shipyard - can receive 600%
 * Save last search phase in Find form
-* After deal in ShipYard - alert in center of screen
 * Encounters procedures from Game to separate class???
-* Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
 * Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
 * On sell, plunder, jettison - show goods with bold
 * After disabling can fully destroy without encounter ending
@@ -260,12 +257,18 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Jarek: even, if angry - gift computer - YES
 * Increase difficulty, depends on game difficulty (days to delivery). Don't give computer when > Normal, instead money
 
+### Shipyard
+
+* Investigate - when new shipyard - can receive 600%
+* Negative values for slots, ...
+* Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
+* After deal in ShipYard - alert in center of screen
+
 ### Monster.com
 
 * Monster.com - rename cheat, form name (not MonsterCom)
 * MonsterCom: Show only current phase of quest. CheckBox for full view (only for cheat/debug)
 * MonsterCom - second click - order reverse
-* Negative values for slots, ...
 
 ### Translate
 
