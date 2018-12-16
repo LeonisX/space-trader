@@ -225,6 +225,11 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return null;
     }
 
+    @Override
+    public Integer getShipImageIndex() {
+        return null;
+    }
+
     void showSpecialButtonIfCanBeExecuted(Object object, Phase phase) {
         if (phase.canBeExecuted()) {
             log.finest("phase `" + phase.getTitle() + "` : " + Game.getCurrentSystemId() + " ~ " + phase.getStarSystemId());

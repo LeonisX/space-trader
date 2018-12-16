@@ -63,9 +63,6 @@ enum PrincessEncounters {
 
 class PrincessQuest extends AbstractQuest {
 
-    //TODO implement
-    private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(2, 0, 60, 0);
-
     //"Ziyal", // From ST: Deep Space 9
     //"Scorpion" // dummy crew member used in opponent ship
     //PRINCESS, // = 53,
@@ -141,9 +138,12 @@ class PrincessQuest extends AbstractQuest {
 
     private int shipSpecId;
 
-    private boolean princessOnBoard;
-
     private Ship scorpion; //ShipType.SCORPION
+
+    private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(2, 0, 60, 0);
+    private static final Integer SHIP_IMAGE_INDEX = 16;
+
+    private boolean princessOnBoard;
 
     private int gameEndTypeId;
 
@@ -208,6 +208,11 @@ class PrincessQuest extends AbstractQuest {
     @Override
     public Rectangle getShipImageOffset() {
         return SHIP_IMAGE_OFFSET;
+    }
+
+    @Override
+    public Integer getShipImageIndex() {
+        return SHIP_IMAGE_INDEX;
     }
 
     private void onBeforeGameEnd(Object object) {

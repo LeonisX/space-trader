@@ -3,6 +3,7 @@ package spacetrader.game;
 import spacetrader.controls.Graphics;
 import spacetrader.controls.Image;
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.QuestSystem;
 import spacetrader.guifacade.GuiEngine;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ public class ShipSpec implements Serializable {
 
     static final long serialVersionUID = 151L;
 
+    private int id;
     private UUID barCode;
     private ShipType type = ShipType.CUSTOM;
     private Size size = Size.TINY;
@@ -81,6 +83,19 @@ public class ShipSpec implements Serializable {
         minTech = shipSpec.minTech;
         hullUpgraded = shipSpec.hullUpgraded;
         imageIndex = shipSpec.imageIndex;
+    }
+
+    public ShipSpec withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     int getSlotsCount(EquipmentType type) {
@@ -216,7 +231,11 @@ public class ShipSpec implements Serializable {
     }
 
     public int getImageIndex() {
-        return (imageIndex == Consts.ShipImgUseDefault ? getType().castToInt() : imageIndex);
+        if (imageIndex == Consts.ShipImgUseDefault) {
+            return (id < 1000) ? getType().castToInt() : QuestSystem.getShipImageIndex(id);
+        } else {
+            return imageIndex;
+        }
     }
 
     public void setImageIndex(int value) {

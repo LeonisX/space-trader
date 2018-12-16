@@ -50,4 +50,6 @@ public interface Quest {
     void initializeLogger(Quest quest);
 
     Rectangle getShipImageOffset();
+
+    Integer getShipImageIndex();
 }

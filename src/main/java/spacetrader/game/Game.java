@@ -130,7 +130,7 @@ public class Game implements Serializable {
 
         generateCrewMemberList();
 
-        shipSpecs = Arrays.stream(Consts.ShipSpecs).collect(Collectors.toMap(e -> e.getType().castToInt(), e -> e));
+        shipSpecs = Arrays.stream(Consts.ShipSpecs).map(e -> e.withId(e.getType().castToInt())).collect(Collectors.toMap(ShipSpec::getId, e -> e));
         shipSpecs.remove(ShipType.QUEST.castToInt());
         QuestSystem.fireEvent(AFTER_SHIP_SPECS_INITIALIZED);
 

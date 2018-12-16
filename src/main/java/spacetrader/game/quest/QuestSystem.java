@@ -1,5 +1,6 @@
 package spacetrader.game.quest;
 
+import spacetrader.controls.Rectangle;
 import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.ShipSpec;
@@ -26,7 +27,7 @@ public class QuestSystem implements Serializable {
 
     private Map<Integer, Quest> questMercenaries = new HashMap<>();
     private Map<Integer, Quest> questNews = new HashMap<>();
-    //private Map<Integer, Quest> questShipSpecs = new HashMap<>();
+    private Map<Integer, Quest> questShipSpecs = new HashMap<>();
     private Map<Integer, Quest> questGameEndTypes = new HashMap<>();
 
     private volatile int questCounter = 1;
@@ -83,8 +84,8 @@ public class QuestSystem implements Serializable {
 
     static int registerNewShipSpec(ShipSpec shipSpec, AbstractQuest quest) {
         int shipSpecId = generateShipSpecIdCounter();
-        Game.getCurrentGame().getShipSpecs().put(shipSpecId, shipSpec);
-        //questSystem.questShipSpecs.put(shipSpecId, quest);
+        Game.getCurrentGame().getShipSpecs().put(shipSpecId, shipSpec.withId(shipSpecId));
+        questSystem.questShipSpecs.put(shipSpecId, quest);
         return shipSpecId;
     }
 
@@ -114,6 +115,7 @@ public class QuestSystem implements Serializable {
         return questSystem.newsIdCounter++;
     }
 
+    //TODO ??? need to be used???
     static int generateEncounterId() {
         return questSystem.encounterIdCounter++;
     }
@@ -206,6 +208,14 @@ public class QuestSystem implements Serializable {
 
     public static String getGameCompletionText(int gameEndTypeId) {
         return questSystem.questGameEndTypes.get(gameEndTypeId).getGameCompletionText();
+    }
+
+    public static Integer getShipImageIndex(int shipSpecId) {
+        return questSystem.questShipSpecs.get(shipSpecId).getShipImageIndex();
+    }
+
+    public static Rectangle getShipImageOffset(int shipSpecId) {
+        return questSystem.questShipSpecs.get(shipSpecId).getShipImageOffset();
     }
 
     public static QuestSystem getQuestSystem() {

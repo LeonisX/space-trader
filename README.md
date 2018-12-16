@@ -239,11 +239,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
 * On sell, plunder, jettison - show goods with bold
 
-## JAF version
-
-* Disabled - when shields off
-* Scorpion - full shields and hull
-
 ### Princess
 
 * Full refactor of quest, write docs for all quest events (ON_...), reorder them
@@ -257,8 +252,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * v Register Girl end type
 * v Process game ending with Girl
 * v Game ending with Princess
-* Strange bug (after game loading) - Scorpion - on screen hull == 0, but I see 100%. And can't decrease, only disable.
-* Load images for Scorpion
 
 ### Jarek
 
