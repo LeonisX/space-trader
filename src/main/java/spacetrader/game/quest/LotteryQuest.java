@@ -51,21 +51,21 @@ class LotteryQuest extends AbstractQuest {
 
         localize();
         //TODO remove later
-        //dumpAllStrings();
+        dumpAllStrings();
         log.fine("started...");
     }
 
     @Override
     public void dumpAllStrings() {
         System.out.println("\n\n## Lottery Quest");
-        I18n.dumpPhase("Phases", "Phase", Arrays.stream(Phases.values()));
-        I18n.dumpHeadString("Quests", "Quest", Arrays.stream(Quests.values()));
+        I18n.dumpPhases(Arrays.stream(Phases.values()));
+        I18n.dumpStrings(Res.Quests, Arrays.stream(Quests.values()));
     }
 
     @Override
     public void localize() {
-        I18n.localizePhase("Phase", Arrays.stream(Phases.values()));
-        I18n.localizeHeadString("Quest", Arrays.stream(Quests.values()));
+        I18n.localizePhases(Arrays.stream(Phases.values()));
+        I18n.localizeStrings(Res.Quests, Arrays.stream(Quests.values()));
     }
 
     @Override

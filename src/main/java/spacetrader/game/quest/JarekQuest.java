@@ -12,7 +12,6 @@ import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
-import spacetrader.stub.StringsBundle;
 import spacetrader.util.Functions;
 
 import java.util.Arrays;
@@ -40,8 +39,8 @@ class JarekQuest extends AbstractQuest {
     }
 
     enum Quests implements SimpleValueEnum<String> {
-        QuestJarek("Take ambassador Jarek to Devidia."),
-        QuestJarekImpatient("Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.");
+        Jarek("Take ambassador Jarek to Devidia."),
+        JarekImpatient("Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.");
 
         private String value;
         Quests(String value) { this.value = value; }
@@ -125,7 +124,7 @@ class JarekQuest extends AbstractQuest {
         registerListener();
 
         //TODO remove later
-        //localize();
+        localize();
         dumpAllStrings();
         log.fine("started...");
     }
@@ -172,40 +171,25 @@ class JarekQuest extends AbstractQuest {
 
     @Override
     public void dumpAllStrings() {
-        System.out.println("\n\n\n## Jarek Quest\n\n# Phases:");
-        Arrays.stream(Phases.values()).forEach(q -> {
-            System.out.println(q.name() + "Title=" + q.getValue().getTitle());
-            System.out.println(q.name() + "Message=" + q.getValue().getMessage());
-        });
-        System.out.println("\n# Quests:");
-        Arrays.stream(Quests.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
-        System.out.println("\n# Alerts:");
-        Arrays.stream(Alerts.values()).forEach(q -> {
-            System.out.println(q.name() + "Title=" + q.getValue().getTitle());
-            System.out.println(q.name() + "Message=" + q.getValue().getMessage());
-        });
-        System.out.println("\n# News:");
-        Arrays.stream(News.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
-        System.out.println("\n# Crew Member Names:");
-        Arrays.stream(CrewNames.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
-        System.out.println("\n# Special Cargo Titles:");
-        Arrays.stream(SpecialCargo.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
-        System.out.println("\n# Cheats Titles:");
-        Arrays.stream(CheatTitles.values()).forEach(q -> System.out.println(q.name() + "=" + q.getValue()));
+        System.out.println("\n\n## Jarek Quest:");
+        I18n.dumpPhases(Arrays.stream(Phases.values()));
+        I18n.dumpStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.dumpAlerts(Arrays.stream(Alerts.values()));
+        I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
+        I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
+        I18n.dumpStrings(Res.SpecialCargo, Arrays.stream(SpecialCargo.values()));
+        I18n.dumpStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
 
     @Override
     public void localize() {
-        StringsBundle strings = GlobalAssets.getStrings();
-
-        Arrays.stream(Phases.values()).forEach(q ->
-                q.setValue(new QuestDialog(q.getValue().getMessageType(), strings.get(q.name() + "Title"), strings.get(q.name() + "Message"))));
-        Arrays.stream(CrewNames.values()).forEach(q -> q.setValue(strings.get(q.name())));
-        Arrays.stream(SpecialCargo.values()).forEach(q -> q.setValue(strings.get(q.name())));
-        Arrays.stream(CheatTitles.values()).forEach(q -> q.setValue(strings.get(q.name())));
-        Arrays.stream(Quests.values()).forEach(q -> q.setValue(strings.get(q.name())));
-        Arrays.stream(Alerts.values()).forEach(q ->
-                q.setValue(new AlertDialog(strings.get(q.name() + "Title"), strings.get(q.name() + "Message"))));
+        I18n.localizePhases(Arrays.stream(Phases.values()));
+        I18n.localizeStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.localizeAlerts(Arrays.stream(Alerts.values()));
+        I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
+        I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
+        I18n.localizeStrings(Res.SpecialCargo, Arrays.stream(SpecialCargo.values()));
+        I18n.localizeStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
 
     @Override
@@ -373,11 +357,11 @@ class JarekQuest extends AbstractQuest {
     private void onGetQuestsStrings(Object object) {
         if (jarekOnBoard) {
             if (questStatusJarek == STATUS_JAREK_IMPATIENT) {
-                ((ArrayList<String>) object).add(Quests.QuestJarekImpatient.getValue());
-                log.fine(Quests.QuestJarekImpatient.getValue());
+                ((ArrayList<String>) object).add(Quests.JarekImpatient.getValue());
+                log.fine(Quests.JarekImpatient.getValue());
             } else {
-                ((ArrayList<String>) object).add(Quests.QuestJarek.getValue());
-                log.fine(Quests.QuestJarek.getValue());
+                ((ArrayList<String>) object).add(Quests.Jarek.getValue());
+                log.fine(Quests.Jarek.getValue());
             }
         } else {
             log.fine("skipped");
