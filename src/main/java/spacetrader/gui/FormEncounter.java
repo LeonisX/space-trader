@@ -1,6 +1,6 @@
 package spacetrader.gui;
 
-import spacetrader.Encounter;
+import spacetrader.game.Encounter;
 import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Graphics;

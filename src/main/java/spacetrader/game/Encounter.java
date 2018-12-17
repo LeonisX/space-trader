@@ -1,7 +1,6 @@
-package spacetrader;
+package spacetrader.game;
 
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.game.*;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.StringContainer;
@@ -1539,7 +1538,7 @@ public class Encounter implements Serializable {
 
         String internal = Functions.stringVars(encounterPretext.getValue(), game.getOpponent().getName().toLowerCase());
 
-        return Functions.stringVars(Functions.pluralWoNumber(2, Strings.EncounterText), new String[]{
+        return Functions.stringVars(Strings.EncounterText, new String[]{
                 Functions.plural(game.getClicks(), Strings.DistanceSubunit), game.getWarpSystem().getName(), internal});
     }
 

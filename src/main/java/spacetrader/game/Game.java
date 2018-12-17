@@ -1,6 +1,5 @@
 package spacetrader.game;
 
-import spacetrader.Encounter;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.GameCheats;
