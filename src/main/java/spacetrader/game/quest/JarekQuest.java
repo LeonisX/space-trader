@@ -104,7 +104,7 @@ class JarekQuest extends AbstractQuest {
     private static final int OCCURRENCE = 1;
     private static final int CASH_TO_SPEND = 0;
 
-    private int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
+    private volatile int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
     private CrewMember jarek;
     private boolean jarekOnBoard;
@@ -123,9 +123,6 @@ class JarekQuest extends AbstractQuest {
 
         registerListener();
 
-        //TODO remove later
-        localize();
-        dumpAllStrings();
         log.fine("started...");
     }
 

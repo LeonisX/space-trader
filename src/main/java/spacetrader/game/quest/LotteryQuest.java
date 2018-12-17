@@ -49,9 +49,6 @@ class LotteryQuest extends AbstractQuest {
 
         registerListener();
 
-        localize();
-        //TODO remove later
-        dumpAllStrings();
         log.fine("started...");
     }
 

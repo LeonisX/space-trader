@@ -228,9 +228,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## TODO
 
 * Localize quests on start, change language
-* Refactor Jarek
-* Implement Princess
+* On load resources - need to pluralize as in reflection utils. Problem in encounter (Scorpion)
+* Very strange bug - sometimes quest status doesn't increase. Probably - questStatusPrincess doesn't initialize after loading
 * Detailed test all quests with 2 languages 
+* Rename current resources
 
 
 * Standard game, Extended game
@@ -241,6 +242,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * On sell, plunder, jettison - show goods with bold
 * After disabling can fully destroy without encounter ending
 * Sell - add goods to planet
+* Find system - buttons do not fit
 
 ### Princess
 
@@ -266,8 +268,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Investigate - when new shipyard - can receive 600%
 * Negative values for slots, ...
+* Manual set value in slot (without check)
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
 * After deal in ShipYard - alert in center of screen
+* After Shipyard Fuel tanks don't change capacity (manual changed to 34)
 
 ### Monster.com
 

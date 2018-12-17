@@ -1,16 +1,11 @@
 package spacetrader.util;
 
-import spacetrader.game.*;
-import spacetrader.game.enums.AlertType;
-import spacetrader.gui.SpaceTrader;
-import spacetrader.guifacade.GuiFacade;
+import spacetrader.game.Game;
+import spacetrader.game.GlobalAssets;
+import spacetrader.game.StarSystem;
+import spacetrader.game.Strings;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.*;
-import java.util.prefs.Preferences;
 
 import static java.util.stream.Collectors.toList;
 

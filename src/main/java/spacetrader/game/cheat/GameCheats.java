@@ -79,7 +79,7 @@ public class GameCheats implements Serializable {
                     break;
                 case Go:
                     game.setSelectedSystemByName(words.getSecond());
-                    if (game.getSelectedSystem().getName().toLowerCase().equals(words.getSecond().toLowerCase())) {
+                    if (game.getSelectedSystem() != null && game.getSelectedSystem().getName().toLowerCase().equals(words.getSecond().toLowerCase())) {
                         controller.autoSaveOnDeparture();
 
                         game.warpDirect();

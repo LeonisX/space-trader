@@ -13,6 +13,8 @@ enum Res {
     Quests("Quest clues", "Quest"),
     Alerts("Alerts", "Alert"),
     News("News", "News"),
+    Encounters("Encounters", "Encounter"),
+    GameEndings("Game Endings", "GameEnding"),
     CrewNames("Crew Member Names", "CrewName"),
     SpecialCargo("Special Cargo Titles", "SpecialCargo"),
     CheatTitles("Cheat Titles", "Cheat");
