@@ -648,9 +648,10 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        Optional<Phase> activePhase = phases.values().stream().filter(Phase::canBeExecuted).findFirst();
+        Optional<Phases> activePhase =
+                phases.entrySet().stream().filter(p -> p.getValue().canBeExecuted()).map(Map.Entry::getKey).findFirst();
         if (activePhase.isPresent()) {
-            showDialogAndProcessResult(object, Phases.Princess.getValue(), () -> activePhase.get().successFlow());
+            showDialogAndProcessResult(object, activePhase.get().getValue(), () -> phases.get(activePhase.get()).successFlow());
         } else {
             log.fine("skipped");
         }
@@ -800,8 +801,6 @@ class PrincessQuest extends AbstractQuest implements Serializable {
                 ", scorpion=" + scorpion +
                 ", princessOnBoard=" + princessOnBoard +
                 ", gameEndTypeId=" + gameEndTypeId +
-                ", id=" + id +
-                '}';
+                "} " + super.toString();
     }
 }
-

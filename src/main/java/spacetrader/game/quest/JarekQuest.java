@@ -31,9 +31,20 @@ class JarekQuest extends AbstractQuest {
         JarekGetsOut(new QuestDialog(ALERT, "Jarek Gets Out", "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment."));
 
         private QuestDialog value;
-        Phases(QuestDialog value) { this.value = value; }
-        @Override public QuestDialog getValue() { return value; }
-        @Override public void setValue(QuestDialog value) { this.value = value; }
+
+        Phases(QuestDialog value) {
+            this.value = value;
+        }
+
+        @Override
+        public QuestDialog getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(QuestDialog value) {
+            this.value = value;
+        }
     }
 
     private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
@@ -43,9 +54,20 @@ class JarekQuest extends AbstractQuest {
         JarekImpatient("Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.");
 
         private String value;
-        Quests(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        Quests(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
@@ -54,43 +76,98 @@ class JarekQuest extends AbstractQuest {
         JarekTakenHome("Jarek Taken Home", "The Space Corps decides to give ambassador Jarek a lift home to Devidia.");
 
         private AlertDialog value;
-        Alerts(String title, String body) { this.value = new AlertDialog(title, body); }
-        @Override public AlertDialog getValue() { return value; }
-        @Override public void setValue(AlertDialog value) { this.value = value; }
+
+        Alerts(String title, String body) {
+            this.value = new AlertDialog(title, body);
+        }
+
+        @Override
+        public AlertDialog getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(AlertDialog value) {
+            this.value = value;
+        }
     }
 
     enum News implements SimpleValueEnum<String> {
         AmbassadorJarekReturnsFromCrisis("Ambassador Jarek Returns from Crisis.");
 
         private String value;
-        News(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        News(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum CrewNames implements SimpleValueEnum<String> {
         Jarek("Jarek");
 
         private String value;
-        CrewNames(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        CrewNames(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum SpecialCargo implements SimpleValueEnum<String> {
         HagglingComputer("A haggling computer.");
         private String value;
-        SpecialCargo(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        SpecialCargo(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum CheatTitles implements SimpleValueEnum<String> {
         Jarek("Jarek");
         private String value;
-        CheatTitles(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        CheatTitles(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     // Constants
@@ -246,6 +323,21 @@ class JarekQuest extends AbstractQuest {
         }
 
         @Override
+        public void successFlow() {
+            log.fine("phase #1");
+            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
+                GuiFacade.alert(AlertType.SpecialNoQuarters);
+            } else {
+                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
+                Game.getShip().hire(jarek);
+                jarekOnBoard = true;
+                questStatusJarek = STATUS_JAREK_STARTED;
+                setQuestState(QuestState.ACTIVE);
+                Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+            }
+        }
+
+        @Override
         public String toString() {
             return "JarekPhase{} " + super.toString();
         }
@@ -258,41 +350,31 @@ class JarekQuest extends AbstractQuest {
         }
 
         @Override
+        public void successFlow() {
+            log.fine("phase #2");
+            questStatusJarek = STATUS_JAREK_DONE;
+            Game.getShip().fire(jarek.getId());
+            jarekOnBoard = false;
+            shipBarCode = Game.getShip().getBarCode();
+            setQuestState(QuestState.FINISHED);
+            game.getQuestSystem().unSubscribeAll(getQuest());
+        }
+
+        @Override
         public String toString() {
             return "JarekGetsOutPhase{} " + super.toString();
         }
     }
 
     private void onSpecialButtonClicked(Object object) {
-        if (phases.get(Phases.Jarek).canBeExecuted()) {
-            log.fine("phase #1");
-            showDialogAndProcessResult(object, Phases.Jarek.getValue(), () -> {
-                if (Game.getShip().getFreeCrewQuartersCount() == 0) {
-                    GuiFacade.alert(AlertType.SpecialNoQuarters);
-                } else {
-                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
-                    Game.getShip().hire(jarek);
-                    jarekOnBoard = true;
-                    questStatusJarek = STATUS_JAREK_STARTED;
-                    setQuestState(QuestState.ACTIVE);
-                    Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-                }
-            });
-        } else if (phases.get(Phases.JarekGetsOut).canBeExecuted() && isQuestIsActive()) {
-            log.fine("phase #2");
-            showDialogAndProcessResult(object, Phases.JarekGetsOut.getValue(), () -> {
-                questStatusJarek = STATUS_JAREK_DONE;
-                Game.getShip().fire(jarek.getId());
-                jarekOnBoard = false;
-                shipBarCode = Game.getShip().getBarCode();
-                setQuestState(QuestState.FINISHED);
-                game.getQuestSystem().unSubscribeAll(getQuest());
-            });
+        Optional<Phases> activePhase =
+                phases.entrySet().stream().filter(p -> p.getValue().canBeExecuted()).map(Map.Entry::getKey).findFirst();
+        if (activePhase.isPresent()) {
+            showDialogAndProcessResult(object, activePhase.get().getValue(), () -> phases.get(activePhase.get()).successFlow());
         } else {
             log.fine("skipped");
         }
     }
-
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
@@ -389,6 +471,7 @@ class JarekQuest extends AbstractQuest {
             log.fine("skipped");
         }
     }
+
 
     @Override
     public String toString() {
