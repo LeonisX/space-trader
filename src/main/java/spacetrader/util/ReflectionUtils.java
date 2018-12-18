@@ -11,8 +11,10 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.lang.reflect.Field;
-import java.util.*;
-import java.util.List;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class ReflectionUtils {
 
@@ -64,7 +66,7 @@ public class ReflectionUtils {
                     if (object instanceof String) {
                         String value = stringsBundle.getString(name);
                         if (value != null) {
-                            field.set(strings, detectPlural(value, pluralMap));
+                            field.set(strings, Functions.detectPlural(value));
                         }
                     } else if (object instanceof String[]) {
                         String[] array = (String[]) object;
@@ -72,7 +74,7 @@ public class ReflectionUtils {
                             String fieldName = name + "[" + i + "]";
                             String value = stringsBundle.getString(fieldName);
                             if (value != null) {
-                                array[i] = detectPlural(value, pluralMap);
+                                array[i] = Functions.detectPlural(value);
                             }
                         }
                     } else if (object instanceof String[][]) {
@@ -82,7 +84,7 @@ public class ReflectionUtils {
                                 String fieldName = name + "[" + j + "]" + "[" + i + "]";
                                 String value = stringsBundle.getString(fieldName);
                                 if (value != null) {
-                                    array[j][i] = detectPlural(value, pluralMap);
+                                    array[j][i] = Functions.detectPlural(value);
                                 }
                             }
                         }
@@ -99,17 +101,7 @@ public class ReflectionUtils {
         }
     }
 
-    private static String detectPlural(String string, Map<String, String> pluralMap) {
-        if (string.isEmpty()) {
-            return string;
-        }
-        List<String> chunks = Functions.splitString(string);
-        String singular = chunks.remove(0);
-        for (int i = 0; i < chunks.size(); i++) {
-            pluralMap.put(singular + (i + 2), chunks.get(i));
-        }
-        return singular;
-    }
+
 
     public static void setAllComponentNames(Object obj) {
         try {
