@@ -66,7 +66,7 @@ public class ReflectionUtils {
                     if (object instanceof String) {
                         String value = stringsBundle.getString(name);
                         if (value != null) {
-                            field.set(strings, Functions.detectPlural(value));
+                            field.set(strings, Functions.detectPlural(pluralMap, value));
                         }
                     } else if (object instanceof String[]) {
                         String[] array = (String[]) object;
@@ -74,7 +74,7 @@ public class ReflectionUtils {
                             String fieldName = name + "[" + i + "]";
                             String value = stringsBundle.getString(fieldName);
                             if (value != null) {
-                                array[i] = Functions.detectPlural(value);
+                                array[i] = Functions.detectPlural(pluralMap, value);
                             }
                         }
                     } else if (object instanceof String[][]) {
@@ -84,7 +84,7 @@ public class ReflectionUtils {
                                 String fieldName = name + "[" + j + "]" + "[" + i + "]";
                                 String value = stringsBundle.getString(fieldName);
                                 if (value != null) {
-                                    array[j][i] = Functions.detectPlural(value);
+                                    array[j][i] = Functions.detectPlural(pluralMap, value);
                                 }
                             }
                         }

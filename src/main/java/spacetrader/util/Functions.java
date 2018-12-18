@@ -107,14 +107,14 @@ public class Functions {
         return (index > 0) ? Optional.ofNullable(Strings.pluralMap.get(singular + index)).orElse(singular) : singular;
     }
 
-    public static String detectPlural(String string) {
+    public static String detectPlural(Map<String, String> pluralMap, String string) {
         if (string.isEmpty()) {
             return string;
         }
         List<String> chunks = Functions.splitString(string);
         String singular = chunks.remove(0);
         for (int i = 0; i < chunks.size(); i++) {
-            Strings.pluralMap.put(singular + (i + 2), chunks.get(i));
+            pluralMap.put(singular + (i + 2), chunks.get(i));
         }
         return singular;
     }

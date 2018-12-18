@@ -604,6 +604,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         ReflectionUtils.loadControlsStrings(getFrame(), getName(), GlobalAssets.getStrings());
         ReflectionUtils.loadStrings(GlobalAssets.getStrings());
 
+        if (game != null) {
+            game.getQuestSystem().localizeQuests();
+        }
+
         updateAll();
     }
 

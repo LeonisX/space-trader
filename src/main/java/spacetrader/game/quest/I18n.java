@@ -1,6 +1,7 @@
 package spacetrader.game.quest;
 
 import spacetrader.game.GlobalAssets;
+import spacetrader.game.Strings;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.stub.StringsBundle;
 import spacetrader.util.Functions;
@@ -75,7 +76,7 @@ class I18n {
 
     static void localizeStrings(Res resource, Stream<SimpleValueEnum<String>> values) {
         StringsBundle strings = GlobalAssets.getStrings();
-        values.forEach(v -> v.setValue(Functions.detectPlural(strings.get(getHead(resource.getPrefix(), v.name())))));
+        values.forEach(v -> v.setValue(Functions.detectPlural(Strings.pluralMap, strings.get(getHead(resource.getPrefix(), v.name())))));
     }
 
     private static String getHeadTitleValue(String prefix, String key, String value) {

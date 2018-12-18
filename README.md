@@ -227,14 +227,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Localize quests on start, change language
-* On load resources - need to pluralize as in reflection utils. Problem in encounter (Scorpion)
 * Detailed test all quests with 2 languages 
 * Rename current resources
-* Commander status - truncated window sometimes
+* Commander status, Find system - truncated window sometimes
 
 
-* Standard game, Extended game
 * What to do with ending title?? It's too long :(
 * Commander status - Всеобщий любимец (70) under button
 * Save last search phase in Find form
@@ -242,7 +239,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * On sell, plunder, jettison - show goods with bold
 * After disabling can fully destroy without encounter ending
 * Sell - add goods to planet
-* Find system - buttons do not fit
 
 ### Princess
 
@@ -286,6 +282,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * FormMonsterMenuItem, ChestsMenu -> Strings, languages
 * FileDialogs - hide translation logs
 * FormTests, FormAlertTests - refactor, translate
+* На растоянии 1 клик от системы...
 
 ### Other
 
@@ -331,6 +328,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## Far perspectives
 
 * ~~Quests engine~~
+* Standard game, Extended game
 * JavaFX UI
 * Full-windowed
 * Site

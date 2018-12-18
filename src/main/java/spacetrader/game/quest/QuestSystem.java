@@ -250,8 +250,7 @@ public class QuestSystem implements Serializable {
                 '}';
     }
 
-    //TODO localize manual too.
-    public void localizeQuests(Quest quest) {
-        quest.localize();
+    public void localizeQuests() {
+        quests.values().forEach(Quest::localize);
     }
 }

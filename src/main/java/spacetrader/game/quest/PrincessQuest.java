@@ -177,8 +177,6 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         registerListener();
 
         localize();
-        //TODO remove later
-        //dumpAllStrings();
 
         log.fine("started...");
     }
