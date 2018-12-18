@@ -127,7 +127,7 @@ class LotteryQuest extends AbstractQuest {
     private void onSpecialButtonClicked(Object object) {
         log.fine("");
         if (phases.get(Phases.LotteryWinner).canBeExecuted() && isQuestIsActive()) {
-            showDialogAndProcessResult(object, Phases.LotteryWinner.getValue(), LotteryQuest.this::unRegisterAllOperations);
+            showDialogAndProcessResult(object, Phases.LotteryWinner.getValue(), () -> phases.get(Phases.LotteryWinner).successFlow());
             setQuestState(QuestState.FINISHED);
             log.fine("executed");
         } else {
@@ -141,6 +141,11 @@ class LotteryQuest extends AbstractQuest {
         public boolean canBeExecuted() {
             return Game.isCurrentSystemIs(getStarSystemId())
                     && (Game.getDifficultyId() < Difficulty.NORMAL.castToInt());
+        }
+
+        @Override
+        public void successFlow() {
+            unRegisterAllOperations();
         }
 
         @Override
