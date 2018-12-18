@@ -37,9 +37,20 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         PrincessQuantum(new QuestDialog(DIALOG, "Quantum Disruptor", "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?"));
 
         private QuestDialog value;
-        Phases(QuestDialog value) { this.value = value; }
-        @Override public QuestDialog getValue() { return value; }
-        @Override public void setValue(QuestDialog value) { this.value = value; }
+
+        Phases(QuestDialog value) {
+            this.value = value;
+        }
+
+        @Override
+        public QuestDialog getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(QuestDialog value) {
+            this.value = value;
+        }
     }
 
     private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
@@ -55,9 +66,20 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         PrincessQuantum("Get your Quantum Disruptor at Galvon.");
 
         private String value;
-        Quests(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        Quests(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
@@ -68,9 +90,20 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         GameEndBoughtMoonGirl("You Have Retired with the Princess", "");
 
         private AlertDialog value;
-        Alerts(String title, String body) { this.value = new AlertDialog(title, body); }
-        @Override public AlertDialog getValue() { return value; }
-        @Override public void setValue(AlertDialog value) { this.value = value; }
+
+        Alerts(String title, String body) {
+            this.value = new AlertDialog(title, body);
+        }
+
+        @Override
+        public AlertDialog getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(AlertDialog value) {
+            this.value = value;
+        }
     }
 
     enum News implements SimpleValueEnum<String> {
@@ -82,9 +115,20 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         PrincessReturned("Beloved Royal Returns Home!");
 
         private String value;
-        News(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        News(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum Encounters implements SimpleValueEnum<String> {
@@ -93,18 +137,40 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         HidePrincess("the Princess");
 
         private String value;
-        Encounters(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        Encounters(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum GameEndings implements SimpleValueEnum<String> {
         ClaimedMoonWithPrincess("Claimed moon with Princess");
 
         private String value;
-        GameEndings(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        GameEndings(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum CrewNames implements SimpleValueEnum<String> {
@@ -112,37 +178,58 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         Scorpion("Scorpion");
 
         private String value;
-        CrewNames(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        CrewNames(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     enum CheatTitles implements SimpleValueEnum<String> {
         Princess("Princess");
 
         private String value;
-        CheatTitles(String value) { this.value = value; }
-        @Override public String getValue() { return value; }
-        @Override public void setValue(String value) { this.value = value; }
+
+        CheatTitles(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
-    //TODO switch to phases
     // Constants
-    private final static int STATUS_PRINCESS_NOT_STARTED = 0;
-    private final static int STATUS_PRINCESS_FLY_CENTAURI = 1;
-    private final static int STATUS_PRINCESS_FLY_INTHARA = 2;
-    private final static int STATUS_PRINCESS_FLY_QONOS = 3;
+    private final static int STATUS_NOT_STARTED = 0;
+    private final static int STATUS_FLY_CENTAURI = 1;
+    private final static int STATUS_FLY_INTHARA = 2;
+    private final static int STATUS_FLY_QONOS = 3;
     private final static int STATUS_PRINCESS_RESCUED = 4;
     private final static int STATUS_PRINCESS_IMPATIENT = 14;
     private final static int STATUS_PRINCESS_RETURNED = 15;
-    private final static int STATUS_PRINCESS_DONE = 16;
+    private final static int STATUS_DONE = 16;
 
     private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 1;
     private static final int CASH_TO_SPEND = 0;
 
-    private volatile int questStatusPrincess = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara, 3 =
-    // Go to Qonos, 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
+    private int questStatus = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara,
+    // 3 = Go to Qonos, 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
 
     private CrewMember princess;
     private CrewMember scorpionCrew;
@@ -266,8 +353,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onBeforeGameEnd(Object object) {
-        if (game.getEndStatus() == GameEndType.BOUGHT_MOON.castToInt()
-                && questStatusPrincess >= STATUS_PRINCESS_RETURNED) {
+        if (game.getEndStatus() == GameEndType.BOUGHT_MOON.castToInt() && questStatus >= STATUS_PRINCESS_RETURNED) {
             game.setEndStatus(gameEndTypeId);
         }
     }
@@ -314,7 +400,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onDetermineNonRandomEncounter(Object object) {
-        if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatusPrincess == STATUS_PRINCESS_FLY_QONOS) {
+        if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatus == STATUS_FLY_QONOS) {
             game.setOpponent(scorpion);
             game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
@@ -343,7 +429,6 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onEncounterVerifyAttack(Object object) {
-        //if (game.getOpponent().getType() == ShipType.SCORPION
         if (game.getOpponent().getBarCode() == scorpion.getBarCode()
                 && Game.getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
@@ -352,34 +437,26 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onEncounterExecuteAttackKeepSpecialShip(Object object) {
-        // Make sure the Scorpion doesn't get destroyed.
         Ship defender = ((Ship) object);
-        //if (defender.getType() == ShipType.SCORPION && defender.getHull() == 0) {
         if (defender.getBarCode() == scorpion.getBarCode() && defender.getHull() == 0) {
-            defender.setHull(1);
+            defender.setHull(1); // Make sure the Scorpion doesn't get destroyed.
             game.setOpponentDisabled(true);
         }
     }
 
     private void onEncounterExecuteActionOpponentDisabled(Object object) {
-/*        switch (game.getOpponent().getType()) {
-            case SCORPION:*/
         if (game.getOpponent().getBarCode() == scorpion.getBarCode()) {
-                Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
-                Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
-                questStatusPrincess = STATUS_PRINCESS_RESCUED;
+            Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
+            Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
+            questStatus = STATUS_PRINCESS_RESCUED;
 
-                GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), Encounters.PrincessRescued.getValue());
+            GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), Encounters.PrincessRescued.getValue());
 
-                Game.getCommander().setReputationScore(
-                        //TODO getOpponent().getType() == 16
-                        Game.getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
-                ((BooleanContainer) object).setValue(true);
+            Game.getCommander().setReputationScore(
+                    //TODO getOpponent().getType() == 16
+                    Game.getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
+            ((BooleanContainer) object).setValue(true);
         }
-    }
-
-    @Override
-    public void affectSkills(int[] skills) {
     }
 
     @Override
@@ -437,7 +514,14 @@ class PrincessQuest extends AbstractQuest implements Serializable {
             return !princessOnBoard && isDesiredSystem()
                     && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
                     && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage
-                    && questStatusPrincess == STATUS_PRINCESS_NOT_STARTED;
+                    && questStatus == STATUS_NOT_STARTED;
+        }
+
+        @Override
+        public void successFlow() {
+            log.fine("phase #" + Phases.Princess);
+            questStatus = STATUS_FLY_CENTAURI;
+            setQuestState(QuestState.ACTIVE);
         }
 
         @Override
@@ -450,8 +534,14 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem()
-                    && questStatusPrincess == STATUS_PRINCESS_FLY_CENTAURI;
+            return !princessOnBoard && isDesiredSystem() && questStatus == STATUS_FLY_CENTAURI;
+        }
+
+        @Override
+        public void successFlow() {
+            log.fine("phase #" + Phases.PrincessCentauri);
+            questStatus = STATUS_FLY_INTHARA;
+            game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
         }
 
         @Override
@@ -464,8 +554,14 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem()
-                    && questStatusPrincess == STATUS_PRINCESS_FLY_INTHARA;
+            return !princessOnBoard && isDesiredSystem() && questStatus == STATUS_FLY_INTHARA;
+        }
+
+        @Override
+        public void successFlow() {
+            log.fine("phase #" + Phases.PrincessInthara);
+            questStatus = STATUS_FLY_QONOS;
+            game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
         }
 
         @Override
@@ -478,8 +574,22 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem()
-                    && questStatusPrincess == STATUS_PRINCESS_RESCUED;
+            return !princessOnBoard && isDesiredSystem() && questStatus == STATUS_PRINCESS_RESCUED;
+        }
+
+        @Override
+        public void successFlow() {
+            log.fine("phase #" + Phases.PrincessQonos);
+            //TODO where does the princess go? need to test this case.
+            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
+                GuiFacade.alert(AlertType.SpecialNoQuarters);
+            } else {
+                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, princess.getName());
+                Game.getShip().hire(princess);
+                princessOnBoard = true;
+                questStatus = STATUS_PRINCESS_RESCUED;
+                game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+            }
         }
 
         @Override
@@ -492,9 +602,16 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public boolean canBeExecuted() {
-            return princessOnBoard && isDesiredSystem()
-                    && questStatusPrincess >= STATUS_PRINCESS_RESCUED
-                    && questStatusPrincess <= STATUS_PRINCESS_IMPATIENT;
+            return princessOnBoard && isDesiredSystem() && questStatus >= STATUS_PRINCESS_RESCUED
+                    && questStatus <= STATUS_PRINCESS_IMPATIENT;
+        }
+
+        @Override
+        public void successFlow() {
+            log.fine("phase #" + Phases.PrincessReturned);
+            questStatus = STATUS_PRINCESS_RETURNED;
+            Game.getShip().fire(princess.getId());
+            princessOnBoard = false;
         }
 
         @Override
@@ -507,8 +624,21 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem()
-                    && questStatusPrincess == STATUS_PRINCESS_RETURNED;
+            return !princessOnBoard && isDesiredSystem() && questStatus == STATUS_PRINCESS_RETURNED;
+        }
+
+        @Override
+        public void successFlow() {
+            log.fine("phase #" + Phases.PrincessQuantum);
+            if (Game.getShip().getFreeWeaponSlots() == 0) {
+                GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
+            } else {
+                GuiFacade.alert(AlertType.EquipmentQuantumDisruptor);
+                Game.getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
+                questStatus = STATUS_DONE;
+                setQuestState(QuestState.FINISHED);
+                game.getQuestSystem().unSubscribeAll(getQuest());
+            }
         }
 
         @Override
@@ -518,58 +648,9 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        if (phases.get(Phases.Princess).canBeExecuted()) {
-            log.fine("phase #" + Phases.Princess);
-            showDialogAndProcessResult(object, Phases.Princess.getValue(), () -> {
-                questStatusPrincess = STATUS_PRINCESS_FLY_CENTAURI;
-                setQuestState(QuestState.ACTIVE);
-            });
-        } else if (phases.get(Phases.PrincessCentauri).canBeExecuted()) {
-            log.fine("phase #" + Phases.PrincessCentauri);
-            showDialogAndProcessResult(object, Phases.PrincessCentauri.getValue(), () -> {
-                questStatusPrincess = STATUS_PRINCESS_FLY_INTHARA;
-                game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-            });
-        } else if (phases.get(Phases.PrincessInthara).canBeExecuted()) {
-            log.fine("phase #" + Phases.PrincessInthara);
-            showDialogAndProcessResult(object, Phases.PrincessInthara.getValue(), () -> {
-                questStatusPrincess = STATUS_PRINCESS_FLY_QONOS;
-                game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-            });
-        } else if (phases.get(Phases.PrincessQonos).canBeExecuted()) {
-            log.fine("phase #" + Phases.PrincessQonos);
-            showDialogAndProcessResult(object, Phases.PrincessQonos.getValue(), () -> {
-                //TODO where does the princess go? need to test this case.
-                if (Game.getShip().getFreeCrewQuartersCount() == 0) {
-                    GuiFacade.alert(AlertType.SpecialNoQuarters);
-                } else {
-                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, princess.getName());
-                    Game.getShip().hire(princess);
-                    princessOnBoard = true;
-                    questStatusPrincess = STATUS_PRINCESS_RESCUED;
-                    game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-                }
-            });
-        } else if (phases.get(Phases.PrincessReturned).canBeExecuted()) {
-            log.fine("phase #" + Phases.PrincessReturned);
-            showDialogAndProcessResult(object, Phases.PrincessReturned.getValue(), () -> {
-                questStatusPrincess = STATUS_PRINCESS_RETURNED;
-                Game.getShip().fire(princess.getId());
-                princessOnBoard = false;
-            });
-        } else if (phases.get(Phases.PrincessQuantum).canBeExecuted() && isQuestIsActive()) {
-            log.fine("phase #" + Phases.PrincessQuantum);
-            showDialogAndProcessResult(object, Phases.PrincessQuantum.getValue(), () -> {
-                if (Game.getShip().getFreeWeaponSlots() == 0) {
-                    GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                } else {
-                    GuiFacade.alert(AlertType.EquipmentQuantumDisruptor);
-                    Game.getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
-                    questStatusPrincess = STATUS_PRINCESS_DONE;
-                    setQuestState(QuestState.FINISHED);
-                    game.getQuestSystem().unSubscribeAll(getQuest());
-                }
-            });
+        Optional<Phase> activePhase = phases.values().stream().filter(Phase::canBeExecuted).findFirst();
+        if (activePhase.isPresent()) {
+            showDialogAndProcessResult(object, Phases.Princess.getValue(), () -> activePhase.get().successFlow());
         } else {
             log.fine("skipped");
         }
@@ -578,7 +659,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getSecond().equals(CheatTitles.Princess.getValue())) {
-            questStatusPrincess = Math.max(0, cheatWords.getNum2());
+            questStatus = Math.max(0, cheatWords.getNum2());
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {
@@ -589,14 +670,14 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     @SuppressWarnings("unchecked")
     private void onIsConsiderDefaultCheat(Object object) {
         log.fine("");
-        ((Map<String, Integer>) object).put(CheatTitles.Princess.getValue(), questStatusPrincess);
+        ((Map<String, Integer>) object).put(CheatTitles.Princess.getValue(), questStatus);
     }
 
     private void onArrested(Object object) {
         if (princessOnBoard) {
             log.fine("Arrested + Princess");
             showAlert(Alerts.PrincessTakenHome.getValue());
-            questStatusPrincess = STATUS_PRINCESS_NOT_STARTED;
+            questStatus = STATUS_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
             log.fine("Arrested w/o Princess");
@@ -607,7 +688,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         if (princessOnBoard) {
             log.fine("Escaped + Princess");
             showAlert(Alerts.PrincessTakenHome.getValue());
-            questStatusPrincess = STATUS_PRINCESS_NOT_STARTED;
+            questStatus = STATUS_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
             log.fine("Escaped w/o Princess");
@@ -616,10 +697,10 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private void onIncrementDays(Object object) {
         if (princessOnBoard) {
-            log.fine(questStatusPrincess + "");
-            if (questStatusPrincess == (STATUS_PRINCESS_IMPATIENT + STATUS_PRINCESS_RESCUED) / 2) {
+            log.fine(questStatus + "");
+            if (questStatus == (STATUS_PRINCESS_IMPATIENT + STATUS_PRINCESS_RESCUED) / 2) {
                 showAlert(Alerts.SpecialPassengerConcernedPrincess.getValue());
-            } else if (questStatusPrincess == STATUS_PRINCESS_IMPATIENT - 1) {
+            } else if (questStatus == STATUS_PRINCESS_IMPATIENT - 1) {
                 showAlert(Alerts.SpecialPassengerImpatientPrincess.getValue());
                 princess.setPilot(0);
                 princess.setFighter(0);
@@ -627,8 +708,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
                 princess.setEngineer(0);
             }
 
-            if (questStatusPrincess < STATUS_PRINCESS_IMPATIENT) {
-                questStatusPrincess++;
+            if (questStatus < STATUS_PRINCESS_IMPATIENT) {
+                questStatus++;
             }
         } else {
             log.fine("skipped");
@@ -637,80 +718,90 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
-        switch (questStatusPrincess) {
-            case STATUS_PRINCESS_FLY_CENTAURI:
-                ((ArrayList<String>) object).add(Quests.PrincessCentauri.getValue());
-                log.fine(Quests.PrincessCentauri.getValue());
+        ArrayList<String> questStrings = (ArrayList<String>) object;
+        String result = null;
+
+        switch (questStatus) {
+            case STATUS_FLY_CENTAURI:
+                result = Quests.PrincessCentauri.getValue();
                 break;
-            case STATUS_PRINCESS_FLY_INTHARA:
-                ((ArrayList<String>) object).add(Quests.PrincessInthara.getValue());
-                log.fine(Quests.PrincessInthara.getValue());
+            case STATUS_FLY_INTHARA:
+                result = Quests.PrincessInthara.getValue();
                 break;
-            case STATUS_PRINCESS_FLY_QONOS:
-                ((ArrayList<String>) object).add(Quests.PrincessQonos.getValue());
-                log.fine(Quests.PrincessQonos.getValue());
+            case STATUS_FLY_QONOS:
+                result = Quests.PrincessQonos.getValue();
                 break;
+            case STATUS_PRINCESS_IMPATIENT:
             case STATUS_PRINCESS_RESCUED:
                 if (princessOnBoard) {
-                    if (questStatusPrincess == STATUS_PRINCESS_IMPATIENT) {
-                        ((ArrayList<String>) object).add(Functions.stringVars(
-                                Quests.PrincessReturningImpatient.getValue(), CrewNames.Ziyal.getValue()));
-                        log.fine(Functions.stringVars(
-                                Quests.PrincessReturningImpatient.getValue(), CrewNames.Ziyal.getValue()));
+                    if (questStatus == STATUS_PRINCESS_IMPATIENT) {
+                        result = Functions.stringVars(Quests.PrincessReturningImpatient.getValue(), CrewNames.Ziyal.getValue());
                     } else {
-                        ((ArrayList<String>) object).add(Functions.stringVars(
-                                Quests.PrincessReturning.getValue(), CrewNames.Ziyal.getValue()));
-                        log.fine(Functions.stringVars(
-                                Quests.PrincessReturning.getValue(), CrewNames.Ziyal.getValue()));
+                        result = Functions.stringVars(Quests.PrincessReturning.getValue(), CrewNames.Ziyal.getValue());
                     }
                 } else {
-                    ((ArrayList<String>) object).add(Functions.stringVars(
-                            Quests.PrincessReturn.getValue(), CrewNames.Ziyal.getValue()));
-                    log.fine(Functions.stringVars(
-                            Quests.PrincessReturn.getValue(), CrewNames.Ziyal.getValue()));
+                    result = Functions.stringVars(Quests.PrincessReturn.getValue(), CrewNames.Ziyal.getValue());
                 }
                 break;
             case STATUS_PRINCESS_RETURNED:
-                ((ArrayList<String>) object).add(Quests.PrincessQuantum.getValue());
-                log.fine(Quests.PrincessQuantum.getValue());
+                result = Quests.PrincessQuantum.getValue();
                 break;
             default:
                 log.fine("skipped");
         }
+
+        if (result != null) {
+            questStrings.add(result);
+            log.fine(result);
+        }
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        if (questStatusPrincess == STATUS_PRINCESS_NOT_STARTED && Game.isCurrentSystemIs(StarSystemId.Galvon)) {
-            log.fine("" + getNewsIds().get(News.Princess.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.Princess.ordinal()));
-        } else if (questStatusPrincess == STATUS_PRINCESS_FLY_CENTAURI) {
-            log.fine("" + getNewsIds().get(News.PrincessCentauri.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.PrincessCentauri.ordinal()));
-        } else if (questStatusPrincess == STATUS_PRINCESS_FLY_INTHARA) {
-            log.fine("" + getNewsIds().get(News.PrincessInthara.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.PrincessInthara.ordinal()));
-        } else if (questStatusPrincess == STATUS_PRINCESS_FLY_QONOS) {
-            log.fine("" + getNewsIds().get(News.PrincessQonos.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.PrincessQonos.ordinal()));
-        } else if (questStatusPrincess == STATUS_PRINCESS_RESCUED) {
-            log.fine("" + getNewsIds().get(News.PrincessRescued.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.PrincessRescued.ordinal()));
-        } else if (questStatusPrincess == STATUS_PRINCESS_RETURNED) {
-            log.fine("" + getNewsIds().get(News.PrincessReturned.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.PrincessReturned.ordinal()));
-        } else {
-            log.fine("skipped");
+        News result = null;
+
+        switch (questStatus) {
+            case STATUS_NOT_STARTED:
+                if (Game.isCurrentSystemIs(StarSystemId.Galvon)) {
+                    result = News.Princess;
+                }
+                break;
+            case STATUS_FLY_CENTAURI:
+                result = News.PrincessCentauri;
+                break;
+            case STATUS_FLY_INTHARA:
+                result = News.PrincessInthara;
+                break;
+            case STATUS_FLY_QONOS:
+                result = News.PrincessQonos;
+                break;
+            case STATUS_PRINCESS_RESCUED:
+                result = News.PrincessRescued;
+                break;
+            case STATUS_PRINCESS_RETURNED:
+                result = News.PrincessReturned;
+                break;
+            default:
+                log.fine("skipped");
+        }
+
+        if (result != null) {
+            log.fine("" + getNewsIds().get(result.ordinal()));
+            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
         }
     }
 
     @Override
     public String toString() {
         return "PrincessQuest{" +
-                "questStatusPrincess=" + questStatusPrincess +
+                "questStatus=" + questStatus +
                 ", princess=" + princess +
                 ", scorpionCrew=" + scorpionCrew +
-                ", princessOnBoard=" + princessOnBoard +
+                ", shipSpecId=" + shipSpecId +
                 ", scorpion=" + scorpion +
-                "} " + super.toString();
+                ", princessOnBoard=" + princessOnBoard +
+                ", gameEndTypeId=" + gameEndTypeId +
+                ", id=" + id +
+                '}';
     }
 }
+
