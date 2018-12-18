@@ -227,18 +227,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Don't use questStatusPrincess
+* Implement current phase, refactor quests - link news, quests, ... with current phase
 * Detailed test all quests with 2 languages 
 * Rename current resources
-* Commander status, Find system - truncated window sometimes
-
-
-* What to do with ending title?? It's too long :(
-* Commander status - Всеобщий любимец (70) under button
-* Save last search phase in Find form
-* Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
-* On sell, plunder, jettison - show goods with bold
-* After disabling can fully destroy without encounter ending
-* Sell - add goods to planet
 
 ### Princess
 
@@ -301,6 +293,9 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Show in Cargo planet names (target)
 * Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
+* On sell, plunder, jettison - show goods with bold
+* Sell - add goods to planet
+* Save last search phase in Find form
 
 ## Known bugs:
 
@@ -310,6 +305,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,
 * When fire mercenary - he disappears forever
 * 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
+* Commander status, Find system - truncated window sometimes
+* What to do with ending title?? It's too long :(
+* Commander status - Всеобщий любимец (70) under button
+* Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
+* After disabling can fully destroy without encounter ending
 
 ## Regressions:
 
