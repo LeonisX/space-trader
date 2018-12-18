@@ -4,6 +4,7 @@ import spacetrader.controls.Rectangle;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.QuestState;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -31,11 +32,7 @@ public interface Quest {
 
     Consumer<Object> getOperation(EventName eventName);
 
-    List<Phase> getPhases();
-
-    Phase getPhase(int index);
-
-    void setPhases(List<Phase> phases);
+    Collection<Phase> getPhases();
 
     String getNewsTitle(int newsId);
 

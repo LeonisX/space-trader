@@ -5,11 +5,12 @@ import spacetrader.game.enums.Difficulty;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
-import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
-import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
 
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
@@ -17,17 +18,18 @@ import static spacetrader.game.quest.enums.Repeatable.DISPOSABLE;
 
 class LotteryQuest extends AbstractQuest {
 
-    enum Phases implements SimpleValueEnumWithPhase<QuestDialog> {
+    static final long serialVersionUID = -4731305242511501L;
+
+    enum Phases implements SimpleValueEnum<QuestDialog> {
         LotteryWinner(new QuestDialog(ALERT, "Lottery Winner", "You are lucky! While docking on the space port, you receive a message that you won 1000 credits in a lottery. The prize had been added to your account."));
 
         private QuestDialog value;
-        private Phase phase;
         Phases(QuestDialog value) { this.value = value; }
         @Override public QuestDialog getValue() { return value; }
         @Override public void setValue(QuestDialog value) { this.value = value; }
-        @Override public Phase getPhase() { return phase; }
-        @Override public void setPhase(Phase phase) {this.phase = phase; }
     }
+
+    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
 
     enum Quests implements SimpleValueEnum<String> {
         LotteryWinner("Get a prize at the ^1 spaceport.");
@@ -49,7 +51,19 @@ class LotteryQuest extends AbstractQuest {
 
         registerListener();
 
+        localize();
+        //TODO remove later
+        //dumpAllStrings();
+
         log.fine("started...");
+    }
+
+    private void initializePhases(Phases[] values, Phase... phases) {
+        for (int i = 0; i < phases.length; i++) {
+            this.phases.put(values[i], phases[i]);
+            phases[i].setQuest(this);
+            phases[i].setPhaseEnum(values[i]);
+        }
     }
 
     @Override
@@ -75,6 +89,11 @@ class LotteryQuest extends AbstractQuest {
     }
 
     @Override
+    public Collection<Phase> getPhases() {
+        return phases.values();
+    }
+
+    @Override
     public void registerListener() {
         getTransitionMap().keySet().forEach(this::registerOperation);
         log.fine("registered");
@@ -82,8 +101,8 @@ class LotteryQuest extends AbstractQuest {
 
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
-        if (getPhase(0).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
-            String title = Functions.stringVars(Quests.LotteryWinner.getValue(), Game.getStarSystem(getPhase(0).getStarSystemId()).getName());
+        if (phases.get(Phases.LotteryWinner).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
+            String title = Functions.stringVars(Quests.LotteryWinner.getValue(), Game.getStarSystem(phases.get(Phases.LotteryWinner).getStarSystemId()).getName());
             ((ArrayList<String>) object).add(title);
             log.fine(title);
         } else {
@@ -93,12 +112,12 @@ class LotteryQuest extends AbstractQuest {
 
     private void onAfterGameInitialize(Object object) {
         log.fine("");
-        getPhase(0).setStarSystemId(Game.getCurrentSystemId());
+        phases.get(Phases.LotteryWinner).setStarSystemId(Game.getCurrentSystemId());
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
-        log.fine(Game.getCurrentSystemId() + " ~ " + getPhase(0).getStarSystemId());
-        if (getPhase(0).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
+        log.fine(Game.getCurrentSystemId() + " ~ " + phases.get(Phases.LotteryWinner).getStarSystemId());
+        if (phases.get(Phases.LotteryWinner).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
             log.fine("executed");
             setQuestState(QuestState.ACTIVE);
             showSpecialButton(object, Phases.LotteryWinner.getValue().getTitle());
@@ -109,7 +128,7 @@ class LotteryQuest extends AbstractQuest {
 
     private void onSpecialButtonClicked(Object object) {
         log.fine("");
-        if (getPhase(0).canBeExecuted() && isQuestIsActive()) {
+        if (phases.get(Phases.LotteryWinner).canBeExecuted() && isQuestIsActive()) {
             showDialogAndProcessResult(object, Phases.LotteryWinner.getValue(), LotteryQuest.this::unRegisterAllOperations);
             setQuestState(QuestState.FINISHED);
             log.fine("executed");

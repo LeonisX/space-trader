@@ -11,23 +11,24 @@ import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
-import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.*;
 
 import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-class PrincessQuest extends AbstractQuest {
+class PrincessQuest extends AbstractQuest implements Serializable {
 
-    enum Phases implements SimpleValueEnumWithPhase<QuestDialog> {
+    static final long serialVersionUID = -4731305242511503L;
+
+    enum Phases implements SimpleValueEnum<QuestDialog> {
         Princess(new QuestDialog(ALERT, "Kidnapped", "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.")),
         PrincessCentauri(new QuestDialog(ALERT, "Aggressive Ship", "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara.")),
         PrincessInthara(new QuestDialog(ALERT, "Dangerous Scorpion", "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next.")),
@@ -36,13 +37,12 @@ class PrincessQuest extends AbstractQuest {
         PrincessQuantum(new QuestDialog(DIALOG, "Quantum Disruptor", "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?"));
 
         private QuestDialog value;
-        private Phase phase;
         Phases(QuestDialog value) { this.value = value; }
         @Override public QuestDialog getValue() { return value; }
         @Override public void setValue(QuestDialog value) { this.value = value; }
-        @Override public Phase getPhase() { return phase; }
-        @Override public void setPhase(Phase phase) {this.phase = phase; }
     }
+
+    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
 
     enum Quests implements SimpleValueEnum<String> {
         PrincessCentauri("Follow the Scorpion to Centauri."),
@@ -176,13 +176,19 @@ class PrincessQuest extends AbstractQuest {
 
         registerListener();
 
-
         localize();
         //TODO remove later
-        dumpAllStrings();
-
+        //dumpAllStrings();
 
         log.fine("started...");
+    }
+
+    private void initializePhases(PrincessQuest.Phases[] values, Phase... phases) {
+        for (int i = 0; i < phases.length; i++) {
+            this.phases.put(values[i], phases[i]);
+            phases[i].setQuest(this);
+            phases[i].setPhaseEnum(values[i]);
+        }
     }
 
     @Override
@@ -219,6 +225,11 @@ class PrincessQuest extends AbstractQuest {
         getTransitionMap().put(ON_BEFORE_GAME_END, this::onBeforeGameEnd);
         getTransitionMap().put(ON_GAME_END_ALERT, this::onGameEndAlert);
         getTransitionMap().put(ON_GET_GAME_SCORE, this::onGetGameScore);
+    }
+
+    @Override
+    public Collection<Phase> getPhases() {
+        return phases.values();
     }
 
     @Override
@@ -312,7 +323,6 @@ class PrincessQuest extends AbstractQuest {
         }
     }
 
-    //TODO test
     private void onGetStealableCargo(Object object) {
         if (princessOnBoard) {
             ((IntContainer) object).setValue(((IntContainer) object).getValue() - 1);
@@ -394,21 +404,21 @@ class PrincessQuest extends AbstractQuest {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Galvon);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        Phases.Princess.getPhase().setStarSystemId(starSystem.getId());
-        Phases.PrincessReturned.getPhase().setStarSystemId(starSystem.getId());
-        Phases.PrincessQuantum.getPhase().setStarSystemId(starSystem.getId());
+        phases.get(Phases.Princess).setStarSystemId(starSystem.getId());
+        phases.get(Phases.PrincessReturned).setStarSystemId(starSystem.getId());
+        phases.get(Phases.PrincessQuantum).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Centauri);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        Phases.PrincessCentauri.getPhase().setStarSystemId(starSystem.getId());
+        phases.get(Phases.PrincessCentauri).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Inthara);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        Phases.PrincessInthara.getPhase().setStarSystemId(starSystem.getId());
+        phases.get(Phases.PrincessInthara).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Qonos);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        Phases.PrincessQonos.getPhase().setStarSystemId(starSystem.getId());
+        phases.get(Phases.PrincessQonos).setStarSystemId(starSystem.getId());
     }
 
     private void onGenerateCrewMemberList(Object object) {
@@ -418,7 +428,7 @@ class PrincessQuest extends AbstractQuest {
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
-        getPhases().forEach(phase -> showSpecialButtonIfCanBeExecuted(object, phase));
+        phases.forEach((key, value) -> showSpecialButtonIfCanBeExecuted(object, value));
     }
 
     //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
@@ -510,25 +520,25 @@ class PrincessQuest extends AbstractQuest {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        if (Phases.Princess.getPhase().canBeExecuted()) {
+        if (phases.get(Phases.Princess).canBeExecuted()) {
             log.fine("phase #" + Phases.Princess);
             showDialogAndProcessResult(object, Phases.Princess.getValue(), () -> {
                 questStatusPrincess = STATUS_PRINCESS_FLY_CENTAURI;
                 setQuestState(QuestState.ACTIVE);
             });
-        } else if (Phases.PrincessCentauri.getPhase().canBeExecuted()) {
+        } else if (phases.get(Phases.PrincessCentauri).canBeExecuted()) {
             log.fine("phase #" + Phases.PrincessCentauri);
             showDialogAndProcessResult(object, Phases.PrincessCentauri.getValue(), () -> {
                 questStatusPrincess = STATUS_PRINCESS_FLY_INTHARA;
                 game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
             });
-        } else if (Phases.PrincessInthara.getPhase().canBeExecuted()) {
+        } else if (phases.get(Phases.PrincessInthara).canBeExecuted()) {
             log.fine("phase #" + Phases.PrincessInthara);
             showDialogAndProcessResult(object, Phases.PrincessInthara.getValue(), () -> {
                 questStatusPrincess = STATUS_PRINCESS_FLY_QONOS;
                 game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
             });
-        } else if (Phases.PrincessQonos.getPhase().canBeExecuted()) {
+        } else if (phases.get(Phases.PrincessQonos).canBeExecuted()) {
             log.fine("phase #" + Phases.PrincessQonos);
             showDialogAndProcessResult(object, Phases.PrincessQonos.getValue(), () -> {
                 //TODO where does the princess go? need to test this case.
@@ -542,14 +552,14 @@ class PrincessQuest extends AbstractQuest {
                     game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
                 }
             });
-        } else if (Phases.PrincessReturned.getPhase().canBeExecuted()) {
+        } else if (phases.get(Phases.PrincessReturned).canBeExecuted()) {
             log.fine("phase #" + Phases.PrincessReturned);
             showDialogAndProcessResult(object, Phases.PrincessReturned.getValue(), () -> {
                 questStatusPrincess = STATUS_PRINCESS_RETURNED;
                 Game.getShip().fire(princess.getId());
                 princessOnBoard = false;
             });
-        } else if (Phases.PrincessQuantum.getPhase().canBeExecuted() && isQuestIsActive()) {
+        } else if (phases.get(Phases.PrincessQuantum).canBeExecuted() && isQuestIsActive()) {
             log.fine("phase #" + Phases.PrincessQuantum);
             showDialogAndProcessResult(object, Phases.PrincessQuantum.getValue(), () -> {
                 if (Game.getShip().getFreeWeaponSlots() == 0) {
@@ -706,4 +716,3 @@ class PrincessQuest extends AbstractQuest {
                 "} " + super.toString();
     }
 }
-

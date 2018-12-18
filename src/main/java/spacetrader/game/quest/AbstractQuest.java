@@ -34,8 +34,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
     private int cashToSpend;
     private int occurrence;
 
-    private List<Phase> phases = new ArrayList<>();
-
     private QuestState questState;
 
     private List<Integer> specialCrewIds = new ArrayList<>();
@@ -56,18 +54,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
         initializeLogger(quest);
         //TODO return
         //quest.localize();
-    }
-
-    void initializePhases(SimpleValueEnumWithPhase<QuestDialog>[] values, Phase... phases) {
-        for (int i = 0; i < phases.length; i++) {
-            phases[i].setId(i);
-            phases[i].setQuestPhase(values[i]);
-            phases[i].setQuest(quest);
-            //TODO need???
-            phases[i].setPhaseId(id + i);
-            getPhases().add(phases[i]);
-            values[i].setPhase(phases[i]);
-        }
     }
 
     public void initializeLogger(Quest quest) {
@@ -153,21 +139,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     void unRegisterAllOperations() {
         game.getQuestSystem().unSubscribeAll(quest);
-    }
-
-    @Override
-    public List<Phase> getPhases() {
-        return phases;
-    }
-
-    @Override
-    public Phase getPhase(int index) {
-        return phases.get(index);
-    }
-
-    @Override
-    public void setPhases(List<Phase> phases) {
-        this.phases = phases;
     }
 
     public List<Integer> getSpecialCrewIds() {
@@ -297,7 +268,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
                 ", repeatable=" + repeatable +
                 ", cashToSpend=" + cashToSpend +
                 ", occurrence=" + occurrence +
-                ", phases=" + phases +
+                //", phases=" + phases +
                 ", questState=" + questState +
                 //", specialCrewId=" + specialCrewId +
                 ", newsIds=" + newsIds +

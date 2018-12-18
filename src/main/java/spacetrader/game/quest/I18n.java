@@ -2,7 +2,6 @@ package spacetrader.game.quest;
 
 import spacetrader.game.GlobalAssets;
 import spacetrader.game.quest.enums.SimpleValueEnum;
-import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
 import spacetrader.stub.StringsBundle;
 
 import java.util.stream.Stream;
@@ -38,7 +37,7 @@ enum Res {
 
 class I18n {
 
-    static void dumpPhases(Stream<SimpleValueEnumWithPhase<QuestDialog>> phases) {
+    static void dumpPhases(Stream<SimpleValueEnum<QuestDialog>> phases) {
 
         System.out.println(String.format("\n# %s:", Res.Phases.getTitle()));
         phases.forEach(phase -> {
@@ -60,7 +59,7 @@ class I18n {
         });
     }
 
-    static void localizePhases(Stream<SimpleValueEnumWithPhase<QuestDialog>> phases) {
+    static void localizePhases(Stream<SimpleValueEnum<QuestDialog>> phases) {
         StringsBundle strings = GlobalAssets.getStrings();
         phases.forEach(p -> p.setValue(new QuestDialog(p.getValue().getMessageType(),
                 strings.get(getHeadTitle(Res.Phases.getPrefix(), p.name())), strings.get(getHeadMessage(Res.Phases.getPrefix(), p.name())))));

@@ -1,6 +1,9 @@
 package spacetrader.game.quest;
 
-import spacetrader.game.*;
+import spacetrader.game.Consts;
+import spacetrader.game.CrewMember;
+import spacetrader.game.Game;
+import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SkillType;
@@ -9,14 +12,10 @@ import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
-import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
 import spacetrader.guifacade.GuiFacade;
-import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.enums.EventName.*;
@@ -25,18 +24,19 @@ import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
 class JarekQuest extends AbstractQuest {
 
-    enum Phases implements SimpleValueEnumWithPhase<QuestDialog> {
+    static final long serialVersionUID = -4731305242511502L;
+
+    enum Phases implements SimpleValueEnum<QuestDialog> {
         Jarek(new QuestDialog(DIALOG, "Ambassador Jarek", "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?")),
         JarekGetsOut(new QuestDialog(ALERT, "Jarek Gets Out", "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment."));
 
         private QuestDialog value;
-        private Phase phase;
         Phases(QuestDialog value) { this.value = value; }
         @Override public QuestDialog getValue() { return value; }
         @Override public void setValue(QuestDialog value) { this.value = value; }
-        @Override public Phase getPhase() { return phase; }
-        @Override public void setPhase(Phase phase) {this.phase = phase; }
     }
+
+    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
 
     enum Quests implements SimpleValueEnum<String> {
         Jarek("Take ambassador Jarek to Devidia."),
@@ -123,7 +123,20 @@ class JarekQuest extends AbstractQuest {
 
         registerListener();
 
+        localize();
+        //TODO remove later
+        //dumpAllStrings();
+
         log.fine("started...");
+    }
+
+
+    private void initializePhases(Phases[] values, Phase... phases) {
+        for (int i = 0; i < phases.length; i++) {
+            this.phases.put(values[i], phases[i]);
+            phases[i].setQuest(this);
+            phases[i].setPhaseEnum(values[i]);
+        }
     }
 
     @Override
@@ -142,6 +155,11 @@ class JarekQuest extends AbstractQuest {
         getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
         getTransitionMap().put(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
+    }
+
+    @Override
+    public Collection<Phase> getPhases() {
+        return phases.values();
     }
 
     private boolean isHagglingComputerOnBoard() {
@@ -198,7 +216,7 @@ class JarekQuest extends AbstractQuest {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Devidia);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        Phases.JarekGetsOut.getPhase().setStarSystemId(starSystem.getId());
+        phases.get(Phases.JarekGetsOut).setStarSystemId(starSystem.getId());
     }
 
     private void onAssignEventsRandomly(Object object) {
@@ -208,8 +226,8 @@ class JarekQuest extends AbstractQuest {
         } while (Game.getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
 
         Game.getStarSystem(system).setSpecialEventType(SpecialEventType.ASSIGNED);
-        Phases.Jarek.getPhase().setStarSystemId(Game.getStarSystem(system).getId());
-        log.fine(Phases.Jarek.getPhase().getStarSystemId().toString());
+        phases.get(Phases.Jarek).setStarSystemId(Game.getStarSystem(system).getId());
+        log.fine(phases.get(Phases.Jarek).getStarSystemId().toString());
     }
 
     private void onGenerateCrewMemberList(Object object) {
@@ -248,7 +266,7 @@ class JarekQuest extends AbstractQuest {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        if (Phases.Jarek.getPhase().canBeExecuted()) {
+        if (phases.get(Phases.Jarek).canBeExecuted()) {
             log.fine("phase #1");
             showDialogAndProcessResult(object, Phases.Jarek.getValue(), () -> {
                 if (Game.getShip().getFreeCrewQuartersCount() == 0) {
@@ -262,7 +280,7 @@ class JarekQuest extends AbstractQuest {
                     Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
                 }
             });
-        } else if (Phases.JarekGetsOut.getPhase().canBeExecuted() && isQuestIsActive()) {
+        } else if (phases.get(Phases.JarekGetsOut).canBeExecuted() && isQuestIsActive()) {
             log.fine("phase #2");
             showDialogAndProcessResult(object, Phases.JarekGetsOut.getValue(), () -> {
                 questStatusJarek = STATUS_JAREK_DONE;

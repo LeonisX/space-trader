@@ -229,9 +229,9 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Localize quests on start, change language
 * On load resources - need to pluralize as in reflection utils. Problem in encounter (Scorpion)
-* Very strange bug - sometimes quest status doesn't increase. Probably - questStatusPrincess doesn't initialize after loading
 * Detailed test all quests with 2 languages 
 * Rename current resources
+* Commander status - truncated window sometimes
 
 
 * Standard game, Extended game

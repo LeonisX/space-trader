@@ -2,25 +2,23 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Game;
 import spacetrader.game.enums.StarSystemId;
-import spacetrader.game.quest.enums.SimpleValueEnumWithPhase;
+import spacetrader.game.quest.enums.SimpleValueEnum;
 
 import java.io.Serializable;
 
 public abstract class Phase implements Serializable {
 
-    //TODO need???
-    private int id;
-    //TODO need???
-    private int phaseId;
-
     private StarSystemId starSystemId;
 
     private Quest quest;
-    private SimpleValueEnumWithPhase<QuestDialog> questPhase;
+
+    private SimpleValueEnum<QuestDialog> phase;
 
     public String getTitle() {
-        return questPhase.getValue().getTitle();
+        return phase.getValue().getTitle();
     }
+
+    public abstract boolean canBeExecuted();
 
     public boolean isDesiredSystem() {
         return Game.isCurrentSystemIs(starSystemId);
@@ -34,16 +32,6 @@ public abstract class Phase implements Serializable {
         this.starSystemId = starSystemId;
     }
 
-    public abstract boolean canBeExecuted();
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Quest getQuest() {
         return quest;
     }
@@ -52,28 +40,14 @@ public abstract class Phase implements Serializable {
         this.quest = quest;
     }
 
-    public int getPhaseId() {
-        return phaseId;
-    }
-
-    public void setPhaseId(int phaseId) {
-        this.phaseId = phaseId;
+    void setPhaseEnum(SimpleValueEnum<QuestDialog> phaseEnum) {
+        this.phase = phaseEnum;
     }
 
     @Override
     public String toString() {
         return "Phase{" +
-                "id=" + id +
-                ", phaseId=" + phaseId +
                 ", starSystemId=" + starSystemId +
                 '}';
-    }
-
-    public SimpleValueEnumWithPhase<QuestDialog> getQuestPhase() {
-        return questPhase;
-    }
-
-    public void setQuestPhase(SimpleValueEnumWithPhase<QuestDialog> questPhase) {
-        this.questPhase = questPhase;
     }
 }
