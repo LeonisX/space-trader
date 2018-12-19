@@ -247,7 +247,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ### Jarek
 
 * Jarek: on arrested, escapePod - fail quest, no second try. What interesting - when arrest - Jarek will stay
-* Jarek: even, if angry - gift computer - YES
 * Increase difficulty, depends on game difficulty (days to delivery). Don't give computer when > Normal, instead money
 
 ### Shipyard
@@ -267,16 +266,15 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Translate
 
-* Translate all quests
+* ~~Translate all quests~~
 * FormInput, FormViewCommander translate
-* FormMonsterMenuItem, ChestsMenu -> Strings, languages
+* FormMonsterMenuItem, CheatsMenu -> Strings, languages
 * FileDialogs - hide translation logs
 * FormTests, FormAlertTests - refactor, translate
 * На растоянии 1 клик от системы...
 
 ### Other
 
-* Buy/Sell equipment - CheckBox, which offers all equipment in debug/cheat modes
 * Different image sizes, font sizes (config)
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
@@ -294,6 +292,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * On sell, plunder, jettison - show goods with bold
 * Sell - add goods to planet
 * Save last search phase in Find form
+* Buy/Sell equipment - CheckBox, which offers all equipment in debug/cheat modes
 
 ## Known bugs:
 
