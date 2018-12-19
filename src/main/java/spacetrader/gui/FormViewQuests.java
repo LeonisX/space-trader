@@ -220,13 +220,13 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }*/
 
-        if (Game.getShip().isWildOnBoard()) {
+        /*if (Game.getShip().isWildOnBoard()) {
             if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT) {
                 quests.add(Strings.QuestWildImpatient);
             } else {
                 quests.add(Strings.QuestWild);
             }
-        }
+        }*/
 
         if (Game.getShip().getTribbles() > 0) {
             quests.add(Strings.QuestTribbles);

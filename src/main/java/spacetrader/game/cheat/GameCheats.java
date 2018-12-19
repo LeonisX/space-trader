@@ -200,9 +200,9 @@ public class GameCheats implements Serializable {
                         case SpaceMonster:
                             game.setQuestStatusSpaceMonster(Math.max(0, words.getNum2()));
                             break;
-                        case Wild:
+                        /*case Wild:
                             game.setQuestStatusWild(Math.max(0, words.getNum2()));
-                            break;
+                            break;*/
                         default:
 
                             String text = Strings.CheatsArtifact + ": " + game.getQuestStatusArtifact() + Strings.newline
@@ -217,7 +217,7 @@ public class GameCheats implements Serializable {
                                     + Strings.CheatsScarab + ": " + game.getQuestStatusScarab() + Strings.newline
                                     + Strings.CheatsSculpture + ": " + game.getQuestStatusSculpture() + Strings.newline
                                     + Strings.CheatsSpaceMonster + ": " + game.getQuestStatusSpaceMonster() + Strings.newline
-                                    + Strings.CheatsWild + ": " + game.getQuestStatusWild() + Strings.newline;
+                                    /*+ Strings.CheatsWild + ": " + game.getQuestStatusWild() + Strings.newline*/;
 
                             Map<String, Integer> strings = new HashMap<>();
                             game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);

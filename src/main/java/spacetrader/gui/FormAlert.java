@@ -589,10 +589,10 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsSpecialPassengerConcernedPrincessTitle,
                         AlertsSpecialPassengerConcernedPrincessMessage, AlertsOk, DialogResult.OK,
                         null, DialogResult.NONE, args);*/
-            case SpecialPassengerConcernedWild:
+            /*case SpecialPassengerConcernedWild:
                 return new FormAlert(AlertsSpecialPassengerConcernedWildTitle,
                         AlertsSpecialPassengerConcernedWildMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
+                        DialogResult.OK, null, DialogResult.NONE, args);*/
             /*case SpecialPassengerImpatientJarek:
                 return new FormAlert(AlertsSpecialPassengerImpatientJarekTitle,
                         AlertsSpecialPassengerImpatientJarekMessage, AlertsOk,
@@ -601,9 +601,9 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsSpecialPassengerImpatientPrincessTitle,
                         AlertsSpecialPassengerImpatientPrincessMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);*/
-            case SpecialPassengerImpatientWild:
+            /*case SpecialPassengerImpatientWild:
                 return new FormAlert(AlertsSpecialPassengerImpatientWildTitle, AlertsSpecialPassengerImpatientWildMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
+                        DialogResult.OK, null, DialogResult.NONE, args);*/
             case SpecialPassengerOnBoard:
                 return new FormAlert(AlertsSpecialPassengerOnBoardTitle, AlertsSpecialPassengerOnBoardMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -659,7 +659,7 @@ public class FormAlert extends SpaceTraderForm {
             case TribblesTradeIn:
                 return new FormAlert(AlertsTribblesTradeInTitle, AlertsTribblesTradeInMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildArrested:
+            /*case WildArrested:
                 return new FormAlert(AlertsWildArrestedTitle, AlertsWildArrestedMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
             case WildChatsPirates:
@@ -685,7 +685,7 @@ public class FormAlert extends SpaceTraderForm {
                         AlertsWildWontStayAboardLaserAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);
             case WildWontStayAboardReactor:
                 return new FormAlert(AlertsWildWontStayAboardReactorTitle, AlertsWildWontStayAboardReactorMessage,
-                        AlertsWildWontStayAboardReactorAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);
+                        AlertsWildWontStayAboardReactorAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);*/
             default:
                 throw new IllegalArgumentException("Unknown AlertType: " + type);
         }

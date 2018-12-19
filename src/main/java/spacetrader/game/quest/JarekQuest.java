@@ -27,11 +27,10 @@ class JarekQuest extends AbstractQuest {
     static final long serialVersionUID = -4731305242511502L;
 
     // Constants
-    //TODO switch to phases
-    private final static int STATUS_JAREK_NOT_STARTED = 0;
-    private final static int STATUS_JAREK_STARTED = 1;
-    private final static int STATUS_JAREK_IMPATIENT = 11;
-    private final static int STATUS_JAREK_DONE = 12;
+    private static final int STATUS_JAREK_NOT_STARTED = 0;
+    private static final int STATUS_JAREK_STARTED = 1;
+    private static final int STATUS_JAREK_IMPATIENT = 11;
+    private static final int STATUS_JAREK_DONE = 12;
 
     private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 1;

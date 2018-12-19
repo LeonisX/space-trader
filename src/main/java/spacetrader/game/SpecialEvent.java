@@ -75,10 +75,10 @@ public class SpecialEvent {
     public final static int STATUS_SPACE_MONSTER_DESTROYED = 2;
     public final static int STATUS_SPACE_MONSTER_DONE = 3;
 
-    public final static int STATUS_WILD_NOT_STARTED = 0;
+    /*public final static int STATUS_WILD_NOT_STARTED = 0;
     public final static int STATUS_WILD_STARTED = 1;
     public final static int STATUS_WILD_IMPATIENT = 11;
-    public final static int STATUS_WILD_DONE = 12;
+    public final static int STATUS_WILD_DONE = 12;*/
 
     private SpecialEventType type;
     private int price;

@@ -44,7 +44,7 @@ public enum SomeStringsForCheatSwitch {
     Scarab,
     Sculpture,
     SpaceMonster,
-    Wild,
+    //Wild,
     Swag,
     Test,
     Tool,

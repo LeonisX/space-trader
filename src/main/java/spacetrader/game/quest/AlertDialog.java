@@ -4,12 +4,18 @@ import java.io.Serializable;
 
 public class AlertDialog implements Serializable {
 
-    private String title;
-    private String message;
+    private final String title;
+    private final String message;
+    private final String accept;
 
-    public AlertDialog(String title, String message) {
+    AlertDialog(String title, String message) {
+        this(title, message, null);
+    }
+
+    AlertDialog(String title, String message, String accept) {
         this.title = title;
         this.message = message;
+        this.accept = accept;
     }
 
     public String getTitle() {
@@ -18,5 +24,9 @@ public class AlertDialog implements Serializable {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getAccept() {
+        return accept;
     }
 }

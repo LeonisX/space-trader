@@ -47,6 +47,7 @@ public class QuestSystem implements Serializable {
         initialize(LotteryQuest.class);
         initialize(JarekQuest.class);
         initialize(PrincessQuest.class);
+        initialize(WildQuest.class);
 
         log.fine("initialized");
     }

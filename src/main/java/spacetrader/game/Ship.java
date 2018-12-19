@@ -1056,9 +1056,9 @@ public class Ship extends ShipSpec implements Serializable {
         return weapons;
     }
 
-    public boolean isWildOnBoard() {
+    /*public boolean isWildOnBoard() {
         return hasCrew(CrewMemberId.WILD.castToInt());
-    }
+    }*/
 
     // For test purposes
     public void setWeapons(Weapon[] weapons) {

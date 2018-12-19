@@ -354,14 +354,14 @@ public class Strings {
     public static String AlertsSpecialPassengerConcernedJarekMessage = "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?";*/
     /*public static String AlertsSpecialPassengerConcernedPrincessTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerConcernedPrincessMessage = "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?";*/
-    public static String AlertsSpecialPassengerConcernedWildTitle = "Ship's Comm.";
-    public static String AlertsSpecialPassengerConcernedWildMessage = "Bridge? This is Jonathan. Are we there yet? Heh, heh. Sorry, I couldn't resist.";
+    /*public static String AlertsSpecialPassengerConcernedWildTitle = "Ship's Comm.";
+    public static String AlertsSpecialPassengerConcernedWildMessage = "Bridge? This is Jonathan. Are we there yet? Heh, heh. Sorry, I couldn't resist.";*/
     /*public static String AlertsSpecialPassengerImpatientJarekTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerImpatientJarekMessage = "Captain! This is the Ambassador speaking. We should have been there by now?!";*/
     /*public static String AlertsSpecialPassengerImpatientPrincessTitle = "Ship's Comm.";
     public static String AlertsSpecialPassengerImpatientPrincessMessage = "Sir! Are you taking me home or merely taking the place of my previous captors?!";*/
-    public static String AlertsSpecialPassengerImpatientWildTitle = "Ship's Comm.";
-    public static String AlertsSpecialPassengerImpatientWildMessage = "Commander! Wild here. What's taking us so long?!";
+    /*public static String AlertsSpecialPassengerImpatientWildTitle = "Ship's Comm.";
+    public static String AlertsSpecialPassengerImpatientWildMessage = "Commander! Wild here. What's taking us so long?!";*/
     public static String AlertsSpecialPassengerOnBoardTitle = "Passenger On Board";
     public static String AlertsSpecialPassengerOnBoardMessage = "You have taken ^1 on board. While on board ^1 will lend you expertise, but may stop helping if the journey takes too long.";
     public static String AlertsSpecialSealedCanistersTitle = "Sealed Canisters";
@@ -398,7 +398,7 @@ public class Strings {
     public static String AlertsTribblesSqueekMessage = "Squeek!";
     public static String AlertsTribblesTradeInTitle = "You've Got Tribbles";
     public static String AlertsTribblesTradeInMessage = "Hm. I see you got a Tribble infestation on your current ship. I'm sorry, but that severely reduces the trade-in price.";
-    public static String AlertsWildArrestedTitle = "Wild Arrested";
+    /*public static String AlertsWildArrestedTitle = "Wild Arrested";
     public static String AlertsWildArrestedMessage = "Jonathan Wild is arrested, and taken away to stand trial.";
     public static String AlertsWildChatsPiratesTitle = "Wild Chats With Pirates";
     public static String AlertsWildChatsPiratesMessage = "The Pirate Captain turns out to be an old associate of Jonathan Wild's. They talk about old times, and you get the feeling that Wild would switch ships if the Pirates had any quarters available.";
@@ -417,7 +417,7 @@ public class Strings {
     public static String AlertsWildWontStayAboardLaserAccept = "Say Goodbye to Wild";
     public static String AlertsWildWontStayAboardReactorTitle = "Wild Won't Stay Aboard";
     public static String AlertsWildWontStayAboardReactorMessage = "Jonathan Wild isn't willing to go with you if you bring that Reactor on board. He'd rather take his chances hiding out here on ^1." + Strings.newline;
-    public static String AlertsWildWontStayAboardReactorAccept = "Say Goodbye to Wild";
+    public static String AlertsWildWontStayAboardReactorAccept = "Say Goodbye to Wild";*/
 
     //Units
     public static String CargoBay="Cargo Bay";
@@ -473,7 +473,7 @@ public class Strings {
     public static String CheatsScarab = "Scarab";
     public static String CheatsSculpture = "Sculpture";
     public static String CheatsSpaceMonster = "SpaceMonster";
-    public static String CheatsWild = "Wild";
+    //public static String CheatsWild = "Wild";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -507,12 +507,12 @@ public class Strings {
     public static String EncounterPoliceSubmitGoods = "illegal goods";
     public static String EncounterPoliceSubmitReactor = "an illegal Ion Reactor";
     public static String EncounterPoliceSubmitSculpture = "a stolen sculpture";
-    public static String EncounterPoliceSubmitWild = "Jonathan Wild";
+    //public static String EncounterPoliceSubmitWild = "Jonathan Wild";
     public static String EncounterPoliceSurrenderCargo = "You have ^1 on board!";
     public static String EncounterPoliceSurrenderAction = "They will ^1. ";
     public static String EncounterPoliceSurrenderReactor = "destroy the reactor";
     public static String EncounterPoliceSurrenderSculpt = "confiscate the sculpture";
-    public static String EncounterPoliceSurrenderWild = "arrest Wild, too";
+    //public static String EncounterPoliceSurrenderWild = "arrest Wild, too";
     public static String EncounterPretextAlien = "an alien ^1";
     public static String EncounterPretextBottle = "a floating ^1";
     public static String EncounterPretextCaptainAhab = "the famous Captain Ahab in a ^1";
@@ -617,9 +617,9 @@ public class Strings {
     public static String QuestSculptureHiddenBays = "Have hidden compartments installed at Endor.";
     public static String QuestSpaceMonsterKill = "Kill the space monster at Acamar.";
     public static String QuestTribbles = "Get rid of those pesky tribbles.";
-    public static String QuestWild = "Smuggle Jonathan Wild to Kravat.";
+    /*public static String QuestWild = "Smuggle Jonathan Wild to Kravat.";
     public static String QuestWildImpatient = QuestWild + newline
-            + "Wild is getting impatient, and will no longer aid your crew along the way.";
+            + "Wild is getting impatient, and will no longer aid your crew along the way.";*/
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -697,7 +697,7 @@ public class Strings {
 
             // The rest are mercenaries added JAF
             "Opponent", // crew of opponent mantis, pirate, police, and trader ships
-            "Wild", // now earns his keep!
+            //"Wild", // now earns his keep!
             //"Jarek", // now earns his keep!
             "Captain", // crew of famous captain ships
             "Dragonfly", // dummy crew member used in opponent ship
@@ -788,8 +788,8 @@ public class Strings {
             "Wormhole Travelers Harassed by Unusual Ship!",
             "Space Monster Threatens Homeworld!",
             "Hero Slays Space Monster! Parade, Honors Planned for Today.",
-            "Notorious Criminal Jonathan Wild Arrested!",
-            "Rumors Suggest Known Criminal J. Wild May Come to Kravat!",
+            /*"Notorious Criminal Jonathan Wild Arrested!",
+            "Rumors Suggest Known Criminal J. Wild May Come to Kravat!",*/
             "Priceless collector's item stolen from home of Geurge Locas!",
             "Space Corps follows ^3 with alleged stolen sculpture to ^2.",
             /*"Member of Royal Family kidnapped!",
@@ -992,8 +992,8 @@ public class Strings {
             "We thank you for destroying the space monster that circled our system for so long. Please accept 15000 credits as reward for your heroic deed.",
             "A merchant prince offers you a very special and wondrous item for the sum of 1000 credits. Do you accept?",
             "An eccentric alien billionaire wants to buy your collection of tribbles and offers half a credit for each of them. Do you accept his offer?",
-            "Law Enforcement is closing in on notorious criminal kingpin Jonathan Wild. He would reward you handsomely for smuggling him home to Kravat. You'd have to avoid capture by the Police on the way. Are you willing to give him a berth?",
-            "Jonathan Wild is most grateful to you for spiriting him to safety. As a reward, he has one of his Cyber Criminals hack into the Police Database, and clean up your record. He also offers you the opportunity to take his talented nephew Zeethibal along as a Mercenary with no pay.",
+            //"Law Enforcement is closing in on notorious criminal kingpin Jonathan Wild. He would reward you handsomely for smuggling him home to Kravat. You'd have to avoid capture by the Police on the way. Are you willing to give him a berth?",
+            //"Jonathan Wild is most grateful to you for spiriting him to safety. As a reward, he has one of his Cyber Criminals hack into the Police Database, and clean up your record. He also offers you the opportunity to take his talented nephew Zeethibal along as a Mercenary with no pay.",
             "A hooded figure approaches you and asks if you'd be willing to deliver some recently acquired merchandise to Endor. He's holding a small sculpture of a man holding some kind of light sword that you strongly suspect was stolen. It appears to be made of plastic and not very valuable. \"I'll pay you 2,000 credits now, plus 15,000 on delivery,\" the figure says. After seeing the look on your face he adds, \"It's a collector's item. Will you deliver it or not?\"",
             "Yet another dark, hooded figure approaches. \"Do you have the action fig- umm, the sculpture?\" You hand it over and hear what sounds very much like a giggle from under the hood. \"I know you were promised 15,000 credits on delivery, but I'm strapped for cash right now. However, I have something better for you. I have an acquaintance who can install hidden compartments in your ship.\" Return with an empty gadget slot when you're ready to have it installed.",
             "You're taken to a warehouse and whisked through the door. A grubby alien of some humanoid species - you're not sure which one - approaches. \"So you're the being who needs Hidden Compartments. Should I install them in your ship?\" (It requires a free gadget slot.)",
@@ -1017,12 +1017,12 @@ public class Strings {
             "Reactor Delivered", "Install Morgan's Laser", "Scarab Stolen",
             "Scarab Destroyed", "Upgrade Hull", "Skill Increase",
             "Space Monster", "Monster Killed", "Merchant Prince",
-            "Tribble Buyer", "Jonathan Wild", "Wild Gets Out",
+            "Tribble Buyer", /*"Jonathan Wild", "Wild Gets Out",*/
             "Stolen Sculpture", "Sculpture Delivered",
             "Install Hidden Compartments",
             //"Kidnapped", "Aggressive Ship", "Dangerous Scorpion", "Royal Rescue", "Quantum Disruptor", "Royal Return",
             //TODO delete
-    "ASSIGNED"};
+            "ASSIGNED"};
 
     public static String[] SpecialResources = new String[]{"Nothing Special",
             "Mineral Rich", "Mineral Poor", "Desert", "Sweetwater Oceans",

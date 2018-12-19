@@ -69,9 +69,11 @@ class I18n {
 
     static void localizeAlerts(Stream<SimpleValueEnum<AlertDialog>> alerts) {
         StringsBundle strings = GlobalAssets.getStrings();
-        alerts.forEach(alert ->
-                alert.setValue(new AlertDialog(strings.get(getHeadTitle(Res.Alerts.getPrefix(),
-                        alert.name())), strings.get(getHeadMessage(Res.Alerts.getPrefix(), alert.name())))));
+        alerts.forEach(alert -> alert.setValue(new AlertDialog(
+                strings.get(getHeadTitle(Res.Alerts.getPrefix(), alert.name())),
+                strings.get(getHeadMessage(Res.Alerts.getPrefix(), alert.name())),
+                strings.get(getHeadAccept(Res.Alerts.getPrefix(), alert.name()))))
+        );
     }
 
     static void localizeStrings(Res resource, Stream<SimpleValueEnum<String>> values) {
@@ -79,20 +81,28 @@ class I18n {
         values.forEach(v -> v.setValue(Functions.detectPlural(Strings.pluralMap, strings.get(getHead(resource.getPrefix(), v.name())))));
     }
 
+    private static String getHeadTitle(String prefix, String key) {
+        return getHead(prefix, key, "Title");
+    }
+
     private static String getHeadTitleValue(String prefix, String key, String value) {
         return getHeadTitle(prefix, key) + "=" + value;
     }
 
-    private static String getHeadTitle(String prefix, String key) {
-        return getHead(prefix, key, "Title");
+    private static String getHeadMessage(String prefix, String key) {
+        return getHead(prefix, key, "Message");
     }
 
     private static String getHeadMessageValue(String prefix, String key, String value) {
         return getHeadMessage(prefix, key) + "=" + value;
     }
 
-    private static String getHeadMessage(String prefix, String key) {
-        return getHead(prefix, key, "Message");
+    private static String getHeadAccept(String prefix, String key) {
+        return getHead(prefix, key, "Accept");
+    }
+
+    private static String getHeadAcceptValue(String prefix, String key, String value) {
+        return getHeadAccept(prefix, key) + "=" + value;
     }
 
     private static String getHead(String prefix, String key, String tail) {

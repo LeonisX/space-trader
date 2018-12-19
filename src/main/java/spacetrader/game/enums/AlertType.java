@@ -159,10 +159,10 @@ public enum AlertType implements SpaceTraderEnum {
     SpecialNotEnoughBays,
     //SpecialPassengerConcernedJarek,
     //SpecialPassengerConcernedPrincess,
-    SpecialPassengerConcernedWild,
+    //SpecialPassengerConcernedWild,
     //SpecialPassengerImpatientJarek,
     //SpecialPassengerImpatientPrincess,
-    SpecialPassengerImpatientWild,
+    //SpecialPassengerImpatientWild,
     SpecialPassengerOnBoard,
     SpecialSealedCanisters,
     SpecialSkillIncrease,
@@ -181,7 +181,7 @@ public enum AlertType implements SpaceTraderEnum {
     TribblesInspector,
     TribblesSqueek,
     TribblesTradeIn,
-    WildArrested,
+    /*WildArrested,
     WildChatsPirates,
     WildGoesPirates,
     WildLeavesShip,
@@ -189,7 +189,7 @@ public enum AlertType implements SpaceTraderEnum {
     WildWontBoardLaser,
     WildWontBoardReactor,
     WildWontStayAboardLaser,
-    WildWontStayAboardReactor,
+    WildWontStayAboardReactor,*/
     Quest; //TODO need???
 
     @Override

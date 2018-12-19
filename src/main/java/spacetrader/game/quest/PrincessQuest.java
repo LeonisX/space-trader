@@ -29,14 +29,14 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     static final long serialVersionUID = -4731305242511503L;
 
     // Constants
-    private final static int STATUS_NOT_STARTED = 0;
-    private final static int STATUS_FLY_CENTAURI = 1;
-    private final static int STATUS_FLY_INTHARA = 2;
-    private final static int STATUS_FLY_QONOS = 3;
-    private final static int STATUS_PRINCESS_RESCUED = 4;
-    private final static int STATUS_PRINCESS_IMPATIENT = 14;
-    private final static int STATUS_PRINCESS_RETURNED = 15;
-    private final static int STATUS_DONE = 16;
+    private static final int STATUS_NOT_STARTED = 0;
+    private static final int STATUS_FLY_CENTAURI = 1;
+    private static final int STATUS_FLY_INTHARA = 2;
+    private static final int STATUS_FLY_QONOS = 3;
+    private static final int STATUS_PRINCESS_RESCUED = 4;
+    private static final int STATUS_PRINCESS_IMPATIENT = 14;
+    private static final int STATUS_PRINCESS_RETURNED = 15;
+    private static final int STATUS_DONE = 16;
 
     private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 1;

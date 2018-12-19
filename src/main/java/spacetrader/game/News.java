@@ -145,11 +145,11 @@ public class News implements Serializable {
                         addEvent(NewsEvent.SpaceMonsterKilled.castToInt());
                     }
                     break;
-                case WildGetsOut:
+                /*case WildGetsOut:
                     if (Game.getCommander().getShip().isWildOnBoard()) {
                         addEvent(NewsEvent.WildGetsOut.castToInt());
                     }
-                    break;
+                    break;*/
             }
         }
     }

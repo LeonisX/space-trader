@@ -139,9 +139,9 @@ public class StarSystem implements Serializable {
                 show = true;
                 break;
             case EraseRecord:
-            case Wild:
+            /*case Wild:
                 show = Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
-                break;
+                break;*/
             case ExperimentStopped:
                 show = game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
                         && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED;
@@ -216,9 +216,9 @@ public class StarSystem implements Serializable {
             case TribbleBuyer:
                 show = Game.getShip().getTribbles() > 0;
                 break;
-            case WildGetsOut:
+            /*case WildGetsOut:
                 show = Game.getShip().isWildOnBoard();
-                break;
+                break;*/
         }
 
         return show;

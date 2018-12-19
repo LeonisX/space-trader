@@ -81,6 +81,7 @@ public class Consts {
     public static final int ScoreAttackPirate = 0;
     public static final int ScoreAttackPolice = -3;
     public static final int ScoreAttackTrader = -2;
+    //TODO
     public static final int ScoreCaughtWithWild = -4;
     public static final int ScoreFleePolice = -2;
     public static final int ScoreKillCaptain = 100;
@@ -265,7 +266,7 @@ public class Consts {
     public static CrewMemberId[] SpecialCrewMemberIds = new CrewMemberId[]{ // new ArrayList(
             CrewMemberId.COMMANDER, CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN, /*CrewMemberId.JAREK,*/
             CrewMemberId.OPPONENT, /*CrewMemberId.PRINCESS,*/ CrewMemberId.SCARAB, /*CrewMemberId.SCORPION,*/
-            CrewMemberId.SPACE_MONSTER, CrewMemberId.WILD};
+            CrewMemberId.SPACE_MONSTER/*, CrewMemberId.WILD*/};
 
     public static SpecialEvent[] SpecialEvents = new SpecialEvent[]{
             new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),
@@ -303,8 +304,8 @@ public class Consts {
             new SpecialEvent(SpecialEventType.SpaceMonsterKilled, -15000, 0, true),
             new SpecialEvent(SpecialEventType.Tribble, 1000, 1, false),
             new SpecialEvent(SpecialEventType.TribbleBuyer, 0, 3, false),
-            new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
-            new SpecialEvent(SpecialEventType.WildGetsOut, 0, 0, true),
+            /*new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
+            new SpecialEvent(SpecialEventType.WildGetsOut, 0, 0, true),*/
             new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
             new SpecialEvent(SpecialEventType.SculptureDelivered, 0, 0, true),
             new SpecialEvent(SpecialEventType.SculptureHiddenBays, 0, 0, false),
