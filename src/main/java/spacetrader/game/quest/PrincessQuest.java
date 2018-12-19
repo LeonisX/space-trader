@@ -28,192 +28,6 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     static final long serialVersionUID = -4731305242511503L;
 
-    enum Phases implements SimpleValueEnum<QuestDialog> {
-        Princess(new QuestDialog(ALERT, "Kidnapped", "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.")),
-        PrincessCentauri(new QuestDialog(ALERT, "Aggressive Ship", "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara.")),
-        PrincessInthara(new QuestDialog(ALERT, "Dangerous Scorpion", "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next.")),
-        PrincessQonos(new QuestDialog(DIALOG, "Royal Rescue", "The Galvonian Ambassador to Qonos approaches you. The Princess needs a ride home. Will you take her? I don't think she'll feel safe with anyone else.")),
-        PrincessReturned(new QuestDialog(ALERT, "Royal Return", "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\"")),
-        PrincessQuantum(new QuestDialog(DIALOG, "Quantum Disruptor", "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?"));
-
-        private QuestDialog value;
-
-        Phases(QuestDialog value) {
-            this.value = value;
-        }
-
-        @Override
-        public QuestDialog getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(QuestDialog value) {
-            this.value = value;
-        }
-    }
-
-    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
-
-    enum Quests implements SimpleValueEnum<String> {
-        PrincessCentauri("Follow the Scorpion to Centauri."),
-        PrincessInthara("Follow the Scorpion to Inthara."),
-        PrincessQonos("Follow the Scorpion to Qonos."),
-        PrincessReturn("Transport ^1 from Qonos to Galvon."),
-        PrincessReturning("Return ^1 to Galvon."),
-        PrincessReturningImpatient("Return ^1 to Galvon." + newline
-                + "She is becoming anxious to arrive at home, and is no longer of any help in engineering functions."),
-        PrincessQuantum("Get your Quantum Disruptor at Galvon.");
-
-        private String value;
-
-        Quests(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
-    enum Alerts implements SimpleValueEnum<AlertDialog> {
-        SpecialPassengerConcernedPrincess("Ship's Comm.", "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?"),
-        SpecialPassengerImpatientPrincess("Ship's Comm.", "Sir! Are you taking me home or merely taking the place of my previous captors?!"),
-        EncounterPiratesSurrenderPrincess("You Have the Princess", "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!"),
-        PrincessTakenHome("Princess Taken Home", "The Space Corps decides to give the Princess a ride home to Galvon since you obviously weren't up to the task."),
-        GameEndBoughtMoonGirl("You Have Retired with the Princess", "");
-
-        private AlertDialog value;
-
-        Alerts(String title, String body) {
-            this.value = new AlertDialog(title, body);
-        }
-
-        @Override
-        public AlertDialog getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(AlertDialog value) {
-            this.value = value;
-        }
-    }
-
-    enum News implements SimpleValueEnum<String> {
-        Princess("Member of Royal Family kidnapped!"),
-        PrincessCentauri("Aggressive Ship Seen in Orbit Around Centauri"),
-        PrincessInthara("Dangerous Scorpion Damages Several Other Ships Near Inthara"),
-        PrincessQonos("Kidnappers Holding Out at Qonos"),
-        PrincessRescued("Scorpion Defeated! Kidnapped Member of Galvon Royal Family Freed!"),
-        PrincessReturned("Beloved Royal Returns Home!");
-
-        private String value;
-
-        News(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
-    enum Encounters implements SimpleValueEnum<String> {
-        PretextScorpion("the kidnappers in a ^1"),
-        PrincessRescued(newline + newline + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\""),
-        HidePrincess("the Princess");
-
-        private String value;
-
-        Encounters(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
-    enum GameEndings implements SimpleValueEnum<String> {
-        ClaimedMoonWithPrincess("Claimed moon with Princess");
-
-        private String value;
-
-        GameEndings(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
-    enum CrewNames implements SimpleValueEnum<String> {
-        Ziyal("Ziyal"),
-        Scorpion("Scorpion");
-
-        private String value;
-
-        CrewNames(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
-    enum CheatTitles implements SimpleValueEnum<String> {
-        Princess("Princess");
-
-        private String value;
-
-        CheatTitles(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
     // Constants
     private final static int STATUS_NOT_STARTED = 0;
     private final static int STATUS_FLY_CENTAURI = 1;
@@ -228,8 +42,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private static final int OCCURRENCE = 1;
     private static final int CASH_TO_SPEND = 0;
 
-    private int questStatus = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara,
-    // 3 = Go to Qonos, 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
+    private int questStatus = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara, // 3 = Go to Qonos,
+    // 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
 
     private CrewMember princess;
     private CrewMember scorpionCrew;
@@ -280,36 +94,36 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     public void initializeTransitionMap() {
         super.initializeTransitionMap();
 
-        getTransitionMap().put(AFTER_SHIP_SPECS_INITIALIZED, this::afterShipSpecInitialized);
-
-        getTransitionMap().put(IS_CONSIDER_STATUS_CHEAT, this::onIsConsiderCheat);
-        getTransitionMap().put(IS_CONSIDER_STATUS_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
-        getTransitionMap().put(ON_ARRESTED, this::onArrested);
-        getTransitionMap().put(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
         getTransitionMap().put(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsManual);
         getTransitionMap().put(ON_GENERATE_CREW_MEMBER_LIST, this::onGenerateCrewMemberList);
+        getTransitionMap().put(ON_AFTER_SHIP_SPECS_INITIALIZED, this::afterShipSpecInitialized);
+        getTransitionMap().put(ON_CREATE_SHIP, this::onCreateShip);
+
         getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
-        getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
+
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
+
+        getTransitionMap().put(ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, this::encounterDetermineNonRandomEncounter);
+        getTransitionMap().put(ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK, this::encounterCheckPossibilityOfAttack);
+        getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
+        getTransitionMap().put(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, this::encounterExecuteAttackKeepSpecialShip);
+        getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
+        getTransitionMap().put(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, this::encounterCheckPossibilityOfSurrender);
+        getTransitionMap().put(ENCOUNTER_GET_SAVED_CARGO_AND_CREW, this::encounterGetSavedCargoAndCrew);
+        getTransitionMap().put(ENCOUNTER_GET_STEALABLE_CARGO, this::encounterGetStealableCargo);
+
+        getTransitionMap().put(ON_ARRESTED, this::onArrested);
+        getTransitionMap().put(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
+        getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
         getTransitionMap().put(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
-
-        getTransitionMap().put(ON_DETERMINE_NON_RANDOM_ENCOUNTER, this::onDetermineNonRandomEncounter);
-        getTransitionMap().put(ON_CREATE_SHIP, this::onCreateShip);
-        getTransitionMap().put(ON_ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::onEncounterExecuteActionOpponentDisabled);
-        getTransitionMap().put(ON_ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, this::onEncounterExecuteAttackKeepSpecialShip);
-
-        getTransitionMap().put(ON_ENCOUNTER_VERIFY_ATTACK, this::onEncounterVerifyAttack);
-        getTransitionMap().put(ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN, this::onEncounterVerifySurrenderNoHidden);
-        getTransitionMap().put(ON_ENCOUNTER_VERIFY_SURRENDER_HIDDEN, this::onEncounterVerifySurrenderHidden);
-
-        getTransitionMap().put(ON_GET_STEALABLE_CARGO, this::onGetStealableCargo);
-
-        getTransitionMap().put(ON_GET_ENCOUNTER_TEXT_INITIAL, this::onGetEncounterTextInitial);
 
         getTransitionMap().put(ON_BEFORE_GAME_END, this::onBeforeGameEnd);
         getTransitionMap().put(ON_GAME_END_ALERT, this::onGameEndAlert);
         getTransitionMap().put(ON_GET_GAME_SCORE, this::onGetGameScore);
+
+        getTransitionMap().put(IS_CONSIDER_STATUS_CHEAT, this::onIsConsiderCheat);
+        getTransitionMap().put(IS_CONSIDER_STATUS_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
     }
 
     @Override
@@ -382,7 +196,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    private void onGetEncounterTextInitial(Object object) {
+    private void encounterGetIntroductoryText(Object object) {
         if (scorpion.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
             ((StringContainer) object).setValue(Encounters.PretextScorpion.getValue());
         }
@@ -399,7 +213,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         scorpion.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
     }
 
-    private void onDetermineNonRandomEncounter(Object object) {
+    private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatus == STATUS_FLY_QONOS) {
             game.setOpponent(scorpion);
             game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
@@ -407,13 +221,13 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    private void onGetStealableCargo(Object object) {
+    private void encounterGetStealableCargo(Object object) {
         if (princessOnBoard) {
             ((IntContainer) object).setValue(((IntContainer) object).getValue() - 1);
         }
     }
 
-    private void onEncounterVerifySurrenderNoHidden(Object object) {
+    private void encounterCheckPossibilityOfSurrender(Object object) {
         if (princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
                 && game.getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK) {
             showAlert(Alerts.EncounterPiratesSurrenderPrincess.getValue());
@@ -422,13 +236,13 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private void onEncounterVerifySurrenderHidden(Object object) {
+    private void encounterGetSavedCargoAndCrew(Object object) {
         if (princessOnBoard && Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             ((ArrayList<String>) object).add(Encounters.HidePrincess.getValue());
         }
     }
 
-    private void onEncounterVerifyAttack(Object object) {
+    private void encounterCheckPossibilityOfAttack(Object object) {
         if (game.getOpponent().getBarCode() == scorpion.getBarCode()
                 && Game.getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
@@ -436,7 +250,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    private void onEncounterExecuteAttackKeepSpecialShip(Object object) {
+    private void encounterExecuteAttackKeepSpecialShip(Object object) {
         Ship defender = ((Ship) object);
         if (defender.getBarCode() == scorpion.getBarCode() && defender.getHull() == 0) {
             defender.setHull(1); // Make sure the Scorpion doesn't get destroyed.
@@ -444,7 +258,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    private void onEncounterExecuteActionOpponentDisabled(Object object) {
+    private void encounterExecuteActionOpponentDisabled(Object object) {
         if (game.getOpponent().getBarCode() == scorpion.getBarCode()) {
             Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
             Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
@@ -788,6 +602,192 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         if (result != null) {
             log.fine("" + getNewsIds().get(result.ordinal()));
             Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        }
+    }
+
+    enum Phases implements SimpleValueEnum<QuestDialog> {
+        Princess(new QuestDialog(ALERT, "Kidnapped", "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.")),
+        PrincessCentauri(new QuestDialog(ALERT, "Aggressive Ship", "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara.")),
+        PrincessInthara(new QuestDialog(ALERT, "Dangerous Scorpion", "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next.")),
+        PrincessQonos(new QuestDialog(DIALOG, "Royal Rescue", "The Galvonian Ambassador to Qonos approaches you. The Princess needs a ride home. Will you take her? I don't think she'll feel safe with anyone else.")),
+        PrincessReturned(new QuestDialog(ALERT, "Royal Return", "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\"")),
+        PrincessQuantum(new QuestDialog(DIALOG, "Quantum Disruptor", "His Majesty's Shipyard: Do you want us to install a quantum disruptor on your current ship?"));
+
+        private QuestDialog value;
+
+        Phases(QuestDialog value) {
+            this.value = value;
+        }
+
+        @Override
+        public QuestDialog getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(QuestDialog value) {
+            this.value = value;
+        }
+    }
+
+    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
+
+    enum Quests implements SimpleValueEnum<String> {
+        PrincessCentauri("Follow the Scorpion to Centauri."),
+        PrincessInthara("Follow the Scorpion to Inthara."),
+        PrincessQonos("Follow the Scorpion to Qonos."),
+        PrincessReturn("Transport ^1 from Qonos to Galvon."),
+        PrincessReturning("Return ^1 to Galvon."),
+        PrincessReturningImpatient("Return ^1 to Galvon." + newline
+                + "She is becoming anxious to arrive at home, and is no longer of any help in engineering functions."),
+        PrincessQuantum("Get your Quantum Disruptor at Galvon.");
+
+        private String value;
+
+        Quests(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
+    enum Alerts implements SimpleValueEnum<AlertDialog> {
+        SpecialPassengerConcernedPrincess("Ship's Comm.", "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?"),
+        SpecialPassengerImpatientPrincess("Ship's Comm.", "Sir! Are you taking me home or merely taking the place of my previous captors?!"),
+        EncounterPiratesSurrenderPrincess("You Have the Princess", "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!"),
+        PrincessTakenHome("Princess Taken Home", "The Space Corps decides to give the Princess a ride home to Galvon since you obviously weren't up to the task."),
+        GameEndBoughtMoonGirl("You Have Retired with the Princess", "");
+
+        private AlertDialog value;
+
+        Alerts(String title, String body) {
+            this.value = new AlertDialog(title, body);
+        }
+
+        @Override
+        public AlertDialog getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(AlertDialog value) {
+            this.value = value;
+        }
+    }
+
+    enum News implements SimpleValueEnum<String> {
+        Princess("Member of Royal Family kidnapped!"),
+        PrincessCentauri("Aggressive Ship Seen in Orbit Around Centauri"),
+        PrincessInthara("Dangerous Scorpion Damages Several Other Ships Near Inthara"),
+        PrincessQonos("Kidnappers Holding Out at Qonos"),
+        PrincessRescued("Scorpion Defeated! Kidnapped Member of Galvon Royal Family Freed!"),
+        PrincessReturned("Beloved Royal Returns Home!");
+
+        private String value;
+
+        News(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
+    enum Encounters implements SimpleValueEnum<String> {
+        PretextScorpion("the kidnappers in a ^1"),
+        PrincessRescued(newline + newline + "You land your ship near where the Space Corps has landed with the Scorpion in tow. The Princess is revived from hibernation and you get to see her for the first time. Instead of the spoiled child you were expecting, Ziyal is possible the most beautiful woman you've ever seen. \"What took you so long?\" she demands. You notice a twinkle in her eye, and then she smiles. Not only is she beautiful, but she's got a sense of humor. She says, \"Thank you for freeing me. I am in your debt.\" With that she give you a kiss on the cheek, then leaves. You hear her mumble, \"Now about a ride home.\""),
+        HidePrincess("the Princess");
+
+        private String value;
+
+        Encounters(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
+    enum GameEndings implements SimpleValueEnum<String> {
+        ClaimedMoonWithPrincess("Claimed moon with Princess");
+
+        private String value;
+
+        GameEndings(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
+    enum CrewNames implements SimpleValueEnum<String> {
+        Ziyal("Ziyal"),
+        Scorpion("Scorpion");
+
+        private String value;
+
+        CrewNames(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
+    enum CheatTitles implements SimpleValueEnum<String> {
+        Princess("Princess");
+
+        private String value;
+
+        CheatTitles(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 

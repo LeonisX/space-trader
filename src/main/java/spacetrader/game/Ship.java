@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-import static spacetrader.game.quest.enums.EventName.ON_GET_STEALABLE_CARGO;
+import static spacetrader.game.quest.enums.EventName.ENCOUNTER_GET_STEALABLE_CARGO;
 
 public class Ship extends ShipSpec implements Serializable {
 
@@ -1027,7 +1027,7 @@ public class Ship extends ShipSpec implements Serializable {
         tradeItems.reverse();
 
         IntContainer intContainer = new IntContainer(getHiddenCargoBays());
-        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_STEALABLE_CARGO, intContainer);
+        Game.getCurrentGame().getQuestSystem().fireEvent(ENCOUNTER_GET_STEALABLE_CARGO, intContainer);
         int hidden = intContainer.getValue();
         /*if (isPrincessOnBoard()) {
             hidden--;

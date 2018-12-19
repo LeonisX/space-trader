@@ -232,7 +232,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Princess
 
-* Write docs for all quest events (ON_...), reorder them
+* v Write docs for all quest events (ON_...), reorder them
 * v Special Button doesn't disappear
 * v Strange bug in Commander.hashCode
 * Increase difficulty, depends on game difficulty (days to delivery)

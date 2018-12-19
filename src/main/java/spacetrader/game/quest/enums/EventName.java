@@ -2,31 +2,44 @@ package spacetrader.game.quest.enums;
 
 public enum EventName {
 
-    AFTER_GAME_INITIALIZE,          // After full game initialization
-    ON_BEFORE_SPECIAL_BUTTON_SHOW,     // Before show Special button on System Info Panel
-    ON_SPECIAL_BUTTON_CLICKED,          // On Special button clicked
-    ON_ARRESTED,
-    ON_ESCAPE_WITH_POD,
-    ON_GENERATE_CREW_MEMBER_LIST,
-    ON_INCREMENT_DAYS,
-    IS_CONSIDER_STATUS_CHEAT,
-    IS_CONSIDER_STATUS_DEFAULT_CHEAT,
-    ON_DISPLAY_SPECIAL_CARGO,
-    ON_GET_QUESTS_STRINGS,
-    ON_ASSIGN_EVENTS_RANDOMLY,
-    ON_ASSIGN_EVENTS_MANUAL,
-    ON_DETERMINE_NON_RANDOM_ENCOUNTER,
-    ON_NEWS_ADD_EVENT_ON_ARRIVAL,
-    ON_CREATE_SHIP,
-    ON_ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED,
-    ON_ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP,
-    ON_ENCOUNTER_VERIFY_ATTACK,
-    ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN,
-    ON_ENCOUNTER_VERIFY_SURRENDER_HIDDEN,
-    ON_GET_ENCOUNTER_TEXT_INITIAL,
-    ON_GET_STEALABLE_CARGO,
-    ON_GET_GAME_SCORE,
-    AFTER_SHIP_SPECS_INITIALIZED,
-    ON_BEFORE_GAME_END,
-    ON_GAME_END_ALERT
+    // Initialization
+    ON_ASSIGN_EVENTS_MANUAL,                    // Jarek, Princess, .... Manual assigns an event to a specific system.
+    ON_ASSIGN_EVENTS_RANDOMLY,                  // Jarek. Randomly assigns an event to a specific system. For example - start of event
+    ON_GENERATE_CREW_MEMBER_LIST,               // Jarek, Princess, ... Adds quest characters to the game.
+    ON_AFTER_SHIP_SPECS_INITIALIZED,            // Princess (Scorpion). Supplements the list of ship specs. Including quest.
+    ON_CREATE_SHIP,                             // Princess (Scorpion). Unique quest ships are created at the beginning of the game.
+    ON_AFTER_GAME_INITIALIZE,                   // Lottery. Right after full game initialization. Add current system ID to quest
+
+    // Main flow (very common)
+    ON_BEFORE_SPECIAL_BUTTON_SHOW,              // Very Common. Before show Special button on System Info Panel
+    ON_SPECIAL_BUTTON_CLICKED,                  // Very Common. On Special button clicked
+
+    // Status windows
+    ON_DISPLAY_SPECIAL_CARGO,                   // Jarek. Display special cargo in FormViewShip
+    ON_GET_QUESTS_STRINGS,                      // Any. Display quests in FormViewQuests
+
+    // Encounters
+    ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess. Starts a predefined encounter with Scorpion.
+    ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK,      // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
+    ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion). Used to generate an introductory text of encounter
+    ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, // Princess (Scorpion). The action that occurs after processing the effects of an attack. It is necessary that Scorpion was not accidentally destroyed.
+    ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, // Princess (Scorpion). Action that occurs when an opponent is disabled
+    ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER,   // Princess (Scorpion). Check whether there is any possibility to surrender. For example, if the Princess is on board, you cannot surrender.
+    ENCOUNTER_GET_SAVED_CARGO_AND_CREW,         // Princess (Scorpion). Used to generate a list of items that were hidden in secret cargo bays.
+    ENCOUNTER_GET_STEALABLE_CARGO,              // Princess (Scorpion). Used to generate a list of goods that will be stolen during an attack. Princess will take one cargo bay
+
+    // After Encounters
+    ON_ARRESTED,                                // Jarek, Princess, ... Action that occurs when a player is arrested. He loses a lot.
+    ON_ESCAPE_WITH_POD,                         // Jarek, Princess, ... Action that occurs when a player escapes with pod. He loses a lot.
+    ON_INCREMENT_DAYS,                          // Jarek, Princess, ... The action that occurs after a certain number of days. For example, a passenger loses patience, or something explodes.
+    ON_NEWS_ADD_EVENT_ON_ARRIVAL,               // Jarek, Princess, .... Adds special news on arrival at the spaceport.
+
+    // Game ending
+    ON_BEFORE_GAME_END,                         // Princess. An event that occurs before the end of the game. For example, setting a special end game status
+    ON_GAME_END_ALERT,                          // Princess. Logic to display the end of the game window (with a picture) for quests
+    ON_GET_GAME_SCORE,                          // Princess. Used to calculate the final score in the game.
+
+    // Cheats
+    IS_CONSIDER_STATUS_CHEAT,                   // Jarek, Princess, ... Change the status of the quest (for example, Jarek questStatus)
+    IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
 }

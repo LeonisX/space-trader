@@ -121,7 +121,7 @@ public class Game implements Serializable {
 
         shipSpecs = Arrays.stream(Consts.ShipSpecs).map(e -> e.withId(e.getType().castToInt())).collect(Collectors.toMap(ShipSpec::getId, e -> e));
         shipSpecs.remove(ShipType.QUEST.castToInt());
-        questSystem.fireEvent(AFTER_SHIP_SPECS_INITIALIZED);
+        questSystem.fireEvent(ON_AFTER_SHIP_SPECS_INITIALIZED);
 
         createShips();
 
@@ -140,7 +140,7 @@ public class Game implements Serializable {
 
         news = new News();
 
-        questSystem.fireEvent(EventName.AFTER_GAME_INITIALIZE);
+        questSystem.fireEvent(EventName.ON_AFTER_GAME_INITIALIZE);
     }
 
     public static Game getCurrentGame() {

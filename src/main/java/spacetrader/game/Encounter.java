@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.*;
-import static spacetrader.game.quest.enums.EventName.ON_ENCOUNTER_VERIFY_SURRENDER_HIDDEN;
+import static spacetrader.game.quest.enums.EventName.ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER;
 
 public class Encounter implements Serializable {
     
@@ -101,7 +101,7 @@ public class Encounter implements Serializable {
             showEncounter.setValue(true);
         }
 
-        game.getQuestSystem().fireEvent(EventName.ON_DETERMINE_NON_RANDOM_ENCOUNTER, showEncounter);
+        game.getQuestSystem().fireEvent(EventName.ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, showEncounter);
 
         return showEncounter.getValue();
     }
@@ -444,7 +444,7 @@ public class Encounter implements Serializable {
         } else if (game.getOpponentDisabled()) {
             BooleanContainer specialShipDisabled = new BooleanContainer(false);
 
-            game.getQuestSystem().fireEvent(ON_ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, specialShipDisabled);
+            game.getQuestSystem().fireEvent(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, specialShipDisabled);
 
             if (specialShipDisabled.getValue()) {
                 result = EncounterResult.NORMAL;
@@ -626,7 +626,7 @@ public class Encounter implements Serializable {
                     game.setOpponentDisabled(true);
                 }
 
-                game.getQuestSystem().fireEvent(ON_ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, defender);
+                game.getQuestSystem().fireEvent(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, defender);
 
                 // Make sure the Scorpion doesn't get destroyed.
                 /*if (defender.getType() == ShipType.SCORPION && defender.getHull() == 0) {
@@ -824,7 +824,7 @@ public class Encounter implements Serializable {
         boolean attack = true;
 
         BooleanContainer cantAttackScorpion = new BooleanContainer(false);
-        game.getQuestSystem().fireEvent(ON_ENCOUNTER_VERIFY_ATTACK, cantAttackScorpion);
+        game.getQuestSystem().fireEvent(ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK, cantAttackScorpion);
 
         if (cantAttackScorpion.getValue()) {
             attack = false;
@@ -1061,7 +1061,7 @@ public class Encounter implements Serializable {
 
         BooleanContainer container = new BooleanContainer(false);
 
-        game.getQuestSystem().fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_NO_HIDDEN, container);
+        game.getQuestSystem().fireEvent(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, container);
 
         if (container.getValue()) {
             // If princess on board and no hidden cargo bays - continue fight to die.
@@ -1094,7 +1094,7 @@ public class Encounter implements Serializable {
                 /*if (commander.getShip().isPrincessOnBoard()) {
                     precious.add(Strings.EncounterHidePrincess);
                 }*/
-                game.getQuestSystem().fireEvent(ON_ENCOUNTER_VERIFY_SURRENDER_HIDDEN, precious);
+                game.getQuestSystem().fireEvent(ENCOUNTER_GET_SAVED_CARGO_AND_CREW, precious);
                 if (commander.getShip().isSculptureOnBoard()) {
                     precious.add(Strings.EncounterHideSculpture);
                 }
@@ -1532,7 +1532,7 @@ public class Encounter implements Serializable {
                 // These should never be the initial encounter type.
                 break;
             default:
-                game.getQuestSystem().fireEvent(EventName.ON_GET_ENCOUNTER_TEXT_INITIAL, encounterPretext);
+                game.getQuestSystem().fireEvent(EventName.ENCOUNTER_GET_INTRODUCTORY_TEXT, encounterPretext);
 
         }
 
