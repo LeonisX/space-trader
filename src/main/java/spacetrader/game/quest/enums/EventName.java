@@ -13,10 +13,17 @@ public enum EventName {
     // Main flow (very common)
     ON_BEFORE_SPECIAL_BUTTON_SHOW,              // Very Common. Before show Special button on System Info Panel
     ON_SPECIAL_BUTTON_CLICKED,                  // Very Common. On Special button clicked
+    REACT_ON_REACTOR,                           // Wild. Temporary action. Need best solution
 
     // Status windows
     ON_DISPLAY_SPECIAL_CARGO,                   // Jarek. Display special cargo in FormViewShip
     ON_GET_QUESTS_STRINGS,                      // Any. Display quests in FormViewQuests
+
+    ON_BEFORE_WARP,                             // Wild. It is possible to cancel the warp
+    ON_DETERMINE_RANDOM_ENCOUNTER,              // Wild. TODO
+    ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT,      // Wild. Ability to adjust the characteristics of the first member of the crew of the opponent ship
+    ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES,     // Wild. The police will try to hunt you down with better ships if you are
+    // a villain, and they will try even harder when you are considered to be a psychopath (or are transporting Jonathan Wild)
 
     // Encounters
     ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess. Starts a predefined encounter with Scorpion.
@@ -25,10 +32,15 @@ public enum EventName {
     ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, // Princess (Scorpion). The action that occurs after processing the effects of an attack. It is necessary that Scorpion was not accidentally destroyed.
     ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, // Princess (Scorpion). Action that occurs when an opponent is disabled
     ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER,   // Princess (Scorpion). Check whether there is any possibility to surrender. For example, if the Princess is on board, you cannot surrender.
+    ON_SURRENDER_IF_RAIDED,              // Wild. TODO
     ENCOUNTER_GET_SAVED_CARGO_AND_CREW,         // Princess (Scorpion). Used to generate a list of items that were hidden in secret cargo bays.
     ENCOUNTER_GET_STEALABLE_CARGO,              // Princess (Scorpion). Used to generate a list of goods that will be stolen during an attack. Princess will take one cargo bay
 
     // After Encounters
+    IS_ILLEGAL_SPECIAL_CARGO,                   // Wild. TODO
+    ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS,       // Wild. TODO
+    ON_GET_ILLEGAL_SPECIAL_CARGO_DESCRIPTION,   // Wild. TODO
+    ON_BEFORE_ARRESTED_CALCULATE_FINE,          // Wild. Correction of fine depending on some conditions
     ON_ARRESTED,                                // Jarek, Princess, ... Action that occurs when a player is arrested. He loses a lot.
     ON_ESCAPE_WITH_POD,                         // Jarek, Princess, ... Action that occurs when a player escapes with pod. He loses a lot.
     ON_INCREMENT_DAYS,                          // Jarek, Princess, ... The action that occurs after a certain number of days. For example, a passenger loses patience, or something explodes.

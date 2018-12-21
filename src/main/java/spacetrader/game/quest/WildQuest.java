@@ -1,13 +1,12 @@
 package spacetrader.game.quest;
 
-import spacetrader.game.Consts;
-import spacetrader.game.CrewMember;
-import spacetrader.game.Game;
-import spacetrader.game.StarSystem;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.SpecialEventType;
-import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.enums.*;
+import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
+import spacetrader.game.quest.containers.RandomEncounterContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -42,9 +41,6 @@ class WildQuest extends AbstractQuest {
     private CrewMember wild;
     private boolean wildOnBoard;
 
-    //TODO need???
-    private UUID shipBarCode = UUID.randomUUID();
-
     public WildQuest(Integer id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
 
@@ -57,7 +53,9 @@ class WildQuest extends AbstractQuest {
 
         registerListener();
 
-        localize();
+        //TODO translate, remove
+        //dumpAllStrings();
+        //localize();
 
         log.fine("started...");
     }
@@ -80,9 +78,20 @@ class WildQuest extends AbstractQuest {
 
         getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
+        getTransitionMap().put(REACT_ON_REACTOR, this::onReactOnReactor);
 
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
+        getTransitionMap().put(ON_BEFORE_WARP, this::onBeforeWarp);
+        getTransitionMap().put(ON_DETERMINE_RANDOM_ENCOUNTER, this::onDetermineRandomEncounter);
+        getTransitionMap().put(ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT, this::onBeforeEncounterGenerateOpponent);
+        getTransitionMap().put(ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES, this::onGenerateOpponentShipPoliceTries);
+        getTransitionMap().put(ON_SURRENDER_IF_RAIDED, this::onSurrenderIfRaided);
+
+        getTransitionMap().put(IS_ILLEGAL_SPECIAL_CARGO, this::onIsIllegalSpecialCargo);
+        getTransitionMap().put(ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS, this::onGetIllegalSpecialCargoActions);
+        getTransitionMap().put(ON_GET_ILLEGAL_SPECIAL_CARGO_DESCRIPTION, this::onGetIllegalSpecialCargoDescription);
+        getTransitionMap().put(ON_BEFORE_ARRESTED_CALCULATE_FINE, this::onBeforeArrestedCalculateFine);
         getTransitionMap().put(ON_ARRESTED, this::onArrested);
         getTransitionMap().put(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
         getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
@@ -149,8 +158,8 @@ class WildQuest extends AbstractQuest {
         } while (Game.getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
 
         Game.getStarSystem(system).setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.Jarek).setStarSystemId(Game.getStarSystem(system).getId());
-        log.fine(phases.get(Phases.Jarek).getStarSystemId().toString());
+        phases.get(Phases.Wild).setStarSystemId(Game.getStarSystem(system).getId());
+        log.fine(phases.get(Phases.Wild).getStarSystemId().toString());
     }
 
     private void onGenerateCrewMemberList(Object object) {
@@ -175,54 +184,21 @@ class WildQuest extends AbstractQuest {
             log.fine("phase #1");
             if (Game.getShip().getFreeCrewQuartersCount() == 0) {
                 GuiFacade.alert(AlertType.SpecialNoQuarters);
+            } else if (!Game.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
+                showAlert(Alerts.WildWontBoardLaser.getValue());
+            } else if (Game.getShip().isReactorOnBoard()) {
+                showAlert(Alerts.WildWontBoardReactor.getValue());
             } else {
-                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
-                Game.getShip().hire(jarek);
-                jarekOnBoard = true;
-                questStatus = STATUS_JAREK_STARTED;
-                setQuestState(QuestState.ACTIVE);
+                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
+                Game.getShip().hire(wild);
+                wildOnBoard = true;
+                questStatus = STATUS_WILD_STARTED;
                 Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+
+                if (Game.getShip().isSculptureOnBoard()) {
+                    showAlert(Alerts.WildSculpture.getValue());
+                }
             }
-
-
-            /*case Wild:
-                if (commander.getShip().getFreeCrewQuartersCount() == 0) {
-                    GuiFacade.alert(AlertType.SpecialNoQuarters);
-                    remove = false;
-                } else if (!commander.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
-                    GuiFacade.alert(AlertType.WildWontBoardLaser);
-                    remove = false;
-                } else if (commander.getShip().isReactorOnBoard()) {
-                    GuiFacade.alert(AlertType.WildWontBoardReactor);
-                    remove = false;
-                } else {
-                    CrewMember wild = mercenaries.get(CrewMemberId.WILD.castToInt());
-                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
-                    commander.getShip().hire(wild);
-                    setQuestStatusWild(SpecialEvent.STATUS_WILD_STARTED);
-
-                    if (commander.getShip().isSculptureOnBoard()) {
-                        GuiFacade.alert(AlertType.WildSculpture);
-                    }
-                }
-                break;
-            case WildGetsOut:
-                // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
-                CrewMember zeethibal = mercenaries.get(CrewMemberId.ZEETHIBAL.castToInt());
-                zeethibal.setCurrentSystem(getStarSystem(StarSystemId.Kravat));
-                int lowest1 = commander.nthLowestSkill(1);
-                int lowest2 = commander.nthLowestSkill(2);
-                for (int i = 0; i < zeethibal.getSkills().length; i++) {
-                    zeethibal.getSkills()[i] = (i == lowest1 ? 10 : (i == lowest2 ? 8 : 5));
-                }
-
-                setQuestStatusWild(SpecialEvent.STATUS_WILD_DONE);
-                commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-                commander.getShip().fire(CrewMemberId.WILD.castToInt());
-                recalculateSellPrices(curSys);
-                break;*/
-
-
         }
 
         @Override
@@ -230,6 +206,8 @@ class WildQuest extends AbstractQuest {
             return "WildPhase{} " + super.toString();
         }
     }
+
+    //TODO zeethibal
 
     class WildGetsOutPhase extends Phase { //new SpecialEvent(SpecialEventType.WildGetsOut, 0, 0, true),
         @Override
@@ -240,12 +218,20 @@ class WildQuest extends AbstractQuest {
         @Override
         public void successFlow() {
             log.fine("phase #2");
-            questStatus = STATUS_JAREK_DONE;
-            Game.getShip().fire(jarek.getId());
-            jarekOnBoard = false;
-            shipBarCode = Game.getShip().getBarCode();
-            setQuestState(QuestState.FINISHED);
-            game.getQuestSystem().unSubscribeAll(getQuest());
+            // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
+            CrewMember zeethibal = Game.getCurrentGame().getMercenaries().get(CrewMemberId.ZEETHIBAL.castToInt());
+            zeethibal.setCurrentSystem(Game.getStarSystem(StarSystemId.Kravat));
+            int lowest1 = Game.getCommander().nthLowestSkill(1);
+            int lowest2 = Game.getCommander().nthLowestSkill(2);
+            for (int i = 0; i < zeethibal.getSkills().length; i++) {
+                zeethibal.getSkills()[i] = (i == lowest1 ? 10 : (i == lowest2 ? 8 : 5));
+            }
+
+            questStatus = STATUS_WILD_DONE;
+            Game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
+            Game.getCommander().getShip().fire(wild.getId());
+            wildOnBoard = false;
+            Game.getCurrentGame().recalculateSellPrices();
         }
 
         @Override
@@ -264,6 +250,22 @@ class WildQuest extends AbstractQuest {
         }
     }
 
+
+    //TODO need best solution!!!
+    private void onReactOnReactor(Object object) {
+        if (wildOnBoard) {
+            if (showAlert(Alerts.WildWontStayAboardReactor.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.OK) {
+                showAlert(Alerts.WildLeavesShip.getValue(), Game.getCommander().getCurrentSystem().getName());
+                //TODO AND WHAT??? Where goes Wild? Need to test
+                questStatus = STATUS_WILD_NOT_STARTED;
+            } else {
+                ((BooleanContainer) object).setValue(false);
+                Game.getCommander().getCurrentSystem().setSpecialEventType(SpecialEventType.NA);
+            }
+        }
+    }
+
+
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
         if (wildOnBoard) {
@@ -279,13 +281,86 @@ class WildQuest extends AbstractQuest {
         }
     }
 
+    private void onBeforeWarp(Object object) {
+        // if Wild is aboard, make sure ship is armed!
+        if (wildOnBoard && !Game.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
+            if (showAlert(Alerts.WildWontStayAboardLaser.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.CANCEL) {
+                ((BooleanContainer) object).setValue(false);
+            } else {
+                showAlert(Alerts.WildLeavesShip.getValue(), Game.getCommander().getCurrentSystem().getName());
+                questStatus = STATUS_WILD_NOT_STARTED;
+            }
+        }
+    }
+
+    private void onDetermineRandomEncounter(Object object) {
+        if (wildOnBoard && game.getWarpSystem().getId() == StarSystemId.Kravat) {
+            // if you're coming in to Kravat & you have Wild onboard, there'll be swarms o' cops.
+            ((RandomEncounterContainer) object)
+                    .setPolice(Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - Game.getDifficultyId())));
+        }
+    }
+
+    private void onBeforeEncounterGenerateOpponent(Object object) {
+        if (Game.getCurrentGame().getWarpSystem().getId() == StarSystemId.Kravat && wildOnBoard
+                && Functions.getRandom(10) < Game.getDifficulty().castToInt() + 1) {
+            ((CrewMember) object).setEngineer(Consts.MaxSkill);
+        }
+    }
+
+    private void onGenerateOpponentShipPoliceTries(Object object) {
+        if (wildOnBoard) {
+            ((IntContainer) object).setValue(5);
+        }
+    }
+
+    private void onSurrenderIfRaided(Object object) {
+        if (wildOnBoard) {
+            if (game.getOpponent().getCrewQuarters() > 1) {
+                // Wild hops onto Pirate Ship
+                //TODO AND WHAT? WHERE is WILD????
+                questStatus = STATUS_WILD_NOT_STARTED;
+                showAlert(Alerts.WildGoesPirates.getValue());
+            } else {
+                showAlert(Alerts.WildChatsPirates.getValue());
+            }
+        }
+    }
+
+    private void onIsIllegalSpecialCargo(Object object) {
+        if (wildOnBoard) {
+            ((BooleanContainer) object).setValue(true);
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private void onGetIllegalSpecialCargoActions(Object object) {
+        if (wildOnBoard) {
+            ((ArrayList<String>) object).add(Encounters.PoliceSurrenderWild.getValue());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void onGetIllegalSpecialCargoDescription(Object object) {
+        if (wildOnBoard) {
+            ((ArrayList<String>) object).add(Encounters.PoliceSubmitWild.getValue());
+        }
+    }
+
+    private void onBeforeArrestedCalculateFine(Object object) {
+        if (wildOnBoard) {
+            IntContainer fine = (IntContainer) object;
+            fine.setValue((int) (fine.getValue() * 1.05));
+        }
+    }
+
     // TODO repeat if < normal, otherwise fail
     private void onArrested(Object object) {
         if (wildOnBoard) {
             log.fine("Arrested + Wild");
             showAlert(Alerts.WildArrested.getValue());
-            //TODO
-            news.addEvent(NewsEvent.WildArrested);
+            Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
             questStatus = STATUS_WILD_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
@@ -299,7 +374,7 @@ class WildQuest extends AbstractQuest {
             log.fine("Escaped + Wild");
             showAlert(Alerts.WildArrested.getValue());
             Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
-            news.addEvent(NewsEvent.WildArrested);
+            Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
             questStatus = STATUS_WILD_NOT_STARTED;
             setQuestState(QuestState.FAILED);
         } else {
@@ -337,10 +412,9 @@ class WildQuest extends AbstractQuest {
         }
     }
 
-
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
-        //TODO english only??? Jarek, Princess
+        //TODO english only Jarek, Princess, Wild
         if (cheatWords.getSecond().equals(CheatTitles.Wild.getValue())) {
             questStatus = Math.max(0, cheatWords.getNum2());
             cheatWords.setCheat(true);
@@ -357,7 +431,6 @@ class WildQuest extends AbstractQuest {
     }
 
     // Special Events
-    //TODO dialog or alert???
     enum Phases implements SimpleValueEnum<QuestDialog> {
         Wild(new QuestDialog(DIALOG, "Jonathan Wild", "Law Enforcement is closing in on notorious criminal kingpin Jonathan Wild. He would reward you handsomely for smuggling him home to Kravat. You'd have to avoid capture by the Police on the way. Are you willing to give him a berth?")),
         WildGetsOut(new QuestDialog(ALERT, "Wild Gets Out", "Jonathan Wild is most grateful to you for spiriting him to safety. As a reward, he has one of his Cyber Criminals hack into the Police Database, and clean up your record. He also offers you the opportunity to take his talented nephew Zeethibal along as a Mercenary with no pay."));
@@ -402,43 +475,6 @@ class WildQuest extends AbstractQuest {
         }
     }
 
-    //TODO
-/*    case SpecialPassengerConcernedWild:
-            return new FormAlert(AlertsSpecialPassengerConcernedWildTitle,
-                                 AlertsSpecialPassengerConcernedWildMessage, AlertsOk,
-                                 DialogResult.OK, null, DialogResult.NONE, args);
-case SpecialPassengerImpatientWild:
-            return new FormAlert(AlertsSpecialPassengerImpatientWildTitle, AlertsSpecialPassengerImpatientWildMessage, AlertsOk,
-                                 DialogResult.OK, null, DialogResult.NONE, args);
-case WildArrested:
-            return new FormAlert(AlertsWildArrestedTitle, AlertsWildArrestedMessage, AlertsOk,
-                                 DialogResult.OK, null, DialogResult.NONE, args);
-            case WildChatsPirates:
-            return new FormAlert(AlertsWildChatsPiratesTitle, AlertsWildChatsPiratesMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildGoesPirates:
-            return new FormAlert(AlertsWildGoesPiratesTitle, AlertsWildGoesPiratesMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildLeavesShip:
-            return new FormAlert(AlertsWildLeavesShipTitle, AlertsWildLeavesShipMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildSculpture:
-            return new FormAlert(AlertsWildSculptureTitle, AlertsWildSculptureMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildWontBoardLaser:
-            return new FormAlert(AlertsWildWontBoardLaserTitle, AlertsWildWontBoardLaserMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildWontBoardReactor:
-            return new FormAlert(AlertsWildWontBoardReactorTitle, AlertsWildWontBoardReactorMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildWontStayAboardLaser:
-            return new FormAlert(AlertsWildWontStayAboardLaserTitle, AlertsWildWontStayAboardLaserMessage,
-                                 AlertsWildWontStayAboardLaserAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);
-            case WildWontStayAboardReactor:
-            return new FormAlert(AlertsWildWontStayAboardReactorTitle, AlertsWildWontStayAboardReactorMessage,
-                                 AlertsWildWontStayAboardReactorAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);*/
-
-
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         SpecialPassengerConcernedWild("Ship's Comm.", "Bridge? This is Jonathan. Are we there yet? Heh, heh. Sorry, I couldn't resist."),
         SpecialPassengerImpatientWild("Ship's Comm.", "Commander! Wild here. What's taking us so long?!"),
@@ -449,7 +485,6 @@ case WildArrested:
         WildSculpture("Wild Eyes Sculpture", "Jonathan Wild sees the stolen sculpture. \"Wow, I only know of one of these left in the whole Universe!\" he exclaims, \"Geurge Locas must be beside himself with it being stolen.\" He seems very impressed with you, which makes you feel much better about the item your delivering."),
         WildWontBoardLaser("Wild Won't Board Ship", "Jonathan Wild isn't willing to go with you if you're not armed with at least a Beam Laser. He'd rather take his chances hiding out here.<br>"),
         WildWontBoardReactor("Wild Won't Board Ship", "Jonathan Wild doesn't like the looks of that Ion Reactor. He thinks it's too dangerous, and won't get on board."),
-        //TODO process accept
         WildWontStayAboardLaser("Wild Won't Stay Aboard", "Jonathan Wild isn't about to go with you if you're not armed with at least a Beam Laser. He'd rather take his chances hiding out here on ^1.", "Say Goodbye to Wild"),
         WildWontStayAboardReactor("Wild Won't Stay Aboard", "Jonathan Wild isn't willing to go with you if you bring that Reactor on board. He'd rather take his chances hiding out here on ^1.", "Say Goodbye to Wild");
 
@@ -555,13 +590,13 @@ case WildArrested:
         }
     }
 
+    //TODO
     @Override
     public String toString() {
         return "WildQuest{" +
                 "questStatus=" + questStatus +
                 ", jarek=" + wild +
                 ", jarekOnBoard=" + wildOnBoard +
-                ", shipBarCode=" + shipBarCode +
                 "} " + super.toString();
     }
 }

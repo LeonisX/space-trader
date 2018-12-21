@@ -227,6 +227,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Correct react on reactor (refactor handleSpecialEvent)
+* ZEETHIBAL - another quest crew member
 * Detailed test all quests with 2 languages 
 * Rename current resources
 

@@ -3,6 +3,7 @@ package spacetrader.game;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.RandomEncounterContainer;
 import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
@@ -192,14 +193,11 @@ public class Encounter implements Serializable {
     }
 
     private boolean isDetermineRandomEncounter() {
-        boolean mantis = false;
-        boolean pirate = false;
-        boolean police = false;
-        boolean trader = false;
+        RandomEncounterContainer opponents = new RandomEncounterContainer();
 
         if (game.getWarpSystem().getId() == StarSystemId.Gemulon && game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_TOO_LATE) {
             if (Functions.getRandom(10) > 4) {
-                mantis = true;
+                opponents.setMantis(true);
             }
         } else {
             // Check if it is time for an encounter
@@ -213,29 +211,28 @@ public class Encounter implements Serializable {
 
             if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()) {
                 // When you are already raided, other pirates have little to gain
-                pirate = !game.getRaided();
+                opponents.setPirate(!game.getRaided());
             } else if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
                     + game.getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier) {
                 // policeModifier adapts itself to your criminal record: you'll
                 // encounter more police if you are a hardened criminal.
-                police = true;
+                opponents.setPolice(true);
             } else if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
                     + game.getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier
                     + game.getWarpSystem().getPoliticalSystem().getActivityTraders().castToInt()) {
-                trader = true;
-            } else if (commander.getShip().isWildOnBoard() && game.getWarpSystem().getId() == StarSystemId.Kravat) {
-                // if you're coming in to Kravat & you have Wild onboard, there'll be swarms o' cops.
-                police = Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - Game.getDifficultyId()));
+                opponents.setTrader(true);
             } else if (commander.getShip().isArtifactOnBoard() && Functions.getRandom(20) <= 3) {
-                mantis = true;
+                opponents.setMantis(true);
             }
+
+            game.getQuestSystem().fireEvent(ON_DETERMINE_RANDOM_ENCOUNTER, opponents);
         }
 
-        if (police) {
+        if (opponents.isPolice()) {
             return isDeterminePoliceEncounter();
-        } else if (pirate || mantis) {
-            return isDeterminePirateEncounter(mantis);
-        } else if (trader) {
+        } else if (opponents.isPirate() || opponents.isMantis()) {
+            return isDeterminePirateEncounter(opponents.isMantis());
+        } else if (opponents.isTrader()) {
             return isDetermineTraderEncounter();
         } else if (commander.getDays() > 10 && Functions.getRandom(1000) < getChanceOfVeryRareEncounter()
                 && getVeryRareEncounters().size() > 0) {
@@ -1059,11 +1056,11 @@ public class Encounter implements Serializable {
     public EncounterResult getEncounterVerifySurrender() {
         EncounterResult result = EncounterResult.CONTINUE;
 
-        BooleanContainer container = new BooleanContainer(false);
+        BooleanContainer fightToDie = new BooleanContainer(false);
 
-        game.getQuestSystem().fireEvent(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, container);
+        game.getQuestSystem().fireEvent(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, fightToDie);
 
-        if (container.getValue()) {
+        if (fightToDie.getValue()) {
             // If princess on board and no hidden cargo bays - continue fight to die.
         } else if (game.getOpponent().getType() == ShipType.MANTIS) {
             if (commander.getShip().isArtifactOnBoard()) {
@@ -1131,15 +1128,7 @@ public class Encounter implements Serializable {
                 }
             }
 
-            if (commander.getShip().isWildOnBoard()) {
-                if (game.getOpponent().getCrewQuarters() > 1) {
-                    // Wild hops onto Pirate Ship
-                    game.setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
-                    GuiFacade.alert(AlertType.WildGoesPirates);
-                } else {
-                    GuiFacade.alert(AlertType.WildChatsPirates);
-                }
-            }
+            game.getQuestSystem().fireEvent(ON_SURRENDER_IF_RAIDED);
 
             // pirates puzzled by reactor
             if (commander.getShip().isReactorOnBoard()) {

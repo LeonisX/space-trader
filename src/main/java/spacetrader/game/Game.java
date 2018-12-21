@@ -6,6 +6,8 @@ import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.QuestSystem;
+import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
@@ -153,15 +155,15 @@ public class Game implements Serializable {
 
     private void arrested() {
         int term = Math.max(30, -commander.getPoliceRecordScore());
-        int fine = (1 + commander.getWorth() * Math.min(80, -commander.getPoliceRecordScore()) / 50000) * 500;
-        if (commander.getShip().isWildOnBoard()) {
-            fine = (int) (fine * 1.05);
-        }
+        IntContainer fineContainer =
+                new IntContainer((1 + commander.getWorth() * Math.min(80, -commander.getPoliceRecordScore()) / 50000) * 500);
+
+        questSystem.fireEvent(ON_BEFORE_ARRESTED_CALCULATE_FINE, fineContainer);
 
         GuiFacade.alert(AlertType.EncounterArrested);
 
-        GuiFacade.alert(AlertType.JailConvicted, Functions.plural(term, Strings.TimeUnit), Functions.plural(fine,
-                Strings.MoneyUnit));
+        GuiFacade.alert(AlertType.JailConvicted, Functions.plural(term, Strings.TimeUnit),
+                Functions.plural(fineContainer.getValue(), Strings.MoneyUnit));
 
         if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             while (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
@@ -222,10 +224,10 @@ public class Game implements Serializable {
             setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_DONE);
         }
 
-        if (commander.getCash() >= fine) {
-            commander.setCash(commander.getCash() - fine);
+        if (commander.getCash() >= fineContainer.getValue()) {
+            commander.setCash(commander.getCash() - fineContainer.getValue());
         } else {
-            commander.setCash(Math.max(0, commander.getCash() + commander.getShip().getWorth(true) - fine));
+            commander.setCash(Math.max(0, commander.getCash() + commander.getShip().getWorth(true) - fineContainer.getValue()));
 
             GuiFacade.alert(AlertType.JailShipSold);
 
@@ -1056,7 +1058,7 @@ public class Game implements Serializable {
         }
     }
 
-    public void generateOpponent(OpponentType oppType) {
+    void generateOpponent(OpponentType oppType) {
         setOpponent(new Ship(oppType));
     }
 
@@ -1152,8 +1154,14 @@ public class Game implements Serializable {
     }
 
     public void handleSpecialEvent() {
+        //TODO isAboutToBegin specialEvent - if this event should start
+        //Now only for few quests (reactor)
+        //Second phase - fire checks on
+        // not remove - manually curSys.setSpecialEventType(SpecialEventType.NA); if need
+        // better solution - startQuest(...) - and there curSys.setSpecialEventType(SpecialEventType.NA);
+        // better solution - finishQuest(...) - and there curSys.setSpecialEventType(SpecialEventType.NA);
         StarSystem curSys = commander.getCurrentSystem();
-        boolean remove = true;
+        BooleanContainer remove = new BooleanContainer(true);
 
         switch (curSys.getSpecialEventType()) {
             case Artifact:
@@ -1176,12 +1184,12 @@ public class Game implements Serializable {
                 break;
             case DragonflyDestroyed:
                 curSys.setSpecialEventType(SpecialEventType.DragonflyShield);
-                remove = false;
+                remove.setValue(false);
                 break;
             case DragonflyShield:
                 if (commander.getShip().getFreeShieldSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
+                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentLightningShield);
                     commander.getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
@@ -1191,7 +1199,7 @@ public class Game implements Serializable {
             case EraseRecord:
                 GuiFacade.alert(AlertType.SpecialCleanRecord);
                 commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-                recalculateSellPrices(curSys);
+                recalculateSellPrices();
                 break;
             case Experiment:
                 setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_STARTED);
@@ -1208,7 +1216,7 @@ public class Game implements Serializable {
             case GemulonFuel:
                 if (commander.getShip().getFreeGadgetSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
+                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentFuelCompactor);
                     commander.getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
@@ -1218,11 +1226,11 @@ public class Game implements Serializable {
             case GemulonRescued:
                 curSys.setSpecialEventType(SpecialEventType.GemulonFuel);
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_FUEL);
-                remove = false;
+                remove.setValue(false);
                 break;
             case Japori:
                 // The japori quest should not be removed since you can fail and start it over again.
-                remove = false;
+                remove.setValue(false);
 
                 if (commander.getShip().getFreeCargoBays() < 10) {
                     GuiFacade.alert(AlertType.CargoNoEmptyBays);
@@ -1298,18 +1306,21 @@ public class Game implements Serializable {
             case Reactor:
                 if (commander.getShip().getFreeCargoBays() < 15) {
                     GuiFacade.alert(AlertType.CargoNoEmptyBays);
-                    remove = false;
+                    remove.setValue(false);
                 } else {
-                    if (commander.getShip().isWildOnBoard()) {
+
+                    //TODO need best solution!!!
+                    questSystem.fireEvent(REACT_ON_REACTOR, remove);
+                    /*if (commander.getShip().isWildOnBoard()) {
                         if (GuiFacade.alert(AlertType.WildWontStayAboardReactor, curSys.getName()) == DialogResult.OK) {
                             GuiFacade.alert(AlertType.WildLeavesShip, curSys.getName());
                             setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
                         } else {
-                            remove = false;
+                            remove.setValue(false);
                         }
-                    }
+                    }*/
 
-                    if (remove) {
+                    if (remove.getValue()) {
                         GuiFacade.alert(AlertType.ReactorOnBoard);
                         setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_FUEL_OK);
                     }
@@ -1318,12 +1329,12 @@ public class Game implements Serializable {
             case ReactorDelivered:
                 curSys.setSpecialEventType(SpecialEventType.ReactorLaser);
                 setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DELIVERED);
-                remove = false;
+                remove.setValue(false);
                 break;
             case ReactorLaser:
                 if (commander.getShip().getFreeWeaponSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
+                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentMorgansLaser);
                     commander.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
@@ -1336,14 +1347,14 @@ public class Game implements Serializable {
             case ScarabDestroyed:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DESTROYED);
                 curSys.setSpecialEventType(SpecialEventType.ScarabUpgradeHull);
-                remove = false;
+                remove.setValue(false);
                 break;
             case ScarabUpgradeHull:
                 GuiFacade.alert(AlertType.ShipHullUpgraded);
                 commander.getShip().setHullUpgraded(true);
                 commander.getShip().setHull(commander.getShip().getHull() + Consts.HullUpgrade);
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DONE);
-                remove = false;
+                remove.setValue(false);
                 break;
             case Sculpture:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT);
@@ -1351,13 +1362,13 @@ public class Game implements Serializable {
             case SculptureDelivered:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DELIVERED);
                 curSys.setSpecialEventType(SpecialEventType.SculptureHiddenBays);
-                remove = false;
+                remove.setValue(false);
                 break;
             case SculptureHiddenBays:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
                 if (commander.getShip().getFreeGadgetSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
+                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentHiddenCompartments);
                     commander.getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
@@ -1425,7 +1436,7 @@ public class Game implements Serializable {
             commander.setCash(commander.getCash() - curSys.specialEvent().getPrice());
         }
 
-        if (remove) {
+        if (remove.getValue()) {
             curSys.setSpecialEventType(SpecialEventType.NA);
         }
     }
@@ -1701,7 +1712,7 @@ public class Game implements Serializable {
     // *************************************************************************
     // After erasure of police record, selling prices must be recalculated
     // *************************************************************************
-    private void recalculateSellPrices(StarSystem system) {
+    public void recalculateSellPrices() {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             priceCargoSell[i] = priceCargoSell[i] * 100 / 90;
         }
@@ -1800,19 +1811,21 @@ public class Game implements Serializable {
         } else if (commander.getCash() < getMercenaryCosts() + getInsuranceCosts() + getWormholeCosts()) {
             GuiFacade.alert(AlertType.LeavingIFWormholeTax);
         } else {
-            boolean wildOk = true;
+            BooleanContainer okWarp = new BooleanContainer(true);
+
+            questSystem.fireEvent(ON_BEFORE_WARP, okWarp);
 
             // if Wild is aboard, make sure ship is armed!
-            if (commander.getShip().isWildOnBoard() && !commander.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
+            /*if (commander.getShip().isWildOnBoard() && !commander.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
                 if (GuiFacade.alert(AlertType.WildWontStayAboardLaser, commander.getCurrentSystem().getName()) == DialogResult.CANCEL) {
                     wildOk = false;
                 } else {
                     GuiFacade.alert(AlertType.WildLeavesShip, commander.getCurrentSystem().getName());
                     setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
                 }
-            }
+            }*/
 
-            if (wildOk) {
+            if (okWarp.getValue()) {
                 setArrivedViaWormhole(Functions.wormholeExists(commander.getCurrentSystem(), getWarpSystem()));
 
                 if (viaSingularity) {

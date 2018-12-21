@@ -9,7 +9,10 @@ import spacetrader.game.ShipSpec;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.exceptions.GameEndException;
-import spacetrader.game.quest.enums.*;
+import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.MessageType;
+import spacetrader.game.quest.enums.QuestState;
+import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
@@ -256,10 +259,17 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     @Facaded
-    void showAlert(AlertDialog dialog) {
-        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), Strings.AlertsOk, DialogResult.OK, null, DialogResult.NONE, null);
-        formAlert.showDialog();
+    DialogResult showAlert(AlertDialog dialog) {
+        return showAlert(dialog, (String[]) null);
     }
+
+    @Facaded
+    DialogResult showAlert(AlertDialog dialog, String... args) {
+        String ok = dialog.getAccept() == null ? Strings.AlertsOk : dialog.getAccept();
+        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), ok, DialogResult.OK, null, DialogResult.NONE, args);
+        return formAlert.showDialog();
+    }
+
 
     @Override
     public String toString() {

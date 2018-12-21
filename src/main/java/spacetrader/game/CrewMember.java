@@ -86,7 +86,7 @@ public class CrewMember implements Serializable {
     // in the order of Pilot, Fighter, Trader, Engineer.
     // JAF - rewrote this to be more efficient.
     // *************************************************************************
-    int nthLowestSkill(int n) {
+    public int nthLowestSkill(int n) {
         int[] skillIds = new int[]{0, 1, 2, 3};
 
         for (int j = 0; j < 3; j++) {
@@ -132,7 +132,7 @@ public class CrewMember implements Serializable {
         return (currentSystemId == StarSystemId.NA) ? null : Game.getStarSystem(currentSystemId);
     }
 
-    void setCurrentSystem(StarSystem value) {
+    public void setCurrentSystem(StarSystem value) {
         currentSystemId = value.getId();
     }
 
