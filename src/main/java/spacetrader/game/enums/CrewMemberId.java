@@ -33,7 +33,7 @@ public enum CrewMemberId implements SpaceTraderEnum {
     WESLEY, // = 27,
     WONTON, // = 28,
     YORVICK, // = 29,
-    ZEETHIBAL, // = 30,
+    //ZEETHIBAL, // = 30,
     OPPONENT, // = 31,
     //WILD, // = 32,
     //JAREK, // = 33,

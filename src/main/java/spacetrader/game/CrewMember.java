@@ -177,8 +177,7 @@ public class CrewMember implements Serializable {
     }
 
     public int getRate() {
-        return (id >= 1000 || getCrewMemberId() == CrewMemberId.ZEETHIBAL)
-                ? 0 : (getPilot() + getFighter() + getTrader() + getEngineer()) * 3;
+        return (id >= 1000) ? 0 : (getPilot() + getFighter() + getTrader() + getEngineer()) * 3;
     }
 
     public int[] getSkills() {

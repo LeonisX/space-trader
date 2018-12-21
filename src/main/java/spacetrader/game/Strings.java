@@ -693,7 +693,7 @@ public class Strings {
             "Deirdre", "Doc", "Draco", "Iranda", "Jeremiah", "Jujubal",
             "Krydon", "Luis", "Mercedez", "Milete", "Muri-L", "Mystyc",
             "Nandi", "Orestes", "Pancho", "PS37", "Quarck", "Sosumi", "Uma",
-            "Wesley", "Wonton", "Yorvick", "Zeethibal", // anagram for Elizabeth
+            "Wesley", "Wonton", "Yorvick", /*"Zeethibal",*/ // anagram for Elizabeth
 
             // The rest are mercenaries added JAF
             "Opponent", // crew of opponent mantis, pirate, police, and trader ships

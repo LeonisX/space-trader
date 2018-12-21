@@ -39,6 +39,7 @@ class WildQuest extends AbstractQuest {
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
     private CrewMember wild;
+    private CrewMember zeethibal;
     private boolean wildOnBoard;
 
     public WildQuest(Integer id) {
@@ -48,6 +49,7 @@ class WildQuest extends AbstractQuest {
         initializeTransitionMap();
 
         wild = registerNewSpecialCrewMember(7, 10, 2, 5);
+        zeethibal = registerNewSpecialCrewMember(5, 5, 5, 5);
 
         registerNews(News.values().length);
 
@@ -78,7 +80,7 @@ class WildQuest extends AbstractQuest {
 
         getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
-        getTransitionMap().put(REACT_ON_REACTOR, this::onReactOnReactor);
+        getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, this::onSpecialButtonClickedResolveIsConflict);
 
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
@@ -86,7 +88,7 @@ class WildQuest extends AbstractQuest {
         getTransitionMap().put(ON_DETERMINE_RANDOM_ENCOUNTER, this::onDetermineRandomEncounter);
         getTransitionMap().put(ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT, this::onBeforeEncounterGenerateOpponent);
         getTransitionMap().put(ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES, this::onGenerateOpponentShipPoliceTries);
-        getTransitionMap().put(ON_SURRENDER_IF_RAIDED, this::onSurrenderIfRaided);
+        getTransitionMap().put(ENCOUNTER_ON_SURRENDER_IF_RAIDED, this::onSurrenderIfRaided);
 
         getTransitionMap().put(IS_ILLEGAL_SPECIAL_CARGO, this::onIsIllegalSpecialCargo);
         getTransitionMap().put(ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS, this::onGetIllegalSpecialCargoActions);
@@ -129,6 +131,7 @@ class WildQuest extends AbstractQuest {
         I18n.dumpStrings(Res.Quests, Arrays.stream(Quests.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
+        I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
         I18n.dumpStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
@@ -139,6 +142,7 @@ class WildQuest extends AbstractQuest {
         I18n.localizeStrings(Res.Quests, Arrays.stream(Quests.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
+        I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
         I18n.localizeStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
@@ -151,20 +155,19 @@ class WildQuest extends AbstractQuest {
     }
 
     private void onAssignEventsRandomly(Object object) {
-        int system;
-        //TODO common method
-        do {
-            system = Functions.getRandom(Game.getCurrentGame().getUniverse().length);
-        } while (Game.getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
-
-        Game.getStarSystem(system).setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.Wild).setStarSystemId(Game.getStarSystem(system).getId());
-        log.fine(phases.get(Phases.Wild).getStarSystemId().toString());
+        phases.get(Phases.Wild).setStarSystemId(occupyFreeSystemWithEvent());
     }
 
+    @SuppressWarnings("unchecked")
     private void onGenerateCrewMemberList(Object object) {
         log.fine("");
         Game.getCurrentGame().getMercenaries().put(wild.getId(), wild);
+        Game.getCurrentGame().getMercenaries().put(zeethibal.getId(), zeethibal);
+
+        List<Integer> usedSystems = (List<Integer>) object;
+
+        // Zeethibal may be on Kravat
+        usedSystems.set(StarSystemId.Kravat.castToInt(), 1);
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
@@ -207,8 +210,6 @@ class WildQuest extends AbstractQuest {
         }
     }
 
-    //TODO zeethibal
-
     class WildGetsOutPhase extends Phase { //new SpecialEvent(SpecialEventType.WildGetsOut, 0, 0, true),
         @Override
         public boolean canBeExecuted() {
@@ -219,7 +220,6 @@ class WildQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #2");
             // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
-            CrewMember zeethibal = Game.getCurrentGame().getMercenaries().get(CrewMemberId.ZEETHIBAL.castToInt());
             zeethibal.setCurrentSystem(Game.getStarSystem(StarSystemId.Kravat));
             int lowest1 = Game.getCommander().nthLowestSkill(1);
             int lowest2 = Game.getCommander().nthLowestSkill(2);
@@ -250,21 +250,18 @@ class WildQuest extends AbstractQuest {
         }
     }
 
-
-    //TODO need best solution!!!
-    private void onReactOnReactor(Object object) {
+    // TODO repeat if < normal, otherwise fail
+    private void onSpecialButtonClickedResolveIsConflict(Object object) {
         if (wildOnBoard) {
             if (showAlert(Alerts.WildWontStayAboardReactor.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.OK) {
                 showAlert(Alerts.WildLeavesShip.getValue(), Game.getCommander().getCurrentSystem().getName());
-                //TODO AND WHAT??? Where goes Wild? Need to test
                 questStatus = STATUS_WILD_NOT_STARTED;
+                setQuestState(QuestState.FAILED);
             } else {
-                ((BooleanContainer) object).setValue(false);
-                Game.getCommander().getCurrentSystem().setSpecialEventType(SpecialEventType.NA);
+                ((BooleanContainer) object).setValue(true);
             }
         }
     }
-
 
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
@@ -314,13 +311,14 @@ class WildQuest extends AbstractQuest {
         }
     }
 
+    // TODO repeat if < normal, otherwise fail
     private void onSurrenderIfRaided(Object object) {
         if (wildOnBoard) {
             if (game.getOpponent().getCrewQuarters() > 1) {
                 // Wild hops onto Pirate Ship
-                //TODO AND WHAT? WHERE is WILD????
                 questStatus = STATUS_WILD_NOT_STARTED;
                 showAlert(Alerts.WildGoesPirates.getValue());
+                setQuestState(QuestState.FAILED);
             } else {
                 showAlert(Alerts.WildChatsPirates.getValue());
             }
@@ -414,8 +412,7 @@ class WildQuest extends AbstractQuest {
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
-        //TODO english only Jarek, Princess, Wild
-        if (cheatWords.getSecond().equals(CheatTitles.Wild.getValue())) {
+        if (cheatWords.getSecond().equals(CheatTitles.Wild.name())) {
             questStatus = Math.max(0, cheatWords.getNum2());
             cheatWords.setCheat(true);
             log.fine("consider cheat");
@@ -552,7 +549,8 @@ class WildQuest extends AbstractQuest {
     }
 
     enum CrewNames implements SimpleValueEnum<String> {
-        Wild("Wild");
+        Wild("Wild"),
+        Zeethibal("Zeethibal");
 
         private String value;
 
@@ -590,13 +588,13 @@ class WildQuest extends AbstractQuest {
         }
     }
 
-    //TODO
     @Override
     public String toString() {
         return "WildQuest{" +
                 "questStatus=" + questStatus +
-                ", jarek=" + wild +
-                ", jarekOnBoard=" + wildOnBoard +
+                ", wild=" + wild +
+                ", zeethibal=" + zeethibal +
+                ", wildOnBoard=" + wildOnBoard +
                 "} " + super.toString();
     }
 }

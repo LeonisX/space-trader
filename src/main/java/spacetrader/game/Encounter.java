@@ -1128,7 +1128,7 @@ public class Encounter implements Serializable {
                 }
             }
 
-            game.getQuestSystem().fireEvent(ON_SURRENDER_IF_RAIDED);
+            game.getQuestSystem().fireEvent(ENCOUNTER_ON_SURRENDER_IF_RAIDED);
 
             // pirates puzzled by reactor
             if (commander.getShip().isReactorOnBoard()) {

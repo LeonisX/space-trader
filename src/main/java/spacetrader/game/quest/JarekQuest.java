@@ -13,7 +13,6 @@ import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.guifacade.GuiFacade;
-import spacetrader.util.Functions;
 
 import java.util.*;
 
@@ -155,15 +154,7 @@ class JarekQuest extends AbstractQuest {
     }
 
     private void onAssignEventsRandomly(Object object) {
-        int system;
-        //TODO common method
-        do {
-            system = Functions.getRandom(Game.getCurrentGame().getUniverse().length);
-        } while (Game.getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
-
-        Game.getStarSystem(system).setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.Jarek).setStarSystemId(Game.getStarSystem(system).getId());
-        log.fine(phases.get(Phases.Jarek).getStarSystemId().toString());
+        phases.get(Phases.Jarek).setStarSystemId(occupyFreeSystemWithEvent());
     }
 
     private void onGenerateCrewMemberList(Object object) {
@@ -319,7 +310,7 @@ class JarekQuest extends AbstractQuest {
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
-        if (cheatWords.getSecond().equals(CheatTitles.Jarek.getValue())) {
+        if (cheatWords.getSecond().equals(CheatTitles.Jarek.name())) {
             questStatus = Math.max(0, cheatWords.getNum2());
             cheatWords.setCheat(true);
             log.fine("consider cheat");

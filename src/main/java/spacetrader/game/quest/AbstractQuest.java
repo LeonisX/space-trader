@@ -3,11 +3,10 @@ package spacetrader.game.quest;
 import spacetrader.controls.Button;
 import spacetrader.controls.Rectangle;
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.game.CrewMember;
-import spacetrader.game.Game;
-import spacetrader.game.ShipSpec;
-import spacetrader.game.Strings;
+import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.MessageType;
@@ -19,9 +18,11 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -84,6 +85,17 @@ public abstract class AbstractQuest implements Quest, Serializable {
             newsIds.add(newsId);
             game.getQuestSystem().registerNews(newsId, quest);
         }
+    }
+
+    @SuppressWarnings("all")
+    StarSystemId occupyFreeSystemWithEvent() {
+        StarSystem system = Arrays.stream(game.getUniverse())
+                .filter(s -> s.getSpecialEventType() == SpecialEventType.NA)
+                .sorted((o1, o2) -> ThreadLocalRandom.current().nextInt(-1, 2)).findAny().get();
+
+        system.setSpecialEventType(SpecialEventType.ASSIGNED);
+        log.fine(system.getId().toString());
+        return system.getId();
     }
 
     Map<EventName, Consumer<Object>> getTransitionMap() {

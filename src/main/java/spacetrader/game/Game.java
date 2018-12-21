@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static spacetrader.game.enums.GameEndType.BOUGHT_MOON;
 import static spacetrader.game.enums.GameEndType.KILLED;
 import static spacetrader.game.quest.enums.EventName.*;
@@ -1010,22 +1011,22 @@ public class Game implements Serializable {
     }
 
     private void generateCrewMemberList() {
-        int[] used = new int[getUniverse().length];
+        List<Integer> usedSystems = Arrays.stream(getUniverse()).map(s -> 0).collect(toList());
         int d = getDifficultyId();
 
         // Zeethibal may be on Kravat
-        used[StarSystemId.Kravat.castToInt()] = 1;
+        //used[StarSystemId.Kravat.castToInt()] = 1;
 
         // special individuals:
         // Zeethibal, Jonathan Wild's Nephew - skills will be set later.
         // Wild, Jonathan Wild earns his keep now - JAF.
         // Jarek, Ambassador Jarek earns his keep now - JAF.
         // Dummy pilots for opponents.
-        mercenaries.put(CrewMemberId.ZEETHIBAL.castToInt(), new CrewMember(CrewMemberId.ZEETHIBAL, 5, 5, 5, 5, StarSystemId.NA));
+        //mercenaries.put(CrewMemberId.ZEETHIBAL.castToInt(), new CrewMember(CrewMemberId.ZEETHIBAL, 5, 5, 5, 5, StarSystemId.NA));
         mercenaries.put(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5, StarSystemId.NA));
         //mercenaries.put(CrewMemberId.WILD.castToInt(), new CrewMember(CrewMemberId.WILD, 7, 10, 2, 5, StarSystemId.NA));
 
-        questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST);
+        questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST, usedSystems);
 
         // Jarek TODO remove after finish this quest
 
@@ -1045,8 +1046,8 @@ public class Game implements Serializable {
 
                 do {
                     id = StarSystemId.fromInt(Functions.getRandom(getUniverse().length));
-                    if (used[id.castToInt()] < 3) {
-                        used[id.castToInt()]++;
+                    if (usedSystems.get(id.castToInt()) < 3) {
+                        usedSystems.set(id.castToInt(), usedSystems.get(id.castToInt()) + 1);
                         ok = true;
                     }
                 } while (!ok);
@@ -1154,84 +1155,82 @@ public class Game implements Serializable {
     }
 
     public void handleSpecialEvent() {
-        //TODO isAboutToBegin specialEvent - if this event should start
-        //Now only for few quests (reactor)
-        //Second phase - fire checks on
-        // not remove - manually curSys.setSpecialEventType(SpecialEventType.NA); if need
-        // better solution - startQuest(...) - and there curSys.setSpecialEventType(SpecialEventType.NA);
-        // better solution - finishQuest(...) - and there curSys.setSpecialEventType(SpecialEventType.NA);
-        StarSystem curSys = commander.getCurrentSystem();
-        BooleanContainer remove = new BooleanContainer(true);
+        StarSystem currentSystem = commander.getCurrentSystem();
 
-        switch (curSys.getSpecialEventType()) {
+        switch (currentSystem.getSpecialEventType()) {
             case Artifact:
                 setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_ON_BOARD);
+                beginQuestPhase();
                 break;
             case ArtifactDelivery:
                 setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
+                beginQuestPhase();
                 break;
             case CargoForSale:
                 GuiFacade.alert(AlertType.SpecialSealedCanisters);
                 int tradeItem = Functions.getRandom(Consts.TradeItems.length);
                 commander.getShip().getCargo()[tradeItem] += 3;
                 commander.getPriceCargo()[tradeItem] += commander.getCurrentSystem().specialEvent().getPrice();
+                beginQuestPhase();
                 break;
             case Dragonfly:
             case DragonflyBaratas:
             case DragonflyMelina:
             case DragonflyRegulas:
                 setQuestStatusDragonfly(getQuestStatusDragonfly() + 1);
+                beginQuestPhase();
                 break;
             case DragonflyDestroyed:
-                curSys.setSpecialEventType(SpecialEventType.DragonflyShield);
-                remove.setValue(false);
+                switchQuestPhase(SpecialEventType.DragonflyShield);
                 break;
             case DragonflyShield:
                 if (commander.getShip().getFreeShieldSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentLightningShield);
                     commander.getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
                     setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DONE);
+                    beginQuestPhase();
                 }
                 break;
             case EraseRecord:
                 GuiFacade.alert(AlertType.SpecialCleanRecord);
                 commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
                 recalculateSellPrices();
+                beginQuestPhase();
                 break;
             case Experiment:
                 setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_STARTED);
+                beginQuestPhase();
                 break;
             case ExperimentFailed:
+                beginQuestPhase();
                 break;
             case ExperimentStopped:
                 setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_CANCELLED);
                 setCanSuperWarp(true);
+                beginQuestPhase();
                 break;
             case Gemulon:
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_STARTED);
+                beginQuestPhase();
                 break;
             case GemulonFuel:
                 if (commander.getShip().getFreeGadgetSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentFuelCompactor);
                     commander.getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
                     setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_DONE);
+                    beginQuestPhase();
                 }
                 break;
             case GemulonRescued:
-                curSys.setSpecialEventType(SpecialEventType.GemulonFuel);
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_FUEL);
-                remove.setValue(false);
+                switchQuestPhase(SpecialEventType.GemulonFuel);
                 break;
             case Japori:
                 // The japori quest should not be removed since you can fail and start it over again.
-                remove.setValue(false);
-
                 if (commander.getShip().getFreeCargoBays() < 10) {
                     GuiFacade.alert(AlertType.CargoNoEmptyBays);
                 } else {
@@ -1243,6 +1242,7 @@ public class Game implements Serializable {
                 setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_DONE);
                 commander.increaseRandomSkill();
                 commander.increaseRandomSkill();
+                beginQuestPhase();
                 break;
             /*case Jarek:
                 if (commander.getShip().getFreeCrewQuartersCount() == 0) {
@@ -1264,6 +1264,7 @@ public class Game implements Serializable {
             case Moon:
                 GuiFacade.alert(AlertType.SpecialMoonBought);
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_BOUGHT);
+                beginQuestPhase();
                 break;
             case MoonRetirement:
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
@@ -1306,11 +1307,10 @@ public class Game implements Serializable {
             case Reactor:
                 if (commander.getShip().getFreeCargoBays() < 15) {
                     GuiFacade.alert(AlertType.CargoNoEmptyBays);
-                    remove.setValue(false);
                 } else {
 
-                    //TODO need best solution!!!
-                    questSystem.fireEvent(REACT_ON_REACTOR, remove);
+                    BooleanContainer isConflict = new BooleanContainer(false);
+                    questSystem.fireEvent(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, isConflict);
                     /*if (commander.getShip().isWildOnBoard()) {
                         if (GuiFacade.alert(AlertType.WildWontStayAboardReactor, curSys.getName()) == DialogResult.OK) {
                             GuiFacade.alert(AlertType.WildLeavesShip, curSys.getName());
@@ -1320,79 +1320,85 @@ public class Game implements Serializable {
                         }
                     }*/
 
-                    if (remove.getValue()) {
+                    if (!isConflict.getValue()) {
                         GuiFacade.alert(AlertType.ReactorOnBoard);
                         setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_FUEL_OK);
+                        beginQuestPhase();
                     }
                 }
                 break;
             case ReactorDelivered:
-                curSys.setSpecialEventType(SpecialEventType.ReactorLaser);
                 setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DELIVERED);
-                remove.setValue(false);
+                switchQuestPhase(SpecialEventType.ReactorLaser);
                 break;
             case ReactorLaser:
                 if (commander.getShip().getFreeWeaponSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentMorgansLaser);
                     commander.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
                     setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
+                    beginQuestPhase();
                 }
                 break;
             case Scarab:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_HUNTING);
+                beginQuestPhase();
                 break;
             case ScarabDestroyed:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DESTROYED);
-                curSys.setSpecialEventType(SpecialEventType.ScarabUpgradeHull);
-                remove.setValue(false);
+                switchQuestPhase(SpecialEventType.ScarabUpgradeHull);
                 break;
             case ScarabUpgradeHull:
                 GuiFacade.alert(AlertType.ShipHullUpgraded);
                 commander.getShip().setHullUpgraded(true);
                 commander.getShip().setHull(commander.getShip().getHull() + Consts.HullUpgrade);
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DONE);
-                remove.setValue(false);
+                //TODO is it correct????
+                //remove.setValue(false);
                 break;
             case Sculpture:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT);
+                beginQuestPhase();
                 break;
             case SculptureDelivered:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DELIVERED);
-                curSys.setSpecialEventType(SpecialEventType.SculptureHiddenBays);
-                remove.setValue(false);
+                switchQuestPhase(SpecialEventType.SculptureHiddenBays);
                 break;
             case SculptureHiddenBays:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
                 if (commander.getShip().getFreeGadgetSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove.setValue(false);
                 } else {
                     GuiFacade.alert(AlertType.EquipmentHiddenCompartments);
                     commander.getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
                     setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
+                    beginQuestPhase();
                 }
                 break;
             case Skill:
                 GuiFacade.alert(AlertType.SpecialSkillIncrease);
                 commander.increaseRandomSkill();
+                beginQuestPhase();
                 break;
             case SpaceMonster:
                 setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR);
+                beginQuestPhase();
                 break;
             case SpaceMonsterKilled:
                 setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_DONE);
+                beginQuestPhase();
                 break;
             case Tribble:
                 GuiFacade.alert(AlertType.TribblesOwn);
                 commander.getShip().setTribbles(1);
+                beginQuestPhase();
                 break;
             case TribbleBuyer:
                 GuiFacade.alert(AlertType.TribblesGone);
                 commander.setCash(commander.getCash() + (commander.getShip().getTribbles() / 2));
                 commander.getShip().setTribbles(0);
+                beginQuestPhase();
                 break;
             /*case Wild:
                 if (commander.getShip().getFreeCrewQuartersCount() == 0) {
@@ -1432,14 +1438,20 @@ public class Game implements Serializable {
                 break;*/
         }
 
-        if (curSys.specialEvent().getPrice() != 0) {
-            commander.setCash(commander.getCash() - curSys.specialEvent().getPrice());
-        }
-
-        if (remove.getValue()) {
-            curSys.setSpecialEventType(SpecialEventType.NA);
-        }
+        //currentSystem.setSpecialEventType(SpecialEventType.NA);
+        //commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
     }
+
+    private void beginQuestPhase() {
+        StarSystem currentSystem = commander.getCurrentSystem();
+        currentSystem.setSpecialEventType(SpecialEventType.NA);
+        commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
+    }
+
+    private void switchQuestPhase(SpecialEventType specialEventType) {
+        commander.getCurrentSystem().setSpecialEventType(specialEventType);
+    }
+
 
     public void incDays(int num) {
         commander.setDays(commander.getDays() + num);
