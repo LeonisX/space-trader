@@ -62,6 +62,9 @@ class I18n {
         alerts.forEach(alert -> {
             System.out.println(getHeadTitleValue(Res.Alerts.getPrefix(), alert.name(), alert.getValue().getTitle()));
             System.out.println(getHeadMessageValue(Res.Alerts.getPrefix(), alert.name(), alert.getValue().getMessage()));
+            if (alert.getValue().getAccept() != null) {
+                System.out.println(getHeadAcceptValue(Res.Alerts.getPrefix(), alert.name(), alert.getValue().getAccept()));
+            }
         });
     }
 
