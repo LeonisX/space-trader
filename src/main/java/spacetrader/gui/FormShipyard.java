@@ -386,6 +386,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        cargoBaysNum.setMinimum(0);
 
         fuelTanksLabel.setAutoSize(true);
         fuelTanksLabel.setLocation(8, 47);
@@ -410,6 +411,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        fuelTanksNum.setMinimum(0);
 
         hullStrengthLabel.setAutoSize(true);
         hullStrengthLabel.setLocation(8, 71);
@@ -435,6 +437,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        hullStrengthNum.setMinimum(0);
 
         weaponsSlotsLabel.setAutoSize(true);
         weaponsSlotsLabel.setLocation(8, 95);
@@ -459,6 +462,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        weaponsSlotsNum.setMinimum(0);
 
         shieldSlotsLabel.setAutoSize(true);
         shieldSlotsLabel.setLocation(8, 119);
@@ -483,6 +487,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        shieldSlotsNum.setMinimum(0);
 
         gadgetSlotsLabel.setAutoSize(true);
         gadgetSlotsLabel.setLocation(8, 143);
@@ -507,6 +512,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        gadgetSlotsNum.setMinimum(0);
 
         crewQuartersLabel.setAutoSize(true);
         crewQuartersLabel.setLocation(8, 167);
@@ -533,6 +539,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        crewQuartersNum.setMinimum(0);
 
         unitsUsedLabel.setAutoSize(true);
         unitsUsedLabel.setLocation(8, 191);

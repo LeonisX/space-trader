@@ -246,13 +246,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Jarek
 
-* Jarek: on arrested, escapePod - fail quest, no second try. What interesting - when arrest - Jarek will stay
 * Increase difficulty, depends on game difficulty (days to delivery). Don't give computer when > Normal, instead money
 
 ### Shipyard
 
 * Investigate - when new shipyard - can receive 600%
-* Negative values for slots, ...
 * Manual set value in slot (without check)
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
 * After deal in ShipYard - alert in center of screen
