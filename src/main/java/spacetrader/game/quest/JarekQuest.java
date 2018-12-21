@@ -115,7 +115,7 @@ class JarekQuest extends AbstractQuest {
 
     @Override
     public String getCrewMemberName(int id) {
-        return CrewNames.values()[0].getValue();
+        return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
     }
 
     @Override

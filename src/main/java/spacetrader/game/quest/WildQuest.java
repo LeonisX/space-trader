@@ -55,9 +55,7 @@ class WildQuest extends AbstractQuest {
 
         registerListener();
 
-        //TODO translate, remove
-        dumpAllStrings();
-        //localize();
+        localize();
 
         log.fine("started...");
     }
@@ -116,7 +114,7 @@ class WildQuest extends AbstractQuest {
 
     @Override
     public String getCrewMemberName(int id) {
-        return CrewNames.values()[0].getValue();
+        return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
     }
 
     @Override
@@ -480,7 +478,7 @@ class WildQuest extends AbstractQuest {
         WildGoesPirates("Wild Goes With Pirates", "The Pirate Captain turns out to be an old associate of Jonathan Wild's, and invites him to go to Kravat aboard the Pirate ship. Wild accepts the offer and thanks you for the ride."),
         WildLeavesShip("Wild Leaves Ship", "Jonathan Wild leaves your ship, and goes into hiding on ^1."),
         WildSculpture("Wild Eyes Sculpture", "Jonathan Wild sees the stolen sculpture. \"Wow, I only know of one of these left in the whole Universe!\" he exclaims, \"Geurge Locas must be beside himself with it being stolen.\" He seems very impressed with you, which makes you feel much better about the item your delivering."),
-        WildWontBoardLaser("Wild Won't Board Ship", "Jonathan Wild isn't willing to go with you if you're not armed with at least a Beam Laser. He'd rather take his chances hiding out here.<br>"),
+        WildWontBoardLaser("Wild Won't Board Ship", "Jonathan Wild isn't willing to go with you if you're not armed with at least a Beam Laser. He'd rather take his chances hiding out here."),
         WildWontBoardReactor("Wild Won't Board Ship", "Jonathan Wild doesn't like the looks of that Ion Reactor. He thinks it's too dangerous, and won't get on board."),
         WildWontStayAboardLaser("Wild Won't Stay Aboard", "Jonathan Wild isn't about to go with you if you're not armed with at least a Beam Laser. He'd rather take his chances hiding out here on ^1.", "Say Goodbye to Wild"),
         WildWontStayAboardReactor("Wild Won't Stay Aboard", "Jonathan Wild isn't willing to go with you if you bring that Reactor on board. He'd rather take his chances hiding out here on ^1.", "Say Goodbye to Wild");
