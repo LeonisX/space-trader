@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public abstract class AbstractQuest implements Quest, Serializable {
 
@@ -87,11 +88,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
         }
     }
 
-    @SuppressWarnings("all")
     StarSystemId occupyFreeSystemWithEvent() {
-        StarSystem system = Arrays.stream(game.getUniverse())
-                .filter(s -> s.getSpecialEventType() == SpecialEventType.NA)
-                .sorted((o1, o2) -> ThreadLocalRandom.current().nextInt(-1, 2)).findAny().get();
+        List<StarSystem> freeSystems = Arrays.stream(game.getUniverse())
+                .filter(s -> s.getSpecialEventType() == SpecialEventType.NA).collect(Collectors.toList());
+        StarSystem system = freeSystems.get(ThreadLocalRandom.current().nextInt(freeSystems.size()));
 
         system.setSpecialEventType(SpecialEventType.ASSIGNED);
         log.fine(system.getId().toString());
