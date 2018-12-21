@@ -166,113 +166,6 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         I18n.localizeStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
 
-    private void onBeforeGameEnd(Object object) {
-        if (game.getEndStatus() == GameEndType.BOUGHT_MOON.castToInt() && questStatus >= STATUS_PRINCESS_RETURNED) {
-            game.setEndStatus(gameEndTypeId);
-        }
-    }
-
-    private void afterShipSpecInitialized(Object object) {
-        ShipSpec shipSpec = new ShipSpec(ShipType.QUEST, Size.HUGE, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
-                Activity.NA, Activity.NA, TechLevel.UNAVAILABLE);
-        shipSpecId = registerNewShipSpec(shipSpec);
-    }
-
-    @Override
-    public String getGameCompletionText() {
-        return GameEndings.ClaimedMoonWithPrincess.getValue();
-    }
-
-    private void onGameEndAlert(Object object) {
-        //TODO need to pass string value as image ID, and get image by this value
-        new FormAlert(Alerts.GameEndBoughtMoonGirl.getValue().getTitle(), GameEndType.QUEST.castToInt()).showDialog();
-    }
-
-    private void onGetGameScore(Object object) {
-        ScoreContainer score = (ScoreContainer) object;
-        if (score.getEndStatus() == 1) {
-            score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
-            score.setModifier(100); //TODO 110????
-        }
-    }
-
-    private void encounterGetIntroductoryText(Object object) {
-        if (scorpion.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
-            ((StringContainer) object).setValue(Encounters.PretextScorpion.getValue());
-        }
-    }
-
-    private void onCreateShip(Object object) {
-        scorpion = game.createShipByShipSpecId(shipSpecId);
-        scorpion.getCrew()[0] = scorpionCrew;
-        scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        scorpion.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-        scorpion.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-        scorpion.addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
-        scorpion.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
-    }
-
-    private void encounterDetermineNonRandomEncounter(Object object) {
-        if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatus == STATUS_FLY_QONOS) {
-            game.setOpponent(scorpion);
-            game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
-            ((BooleanContainer) object).setValue(true);
-        }
-    }
-
-    private void encounterGetStealableCargo(Object object) {
-        if (princessOnBoard) {
-            ((IntContainer) object).setValue(((IntContainer) object).getValue() - 1);
-        }
-    }
-
-    private void encounterCheckPossibilityOfSurrender(Object object) {
-        if (princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
-                && game.getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK) {
-            showAlert(Alerts.EncounterPiratesSurrenderPrincess.getValue());
-            ((BooleanContainer) object).setValue(true);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private void encounterGetSavedCargoAndCrew(Object object) {
-        if (princessOnBoard && Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-            ((ArrayList<String>) object).add(Encounters.HidePrincess.getValue());
-        }
-    }
-
-    private void encounterCheckPossibilityOfAttack(Object object) {
-        if (game.getOpponent().getBarCode() == scorpion.getBarCode()
-                && Game.getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
-            GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
-            ((BooleanContainer) object).setValue(true);
-        }
-    }
-
-    private void encounterExecuteAttackKeepSpecialShip(Object object) {
-        Ship defender = ((Ship) object);
-        if (defender.getBarCode() == scorpion.getBarCode() && defender.getHull() == 0) {
-            defender.setHull(1); // Make sure the Scorpion doesn't get destroyed.
-            game.setOpponentDisabled(true);
-        }
-    }
-
-    private void encounterExecuteActionOpponentDisabled(Object object) {
-        if (game.getOpponent().getBarCode() == scorpion.getBarCode()) {
-            Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
-            Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
-            questStatus = STATUS_PRINCESS_RESCUED;
-
-            GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), Encounters.PrincessRescued.getValue());
-
-            Game.getCommander().setReputationScore(
-                    //TODO getOpponent().getType() == 16
-                    Game.getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
-            ((BooleanContainer) object).setValue(true);
-        }
-    }
-
     @Override
     public void registerListener() {
         getTransitionMap().keySet().forEach(this::registerOperation);
@@ -314,6 +207,23 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         log.fine("");
         game.getMercenaries().put(princess.getId(), princess);
         game.getMercenaries().put(scorpionCrew.getId(), scorpionCrew);
+    }
+
+    private void afterShipSpecInitialized(Object object) {
+        ShipSpec shipSpec = new ShipSpec(ShipType.QUEST, Size.HUGE, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
+                Activity.NA, Activity.NA, TechLevel.UNAVAILABLE);
+        shipSpecId = registerNewShipSpec(shipSpec);
+    }
+
+    private void onCreateShip(Object object) {
+        scorpion = game.createShipByShipSpecId(shipSpecId);
+        scorpion.getCrew()[0] = scorpionCrew;
+        scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        scorpion.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
+        scorpion.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
+        scorpion.addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
+        scorpion.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
@@ -471,66 +381,6 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    private void onIsConsiderCheat(Object object) {
-        CheatWords cheatWords = (CheatWords) object;
-        if (cheatWords.getSecond().equals(CheatTitles.Princess.getValue())) {
-            questStatus = Math.max(0, cheatWords.getNum2());
-            cheatWords.setCheat(true);
-            log.fine("consider cheat");
-        } else {
-            log.fine("not consider cheat");
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private void onIsConsiderDefaultCheat(Object object) {
-        log.fine("");
-        ((Map<String, Integer>) object).put(CheatTitles.Princess.getValue(), questStatus);
-    }
-
-    private void onArrested(Object object) {
-        if (princessOnBoard) {
-            log.fine("Arrested + Princess");
-            showAlert(Alerts.PrincessTakenHome.getValue());
-            questStatus = STATUS_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
-        } else {
-            log.fine("Arrested w/o Princess");
-        }
-    }
-
-    private void onEscapeWithPod(Object object) {
-        if (princessOnBoard) {
-            log.fine("Escaped + Princess");
-            showAlert(Alerts.PrincessTakenHome.getValue());
-            questStatus = STATUS_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
-        } else {
-            log.fine("Escaped w/o Princess");
-        }
-    }
-
-    private void onIncrementDays(Object object) {
-        if (princessOnBoard) {
-            log.fine(questStatus + "");
-            if (questStatus == (STATUS_PRINCESS_IMPATIENT + STATUS_PRINCESS_RESCUED) / 2) {
-                showAlert(Alerts.SpecialPassengerConcernedPrincess.getValue());
-            } else if (questStatus == STATUS_PRINCESS_IMPATIENT - 1) {
-                showAlert(Alerts.SpecialPassengerImpatientPrincess.getValue());
-                princess.setPilot(0);
-                princess.setFighter(0);
-                princess.setTrader(0);
-                princess.setEngineer(0);
-            }
-
-            if (questStatus < STATUS_PRINCESS_IMPATIENT) {
-                questStatus++;
-            }
-        } else {
-            log.fine("skipped");
-        }
-    }
-
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
         ArrayList<String> questStrings = (ArrayList<String>) object;
@@ -571,6 +421,116 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
+    private void encounterDetermineNonRandomEncounter(Object object) {
+        if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatus == STATUS_FLY_QONOS) {
+            game.setOpponent(scorpion);
+            game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            ((BooleanContainer) object).setValue(true);
+        }
+    }
+
+    private void encounterCheckPossibilityOfAttack(Object object) {
+        if (game.getOpponent().getBarCode() == scorpion.getBarCode()
+                && Game.getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
+            GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
+            ((BooleanContainer) object).setValue(true);
+        }
+    }
+
+    private void encounterGetIntroductoryText(Object object) {
+        if (scorpion.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
+            ((StringContainer) object).setValue(Encounters.PretextScorpion.getValue());
+        }
+    }
+
+    private void encounterExecuteAttackKeepSpecialShip(Object object) {
+        Ship defender = ((Ship) object);
+        if (defender.getBarCode() == scorpion.getBarCode() && defender.getHull() == 0) {
+            defender.setHull(1); // Make sure the Scorpion doesn't get destroyed.
+            game.setOpponentDisabled(true);
+        }
+    }
+
+    private void encounterExecuteActionOpponentDisabled(Object object) {
+        if (game.getOpponent().getBarCode() == scorpion.getBarCode()) {
+            Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
+            Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
+            questStatus = STATUS_PRINCESS_RESCUED;
+
+            GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), Encounters.PrincessRescued.getValue());
+
+            Game.getCommander().setReputationScore(
+                    //TODO getOpponent().getType() == 16
+                    Game.getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
+            ((BooleanContainer) object).setValue(true);
+        }
+    }
+
+    private void encounterCheckPossibilityOfSurrender(Object object) {
+        if (princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
+                && game.getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK) {
+            showAlert(Alerts.EncounterPiratesSurrenderPrincess.getValue());
+            ((BooleanContainer) object).setValue(true);
+        }
+    }
+    @SuppressWarnings("unchecked")
+    private void encounterGetSavedCargoAndCrew(Object object) {
+        if (princessOnBoard && Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+            ((ArrayList<String>) object).add(Encounters.HidePrincess.getValue());
+        }
+    }
+
+    private void encounterGetStealableCargo(Object object) {
+        if (princessOnBoard) {
+            ((IntContainer) object).setValue(((IntContainer) object).getValue() - 1);
+        }
+    }
+
+    //TODO ability to repeat quest for low difficulty?
+    private void onArrested(Object object) {
+        if (princessOnBoard) {
+            log.fine("Arrested + Princess");
+            showAlert(Alerts.PrincessTakenHome.getValue());
+            questStatus = STATUS_NOT_STARTED;
+            setQuestState(QuestState.FAILED);
+        } else {
+            log.fine("Arrested w/o Princess");
+        }
+    }
+
+    //TODO ability to repeat quest for low difficulty?
+    private void onEscapeWithPod(Object object) {
+        if (princessOnBoard) {
+            log.fine("Escaped + Princess");
+            showAlert(Alerts.PrincessTakenHome.getValue());
+            questStatus = STATUS_NOT_STARTED;
+            setQuestState(QuestState.FAILED);
+        } else {
+            log.fine("Escaped w/o Princess");
+        }
+    }
+
+    private void onIncrementDays(Object object) {
+        if (princessOnBoard) {
+            log.fine(questStatus + "");
+            if (questStatus == (STATUS_PRINCESS_IMPATIENT + STATUS_PRINCESS_RESCUED) / 2) {
+                showAlert(Alerts.SpecialPassengerConcernedPrincess.getValue());
+            } else if (questStatus == STATUS_PRINCESS_IMPATIENT - 1) {
+                showAlert(Alerts.SpecialPassengerImpatientPrincess.getValue());
+                princess.setPilot(0);
+                princess.setFighter(0);
+                princess.setTrader(0);
+                princess.setEngineer(0);
+            }
+
+            if (questStatus < STATUS_PRINCESS_IMPATIENT) {
+                questStatus++;
+            }
+        } else {
+            log.fine("skipped");
+        }
+    }
+
     private void onNewsAddEventOnArrival(Object object) {
         News result = null;
 
@@ -603,6 +563,47 @@ class PrincessQuest extends AbstractQuest implements Serializable {
             log.fine("" + getNewsIds().get(result.ordinal()));
             Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
         }
+    }
+
+    private void onBeforeGameEnd(Object object) {
+        if (game.getEndStatus() == GameEndType.BOUGHT_MOON.castToInt() && questStatus >= STATUS_PRINCESS_RETURNED) {
+            game.setEndStatus(gameEndTypeId);
+        }
+    }
+
+    private void onGameEndAlert(Object object) {
+        //TODO need to pass string value as image ID, and get image by this value
+        new FormAlert(Alerts.GameEndBoughtMoonGirl.getValue().getTitle(), GameEndType.QUEST.castToInt()).showDialog();
+    }
+
+    private void onGetGameScore(Object object) {
+        ScoreContainer score = (ScoreContainer) object;
+        if (score.getEndStatus() == 1) {
+            score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
+            score.setModifier(100); //TODO 110????
+        }
+    }
+
+    @Override
+    public String getGameCompletionText() {
+        return GameEndings.ClaimedMoonWithPrincess.getValue();
+    }
+
+    private void onIsConsiderCheat(Object object) {
+        CheatWords cheatWords = (CheatWords) object;
+        if (cheatWords.getSecond().equals(CheatTitles.Princess.name())) {
+            questStatus = Math.max(0, cheatWords.getNum2());
+            cheatWords.setCheat(true);
+            log.fine("consider cheat");
+        } else {
+            log.fine("not consider cheat");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void onIsConsiderDefaultCheat(Object object) {
+        log.fine("");
+        ((Map<String, Integer>) object).put(CheatTitles.Princess.getValue(), questStatus);
     }
 
     enum Phases implements SimpleValueEnum<QuestDialog> {
