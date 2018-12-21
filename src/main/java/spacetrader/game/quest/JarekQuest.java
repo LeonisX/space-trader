@@ -125,7 +125,7 @@ class JarekQuest extends AbstractQuest {
 
     @Override
     public void dumpAllStrings() {
-        System.out.println("\n\n## Jarek Quest:");
+        I18n.echoQuestName(this.getClass());
         I18n.dumpPhases(Arrays.stream(Phases.values()));
         I18n.dumpStrings(Res.Quests, Arrays.stream(Quests.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));

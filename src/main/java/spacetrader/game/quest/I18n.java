@@ -39,6 +39,10 @@ enum Res {
 
 class I18n {
 
+    static void echoQuestName(Class<? extends Quest> aClass) {
+        System.out.println(String.format("\n\n## %s", splitCamelCase(aClass.getSimpleName())));
+    }
+
     static void dumpPhases(Stream<SimpleValueEnum<QuestDialog>> phases) {
 
         System.out.println(String.format("\n# %s:", Res.Phases.getTitle()));
@@ -113,4 +117,12 @@ class I18n {
         return prefix + key;
     }
 
+    private static String splitCamelCase(String s) {
+        return s.replaceAll(
+                String.format("%s|%s|%s",
+                        "(?<=[A-Z])(?=[A-Z][a-z])",
+                        "(?<=[^A-Z])(?=[A-Z])",
+                        "(?<=[A-Za-z])(?=[^A-Za-z])"
+                )," ");
+    }
 }
