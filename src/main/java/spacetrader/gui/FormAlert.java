@@ -115,6 +115,11 @@ public class FormAlert extends SpaceTraderForm {
         return makeDialog(type, args).showDialog();
     }
 
+    @Facaded
+    public static DialogResult alert(AlertType type, WinformPane owner, String... args) {
+        return makeDialog(type, args).showDialog(owner);
+    }
+
     public static FormAlert makeDialog(AlertType type, String[] args) {
         switch (type) {
             case Alert:

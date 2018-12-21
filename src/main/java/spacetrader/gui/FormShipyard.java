@@ -916,7 +916,7 @@ public class FormShipyard extends SpaceTraderForm {
                     Game.getShip().updateCustomImageOffsetConstants();
                 }
 
-                GuiFacade.alert(AlertType.ShipDesignThanks, shipyard.getName());
+                GuiFacade.alert(AlertType.ShipDesignThanks, this, shipyard.getName());
                 close();
             }
         }

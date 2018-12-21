@@ -94,4 +94,8 @@ public class GuiFacade {
     public static DialogResult alert(AlertType type, String var1) {
         return FormAlert.alert(type, var1);
     }
+
+    public static DialogResult alert(AlertType type, WinformPane owner, String var1) {
+        return FormAlert.alert(type, owner, var1);
+    }
 }

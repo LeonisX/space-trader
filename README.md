@@ -251,10 +251,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ### Shipyard
 
 * Investigate - when new shipyard - can receive 600%
-* Manual set value in slot (without check)
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
-* After deal in ShipYard - alert in center of screen
-* After Shipyard Fuel tanks don't change capacity (manual changed to 34)
 
 ### Monster.com
 
