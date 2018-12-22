@@ -48,7 +48,7 @@ class JarekQuest extends AbstractQuest {
         initializePhases(QuestPhases.values(), new JarekPhase(), new JarekGetsOutPhase());
         initializeTransitionMap();
 
-        jarek = registerNewSpecialCrewMember(3, 2, 10, 4);
+        jarek = registerNewSpecialCrewMember(3, 2, 10, 4, false);
 
         registerNews(1);
 
@@ -120,7 +120,7 @@ class JarekQuest extends AbstractQuest {
 
     @Override
     public String getNewsTitle(int newsId) {
-        return News.values()[newsId].getValue();
+        return News.values()[getNewsIds().indexOf(newsId)].getValue();
     }
 
     @Override

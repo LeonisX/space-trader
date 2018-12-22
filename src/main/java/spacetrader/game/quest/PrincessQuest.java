@@ -66,8 +66,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         initializeTransitionMap();
 
         int d = Game.getDifficultyId();
-        princess = registerNewSpecialCrewMember(4, 3, 8, 9);
-        scorpionCrew = registerNewSpecialCrewMember(8 + d, 8 + d, 1, 6 + d);
+        princess = registerNewSpecialCrewMember(4, 3, 8, 9, false);
+        scorpionCrew = registerNewSpecialCrewMember(8 + d, 8 + d, 1, 6 + d, false);
 
         registerNews(News.values().length);
 

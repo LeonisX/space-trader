@@ -65,9 +65,9 @@ public abstract class AbstractQuest implements Quest, Serializable {
         log = Logger.getLogger(quest.getClass().getName());
     }
 
-    CrewMember registerNewSpecialCrewMember(int pilot, int fighter, int trader, int engineer) {
+    CrewMember registerNewSpecialCrewMember(int pilot, int fighter, int trader, int engineer, boolean mercenary) {
         CrewMember crewMember =
-                CrewMember.specialCrewMember(game.getQuestSystem().generateSpecialCrewId(), pilot, fighter, trader, engineer);
+                CrewMember.specialCrewMember(game.getQuestSystem().generateSpecialCrewId(), pilot, fighter, trader, engineer, mercenary);
         specialCrewIds.add(crewMember.getId());
         return game.getQuestSystem().registerNewSpecialCrewMember(crewMember, this);
     }

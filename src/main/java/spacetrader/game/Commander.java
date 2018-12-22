@@ -56,10 +56,10 @@ public class Commander extends CrewMember implements Serializable {
             GuiFacade.alert(AlertType.DebtNoBuy);
         } else if (netPrice > getCashToSpend()) {
             GuiFacade.alert(AlertType.ShipBuyIF);
-        } else if (specToBuy.getCrewQuarters() < getShip().getSpecialCrew().length) {
-            String passengers = getShip().getSpecialCrew()[1].getName();
-            if (getShip().getSpecialCrew().length > 2) {
-                passengers += " " + Strings.CommanderAnd + " " + getShip().getSpecialCrew()[2].getName();
+        } else if (specToBuy.getCrewQuarters() < getShip().getSpecialCrew().size()) {
+            String passengers = getShip().getSpecialCrew().get(1).getName();
+            if (getShip().getSpecialCrew().size() > 2) {
+                passengers += " " + Strings.CommanderAnd + " " + getShip().getSpecialCrew().get(2).getName();
             }
 
             GuiFacade.alert(AlertType.ShipBuyPassengerQuarters, passengers);

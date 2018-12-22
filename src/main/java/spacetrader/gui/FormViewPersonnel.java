@@ -6,7 +6,6 @@ import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.CrewMemberId;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -256,7 +255,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
         if (selectedCrewMember != null) {
             visible = true;
-            if (selectedCrewMember.getRate() > 0) {
+            if (selectedCrewMember.isMercenary()) {
                 rateVisible = true;
             }
 

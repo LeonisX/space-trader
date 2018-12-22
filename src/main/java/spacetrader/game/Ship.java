@@ -5,12 +5,13 @@ import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
-import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static spacetrader.game.quest.enums.EventName.*;
@@ -184,7 +185,7 @@ public class Ship extends ShipSpec implements Serializable {
             Game.getCurrentGame().recalculateBuyPrices(Game.getCommander().getCurrentSystem());
         }
 
-        if (merc != null && !Util.arrayContains(Consts.SpecialCrewMemberIds, (merc.getId()))) {
+        if (merc != null && merc.isMercenary()) {
             StarSystem[] universe = Game.getCurrentGame().getUniverse();
 
             // The leaving Mercenary travels to a nearby random system.
@@ -247,7 +248,7 @@ public class Ship extends ShipSpec implements Serializable {
 
         for (int i = 1; i < numCrew; i++) {
             // Keep getting a new random mercenary until we have a non-special one.
-            while (getCrew()[i] == null || Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId())) {
+            while (getCrew()[i] == null || !getCrew()[i].isMercenary()) {
                 getCrew()[i] = mercs.get(Functions.getRandom(mercs.size()));
             }
         }
@@ -999,20 +1000,8 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     // Crew members that are not hired/fired - Commander, Jarek, Princess, and Wild - JAF
-    CrewMember[] getSpecialCrew() {
-        ArrayList<CrewMember> list = new ArrayList<>();
-        for (int i = 0; i < getCrew().length; i++) {
-            if (getCrew()[i] != null && Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId())) {
-                list.add(getCrew()[i]);
-            }
-        }
-
-        CrewMember[] crew = new CrewMember[list.size()];
-        for (int i = 0; i < crew.length; i++) {
-            crew[i] = list.get(i);
-        }
-
-        return crew;
+    List<CrewMember> getSpecialCrew() {
+        return Arrays.stream(getCrew()).filter(c -> !c.isMercenary()).collect(Collectors.toList());
     }
 
     // Sort all cargo based on value and put some of it in hidden bays, if they are present.

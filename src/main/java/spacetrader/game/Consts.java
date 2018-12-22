@@ -262,12 +262,6 @@ public class Consts {
             new Shipyard(ShipyardId.SOROSUUB, Size.SMALL, ShipyardSkill.FUEL_BASE)
     };
 
-    //TODO was ArrayList
-    public static CrewMemberId[] SpecialCrewMemberIds = new CrewMemberId[]{ // new ArrayList(
-            CrewMemberId.COMMANDER, CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN, /*CrewMemberId.JAREK,*/
-            CrewMemberId.OPPONENT, /*CrewMemberId.PRINCESS,*/ CrewMemberId.SCARAB, /*CrewMemberId.SCORPION,*/
-            CrewMemberId.SPACE_MONSTER/*, CrewMemberId.WILD*/};
-
     public static SpecialEvent[] SpecialEvents = new SpecialEvent[]{
             new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),
             new SpecialEvent(SpecialEventType.ArtifactDelivery, -20000, 0, true),

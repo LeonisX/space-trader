@@ -118,7 +118,7 @@ public class Game implements Serializable {
             generateUniverse();
         } while (!(isSpecialEventsInPlace() && isShipyardsInPlace()));
 
-        initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer, StarSystemId.NA));
+        initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer, false, StarSystemId.NA));
 
         generateCrewMemberList();
 
@@ -201,7 +201,7 @@ public class Game implements Serializable {
             commander.setNoClaim(0);
         }
 
-        if (commander.getShip().getCrewCount() - commander.getShip().getSpecialCrew().length > 1) {
+        if (commander.getShip().getCrewCount() - commander.getShip().getSpecialCrew().size() > 1) {
             GuiFacade.alert(AlertType.JailMercenariesLeave);
             for (int i = 1; i < commander.getShip().getCrew().length; i++) {
                 commander.getShip().getCrew()[i] = null;
@@ -1023,7 +1023,7 @@ public class Game implements Serializable {
         // Jarek, Ambassador Jarek earns his keep now - JAF.
         // Dummy pilots for opponents.
         //mercenaries.put(CrewMemberId.ZEETHIBAL.castToInt(), new CrewMember(CrewMemberId.ZEETHIBAL, 5, 5, 5, 5, StarSystemId.NA));
-        mercenaries.put(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5, false, StarSystemId.NA));
         //mercenaries.put(CrewMemberId.WILD.castToInt(), new CrewMember(CrewMemberId.WILD, 7, 10, 2, 5, StarSystemId.NA));
 
         questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST, usedSystems);
@@ -1032,11 +1032,11 @@ public class Game implements Serializable {
 
         // getMercenaries()[CrewMemberId.JAREK.castToInt()] = new CrewMember(CrewMemberId.JAREK, 3, 2, 10, 4, StarSystemId.NA);
         /*mercenaries.put(CrewMemberId.PRINCESS.castToInt(), new CrewMember(CrewMemberId.PRINCESS, 4, 3, 8, 9, StarSystemId.NA));*/
-        mercenaries.put(CrewMemberId.FAMOUS_CAPTAIN.castToInt(), new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10, 10, StarSystemId.NA));
-        mercenaries.put(CrewMemberId.DRAGONFLY.castToInt(), new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1, 6 + d, StarSystemId.NA));
-        mercenaries.put(CrewMemberId.SCARAB.castToInt(), new CrewMember(CrewMemberId.SCARAB, 5 + d, 6 + d, 1, 6 + d, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.FAMOUS_CAPTAIN.castToInt(), new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10, 10, false, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.DRAGONFLY.castToInt(), new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1, 6 + d, false, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.SCARAB.castToInt(), new CrewMember(CrewMemberId.SCARAB, 5 + d, 6 + d, 1, 6 + d, false, StarSystemId.NA));
         /*mercenaries.put(CrewMemberId.SCORPION.castToInt(), new CrewMember(CrewMemberId.SCORPION, 8 + d, 8 + d, 1, 6 + d, StarSystemId.NA));*/
-        mercenaries.put(CrewMemberId.SPACE_MONSTER.castToInt(), new CrewMember(CrewMemberId.SPACE_MONSTER, 8 + d, 8 + d, 1, 1 + d, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.SPACE_MONSTER.castToInt(), new CrewMember(CrewMemberId.SPACE_MONSTER, 8 + d, 8 + d, 1, 1 + d, false, StarSystemId.NA));
 
         // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
         for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, QUEST
@@ -1053,7 +1053,7 @@ public class Game implements Serializable {
                 } while (!ok);
 
                 mercenaries.put(i, new CrewMember(CrewMemberId.fromInt(i), Functions.randomSkill(),
-                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), id)
+                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), true, id)
                 );
             }
         }

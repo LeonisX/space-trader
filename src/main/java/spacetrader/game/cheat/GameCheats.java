@@ -139,8 +139,8 @@ public class GameCheats implements Serializable {
                     game.setAutoSave(true);
                     break;
                 case Posse:
-                    if (words.getNum1() > 0 && words.getNum1() < ship.getCrew().length && words.getNum2() > 0 && words.getNum2() <= game.getMercenaries().size() - 2 // minus NA, QUEST
-                            && !Util.arrayContains(Consts.SpecialCrewMemberIds, (CrewMemberId.fromInt(words.getNum2())))) {
+                    CrewMember mercenary = game.getMercenaries().get(words.getNum2());
+                    if (words.getNum1() > 0 && words.getNum1() < ship.getCrew().length && mercenary != null && mercenary.isMercenary()) {
                         int skill = ship.getTrader();
                         ship.getCrew()[words.getNum1()] = game.getMercenaries().get(words.getNum2());
                         if (ship.getTrader() != skill) {

@@ -19,28 +19,32 @@ public class CrewMember implements Serializable {
     //TODO remove in future
     private CrewMemberId crewMemberId;
     private int[] skills = new int[4];
+    private boolean mercenary;
+    private boolean volunteer;
     private StarSystemId currentSystemId; // StarSystemId.NA
 
     CrewMember() {
         // need for tests
     }
 
-    public CrewMember(CrewMemberId crewMemberId, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
-        this(crewMemberId, crewMemberId.castToInt(), pilot, fighter, trader, engineer, curSystemId);
+    public CrewMember(CrewMemberId crewMemberId, int pilot, int fighter, int trader, int engineer, boolean mercenary, StarSystemId curSystemId) {
+        this(crewMemberId, crewMemberId.castToInt(), pilot, fighter, trader, engineer, mercenary, curSystemId);
     }
 
-    public CrewMember(CrewMemberId crewMemberId, int id, int pilot, int fighter, int trader, int engineer, StarSystemId curSystemId) {
+    public CrewMember(CrewMemberId crewMemberId, int id, int pilot, int fighter, int trader, int engineer, boolean mercenary, StarSystemId curSystemId) {
         this.id = id;
         this.crewMemberId = crewMemberId;
         setPilot(pilot);
         setFighter(fighter);
         setTrader(trader);
         setEngineer(engineer);
+        setMercenary(mercenary);
+        setVolunteer(false);
         currentSystemId = curSystemId;
     }
 
-    public static CrewMember specialCrewMember(int id, int pilot, int fighter, int trader, int engineer) {
-        return new CrewMember(CrewMemberId.NA, id, pilot, fighter, trader,  engineer, StarSystemId.NA);
+    public static CrewMember specialCrewMember(int id, int pilot, int fighter, int trader, int engineer, boolean mercenary) {
+        return new CrewMember(CrewMemberId.NA, id, pilot, fighter, trader,  engineer, mercenary, StarSystemId.NA);
     }
 
     CrewMember(CrewMember baseCrewMember) {
@@ -50,6 +54,8 @@ public class CrewMember implements Serializable {
         setFighter(baseCrewMember.getFighter());
         setTrader(baseCrewMember.getTrader());
         setEngineer(baseCrewMember.getEngineer());
+        setMercenary(mercenary);
+        setVolunteer(false);
         currentSystemId = baseCrewMember.getCurrentSystemId();
         skills = baseCrewMember.getSkills();
     }
@@ -160,6 +166,22 @@ public class CrewMember implements Serializable {
         skills[SkillType.FIGHTER.castToInt()] = value;
     }
 
+    public boolean isMercenary() {
+        return mercenary;
+    }
+
+    public void setMercenary(boolean mercenary) {
+        this.mercenary = mercenary;
+    }
+
+    public boolean isVolunteer() {
+        return volunteer;
+    }
+
+    public void setVolunteer(boolean volunteer) {
+        this.volunteer = volunteer;
+    }
+
     /*public CrewMemberId getId() {
         return id;
     }*/
@@ -177,7 +199,7 @@ public class CrewMember implements Serializable {
     }
 
     public int getRate() {
-        return (id >= 1000) ? 0 : (getPilot() + getFighter() + getTrader() + getEngineer()) * 3;
+        return isMercenary() && !isVolunteer() ? (getPilot() + getFighter() + getTrader() + getEngineer()) * 3 : 0;
     }
 
     public int[] getSkills() {

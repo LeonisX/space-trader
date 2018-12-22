@@ -1,9 +1,15 @@
 package spacetrader.game.quest;
 
 import spacetrader.controls.enums.DialogResult;
-import spacetrader.game.*;
+import spacetrader.game.Consts;
+import spacetrader.game.CrewMember;
+import spacetrader.game.Game;
+import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.*;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.enums.WeaponType;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.RandomEncounterContainer;
@@ -48,8 +54,9 @@ class WildQuest extends AbstractQuest {
         initializePhases(QuestPhases.values(), new WildPhase(), new WildGetsOutPhase());
         initializeTransitionMap();
 
-        wild = registerNewSpecialCrewMember(7, 10, 2, 5);
-        zeethibal = registerNewSpecialCrewMember(5, 5, 5, 5);
+        wild = registerNewSpecialCrewMember(7, 10, 2, 5, false);
+        zeethibal = registerNewSpecialCrewMember(5, 5, 5, 5, true);
+        zeethibal.setVolunteer(true);
 
         registerNews(News.values().length);
 
@@ -119,7 +126,7 @@ class WildQuest extends AbstractQuest {
 
     @Override
     public String getNewsTitle(int newsId) {
-        return News.values()[newsId].getValue();
+        return News.values()[getNewsIds().indexOf(newsId)].getValue();
     }
 
     @Override

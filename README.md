@@ -227,6 +227,92 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* If no laser, reactor - need Cancel button!!!
+* After say good buy to Wild - he is still onboard
+
+* Test WildQuest - all cases (by english.properties)
+
+# Alerts:
+AlertWildArrestedTitle=Wild Arrested
+AlertWildArrestedMessage=Jonathan Wild is arrested, and taken away to stand trial.
+AlertWildChatsPiratesTitle=Wild Chats With Pirates
+AlertWildChatsPiratesMessage=The Pirate Captain turns out to be an old associate of Jonathan Wild's. They talk about old times, and you get the feeling that Wild would switch ships if the Pirates had any quarters available.
+AlertWildGoesPiratesTitle=Wild Goes With Pirates
+AlertWildGoesPiratesMessage=The Pirate Captain turns out to be an old associate of Jonathan Wild's, and invites him to go to Kravat aboard the Pirate ship. Wild accepts the offer and thanks you for the ride.
+AlertWildSculptureTitle=Wild Eyes Sculpture
+AlertWildSculptureMessage=Jonathan Wild sees the stolen sculpture. "Wow, I only know of one of these left in the whole Universe!" he exclaims, "Geurge Locas must be beside himself with it being stolen." He seems very impressed with you, which makes you feel much better about the item your delivering.
+AlertWildWontBoardReactorTitle=Wild Won't Board Ship
+AlertWildWontBoardReactorMessage=Jonathan Wild doesn't like the looks of that Ion Reactor. He thinks it's too dangerous, and won't get on board.
+AlertWildWontStayAboardReactorTitle=Wild Won't Stay Aboard
+AlertWildWontStayAboardReactorMessage=Jonathan Wild isn't willing to go with you if you bring that Reactor on board. He'd rather take his chances hiding out here on ^1.
+AlertWildWontStayAboardReactorAccept=Say Goodbye to Wild
+
+# News:
+NewsWildArrested=Notorious Criminal Jonathan Wild Arrested!
+
+# Encounters:
+EncounterPoliceSubmitWild=Jonathan Wild
+EncounterPoliceSurrenderWild=arrest Wild, too
+
+# Cheat Titles:
+CheatWild=Wild
+
+
+
+# Quest phases:
+PhaseWildTitle=Джонатан Уайлд
+PhaseWildMessage=Хранители порядка обложили известного криминального авторитета Джонатана Уайлда. Если вы тайно вывезете его в домашнюю систему Крава, он не поскупиться на вознаграждение. В пути будет необходимо избегать любых контактов с полицией. Вы готовы дать ему шанс улететь отсюда?
+PhaseWildGetsOutTitle=Уайлд высаживается
+PhaseWildGetsOutMessage=Джонатан Уайлд очень благодарен вам за то, что вывезли его в безопасное место. В качестве награды, один из его киберпреступников взломал полицейскую базу данных и почистил ваше досье. Он также предлагает вам возможность безо всякой оплаты взять в команду своего талантливого племянника Зитибала.
+
+# Quest clues:
+QuestWild=Тайно провезти Джонатана Уайлда в систему Крава.
+QuestWildImpatient=Тайно провезти Джонатана Уайлда в систему Крава.<br>Уайлд потерял терпение и больше не будет помогать вашей команде.
+
+# Alerts:
+AlertSpecialPassengerConcernedWildTitle=Внутренняя связь корабля.
+AlertSpecialPassengerConcernedWildMessage=Мостик? Это Джонатан. Мы уже прибыли? Хе-хе. Простите, не смог удержаться.
+AlertSpecialPassengerImpatientWildTitle=Внутренняя связь корабля.
+AlertSpecialPassengerImpatientWildMessage=Командир! Это Уйалд. Почему так долго?!
+AlertWildArrestedTitle=Уайлд арестован
+AlertWildArrestedMessage=Джонатан Уайлд арестован и доставлен в тюрьму стандартного типа.
+AlertWildChatsPiratesTitle=Уайлд поговорил с пиратами
+AlertWildChatsPiratesMessage=Главарь пиратов оказался старым приятелем Джонатана Уайлда. Они заговорили о старых временах, и вам показалось, что Уайлд готов полететь с пиратами, если у них найдётся не занятая каюта.
+AlertWildGoesPiratesTitle=Уайлд летит с пиратами
+AlertWildGoesPiratesMessage=Главарь пиратов оказался старым приятелем Джонатана Уайлда, и предложил прокатиться до Крава в его посудине. Уайлд принял его предложение и поблагодарил вас за поездку.
+AlertWildLeavesShipTitle=Уайлд покидает корабль
+AlertWildLeavesShipMessage=Джонатан Уайлд покидает ваш корабль, и скрывается в системе ^1.
+AlertWildSculptureTitle=Уайлд комментирует скульптуру
+AlertWildSculptureMessage=Джонатан Уайлд заметил похищенную скульптуру. Он восклицает - "Ого! Во всей Вселенной осталась только одна такая! Джурдж Локас, должно быть, сейчас вне себя от ярости". Похоже, что он впечатлён, и вы уже относитесь к этой вещице с куда большим интересом.
+AlertWildWontBoardLaserTitle=Уайлд не хочет лететь с вами
+AlertWildWontBoardLaserMessage=Джонатан Уайлд отказывается лететь с вами, пока корабль не вооружён, по-крайней мере, лучевым лазером. Он лучше предпочтёт скрываться здесь.
+AlertWildWontBoardReactorTitle=Уайлд не хочет лететь с вами
+AlertWildWontBoardReactorMessage=Джонатану Уайлду не нравится ваш ионный реактор. Он считает его слишком опасным и не собирается оставаться на борту.
+AlertWildWontStayAboardLaserTitle=Уайлд не останется на борту
+AlertWildWontStayAboardLaserMessage=Джонатан Уайлд отказывается лететь с вами, пока корабль не вооружён, по-крайней мере, лучевым лазером. Он лучше предпочтёт скрываться здесь, в системе ^1.
+AlertWildWontStayAboardLaserAccept=Попрощаться с Уайлдом
+AlertWildWontStayAboardReactorTitle=Уайлд не останется на борту
+AlertWildWontStayAboardReactorMessage=Если вы притащите на борт этот реактор, то Джонатан Уайлд не захочет лететь с вами дальше. Он лучше предпочтёт скрываться здесь, в системе ^1.
+AlertWildWontStayAboardReactorAccept=Попрощаться с Уайлдом
+
+# News:
+NewsWildArrested=Отъявленный преступник Джонатан Уайлд арестован!
+NewsWildGotToKravat=Слухи утверждают, что известный преступник Дж. Уайлд может прибыть в систему Крава!
+
+# Encounters:
+EncounterPoliceSubmitWild=Джонатана Уайлда
+EncounterPoliceSurrenderWild=так же арестуют Уайлда
+
+# Crew Member Names:
+CrewNameWild=Уайлд | Уайлда // Теперь берегите его!
+CrewNameZeethibal=Зитибал | Зитибала // Анаграмма Elizabeth
+
+# Cheat Titles:
+CheatWild=Уайлд
+
+
+
+
 * Detailed test all quests with 2 languages 
 * Rename current resources
 

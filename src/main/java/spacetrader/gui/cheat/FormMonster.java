@@ -4,7 +4,10 @@ import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Label;
 import spacetrader.controls.enums.*;
-import spacetrader.game.*;
+import spacetrader.game.CrewMember;
+import spacetrader.game.Game;
+import spacetrader.game.StarSystem;
+import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.enums.ShipyardId;
@@ -21,7 +24,8 @@ import spacetrader.util.Util;
 import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @CheatCode
 public class FormMonster extends SpaceTraderForm {
@@ -310,13 +314,8 @@ public class FormMonster extends SpaceTraderForm {
 
     private void populateIdArrays() {
         // Populate the mercenary ids array.
-        ArrayList<Integer> ids = new ArrayList<>();
-        for (CrewMember merc : game.getMercenaries().values()) {
-            if (!Util.arrayContains(Consts.SpecialCrewMemberIds, merc.getCrewMemberId()) && merc.getId() < 1000) {
-                ids.add(merc.getId());
-            }
-        }
-        mercIds = ids.toArray(new Integer[0]);
+        mercIds = game.getMercenaries().values().stream()
+                .filter(CrewMember::isMercenary).map(CrewMember::getId).toArray(Integer[]::new);
 
         // Populate the quest and shipyard system ids arrays.
         questSystems.addAll(game.getQuestSystem().getPhasesStream()
@@ -325,7 +324,7 @@ public class FormMonster extends SpaceTraderForm {
                                 ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown, p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])
                                 : createQuestRow(p)
                 )
-                .collect(Collectors.toList()));
+                .collect(toList()));
         for (StarSystem system : game.getUniverse()) {
             //TODO remove after all quests
             if (system.showSpecialButton()) {
