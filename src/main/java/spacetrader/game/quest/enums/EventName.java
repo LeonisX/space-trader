@@ -13,7 +13,8 @@ public enum EventName {
     // Main flow (very common)
     ON_BEFORE_SPECIAL_BUTTON_SHOW,              // Very Common. Before show Special button on System Info Panel
     ON_SPECIAL_BUTTON_CLICKED,                  // Very Common. On Special button clicked
-    ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT,      // Wild. Resolve potencial conflict with other quests
+    ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT,      // Wild. Resolve potential conflict with other quests
+    ON_AFTER_NEW_QUEST_STARTED,                 // Wild. React on new quests (sculpture)
 
     // Status windows
     ON_DISPLAY_SPECIAL_CARGO,                   // Jarek. Display special cargo in FormViewShip

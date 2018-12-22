@@ -86,6 +86,7 @@ class WildQuest extends AbstractQuest {
         getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, this::onSpecialButtonClickedResolveIsConflict);
+        getTransitionMap().put(ON_AFTER_NEW_QUEST_STARTED, this::onAfterNewQuestStarted);
 
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
@@ -198,14 +199,13 @@ class WildQuest extends AbstractQuest {
                 showAlert(Alerts.WildWontBoardReactor.getValue());
             } else {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
-                Game.getShip().hire(wild);
-                wildOnBoard = true;
-                questStatus = STATUS_WILD_STARTED;
                 Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+                Game.getShip().hire(wild);
+                questStatus = STATUS_WILD_STARTED;
+                setQuestState(QuestState.ACTIVE);
+                wildOnBoard = true;
 
-                if (Game.getShip().isSculptureOnBoard()) {
-                    showAlert(Alerts.WildSculpture.getValue());
-                }
+                onAfterNewQuestStarted(null);
             }
         }
 
@@ -232,11 +232,12 @@ class WildQuest extends AbstractQuest {
                 zeethibal.getSkills()[i] = (i == lowest1 ? 10 : (i == lowest2 ? 8 : 5));
             }
 
-            questStatus = STATUS_WILD_DONE;
             Game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-            Game.getCommander().getShip().fire(wild.getId());
-            wildOnBoard = false;
             Game.getCurrentGame().recalculateSellPrices();
+            game.getQuestSystem().unSubscribeAll(getQuest());
+            setQuestState(QuestState.FINISHED);
+            questStatus = STATUS_WILD_DONE;
+            removePassenger();
         }
 
         @Override
@@ -258,13 +259,18 @@ class WildQuest extends AbstractQuest {
     // TODO repeat if < normal, otherwise fail
     private void onSpecialButtonClickedResolveIsConflict(Object object) {
         if (wildOnBoard) {
-            if (showAlert(Alerts.WildWontStayAboardReactor.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.OK) {
+            if (showCancelAlert(Alerts.WildWontStayAboardReactor.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.OK) {
                 showAlert(Alerts.WildLeavesShip.getValue(), Game.getCommander().getCurrentSystem().getName());
-                questStatus = STATUS_WILD_NOT_STARTED;
-                setQuestState(QuestState.FAILED);
+                failQuest();
             } else {
                 ((BooleanContainer) object).setValue(true);
             }
+        }
+    }
+
+    private void onAfterNewQuestStarted(Object object) {
+        if (Game.getShip().isSculptureOnBoard() && wildOnBoard) {
+            showAlert(Alerts.WildSculpture.getValue());
         }
     }
 
@@ -286,11 +292,11 @@ class WildQuest extends AbstractQuest {
     private void onBeforeWarp(Object object) {
         // if Wild is aboard, make sure ship is armed!
         if (wildOnBoard && !Game.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
-            if (showAlert(Alerts.WildWontStayAboardLaser.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.CANCEL) {
+            if (showCancelAlert(Alerts.WildWontStayAboardLaser.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.CANCEL) {
                 ((BooleanContainer) object).setValue(false);
             } else {
                 showAlert(Alerts.WildLeavesShip.getValue(), Game.getCommander().getCurrentSystem().getName());
-                questStatus = STATUS_WILD_NOT_STARTED;
+                failQuest();
             }
         }
     }
@@ -319,11 +325,13 @@ class WildQuest extends AbstractQuest {
     // TODO repeat if < normal, otherwise fail
     private void onSurrenderIfRaided(Object object) {
         if (wildOnBoard) {
+            BooleanContainer allowRobbery = (BooleanContainer) object;
+            allowRobbery.setValue(false);
+
             if (game.getOpponent().getCrewQuarters() > 1) {
                 // Wild hops onto Pirate Ship
-                questStatus = STATUS_WILD_NOT_STARTED;
                 showAlert(Alerts.WildGoesPirates.getValue());
-                setQuestState(QuestState.FAILED);
+                failQuest();
             } else {
                 showAlert(Alerts.WildChatsPirates.getValue());
             }
@@ -364,8 +372,7 @@ class WildQuest extends AbstractQuest {
             log.fine("Arrested + Wild");
             showAlert(Alerts.WildArrested.getValue());
             Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
-            questStatus = STATUS_WILD_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
+            failQuest();
         } else {
             log.fine("Arrested w/o Wild");
         }
@@ -378,11 +385,22 @@ class WildQuest extends AbstractQuest {
             showAlert(Alerts.WildArrested.getValue());
             Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
             Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
-            questStatus = STATUS_WILD_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
+            failQuest();
         } else {
             log.fine("Escaped w/o Wild");
         }
+    }
+
+    private void failQuest() {
+        game.getQuestSystem().unSubscribeAll(getQuest());
+        questStatus = STATUS_WILD_NOT_STARTED;
+        setQuestState(QuestState.FAILED);
+        removePassenger();
+    }
+
+    private void removePassenger() {
+        Game.getCommander().getShip().fire(wild.getId());
+        wildOnBoard = false;
     }
 
     private void onIncrementDays(Object object) {

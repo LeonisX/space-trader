@@ -352,7 +352,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         formMonsterMenuItem.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                new FormMonster().showDialog();
+                formMonsterMenuClick();
             }
         });
 
@@ -563,6 +563,10 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             game.getOptions().copyValues(form.getOptions());
             updateAll();
         }
+    }
+
+    private void formMonsterMenuClick() {
+        new FormMonster().showDialog(this);
     }
 
     private void retireGameMenuItemClick() {

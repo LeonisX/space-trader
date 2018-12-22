@@ -1086,53 +1086,56 @@ public class Encounter implements Serializable {
         } else {
             game.setRaided(true);
 
-            if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-                ArrayList<String> precious = new ArrayList<>();
+            BooleanContainer allowRobbery = new BooleanContainer(true);
+            game.getQuestSystem().fireEvent(ENCOUNTER_ON_SURRENDER_IF_RAIDED, allowRobbery);
+
+            if (allowRobbery.getValue()) {
+
+                if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+                    ArrayList<String> precious = new ArrayList<>();
                 /*if (commander.getShip().isPrincessOnBoard()) {
                     precious.add(Strings.EncounterHidePrincess);
                 }*/
-                game.getQuestSystem().fireEvent(ENCOUNTER_GET_SAVED_CARGO_AND_CREW, precious);
-                if (commander.getShip().isSculptureOnBoard()) {
-                    precious.add(Strings.EncounterHideSculpture);
+                    game.getQuestSystem().fireEvent(ENCOUNTER_GET_SAVED_CARGO_AND_CREW, precious);
+                    if (commander.getShip().isSculptureOnBoard()) {
+                        precious.add(Strings.EncounterHideSculpture);
+                    }
+
+                    GuiFacade.alert(AlertType.PreciousHidden, Functions.stringVars(Strings.ListStrings[precious.size()],
+                            precious.toArray(new String[0])));
+                } else if (commander.getShip().isSculptureOnBoard()) {
+                    game.setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
+                    GuiFacade.alert(AlertType.EncounterPiratesTakeSculpture);
                 }
 
-                GuiFacade.alert(AlertType.PreciousHidden, Functions.stringVars(Strings.ListStrings[precious.size()],
-                        precious.toArray(new String[0])));
-            } else if (commander.getShip().isSculptureOnBoard()) {
-                game.setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
-                GuiFacade.alert(AlertType.EncounterPiratesTakeSculpture);
-            }
+                ArrayList<Integer> cargoToSteal = commander.getShip().getStealableCargo();
+                if (cargoToSteal.size() == 0) {
+                    int blackmail = Math.min(25000, Math.max(500, commander.getWorth() / 20));
+                    int cashPayment = Math.min(commander.getCash(), blackmail);
+                    commander.setDebt(commander.getDebt() + (blackmail - cashPayment));
+                    commander.setCash(commander.getCash() - cashPayment);
+                    GuiFacade.alert(AlertType.EncounterPiratesFindNoCargo, Functions.plural(blackmail, Strings.MoneyUnit));
+                } else {
+                    GuiFacade.alert(AlertType.EncounterLooting);
 
-            ArrayList<Integer> cargoToSteal = commander.getShip().getStealableCargo();
-            if (cargoToSteal.size() == 0) {
-                int blackmail = Math.min(25000, Math.max(500, commander.getWorth() / 20));
-                int cashPayment = Math.min(commander.getCash(), blackmail);
-                commander.setDebt(commander.getDebt() + (blackmail - cashPayment));
-                commander.setCash(commander.getCash() - cashPayment);
-                GuiFacade.alert(AlertType.EncounterPiratesFindNoCargo, Functions
-                        .plural(blackmail, Strings.MoneyUnit));
-            } else {
-                GuiFacade.alert(AlertType.EncounterLooting);
+                    // Pirates steal as much as they have room for, which could be everything - JAF.
+                    // Take most high-priced items - JAF.
+                    while (game.getOpponent().getFreeCargoBays() > 0 && cargoToSteal.size() > 0) {
+                        int item = cargoToSteal.get(0);
 
-                // Pirates steal as much as they have room for, which could be everything - JAF.
-                // Take most high-priced items - JAF.
-                while (game.getOpponent().getFreeCargoBays() > 0 && cargoToSteal.size() > 0) {
-                    int item = cargoToSteal.get(0);
+                        commander.getPriceCargo()[item] -= commander.getPriceCargo()[item]
+                                / commander.getShip().getCargo()[item];
+                        commander.getShip().getCargo()[item]--;
+                        game.getOpponent().getCargo()[item]++;
 
-                    commander.getPriceCargo()[item] -= commander.getPriceCargo()[item]
-                            / commander.getShip().getCargo()[item];
-                    commander.getShip().getCargo()[item]--;
-                    game.getOpponent().getCargo()[item]++;
-
-                    cargoToSteal.remove(0);
+                        cargoToSteal.remove(0);
+                    }
                 }
-            }
 
-            game.getQuestSystem().fireEvent(ENCOUNTER_ON_SURRENDER_IF_RAIDED);
-
-            // pirates puzzled by reactor
-            if (commander.getShip().isReactorOnBoard()) {
-                GuiFacade.alert(AlertType.EncounterPiratesExamineReactor);
+                // pirates puzzled by reactor
+                if (commander.getShip().isReactorOnBoard()) {
+                    GuiFacade.alert(AlertType.EncounterPiratesExamineReactor);
+                }
             }
 
             result = EncounterResult.NORMAL;

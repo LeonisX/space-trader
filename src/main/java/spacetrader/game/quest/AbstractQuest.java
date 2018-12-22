@@ -2,6 +2,7 @@ package spacetrader.game.quest;
 
 import spacetrader.controls.Button;
 import spacetrader.controls.Rectangle;
+import spacetrader.controls.WinformPane;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
@@ -26,6 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import static spacetrader.game.Strings.AlertsCancel;
 
 public abstract class AbstractQuest implements Quest, Serializable {
 
@@ -279,9 +282,15 @@ public abstract class AbstractQuest implements Quest, Serializable {
     DialogResult showAlert(AlertDialog dialog, String... args) {
         String ok = dialog.getAccept() == null ? Strings.AlertsOk : dialog.getAccept();
         FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), ok, DialogResult.OK, null, DialogResult.NONE, args);
-        return formAlert.showDialog();
+        return formAlert.showDialog((WinformPane) game.getParentWindow());
     }
 
+    @Facaded
+    DialogResult showCancelAlert(AlertDialog dialog, String... args) {
+        String ok = dialog.getAccept() == null ? Strings.AlertsOk : dialog.getAccept();
+        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), ok, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);
+        return formAlert.showDialog((WinformPane) game.getParentWindow());
+    }
 
     @Override
     public String toString() {

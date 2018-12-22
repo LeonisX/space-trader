@@ -56,7 +56,7 @@ public class GuiFacade {
     }
 
     /**
-     * Starts an encounter - note that the GUI apperantly decides which kind.
+     * Starts an encounter - note that the GUI apparently decides which kind.
      * <p>
      * todo smells like there's too much game code in that form.
      */

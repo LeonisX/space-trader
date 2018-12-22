@@ -26,7 +26,7 @@ class JarekQuest extends AbstractQuest {
     static final long serialVersionUID = -4731305242511502L;
 
     // Constants
-    private static final int STATUS_JAREK_NOT_STARTED = 0;
+    private static final int STATUS_NOT_STARTED = 0;
     private static final int STATUS_JAREK_STARTED = 1;
     private static final int STATUS_JAREK_IMPATIENT = 11;
     private static final int STATUS_JAREK_DONE = 12;
@@ -204,11 +204,10 @@ class JarekQuest extends AbstractQuest {
         @Override
         public void successFlow() {
             log.fine("phase #2");
-            questStatus = STATUS_JAREK_DONE;
-            Game.getShip().fire(jarek.getId());
-            jarekOnBoard = false;
-            shipBarCode = Game.getShip().getBarCode();
             setQuestState(QuestState.FINISHED);
+            questStatus = STATUS_JAREK_DONE;
+            removePassenger();
+            shipBarCode = Game.getShip().getBarCode();
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
 
@@ -258,8 +257,7 @@ class JarekQuest extends AbstractQuest {
         if (jarekOnBoard) {
             log.fine("Arrested + Jarek");
             showAlert(Alerts.JarekTakenHome.getValue());
-            questStatus = STATUS_JAREK_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
+            failQuest();
         } else {
             log.fine("Arrested w/o Jarek");
         }
@@ -270,11 +268,22 @@ class JarekQuest extends AbstractQuest {
         if (jarekOnBoard) {
             log.fine("Escaped + Jarek");
             showAlert(Alerts.JarekTakenHome.getValue());
-            questStatus = STATUS_JAREK_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
+            failQuest();
         } else {
             log.fine("Escaped w/o Jarek");
         }
+    }
+
+    private void failQuest() {
+        game.getQuestSystem().unSubscribeAll(getQuest());
+        questStatus = STATUS_NOT_STARTED;
+        setQuestState(QuestState.FAILED);
+        removePassenger();
+    }
+
+    private void removePassenger() {
+        Game.getCommander().getShip().fire(jarek.getId());
+        jarekOnBoard = false;
     }
 
     private void onIncrementDays(Object object) {

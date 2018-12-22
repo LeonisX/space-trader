@@ -1444,8 +1444,9 @@ public class Game implements Serializable {
 
     private void beginQuestPhase() {
         StarSystem currentSystem = commander.getCurrentSystem();
-        currentSystem.setSpecialEventType(SpecialEventType.NA);
         commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
+        currentSystem.setSpecialEventType(SpecialEventType.NA);
+        questSystem.fireEvent(ON_AFTER_NEW_QUEST_STARTED);
     }
 
     private void switchQuestPhase(SpecialEventType specialEventType) {

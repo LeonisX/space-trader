@@ -334,8 +334,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.PrincessReturned);
             questStatus = STATUS_PRINCESS_RETURNED;
-            Game.getShip().fire(princess.getId());
-            princessOnBoard = false;
+            removePassenger();
         }
 
         @Override
@@ -491,8 +490,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         if (princessOnBoard) {
             log.fine("Arrested + Princess");
             showAlert(Alerts.PrincessTakenHome.getValue());
-            questStatus = STATUS_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
+            failQuest();
         } else {
             log.fine("Arrested w/o Princess");
         }
@@ -503,11 +501,22 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         if (princessOnBoard) {
             log.fine("Escaped + Princess");
             showAlert(Alerts.PrincessTakenHome.getValue());
-            questStatus = STATUS_NOT_STARTED;
-            setQuestState(QuestState.FAILED);
+            failQuest();
         } else {
             log.fine("Escaped w/o Princess");
         }
+    }
+
+    private void failQuest() {
+        game.getQuestSystem().unSubscribeAll(getQuest());
+        questStatus = STATUS_NOT_STARTED;
+        setQuestState(QuestState.FAILED);
+        removePassenger();
+    }
+
+    private void removePassenger() {
+        Game.getCommander().getShip().fire(princess.getId());
+        princessOnBoard = false;
     }
 
     private void onIncrementDays(Object object) {

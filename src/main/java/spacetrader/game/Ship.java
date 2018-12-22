@@ -1001,7 +1001,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     // Crew members that are not hired/fired - Commander, Jarek, Princess, and Wild - JAF
     List<CrewMember> getSpecialCrew() {
-        return Arrays.stream(getCrew()).filter(c -> !c.isMercenary()).collect(Collectors.toList());
+        return Arrays.stream(getCrew()).filter(c -> c != null && !c.isMercenary()).collect(Collectors.toList());
     }
 
     // Sort all cargo based on value and put some of it in hidden bays, if they are present.

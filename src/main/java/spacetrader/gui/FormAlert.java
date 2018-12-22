@@ -112,7 +112,7 @@ public class FormAlert extends SpaceTraderForm {
 
     @Facaded
     public static DialogResult alert(AlertType type, String... args) {
-        return makeDialog(type, args).showDialog();
+        return makeDialog(type, args).showDialog((WinformPane) Game.getCurrentGame().getParentWindow());
     }
 
     @Facaded
