@@ -14,56 +14,61 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
+enum QuestName {
+
+    Lottery,
+    Jarek,
+    Princess,
+    Wild
+
+}
 
 public class QuestSystem implements Serializable {
 
     static final long serialVersionUID = -1771570019223312592L;
 
+    private static final String questClassTemplate = QuestSystem.class.getName().replace("QuestSystem", "%sQuest");
+
     private static final Logger log = Logger.getLogger(QuestSystem.class.getName());
 
-    private volatile Map<Integer, Quest> quests;
-    private volatile Map<EventName, List<Integer>> eventListeners;
+    private volatile EnumMap<QuestName, Quest> quests;
+    private volatile Map<EventName, List<QuestName>> eventListeners;
 
     private Map<Integer, Quest> questMercenaries = new HashMap<>();
     private Map<Integer, Quest> questNews = new HashMap<>();
     private Map<Integer, Quest> questShipSpecs = new HashMap<>();
     private Map<Integer, Quest> questGameEndTypes = new HashMap<>();
 
-    private volatile int questCounter = 1;
     private volatile int specialCrewIdCounter = 1000;
     private volatile int newsIdCounter = 1000;
     private volatile int encounterIdCounter = 1000;
     private volatile int shipSpecIdCounter = 1000;
     private volatile int gameEndTypeIdCounter = 1000;
 
-    private transient int transactionStart = -1;
+    private transient Set<QuestName> questsBeforeTransaction = new HashSet<>();
 
     public void initializeQuestsHolder() {
-        setQuestsMap(new HashMap<>());
+        setQuestsMap(new EnumMap<>(QuestName.class));
         setEventListeners(new HashMap<>());
         Arrays.stream(EventName.values()).forEach(e -> eventListeners.put(e, new ArrayList<>()));
 
-        initialize(LotteryQuest.class);
-        initialize(JarekQuest.class);
-        initialize(PrincessQuest.class);
-        initialize(WildQuest.class);
+        Arrays.stream(QuestName.values()).forEach(this::initialize);
 
         log.fine("initialized");
     }
 
-    private void initialize(Class<? extends Quest> clazz) {
+    private void initialize(QuestName id) {
         try {
+            Class<?> clazz = Class.forName(String.format(questClassTemplate, id.name()));
             Field field = clazz.getDeclaredField("OCCURRENCE");
             field.setAccessible(true);
             int occurrence = Math.max(field.getInt(null), 1);
             for (int i = 0; i < occurrence; i++) {
-                Integer id = generateQuestId();
                 Constructor<?> c = clazz.getConstructor(id.getClass());
                 Quest quest = (Quest) c.newInstance(id);
                 getQuestsMap().put(id, quest);
             }
-        } catch (InstantiationException | IllegalAccessException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -95,11 +100,11 @@ public class QuestSystem implements Serializable {
         quests.values().forEach(q -> q.initializeLogger(q));
     }
 
-    private void setQuestsMap(Map<Integer, Quest> map) {
+    private void setQuestsMap(EnumMap<QuestName, Quest> map) {
         quests = map;
     }
 
-    private Map<Integer, Quest> getQuestsMap() {
+    private EnumMap<QuestName, Quest> getQuestsMap() {
         return quests;
     }
 
@@ -122,10 +127,6 @@ public class QuestSystem implements Serializable {
 
     private int generateGameEndTypeIdCounter() {
         return gameEndTypeIdCounter++;
-    }
-
-    private int generateQuestId() {
-        return 10000 * questCounter++;
     }
 
     public int[] affectSkills(int[] skills) {
@@ -181,11 +182,11 @@ public class QuestSystem implements Serializable {
         getEventListeners().forEach((key, value) -> unSubscribe(key, quest));
     }
 
-    private Map<EventName, List<Integer>> getEventListeners() {
+    private Map<EventName, List<QuestName>> getEventListeners() {
         return eventListeners;
     }
 
-    private void setEventListeners(Map<EventName, List<Integer>> eventListeners) {
+    private void setEventListeners(Map<EventName, List<QuestName>> eventListeners) {
         this.eventListeners = eventListeners;
     }
 
@@ -216,19 +217,20 @@ public class QuestSystem implements Serializable {
 
     //TODO test
     public void startTransaction() {
-        log.fine("" + questCounter);
-        transactionStart = questCounter;
+        log.fine(quests.keySet().toString());
+        questsBeforeTransaction = quests.keySet();
     }
 
     //TODO test
     public void rollbackTransaction() {
-        if (transactionStart >= 0) {
+        if (!questsBeforeTransaction.isEmpty()) {
             log.fine("started");
-            List<Integer> toRemove = quests.keySet().stream().filter(k -> k > transactionStart).collect(toList());
+            Set<QuestName> toRemove = new HashSet<>(quests.keySet());
+            toRemove.removeAll(questsBeforeTransaction);
             log.fine(toRemove.toString());
 
             log.fine(quests.toString());
-            toRemove.forEach(key -> quests.remove(key));
+            quests.keySet().removeAll(toRemove);
             log.fine(quests.toString());
             log.fine(eventListeners.toString());
             eventListeners.values().forEach(e -> e.removeAll(toRemove));
@@ -236,7 +238,7 @@ public class QuestSystem implements Serializable {
         } else {
             log.fine("skipped");
         }
-        transactionStart = -1;
+        questsBeforeTransaction = new HashSet<>();
     }
 
     @Override
@@ -244,10 +246,8 @@ public class QuestSystem implements Serializable {
         return "QuestSystem{" +
                 "quests=" + quests +
                 ", eventListeners=" + eventListeners +
-                ", questCounter=" + questCounter +
                 ", specialCrewIdCounter=" + specialCrewIdCounter +
                 ", newsIdCounter=" + newsIdCounter +
-                ", transactionStart=" + transactionStart +
                 '}';
     }
 

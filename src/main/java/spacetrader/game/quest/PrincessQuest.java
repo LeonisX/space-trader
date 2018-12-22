@@ -59,9 +59,9 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private int gameEndTypeId;
 
-    public PrincessQuest(Integer id) {
+    public PrincessQuest(QuestName id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
-        initializePhases(Phases.values(), new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
+        initializePhases(QuestPhases.values(), new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
                 new PrincessQonosPhase(), new PrincessReturnedPhase(), new PrincessQuantumPhase());
         initializeTransitionMap();
 
@@ -82,7 +82,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         log.fine("started...");
     }
 
-    private void initializePhases(PrincessQuest.Phases[] values, Phase... phases) {
+    private void initializePhases(QuestPhases[] values, Phase... phases) {
         for (int i = 0; i < phases.length; i++) {
             this.phases.put(values[i], phases[i]);
             phases[i].setQuest(this);
@@ -144,8 +144,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());
-        I18n.dumpPhases(Arrays.stream(Phases.values()));
-        I18n.dumpStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.dumpPhases(Arrays.stream(QuestPhases.values()));
+        I18n.dumpStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
         I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
@@ -156,8 +156,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     @Override
     public void localize() {
-        I18n.localizePhases(Arrays.stream(Phases.values()));
-        I18n.localizeStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.localizePhases(Arrays.stream(QuestPhases.values()));
+        I18n.localizeStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
         I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
@@ -186,21 +186,21 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Galvon);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.Princess).setStarSystemId(starSystem.getId());
-        phases.get(Phases.PrincessReturned).setStarSystemId(starSystem.getId());
-        phases.get(Phases.PrincessQuantum).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.Princess).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.PrincessReturned).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.PrincessQuantum).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Centauri);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.PrincessCentauri).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.PrincessCentauri).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Inthara);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.PrincessInthara).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.PrincessInthara).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Qonos);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.PrincessQonos).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.PrincessQonos).setStarSystemId(starSystem.getId());
     }
 
     private void onGenerateCrewMemberList(Object object) {
@@ -243,7 +243,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + Phases.Princess);
+            log.fine("phase #" + QuestPhases.Princess);
             questStatus = STATUS_FLY_CENTAURI;
             setQuestState(QuestState.ACTIVE);
         }
@@ -263,7 +263,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + Phases.PrincessCentauri);
+            log.fine("phase #" + QuestPhases.PrincessCentauri);
             questStatus = STATUS_FLY_INTHARA;
             game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
         }
@@ -283,7 +283,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + Phases.PrincessInthara);
+            log.fine("phase #" + QuestPhases.PrincessInthara);
             questStatus = STATUS_FLY_QONOS;
             game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
         }
@@ -303,7 +303,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + Phases.PrincessQonos);
+            log.fine("phase #" + QuestPhases.PrincessQonos);
             //TODO where does the princess go? need to test this case.
             if (Game.getShip().getFreeCrewQuartersCount() == 0) {
                 GuiFacade.alert(AlertType.SpecialNoQuarters);
@@ -332,7 +332,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + Phases.PrincessReturned);
+            log.fine("phase #" + QuestPhases.PrincessReturned);
             questStatus = STATUS_PRINCESS_RETURNED;
             Game.getShip().fire(princess.getId());
             princessOnBoard = false;
@@ -353,7 +353,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + Phases.PrincessQuantum);
+            log.fine("phase #" + QuestPhases.PrincessQuantum);
             if (Game.getShip().getFreeWeaponSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
@@ -372,7 +372,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        Optional<Phases> activePhase =
+        Optional<QuestPhases> activePhase =
                 phases.entrySet().stream().filter(p -> p.getValue().canBeExecuted()).map(Map.Entry::getKey).findFirst();
         if (activePhase.isPresent()) {
             showDialogAndProcessResult(object, activePhase.get().getValue(), () -> phases.get(activePhase.get()).successFlow());
@@ -388,28 +388,28 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         switch (questStatus) {
             case STATUS_FLY_CENTAURI:
-                result = Quests.PrincessCentauri.getValue();
+                result = QuestClues.PrincessCentauri.getValue();
                 break;
             case STATUS_FLY_INTHARA:
-                result = Quests.PrincessInthara.getValue();
+                result = QuestClues.PrincessInthara.getValue();
                 break;
             case STATUS_FLY_QONOS:
-                result = Quests.PrincessQonos.getValue();
+                result = QuestClues.PrincessQonos.getValue();
                 break;
             case STATUS_PRINCESS_IMPATIENT:
             case STATUS_PRINCESS_RESCUED:
                 if (princessOnBoard) {
                     if (questStatus == STATUS_PRINCESS_IMPATIENT) {
-                        result = Functions.stringVars(Quests.PrincessReturningImpatient.getValue(), CrewNames.Ziyal.getValue());
+                        result = Functions.stringVars(QuestClues.PrincessReturningImpatient.getValue(), CrewNames.Ziyal.getValue());
                     } else {
-                        result = Functions.stringVars(Quests.PrincessReturning.getValue(), CrewNames.Ziyal.getValue());
+                        result = Functions.stringVars(QuestClues.PrincessReturning.getValue(), CrewNames.Ziyal.getValue());
                     }
                 } else {
-                    result = Functions.stringVars(Quests.PrincessReturn.getValue(), CrewNames.Ziyal.getValue());
+                    result = Functions.stringVars(QuestClues.PrincessReturn.getValue(), CrewNames.Ziyal.getValue());
                 }
                 break;
             case STATUS_PRINCESS_RETURNED:
-                result = Quests.PrincessQuantum.getValue();
+                result = QuestClues.PrincessQuantum.getValue();
                 break;
             default:
                 log.fine("skipped");
@@ -606,7 +606,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         ((Map<String, Integer>) object).put(CheatTitles.Princess.getValue(), questStatus);
     }
 
-    enum Phases implements SimpleValueEnum<QuestDialog> {
+    enum QuestPhases implements SimpleValueEnum<QuestDialog> {
         Princess(new QuestDialog(ALERT, "Kidnapped", "A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.")),
         PrincessCentauri(new QuestDialog(ALERT, "Aggressive Ship", "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara.")),
         PrincessInthara(new QuestDialog(ALERT, "Dangerous Scorpion", "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next.")),
@@ -616,7 +616,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         private QuestDialog value;
 
-        Phases(QuestDialog value) {
+        QuestPhases(QuestDialog value) {
             this.value = value;
         }
 
@@ -631,9 +631,9 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
+    private EnumMap<QuestPhases, Phase> phases = new EnumMap<>(QuestPhases.class);
 
-    enum Quests implements SimpleValueEnum<String> {
+    enum QuestClues implements SimpleValueEnum<String> {
         PrincessCentauri("Follow the Scorpion to Centauri."),
         PrincessInthara("Follow the Scorpion to Inthara."),
         PrincessQonos("Follow the Scorpion to Qonos."),
@@ -645,7 +645,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         private String value;
 
-        Quests(String value) {
+        QuestClues(String value) {
             this.value = value;
         }
 

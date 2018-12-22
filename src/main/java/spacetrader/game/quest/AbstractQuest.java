@@ -33,7 +33,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     transient public Logger log;
 
-    public int id;
+    public QuestName id;
     private Quest quest;
     private Repeatable repeatable;
     private int cashToSpend;
@@ -49,7 +49,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     // Common methods
 
-    void initialize(Integer id, Quest quest, Repeatable repeatable, int cashToSpend, int occurrence) {
+    void initialize(QuestName id, Quest quest, Repeatable repeatable, int cashToSpend, int occurrence) {
         this.id = id;
         this.quest = quest;
         this.repeatable = repeatable;
@@ -122,12 +122,12 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     @Override
-    public int getId() {
+    public QuestName getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(QuestName id) {
         this.id = id;
     }
 

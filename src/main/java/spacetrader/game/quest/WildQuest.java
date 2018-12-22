@@ -42,10 +42,10 @@ class WildQuest extends AbstractQuest {
     private CrewMember zeethibal;
     private boolean wildOnBoard;
 
-    public WildQuest(Integer id) {
+    public WildQuest(QuestName id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
 
-        initializePhases(Phases.values(), new WildPhase(), new WildGetsOutPhase());
+        initializePhases(QuestPhases.values(), new WildPhase(), new WildGetsOutPhase());
         initializeTransitionMap();
 
         wild = registerNewSpecialCrewMember(7, 10, 2, 5);
@@ -60,7 +60,7 @@ class WildQuest extends AbstractQuest {
         log.fine("started...");
     }
 
-    private void initializePhases(Phases[] values, Phase... phases) {
+    private void initializePhases(QuestPhases[] values, Phase... phases) {
         for (int i = 0; i < phases.length; i++) {
             this.phases.put(values[i], phases[i]);
             phases[i].setQuest(this);
@@ -125,8 +125,8 @@ class WildQuest extends AbstractQuest {
     @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());
-        I18n.dumpPhases(Arrays.stream(Phases.values()));
-        I18n.dumpStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.dumpPhases(Arrays.stream(QuestPhases.values()));
+        I18n.dumpStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
         I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
@@ -136,8 +136,8 @@ class WildQuest extends AbstractQuest {
 
     @Override
     public void localize() {
-        I18n.localizePhases(Arrays.stream(Phases.values()));
-        I18n.localizeStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.localizePhases(Arrays.stream(QuestPhases.values()));
+        I18n.localizeStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
         I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
@@ -149,11 +149,11 @@ class WildQuest extends AbstractQuest {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Kravat);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.WildGetsOut).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.WildGetsOut).setStarSystemId(starSystem.getId());
     }
 
     private void onAssignEventsRandomly(Object object) {
-        phases.get(Phases.Wild).setStarSystemId(occupyFreeSystemWithEvent());
+        phases.get(QuestPhases.Wild).setStarSystemId(occupyFreeSystemWithEvent());
     }
 
     @SuppressWarnings("unchecked")
@@ -239,7 +239,7 @@ class WildQuest extends AbstractQuest {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        Optional<Phases> activePhase =
+        Optional<QuestPhases> activePhase =
                 phases.entrySet().stream().filter(p -> p.getValue().canBeExecuted()).map(Map.Entry::getKey).findFirst();
         if (activePhase.isPresent()) {
             showDialogAndProcessResult(object, activePhase.get().getValue(), () -> phases.get(activePhase.get()).successFlow());
@@ -265,11 +265,11 @@ class WildQuest extends AbstractQuest {
     private void onGetQuestsStrings(Object object) {
         if (wildOnBoard) {
             if (questStatus == STATUS_WILD_IMPATIENT) {
-                ((ArrayList<String>) object).add(Quests.WildImpatient.getValue());
-                log.fine(Quests.WildImpatient.getValue());
+                ((ArrayList<String>) object).add(QuestClues.WildImpatient.getValue());
+                log.fine(QuestClues.WildImpatient.getValue());
             } else {
-                ((ArrayList<String>) object).add(Quests.Wild.getValue());
-                log.fine(Quests.Wild.getValue());
+                ((ArrayList<String>) object).add(QuestClues.Wild.getValue());
+                log.fine(QuestClues.Wild.getValue());
             }
         } else {
             log.fine("skipped");
@@ -426,13 +426,13 @@ class WildQuest extends AbstractQuest {
     }
 
     // Special Events
-    enum Phases implements SimpleValueEnum<QuestDialog> {
+    enum QuestPhases implements SimpleValueEnum<QuestDialog> {
         Wild(new QuestDialog(DIALOG, "Jonathan Wild", "Law Enforcement is closing in on notorious criminal kingpin Jonathan Wild. He would reward you handsomely for smuggling him home to Kravat. You'd have to avoid capture by the Police on the way. Are you willing to give him a berth?")),
         WildGetsOut(new QuestDialog(ALERT, "Wild Gets Out", "Jonathan Wild is most grateful to you for spiriting him to safety. As a reward, he has one of his Cyber Criminals hack into the Police Database, and clean up your record. He also offers you the opportunity to take his talented nephew Zeethibal along as a Mercenary with no pay."));
 
         private QuestDialog value;
 
-        Phases(QuestDialog value) {
+        QuestPhases(QuestDialog value) {
             this.value = value;
         }
 
@@ -447,15 +447,15 @@ class WildQuest extends AbstractQuest {
         }
     }
 
-    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
+    private EnumMap<QuestPhases, Phase> phases = new EnumMap<>(QuestPhases.class);
 
-    enum Quests implements SimpleValueEnum<String> {
+    enum QuestClues implements SimpleValueEnum<String> {
         Wild("Smuggle Jonathan Wild to Kravat."),
         WildImpatient("Smuggle Jonathan Wild to Kravat.<br>Wild is getting impatient, and will no longer aid your crew along the way.");
 
         private String value;
 
-        Quests(String value) {
+        QuestClues(String value) {
             this.value = value;
         }
 

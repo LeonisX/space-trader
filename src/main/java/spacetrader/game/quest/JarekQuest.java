@@ -42,10 +42,10 @@ class JarekQuest extends AbstractQuest {
 
     private UUID shipBarCode = UUID.randomUUID();
 
-    public JarekQuest(Integer id) {
+    public JarekQuest(QuestName id) {
         initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
 
-        initializePhases(Phases.values(), new JarekPhase(), new JarekGetsOutPhase());
+        initializePhases(QuestPhases.values(), new JarekPhase(), new JarekGetsOutPhase());
         initializeTransitionMap();
 
         jarek = registerNewSpecialCrewMember(3, 2, 10, 4);
@@ -60,7 +60,7 @@ class JarekQuest extends AbstractQuest {
     }
 
 
-    private void initializePhases(Phases[] values, Phase... phases) {
+    private void initializePhases(QuestPhases[] values, Phase... phases) {
         for (int i = 0; i < phases.length; i++) {
             this.phases.put(values[i], phases[i]);
             phases[i].setQuest(this);
@@ -126,8 +126,8 @@ class JarekQuest extends AbstractQuest {
     @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());
-        I18n.dumpPhases(Arrays.stream(Phases.values()));
-        I18n.dumpStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.dumpPhases(Arrays.stream(QuestPhases.values()));
+        I18n.dumpStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
         I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
@@ -137,8 +137,8 @@ class JarekQuest extends AbstractQuest {
 
     @Override
     public void localize() {
-        I18n.localizePhases(Arrays.stream(Phases.values()));
-        I18n.localizeStrings(Res.Quests, Arrays.stream(Quests.values()));
+        I18n.localizePhases(Arrays.stream(QuestPhases.values()));
+        I18n.localizeStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
         I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
@@ -150,11 +150,11 @@ class JarekQuest extends AbstractQuest {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Devidia);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
-        phases.get(Phases.JarekGetsOut).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.JarekGetsOut).setStarSystemId(starSystem.getId());
     }
 
     private void onAssignEventsRandomly(Object object) {
-        phases.get(Phases.Jarek).setStarSystemId(occupyFreeSystemWithEvent());
+        phases.get(QuestPhases.Jarek).setStarSystemId(occupyFreeSystemWithEvent());
     }
 
     private void onGenerateCrewMemberList(Object object) {
@@ -219,7 +219,7 @@ class JarekQuest extends AbstractQuest {
     }
 
     private void onSpecialButtonClicked(Object object) {
-        Optional<Phases> activePhase =
+        Optional<QuestPhases> activePhase =
                 phases.entrySet().stream().filter(p -> p.getValue().canBeExecuted()).map(Map.Entry::getKey).findFirst();
         if (activePhase.isPresent()) {
             showDialogAndProcessResult(object, activePhase.get().getValue(), () -> phases.get(activePhase.get()).successFlow());
@@ -242,11 +242,11 @@ class JarekQuest extends AbstractQuest {
     private void onGetQuestsStrings(Object object) {
         if (jarekOnBoard) {
             if (questStatus == STATUS_JAREK_IMPATIENT) {
-                ((ArrayList<String>) object).add(Quests.JarekImpatient.getValue());
-                log.fine(Quests.JarekImpatient.getValue());
+                ((ArrayList<String>) object).add(QuestClues.JarekImpatient.getValue());
+                log.fine(QuestClues.JarekImpatient.getValue());
             } else {
-                ((ArrayList<String>) object).add(Quests.Jarek.getValue());
-                log.fine(Quests.Jarek.getValue());
+                ((ArrayList<String>) object).add(QuestClues.Jarek.getValue());
+                log.fine(QuestClues.Jarek.getValue());
             }
         } else {
             log.fine("skipped");
@@ -325,13 +325,13 @@ class JarekQuest extends AbstractQuest {
         ((Map<String, Integer>) object).put(CheatTitles.Jarek.getValue(), questStatus);
     }
 
-    enum Phases implements SimpleValueEnum<QuestDialog> {
+    enum QuestPhases implements SimpleValueEnum<QuestDialog> {
         Jarek(new QuestDialog(DIALOG, "Ambassador Jarek", "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?")),
         JarekGetsOut(new QuestDialog(ALERT, "Jarek Gets Out", "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment."));
 
         private QuestDialog value;
 
-        Phases(QuestDialog value) {
+        QuestPhases(QuestDialog value) {
             this.value = value;
         }
 
@@ -346,15 +346,15 @@ class JarekQuest extends AbstractQuest {
         }
     }
 
-    private EnumMap<Phases, Phase> phases = new EnumMap<>(Phases.class);
+    private EnumMap<QuestPhases, Phase> phases = new EnumMap<>(QuestPhases.class);
 
-    enum Quests implements SimpleValueEnum<String> {
+    enum QuestClues implements SimpleValueEnum<String> {
         Jarek("Take ambassador Jarek to Devidia."),
         JarekImpatient("Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.");
 
         private String value;
 
-        Quests(String value) {
+        QuestClues(String value) {
             this.value = value;
         }
 

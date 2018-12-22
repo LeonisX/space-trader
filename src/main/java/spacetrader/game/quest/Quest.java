@@ -14,9 +14,9 @@ public interface Quest {
 
     void setQuest(Quest quest);
 
-    int getId();
+    QuestName getId();
 
-    void setId(int id);
+    void setId(QuestName id);
 
     String getCrewMemberName(int id);
 
