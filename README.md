@@ -259,6 +259,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * MonsterCom: Show only current phase of quest. CheckBox for full view (only for cheat/debug)
 * MonsterCom - second click - order reverse
 * Quest panel with scrolling
+* Panel - Quest Persons: all persons from quests; Show planet. If onboard - onboard
 
 ### Translate
 

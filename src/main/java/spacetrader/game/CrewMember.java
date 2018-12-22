@@ -40,7 +40,7 @@ public class CrewMember implements Serializable {
     }
 
     public static CrewMember specialCrewMember(int id, int pilot, int fighter, int trader, int engineer) {
-        return new CrewMember(CrewMemberId.QUEST, id, pilot, fighter, trader,  engineer, StarSystemId.NA);
+        return new CrewMember(CrewMemberId.NA, id, pilot, fighter, trader,  engineer, StarSystemId.NA);
     }
 
     CrewMember(CrewMember baseCrewMember) {
