@@ -183,7 +183,7 @@ class WildQuest extends AbstractQuest {
     class WildPhase extends Phase { //new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+            return Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
                     && !wildOnBoard && isDesiredSystem();
         }
 
