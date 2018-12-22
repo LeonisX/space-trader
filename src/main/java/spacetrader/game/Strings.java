@@ -915,48 +915,7 @@ public class Strings {
             "Cold Snap Continues!", "Serious Crop Failure! Must We Ration?",
             "Jobless Rate at All-Time Low!"};
 
-    //TODO remove unneeded
-    public static String[] QuestStates = new String[]{"Inactive", "Scheduled", "Subscribed", "Active", "Suspended",
-            "Failed", "Finished", "Unknown"};
-
-    public static String[] PoliceRecordNames = new String[]{"Psychopath", "Villain", "Criminal", "Crook", "Dubious",
-            "Clean", "Lawful", "Trusted", "Liked", "Hero"};
-
-    public static String[] PoliticalSystemNames = new String[]{"Anarchy",
-            "Capitalist State", "Communist State", "Confederacy",
-            "Corporate State", "Cybernetic State", "Democracy", "Dictatorship",
-            "Fascist State", "Feudal State", "Military State", "Monarchy",
-            "Pacifist State", "Socialist State", "State of Satori",
-            "Technocracy", "Theocracy"};
-
-    public static String[] ReputationNames = new String[]{"Harmless", "Mostly harmless", "Poor", "Average",
-            "Above average", "Competent", "Dangerous", "Deadly", "Elite"};
-
-    public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
-
-    public static String[] ShipNames = new String[]{"Flea", "Gnat", "Firefly", "Mosquito", "Bumblebee", "Beetle",
-            "Hornet", "Grasshopper", "Termite", "Wasp", "Space Monster", "Dragonfly", "Mantis", "Scarab", "Bottle",
-            ShipNameCustomShip, "Scorpion"};
-
-    public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};
-
-    public static String[] ShipyardNames = new String[]{
-            "Corellian Engineering", "Incom Corporation", "Kuat Drive Yards",
-            "Sienar Fleet Systems", "Sorosuub Engineering"};
-
-    public static String[] ShipyardSkillDescriptions = new String[]{
-            "All ships constructed at this shipyard use 2 fewer units per crew quarter.",
-            "All ships constructed at this shipyard have 2 extra base fuel tanks.",
-            "All ships constructed at this shipyard have the hull points increment by 5 more than usual.",
-            "All ships constructed at this shipyard get shield slots for 2 fewer units.",
-            "All ships constructed at this shipyard get weapon slots for 2 fewer units."};
-
-    public static String[] ShipyardSkills = new String[]{"Crew Quartering", "Fuel Efficiency", "Hull Strength",
-            "Shielding", "Weaponry"};
-
-    public static String[] Sizes = new String[]{"Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"};
-
-    public static String[] SpecialEventStrings = new String[]{
+    public static String[] QuestPhaseMessages = new String[]{
             "This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?",
             "This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.",
             "A trader in second-hand goods offers you 3 sealed cargo canisters for the sum of 1000 credits. It could be a good deal: they could contain robots. Then again, it might just be water. Do you want the canisters?",
@@ -1005,7 +964,7 @@ public class Strings {
             "The King and Queen are extremely grateful to you for returning their daughter to them. The King says, \"Ziyal is priceless to us, but we feel we must offer you something as a reward. Visit my shipyard captain and he'll install one of our new Quantum Disruptors.\""*/
     };
 
-    public static String[] SpecialEventTitles = new String[]{
+    public static String[] QuestPhaseTitles = new String[]{
             "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
             "Dragonfly", "Dragonfly Destroyed", "Weird Ship", "Lightning Ship",
             "Lightning Shield", "Strange Ship", "Erase Record",
@@ -1029,6 +988,47 @@ public class Strings {
             "Rich Soil", "Poor Soil", "Rich Fauna", "Lifeless",
             "Weird Mushrooms", "Special Herbs", "Artistic Populace",
             "Warlike Populace"};
+
+    //TODO remove unneeded
+    public static String[] QuestStates = new String[]{"Inactive", "Scheduled", "Subscribed", "Active", "Suspended",
+            "Failed", "Finished", "Unknown"};
+
+    public static String[] PoliceRecordNames = new String[]{"Psychopath", "Villain", "Criminal", "Crook", "Dubious",
+            "Clean", "Lawful", "Trusted", "Liked", "Hero"};
+
+    public static String[] PoliticalSystemNames = new String[]{"Anarchy",
+            "Capitalist State", "Communist State", "Confederacy",
+            "Corporate State", "Cybernetic State", "Democracy", "Dictatorship",
+            "Fascist State", "Feudal State", "Military State", "Monarchy",
+            "Pacifist State", "Socialist State", "State of Satori",
+            "Technocracy", "Theocracy"};
+
+    public static String[] ReputationNames = new String[]{"Harmless", "Mostly harmless", "Poor", "Average",
+            "Above average", "Competent", "Dangerous", "Deadly", "Elite"};
+
+    public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
+
+    public static String[] ShipNames = new String[]{"Flea", "Gnat", "Firefly", "Mosquito", "Bumblebee", "Beetle",
+            "Hornet", "Grasshopper", "Termite", "Wasp", "Space Monster", "Dragonfly", "Mantis", "Scarab", "Bottle",
+            ShipNameCustomShip, "Scorpion"};
+
+    public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};
+
+    public static String[] ShipyardNames = new String[]{
+            "Corellian Engineering", "Incom Corporation", "Kuat Drive Yards",
+            "Sienar Fleet Systems", "Sorosuub Engineering"};
+
+    public static String[] ShipyardSkillDescriptions = new String[]{
+            "All ships constructed at this shipyard use 2 fewer units per crew quarter.",
+            "All ships constructed at this shipyard have 2 extra base fuel tanks.",
+            "All ships constructed at this shipyard have the hull points increment by 5 more than usual.",
+            "All ships constructed at this shipyard get shield slots for 2 fewer units.",
+            "All ships constructed at this shipyard get weapon slots for 2 fewer units."};
+
+    public static String[] ShipyardSkills = new String[]{"Crew Quartering", "Fuel Efficiency", "Hull Strength",
+            "Shielding", "Weaponry"};
+
+    public static String[] Sizes = new String[]{"Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"};
 
     // *************************************************************************
     // Many of these names are from Star Trek: The Next Generation, or are small

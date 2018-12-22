@@ -118,11 +118,11 @@ public class SpecialEvent {
     }
 
     public String getString() {
-        return Strings.SpecialEventStrings[type.castToInt()];
+        return Strings.QuestPhaseMessages[type.castToInt()];
     }
 
     public String getTitle() {
-        return Strings.SpecialEventTitles[type.castToInt()];
+        return Strings.QuestPhaseTitles[type.castToInt()];
     }
 
     public SpecialEventType getType() {
