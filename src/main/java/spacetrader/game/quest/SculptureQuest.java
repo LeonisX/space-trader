@@ -39,7 +39,7 @@ class SculptureQuest extends AbstractQuest {
     public SculptureQuest(QuestName id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
-        initializePhases(QuestPhases.values(), new Sculpture(), new SculptureDeliveredPhase(), new SculptureHiddenBaysPhase());
+        initializePhases(QuestPhases.values(), new SculpturePhase(), new SculptureDeliveredPhase(), new SculptureHiddenBaysPhase());
         initializeTransitionMap();
 
         registerNews(News.values().length);
@@ -155,7 +155,7 @@ class SculptureQuest extends AbstractQuest {
     }
 
     //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
-    class Sculpture extends Phase { //new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
+    class SculpturePhase extends Phase { //new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
         @Override
         public boolean canBeExecuted() {
             return isDesiredSystem() && questStatus == STATUS_SCULPTURE_NOT_STARTED
@@ -167,6 +167,7 @@ class SculptureQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #1");
 
+            sculptureOnBoard = true;
             questStatus = STATUS_SCULPTURE_IN_TRANSIT;
             //TODO refactor all phases with this method
             game.confirmQuestPhase();
@@ -175,7 +176,7 @@ class SculptureQuest extends AbstractQuest {
 
         @Override
         public String toString() {
-            return "Sculpture{} " + super.toString();
+            return "SculpturePhase{} " + super.toString();
         }
     }
 
@@ -204,7 +205,7 @@ class SculptureQuest extends AbstractQuest {
     class SculptureHiddenBaysPhase extends Phase { //new SpecialEvent(SpecialEventType.SculptureHiddenBays, 0, 0, false),
         @Override
         public boolean canBeExecuted() {
-            return isDesiredSystem();
+            return isDesiredSystem() && questStatus == STATUS_SCULPTURE_DELIVERED;
         }
 
         @Override
@@ -252,7 +253,7 @@ class SculptureQuest extends AbstractQuest {
     private void onGetQuestsStrings(Object object) {
         if (sculptureOnBoard) {
             ((ArrayList<String>) object).add(QuestClues.Sculpture.getValue());
-        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
+        } else if (questStatus == STATUS_SCULPTURE_DELIVERED) {
             ((ArrayList<String>) object).add(QuestClues.SculptureHiddenBays.getValue());
         } else {
             log.fine("skipped");

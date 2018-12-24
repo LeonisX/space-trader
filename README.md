@@ -232,6 +232,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Clean language files (sculpture, hidden)
 * Dump/translate
 * Fully test
+* Lottery - where my money???
 
 ### Princess
 
