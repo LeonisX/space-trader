@@ -185,6 +185,10 @@ public class FormViewShip extends SpaceTraderForm {
                         + (Functions.plural(ship.getFreeGadgetSlots(), Strings.ShipGadgetSlot) + Strings.newline));
             }
         }
+
+        if (equipTitleLabelValue.getText().endsWith("<BR>")) {
+            equipTitleLabelValue.setText(equipTitleLabelValue.getText().substring(0, equipTitleLabelValue.getText().length() - 4));
+        }
     }
 
     private void displaySpecialCargo() {

@@ -2,10 +2,7 @@ package spacetrader.game.quest;
 
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.GadgetType;
-import spacetrader.game.enums.SpecialEventType;
-import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.enums.QuestState;
@@ -46,7 +43,7 @@ class SculptureQuest extends AbstractQuest {
 
         registerListener();
 
-        //dumpAllStrings();
+        dumpAllStrings();
         //localize();
 
         log.fine("started...");
@@ -102,7 +99,6 @@ class SculptureQuest extends AbstractQuest {
         return News.values()[getNewsIds().indexOf(newsId)].getValue();
     }
 
-    //TODO
     @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());
@@ -131,7 +127,6 @@ class SculptureQuest extends AbstractQuest {
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Endor);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
         phases.get(QuestPhases.SculptureDelivered).setStarSystemId(starSystem.getId());
-        //TODO real switch in phase2???
         phases.get(QuestPhases.SculptureHiddenBays).setStarSystemId(starSystem.getId());
     }
 
@@ -192,8 +187,6 @@ class SculptureQuest extends AbstractQuest {
 
             sculptureOnBoard = false;
             questStatus = STATUS_SCULPTURE_DELIVERED;
-            //TODO refactor all phases with this method
-            //switchQuestPhase(SpecialEventType.SculptureHiddenBays);
         }
 
         @Override
@@ -266,6 +259,7 @@ class SculptureQuest extends AbstractQuest {
             return;
         }
 
+        //TODO HOW I HAS GOT HIDDEN_CARGO_BAYS WO Sculpture???
         if (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             ((spacetrader.stub.ArrayList<String>) object).add(Encounters.HideSculpture.getValue());
         } else {
@@ -296,11 +290,23 @@ class SculptureQuest extends AbstractQuest {
     @SuppressWarnings("unchecked")
     private void onGetIllegalSpecialCargoDescription(Object object) {
         if (sculptureOnBoard) {
-            ((ArrayList<String>) object).add(Encounters.PoliceSurrenderSculpture.getValue());
+            ((ArrayList<String>) object).add(Encounters.PoliceSubmitSculpture.getValue());
         }
     }
 
     private void onArrested(Object object) {
+
+        if (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+            log.fine("Arrested + Hidden Cargo Bays");
+            while (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+                Game.getShip().removeEquipment(EquipmentType.GADGET, GadgetType.HIDDEN_CARGO_BAYS);
+            }
+            GuiFacade.alert(AlertType.JailHiddenCargoBaysRemoved);
+        } else {
+            log.fine("Arrested w/o Hidden Cargo Bays");
+        }
+
+
         if (sculptureOnBoard) {
             log.fine("Arrested + Sculpture");
             showAlert(Alerts.SculptureConfiscated.getValue());
@@ -314,7 +320,6 @@ class SculptureQuest extends AbstractQuest {
         if (sculptureOnBoard) {
             log.fine("Escaped + Sculpture");
             showAlert(Alerts.SculptureSaved.getValue());
-            failQuest();
         } else {
             log.fine("Escaped w/o Sculpture");
         }

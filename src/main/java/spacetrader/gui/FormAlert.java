@@ -447,9 +447,9 @@ public class FormAlert extends SpaceTraderForm {
             case JailFleaReceived:
                 return new FormAlert(AlertsJailFleaReceivedTitle, AlertsJailFleaReceivedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            /*case JailHiddenCargoBaysRemoved:
+            case JailHiddenCargoBaysRemoved:
                 return new FormAlert(AlertsJailHiddenCargoBaysRemovedTitle, AlertsJailHiddenCargoBaysRemovedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
+                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case JailIllegalGoodsImpounded:
                 return new FormAlert(AlertsJailIllegalGoodsImpoundedTitle, AlertsJailIllegalGoodsImpoundedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);

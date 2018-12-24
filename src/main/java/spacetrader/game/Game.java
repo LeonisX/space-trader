@@ -166,13 +166,13 @@ public class Game implements Serializable {
         GuiFacade.alert(AlertType.JailConvicted, Functions.plural(term, Strings.TimeUnit),
                 Functions.plural(fineContainer.getValue(), Strings.MoneyUnit));
 
-        if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+        /*if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             while (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
                 commander.getShip().removeEquipment(EquipmentType.GADGET, GadgetType.HIDDEN_CARGO_BAYS);
             }
 
             GuiFacade.alert(AlertType.JailHiddenCargoBaysRemoved);
-        }
+        }*/
 
         if (commander.getShip().isReactorOnBoard()) {
             GuiFacade.alert(AlertType.ReactorConfiscated);

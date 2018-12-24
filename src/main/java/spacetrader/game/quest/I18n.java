@@ -70,7 +70,7 @@ class I18n {
 
     static void localizePhases(Stream<SimpleValueEnum<QuestDialog>> phases) {
         StringsBundle strings = GlobalAssets.getStrings();
-        phases.forEach(p -> p.setValue(new QuestDialog(p.getValue().getMessageType(),
+        phases.forEach(p -> p.setValue(new QuestDialog(p.getValue().getPrice(), p.getValue().getMessageType(),
                 strings.get(getHeadTitle(Res.Phases.getPrefix(), p.name())), strings.get(getHeadMessage(Res.Phases.getPrefix(), p.name())))));
     }
 

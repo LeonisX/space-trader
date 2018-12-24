@@ -672,7 +672,7 @@ public class Ship extends ShipSpec implements Serializable {
         equip[last] = null;
     }
 
-    void removeEquipment(EquipmentType type, Object subType) {
+    public void removeEquipment(EquipmentType type, Object subType) {
         boolean found = false;
         Equipment[] equip = getEquipmentsByType(type);
 
