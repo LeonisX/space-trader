@@ -268,7 +268,7 @@ class WildQuest extends AbstractQuest {
     }
 
     private void onAfterNewQuestStarted(Object object) {
-        if (Game.getShip().isSculptureOnBoard() && wildOnBoard) {
+        if (((SculptureQuest) game.getQuestSystem().getQuest(QuestName.Sculpture)).isSculptureOnBoard() && wildOnBoard) {
             showAlert(Alerts.WildSculpture.getValue());
         }
     }

@@ -19,7 +19,8 @@ enum QuestName {
     Lottery,
     Jarek,
     Princess,
-    Wild
+    Wild,
+    Sculpture
 
 }
 
@@ -104,8 +105,12 @@ public class QuestSystem implements Serializable {
         quests = map;
     }
 
-    private EnumMap<QuestName, Quest> getQuestsMap() {
+    EnumMap<QuestName, Quest> getQuestsMap() {
         return quests;
+    }
+
+    Quest getQuest(QuestName questName) {
+        return quests.get(questName);
     }
 
     int generateSpecialCrewId() {

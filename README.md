@@ -227,7 +227,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Can't see started quest
+* Instead of dialog with buyer I see dialog about hidden. Need REAL switch
 * Clean language files (sculpture, hidden)
+* Dump/translate
+* Fully test
 
 ### Princess
 
