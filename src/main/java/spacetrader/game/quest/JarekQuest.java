@@ -33,7 +33,6 @@ class JarekQuest extends AbstractQuest {
 
     private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 1;
-    private static final int CASH_TO_SPEND = 0;
 
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
@@ -43,7 +42,7 @@ class JarekQuest extends AbstractQuest {
     private UUID shipBarCode = UUID.randomUUID();
 
     public JarekQuest(QuestName id) {
-        initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
+        initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new JarekPhase(), new JarekGetsOutPhase());
         initializeTransitionMap();

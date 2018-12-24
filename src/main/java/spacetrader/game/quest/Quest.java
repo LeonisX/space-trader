@@ -22,8 +22,6 @@ public interface Quest {
 
     List<Integer> getSpecialCrewIds();
 
-    int getPrice();
-
     //StarSystemId getStarSystemId();
 
     void dumpAllStrings();

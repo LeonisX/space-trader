@@ -39,7 +39,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
     public QuestName id;
     private Quest quest;
     private Repeatable repeatable;
-    private int cashToSpend;
     private int occurrence;
 
     private QuestState questState;
@@ -52,11 +51,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     // Common methods
 
-    void initialize(QuestName id, Quest quest, Repeatable repeatable, int cashToSpend, int occurrence) {
+    void initialize(QuestName id, Quest quest, Repeatable repeatable, int occurrence) {
         this.id = id;
         this.quest = quest;
         this.repeatable = repeatable;
-        this.cashToSpend = cashToSpend;
         this.occurrence = occurrence;
         questState = QuestState.INACTIVE;
         initializeLogger(quest);
@@ -132,11 +130,6 @@ public abstract class AbstractQuest implements Quest, Serializable {
     @Override
     public void setId(QuestName id) {
         this.id = id;
-    }
-
-    @Override
-    public int getPrice() {
-        return cashToSpend;
     }
 
     @Override
@@ -259,12 +252,12 @@ public abstract class AbstractQuest implements Quest, Serializable {
                 button2Text, button2Result, null);
 
         if (alert.showDialog() != DialogResult.NO) {
-            if (Game.getCommander().getCashToSpend() < getPrice())
+            if (Game.getCommander().getCashToSpend() < dialog.getPrice())
                 GuiFacade.alert(AlertType.SpecialIF);
             else {
                 try {
                     ((Button) object).setVisible(false);
-                    Game.getCommander().spendCash(getPrice());
+                    Game.getCommander().spendCash(dialog.getPrice());
                     operation.run();
                 } catch (GameEndException ex) {
                     Game.getCurrentGame().getController().gameEnd();
@@ -297,7 +290,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return "AbstractQuest{" +
                 "id=" + id +
                 ", repeatable=" + repeatable +
-                ", cashToSpend=" + cashToSpend +
+                /*", cashToSpend=" + cashToSpend +*/
                 ", occurrence=" + occurrence +
                 //", phases=" + phases +
                 ", questState=" + questState +

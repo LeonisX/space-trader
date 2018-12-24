@@ -22,10 +22,9 @@ class LotteryQuest extends AbstractQuest {
 
     private static final Repeatable REPEATABLE = DISPOSABLE;
     private static final int OCCURRENCE = 0;
-    private static final int CASH_TO_SPEND = -1000;
 
     public LotteryQuest(QuestName id) {
-        initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
+        initialize(id, this, REPEATABLE, OCCURRENCE);
         initializePhases(QuestPhases.values(), new FirstPhase());
         initializeTransitionMap();
 
@@ -136,7 +135,7 @@ class LotteryQuest extends AbstractQuest {
     }
 
     enum QuestPhases implements SimpleValueEnum<QuestDialog> {
-        LotteryWinner(new QuestDialog(ALERT, "Lottery Winner", "You are lucky! While docking on the space port, you receive a message that you won 1000 credits in a lottery. The prize had been added to your account."));
+        LotteryWinner(new QuestDialog(-1000, ALERT, "Lottery Winner", "You are lucky! While docking on the space port, you receive a message that you won 1000 credits in a lottery. The prize had been added to your account."));
 
         private QuestDialog value;
         QuestPhases(QuestDialog value) { this.value = value; }

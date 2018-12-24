@@ -27,7 +27,7 @@ import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
 class WildQuest extends AbstractQuest {
 
-    static final long serialVersionUID = -4731305242511502L;
+    static final long serialVersionUID = -4731305242511504L;
 
     // Constants
     private static final int STATUS_WILD_NOT_STARTED = 0;

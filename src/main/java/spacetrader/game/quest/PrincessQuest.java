@@ -40,7 +40,6 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 1;
-    private static final int CASH_TO_SPEND = 0;
 
     private int questStatus = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara, // 3 = Go to Qonos,
     // 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
@@ -60,7 +59,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private int gameEndTypeId;
 
     public PrincessQuest(QuestName id) {
-        initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
+        initialize(id, this, REPEATABLE, OCCURRENCE);
         initializePhases(QuestPhases.values(), new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
                 new PrincessQonosPhase(), new PrincessReturnedPhase(), new PrincessQuantumPhase());
         initializeTransitionMap();
