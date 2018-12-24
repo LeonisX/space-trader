@@ -298,9 +298,9 @@ public class FormAlert extends SpaceTraderForm {
             /*case EncounterPiratesSurrenderPrincess:
                 return new FormAlert(AlertsEncounterPiratesSurrenderPrincessTitle, AlertsEncounterPiratesSurrenderPrincessMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
-            case EncounterPiratesTakeSculpture:
+            /*case EncounterPiratesTakeSculpture:
                 return new FormAlert(AlertsEncounterPiratesTakeSculptureTitle, AlertsEncounterPiratesTakeSculptureMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case EncounterPoliceBribe:
                 return new FormAlert(AlertsEncounterPoliceBribeTitle, AlertsEncounterPoliceBribeMessage, AlertsEncounterPoliceBribeAccept,
                         DialogResult.YES, AlertsEncounterPoliceBribeCancel, DialogResult.NO, args);
@@ -374,9 +374,9 @@ public class FormAlert extends SpaceTraderForm {
             case EquipmentFuelCompactor:
                 return new FormAlert(AlertsEquipmentFuelCompactorTitle, AlertsEquipmentFuelCompactorMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case EquipmentHiddenCompartments:
+            /*case EquipmentHiddenCompartments:
                 return new FormAlert(AlertsEquipmentHiddenCompartmentsTitle, AlertsEquipmentHiddenCompartmentsMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case EquipmentIF:
                 return new FormAlert(AlertsEquipmentIFTitle, AlertsEquipmentIFMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
@@ -447,9 +447,9 @@ public class FormAlert extends SpaceTraderForm {
             case JailFleaReceived:
                 return new FormAlert(AlertsJailFleaReceivedTitle, AlertsJailFleaReceivedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case JailHiddenCargoBaysRemoved:
+            /*case JailHiddenCargoBaysRemoved:
                 return new FormAlert(AlertsJailHiddenCargoBaysRemovedTitle, AlertsJailHiddenCargoBaysRemovedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case JailIllegalGoodsImpounded:
                 return new FormAlert(AlertsJailIllegalGoodsImpoundedTitle, AlertsJailIllegalGoodsImpoundedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -523,12 +523,12 @@ public class FormAlert extends SpaceTraderForm {
             case RegistryError:
                 return new FormAlert(AlertsRegistryErrorTitle, AlertsRegistryErrorMessage, AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);
-            case SculptureConfiscated:
+            /*case SculptureConfiscated:
                 return new FormAlert(AlertsSculptureConfiscatedTitle, AlertsSculptureConfiscatedMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
             case SculptureSaved:
                 return new FormAlert(AlertsSculptureSavedTitle, AlertsSculptureSavedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case ShipBuyConfirm:
                 return new FormAlert(AlertsShipBuyConfirmTitle, AlertsShipBuyConfirmMessage, AlertsYes,
                         DialogResult.YES, AlertsNo, DialogResult.NO, args);

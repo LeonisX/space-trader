@@ -132,7 +132,7 @@ public class StarSystem implements Serializable {
             //case Lottery:
             case ReactorLaser:
             //case PrincessQuantum:
-            case SculptureHiddenBays:
+            //case SculptureHiddenBays:
             case Skill:
             case SpaceMonster:
             case Tribble:
@@ -202,14 +202,14 @@ public class StarSystem implements Serializable {
             case ScarabUpgradeHull:
                 show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED;
                 break;
-            case Sculpture:
+            /*case Sculpture:
                 show = game.getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_NOT_STARTED
                         && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
                         && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
                 break;
             case SculptureDelivered:
                 show = game.getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
-                break;
+                break;*/
             case SpaceMonsterKilled:
                 show = game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED;
                 break;

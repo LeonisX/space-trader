@@ -40,7 +40,6 @@ class WildQuest extends AbstractQuest {
 
     private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
     private static final int OCCURRENCE = 1;
-    private static final int CASH_TO_SPEND = 0;
 
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
@@ -49,7 +48,7 @@ class WildQuest extends AbstractQuest {
     private boolean wildOnBoard;
 
     public WildQuest(QuestName id) {
-        initialize(id, this, REPEATABLE, CASH_TO_SPEND, OCCURRENCE);
+        initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new WildPhase(), new WildGetsOutPhase());
         initializeTransitionMap();
@@ -343,7 +342,6 @@ class WildQuest extends AbstractQuest {
             ((BooleanContainer) object).setValue(true);
         }
     }
-
 
     @SuppressWarnings("unchecked")
     private void onGetIllegalSpecialCargoActions(Object object) {

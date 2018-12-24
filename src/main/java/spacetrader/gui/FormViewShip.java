@@ -220,9 +220,9 @@ public class FormViewShip extends SpaceTraderForm {
                     + " " + Strings.SpecialCargoReactorBays);
         }
 
-        if (ship.isSculptureOnBoard()) {
+        /*if (ship.isSculptureOnBoard()) {
             specialCargo.add(Strings.SpecialCargoSculpture);
-        }
+        }*/
 
         if (game.getCanSuperWarp()) {
             specialCargo.add(Strings.SpecialCargoExperiment);

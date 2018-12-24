@@ -227,6 +227,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Clean language files (sculpture, hidden)
+
 ### Princess
 
 * v Write docs for all quest events (ON_...), reorder them

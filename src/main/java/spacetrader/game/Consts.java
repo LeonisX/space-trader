@@ -300,9 +300,9 @@ public class Consts {
             new SpecialEvent(SpecialEventType.TribbleBuyer, 0, 3, false),
             /*new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
             new SpecialEvent(SpecialEventType.WildGetsOut, 0, 0, true),*/
-            new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
+            /*new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
             new SpecialEvent(SpecialEventType.SculptureDelivered, 0, 0, true),
-            new SpecialEvent(SpecialEventType.SculptureHiddenBays, 0, 0, false),
+            new SpecialEvent(SpecialEventType.SculptureHiddenBays, 0, 0, false),*/
             /*new SpecialEvent(SpecialEventType.Princess, 0, 0, true),
             new SpecialEvent(SpecialEventType.PrincessCentauri, 0, 0, true),
             new SpecialEvent(SpecialEventType.PrincessInthara, 0, 0, true),

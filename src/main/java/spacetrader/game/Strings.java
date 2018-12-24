@@ -144,8 +144,8 @@ public class Strings {
     public static String AlertsEncounterPiratesFindNoCargoMessage = "The pirates are very angry that they find no cargo on your ship. To stop them from destroying you, you have no choice but to pay them an amount equal to 5% of your current worth - ^1.";
     //public static String AlertsEncounterPiratesSurrenderPrincessTitle = "You Have the Princess";
     //public static String AlertsEncounterPiratesSurrenderPrincessMessage = "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!";
-    public static String AlertsEncounterPiratesTakeSculptureTitle = "Pirates Take Sculpture";
-    public static String AlertsEncounterPiratesTakeSculptureMessage = "As the pirates ransack your ship, they find the stolen sculpture. \"This is worth thousands!\" one pirate exclaims, as he stuffs it into his pack.";
+    //public static String AlertsEncounterPiratesTakeSculptureTitle = "Pirates Take Sculpture";
+    //public static String AlertsEncounterPiratesTakeSculptureMessage = "As the pirates ransack your ship, they find the stolen sculpture. \"This is worth thousands!\" one pirate exclaims, as he stuffs it into his pack.";
     public static String AlertsEncounterPoliceBribeTitle = "Bribe";
     public static String AlertsEncounterPoliceBribeMessage = "These police officers are willing to forego inspection for the amount of ^1.";
     public static String AlertsEncounterPoliceBribeAccept = "Offer Bribe";
@@ -205,8 +205,8 @@ public class Strings {
     public static String AlertsEquipmentExtraBaysInUseMessage = "The extra cargo bays are still filled with goods. You can only sell them when they're empty.";
     public static String AlertsEquipmentFuelCompactorTitle = "Fuel Compactor";
     public static String AlertsEquipmentFuelCompactorMessage = "You now have a fuel compactor installed on your ship.";
-    public static String AlertsEquipmentHiddenCompartmentsTitle = "Hidden Compartments";
-    public static String AlertsEquipmentHiddenCompartmentsMessage = "You now have hidden compartments equivalent to 5 extra cargo bays installed in your ship. Police won't find illegal cargo hidden in these compartments.";
+    //public static String AlertsEquipmentHiddenCompartmentsTitle = "Hidden Compartments";
+    //public static String AlertsEquipmentHiddenCompartmentsMessage = "You now have hidden compartments equivalent to 5 extra cargo bays installed in your ship. Police won't find illegal cargo hidden in these compartments.";
     public static String AlertsEquipmentIFTitle = "Not Enough Money";
     public static String AlertsEquipmentIFMessage = "You don't have enough money to spend on this item.";
     public static String AlertsEquipmentLightningShieldTitle = "Lightning Shield";
@@ -253,8 +253,8 @@ public class Strings {
     public static String AlertsJailConvictedMessage = "You are convicted to ^1 in prison and a fine of ^2.";
     public static String AlertsJailFleaReceivedTitle = "Flea Received";
     public static String AlertsJailFleaReceivedMessage = "When you leave prison, the police have left a second-hand Flea for you so you can continue your travels.";
-    public static String AlertsJailHiddenCargoBaysRemovedTitle = "Hidden Compartments Removed";
-    public static String AlertsJailHiddenCargoBaysRemovedMessage = "When your ship is impounded, the police go over it with a fine-toothed comb. You hidden compartments are found and removed.";
+    /*public static String AlertsJailHiddenCargoBaysRemovedTitle = "Hidden Compartments Removed";
+    public static String AlertsJailHiddenCargoBaysRemovedMessage = "When your ship is impounded, the police go over it with a fine-toothed comb. You hidden compartments are found and removed.";*/
     public static String AlertsJailIllegalGoodsImpoundedTitle = "Illegal Goods Impounded";
     public static String AlertsJailIllegalGoodsImpoundedMessage = "The police also impound all of the illegal goods you have on board.";
     public static String AlertsJailInsuranceLostTitle = "Insurance Lost";
@@ -306,10 +306,10 @@ public class Strings {
     public static String AlertsReactorWarningTempMessage = "The Ion Reactor is smoking and making loud noises. The display warns that the core is close to the melting temperature.";
     public static String AlertsRegistryErrorTitle = "Error...";
     public static String AlertsRegistryErrorMessage = "Error accessing the Registry: ^1";
-    public static String AlertsSculptureConfiscatedTitle = "Police Confiscate Sculpture";
+    /*public static String AlertsSculptureConfiscatedTitle = "Police Confiscate Sculpture";
     public static String AlertsSculptureConfiscatedMessage = "The Police confiscate the stolen sculpture and return it to its rightful owner.";
     public static String AlertsSculptureSavedTitle = "Sculpture Saved";
-    public static String AlertsSculptureSavedMessage = "On your way to the escape pod, you grab the stolen sculpture. Oh well, at least you saved something.";
+    public static String AlertsSculptureSavedMessage = "On your way to the escape pod, you grab the stolen sculpture. Oh well, at least you saved something.";*/
     public static String AlertsShipBuyConfirmTitle = "Buy New Ship";
     public static String AlertsShipBuyConfirmMessage = "Are you sure you wish to trade in your ^1 for a new ^2^3?";
     public static String AlertsShipBuyCrewQuartersTitle = "Too Many Crew Members";
@@ -471,7 +471,7 @@ public class Strings {
     //public static String CheatsPrincess = "Princess";
     public static String CheatsReactor = "Reactor";
     public static String CheatsScarab = "Scarab";
-    public static String CheatsSculpture = "Sculpture";
+    //public static String CheatsSculpture = "Sculpture";
     public static String CheatsSpaceMonster = "SpaceMonster";
     //public static String CheatsWild = "Wild";
     public static String CheatsStatusOfQuests = "Status of Quests";
@@ -498,7 +498,7 @@ public class Strings {
     public static String EncounterActionOppMissed = "You missed the ^1.";
     public static String EncounterActionOppSurrender = "The ^1 hails that they wish to surrender to you.";
     //public static String EncounterHidePrincess = "the Princess";
-    public static String EncounterHideSculpture = "the stolen sculpture";
+    //public static String EncounterHideSculpture = "the stolen sculpture";
     public static String EncounterHullStrength = "Hull at ^1%";
     public static String EncounterPiratesDestroyed = "destroyed";
     public static String EncounterPiratesDisabled = "disabled";
@@ -506,12 +506,12 @@ public class Strings {
     public static String EncounterPoliceSubmitArrested = "You will be arrested!";
     public static String EncounterPoliceSubmitGoods = "illegal goods";
     public static String EncounterPoliceSubmitReactor = "an illegal Ion Reactor";
-    public static String EncounterPoliceSubmitSculpture = "a stolen sculpture";
+    //public static String EncounterPoliceSubmitSculpture = "a stolen sculpture";
     //public static String EncounterPoliceSubmitWild = "Jonathan Wild";
     public static String EncounterPoliceSurrenderCargo = "You have ^1 on board!";
     public static String EncounterPoliceSurrenderAction = "They will ^1. ";
     public static String EncounterPoliceSurrenderReactor = "destroy the reactor";
-    public static String EncounterPoliceSurrenderSculpt = "confiscate the sculpture";
+    //public static String EncounterPoliceSurrenderSculpt = "confiscate the sculpture";
     //public static String EncounterPoliceSurrenderWild = "arrest Wild, too";
     public static String EncounterPretextAlien = "an alien ^1";
     public static String EncounterPretextBottle = "a floating ^1";
@@ -613,8 +613,8 @@ public class Strings {
     public static String QuestScarabFind = "Find and destroy the Scarab (which is hiding at the exit to a wormhole).";
     public static String QuestScarabHull = "Get your hull upgraded at ^1.";
     public static String QuestScarabNotify = "Notify the authorities at ^1 that the Scarab has been destroyed.";
-    public static String QuestSculpture = "Deliver the stolen sculpture to Endor.";
-    public static String QuestSculptureHiddenBays = "Have hidden compartments installed at Endor.";
+    /*public static String QuestSculpture = "Deliver the stolen sculpture to Endor.";
+    public static String QuestSculptureHiddenBays = "Have hidden compartments installed at Endor.";*/
     public static String QuestSpaceMonsterKill = "Kill the space monster at Acamar.";
     public static String QuestTribbles = "Get rid of those pesky tribbles.";
     /*public static String QuestWild = "Smuggle Jonathan Wild to Kravat.";
@@ -664,7 +664,7 @@ public class Strings {
     /*public static String SpecialCargoJarek = "A haggling computer.";*/
     public static String SpecialCargoNone = "No special items.";
     public static String SpecialCargoReactor = "An unstable reactor taking up 5 bays.";
-    public static String SpecialCargoSculpture = "A stolen plastic sculpture of a man holding some kind of light sword.";
+    //public static String SpecialCargoSculpture = "A stolen plastic sculpture of a man holding some kind of light sword.";
     public static String SpecialCargoReactorBays = "of enriched fuel.";
     public static String SpecialCargoTribblesInfest = "An infestation of tribbles.";
     public static String SpecialCargoTribbleCute = "Cute, furry tribble.";
@@ -790,8 +790,8 @@ public class Strings {
             "Hero Slays Space Monster! Parade, Honors Planned for Today.",
             /*"Notorious Criminal Jonathan Wild Arrested!",
             "Rumors Suggest Known Criminal J. Wild May Come to Kravat!",*/
-            "Priceless collector's item stolen from home of Geurge Locas!",
-            "Space Corps follows ^3 with alleged stolen sculpture to ^2.",
+            //"Priceless collector's item stolen from home of Geurge Locas!",
+            //"Space Corps follows ^3 with alleged stolen sculpture to ^2.",
             /*"Member of Royal Family kidnapped!",
             "Aggressive Ship Seen in Orbit Around Centauri",
             "Dangerous Scorpion Damages Several Other Ships Near Inthara",
@@ -953,9 +953,9 @@ public class Strings {
             "An eccentric alien billionaire wants to buy your collection of tribbles and offers half a credit for each of them. Do you accept his offer?",
             //"Law Enforcement is closing in on notorious criminal kingpin Jonathan Wild. He would reward you handsomely for smuggling him home to Kravat. You'd have to avoid capture by the Police on the way. Are you willing to give him a berth?",
             //"Jonathan Wild is most grateful to you for spiriting him to safety. As a reward, he has one of his Cyber Criminals hack into the Police Database, and clean up your record. He also offers you the opportunity to take his talented nephew Zeethibal along as a Mercenary with no pay.",
-            "A hooded figure approaches you and asks if you'd be willing to deliver some recently acquired merchandise to Endor. He's holding a small sculpture of a man holding some kind of light sword that you strongly suspect was stolen. It appears to be made of plastic and not very valuable. \"I'll pay you 2,000 credits now, plus 15,000 on delivery,\" the figure says. After seeing the look on your face he adds, \"It's a collector's item. Will you deliver it or not?\"",
+            /*"A hooded figure approaches you and asks if you'd be willing to deliver some recently acquired merchandise to Endor. He's holding a small sculpture of a man holding some kind of light sword that you strongly suspect was stolen. It appears to be made of plastic and not very valuable. \"I'll pay you 2,000 credits now, plus 15,000 on delivery,\" the figure says. After seeing the look on your face he adds, \"It's a collector's item. Will you deliver it or not?\"",
             "Yet another dark, hooded figure approaches. \"Do you have the action fig- umm, the sculpture?\" You hand it over and hear what sounds very much like a giggle from under the hood. \"I know you were promised 15,000 credits on delivery, but I'm strapped for cash right now. However, I have something better for you. I have an acquaintance who can install hidden compartments in your ship.\" Return with an empty gadget slot when you're ready to have it installed.",
-            "You're taken to a warehouse and whisked through the door. A grubby alien of some humanoid species - you're not sure which one - approaches. \"So you're the being who needs Hidden Compartments. Should I install them in your ship?\" (It requires a free gadget slot.)",
+            "You're taken to a warehouse and whisked through the door. A grubby alien of some humanoid species - you're not sure which one - approaches. \"So you're the being who needs Hidden Compartments. Should I install them in your ship?\" (It requires a free gadget slot.)",*/
             /*"A member of the Royal Family of Galvon has been kidnapped! Princess Ziyal was abducted by men while travelling across the planet. They escaped in a hi-tech ship called the Scorpion. Please rescue her! (You'll need to equip your ship with disruptors to be able to defeat the Scorpion without destroying it.) A ship bristling with weapons was blasting out of the system. It's trajectory before going to warp indicates that its destination was Centauri.",
             "A ship had its shields upgraded to Lighting Shields just two days ago. A shipyard worker overheard one of the crew saying they were headed to Inthara.",
             "Just yesterday a ship was seen in docking bay 327. A trader sold goods to a member of the crew, who was a native of Qonos. It's possible that's where they were going next.",
@@ -977,8 +977,8 @@ public class Strings {
             "Scarab Destroyed", "Upgrade Hull", "Skill Increase",
             "Space Monster", "Monster Killed", "Merchant Prince",
             "Tribble Buyer", /*"Jonathan Wild", "Wild Gets Out",*/
-            "Stolen Sculpture", "Sculpture Delivered",
-            "Install Hidden Compartments",
+            /*"Stolen Sculpture", "Sculpture Delivered",
+            "Install Hidden Compartments",*/
             //"Kidnapped", "Aggressive Ship", "Dangerous Scorpion", "Royal Rescue", "Quantum Disruptor", "Royal Return",
             //TODO delete
             "ASSIGNED"};

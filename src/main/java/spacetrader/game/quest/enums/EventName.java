@@ -4,6 +4,7 @@ public enum EventName {
 
     // Initialization
     ON_ASSIGN_EVENTS_MANUAL,                    // Jarek, Princess, .... Manual assigns an event to a specific system.
+    ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY,          // Sculpture. Assign an event at a distance of no more than 70 parsec
     ON_ASSIGN_EVENTS_RANDOMLY,                  // Jarek. Randomly assigns an event to a specific system. For example - start of event
     ON_GENERATE_CREW_MEMBER_LIST,               // Jarek, Princess, ... Adds quest characters to the game.
     ON_AFTER_SHIP_SPECS_INITIALIZED,            // Princess (Scorpion). Supplements the list of ship specs. Including quest.
@@ -17,7 +18,7 @@ public enum EventName {
     ON_AFTER_NEW_QUEST_STARTED,                 // Wild. React on new quests (sculpture)
 
     // Status windows
-    ON_DISPLAY_SPECIAL_CARGO,                   // Jarek. Display special cargo in FormViewShip
+    ON_DISPLAY_SPECIAL_CARGO,                   // Jarek, Sculpture. Display special cargo in FormViewShip
     ON_GET_QUESTS_STRINGS,                      // Any. Display quests in FormViewQuests
 
     ON_BEFORE_WARP,                             // Wild. It is possible to cancel the warp
@@ -34,13 +35,13 @@ public enum EventName {
     ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, // Princess (Scorpion). Action that occurs when an opponent is disabled
     ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER,   // Princess (Scorpion). Check whether there is any possibility to surrender. For example, if the Princess is on board, you cannot surrender.
     ENCOUNTER_ON_SURRENDER_IF_RAIDED,           // Wild. Ability to change the situation with robbery
-    ENCOUNTER_GET_SAVED_CARGO_AND_CREW,         // Princess (Scorpion). Used to generate a list of items that were hidden in secret cargo bays.
-    ENCOUNTER_GET_STEALABLE_CARGO,              // Princess (Scorpion). Used to generate a list of goods that will be stolen during an attack. Princess will take one cargo bay
+    ENCOUNTER_ON_ROBBERY,                       // Princess (Scorpion), Sculpture. Used to generate a list of items that were hidden in secret cargo bays.
+    ENCOUNTER_GET_STEALABLE_CARGO,              // Princess (Scorpion), Sculpture. Used to generate a list of goods that will be stolen during an attack. Princess will take one cargo bay
 
     // After Encounters
-    IS_ILLEGAL_SPECIAL_CARGO,                   // Wild. Determine whether there is an illegal special cargo on board
-    ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS,       // Wild. Text. An act committed because of an illegal special cargo (for example, arresting Wild).
-    ON_GET_ILLEGAL_SPECIAL_CARGO_DESCRIPTION,   // Wild. Get illegal special cargo description
+    IS_ILLEGAL_SPECIAL_CARGO,                   // Wild, Sculpture. Determine whether there is an illegal special cargo on board
+    ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS,       // Wild, Sculpture. Text. An act committed because of an illegal special cargo (for example, arresting Wild).
+    ON_GET_ILLEGAL_SPECIAL_CARGO_DESCRIPTION,   // Wild, Sculpture. Get illegal special cargo description
     ON_BEFORE_ARRESTED_CALCULATE_FINE,          // Wild. Correction of fine depending on some conditions
     ON_ARRESTED,                                // Jarek, Princess, ... Action that occurs when a player is arrested. He loses a lot.
     ON_ESCAPE_WITH_POD,                         // Jarek, Princess, ... Action that occurs when a player escapes with pod. He loses a lot.

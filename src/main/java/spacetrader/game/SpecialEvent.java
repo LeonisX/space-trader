@@ -64,10 +64,10 @@ public class SpecialEvent {
     public final static int STATUS_SCARAB_DESTROYED = 2;
     public final static int STATUS_SCARAB_DONE = 3;
 
-    public final static int STATUS_SCULPTURE_NOT_STARTED = 0;
+    /*public final static int STATUS_SCULPTURE_NOT_STARTED = 0;
     public final static int STATUS_SCULPTURE_IN_TRANSIT = 1;
     public final static int STATUS_SCULPTURE_DELIVERED = 2;
-    public final static int STATUS_SCULPTURE_DONE = 3;
+    public final static int STATUS_SCULPTURE_DONE = 3;*/
 
     //TODO unused???
     public final static int STATUS_SPACE_MONSTER_NOT_STARTED = 0;

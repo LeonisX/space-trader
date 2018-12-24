@@ -600,9 +600,9 @@ public class Ship extends ShipSpec implements Serializable {
 
         Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS, actions);
 
-        if (isSculptureOnBoard()) {
+        /*if (isSculptureOnBoard()) {
             actions.add(Strings.EncounterPoliceSurrenderSculpt);
-        }
+        }*/
 
         return (actions.size() == 0)
                 ? ""
@@ -620,9 +620,9 @@ public class Ship extends ShipSpec implements Serializable {
             items.add(Strings.EncounterPoliceSubmitReactor);
         }
 
-        if (isSculptureOnBoard()) {
+        /*if (isSculptureOnBoard()) {
             items.add(Strings.EncounterPoliceSubmitSculpture);
-        }
+        }*/
 
         if (includeTradeItems && isDetectableIllegalCargo()) {
             items.add(Strings.EncounterPoliceSubmitGoods);
@@ -917,7 +917,7 @@ public class Ship extends ShipSpec implements Serializable {
         BooleanContainer isIllegalCargo = new BooleanContainer(false);
         Game.getCurrentGame().getQuestSystem().fireEvent(IS_ILLEGAL_SPECIAL_CARGO, isIllegalCargo);
 
-        return isIllegalCargo.getValue() || isReactorOnBoard() || isSculptureOnBoard();
+        return isIllegalCargo.getValue() || isReactorOnBoard()/* || isSculptureOnBoard()*/;
     }
 
     public int getPilot() {
@@ -932,11 +932,6 @@ public class Ship extends ShipSpec implements Serializable {
         int status = Game.getCurrentGame().getQuestStatusReactor();
         return isCommandersShip() && status > SpecialEvent.STATUS_REACTOR_NOT_STARTED
                 && status < SpecialEvent.STATUS_REACTOR_DELIVERED;
-    }
-
-    public boolean isSculptureOnBoard() {
-        return isCommandersShip()
-                && Game.getCurrentGame().getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
     }
 
     public int getShieldCharge() {
@@ -1022,9 +1017,9 @@ public class Ship extends ShipSpec implements Serializable {
         /*if (isPrincessOnBoard()) {
             hidden--;
         }*/
-        if (isSculptureOnBoard()) {
+        /*if (isSculptureOnBoard()) {
             hidden--;
-        }
+        }*/
 
         if (hidden > 0) {
             hidden = Math.min(hidden, tradeItems.size());

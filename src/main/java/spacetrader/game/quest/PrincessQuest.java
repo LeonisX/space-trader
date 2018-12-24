@@ -109,7 +109,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, this::encounterExecuteAttackKeepSpecialShip);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
         getTransitionMap().put(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, this::encounterCheckPossibilityOfSurrender);
-        getTransitionMap().put(ENCOUNTER_GET_SAVED_CARGO_AND_CREW, this::encounterGetSavedCargoAndCrew);
+        getTransitionMap().put(ENCOUNTER_ON_ROBBERY, this::encounterOnRobbery);
         getTransitionMap().put(ENCOUNTER_GET_STEALABLE_CARGO, this::encounterGetStealableCargo);
 
         getTransitionMap().put(ON_ARRESTED, this::onArrested);
@@ -471,8 +471,9 @@ class PrincessQuest extends AbstractQuest implements Serializable {
             ((BooleanContainer) object).setValue(true);
         }
     }
+
     @SuppressWarnings("unchecked")
-    private void encounterGetSavedCargoAndCrew(Object object) {
+    private void encounterOnRobbery(Object object) {
         if (princessOnBoard && Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             ((ArrayList<String>) object).add(Encounters.HidePrincess.getValue());
         }

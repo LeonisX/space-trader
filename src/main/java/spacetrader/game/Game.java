@@ -83,7 +83,7 @@ public class Game implements Serializable {
     //private int questStatusPrincess = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara, 3 = Go to Qonos, 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
     private int questStatusReactor = 0; // 0 = not encountered, 1-20 = days of mission (bays of fuel left = 10 - (ReactorStatus / 2), 21 = delivered, 22 = Done
     private int questStatusScarab = 0; // 0 = not given yet, 1 = not destroyed, 2 = destroyed - upgrade not performed, 3 = destroyed - hull upgrade performed
-    private int questStatusSculpture = 0; // 0 = not given yet, 1 = on board, 2 = delivered, 3 = done
+    //private int questStatusSculpture = 0; // 0 = not given yet, 1 = on board, 2 = delivered, 3 = done
     private int questStatusSpaceMonster = 0; // 0 = not available, 1 = Space monster is in Acamar system, 2 = Space monster is destroyed, 3 = Claimed reward
     //private int questStatusWild = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
@@ -179,10 +179,10 @@ public class Game implements Serializable {
             setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_NOT_STARTED);
         }
 
-        if (commander.getShip().isSculptureOnBoard()) {
+        /*if (commander.getShip().isSculptureOnBoard()) {
             GuiFacade.alert(AlertType.SculptureConfiscated);
             setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
-        }
+        }*/
 
         /*if (commander.getShip().isWildOnBoard()) {
             GuiFacade.alert(AlertType.WildArrested);
@@ -535,13 +535,13 @@ public class Game implements Serializable {
         this.questStatusSpaceMonster = questStatusSpaceMonster;
     }
 
-    public int getQuestStatusSculpture() {
+    /*public int getQuestStatusSculpture() {
         return questStatusSculpture;
     }
 
     public void setQuestStatusSculpture(int questStatusSculpture) {
         this.questStatusSculpture = questStatusSculpture;
-    }
+    }*/
 
     public int getQuestStatusScarab() {
         return questStatusScarab;
@@ -928,9 +928,9 @@ public class Game implements Serializable {
     private void escapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
 
-        if (commander.getShip().isSculptureOnBoard()) {
+        /*if (commander.getShip().isSculptureOnBoard()) {
             GuiFacade.alert(AlertType.SculptureSaved);
-        }
+        }*/
 
         if (commander.getShip().isReactorOnBoard()) {
             GuiFacade.alert(AlertType.ReactorDestroyed);
@@ -991,23 +991,6 @@ public class Game implements Serializable {
         incDays(3);
 
         createFlea();
-    }
-
-    private boolean isFindDistantSystem(StarSystemId baseSystem, SpecialEventType specEvent) {
-        int bestDistance = 999;
-        int system = -1;
-        for (int i = 0; i < getUniverse().length; i++) {
-            int distance = Functions.distance(getStarSystem(baseSystem), getStarSystem(i));
-            if (distance >= 70 && distance < bestDistance && getStarSystem(i).getSpecialEventType() == SpecialEventType.NA) {
-                system = i;
-                bestDistance = distance;
-            }
-        }
-        if (system >= 0) {
-            getStarSystem(system).setSpecialEventType(specEvent);
-        }
-
-        return (system >= 0);
     }
 
     private void generateCrewMemberList() {
@@ -1160,25 +1143,25 @@ public class Game implements Serializable {
         switch (currentSystem.getSpecialEventType()) {
             case Artifact:
                 setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_ON_BOARD);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case ArtifactDelivery:
                 setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case CargoForSale:
                 GuiFacade.alert(AlertType.SpecialSealedCanisters);
                 int tradeItem = Functions.getRandom(Consts.TradeItems.length);
                 commander.getShip().getCargo()[tradeItem] += 3;
                 commander.getPriceCargo()[tradeItem] += commander.getCurrentSystem().specialEvent().getPrice();
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case Dragonfly:
             case DragonflyBaratas:
             case DragonflyMelina:
             case DragonflyRegulas:
                 setQuestStatusDragonfly(getQuestStatusDragonfly() + 1);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case DragonflyDestroyed:
                 switchQuestPhase(SpecialEventType.DragonflyShield);
@@ -1190,30 +1173,30 @@ public class Game implements Serializable {
                     GuiFacade.alert(AlertType.EquipmentLightningShield);
                     commander.getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
                     setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DONE);
-                    beginQuestPhase();
+                    confirmQuestPhase();
                 }
                 break;
             case EraseRecord:
                 GuiFacade.alert(AlertType.SpecialCleanRecord);
                 commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
                 recalculateSellPrices();
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case Experiment:
                 setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_STARTED);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case ExperimentFailed:
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case ExperimentStopped:
                 setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_CANCELLED);
                 setCanSuperWarp(true);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case Gemulon:
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_STARTED);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case GemulonFuel:
                 if (commander.getShip().getFreeGadgetSlots() == 0) {
@@ -1222,7 +1205,7 @@ public class Game implements Serializable {
                     GuiFacade.alert(AlertType.EquipmentFuelCompactor);
                     commander.getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
                     setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_DONE);
-                    beginQuestPhase();
+                    confirmQuestPhase();
                 }
                 break;
             case GemulonRescued:
@@ -1242,7 +1225,7 @@ public class Game implements Serializable {
                 setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_DONE);
                 commander.increaseRandomSkill();
                 commander.increaseRandomSkill();
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             /*case Jarek:
                 if (commander.getShip().getFreeCrewQuartersCount() == 0) {
@@ -1264,7 +1247,7 @@ public class Game implements Serializable {
             case Moon:
                 GuiFacade.alert(AlertType.SpecialMoonBought);
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_BOUGHT);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case MoonRetirement:
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
@@ -1323,7 +1306,7 @@ public class Game implements Serializable {
                     if (!isConflict.getValue()) {
                         GuiFacade.alert(AlertType.ReactorOnBoard);
                         setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_FUEL_OK);
-                        beginQuestPhase();
+                        confirmQuestPhase();
                     }
                 }
                 break;
@@ -1338,12 +1321,12 @@ public class Game implements Serializable {
                     GuiFacade.alert(AlertType.EquipmentMorgansLaser);
                     commander.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
                     setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
-                    beginQuestPhase();
+                    confirmQuestPhase();
                 }
                 break;
             case Scarab:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_HUNTING);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case ScarabDestroyed:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DESTROYED);
@@ -1357,9 +1340,9 @@ public class Game implements Serializable {
                 //TODO is it correct????
                 //remove.setValue(false);
                 break;
-            case Sculpture:
+            /*case Sculpture:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case SculptureDelivered:
                 setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DELIVERED);
@@ -1373,32 +1356,32 @@ public class Game implements Serializable {
                     GuiFacade.alert(AlertType.EquipmentHiddenCompartments);
                     commander.getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
                     setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
-                    beginQuestPhase();
+                    confirmQuestPhase();
                 }
-                break;
+                break;*/
             case Skill:
                 GuiFacade.alert(AlertType.SpecialSkillIncrease);
                 commander.increaseRandomSkill();
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case SpaceMonster:
                 setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case SpaceMonsterKilled:
                 setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_DONE);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case Tribble:
                 GuiFacade.alert(AlertType.TribblesOwn);
                 commander.getShip().setTribbles(1);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             case TribbleBuyer:
                 GuiFacade.alert(AlertType.TribblesGone);
                 commander.setCash(commander.getCash() + (commander.getShip().getTribbles() / 2));
                 commander.getShip().setTribbles(0);
-                beginQuestPhase();
+                confirmQuestPhase();
                 break;
             /*case Wild:
                 if (commander.getShip().getFreeCrewQuartersCount() == 0) {
@@ -1442,14 +1425,14 @@ public class Game implements Serializable {
         //commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
     }
 
-    private void beginQuestPhase() {
+    public void confirmQuestPhase() {
         StarSystem currentSystem = commander.getCurrentSystem();
         commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
         currentSystem.setSpecialEventType(SpecialEventType.NA);
         questSystem.fireEvent(ON_AFTER_NEW_QUEST_STARTED);
     }
 
-    private void switchQuestPhase(SpecialEventType specialEventType) {
+    public void switchQuestPhase(SpecialEventType specialEventType) {
         commander.getCurrentSystem().setSpecialEventType(specialEventType);
     }
 
@@ -1616,7 +1599,7 @@ public class Game implements Serializable {
     }
 
     private boolean isSpecialEventsInPlace() {
-        boolean goodUniverse = true;
+        BooleanContainer goodUniverseContainer = new BooleanContainer(true);
 
         getStarSystem(StarSystemId.Baratas).setSpecialEventType(SpecialEventType.DragonflyBaratas);
         getStarSystem(StarSystemId.Melina).setSpecialEventType(SpecialEventType.DragonflyMelina);
@@ -1632,7 +1615,7 @@ public class Game implements Serializable {
         getStarSystem(StarSystemId.Nix).setSpecialEventType(SpecialEventType.ReactorDelivered);
         getStarSystem(StarSystemId.Acamar).setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
         //getStarSystem(StarSystemId.Kravat).setSpecialEventType(SpecialEventType.WildGetsOut);
-        getStarSystem(StarSystemId.Endor).setSpecialEventType(SpecialEventType.SculptureDelivered);
+        //getStarSystem(StarSystemId.Endor).setSpecialEventType(SpecialEventType.SculptureDelivered);
         /*getStarSystem(StarSystemId.Galvon.castToInt()].setSpecialEventType(SpecialEventType.Princess);
         getStarSystem(StarSystemId.Centauri.castToInt()].setSpecialEventType(SpecialEventType.PrincessCentauri);
         getStarSystem(StarSystemId.Inthara.castToInt()].setSpecialEventType(SpecialEventType.PrincessInthara);
@@ -1644,45 +1627,49 @@ public class Game implements Serializable {
         if (freeWormhole.isPresent()) {
             getStarSystem(freeWormhole.getAsInt()).setSpecialEventType(SpecialEventType.ScarabDestroyed);
         } else {
-            goodUniverse = false;
+            goodUniverseContainer.setValue(false);
         }
 
         // Find a Hi-Tech system without a special event for ArtifactDelivery.
-        if (goodUniverse) {
+        if (goodUniverseContainer.getValue()) {
             Optional<StarSystem> freeHiTechSystem = Arrays.stream(getUniverse())
                     .filter(universe -> universe.getSpecialEventType() == SpecialEventType.NA
                             && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
             if (freeHiTechSystem.isPresent()) {
                 freeHiTechSystem.get().setSpecialEventType(SpecialEventType.ArtifactDelivery);
             } else {
-                goodUniverse = false;
+                goodUniverseContainer.setValue(false);
             }
         }
 
         // Find the closest system at least 70 parsecs away from Nix that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Nix, SpecialEventType.Reactor)) {
-            goodUniverse = false;
+        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Nix, SpecialEventType.Reactor) < 0) {
+            goodUniverseContainer.setValue(false);
         }
 
         // Find the closest system at least 70 parsecs away from Gemulon that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Gemulon, SpecialEventType.Gemulon)) {
-            goodUniverse = false;
+        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Gemulon, SpecialEventType.Gemulon) < 0) {
+            goodUniverseContainer.setValue(false);
         }
 
         // Find the closest system at least 70 parsecs away from Daled that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Daled, SpecialEventType.Experiment)) {
-            goodUniverse = false;
+        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Daled, SpecialEventType.Experiment) < 0) {
+            goodUniverseContainer.setValue(false);
         }
 
         // Find the closest system at least 70 parsecs away from Endor that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Endor, SpecialEventType.Sculpture)) {
+        /*if (goodUniverse && !isFindDistantSystem(StarSystemId.Endor, SpecialEventType.Sculpture)) {
             goodUniverse = false;
+        }*/
+
+        if (goodUniverseContainer.getValue()) {
+            questSystem.fireEvent(EventName.ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY, goodUniverseContainer);
         }
 
         // Assign the rest of the events randomly.
         //TODO remove after all quests
         int system;
-        if (goodUniverse) {
+        if (goodUniverseContainer.getValue()) {
             for (int i = 0; i < Consts.SpecialEvents.length; i++) {
                 for (int j = 0; j < Consts.SpecialEvents[i].getOccurrence(); j++) {
                     do {
@@ -1694,11 +1681,28 @@ public class Game implements Serializable {
             }
         }
 
-        if (goodUniverse) {
+        if (goodUniverseContainer.getValue()) {
             questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
         }
 
-        return goodUniverse;
+        return goodUniverseContainer.getValue();
+    }
+
+    public int isFindDistantSystem(StarSystemId baseSystem, SpecialEventType specEvent) {
+        int bestDistance = 999;
+        int system = -1;
+        for (int i = 0; i < getUniverse().length; i++) {
+            int distance = Functions.distance(getStarSystem(baseSystem), getStarSystem(i));
+            if (distance >= 70 && distance < bestDistance && getStarSystem(i).getSpecialEventType() == SpecialEventType.NA) {
+                system = i;
+                bestDistance = distance;
+            }
+        }
+        if (system >= 0) {
+            getStarSystem(system).setSpecialEventType(specEvent);
+        }
+
+        return system;
     }
 
     public void recalculateBuyPrices(StarSystem system) {
@@ -2088,7 +2092,7 @@ public class Game implements Serializable {
                 /*questStatusPrincess == game.questStatusPrincess &&*/
                 questStatusReactor == game.questStatusReactor &&
                 questStatusScarab == game.questStatusScarab &&
-                questStatusSculpture == game.questStatusSculpture &&
+                //questStatusSculpture == game.questStatusSculpture &&
                 questStatusSpaceMonster == game.questStatusSpaceMonster &&
                 //questStatusWild == game.questStatusWild &&
                 fabricRipProbability == game.fabricRipProbability &&
@@ -2124,7 +2128,7 @@ public class Game implements Serializable {
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
                 selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
                 questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori, /*questStatusJarek,*/
-                questStatusMoon, /*questStatusPrincess,*/ questStatusReactor, questStatusScarab, questStatusSculpture,
+                questStatusMoon, /*questStatusPrincess,*/ questStatusReactor, questStatusScarab, /*questStatusSculpture,*/
                 questStatusSpaceMonster, /*questStatusWild,*/ fabricRipProbability, justLootedMarie, canSuperWarp,
                 options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);

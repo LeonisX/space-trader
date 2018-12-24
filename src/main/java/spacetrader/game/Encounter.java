@@ -1091,21 +1091,27 @@ public class Encounter implements Serializable {
 
             if (allowRobbery.getValue()) {
 
-                if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-                    ArrayList<String> precious = new ArrayList<>();
-                /*if (commander.getShip().isPrincessOnBoard()) {
+                ArrayList<String> precious = new ArrayList<>();
+                game.getQuestSystem().fireEvent(ENCOUNTER_ON_ROBBERY, precious);
+
+                /*if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+
+                *//*if (commander.getShip().isPrincessOnBoard()) {
                     precious.add(Strings.EncounterHidePrincess);
-                }*/
-                    game.getQuestSystem().fireEvent(ENCOUNTER_GET_SAVED_CARGO_AND_CREW, precious);
+                }*//*
                     if (commander.getShip().isSculptureOnBoard()) {
                         precious.add(Strings.EncounterHideSculpture);
                     }
 
-                    GuiFacade.alert(AlertType.PreciousHidden, Functions.stringVars(Strings.ListStrings[precious.size()],
-                            precious.toArray(new String[0])));
+
                 } else if (commander.getShip().isSculptureOnBoard()) {
                     game.setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
                     GuiFacade.alert(AlertType.EncounterPiratesTakeSculpture);
+                }*/
+
+                if (!precious.isEmpty()) {
+                    GuiFacade.alert(AlertType.PreciousHidden, Functions.stringVars(Strings.ListStrings[precious.size()],
+                            precious.toArray(new String[0])));
                 }
 
                 ArrayList<Integer> cargoToSteal = commander.getShip().getStealableCargo();

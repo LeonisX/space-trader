@@ -132,12 +132,12 @@ public class News implements Serializable {
                         addEvent(NewsEvent.ScarabDestroyed.castToInt());
                     }
                     break;
-                case Sculpture:
+                /*case Sculpture:
                     addEvent(NewsEvent.SculptureStolen.castToInt());
                     break;
                 case SculptureDelivered:
                     addEvent(NewsEvent.SculptureTracked.castToInt());
-                    break;
+                    break;*/
                 case SpaceMonsterKilled:
                     if (Game.getCurrentGame().getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
                         addEvent(NewsEvent.SpaceMonster.castToInt());

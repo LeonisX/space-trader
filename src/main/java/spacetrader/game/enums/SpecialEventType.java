@@ -40,9 +40,9 @@ public enum SpecialEventType implements SpaceTraderEnum {
     TribbleBuyer, // = 34,
     /*Wild, // = 35,
     WildGetsOut, // = 36,*/
-    Sculpture, // = 37,
+    /*Sculpture, // = 37,
     SculptureDelivered, // = 38,
-    SculptureHiddenBays, // = 39,
+    SculptureHiddenBays, // = 39,*/
     /*Princess, // = 40,
     PrincessCentauri, // = 41,
     PrincessInthara, // = 42,

@@ -200,11 +200,11 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (Game.getShip().isSculptureOnBoard()) {
+        /*if (Game.getShip().isSculptureOnBoard()) {
             quests.add(Strings.QuestSculpture);
         } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
             quests.add(Strings.QuestSculptureHiddenBays);
-        }
+        }*/
 
         if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD) {
             quests.add(Strings.QuestArtifact);
