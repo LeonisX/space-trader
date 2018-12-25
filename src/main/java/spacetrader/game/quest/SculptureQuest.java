@@ -301,7 +301,7 @@ class SculptureQuest extends AbstractQuest {
             while (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
                 Game.getShip().removeEquipment(EquipmentType.GADGET, GadgetType.HIDDEN_CARGO_BAYS);
             }
-            GuiFacade.alert(AlertType.JailHiddenCargoBaysRemoved);
+            showAlert(Alerts.JailHiddenCargoBaysRemoved.getValue());
         } else {
             log.fine("Arrested w/o Hidden Cargo Bays");
         }

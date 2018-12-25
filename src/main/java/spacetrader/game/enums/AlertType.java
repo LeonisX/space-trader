@@ -111,7 +111,7 @@ public enum AlertType implements SpaceTraderEnum {
     InsuranceStop,
     JailConvicted,
     JailFleaReceived,
-    JailHiddenCargoBaysRemoved,
+    //JailHiddenCargoBaysRemoved,
     JailIllegalGoodsImpounded,
     JailInsuranceLost,
     JailMercenariesLeave,

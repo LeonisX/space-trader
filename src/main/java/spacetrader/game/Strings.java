@@ -253,8 +253,8 @@ public class Strings {
     public static String AlertsJailConvictedMessage = "You are convicted to ^1 in prison and a fine of ^2.";
     public static String AlertsJailFleaReceivedTitle = "Flea Received";
     public static String AlertsJailFleaReceivedMessage = "When you leave prison, the police have left a second-hand Flea for you so you can continue your travels.";
-    public static String AlertsJailHiddenCargoBaysRemovedTitle = "Hidden Compartments Removed";
-    public static String AlertsJailHiddenCargoBaysRemovedMessage = "When your ship is impounded, the police go over it with a fine-toothed comb. You hidden compartments are found and removed.";
+    //public static String AlertsJailHiddenCargoBaysRemovedTitle = "Hidden Compartments Removed";
+    //public static String AlertsJailHiddenCargoBaysRemovedMessage = "When your ship is impounded, the police go over it with a fine-toothed comb. You hidden compartments are found and removed.";
     public static String AlertsJailIllegalGoodsImpoundedTitle = "Illegal Goods Impounded";
     public static String AlertsJailIllegalGoodsImpoundedMessage = "The police also impound all of the illegal goods you have on board.";
     public static String AlertsJailInsuranceLostTitle = "Insurance Lost";

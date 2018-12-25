@@ -122,6 +122,7 @@ public class GameController implements Serializable {
                 //QuestSystem.setQuestSystem(game.getQuestSystem());
                 game.getQuestSystem().initializeTransitionMaps();
                 game.getQuestSystem().initializeLoggers();
+                game.getQuestSystem().localizeQuests();
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
                 gameController.setSaveGameDays(Game.getCommander().getDays());
