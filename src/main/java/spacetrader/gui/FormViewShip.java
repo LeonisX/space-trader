@@ -214,19 +214,11 @@ public class FormViewShip extends SpaceTraderForm {
 
         game.getQuestSystem().fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO, specialCargo);
 
-        /*if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE) {
-            specialCargo.add(Strings.SpecialCargoJarek);
-        }*/
-
         if (ship.isReactorOnBoard()) {
             specialCargo.add(Strings.SpecialCargoReactor);
             specialCargo.add(Functions.plural(10 - ((game.getQuestStatusReactor() - 1) / 2), Strings.ShipBay)
                     + " " + Strings.SpecialCargoReactorBays);
         }
-
-        /*if (ship.isSculptureOnBoard()) {
-            specialCargo.add(Strings.SpecialCargoSculpture);
-        }*/
 
         if (game.getCanSuperWarp()) {
             specialCargo.add(Strings.SpecialCargoExperiment);

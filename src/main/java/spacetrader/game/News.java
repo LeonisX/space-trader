@@ -92,36 +92,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.JaporiDelivery.castToInt());
                     }
                     break;
-                /*case JarekGetsOut:
-                    if (commander.getShip().isJarekOnBoard()) {
-                        addEvent(NewsEvent.JarekGetsOut);
-                    }
-                    break;*/
-                /*case Princess:
-                    addEvent(NewsEvent.Princess.castToInt());
-                    break;
-                case PrincessCentauri:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI) {
-                        addEvent(NewsEvent.PrincessCentauri.castToInt());
-                    }
-                    break;
-                case PrincessInthara:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_INTHARA) {
-                        addEvent(NewsEvent.PrincessInthara.castToInt());
-                    }
-                    break;
-                case PrincessQonos:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_QONOS) {
-                        newsAddEvent(NewsEvent.PrincessQonos.castToInt());
-                    } else if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RESCUED) {
-                        addEvent(NewsEvent.PrincessRescued.castToInt());
-                    }
-                    break;
-                case PrincessReturned:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RETURNED) {
-                        addEvent(NewsEvent.PrincessReturned.castToInt());
-                    }
-                    break;*/
                 case Scarab:
                     addEvent(NewsEvent.Scarab.castToInt());
                     break;
@@ -132,12 +102,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.ScarabDestroyed.castToInt());
                     }
                     break;
-                /*case Sculpture:
-                    addEvent(NewsEvent.SculptureStolen.castToInt());
-                    break;
-                case SculptureDelivered:
-                    addEvent(NewsEvent.SculptureTracked.castToInt());
-                    break;*/
                 case SpaceMonsterKilled:
                     if (Game.getCurrentGame().getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
                         addEvent(NewsEvent.SpaceMonster.castToInt());
@@ -145,11 +109,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.SpaceMonsterKilled.castToInt());
                     }
                     break;
-                /*case WildGetsOut:
-                    if (Game.getCommander().getShip().isWildOnBoard()) {
-                        addEvent(NewsEvent.WildGetsOut.castToInt());
-                    }
-                    break;*/
             }
         }
     }

@@ -81,8 +81,8 @@ public class Consts {
     public static final int ScoreAttackPirate = 0;
     public static final int ScoreAttackPolice = -3;
     public static final int ScoreAttackTrader = -2;
-    //TODO
-    public static final int ScoreCaughtWithWild = -4;
+
+    //public static final int ScoreCaughtWithWild = -4;
     public static final int ScoreFleePolice = -2;
     public static final int ScoreKillCaptain = 100;
     public static final int ScoreKillPirate = 1;
@@ -209,7 +209,6 @@ public class Consts {
             new Rectangle(7, 0, 49, 0), // Scarab
             new Rectangle(9, 0, 46, 0), // Bottle
             new Rectangle(2, 0, 60, 0)//, // Custom
-            //new Rectangle(2, 0, 60, 0) // Scorpion
     };
 
     public static ShipSpec[] ShipSpecs = new ShipSpec[]{
@@ -249,9 +248,7 @@ public class Consts {
             new ShipSpec(ShipType.CUSTOM, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.QUEST, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
-                    Activity.NA, TechLevel.UNAVAILABLE),
-            /*new ShipSpec(ShipType.SCORPION, Size.HUGE, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
-                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE)*/
+                    Activity.NA, TechLevel.UNAVAILABLE)
     };
 
     public static Shipyard[] Shipyards = new Shipyard[]{
@@ -282,9 +279,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.GemulonRescued, 0, 0, true),
             new SpecialEvent(SpecialEventType.Japori, 0, 1, false),
             new SpecialEvent(SpecialEventType.JaporiDelivery, 0, 0, true),
-            //new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
-            //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
-            //new SpecialEvent(SpecialEventType.Lottery, -1000, 0, true),
             new SpecialEvent(SpecialEventType.Moon, 500000, 4, false),
             new SpecialEvent(SpecialEventType.MoonRetirement, 0, 0, false),
             new SpecialEvent(SpecialEventType.Reactor, 0, 0, false),
@@ -298,17 +292,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.SpaceMonsterKilled, -15000, 0, true),
             new SpecialEvent(SpecialEventType.Tribble, 1000, 1, false),
             new SpecialEvent(SpecialEventType.TribbleBuyer, 0, 3, false),
-            /*new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
-            new SpecialEvent(SpecialEventType.WildGetsOut, 0, 0, true),*/
-            /*new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
-            new SpecialEvent(SpecialEventType.SculptureDelivered, 0, 0, true),
-            new SpecialEvent(SpecialEventType.SculptureHiddenBays, 0, 0, false),*/
-            /*new SpecialEvent(SpecialEventType.Princess, 0, 0, true),
-            new SpecialEvent(SpecialEventType.PrincessCentauri, 0, 0, true),
-            new SpecialEvent(SpecialEventType.PrincessInthara, 0, 0, true),
-            new SpecialEvent(SpecialEventType.PrincessQonos, 0, 0, false),
-            new SpecialEvent(SpecialEventType.PrincessQuantum, 0, 0, false),
-            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true),*/
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

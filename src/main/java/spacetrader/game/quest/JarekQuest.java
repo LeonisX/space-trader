@@ -36,7 +36,7 @@ class JarekQuest extends AbstractQuest {
 
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
-    private CrewMember jarek;
+    private CrewMember jarek; // Jarek, Ambassador Jarek earns his keep now - JAF.
     private boolean jarekOnBoard;
 
     private UUID shipBarCode = UUID.randomUUID();

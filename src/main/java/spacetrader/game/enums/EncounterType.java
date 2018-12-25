@@ -26,8 +26,6 @@ public enum EncounterType implements SpaceTraderEnum {
     POLICE_INSPECT, // = 21,
     SCARAB_ATTACK, // = 22,
     SCARAB_IGNORE, // = 23,
-    //SCORPION_ATTACK, // = 24,
-    //SCORPION_IGNORE, // = 25,
     SPACE_MONSTER_ATTACK, // = 26,
     SPACE_MONSTER_IGNORE, // = 27,
     TRADER_ATTACK, // = 28,

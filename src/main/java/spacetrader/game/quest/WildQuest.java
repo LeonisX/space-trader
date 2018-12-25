@@ -43,8 +43,8 @@ class WildQuest extends AbstractQuest {
 
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
-    private CrewMember wild;
-    private CrewMember zeethibal;
+    private CrewMember wild; // Wild, Jonathan Wild earns his keep now - JAF.
+    private CrewMember zeethibal; // Zeethibal, Jonathan Wild's Nephew - skills will be set later.
     private boolean wildOnBoard;
 
     public WildQuest(QuestName id) {

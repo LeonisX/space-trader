@@ -85,14 +85,6 @@ public class Encounter implements Serializable {
                     : EncounterType.DRAGONFLY_ATTACK);
             showEncounter.setValue(true);
         }
-        // Encounter with kidnappers in the Scorpion
-        /*else if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos
-                && getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_QONOS) {
-            setOpponent(scorpion);
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.SCORPION_IGNORE
-                    : EncounterType.SCORPION_ATTACK);
-            showEncounter.setValue(true);
-        }*/
         // ah, just when you thought you were gonna get away with it...
         else if (game.getClicks() == 1 && game.getJustLootedMarie()) {
             game.generateOpponent(OpponentType.POLICE);
@@ -366,12 +358,6 @@ public class Encounter implements Serializable {
         game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DESTROYED);
     }
 
-    /*private void encounterDefeatScorpion() {
-        commander.setKillsPirate(commander.getKillsPirate() + 1);
-        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-        setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_RESCUED);
-    }*/
-
     public void encounterDrink() {
         if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
             if (getEncounterType() == EncounterType.BOTTLE_GOOD) {
@@ -454,10 +440,6 @@ public class Encounter implements Serializable {
                     case SCARAB:
                         encounterDefeatScarab();
                         break;
-                    /*case SCORPION:
-                        str2 = Strings.EncounterPrincessRescued;
-                        encounterDefeatScorpion();
-                        break;*/
                 }
 
                 GuiFacade.alert(AlertType.EncounterDisabledOpponent, getEncounterShipText(), "");
@@ -624,12 +606,6 @@ public class Encounter implements Serializable {
                 }
 
                 game.getQuestSystem().fireEvent(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, defender);
-
-                // Make sure the Scorpion doesn't get destroyed.
-                /*if (defender.getType() == ShipType.SCORPION && defender.getHull() == 0) {
-                    defender.setHull(1);
-                    setOpponentDisabled(true);
-                }*/
             }
         }
 
@@ -1505,10 +1481,6 @@ public class Encounter implements Serializable {
                     encounterPretext.setValue(Strings.EncounterPretextPirate);
                 }
                 break;
-            /*case QUEST_ATTACK:
-            case QUEST_IGNORE:
-                encounterPretext = Strings.EncounterPretextScorpion);
-                break;*/
             case SPACE_MONSTER_ATTACK:
             case SPACE_MONSTER_IGNORE:
                 encounterPretext.setValue(Strings.EncounterPretextSpaceMonster);

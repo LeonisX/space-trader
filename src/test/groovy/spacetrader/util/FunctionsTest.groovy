@@ -193,7 +193,6 @@ class FunctionsTest extends Specification {
 
                 dragonfly: new Ship(ShipType.DRAGONFLY),
                 scarab: new Ship(ShipType.SCARAB),
-                scorpion: new Ship(ShipType.SCORPION),
                 spaceMonster: new Ship(ShipType.SPACE_MONSTER),
                 opponent: new Ship(type: ShipType.BEETLE, size: Size.LARGE, cargoBays: 24, weaponSlots: 3,
                         shieldSlots: 4, gadgetSlots: 5, crewQuarters: 6, fuelTanks: 34, fuelCost: 12, hullStrength: 120,

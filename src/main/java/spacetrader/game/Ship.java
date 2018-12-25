@@ -425,9 +425,8 @@ public class Ship extends ShipSpec implements Serializable {
                     tries.setValue(Math.max(1, tries.getValue() + Game.getDifficultyId() - Difficulty.NORMAL.castToInt()));
                     break;
                 case POLICE:
-                    // The police will try to hunt you down with better ships if you are
-                    // a villain, and they will try even harder when you are considered to
-                    // be a psychopath (or are transporting Jonathan Wild)
+                    // The police will try to hunt you down with better ships if you are a villain, and they will
+                    // try even harder when you are considered to be a psychopath (or are transporting Jonathan Wild)
                     if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScorePsychopath) {
                         tries.setValue(5);
                     } else if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScoreVillain) {
@@ -891,11 +890,6 @@ public class Ship extends ShipSpec implements Serializable {
         return gadgets;
     }
 
-    /*private boolean isHagglingComputerOnBoard() {
-        //return isCommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
-        return isCommandersShip() && true;
-    }*/
-
     private int getHiddenCargoBays() {
         int bays = 0;
 
@@ -923,10 +917,6 @@ public class Ship extends ShipSpec implements Serializable {
     public int getPilot() {
         return getSkills()[SkillType.PILOT.castToInt()];
     }
-
-    /*public boolean isPrincessOnBoard() {
-        return hasCrew(CrewMemberId.PRINCESS.castToInt());
-    }*/
 
     public boolean isReactorOnBoard() {
         int status = Game.getCurrentGame().getQuestStatusReactor();
@@ -1012,14 +1002,10 @@ public class Ship extends ShipSpec implements Serializable {
         tradeItems.reverse();
 
         IntContainer intContainer = new IntContainer(getHiddenCargoBays());
+
         Game.getCurrentGame().getQuestSystem().fireEvent(ENCOUNTER_GET_STEALABLE_CARGO, intContainer);
+
         int hidden = intContainer.getValue();
-        /*if (isPrincessOnBoard()) {
-            hidden--;
-        }*/
-        /*if (isSculptureOnBoard()) {
-            hidden--;
-        }*/
 
         if (hidden > 0) {
             hidden = Math.min(hidden, tradeItems.size());
@@ -1040,10 +1026,6 @@ public class Ship extends ShipSpec implements Serializable {
     public Weapon[] getWeapons() {
         return weapons;
     }
-
-    /*public boolean isWildOnBoard() {
-        return hasCrew(CrewMemberId.WILD.castToInt());
-    }*/
 
     // For test purposes
     public void setWeapons(Weapon[] weapons) {

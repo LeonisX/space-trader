@@ -295,12 +295,6 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterPiratesFindNoCargo:
                 return new FormAlert(AlertsEncounterPiratesFindNoCargoTitle, AlertsEncounterPiratesFindNoCargoMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            /*case EncounterPiratesSurrenderPrincess:
-                return new FormAlert(AlertsEncounterPiratesSurrenderPrincessTitle, AlertsEncounterPiratesSurrenderPrincessMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
-            /*case EncounterPiratesTakeSculpture:
-                return new FormAlert(AlertsEncounterPiratesTakeSculptureTitle, AlertsEncounterPiratesTakeSculptureMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case EncounterPoliceBribe:
                 return new FormAlert(AlertsEncounterPoliceBribeTitle, AlertsEncounterPoliceBribeMessage, AlertsEncounterPoliceBribeAccept,
                         DialogResult.YES, AlertsEncounterPoliceBribeCancel, DialogResult.NO, args);
@@ -374,9 +368,6 @@ public class FormAlert extends SpaceTraderForm {
             case EquipmentFuelCompactor:
                 return new FormAlert(AlertsEquipmentFuelCompactorTitle, AlertsEquipmentFuelCompactorMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            /*case EquipmentHiddenCompartments:
-                return new FormAlert(AlertsEquipmentHiddenCompartmentsTitle, AlertsEquipmentHiddenCompartmentsMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case EquipmentIF:
                 return new FormAlert(AlertsEquipmentIFTitle, AlertsEquipmentIFMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
@@ -411,8 +402,6 @@ public class FormAlert extends SpaceTraderForm {
                         DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case GameEndBoughtMoon:
                 return new FormAlert(AlertsGameEndBoughtMoonTitle, GameEndType.BOUGHT_MOON.castToInt());
-            /*case GameEndBoughtMoonGirl:
-                return new FormAlert(AlertsGameEndBoughtMoonGirlTitle, GameEndType.BOUGHT_MOON_GIRL.castToInt());*/
             case GameEndHighScoreAchieved:
                 return new FormAlert(AlertsGameEndHighScoreAchievedTitle, AlertsGameEndHighScoreAchievedMessage, AlertsOk, DialogResult.OK,
                         null, DialogResult.NONE, args);
@@ -447,9 +436,6 @@ public class FormAlert extends SpaceTraderForm {
             case JailFleaReceived:
                 return new FormAlert(AlertsJailFleaReceivedTitle, AlertsJailFleaReceivedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            /*case JailHiddenCargoBaysRemoved:
-                return new FormAlert(AlertsJailHiddenCargoBaysRemovedTitle, AlertsJailHiddenCargoBaysRemovedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case JailIllegalGoodsImpounded:
                 return new FormAlert(AlertsJailIllegalGoodsImpoundedTitle, AlertsJailIllegalGoodsImpoundedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -462,9 +448,6 @@ public class FormAlert extends SpaceTraderForm {
             case JailShipSold:
                 return new FormAlert(AlertsJailShipSoldTitle, AlertsJailShipSoldMessage, AlertsOk, DialogResult.OK,
                         null, DialogResult.NONE, args);
-            /*case JarekTakenHome:
-                return new FormAlert(AlertsJarekTakenHomeTitle, AlertsJarekTakenHomeMessage, AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, args);*/
             case LeavingIFInsurance:
                 return new FormAlert(AlertsLeavingIFInsuranceTitle, AlertsLeavingIFInsuranceMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
@@ -496,9 +479,6 @@ public class FormAlert extends SpaceTraderForm {
             case PreciousHidden:
                 return new FormAlert(AlertsPreciousHiddenTitle, AlertsPreciousHiddenMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            /*case PrincessTakenHome:
-                return new FormAlert(AlertsPrincessTakenHomeTitle, AlertsPrincessTakenHomeMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case ReactorConfiscated:
                 return new FormAlert(AlertsReactorConfiscatedTitle, AlertsReactorConfiscatedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -523,12 +503,6 @@ public class FormAlert extends SpaceTraderForm {
             case RegistryError:
                 return new FormAlert(AlertsRegistryErrorTitle, AlertsRegistryErrorMessage, AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);
-            /*case SculptureConfiscated:
-                return new FormAlert(AlertsSculptureConfiscatedTitle, AlertsSculptureConfiscatedMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
-            case SculptureSaved:
-                return new FormAlert(AlertsSculptureSavedTitle, AlertsSculptureSavedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
             case ShipBuyConfirm:
                 return new FormAlert(AlertsShipBuyConfirmTitle, AlertsShipBuyConfirmMessage, AlertsYes,
                         DialogResult.YES, AlertsNo, DialogResult.NO, args);
@@ -586,29 +560,6 @@ public class FormAlert extends SpaceTraderForm {
             case SpecialNotEnoughBays:
                 return new FormAlert(AlertsSpecialNotEnoughBaysTitle, AlertsSpecialNotEnoughBaysMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            /*case SpecialPassengerConcernedJarek:
-                return new FormAlert(AlertsSpecialPassengerConcernedJarekTitle,
-                        AlertsSpecialPassengerConcernedJarekMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);*/
-            /*case SpecialPassengerConcernedPrincess:
-                return new FormAlert(AlertsSpecialPassengerConcernedPrincessTitle,
-                        AlertsSpecialPassengerConcernedPrincessMessage, AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, args);*/
-            /*case SpecialPassengerConcernedWild:
-                return new FormAlert(AlertsSpecialPassengerConcernedWildTitle,
-                        AlertsSpecialPassengerConcernedWildMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);*/
-            /*case SpecialPassengerImpatientJarek:
-                return new FormAlert(AlertsSpecialPassengerImpatientJarekTitle,
-                        AlertsSpecialPassengerImpatientJarekMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);*/
-            /*case SpecialPassengerImpatientPrincess:
-                return new FormAlert(AlertsSpecialPassengerImpatientPrincessTitle,
-                        AlertsSpecialPassengerImpatientPrincessMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);*/
-            /*case SpecialPassengerImpatientWild:
-                return new FormAlert(AlertsSpecialPassengerImpatientWildTitle, AlertsSpecialPassengerImpatientWildMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);*/
             case SpecialPassengerOnBoard:
                 return new FormAlert(AlertsSpecialPassengerOnBoardTitle, AlertsSpecialPassengerOnBoardMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -664,33 +615,6 @@ public class FormAlert extends SpaceTraderForm {
             case TribblesTradeIn:
                 return new FormAlert(AlertsTribblesTradeInTitle, AlertsTribblesTradeInMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            /*case WildArrested:
-                return new FormAlert(AlertsWildArrestedTitle, AlertsWildArrestedMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
-            case WildChatsPirates:
-                return new FormAlert(AlertsWildChatsPiratesTitle, AlertsWildChatsPiratesMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildGoesPirates:
-                return new FormAlert(AlertsWildGoesPiratesTitle, AlertsWildGoesPiratesMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildLeavesShip:
-                return new FormAlert(AlertsWildLeavesShipTitle, AlertsWildLeavesShipMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildSculpture:
-                return new FormAlert(AlertsWildSculptureTitle, AlertsWildSculptureMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildWontBoardLaser:
-                return new FormAlert(AlertsWildWontBoardLaserTitle, AlertsWildWontBoardLaserMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildWontBoardReactor:
-                return new FormAlert(AlertsWildWontBoardReactorTitle, AlertsWildWontBoardReactorMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case WildWontStayAboardLaser:
-                return new FormAlert(AlertsWildWontStayAboardLaserTitle, AlertsWildWontStayAboardLaserMessage,
-                        AlertsWildWontStayAboardLaserAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);
-            case WildWontStayAboardReactor:
-                return new FormAlert(AlertsWildWontStayAboardReactorTitle, AlertsWildWontStayAboardReactorMessage,
-                        AlertsWildWontStayAboardReactorAccept, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);*/
             default:
                 throw new IllegalArgumentException("Unknown AlertType: " + type);
         }

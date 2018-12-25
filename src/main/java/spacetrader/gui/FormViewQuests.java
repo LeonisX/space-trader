@@ -157,37 +157,6 @@ public class FormViewQuests extends SpaceTraderForm {
                 break;
         }
 
-        /*switch (game.getQuestStatusPrincess()) {
-            case SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI:
-                quests.add(Strings.QuestPrincessCentauri);
-                break;
-            case SpecialEvent.STATUS_PRINCESS_FLY_INTHARA:
-                quests.add(Strings.QuestPrincessInthara);
-                break;
-            case SpecialEvent.STATUS_PRINCESS_FLY_QONOS:
-                quests.add(Strings.QuestPrincessQonos);
-                break;
-            case SpecialEvent.STATUS_PRINCESS_RESCUED:
-                if (Game.getShip().isPrincessOnBoard()) {
-                    if (game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT) {
-                        quests.add(Functions.stringVars(
-                                Strings.QuestPrincessReturningImpatient,
-                                game.getMercenaries().get(CrewMemberId.PRINCESS.castToInt()).getName()));
-                    } else {
-                        quests.add(Functions.stringVars(
-                                Strings.QuestPrincessReturning,
-                                game.getMercenaries().get(CrewMemberId.PRINCESS.castToInt()).getName()));
-                    }
-                } else {
-                    quests.add(Functions.stringVars(Strings.QuestPrincessReturn,
-                            game.getMercenaries().get(CrewMemberId.PRINCESS.castToInt()).getName()));
-                }
-                break;
-            case SpecialEvent.STATUS_PRINCESS_RETURNED:
-                quests.add(Strings.QuestPrincessQuantum);
-                break;
-        }*/
-
         if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
             quests.add(Strings.QuestScarabFind);
         } else if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED) {
@@ -200,33 +169,11 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        /*if (Game.getShip().isSculptureOnBoard()) {
-            quests.add(Strings.QuestSculpture);
-        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
-            quests.add(Strings.QuestSculptureHiddenBays);
-        }*/
-
         if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD) {
             quests.add(Strings.QuestArtifact);
         }
 
         game.getQuestSystem().fireEvent(EventName.ON_GET_QUESTS_STRINGS, quests);
-
-        /*if (Game.getShip().isJarekOnBoard()) {
-            if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT) {
-                quests.add(Strings.QuestJarekImpatient);
-            } else {
-                quests.add(Strings.QuestJarek);
-            }
-        }*/
-
-        /*if (Game.getShip().isWildOnBoard()) {
-            if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT) {
-                quests.add(Strings.QuestWildImpatient);
-            } else {
-                quests.add(Strings.QuestWild);
-            }
-        }*/
 
         if (Game.getShip().getTribbles() > 0) {
             quests.add(Strings.QuestTribbles);

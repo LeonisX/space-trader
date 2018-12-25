@@ -100,7 +100,6 @@ public class StarSystem implements Serializable {
             case Artifact:
             case Dragonfly:
             case Experiment:
-            //case Jarek:
                 show = Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
                 break;
             case ArtifactDelivery:
@@ -129,19 +128,15 @@ public class StarSystem implements Serializable {
             case Gemulon:
             case GemulonFuel:
             case GemulonInvaded:
-            //case Lottery:
             case ReactorLaser:
-            //case PrincessQuantum:
-            //case SculptureHiddenBays:
             case Skill:
             case SpaceMonster:
             case Tribble:
                 show = true;
                 break;
             case EraseRecord:
-            /*case Wild:
                 show = Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
-                break;*/
+                break;
             case ExperimentStopped:
                 show = game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
                         && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED;
@@ -157,9 +152,6 @@ public class StarSystem implements Serializable {
             case JaporiDelivery:
                 show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT;
                 break;
-            /*case JarekGetsOut:
-                show = Game.getShip().isJarekOnBoard();
-                break;*/
             case Moon:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
                         && Game.getCommander().getWorth() > SpecialEvent.MOON_COST * .8;
@@ -167,25 +159,6 @@ public class StarSystem implements Serializable {
             case MoonRetirement:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;
                 break;
-            /*case Princess:
-                show = Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
-                        && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
-                break;
-            case PrincessCentauri:
-                show = game.getQuestStatusPrincess() >= SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI
-                        && game.getQuestStatusPrincess() <= SpecialEvent.STATUS_PRINCESS_FLY_QONOS;
-                break;
-            case PrincessInthara:
-                show = game.getQuestStatusPrincess() >= SpecialEvent.STATUS_PRINCESS_FLY_INTHARA
-                        && game.getQuestStatusPrincess() <= SpecialEvent.STATUS_PRINCESS_FLY_QONOS;
-                break;
-            case PrincessQonos:
-                show = game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RESCUED
-                        && !Game.getShip().isPrincessOnBoard();
-                break;
-            case PrincessReturned:
-                show = Game.getShip().isPrincessOnBoard();
-                break;*/
             case Reactor:
                 show = game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_NOT_STARTED
                         && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
@@ -202,23 +175,12 @@ public class StarSystem implements Serializable {
             case ScarabUpgradeHull:
                 show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED;
                 break;
-            /*case Sculpture:
-                show = game.getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_NOT_STARTED
-                        && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
-                        && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
-                break;
-            case SculptureDelivered:
-                show = game.getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
-                break;*/
             case SpaceMonsterKilled:
                 show = game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED;
                 break;
             case TribbleBuyer:
                 show = Game.getShip().getTribbles() > 0;
                 break;
-            /*case WildGetsOut:
-                show = Game.getShip().isWildOnBoard();
-                break;*/
         }
 
         return show;

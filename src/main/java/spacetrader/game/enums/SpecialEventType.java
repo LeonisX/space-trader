@@ -22,9 +22,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     GemulonRescued, // = 16,
     Japori, // = 17,
     JaporiDelivery, // = 18,
-    //Jarek, // = 19,
-    //JarekGetsOut, // = 20,
-    //Lottery, // = 21,
     Moon, // = 22,
     MoonRetirement, // = 23,
     Reactor, // = 24,
@@ -38,17 +35,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     SpaceMonsterKilled, // = 32,
     Tribble, // = 33,
     TribbleBuyer, // = 34,
-    /*Wild, // = 35,
-    WildGetsOut, // = 36,*/
-    /*Sculpture, // = 37,
-    SculptureDelivered, // = 38,
-    SculptureHiddenBays, // = 39,*/
-    /*Princess, // = 40,
-    PrincessCentauri, // = 41,
-    PrincessInthara, // = 42,
-    PrincessQonos, // = 43,
-    PrincessQuantum, // = 44,
-    PrincessReturned, // = 45*/
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

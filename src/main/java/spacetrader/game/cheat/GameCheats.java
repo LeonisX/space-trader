@@ -179,30 +179,18 @@ public class GameCheats implements Serializable {
                         case Japori:
                             game.setQuestStatusJapori(Math.max(0, words.getNum2()));
                             break;
-                        /*case Jarek:
-                            game.setQuestStatusJarek(Math.max(0, cheatWords.getNum2()));
-                            break;*/
                         case Moon:
                             game.setQuestStatusMoon(Math.max(0, words.getNum2()));
                             break;
                         case Reactor:
                             game.setQuestStatusReactor(Math.max(0, words.getNum2()));
                             break;
-                        /*case Princess:
-                            game.setQuestStatusPrincess(Math.max(0, words.getNum2()));
-                            break;*/
                         case Scarab:
                             game.setQuestStatusScarab(Math.max(0, words.getNum2()));
                             break;
-                        /*case Sculpture:
-                            game.setQuestStatusSculpture(Math.max(0, words.getNum2()));
-                            break;*/
                         case SpaceMonster:
                             game.setQuestStatusSpaceMonster(Math.max(0, words.getNum2()));
                             break;
-                        /*case Wild:
-                            game.setQuestStatusWild(Math.max(0, words.getNum2()));
-                            break;*/
                         default:
 
                             String text = Strings.CheatsArtifact + ": " + game.getQuestStatusArtifact() + Strings.newline
@@ -210,14 +198,10 @@ public class GameCheats implements Serializable {
                                     + Strings.CheatsExperiment + ": " + game.getQuestStatusExperiment() + Strings.newline
                                     + Strings.CheatsGemulon + ": " + game.getQuestStatusGemulon() + Strings.newline
                                     + Strings.CheatsJapori + ": " + game.getQuestStatusJapori() + Strings.newline
-                                    //+ Strings.CheatsJarek + ": " + game.getQuestStatusJarek() + Strings.newline
                                     + Strings.CheatsMoon + ": " + game.getQuestStatusMoon() + Strings.newline
-                                    //+ Strings.CheatsPrincess + ": " + game.getQuestStatusPrincess() + Strings.newline
                                     + Strings.CheatsReactor + ": " + game.getQuestStatusReactor() + Strings.newline
                                     + Strings.CheatsScarab + ": " + game.getQuestStatusScarab() + Strings.newline
-                                    //+ Strings.CheatsSculpture + ": " + game.getQuestStatusSculpture() + Strings.newline
-                                    + Strings.CheatsSpaceMonster + ": " + game.getQuestStatusSpaceMonster() + Strings.newline
-                                    /*+ Strings.CheatsWild + ": " + game.getQuestStatusWild() + Strings.newline*/;
+                                    + Strings.CheatsSpaceMonster + ": " + game.getQuestStatusSpaceMonster() + Strings.newline;
 
                             Map<String, Integer> strings = new HashMap<>();
                             game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);

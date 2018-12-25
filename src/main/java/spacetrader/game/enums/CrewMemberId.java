@@ -33,10 +33,7 @@ public enum CrewMemberId implements SpaceTraderEnum {
     WESLEY, // = 27,
     WONTON, // = 28,
     YORVICK, // = 29,
-    //ZEETHIBAL, // = 30,
     OPPONENT, // = 31,
-    //WILD, // = 32,
-    //JAREK, // = 33,
     FAMOUS_CAPTAIN, // = 34,
     DRAGONFLY, // = 35,
     SCARAB, // = 36,
@@ -56,8 +53,6 @@ public enum CrewMemberId implements SpaceTraderEnum {
     TAGGART, // = 50,
     VANSEN, // = 51,
     XIZOR; // = 52,
-    //PRINCESS, // = 53,
-    //SCORPION,// = 54
 
     public static CrewMemberId fromInt(int i) {
         if (i >= 1000) {
