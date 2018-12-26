@@ -228,7 +228,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## TODO
 
 * Document all EventNames for Reactor
-* Finish quest
 * Smoke test
 * Dump
 * Localize

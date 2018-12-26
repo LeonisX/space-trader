@@ -5,10 +5,7 @@ import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.Difficulty;
-import spacetrader.game.enums.SpecialEventType;
-import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
@@ -26,7 +23,6 @@ import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-//TODO -jarek
 public class ReactorQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511506L;
@@ -112,7 +108,7 @@ public class ReactorQuest extends AbstractQuest {
         I18n.dumpPhases(Arrays.stream(QuestPhases.values()));
         I18n.dumpStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
-        I18n.dumpStrings(Res.Encounters, Arrays.stream(WildQuest.Encounters.values()));
+        I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.dumpStrings(Res.SpecialCargo, Arrays.stream(SpecialCargo.values()));
         I18n.dumpStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
@@ -161,45 +157,29 @@ public class ReactorQuest extends AbstractQuest {
     class ReactorPhase extends Phase { //new SpecialEvent(SpecialEventType.Reactor, 0, 0, false),
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
-                    && !jarekOnBoard && isDesiredSystem();
-
-            //case Reactor:
-            //    show = game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_NOT_STARTED
-            //                        && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
-            //                        && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
-            //                break;
+            return questStatus == STATUS_REACTOR_NOT_STARTED
+                    && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
+                    && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage
+                    && !isReactorOnBoard() && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #1");
-            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
-                GuiFacade.alert(AlertType.SpecialNoQuarters);
+            if (Game.getShip().getFreeCargoBays() < 15) {
+                GuiFacade.alert(AlertType.CargoNoEmptyBays);
             } else {
-                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
-                Game.getShip().hire(jarek);
-                jarekOnBoard = true;
-                questStatus = STATUS_JAREK_STARTED;
-                setQuestState(QuestState.ACTIVE);
-                Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-            }
+                BooleanContainer isConflict = new BooleanContainer(false);
+                game.getQuestSystem().fireEvent(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, isConflict);
 
-            //case Reactor:
-            //            if (commander.getShip().getFreeCargoBays() < 15) {
-            //        GuiFacade.alert(AlertType.CargoNoEmptyBays);
-            //    } else {
-            //
-            //        BooleanContainer isConflict = new BooleanContainer(false);
-            //        questSystem.fireEvent(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, isConflict);
-            //
-            //        if (!isConflict.getValue()) {
-            //            GuiFacade.alert(AlertType.ReactorOnBoard);
-            //            setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_FUEL_OK);
-            //            confirmQuestPhase();
-            //        }
-            //    }
-            //                break;
+                if (!isConflict.getValue()) {
+                    showAlert(Alerts.ReactorOnBoard.getValue());
+                    questStatus = STATUS_REACTOR_FUEL_OK;
+                    game.confirmQuestPhase();
+                    setQuestState(QuestState.ACTIVE);
+                    //Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+                }
+            }
         }
 
         @Override
@@ -211,32 +191,13 @@ public class ReactorQuest extends AbstractQuest {
     class ReactorDeliveredPhase extends Phase { //new SpecialEvent(SpecialEventType.ReactorDelivered, 0, 0, true),
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
-                    && !jarekOnBoard && isDesiredSystem();
-
-            //case ReactorDelivered:
-            //    show = Game.getShip().isReactorOnBoard();
-            //                break;
+            return isReactorOnBoard() && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #2");
-            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
-                GuiFacade.alert(AlertType.SpecialNoQuarters);
-            } else {
-                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
-                Game.getShip().hire(jarek);
-                jarekOnBoard = true;
-                questStatus = STATUS_JAREK_STARTED;
-                setQuestState(QuestState.ACTIVE);
-                Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-            }
-
-            //case ReactorDelivered:
-            //    setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DELIVERED);
-            //    switchQuestPhase(SpecialEventType.ReactorLaser);
-            //                break;
+            questStatus = STATUS_REACTOR_DELIVERED;
         }
 
         @Override
@@ -248,32 +209,22 @@ public class ReactorQuest extends AbstractQuest {
     class ReactorLaserPhase extends Phase { //new SpecialEvent(SpecialEventType.ReactorLaser, 0, 0, false),
         @Override
         public boolean canBeExecuted() {
-            return jarekOnBoard && isDesiredSystem();
-
-            //case ReactorLaser:
-            //    show = true;
-            //    break;
+            return !isReactorOnBoard() && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #3");
-            setQuestState(QuestState.FINISHED);
-            questStatus = STATUS_JAREK_DONE;
-            removePassenger();
-            shipBarCode = Game.getShip().getBarCode();
-            game.getQuestSystem().unSubscribeAll(getQuest());
-
-            //case ReactorLaser:
-            //            if (commander.getShip().getFreeWeaponSlots() == 0) {
-            //        GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-            //    } else {
-            //        GuiFacade.alert(AlertType.EquipmentMorgansLaser);
-            //        commander.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
-            //        setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
-            //        confirmQuestPhase();
-            //    }
-            //                break;
+            if (Game.getShip().getFreeWeaponSlots() == 0) {
+                GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
+            } else {
+                GuiFacade.alert(AlertType.EquipmentMorgansLaser);
+                Game.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
+                questStatus = STATUS_REACTOR_DONE;
+                game.confirmQuestPhase();
+                setQuestState(QuestState.FINISHED);
+                game.getQuestSystem().unSubscribeAll(getQuest());
+            }
         }
 
         @Override
@@ -333,7 +284,7 @@ public class ReactorQuest extends AbstractQuest {
 
     private void isTradeShip(Object object) {
         if (isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ShipBuyReactor);
+            showAlert(Alerts.ShipBuyReactor.getValue());
             ((BooleanContainer) object).setValue(false);
         }
     }
@@ -351,7 +302,7 @@ public class ReactorQuest extends AbstractQuest {
     private void encounterOnRobbery(Object object) {
         // pirates puzzled by reactor
         if (isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.EncounterPiratesExamineReactor);
+            showAlert(Alerts.EncounterPiratesExamineReactor.getValue());
         }
     }
 
@@ -375,40 +326,26 @@ public class ReactorQuest extends AbstractQuest {
         }
     }
 
-    // TODO repeat if < normal, otherwise fail
+    // TODO far perspective - if < normal - give second try
     private void onArrested(Object object) {
-        /*if (jarekOnBoard) {
-            log.fine("Arrested + Jarek");
-            showAlert(Alerts.JarekTakenHome.getValue());
+        if (isReactorOnBoard()) {
+            log.fine("Arrested + Reactor");
+            showAlert(Alerts.ReactorConfiscated.getValue());
             failQuest();
         } else {
-            log.fine("Arrested w/o Jarek");
-        }*/
-
-        //TODO
-        if (isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ReactorConfiscated);
-            questStatus = STATUS_REACTOR_NOT_STARTED;
+            log.fine("Arrested w/o Reactor");
         }
     }
 
-    // TODO repeat if < normal, otherwise fail
+    // TODO far perspective - if < normal - give second try
     private void onEscapeWithPod(Object object) {
-        /*if (jarekOnBoard) {
-            log.fine("Escaped + Jarek");
-            showAlert(Alerts.JarekTakenHome.getValue());
+        if (isReactorOnBoard()) {
+            log.fine("Escaped + Reactor");
+            showAlert(Alerts.ReactorDestroyed.getValue());
             failQuest();
         } else {
-            log.fine("Escaped w/o Jarek");
-        }*/
-
-
-        if (isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ReactorDestroyed);
-            //TODO is it correct???
-            questStatus = STATUS_REACTOR_DONE;
+            log.fine("Escaped w/o Reactor");
         }
-
     }
 
     private void failQuest() {
@@ -418,49 +355,32 @@ public class ReactorQuest extends AbstractQuest {
     }
 
     private void onIncrementDays(Object object) {
-        /*if (jarekOnBoard) {
-            log.fine(questStatus + "");
-            if (questStatus == STATUS_JAREK_IMPATIENT / 2) {
-                showAlert(Alerts.SpecialPassengerConcernedJarek.getValue());
-            } else if (questStatus == STATUS_JAREK_IMPATIENT - 1) {
-                showAlert(Alerts.SpecialPassengerImpatientJarek.getValue());
-                jarek.setPilot(0);
-                jarek.setFighter(0);
-                jarek.setTrader(0);
-                jarek.setEngineer(0);
-            }
-
-            if (questStatus < STATUS_JAREK_IMPATIENT) {
-                questStatus++;
-            }
-        } else {
-            log.fine("skipped");
-        }*/
-
         if (isReactorOnBoard()) {
             questStatus = (Math.min(questStatus + ((IntContainer) object).getValue(), STATUS_REACTOR_DATE));
+        } else {
+            log.fine("skipped");
         }
     }
 
     // checkReactorOnArrival
     private void onArrival(Object object) {
         if (questStatus == STATUS_REACTOR_DATE) {
-            GuiFacade.alert(AlertType.ReactorMeltdown);
+            showAlert(Alerts.ReactorMeltdown.getValue());
             questStatus = STATUS_REACTOR_NOT_STARTED;
             if (Game.getShip().getEscapePod()) {
                 game.escapeWithPod();
             } else {
-                GuiFacade.alert(AlertType.ReactorDestroyed);
+                showAlert(Alerts.ReactorDestroyed.getValue());
                 throw new GameEndException(KILLED.castToInt());
             }
         } else {
             // Reactor warnings: now they know the quest has a time constraint!
             if (questStatus == STATUS_REACTOR_FUEL_OK + 1) {
-                GuiFacade.alert(AlertType.ReactorWarningFuel);
+                showAlert(Alerts.ReactorWarningFuel.getValue());
             } else if (questStatus == STATUS_REACTOR_DATE - 4) {
-                GuiFacade.alert(AlertType.ReactorWarningFuelGone);
+                showAlert(Alerts.ReactorWarningFuelGone.getValue());
             } else if (questStatus == STATUS_REACTOR_DATE - 2) {
-                GuiFacade.alert(AlertType.ReactorWarningTemp);
+                showAlert(Alerts.ReactorWarningTemperature.getValue());
             }
         }
     }
@@ -528,60 +448,16 @@ public class ReactorQuest extends AbstractQuest {
         }
     }
 
-    //TODO
-    /*case EncounterPiratesExamineReactor:
-            return new FormAlert(AlertsEncounterPiratesExamineReactorTitle, AlertsEncounterPiratesExamineReactorMessage,
-                                 AlertsOk, DialogResult.OK, null,DialogResult.NONE, args);
- case ReactorConfiscated:
-            return new FormAlert(AlertsReactorConfiscatedTitle, AlertsReactorConfiscatedMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorDestroyed:
-            return new FormAlert(AlertsReactorDestroyedTitle, AlertsReactorDestroyedMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorOnBoard:
-            return new FormAlert(AlertsReactorOnBoardTitle, AlertsReactorOnBoardMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorMeltdown:
-            return new FormAlert(AlertsReactorMeltdownTitle, AlertsReactorMeltdownMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorWarningFuel:
-            return new FormAlert(AlertsReactorWarningFuelTitle, AlertsReactorWarningFuelMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorWarningFuelGone:
-            return new FormAlert(AlertsReactorWarningFuelGoneTitle, AlertsReactorWarningFuelGoneMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorWarningTemp:
-            return new FormAlert(AlertsReactorWarningTempTitle, AlertsReactorWarningTempMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ShipBuyReactor:
-            return new FormAlert(AlertsShipBuyReactorTitle, AlertsShipBuyReactorMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);*/
-
-
-    //    public static String AlertsEncounterPiratesExamineReactorTitle = "Pirates Examine Reactor";
-    //    public static String AlertsEncounterPiratesExamineReactorMessage = "The pirates poke around the Ion Reactor while trying to figure out if it's valuable. They finally conclude that the Reactor is worthless, not to mention dangerous, and leave it on your ship.";
-    //    public static String AlertsReactorConfiscatedTitle = "Police Confiscate Reactor";
-    //    public static String AlertsReactorConfiscatedMessage = "The Police confiscate the Ion reactor as evidence of your dealings with unsavory characters.";
-    //    public static String AlertsReactorDestroyedTitle = "Reactor Destroyed";
-    //    public static String AlertsReactorDestroyedMessage = "The destruction of your ship was made much more spectacular by the added explosion of the Ion Reactor.";
-    //    public static String AlertsReactorOnBoardTitle = "Reactor";
-    //    public static String AlertsReactorOnBoardMessage = "Five of your cargo bays now contain the unstable Ion Reactor, and ten of your bays contain enriched fuel.";
-    //    public static String AlertsReactorMeltdownTitle = "Reactor Meltdown!";
-    //    public static String AlertsReactorMeltdownMessage = "Just as you approach the docking bay, the reactor explodes into a huge radioactive fireball!";
-    //    public static String AlertsReactorWarningFuelTitle = "Reactor Warning";
-    //    public static String AlertsReactorWarningFuelMessage = "You notice the Ion Reactor has begun to consume fuel rapidly. In a single day, it has burned up nearly half a bay of fuel!";
-    //    public static String AlertsReactorWarningFuelGoneTitle = "Reactor Warning";
-    //    public static String AlertsReactorWarningFuelGoneMessage = "The Ion Reactor is emitting a shrill whine, and it's shaking. The display indicates that it is suffering from fuel starvation.";
-    //    public static String AlertsReactorWarningTempTitle = "Reactor Warning";
-    //    public static String AlertsReactorWarningTempMessage = "The Ion Reactor is smoking and making loud noises. The display warns that the core is close to the melting temperature.";
-    //    public static String AlertsShipBuyReactorTitle = "Shipyard Engineer";
-    //    public static String AlertsShipBuyReactorMessage = "Sorry! We can't take your ship as a trade-in. That Ion Reactor looks dangerous, and we have no way of removing it. Come back when you've gotten rid of it.";
-    //
-
     enum Alerts implements SimpleValueEnum<AlertDialog> {
-        SpecialPassengerConcernedJarek("Ship's Comm.", "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?"),
-        SpecialPassengerImpatientJarek("Ship's Comm.", "Captain! This is the Ambassador speaking. We should have been there by now?!"),
-        JarekTakenHome("Jarek Taken Home", "The Space Corps decides to give ambassador Jarek a lift home to Devidia.");
+        EncounterPiratesExamineReactor("Pirates Examine Reactor", "The pirates poke around the Ion Reactor while trying to figure out if it's valuable. They finally conclude that the Reactor is worthless, not to mention dangerous, and leave it on your ship."),
+        ReactorConfiscated("Police Confiscate Reactor", "The Police confiscate the Ion reactor as evidence of your dealings with unsavory characters."),
+        ReactorDestroyed("Reactor Destroyed", "The destruction of your ship was made much more spectacular by the added explosion of the Ion Reactor."),
+        ReactorOnBoard("Reactor", "Five of your cargo bays now contain the unstable Ion Reactor, and ten of your bays contain enriched fuel."),
+        ReactorMeltdown("Reactor Meltdown!", "Just as you approach the docking bay, the reactor explodes into a huge radioactive fireball!"),
+        ReactorWarningFuel("Reactor Warning", "You notice the Ion Reactor has begun to consume fuel rapidly. In a single day, it has burned up nearly half a bay of fuel!"),
+        ReactorWarningFuelGone("Reactor Warning", "The Ion Reactor is emitting a shrill whine, and it's shaking. The display indicates that it is suffering from fuel starvation."),
+        ReactorWarningTemperature("Reactor Warning", "The Ion Reactor is smoking and making loud noises. The display warns that the core is close to the melting temperature."),
+        ShipBuyReactor("Shipyard Engineer", "Sorry! We can't take your ship as a trade-in. That Ion Reactor looks dangerous, and we have no way of removing it. Come back when you've gotten rid of it.");
 
         private AlertDialog value;
 
