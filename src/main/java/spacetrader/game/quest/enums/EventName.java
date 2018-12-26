@@ -20,6 +20,8 @@ public enum EventName {
     // Status windows
     ON_DISPLAY_SPECIAL_CARGO,                   // Jarek, Sculpture, Reactor. Display special cargo in FormViewShip
     ON_GET_QUESTS_STRINGS,                      // Any. Display quests in FormViewQuests
+    ON_FORM_SHIP_LIST_SHOW,                     // Tribbles. Show warning when showing FormShipList
+    ON_GET_BASE_WORTH,                          // Tribbles. Reduce the cost of the ship under certain conditions
     ON_GET_FILLED_CARGO_BAYS,                   // Reactor. Some goods take place in cargo bays
 
     IS_TRADE_SHIP,                              // Reactor. Before you sell / exchange ship
@@ -41,6 +43,7 @@ public enum EventName {
     ENCOUNTER_ON_SURRENDER_IF_RAIDED,           // Wild. Ability to change the situation with robbery
     ENCOUNTER_ON_ROBBERY,                       // Princess (Scorpion), Sculpture, Reactor. Used to generate a list of items that were hidden in secret cargo bays.
     ENCOUNTER_GET_STEALABLE_CARGO,              // Princess (Scorpion), Sculpture. Used to generate a list of goods that will be stolen during an attack. Princess will take one cargo bay
+    ENCOUNTER_ON_TRIBBLE_PICTURE_CLICK,         // Tribbles. On Tribble picture click
 
     // After Encounters
     IS_ILLEGAL_SPECIAL_CARGO,                   // Wild, Sculpture, Reactor. Determine whether there is an illegal special cargo on board
@@ -48,10 +51,12 @@ public enum EventName {
     ON_GET_ILLEGAL_SPECIAL_CARGO_DESCRIPTION,   // Wild, Sculpture, Reactor. Get illegal special cargo description
     ON_BEFORE_ARRESTED_CALCULATE_FINE,          // Wild. Correction of fine depending on some conditions
     ON_ARRESTED,                                // Jarek, Princess, ... Action that occurs when a player is arrested. He loses a lot.
+    ON_ARRESTED_AND_SHIP_SOLD_FOR_DEBT,         // Tribbles. Upon arrest, if there is no money to pay the fine - the ship is sold for debt
     ON_ESCAPE_WITH_POD,                         // Jarek, Princess, ... Action that occurs when a player escapes with pod. He loses a lot.
     ON_INCREMENT_DAYS,                          // Jarek, Princess, ... The action that occurs after a certain number of days. For example, a passenger loses patience, or something explodes.
     ON_ARRIVAL,                                 // Reactor. Check in after arrival. For example, update the state of the reactor
     ON_NEWS_ADD_EVENT_ON_ARRIVAL,               // Jarek, Princess, .... Adds special news on arrival at the spaceport.
+    ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS,     // Tribbles. Add news from nearest systems
 
     // Game ending
     ON_BEFORE_KILLED,                           // Reactor. Print a message before the ship is killed in combat.
@@ -60,6 +65,7 @@ public enum EventName {
     ON_GET_GAME_SCORE,                          // Princess. Used to calculate the final score in the game.
 
     // Cheats
+    IS_CONSIDER_CHEAT,                          // Tribbles. General cheats
     IS_CONSIDER_STATUS_CHEAT,                   // Jarek, Princess, ... Change the status of the quest (for example, Jarek questStatus)
     IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
 }

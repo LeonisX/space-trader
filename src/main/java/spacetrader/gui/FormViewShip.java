@@ -194,16 +194,6 @@ public class FormViewShip extends SpaceTraderForm {
     private void displaySpecialCargo() {
         ArrayList<String> specialCargo = new ArrayList<>(12);
 
-        if (ship.getTribbles() > 0) {
-            if (ship.getTribbles() == Consts.MaxTribbles) {
-                specialCargo.add(Strings.SpecialCargoTribblesInfest);
-            } else if (ship.getTribbles() == 1){
-                specialCargo.add(Strings.SpecialCargoTribbleCute);
-            } else {
-                specialCargo.add(Strings.SpecialCargoTribblesCute);
-            }
-        }
-
         if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             specialCargo.add(Strings.SpecialCargoJapori);
         }

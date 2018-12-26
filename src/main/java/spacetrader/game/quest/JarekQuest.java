@@ -316,7 +316,6 @@ class JarekQuest extends AbstractQuest {
         }
     }
 
-
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getSecond().equals(CheatTitles.Jarek.name())) {

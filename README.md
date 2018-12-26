@@ -227,7 +227,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Document all EventNames for Reactor
+* Tribbles
+* Dump
+* Localize
+* Clear lang files from Tribbles
 
 ### Princess
 

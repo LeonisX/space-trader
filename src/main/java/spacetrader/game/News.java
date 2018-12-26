@@ -4,13 +4,15 @@ import spacetrader.game.enums.NewsEvent;
 import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.SystemPressure;
-import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static spacetrader.game.quest.enums.EventName.ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS;
+import static spacetrader.game.quest.enums.EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL;
 
 public class News implements Serializable {
 
@@ -28,7 +30,7 @@ public class News implements Serializable {
     }
 
     void addEventsOnArrival() {
-        Game.getCurrentGame().getQuestSystem().fireEvent(EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL);
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_NEWS_ADD_EVENT_ON_ARRIVAL);
         if (Game.getCommander().getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
             switch (Game.getCommander().getCurrentSystem().getSpecialEventType()) {
                 case ArtifactDelivery:
@@ -174,13 +176,13 @@ public class News implements Serializable {
         for (StarSystem starSystem : Game.getCurrentGame().getUniverse()) {
             if (starSystem.destIsOk() && starSystem != curSys) {
                 // Special stories that always get shown: moon, millionaire, shipyard
-                if (starSystem.getSpecialEventType() != SpecialEventType.NA) {
-                    if (starSystem.getSpecialEventType() == SpecialEventType.Moon) {
-                        news.add(Functions.stringVars(Strings.NewsMoonForSale, starSystem.getName()));
-                    } else if (starSystem.getSpecialEventType() == SpecialEventType.TribbleBuyer) {
-                        news.add(Functions.stringVars(Strings.NewsTribbleBuyer, starSystem.getName()));
-                    }
+
+                if (starSystem.getSpecialEventType() == SpecialEventType.Moon) {
+                    news.add(Functions.stringVars(Strings.NewsMoonForSale, starSystem.getName()));
                 }
+
+                Game.getCurrentGame().getQuestSystem().fireEvent(ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS);
+
                 if (starSystem.getShipyardId() != ShipyardId.NA) {
                     news.add(Functions.stringVars(Strings.NewsShipyard, starSystem.getName()));
                 }

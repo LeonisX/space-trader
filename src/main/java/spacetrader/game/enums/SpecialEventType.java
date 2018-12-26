@@ -30,8 +30,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     Skill, // = 30,
     SpaceMonster, // = 31,
     SpaceMonsterKilled, // = 32,
-    Tribble, // = 33,
-    TribbleBuyer, // = 34,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

@@ -145,17 +145,6 @@ public enum AlertType implements SpaceTraderEnum {
     SpecialTrainingCompleted,
     TravelArrival,
     TravelUneventfulTrip,
-    TribblesAllDied,
-    TribblesAteFood,
-    TribblesGone,
-    TribblesHalfDied,
-    TribblesKilled,
-    TribblesMostDied,
-    TribblesOwn,
-    TribblesRemoved,
-    TribblesInspector,
-    TribblesSqueek,
-    TribblesTradeIn,
     Quest; //TODO need???
 
     @Override

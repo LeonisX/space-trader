@@ -165,10 +165,6 @@ public class FormViewQuests extends SpaceTraderForm {
 
         game.getQuestSystem().fireEvent(EventName.ON_GET_QUESTS_STRINGS, quests);
 
-        if (Game.getShip().getTribbles() > 0) {
-            quests.add(Strings.QuestTribbles);
-        }
-
         if (game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT) {
             quests.add(Strings.QuestMoon);
         }

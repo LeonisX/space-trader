@@ -2,7 +2,6 @@ package spacetrader.game.cheat;
 
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.VeryRareEncounter;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
@@ -223,14 +222,12 @@ public class GameCheats implements Serializable {
                         ship.getGadgets()[words.getNum1()] = (Gadget) Consts.Gadgets[words.getNum2()].clone();
                     }
                     break;
-                case Varmints:
-                    ship.setTribbles(Math.max(0, words.getNum1()));
-                    break;
                 case Yellow:
                     game.getEncounter().setEasyEncounters(true);
                     break;
                 default:
-                    return true;
+                    game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_CHEAT, words);
+                    return !words.isCheat();
             }
         } else {
             switch (SomeStringsForCheatSwitch.find(words.getFirst())) {

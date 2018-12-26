@@ -52,7 +52,6 @@ public class Game implements Serializable {
     private int clicks = 0; // Distance from target system, 0 = arrived
     private boolean raided = false; // True when the commander has been raided during the trip
     private boolean inspected = false; // True when the commander has been/ inspected during the trip
-    private boolean tribbleMessage = false; // Is true if the Ship Yard on the current system informed you about the tribbles
     private boolean arrivedViaWormhole = false; // flag to indicate whether player arrived on current planet via wormhole
     private boolean paidForNewspaper = false; // once you buy a paper on a system, you don't have to pay again.
     private boolean litterWarning = false; // Warning against littering has been issued.
@@ -194,9 +193,7 @@ public class Game implements Serializable {
 
             GuiFacade.alert(AlertType.JailShipSold);
 
-            if (commander.getShip().getTribbles() > 0) {
-                GuiFacade.alert(AlertType.TribblesRemoved);
-            }
+            questSystem.fireEvent(EventName.ON_ARRESTED_AND_SHIP_SOLD_FOR_DEBT);
 
             GuiFacade.alert(AlertType.FleaBuilt);
             createFlea();
@@ -229,8 +226,6 @@ public class Game implements Serializable {
         }
 
         questSystem.fireEvent(ON_ARRIVAL);
-
-        checkTribblesOnArrival();
 
         checkDebtOnArrival();
 
@@ -276,63 +271,6 @@ public class Game implements Serializable {
                 commander.getShip().getCargo()[i] = 0;
                 commander.getPriceCargo()[i] = 0;
             }
-        }
-    }
-
-    private void checkTribblesOnArrival() {
-        Ship ship = commander.getShip();
-
-        if (ship.getTribbles() > 0) {
-            int previousTribbles = ship.getTribbles();
-            int narc = TradeItemType.NARCOTICS.castToInt();
-            int food = TradeItemType.FOOD.castToInt();
-
-            if (((ReactorQuest) questSystem.getQuest(QuestName.Reactor)).isReactorOnBoard()) {
-                if (ship.getTribbles() < 20) {
-                    ship.setTribbles(0);
-                    GuiFacade.alert(AlertType.TribblesAllDied);
-                } else {
-                    ship.setTribbles(ship.getTribbles() / 2);
-                    GuiFacade.alert(AlertType.TribblesHalfDied);
-                }
-            } else if (ship.getCargo()[narc] > 0) {
-                int dead = Math.min(1 + Functions.getRandom(3), ship.getCargo()[narc]);
-                commander.getPriceCargo()[narc]
-                        = commander.getPriceCargo()[narc] * (ship.getCargo()[narc] - dead) / ship.getCargo()[narc];
-                ship.getCargo()[narc] -= dead;
-                ship.getCargo()[TradeItemType.FURS.castToInt()] += dead;
-                ship.setTribbles(ship.getTribbles()
-                        - Math.min(dead * (Functions.getRandom(5) + 98), ship.getTribbles() - 1));
-                GuiFacade.alert(AlertType.TribblesMostDied);
-            } else {
-                if (ship.getCargo()[food] > 0 && ship.getTribbles() < Consts.MaxTribbles) {
-                    int eaten = ship.getCargo()[food] - Functions.getRandom(ship.getCargo()[food]);
-                    commander.getPriceCargo()[food] -= commander.getPriceCargo()[food] * eaten / ship.getCargo()[food];
-                    ship.getCargo()[food] -= eaten;
-                    ship.setTribbles(ship.getTribbles() + (eaten * 100));
-                    GuiFacade.alert(AlertType.TribblesAteFood);
-                }
-
-                if (ship.getTribbles() < Consts.MaxTribbles) {
-                    ship.setTribbles(ship.getTribbles() + (1 + Functions
-                            .getRandom(ship.getCargo()[food] > 0 ? ship.getTribbles() : ship.getTribbles() / 2)));
-                }
-
-                if (ship.getTribbles() > Consts.MaxTribbles) {
-                    ship.setTribbles(Consts.MaxTribbles);
-                }
-
-                if ((previousTribbles < 100 && ship.getTribbles() >= 100)
-                        || (previousTribbles < 1000 && ship.getTribbles() >= 1000)
-                        || (previousTribbles < 10000 && ship.getTribbles() >= 10000)
-                        || (previousTribbles < 50000 && ship.getTribbles() >= 50000)
-                        || (previousTribbles < Consts.MaxTribbles && ship.getTribbles() == Consts.MaxTribbles)) {
-                    String qty = (ship.getTribbles()) == Consts.MaxTribbles
-                            ? Strings.TribbleDangerousNumber : Functions.formatNumber(ship.getTribbles());
-                    GuiFacade.alert(AlertType.TribblesInspector, qty);
-                }
-            }
-            setTribbleMessage(false);
         }
     }
 
@@ -433,14 +371,6 @@ public class Game implements Serializable {
         }
 
         recalculateBuyPrices(system);
-    }
-
-    public boolean getTribbleMessage() {
-        return tribbleMessage;
-    }
-
-    public void setTribbleMessage(boolean tribbleMessage) {
-        this.tribbleMessage = tribbleMessage;
     }
 
     public StarSystemId getTrackedSystemId() {
@@ -820,10 +750,6 @@ public class Game implements Serializable {
     public void escapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
 
-        if (commander.getShip().getTribbles() > 0) {
-            GuiFacade.alert(AlertType.TribblesKilled);
-        }
-
         if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             int system;
             for (system = 0; system < getUniverse().length
@@ -1114,17 +1040,6 @@ public class Game implements Serializable {
                 break;
             case SpaceMonsterKilled:
                 setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_DONE);
-                confirmQuestPhase();
-                break;
-            case Tribble:
-                GuiFacade.alert(AlertType.TribblesOwn);
-                commander.getShip().setTribbles(1);
-                confirmQuestPhase();
-                break;
-            case TribbleBuyer:
-                GuiFacade.alert(AlertType.TribblesGone);
-                commander.setCash(commander.getCash() + (commander.getShip().getTribbles() / 2));
-                commander.getShip().setTribbles(0);
                 confirmQuestPhase();
                 break;
         }
@@ -1699,7 +1614,6 @@ public class Game implements Serializable {
                 clicks == game.clicks &&
                 raided == game.raided &&
                 inspected == game.inspected &&
-                tribbleMessage == game.tribbleMessage &&
                 arrivedViaWormhole == game.arrivedViaWormhole &&
                 paidForNewspaper == game.paidForNewspaper &&
                 litterWarning == game.litterWarning &&
@@ -1741,7 +1655,7 @@ public class Game implements Serializable {
     @Override
     public int hashCode() {
         int result = Objects.hash(commander, cheats, dragonfly, scarab, spaceMonster, opponent,
-                opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, tribbleMessage, arrivedViaWormhole,
+                opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
                 selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
                 questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori,

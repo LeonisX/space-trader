@@ -19,7 +19,7 @@ public class QuestSystem implements Serializable {
 
     static final long serialVersionUID = -1771570019223312592L;
 
-    private static final String questClassTemplate = QuestSystem.class.getName().replace("QuestSystem", "%sQuest");
+    private static final String QUEST_CLASS_TEMPLATE = QuestSystem.class.getName().replace("QuestSystem", "%sQuest");
 
     private static final Logger log = Logger.getLogger(QuestSystem.class.getName());
 
@@ -51,7 +51,7 @@ public class QuestSystem implements Serializable {
 
     private void initialize(QuestName id) {
         try {
-            Class<?> clazz = Class.forName(String.format(questClassTemplate, id.name()));
+            Class<?> clazz = Class.forName(String.format(QUEST_CLASS_TEMPLATE, id.name()));
             Field field = clazz.getDeclaredField("OCCURRENCE");
             field.setAccessible(true);
             int occurrence = Math.max(field.getInt(null), 1);

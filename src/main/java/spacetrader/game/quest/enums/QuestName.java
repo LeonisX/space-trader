@@ -7,6 +7,7 @@ public enum QuestName {
     Princess,
     Wild,
     Sculpture,
-    Reactor
+    Reactor,
+    Tribbles
 
 }

@@ -22,7 +22,6 @@ public class Ship extends ShipSpec implements Serializable {
 
     private int fuel;
     private int hull;
-    private int tribbles = 0;
     private int[] cargo = new int[10];
     private Weapon[] weapons;
     private Shield[] shields;
@@ -104,9 +103,14 @@ public class Ship extends ShipSpec implements Serializable {
 
     public int getBaseWorth(boolean forInsurance) {
         // Trade-in value is three-fourths the original price subtract repair costs subtract costs to fill tank with fuel
-        int price = getPrice() * (getTribbles() > 0 && !forInsurance ? 1 : 3) / 4
-                        - (getHullStrength() - getHull()) * getRepairCost()
-                        - (getFuelTanks() - getFuel()) * getFuelCost();
+        BooleanContainer reduceThePrice = new BooleanContainer(false);
+
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_BASE_WORTH, reduceThePrice);
+
+        int shipPrice = getPrice() * (reduceThePrice.getValue() && !forInsurance ? 1 : 3) / 4;
+        int price = shipPrice - (getHullStrength() - getHull()) * getRepairCost()
+                - (getFuelTanks() - getFuel()) * getFuelCost();
+
         // Add 3/4 of the price of each item of equipment
         for (Weapon weapon : weapons) {
             if (weapon != null) {
@@ -285,14 +289,6 @@ public class Ship extends ShipSpec implements Serializable {
                 addEquipment(Consts.Gadgets[bestGadgetType]);
             }
         }
-    }
-
-    public int getTribbles() {
-        return tribbles;
-    }
-
-    public void setTribbles(int tribbles) {
-        this.tribbles = tribbles;
     }
 
     public int getHull() {
@@ -1051,7 +1047,6 @@ public class Ship extends ShipSpec implements Serializable {
         Ship ship = (Ship) o;
         return fuel == ship.fuel &&
                 hull == ship.hull &&
-                tribbles == ship.tribbles &&
                 pod == ship.pod &&
                 escapePod == ship.escapePod &&
                 Arrays.equals(cargo, ship.cargo) &&
@@ -1064,7 +1059,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), fuel, hull, tribbles, pod, escapePod);
+        int result = Objects.hash(super.hashCode(), fuel, hull, pod, escapePod);
         result = 31 * result + Arrays.hashCode(cargo);
         result = 31 * result + Arrays.hashCode(weapons);
         result = 31 * result + Arrays.hashCode(shields);

@@ -325,28 +325,6 @@ public class Strings {
     public static String AlertsTravelArrivalMessage = "You arrive at your destination.";
     public static String AlertsTravelUneventfulTripTitle = "Uneventful Trip";
     public static String AlertsTravelUneventfulTripMessage = "After an uneventful trip, you arrive at your destination.";
-    public static String AlertsTribblesAllDiedTitle = "All The Tribbles Died";
-    public static String AlertsTribblesAllDiedMessage = "The radiation from the Ion Reactor is deadly to Tribbles. All of the Tribbles on board your ship have died.";
-    public static String AlertsTribblesAteFoodTitle = "Tribbles Ate Food";
-    public static String AlertsTribblesAteFoodMessage = "You find that, instead of food, some of your cargo bays contain only Tribbles!";
-    public static String AlertsTribblesGoneTitle = "No More Tribbles";
-    public static String AlertsTribblesGoneMessage = "The alien uses his alien technology to beam over your whole collection of Tribbles to his ship.";
-    public static String AlertsTribblesHalfDiedTitle = "Half The Tribbles Died";
-    public static String AlertsTribblesHalfDiedMessage = "The radiation from the Ion Reactor seems to be deadly to Tribbles. Half the Tribbles on board died.";
-    public static String AlertsTribblesKilledTitle = "Tribbles Killed";
-    public static String AlertsTribblesKilledMessage = "Your Tribbles all died in the explosion.";
-    public static String AlertsTribblesMostDiedTitle = "Most Tribbles Died";
-    public static String AlertsTribblesMostDiedMessage = "You find that, instead of narcotics, some of your cargo bays contain only dead Tribbles!";
-    public static String AlertsTribblesOwnTitle = "A Tribble";
-    public static String AlertsTribblesOwnMessage = "You are now the proud owner of a little, cute, furry tribble.";
-    public static String AlertsTribblesRemovedTitle = "Tribbles Removed";
-    public static String AlertsTribblesRemovedMessage = "The Tribbles were sold with your ship.";
-    public static String AlertsTribblesInspectorTitle = "Space Port Inspector";
-    public static String AlertsTribblesInspectorMessage = "Our scan reports you have ^1 Tribbles on board your ship. Tribbles are pests worse than locusts! You are running the risk of getting a hefty fine!";
-    public static String AlertsTribblesSqueekTitle = "A Tribble";
-    public static String AlertsTribblesSqueekMessage = "Squeek!";
-    public static String AlertsTribblesTradeInTitle = "You've Got Tribbles";
-    public static String AlertsTribblesTradeInMessage = "Hm. I see you got a Tribble infestation on your current ship. I'm sorry, but that severely reduces the trade-in price.";
 
     //Units
     public static String CargoBay="Cargo Bay";
@@ -488,7 +466,6 @@ public class Strings {
 
     public static String NewsMoonForSale = "Seller in ^1 System has Utopian Moon available.";
     public static String NewsShipyard = "Shipyard in ^1 System offers to design custom ships.";
-    public static String NewsTribbleBuyer = "Collector in ^1 System seeks to purchase Tribbles.";
 
     public static String OptionsKeepEmptyCargoBays = "to leave empty when buying goods in-system";
 
@@ -513,7 +490,6 @@ public class Strings {
     public static String QuestScarabHull = "Get your hull upgraded at ^1.";
     public static String QuestScarabNotify = "Notify the authorities at ^1 that the Scarab has been destroyed.";
     public static String QuestSpaceMonsterKill = "Kill the space monster at Acamar.";
-    public static String QuestTribbles = "Get rid of those pesky tribbles.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -556,16 +532,11 @@ public class Strings {
     public static String SpecialCargoExperiment = "A portable singularity.";
     public static String SpecialCargoJapori = "10 bays of antidote.";
     public static String SpecialCargoNone = "No special items.";
-    public static String SpecialCargoTribblesInfest = "An infestation of tribbles.";
-    public static String SpecialCargoTribbleCute = "Cute, furry tribble.";
-    public static String SpecialCargoTribblesCute = "Cute, furry tribbles.";
 
     public static String StatusBarBays = "Bays:";
     public static String StatusBarCash = "Cash:";
     public static String StatusBarCurrentCosts = "Current Costs:";
     public static String StatusBarNoGameLoaded = "No Game Loaded.";
-
-    public static String TribbleDangerousNumber = "a dangerous number of";
 
     public static String Unknown = "Unknown";
 
@@ -821,8 +792,6 @@ public class Strings {
             "An alien with a fast-learning machine offers to increase one of your skills for the reasonable sum of 3000 credits. You won't be able to pick that skill, though. Do you accept his offer?",
             "A space monster has invaded the Acamar system and is disturbing the trade routes. You'll be rewarded handsomely if you manage to destroy it.",
             "We thank you for destroying the space monster that circled our system for so long. Please accept 15000 credits as reward for your heroic deed.",
-            "A merchant prince offers you a very special and wondrous item for the sum of 1000 credits. Do you accept?",
-            "An eccentric alien billionaire wants to buy your collection of tribbles and offers half a credit for each of them. Do you accept his offer?",
             };
 
     public static String[] QuestPhaseTitles = new String[]{
@@ -834,8 +803,7 @@ public class Strings {
             "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
             "Moon For Sale", "Retirement", "Scarab Stolen",
             "Scarab Destroyed", "Upgrade Hull", "Skill Increase",
-            "Space Monster", "Monster Killed", "Merchant Prince",
-            "Tribble Buyer",
+            "Space Monster", "Monster Killed",
             //TODO delete
             "ASSIGNED"};
 

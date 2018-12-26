@@ -14,6 +14,8 @@ import spacetrader.util.ReflectionUtils;
 import java.awt.*;
 import java.util.Arrays;
 
+import static spacetrader.game.quest.enums.EventName.ON_FORM_SHIP_LIST_SHOW;
+
 public class FormShipList extends SpaceTraderForm {
 
     private final int[] prices = new int[Consts.ShipSpecs.length];
@@ -101,10 +103,7 @@ public class FormShipList extends SpaceTraderForm {
         updateAll();
         info(Game.getShip().getType().castToInt());
 
-        if (Game.getShip().getTribbles() > 0 && !game.getTribbleMessage()) {
-            GuiFacade.alert(AlertType.TribblesTradeIn);
-            game.setTribbleMessage(true);
-        }
+        game.getQuestSystem().fireEvent(ON_FORM_SHIP_LIST_SHOW);
     }
 
     private void initializeComponent() {

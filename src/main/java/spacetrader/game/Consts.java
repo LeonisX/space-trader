@@ -55,7 +55,6 @@ public class Consts {
     public static final int DirectionRight = 3;
 
     public static final int DisruptorSystemsMultiplier = 3;
-    public static final int MaxTribbles = 100000;
 
     public static final int PoliceRecordScorePsychopath = -100;
     public static final int PoliceRecordScoreVillain = -70;
@@ -287,8 +286,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.Skill, 3000, 3, false),
             new SpecialEvent(SpecialEventType.SpaceMonster, 0, 1, true),
             new SpecialEvent(SpecialEventType.SpaceMonsterKilled, -15000, 0, true),
-            new SpecialEvent(SpecialEventType.Tribble, 1000, 1, false),
-            new SpecialEvent(SpecialEventType.TribbleBuyer, 0, 3, false),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

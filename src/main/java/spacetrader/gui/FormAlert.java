@@ -549,38 +549,6 @@ public class FormAlert extends SpaceTraderForm {
             case TravelUneventfulTrip:
                 return new FormAlert(AlertsTravelUneventfulTripTitle, AlertsTravelUneventfulTripMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesAllDied:
-                return new FormAlert(AlertsTribblesAllDiedTitle, AlertsTribblesAllDiedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesAteFood:
-                return new FormAlert(AlertsTribblesAteFoodTitle, AlertsTribblesAteFoodMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesGone:
-                return new FormAlert(AlertsTribblesGoneTitle, AlertsTribblesGoneMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesHalfDied:
-                return new FormAlert(AlertsTribblesHalfDiedTitle, AlertsTribblesHalfDiedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesKilled:
-                return new FormAlert(AlertsTribblesKilledTitle, AlertsTribblesKilledMessage, AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, args);
-            case TribblesMostDied:
-                return new FormAlert(AlertsTribblesMostDiedTitle, AlertsTribblesMostDiedMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesOwn:
-                return new FormAlert(AlertsTribblesOwnTitle, AlertsTribblesOwnMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesRemoved:
-                return new FormAlert(AlertsTribblesRemovedTitle, AlertsTribblesRemovedMessage, AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, args);
-            case TribblesInspector:
-                return new FormAlert(AlertsTribblesInspectorTitle, AlertsTribblesInspectorMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesSqueek:
-                return new FormAlert(AlertsTribblesSqueekTitle, AlertsTribblesSqueekMessage, AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case TribblesTradeIn:
-                return new FormAlert(AlertsTribblesTradeInTitle, AlertsTribblesTradeInMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             default:
                 throw new IllegalArgumentException("Unknown AlertType: " + type);
         }
