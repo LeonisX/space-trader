@@ -356,7 +356,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
             if (Game.getShip().getFreeWeaponSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
-                GuiFacade.alert(AlertType.EquipmentQuantumDisruptor);
+                showAlert(Alerts.EquipmentQuantumDisruptor.getValue());
                 Game.getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
                 questStatus = STATUS_DONE;
                 setQuestState(QuestState.FINISHED);
@@ -671,6 +671,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
+        EquipmentQuantumDisruptor("Quantum Disruptor", "You now have one quantum disruptor installed on your ship."),
         SpecialPassengerConcernedPrincess("Ship's Comm.", "[Ziyal] Oh Captain? (giggles) Would it help if I got out and pushed?"),
         SpecialPassengerImpatientPrincess("Ship's Comm.", "Sir! Are you taking me home or merely taking the place of my previous captors?!"),
         EncounterPiratesSurrenderPrincess("You Have the Princess", "Pirates are not nice people, and there's no telling what they might do to the Princess. Better to die fighting than give her up to them!"),

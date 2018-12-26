@@ -253,6 +253,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Investigate - when new shipyard - can receive 600%
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
+* Update money status (StatusBar) after Shipyard
 
 ### Monster.com
 
@@ -307,6 +308,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Commander status - Всеобщий любимец (70) under button
 * Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
 * After disabling can fully destroy without encounter ending
+* Morgan's Laser - sell price 0 cr.
 
 ## Regressions:
 

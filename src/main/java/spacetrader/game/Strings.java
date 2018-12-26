@@ -203,12 +203,8 @@ public class Strings {
     public static String AlertsEquipmentIFMessage = "You don't have enough money to spend on this item.";
     public static String AlertsEquipmentLightningShieldTitle = "Lightning Shield";
     public static String AlertsEquipmentLightningShieldMessage = "You now have one lightning shield installed on your ship.";
-    public static String AlertsEquipmentMorgansLaserTitle = "Morgan's Laser";
-    public static String AlertsEquipmentMorgansLaserMessage = "You now have Henry Morgan's special laser installed on your ship.";
     public static String AlertsEquipmentNotEnoughSlotsTitle = "Not Enough Slots";
     public static String AlertsEquipmentNotEnoughSlotsMessage = "You have already filled all of your available slots for this type of item.";
-    public static String AlertsEquipmentQuantumDisruptorTitle = "Quantum Disruptor";
-    public static String AlertsEquipmentQuantumDisruptorMessage = "You now have one quantum disruptor installed on your ship.";
     public static String AlertsEquipmentSellTitle = "Sell Item";
     public static String AlertsEquipmentSellMessage = "Are you sure you want to sell this item?";
     public static String AlertsFileErrorOpenTitle = "Error";

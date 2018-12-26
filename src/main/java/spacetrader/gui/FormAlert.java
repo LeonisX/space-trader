@@ -371,16 +371,9 @@ public class FormAlert extends SpaceTraderForm {
             case EquipmentLightningShield:
                 return new FormAlert(AlertsEquipmentLightningShieldTitle, AlertsEquipmentLightningShieldMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EquipmentMorgansLaser:
-                return new FormAlert(AlertsEquipmentMorgansLaserTitle, AlertsEquipmentMorgansLaserMessage,
-                        AlertsOk, DialogResult.OK, null,
-                        DialogResult.NONE, args);
             case EquipmentNotEnoughSlots:
                 return new FormAlert(AlertsEquipmentNotEnoughSlotsTitle, AlertsEquipmentNotEnoughSlotsMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case EquipmentQuantumDisruptor:
-                return new FormAlert(AlertsEquipmentQuantumDisruptorTitle, AlertsEquipmentQuantumDisruptorMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case EquipmentSell:
                 return new FormAlert(AlertsEquipmentSellTitle, AlertsEquipmentSellMessage, AlertsYes, DialogResult.YES,
                         AlertsNo, DialogResult.NO, args);

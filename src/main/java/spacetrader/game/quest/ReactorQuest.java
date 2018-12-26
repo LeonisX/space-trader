@@ -210,7 +210,7 @@ public class ReactorQuest extends AbstractQuest {
     class ReactorLaserPhase extends Phase { //new SpecialEvent(SpecialEventType.ReactorLaser, 0, 0, false),
         @Override
         public boolean canBeExecuted() {
-            return !isReactorOnBoard() && isDesiredSystem();
+            return !isReactorOnBoard() && isDesiredSystem() && isQuestIsActive();
         }
 
         @Override
@@ -219,7 +219,7 @@ public class ReactorQuest extends AbstractQuest {
             if (Game.getShip().getFreeWeaponSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
-                GuiFacade.alert(AlertType.EquipmentMorgansLaser);
+                showAlert(Alerts.EquipmentMorgansLaser.getValue());
                 Game.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
                 questStatus = STATUS_REACTOR_DONE;
                 game.confirmQuestPhase();
@@ -450,6 +450,7 @@ public class ReactorQuest extends AbstractQuest {
     }
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
+        EquipmentMorgansLaser("Morgan's Laser", "You now have Henry Morgan's special laser installed on your ship."),
         EncounterPiratesExamineReactor("Pirates Examine Reactor", "The pirates poke around the Ion Reactor while trying to figure out if it's valuable. They finally conclude that the Reactor is worthless, not to mention dangerous, and leave it on your ship."),
         ReactorConfiscated("Police Confiscate Reactor", "The Police confiscate the Ion reactor as evidence of your dealings with unsavory characters."),
         ReactorDestroyed("Reactor Destroyed", "The destruction of your ship was made much more spectacular by the added explosion of the Ion Reactor."),
