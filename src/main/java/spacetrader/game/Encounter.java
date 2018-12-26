@@ -423,6 +423,8 @@ public class Encounter implements Serializable {
                 GuiFacade.alert((game.getOpponent().getHull() <= 0 ? AlertType.EncounterBothDestroyed
                         : AlertType.EncounterYouLose));
 
+                game.getQuestSystem().fireEvent(ON_BEFORE_KILLED);
+
                 result = EncounterResult.KILLED;
             }
         } else if (game.getOpponentDisabled()) {

@@ -228,8 +228,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## TODO
 
 * Document all EventNames for Reactor
-* Smoke test
-* Test all
 
 ### Princess
 
@@ -309,6 +307,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
 * After disabling can fully destroy without encounter ending
 * Morgan's Laser - sell price 0 cr.
+* Ability to ignore encounter by press "x"
 
 ## Regressions:
 

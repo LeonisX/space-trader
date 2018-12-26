@@ -87,6 +87,8 @@ public class ReactorQuest extends AbstractQuest {
         getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
         getTransitionMap().put(ON_ARRIVAL, this::onArrival);
 
+        getTransitionMap().put(ON_BEFORE_KILLED, this::onBeforeKilled);
+
         getTransitionMap().put(IS_CONSIDER_STATUS_CHEAT, this::onIsConsiderCheat);
         getTransitionMap().put(IS_CONSIDER_STATUS_DEFAULT_CHEAT, this::onIsConsiderDefaultCheat);
     }
@@ -367,7 +369,7 @@ public class ReactorQuest extends AbstractQuest {
     private void onArrival(Object object) {
         if (questStatus == STATUS_REACTOR_DATE) {
             showAlert(Alerts.ReactorMeltdown.getValue());
-            questStatus = STATUS_REACTOR_NOT_STARTED;
+            failQuest();
             if (Game.getShip().getEscapePod()) {
                 game.escapeWithPod();
             } else {
@@ -384,6 +386,10 @@ public class ReactorQuest extends AbstractQuest {
                 showAlert(Alerts.ReactorWarningTemperature.getValue());
             }
         }
+    }
+
+    private void onBeforeKilled(Object object) {
+        showAlert(Alerts.ReactorDestroyed.getValue());
     }
 
     private void onIsConsiderCheat(Object object) {
