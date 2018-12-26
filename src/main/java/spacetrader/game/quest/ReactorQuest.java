@@ -132,6 +132,7 @@ public class ReactorQuest extends AbstractQuest {
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Nix);
         starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
         phases.get(QuestPhases.ReactorDelivered).setStarSystemId(starSystem.getId());
+        phases.get(QuestPhases.ReactorLaser).setStarSystemId(starSystem.getId());
     }
 
     //TODO common method
@@ -452,8 +453,8 @@ public class ReactorQuest extends AbstractQuest {
         EncounterPiratesExamineReactor("Pirates Examine Reactor", "The pirates poke around the Ion Reactor while trying to figure out if it's valuable. They finally conclude that the Reactor is worthless, not to mention dangerous, and leave it on your ship."),
         ReactorConfiscated("Police Confiscate Reactor", "The Police confiscate the Ion reactor as evidence of your dealings with unsavory characters."),
         ReactorDestroyed("Reactor Destroyed", "The destruction of your ship was made much more spectacular by the added explosion of the Ion Reactor."),
-        ReactorOnBoard("Reactor", "Five of your cargo bays now contain the unstable Ion Reactor, and ten of your bays contain enriched fuel."),
         ReactorMeltdown("Reactor Meltdown!", "Just as you approach the docking bay, the reactor explodes into a huge radioactive fireball!"),
+        ReactorOnBoard("Reactor", "Five of your cargo bays now contain the unstable Ion Reactor, and ten of your bays contain enriched fuel."),
         ReactorWarningFuel("Reactor Warning", "You notice the Ion Reactor has begun to consume fuel rapidly. In a single day, it has burned up nearly half a bay of fuel!"),
         ReactorWarningFuelGone("Reactor Warning", "The Ion Reactor is emitting a shrill whine, and it's shaking. The display indicates that it is suffering from fuel starvation."),
         ReactorWarningTemperature("Reactor Warning", "The Ion Reactor is smoking and making loud noises. The display warns that the core is close to the melting temperature."),

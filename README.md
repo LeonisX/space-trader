@@ -229,8 +229,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Document all EventNames for Reactor
 * Smoke test
-* Dump
-* Localize
 * Test all
 
 ### Princess
