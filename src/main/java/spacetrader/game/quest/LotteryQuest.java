@@ -2,6 +2,7 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Game;
 import spacetrader.game.enums.Difficulty;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;

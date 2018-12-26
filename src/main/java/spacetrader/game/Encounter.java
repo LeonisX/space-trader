@@ -3,6 +3,7 @@ package spacetrader.game;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.RandomEncounterContainer;
 import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.EventName;
@@ -554,11 +555,11 @@ public class Encounter implements Serializable {
                     if (damage > 0) {
                         hit = true;
 
-                        // Reactor on board -- damage is boosted!
-                        if (defender.isReactorOnBoard()) {
-                            damage *= (int) (1 + (Game.getDifficultyId() + 1)
-                                    * (Game.getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0.25 : 0.33));
-                        }
+                        IntContainer damageContainer = new IntContainer(damage);
+
+                        game.getQuestSystem().fireEvent(ENCOUNTER_IS_EXECUTE_ATTACK, damageContainer);
+
+                        damage = damageContainer.getValue();
 
                         // First, shields are depleted
                         for (int i = 0; i < defender.getShields().length && defender.getShields()[i] != null && damage > 0; i++) {
@@ -1068,22 +1069,8 @@ public class Encounter implements Serializable {
             if (allowRobbery.getValue()) {
 
                 ArrayList<String> precious = new ArrayList<>();
+
                 game.getQuestSystem().fireEvent(ENCOUNTER_ON_ROBBERY, precious);
-
-                /*if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-
-                *//*if (commander.getShip().isPrincessOnBoard()) {
-                    precious.add(Strings.EncounterHidePrincess);
-                }*//*
-                    if (commander.getShip().isSculptureOnBoard()) {
-                        precious.add(Strings.EncounterHideSculpture);
-                    }
-
-
-                } else if (commander.getShip().isSculptureOnBoard()) {
-                    game.setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
-                    GuiFacade.alert(AlertType.EncounterPiratesTakeSculpture);
-                }*/
 
                 if (!precious.isEmpty()) {
                     GuiFacade.alert(AlertType.PreciousHidden, Functions.stringVars(Strings.ListStrings[precious.size()],
@@ -1112,11 +1099,6 @@ public class Encounter implements Serializable {
 
                         cargoToSteal.remove(0);
                     }
-                }
-
-                // pirates puzzled by reactor
-                if (commander.getShip().isReactorOnBoard()) {
-                    GuiFacade.alert(AlertType.EncounterPiratesExamineReactor);
                 }
             }
 

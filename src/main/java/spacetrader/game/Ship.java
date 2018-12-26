@@ -593,19 +593,9 @@ public class Ship extends ShipSpec implements Serializable {
     String getIllegalSpecialCargoActions() {
         ArrayList<String> actions = new ArrayList<>();
 
-        if (isReactorOnBoard()) {
-            actions.add(Strings.EncounterPoliceSurrenderReactor);
-        }
-
         Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS, actions);
 
-        /*if (isSculptureOnBoard()) {
-            actions.add(Strings.EncounterPoliceSurrenderSculpt);
-        }*/
-
-        return (actions.size() == 0)
-                ? ""
-                : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions.formatList(actions));
+        return actions.isEmpty() ? "" : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions.formatList(actions));
     }
 
     String getIllegalSpecialCargoDescription(String wrapper, boolean includePassengers, boolean includeTradeItems) {
@@ -614,14 +604,6 @@ public class Ship extends ShipSpec implements Serializable {
         if (includePassengers) {
             Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_ILLEGAL_SPECIAL_CARGO_DESCRIPTION, items);
         }
-
-        if (isReactorOnBoard()) {
-            items.add(Strings.EncounterPoliceSubmitReactor);
-        }
-
-        /*if (isSculptureOnBoard()) {
-            items.add(Strings.EncounterPoliceSubmitSculpture);
-        }*/
 
         if (includeTradeItems && isDetectableIllegalCargo()) {
             items.add(Strings.EncounterPoliceSubmitGoods);
@@ -840,17 +822,15 @@ public class Ship extends ShipSpec implements Serializable {
     // filled bays. JAF
 
     public int getFilledCargoBays() {
-        int filled = getFilledNormalCargoBays();
+        IntContainer filled = new IntContainer(getFilledNormalCargoBays());
 
         if (isCommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-            filled += 10;
+            filled.setValue(filled.getValue() + 10);
         }
 
-        if (isReactorOnBoard()) {
-            filled += 5 + 10 - (Game.getCurrentGame().getQuestStatusReactor() - 1) / 2;
-        }
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_FILLED_CARGO_BAYS, filled);
 
-        return filled;
+        return filled.getValue();
     }
 
     private int getFilledNormalCargoBays() {
@@ -910,18 +890,11 @@ public class Ship extends ShipSpec implements Serializable {
     public boolean isIllegalSpecialCargo() {
         BooleanContainer isIllegalCargo = new BooleanContainer(false);
         Game.getCurrentGame().getQuestSystem().fireEvent(IS_ILLEGAL_SPECIAL_CARGO, isIllegalCargo);
-
-        return isIllegalCargo.getValue() || isReactorOnBoard()/* || isSculptureOnBoard()*/;
+        return isIllegalCargo.getValue();
     }
 
     public int getPilot() {
         return getSkills()[SkillType.PILOT.castToInt()];
-    }
-
-    public boolean isReactorOnBoard() {
-        int status = Game.getCurrentGame().getQuestStatusReactor();
-        return isCommandersShip() && status > SpecialEvent.STATUS_REACTOR_NOT_STARTED
-                && status < SpecialEvent.STATUS_REACTOR_DELIVERED;
     }
 
     public int getShieldCharge() {

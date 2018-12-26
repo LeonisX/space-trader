@@ -9,6 +9,7 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SkillType;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -49,7 +50,7 @@ class JarekQuest extends AbstractQuest {
 
         jarek = registerNewSpecialCrewMember(3, 2, 10, 4, false);
 
-        registerNews(1);
+        registerNews(News.values().length);
 
         registerListener();
 

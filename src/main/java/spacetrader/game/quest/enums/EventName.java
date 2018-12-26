@@ -20,6 +20,9 @@ public enum EventName {
     // Status windows
     ON_DISPLAY_SPECIAL_CARGO,                   // Jarek, Sculpture. Display special cargo in FormViewShip
     ON_GET_QUESTS_STRINGS,                      // Any. Display quests in FormViewQuests
+    ON_GET_FILLED_CARGO_BAYS,                   // Reactor //TODO
+
+    IS_TRADE_SHIP,                              // Reactor //TODO
 
     ON_BEFORE_WARP,                             // Wild. It is possible to cancel the warp
     ON_DETERMINE_RANDOM_ENCOUNTER,              // Wild. The ability to influence the generation of encouters. For example, add hordes of police
@@ -31,8 +34,9 @@ public enum EventName {
     ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess. Starts a predefined encounter with Scorpion.
     ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK,      // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
     ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion). Used to generate an introductory text of encounter
-    ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, // Princess (Scorpion). The action that occurs after processing the effects of an attack. It is necessary that Scorpion was not accidentally destroyed.
+    ENCOUNTER_IS_EXECUTE_ATTACK,                // Reactor //TODO
     ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, // Princess (Scorpion). Action that occurs when an opponent is disabled
+    ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, // Princess (Scorpion). The action that occurs after processing the effects of an attack. It is necessary that Scorpion was not accidentally destroyed.
     ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER,   // Princess (Scorpion). Check whether there is any possibility to surrender. For example, if the Princess is on board, you cannot surrender.
     ENCOUNTER_ON_SURRENDER_IF_RAIDED,           // Wild. Ability to change the situation with robbery
     ENCOUNTER_ON_ROBBERY,                       // Princess (Scorpion), Sculpture. Used to generate a list of items that were hidden in secret cargo bays.
@@ -46,6 +50,7 @@ public enum EventName {
     ON_ARRESTED,                                // Jarek, Princess, ... Action that occurs when a player is arrested. He loses a lot.
     ON_ESCAPE_WITH_POD,                         // Jarek, Princess, ... Action that occurs when a player escapes with pod. He loses a lot.
     ON_INCREMENT_DAYS,                          // Jarek, Princess, ... The action that occurs after a certain number of days. For example, a passenger loses patience, or something explodes.
+    ON_ARRIVAL,                                 // Reactor //TODO
     ON_NEWS_ADD_EVENT_ON_ARRIVAL,               // Jarek, Princess, .... Adds special news on arrival at the spaceport.
 
     // Game ending

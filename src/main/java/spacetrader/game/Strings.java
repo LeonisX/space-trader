@@ -138,8 +138,6 @@ public class Strings {
     public static String AlertsEncounterOpponentEscapedMessage = "Your opponent has managed to escape.";
     public static String AlertsEncounterPiratesBountyTitle = "Bounty";
     public static String AlertsEncounterPiratesBountyMessage = "You ^1 the pirate ship^2 and earned a bounty of ^3.";
-    public static String AlertsEncounterPiratesExamineReactorTitle = "Pirates Examine Reactor";
-    public static String AlertsEncounterPiratesExamineReactorMessage = "The pirates poke around the Ion Reactor while trying to figure out if it's valuable. They finally conclude that the Reactor is worthless, not to mention dangerous, and leave it on your ship.";
     public static String AlertsEncounterPiratesFindNoCargoTitle = "Pirates Find No Cargo";
     public static String AlertsEncounterPiratesFindNoCargoMessage = "The pirates are very angry that they find no cargo on your ship. To stop them from destroying you, you have no choice but to pay them an amount equal to 5% of your current worth - ^1.";
     public static String AlertsEncounterPoliceBribeTitle = "Bribe";
@@ -277,20 +275,6 @@ public class Strings {
     public static String AlertsOptionsNoGameMessage = "You don't have a game open, so you can only change the default options.";
     public static String AlertsPreciousHiddenTitle = "Precious Cargo Hidden";
     public static String AlertsPreciousHiddenMessage = "You quickly hide ^1 in your hidden cargo bays before the pirates board your ship. This would never work with the police, but pirates are usually in more of a hurry.";
-    public static String AlertsReactorConfiscatedTitle = "Police Confiscate Reactor";
-    public static String AlertsReactorConfiscatedMessage = "The Police confiscate the Ion reactor as evidence of your dealings with unsavory characters.";
-    public static String AlertsReactorDestroyedTitle = "Reactor Destroyed";
-    public static String AlertsReactorDestroyedMessage = "The destruction of your ship was made much more spectacular by the added explosion of the Ion Reactor.";
-    public static String AlertsReactorOnBoardTitle = "Reactor";
-    public static String AlertsReactorOnBoardMessage = "Five of your cargo bays now contain the unstable Ion Reactor, and ten of your bays contain enriched fuel.";
-    public static String AlertsReactorMeltdownTitle = "Reactor Meltdown!";
-    public static String AlertsReactorMeltdownMessage = "Just as you approach the docking bay, the reactor explodes into a huge radioactive fireball!";
-    public static String AlertsReactorWarningFuelTitle = "Reactor Warning";
-    public static String AlertsReactorWarningFuelMessage = "You notice the Ion Reactor has begun to consume fuel rapidly. In a single day, it has burned up nearly half a bay of fuel!";
-    public static String AlertsReactorWarningFuelGoneTitle = "Reactor Warning";
-    public static String AlertsReactorWarningFuelGoneMessage = "The Ion Reactor is emitting a shrill whine, and it's shaking. The display indicates that it is suffering from fuel starvation.";
-    public static String AlertsReactorWarningTempTitle = "Reactor Warning";
-    public static String AlertsReactorWarningTempMessage = "The Ion Reactor is smoking and making loud noises. The display warns that the core is close to the melting temperature.";
     public static String AlertsRegistryErrorTitle = "Error...";
     public static String AlertsRegistryErrorMessage = "Error accessing the Registry: ^1";
     public static String AlertsShipBuyConfirmTitle = "Buy New Ship";
@@ -309,8 +293,6 @@ public class Strings {
     public static String AlertsShipBuyNoTransferMessage = "Unfortunately, if you make this trade, you won't be able to afford to transfer your ^1 to the new ship!";
     public static String AlertsShipBuyPassengerQuartersTitle = "Passenger Needs Quarters";
     public static String AlertsShipBuyPassengerQuartersMessage = "You must get a ship with enough crew quarters so that ^1 can stay on board.";
-    public static String AlertsShipBuyReactorTitle = "Shipyard Engineer";
-    public static String AlertsShipBuyReactorMessage = "Sorry! We can't take your ship as a trade-in. That Ion Reactor looks dangerous, and we have no way of removing it. Come back when you've gotten rid of it.";
     public static String AlertsShipBuyTransferTitle = "Transfer ^1";
     public static String AlertsShipBuyTransferMessage = "I'll transfer your ^2 to your new ship for ^3.";
     public static String AlertsShipBuyTransferAccept = "Do it!";
@@ -418,7 +400,6 @@ public class Strings {
     public static String CheatsGemulon = "Gemulon";
     public static String CheatsJapori = "Japori";
     public static String CheatsMoon = "Moon";
-    public static String CheatsReactor = "Reactor";
     public static String CheatsScarab = "Scarab";
     public static String CheatsSpaceMonster = "SpaceMonster";
     public static String CheatsStatusOfQuests = "Status of Quests";
@@ -450,10 +431,8 @@ public class Strings {
     public static String EncounterPiratesLocation = "(informing the police of the pirate's location)";
     public static String EncounterPoliceSubmitArrested = "You will be arrested!";
     public static String EncounterPoliceSubmitGoods = "illegal goods";
-    public static String EncounterPoliceSubmitReactor = "an illegal Ion Reactor";
     public static String EncounterPoliceSurrenderCargo = "You have ^1 on board!";
     public static String EncounterPoliceSurrenderAction = "They will ^1. ";
-    public static String EncounterPoliceSurrenderReactor = "destroy the reactor";
     public static String EncounterPretextAlien = "an alien ^1";
     public static String EncounterPretextBottle = "a floating ^1";
     public static String EncounterPretextCaptainAhab = "the famous Captain Ahab in a ^1";
@@ -534,9 +513,6 @@ public class Strings {
     public static String QuestGemulonInformTomorrow = "Inform Gemulon about alien invasion by tomorrow.";
     public static String QuestJaporiDeliver = "Deliver antidote to Japori.";
     public static String QuestMoon = "Claim your moon at Utopia.";
-    public static String QuestReactor = "Deliver the unstable reactor to Nix for Henry Morgan.";
-    public static String QuestReactorFuel = "Deliver the unstable reactor to Nix before it consumes all its fuel.";
-    public static String QuestReactorLaser = "Get your special laser at Nix.";
     public static String QuestScarabFind = "Find and destroy the Scarab (which is hiding at the exit to a wormhole).";
     public static String QuestScarabHull = "Get your hull upgraded at ^1.";
     public static String QuestScarabNotify = "Notify the authorities at ^1 that the Scarab has been destroyed.";
@@ -584,8 +560,6 @@ public class Strings {
     public static String SpecialCargoExperiment = "A portable singularity.";
     public static String SpecialCargoJapori = "10 bays of antidote.";
     public static String SpecialCargoNone = "No special items.";
-    public static String SpecialCargoReactor = "An unstable reactor taking up 5 bays.";
-    public static String SpecialCargoReactorBays = "of enriched fuel.";
     public static String SpecialCargoTribblesInfest = "An infestation of tribbles.";
     public static String SpecialCargoTribbleCute = "Cute, furry tribble.";
     public static String SpecialCargoTribblesCute = "Cute, furry tribbles.";
@@ -845,9 +819,6 @@ public class Strings {
             "Thank you for delivering the medicine to us. We don't have any money to reward you, but we do have an alien fast-learning machine with which we will increase your skills.",
             "There is a small but habitable moon for sale in the Utopia system, for the very reasonable sum of half a million credits. If you accept it, you can retire to it and live a peaceful, happy, and wealthy life. Do you wish to buy it?",
             "Welcome to the Utopia system. Your own moon is available for you to retire to it, if you feel inclined to do that. Are you ready to retire and lead a happy, peaceful, and wealthy life?",
-            "Galactic criminal Henry Morgan wants this illegal ion reactor delivered to Nix. It's a very dangerous mission! The reactor and its fuel are bulky, taking up 15 bays. Worse, it's not stable -- its resonant energy will weaken your shields and hull strength while it's aboard your ship. Are you willing to deliver it?",
-            "Henry Morgan takes delivery of the reactor with great glee. His men immediately set about stabilizing the fuel system. As a reward, Morgan offers you a special, high-powered laser that he designed. Return with an empty weapon slot when you want them to install it.",
-            "Morgan's technicians are standing by with something that looks a lot like a military laser -- if you ignore the additional cooling vents and anodized ducts. Do you want them to install Morgan's special laser?",
             "Captain Renwick developed a new organic hull material for his ship which cannot be damaged except by Pulse lasers. While he was celebrating this success, pirates boarded and stole the craft, which they have named the Scarab. Rumors suggest it's being hidden at the exit to a wormhole. Destroy the ship for a reward!",
             "Space Corps is indebted to you for destroying the Scarab and the pirates who stole it. As a reward, we can have Captain Renwick upgrade the hull of your ship. Note that his upgrades won't be transferable if you buy a new ship! Come back with the ship you wish to upgrade.",
             "The organic hull used in the Scarab is still not ready for day-to-day use. But Captain Renwick can certainly upgrade your hull with some of his retrofit technology. It's light stuff, and won't reduce your ship's range. Should he upgrade your ship?",
@@ -865,8 +836,7 @@ public class Strings {
             "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
             "Alien Invasion", "Fuel Compactor", "Gemulon Invaded",
             "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
-            "Moon For Sale", "Retirement", "Morgan's Reactor",
-            "Reactor Delivered", "Install Morgan's Laser", "Scarab Stolen",
+            "Moon For Sale", "Retirement", "Scarab Stolen",
             "Scarab Destroyed", "Upgrade Hull", "Skill Increase",
             "Space Monster", "Monster Killed", "Merchant Prince",
             "Tribble Buyer",

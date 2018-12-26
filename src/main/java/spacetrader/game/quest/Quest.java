@@ -2,6 +2,7 @@ package spacetrader.game.quest;
 
 import spacetrader.controls.Rectangle;
 import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 
 import java.util.Collection;

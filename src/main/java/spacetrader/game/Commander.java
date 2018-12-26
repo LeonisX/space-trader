@@ -2,12 +2,15 @@ package spacetrader.game;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
+
+import static spacetrader.game.quest.enums.EventName.IS_TRADE_SHIP;
 
 public class Commander extends CrewMember implements Serializable {
 
@@ -52,6 +55,14 @@ public class Commander extends CrewMember implements Serializable {
     }
 
     public boolean isTradeShip(ShipSpec specToBuy, int netPrice, String newShipName) {
+        BooleanContainer canTrade = new BooleanContainer(true);
+
+        Game.getCurrentGame().getQuestSystem().fireEvent(IS_TRADE_SHIP, canTrade);
+
+        if (!canTrade.getValue()) {
+            return false;
+        }
+
         if (netPrice > 0 && getDebt() > 0) {
             GuiFacade.alert(AlertType.DebtNoBuy);
         } else if (netPrice > getCashToSpend()) {
@@ -65,8 +76,6 @@ public class Commander extends CrewMember implements Serializable {
             GuiFacade.alert(AlertType.ShipBuyPassengerQuarters, passengers);
         } else if (specToBuy.getCrewQuarters() < getShip().getCrewCount()) {
             GuiFacade.alert(AlertType.ShipBuyCrewQuarters);
-        } else if (getShip().isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ShipBuyReactor);
         } else {
             Equipment[] special = new Equipment[]{Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()],
                     Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()],

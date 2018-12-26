@@ -121,16 +121,6 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (Game.getShip().isReactorOnBoard()) {
-            if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_FUEL_OK) {
-                quests.add(Strings.QuestReactor);
-            } else {
-                quests.add(Strings.QuestReactorFuel);
-            }
-        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
-            quests.add(Strings.QuestReactorLaser);
-        }
-
         if (game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
             quests.add(Strings.QuestSpaceMonsterKill);
         }

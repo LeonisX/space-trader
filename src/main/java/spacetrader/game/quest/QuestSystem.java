@@ -5,6 +5,7 @@ import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.ShipSpec;
 import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.QuestName;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -13,16 +14,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-
-enum QuestName {
-
-    Lottery,
-    Jarek,
-    Princess,
-    Wild,
-    Sculpture
-
-}
 
 public class QuestSystem implements Serializable {
 
@@ -109,7 +100,7 @@ public class QuestSystem implements Serializable {
         return quests;
     }
 
-    Quest getQuest(QuestName questName) {
+    public Quest getQuest(QuestName questName) {
         return quests.get(questName);
     }
 

@@ -39,12 +39,6 @@ public class SpecialEvent {
     public final static int STATUS_MOON_BOUGHT = 1;
     public final static int STATUS_MOON_DONE = 2;
 
-    public final static int STATUS_REACTOR_NOT_STARTED = 0;
-    public final static int STATUS_REACTOR_FUEL_OK = 1;
-    public final static int STATUS_REACTOR_DATE = 20;
-    public final static int STATUS_REACTOR_DELIVERED = 21;
-    public final static int STATUS_REACTOR_DONE = 22;
-
     public final static int STATUS_SCARAB_NOT_STARTED = 0;
     public final static int STATUS_SCARAB_HUNTING = 1;
     public final static int STATUS_SCARAB_DESTROYED = 2;

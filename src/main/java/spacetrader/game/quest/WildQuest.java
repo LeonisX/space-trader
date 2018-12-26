@@ -13,6 +13,7 @@ import spacetrader.game.enums.WeaponType;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.RandomEncounterContainer;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -194,7 +195,7 @@ class WildQuest extends AbstractQuest {
                 GuiFacade.alert(AlertType.SpecialNoQuarters);
             } else if (!Game.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
                 showAlert(Alerts.WildWontBoardLaser.getValue());
-            } else if (Game.getShip().isReactorOnBoard()) {
+            } else if (((ReactorQuest) game.getQuestSystem().getQuest(QuestName.Reactor)).isReactorOnBoard()) {
                 showAlert(Alerts.WildWontBoardReactor.getValue());
             } else {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());

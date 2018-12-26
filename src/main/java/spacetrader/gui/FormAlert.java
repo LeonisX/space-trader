@@ -289,9 +289,6 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterPiratesBounty:
                 return new FormAlert(AlertsEncounterPiratesBountyTitle, AlertsEncounterPiratesBountyMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterPiratesExamineReactor:
-                return new FormAlert(AlertsEncounterPiratesExamineReactorTitle, AlertsEncounterPiratesExamineReactorMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case EncounterPiratesFindNoCargo:
                 return new FormAlert(AlertsEncounterPiratesFindNoCargoTitle, AlertsEncounterPiratesFindNoCargoMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -479,27 +476,6 @@ public class FormAlert extends SpaceTraderForm {
             case PreciousHidden:
                 return new FormAlert(AlertsPreciousHiddenTitle, AlertsPreciousHiddenMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorConfiscated:
-                return new FormAlert(AlertsReactorConfiscatedTitle, AlertsReactorConfiscatedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorDestroyed:
-                return new FormAlert(AlertsReactorDestroyedTitle, AlertsReactorDestroyedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorOnBoard:
-                return new FormAlert(AlertsReactorOnBoardTitle, AlertsReactorOnBoardMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorMeltdown:
-                return new FormAlert(AlertsReactorMeltdownTitle, AlertsReactorMeltdownMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorWarningFuel:
-                return new FormAlert(AlertsReactorWarningFuelTitle, AlertsReactorWarningFuelMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorWarningFuelGone:
-                return new FormAlert(AlertsReactorWarningFuelGoneTitle, AlertsReactorWarningFuelGoneMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ReactorWarningTemp:
-                return new FormAlert(AlertsReactorWarningTempTitle, AlertsReactorWarningTempMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case RegistryError:
                 return new FormAlert(AlertsRegistryErrorTitle, AlertsRegistryErrorMessage, AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);
@@ -527,9 +503,6 @@ public class FormAlert extends SpaceTraderForm {
             case ShipBuyPassengerQuarters:
                 return new FormAlert(AlertsShipBuyPassengerQuartersTitle, AlertsShipBuyPassengerQuartersMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case ShipBuyReactor:
-                return new FormAlert(AlertsShipBuyReactorTitle, AlertsShipBuyReactorMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case ShipBuyTransfer:
                 return new FormAlert(AlertsShipBuyTransferTitle, AlertsShipBuyTransferMessage, AlertsShipBuyTransferAccept,
                         DialogResult.YES, AlertsShipBuyTransferCancel, DialogResult.NO, args);

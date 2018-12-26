@@ -128,7 +128,6 @@ public class StarSystem implements Serializable {
             case Gemulon:
             case GemulonFuel:
             case GemulonInvaded:
-            case ReactorLaser:
             case Skill:
             case SpaceMonster:
             case Tribble:
@@ -158,14 +157,6 @@ public class StarSystem implements Serializable {
                 break;
             case MoonRetirement:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;
-                break;
-            case Reactor:
-                show = game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_NOT_STARTED
-                        && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
-                        && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
-                break;
-            case ReactorDelivered:
-                show = Game.getShip().isReactorOnBoard();
                 break;
             case Scarab:
                 show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_NOT_STARTED

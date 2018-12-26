@@ -6,10 +6,12 @@ import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.QuestSystem;
+import spacetrader.game.quest.ReactorQuest;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
@@ -78,7 +80,6 @@ public class Game implements Serializable {
     private int questStatusGemulon = 0; // 0 = not given yet, 1-7 = days from start, 8 = too late, 9 = in time, 10 = done
     private int questStatusJapori = 0; // 0 = no disease, 1 = Go to Japori (always at least 10 medicine canisters), 2 = Assignment finished or canceled
     private int questStatusMoon = 0; // 0 = not bought, 1 = bought, 2 = claimed
-    private int questStatusReactor = 0; // 0 = not encountered, 1-20 = days of mission (bays of fuel left = 10 - (ReactorStatus / 2), 21 = delivered, 22 = Done
     private int questStatusScarab = 0; // 0 = not given yet, 1 = not destroyed, 2 = destroyed - upgrade not performed, 3 = destroyed - hull upgrade performed
     private int questStatusSpaceMonster = 0; // 0 = not available, 1 = Space monster is in Acamar system, 2 = Space monster is destroyed, 3 = Claimed reward
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
@@ -161,11 +162,6 @@ public class Game implements Serializable {
         GuiFacade.alert(AlertType.JailConvicted, Functions.plural(term, Strings.TimeUnit),
                 Functions.plural(fineContainer.getValue(), Strings.MoneyUnit));
 
-        if (commander.getShip().isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ReactorConfiscated);
-            setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_NOT_STARTED);
-        }
-
         if (commander.getShip().isAnyIllegalCargo()) {
             GuiFacade.alert(AlertType.JailIllegalGoodsImpounded);
             commander.getShip().removeIllegalGoods();
@@ -232,7 +228,7 @@ public class Game implements Serializable {
             setTrackedSystemId(StarSystemId.NA);
         }
 
-        checkReactorOnArrival();
+        questSystem.fireEvent(ON_ARRIVAL);
 
         checkTribblesOnArrival();
 
@@ -283,28 +279,6 @@ public class Game implements Serializable {
         }
     }
 
-    private void checkReactorOnArrival() {
-        if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DATE) {
-            GuiFacade.alert(AlertType.ReactorMeltdown);
-            setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_NOT_STARTED);
-            if (commander.getShip().getEscapePod()) {
-                escapeWithPod();
-            } else {
-                GuiFacade.alert(AlertType.ReactorDestroyed);
-                throw new GameEndException(KILLED.castToInt());
-            }
-        } else {
-            // Reactor warnings: now they know the quest has a time constraint!
-            if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_FUEL_OK + 1) {
-                GuiFacade.alert(AlertType.ReactorWarningFuel);
-            } else if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DATE - 4) {
-                GuiFacade.alert(AlertType.ReactorWarningFuelGone);
-            } else if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DATE - 2) {
-                GuiFacade.alert(AlertType.ReactorWarningTemp);
-            }
-        }
-    }
-
     private void checkTribblesOnArrival() {
         Ship ship = commander.getShip();
 
@@ -313,7 +287,7 @@ public class Game implements Serializable {
             int narc = TradeItemType.NARCOTICS.castToInt();
             int food = TradeItemType.FOOD.castToInt();
 
-            if (ship.isReactorOnBoard()) {
+            if (((ReactorQuest) questSystem.getQuest(QuestName.Reactor)).isReactorOnBoard()) {
                 if (ship.getTribbles() < 20) {
                     ship.setTribbles(0);
                     GuiFacade.alert(AlertType.TribblesAllDied);
@@ -499,14 +473,6 @@ public class Game implements Serializable {
 
     public void setQuestStatusScarab(int questStatusScarab) {
         this.questStatusScarab = questStatusScarab;
-    }
-
-    public int getQuestStatusReactor() {
-        return questStatusReactor;
-    }
-
-    public void setQuestStatusReactor(int questStatusReactor) {
-        this.questStatusReactor = questStatusReactor;
     }
 
     public int getQuestStatusMoon() {
@@ -851,13 +817,8 @@ public class Game implements Serializable {
 
     }
 
-    private void escapeWithPod() {
+    public void escapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
-
-        if (commander.getShip().isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ReactorDestroyed);
-            setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
-        }
 
         if (commander.getShip().getTribbles() > 0) {
             GuiFacade.alert(AlertType.TribblesKilled);
@@ -1126,35 +1087,6 @@ public class Game implements Serializable {
             case MoonRetirement:
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
                 throw new GameEndException(BOUGHT_MOON.castToInt());
-            case Reactor:
-                if (commander.getShip().getFreeCargoBays() < 15) {
-                    GuiFacade.alert(AlertType.CargoNoEmptyBays);
-                } else {
-
-                    BooleanContainer isConflict = new BooleanContainer(false);
-                    questSystem.fireEvent(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, isConflict);
-
-                    if (!isConflict.getValue()) {
-                        GuiFacade.alert(AlertType.ReactorOnBoard);
-                        setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_FUEL_OK);
-                        confirmQuestPhase();
-                    }
-                }
-                break;
-            case ReactorDelivered:
-                setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DELIVERED);
-                switchQuestPhase(SpecialEventType.ReactorLaser);
-                break;
-            case ReactorLaser:
-                if (commander.getShip().getFreeWeaponSlots() == 0) {
-                    GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                } else {
-                    GuiFacade.alert(AlertType.EquipmentMorgansLaser);
-                    commander.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
-                    setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
-                    confirmQuestPhase();
-                }
-                break;
             case Scarab:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_HUNTING);
                 confirmQuestPhase();
@@ -1245,10 +1177,6 @@ public class Game implements Serializable {
             }
         }
 
-        if (commander.getShip().isReactorOnBoard()) {
-            setQuestStatusReactor(Math.min(getQuestStatusReactor() + num, SpecialEvent.STATUS_REACTOR_DATE));
-        }
-
         if (getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
                 && getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
             setQuestStatusExperiment(Math.min(getQuestStatusExperiment() + num, SpecialEvent.STATUS_EXPERIMENT_PERFORMED));
@@ -1263,7 +1191,9 @@ public class Game implements Serializable {
             setFabricRipProbability(getFabricRipProbability() - num);
         }
 
-        questSystem.fireEvent(EventName.ON_INCREMENT_DAYS);
+        IntContainer numContainer = new IntContainer(num);
+
+        questSystem.fireEvent(EventName.ON_INCREMENT_DAYS, numContainer);
     }
 
     private void initializeCommander(String name, CrewMember commanderCrewMember) {
@@ -1334,7 +1264,6 @@ public class Game implements Serializable {
         getStarSystem(StarSystemId.Gemulon).setSpecialEventType(SpecialEventType.GemulonRescued);
         getStarSystem(StarSystemId.Japori).setSpecialEventType(SpecialEventType.JaporiDelivery);
         getStarSystem(StarSystemId.Utopia).setSpecialEventType(SpecialEventType.MoonRetirement);
-        getStarSystem(StarSystemId.Nix).setSpecialEventType(SpecialEventType.ReactorDelivered);
         getStarSystem(StarSystemId.Acamar).setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
@@ -1358,11 +1287,6 @@ public class Game implements Serializable {
             } else {
                 goodUniverseContainer.setValue(false);
             }
-        }
-
-        // Find the closest system at least 70 parsecs away from Nix that doesn't already have a special event.
-        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Nix, SpecialEventType.Reactor) < 0) {
-            goodUniverseContainer.setValue(false);
         }
 
         // Find the closest system at least 70 parsecs away from Gemulon that doesn't already have a special event.
@@ -1787,7 +1711,6 @@ public class Game implements Serializable {
                 questStatusGemulon == game.questStatusGemulon &&
                 questStatusJapori == game.questStatusJapori &&
                 questStatusMoon == game.questStatusMoon &&
-                questStatusReactor == game.questStatusReactor &&
                 questStatusScarab == game.questStatusScarab &&
                 questStatusSpaceMonster == game.questStatusSpaceMonster &&
                 fabricRipProbability == game.fabricRipProbability &&
@@ -1822,8 +1745,8 @@ public class Game implements Serializable {
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
                 selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
                 questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori,
-                questStatusMoon, questStatusReactor, questStatusScarab, questStatusSpaceMonster,
-                fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
+                questStatusMoon, questStatusScarab, questStatusSpaceMonster, fabricRipProbability,
+                justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
         result = 31 * result + mercenaries.hashCode();
