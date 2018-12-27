@@ -324,6 +324,7 @@ SpecialCargoTribblesInfestation=Эпидемия трибблов.
 
 * NEWS????
 * Occurrence per phase
+* Tribbles images in foreground
 * Test all
 
 ### Princess
