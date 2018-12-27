@@ -4,6 +4,7 @@ import spacetrader.game.enums.NewsEvent;
 import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.SystemPressure;
+import spacetrader.game.quest.containers.NewsContainer;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
@@ -173,21 +174,27 @@ public class News implements Serializable {
         boolean realNews = false;
         //TODO ???
         int minProbability = Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10 * (5 - Game.getDifficultyId());
+
+        NewsContainer newsContainer = new NewsContainer(news);
+
         for (StarSystem starSystem : Game.getCurrentGame().getUniverse()) {
             if (starSystem.destIsOk() && starSystem != curSys) {
                 // Special stories that always get shown: moon, millionaire, shipyard
 
+                newsContainer.setStarSystem(starSystem);
+
                 if (starSystem.getSpecialEventType() == SpecialEventType.Moon) {
-                    news.add(Strings.NewsMoonForSale);
+                    newsContainer.getNews().add(Strings.NewsMoonForSale);
                 }
 
                 if (starSystem.getShipyardId() != ShipyardId.NA) {
-                    news.add(Strings.NewsShipyard);
+                    newsContainer.getNews().add(Strings.NewsShipyard);
                 }
 
-                Game.getCurrentGame().getQuestSystem().fireEvent(ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS);
+                Game.getCurrentGame().getQuestSystem().fireEvent(ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS, newsContainer);
 
-                news = news.stream().map(n -> Functions.stringVars(n, starSystem.getName())).collect(Collectors.toList());
+                newsContainer.setNews(newsContainer.getNews().stream()
+                        .map(n -> Functions.stringVars(n, starSystem.getName())).collect(Collectors.toList()));
 
                 // And not-always-shown stories
                 if (starSystem.getSystemPressure() != SystemPressure.NONE
@@ -196,7 +203,7 @@ public class News implements Serializable {
                     int index = Functions.getRandom2(Strings.NewsPressureExternal.length);
                     String baseStr = Strings.NewsPressureExternal[index];
                     String pressure = Strings.NewsPressureExternalPressures[starSystem.getSystemPressure().castToInt()];
-                    news.add(Functions.stringVars(baseStr, pressure, starSystem.getName()));
+                    newsContainer.getNews().add(Functions.stringVars(baseStr, pressure, starSystem.getName()));
                     realNews = true;
                 }
             }
@@ -211,12 +218,12 @@ public class News implements Serializable {
             for (int i = 0; i <= toShow; i++) {
                 int index = Functions.getRandom2(headlines.length);
                 if (!shown[index]) {
-                    news.add(headlines[index]);
+                    newsContainer.getNews().add(headlines[index]);
                     shown[index] = true;
                 }
             }
         }
 
-        return news.stream().map(s -> "\u02FE " + s).collect(Collectors.joining(Strings.newline));
+        return newsContainer.getNews().stream().map(s -> "\u02FE " + s).collect(Collectors.joining(Strings.newline));
     }
 }

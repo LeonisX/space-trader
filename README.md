@@ -322,9 +322,7 @@ SpecialCargoTribbleCute=Милый, пушистый триббл.
 SpecialCargoTribblesCute=Милые, пушистые трибблы.
 SpecialCargoTribblesInfestation=Эпидемия трибблов.
 
-* NEWS in nearest systems????
 * Test occurrence per phase
-* Tribbles images in foreground
 * Test all
 * Retest all quests
 

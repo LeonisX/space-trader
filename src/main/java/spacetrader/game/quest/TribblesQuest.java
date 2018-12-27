@@ -6,6 +6,7 @@ import spacetrader.game.Ship;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.TradeItemType;
 import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.NewsContainer;
 import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
@@ -278,8 +279,9 @@ public class TribblesQuest extends AbstractQuest {
 
     @SuppressWarnings("unchecked")
     private void onNewsAddEventFromNearestSystems(Object object) {
-        if (phases.get(QuestPhases.TribbleBuyer).isDesiredSystem()) {
-            ((List<String>) object).add(News.NewsTribbleBuyer.getValue());
+        NewsContainer newsContainer = (NewsContainer) object;
+        if (isQuestIsActive() && phases.get(QuestPhases.TribbleBuyer).isDesiredSystem(newsContainer.getStarSystem())) {
+            newsContainer.getNews().add(News.NewsTribbleBuyer.getValue());
         }
     }
 
@@ -344,7 +346,7 @@ public class TribblesQuest extends AbstractQuest {
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
-        if (cheatWords.getSecond().equals(CheatTitles.Varmints.name())) {
+        if (cheatWords.getFirst().equals(CheatTitles.Varmints.name())) {
             tribbles = Math.max(0, cheatWords.getNum1());
             cheatWords.setCheat(true);
             log.fine("consider cheat");

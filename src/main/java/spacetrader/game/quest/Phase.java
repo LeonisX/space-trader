@@ -1,6 +1,7 @@
 package spacetrader.game.quest;
 
 import spacetrader.game.Game;
+import spacetrader.game.StarSystem;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 
@@ -36,6 +37,10 @@ public abstract class Phase implements Serializable {
 
     boolean isDesiredSystem() {
         return starSystemIds.stream().anyMatch(Game::isCurrentSystemIs);
+    }
+
+    boolean isDesiredSystem(StarSystem starSystem) {
+        return starSystemIds.stream().anyMatch(s -> s.equals(starSystem.getId()));
     }
 
     public List<StarSystemId> getStarSystemIds() {
