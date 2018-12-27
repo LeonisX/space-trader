@@ -40,7 +40,7 @@ public class TribblesQuest extends AbstractQuest {
     };
 
     private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
-    //TODO on phase level
+    //TODO remove in future, if don't need
     private static final int OCCURRENCE = 1;
 
     private boolean tribbleMessage = false; // Is true if the Ship Yard on the current system informed you about the tribbles
@@ -60,25 +60,11 @@ public class TribblesQuest extends AbstractQuest {
         log.fine("started...");
     }
 
-    //TODO test manually
-    public List<Point> getCoordinates() {
-        int toShow = min(coordinates.length,
-                (int) sqrt(tribbles / ceil(MaxTribbles / pow(coordinates.length + 1, 2))));
-
-        if (toShow == 0) {
-            return Collections.emptyList();
-        }
-
-        List<Point> list = new ArrayList<>(Arrays.asList(coordinates));
-        Collections.shuffle(list);
-
-        return list.subList(0, toShow - 1);
-    }
-
     private void initializePhases(QuestPhases[] values, Phase... phases) {
         for (int i = 0; i < phases.length; i++) {
             this.phases.put(values[i], phases[i]);
             phases[i].setQuest(this);
+            phases[i].setOccurrence(values[i].getValue().getOccurrence());
             phases[i].setPhaseEnum(values[i]);
         }
     }
@@ -112,6 +98,21 @@ public class TribblesQuest extends AbstractQuest {
         return phases.values();
     }
 
+    //TODO test manually
+    public List<Point> getCoordinates() {
+        int toShow = min(coordinates.length,
+                (int) sqrt(tribbles / ceil(MaxTribbles / pow(coordinates.length + 1, 2))));
+
+        if (toShow == 0) {
+            return Collections.emptyList();
+        }
+
+        List<Point> list = new ArrayList<>(Arrays.asList(coordinates));
+        Collections.shuffle(list);
+
+        return list.subList(0, toShow - 1);
+    }
+
     @Override
     public void registerListener() {
         getTransitionMap().keySet().forEach(this::registerOperation);
@@ -142,9 +143,12 @@ public class TribblesQuest extends AbstractQuest {
     }
 
     private void onAssignEventsRandomly(Object object) {
-        phases.get(QuestPhases.Tribble).setStarSystemId(occupyFreeSystemWithEvent());
-        //TODO occurrence
-        phases.get(QuestPhases.TribbleBuyer).setStarSystemId(occupyFreeSystemWithEvent());
+        for (int i = 0; i < phases.get(QuestPhases.Tribble).getOccurrence(); i++) {
+            phases.get(QuestPhases.Tribble).setStarSystemId(occupyFreeSystemWithEvent());
+        }
+        for (int i = 0; i < phases.get(QuestPhases.TribbleBuyer).getOccurrence(); i++) {
+            phases.get(QuestPhases.TribbleBuyer).setStarSystemId(occupyFreeSystemWithEvent());
+        }
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
@@ -274,7 +278,6 @@ public class TribblesQuest extends AbstractQuest {
 
     @SuppressWarnings("unchecked")
     private void onNewsAddEventFromNearestSystems(Object object) {
-        //TODO occurrence
         if (phases.get(QuestPhases.TribbleBuyer).isDesiredSystem()) {
             ((List<String>) object).add(News.NewsTribbleBuyer.getValue());
         }
@@ -350,13 +353,9 @@ public class TribblesQuest extends AbstractQuest {
         }
     }
 
-    //TODO ocurrence
-    //new SpecialEvent(SpecialEventType.Tribble, 1000, 1, false),
-    //            new SpecialEvent(SpecialEventType.TribbleBuyer, 0, 3, false),
-
     enum QuestPhases implements SimpleValueEnum<QuestDialog> {
-        Tribble(new QuestDialog(1000, DIALOG, "Merchant Prince", "A merchant prince offers you a very special and wondrous item for the sum of 1000 credits. Do you accept?")),
-        TribbleBuyer(new QuestDialog(DIALOG, "Tribble Buyer", "An eccentric alien billionaire wants to buy your collection of tribbles and offers half a credit for each of them. Do you accept his offer?"));
+        Tribble(new QuestDialog(1000, 1, DIALOG, "Merchant Prince", "A merchant prince offers you a very special and wondrous item for the sum of 1000 credits. Do you accept?")),
+        TribbleBuyer(new QuestDialog(0, 3, DIALOG, "Tribble Buyer", "An eccentric alien billionaire wants to buy your collection of tribbles and offers half a credit for each of them. Do you accept his offer?"));
 
         private QuestDialog value;
 

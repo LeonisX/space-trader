@@ -217,7 +217,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     void showSpecialButtonIfCanBeExecuted(Object object, Phase phase) {
         if (phase.canBeExecuted()) {
-            log.finest("phase `" + phase.getTitle() + "` : " + Game.getCurrentSystemId() + " ~ " + phase.getStarSystemId());
+            log.finest("phase `" + phase.getTitle() + "` : " + Game.getCurrentSystemId() + " ~ " + phase.getStarSystemIds());
             showSpecialButton(object, phase.getTitle());
         }
     }

@@ -5,14 +5,18 @@ import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Phase implements Serializable {
 
-    private StarSystemId starSystemId;
+    private List<StarSystemId> starSystemIds = new ArrayList<>();
 
     private Quest quest;
 
     private SimpleValueEnum<QuestDialog> phase;
+
+    private int occurrence;
 
     public String getTitle() {
         return phase.getValue().getTitle();
@@ -22,17 +26,28 @@ public abstract class Phase implements Serializable {
 
     public abstract void successFlow();
 
-    // TODO occurrence
-    public boolean isDesiredSystem() {
-        return Game.isCurrentSystemIs(starSystemId);
+    public Phase() {
+        this(1);
+    }
+
+    public Phase(int occurrence) {
+        this.occurrence = occurrence;
+    }
+
+    boolean isDesiredSystem() {
+        return starSystemIds.stream().anyMatch(Game::isCurrentSystemIs);
+    }
+
+    public List<StarSystemId> getStarSystemIds() {
+        return starSystemIds;
     }
 
     public StarSystemId getStarSystemId() {
-        return starSystemId;
+        return starSystemIds.get(0);
     }
 
-    public void setStarSystemId(StarSystemId starSystemId) {
-        this.starSystemId = starSystemId;
+    void setStarSystemId(StarSystemId starSystemId) {
+        starSystemIds.add(starSystemId);
     }
 
     public Quest getQuest() {
@@ -47,10 +62,21 @@ public abstract class Phase implements Serializable {
         this.phase = phaseEnum;
     }
 
+    public int getOccurrence() {
+        return occurrence;
+    }
+
+    public void setOccurrence(int occurrence) {
+        this.occurrence = occurrence;
+    }
+
     @Override
     public String toString() {
         return "Phase{" +
-                ", starSystemId=" + starSystemId +
+                "starSystemIds=" + starSystemIds +
+                ", quest=" + quest +
+                ", phase=" + phase +
+                ", occurrence=" + occurrence +
                 '}';
     }
 }

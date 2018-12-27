@@ -530,7 +530,6 @@ class SculptureQuest extends AbstractQuest {
         return "SculptureQuest{" +
                 "questStatus=" + questStatus +
                 ", sculptureOnBoard=" + sculptureOnBoard +
-                ", phases=" + phases +
                 "} " + super.toString();
     }
 }

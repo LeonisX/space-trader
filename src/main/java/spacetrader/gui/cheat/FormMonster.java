@@ -319,12 +319,10 @@ public class FormMonster extends SpaceTraderForm {
 
         // Populate the quest and shipyard system ids arrays.
         questSystems.addAll(game.getQuestSystem().getPhasesStream()
-                .map(p ->
-                        (null == p.getStarSystemId())
+                .flatMap(p -> p.getStarSystemIds().stream().map(s -> (null == s)
                                 ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown, p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])
-                                : createQuestRow(p)
-                )
-                .collect(toList()));
+                                : createQuestRow(p, s))
+                ).collect(toList()));
         for (StarSystem system : game.getUniverse()) {
             //TODO remove after all quests
             if (system.showSpecialButton()) {
@@ -348,8 +346,8 @@ public class FormMonster extends SpaceTraderForm {
         return new Row(systemId, system.getName(), title, state);
     }
 
-    private Row createQuestRow(Phase phase) {
-        int systemId = (null == phase.getStarSystemId()) ? StarSystemId.NA.castToInt() : phase.getStarSystemId().castToInt();
+    private Row createQuestRow(Phase phase, StarSystemId starSystemId) {
+        int systemId = (null == starSystemId) ? StarSystemId.NA.castToInt() : starSystemId.castToInt();
         String systemName = (systemId < 0) ? Strings.Unknown : Game.getStarSystem(systemId).getName();
         return new Row(systemId, systemName, phase.getTitle(), Strings.QuestStates[phase.getQuest().getQuestState().ordinal()]);
     }
