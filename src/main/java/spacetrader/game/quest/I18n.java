@@ -6,6 +6,7 @@ import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.stub.StringsBundle;
 import spacetrader.util.Functions;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 enum Res {
@@ -39,6 +40,8 @@ enum Res {
 
 class I18n {
 
+    transient private static Logger log = Logger.getLogger(I18n.class.getName());
+
     static void echoQuestName(Class<? extends Quest> aClass) {
         System.out.println(String.format("\n\n## %s", splitCamelCase(aClass.getSimpleName())));
     }
@@ -54,7 +57,11 @@ class I18n {
 
     static void dumpStrings(Res resource, Stream<SimpleValueEnum<String>> values) {
         System.out.println(String.format("\n# %s:", resource.getTitle()));
-        values.forEach(pair -> System.out.println(getHead(resource.getPrefix(), pair.name()) + "=" + pair.getValue()));
+        values.forEach(pair -> {
+            if (pair.getValue() != null || !pair.getValue().isEmpty()) {
+                System.out.println(getHead(resource.getPrefix(), pair.name()) + "=" + pair.getValue());
+            }
+        });
     }
 
     static void dumpAlerts(Stream<SimpleValueEnum<AlertDialog>> alerts) {
@@ -85,7 +92,15 @@ class I18n {
 
     static void localizeStrings(Res resource, Stream<SimpleValueEnum<String>> values) {
         StringsBundle strings = GlobalAssets.getStrings();
-        values.forEach(v -> v.setValue(Functions.detectPlural(Strings.pluralMap, strings.get(getHead(resource.getPrefix(), v.name())))));
+        values.forEach(v -> {
+            String name = getHead(resource.getPrefix(), v.name());
+            String value = strings.get(name);
+            if (value != null) {
+                v.setValue(Functions.detectPlural(Strings.pluralMap, value));
+            } else {
+                log.warning("Can't find value for: " + name);
+            }
+        });
     }
 
     private static String getHeadTitle(String prefix, String key) {

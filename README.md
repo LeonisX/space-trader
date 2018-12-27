@@ -227,10 +227,104 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Tribbles
-* Dump
-* Localize
-* Clear lang files from Tribbles
+
+## Tribbles Quest
+
+# Quest phases:
+PhaseTribbleTitle=Merchant Prince
+PhaseTribbleMessage=A merchant prince offers you a very special and wondrous item for the sum of 1000 credits. Do you accept?
+PhaseTribbleBuyerTitle=Tribble Buyer
+PhaseTribbleBuyerMessage=An eccentric alien billionaire wants to buy your collection of tribbles and offers half a credit for each of them. Do you accept his offer?
+
+# Quest clues:
+QuestTribbles=Get rid of those pesky tribbles.
+
+# Alerts:
+AlertTribblesOwnTitle=A Tribble
+AlertTribblesOwnMessage=You are now the proud owner of a little, cute, furry tribble.
+AlertTribblesGoneTitle=No More Tribbles
+AlertTribblesGoneMessage=The alien uses his alien technology to beam over your whole collection of Tribbles to his ship.
+AlertTribblesHalfDiedTitle=Half The Tribbles Died
+AlertTribblesHalfDiedMessage=The radiation from the Ion Reactor seems to be deadly to Tribbles. Half the Tribbles on board died.
+AlertTribblesMostDiedTitle=Most Tribbles Died
+AlertTribblesMostDiedMessage=You find that, instead of narcotics, some of your cargo bays contain only dead Tribbles!
+AlertTribblesAllDiedTitle=All The Tribbles Died
+AlertTribblesAllDiedMessage=The radiation from the Ion Reactor is deadly to Tribbles. All of the Tribbles on board your ship have died.
+AlertTribblesSqueekTitle=A Tribble
+AlertTribblesSqueekMessage=Squeek!
+AlertTribblesAteFoodTitle=Tribbles Ate Food
+AlertTribblesAteFoodMessage=You find that, instead of food, some of your cargo bays contain only Tribbles!
+AlertTribblesKilledTitle=Tribbles Killed
+AlertTribblesKilledMessage=Your Tribbles all died in the explosion.
+AlertTribblesRemovedTitle=Tribbles Removed
+AlertTribblesRemovedMessage=The Tribbles were sold with your ship.
+AlertTribblesInspectorTitle=Space Port Inspector
+AlertTribblesInspectorMessage=Our scan reports you have ^1 Tribbles on board your ship. Tribbles are pests worse than locusts! You are running the risk of getting a hefty fine!
+AlertTribblesTradeInTitle=You've Got Tribbles
+AlertTribblesTradeInMessage=Hm. I see you got a Tribble infestation on your current ship. I'm sorry, but that severely reduces the trade-in price.
+
+# Encounters:
+EncounterTribbleDangerousNumber=a dangerous number of
+
+# News:
+NewsNewsTribbleBuyer=Collector in ^1 System seeks to purchase Tribbles.
+
+# Special Cargo Titles:
+SpecialCargoTribbleCute=Cute, furry tribble.
+SpecialCargoTribblesCute=Cute, furry tribbles.
+SpecialCargoTribblesInfestation=An infestation of tribbles.
+
+
+
+## Tribbles Quest
+
+# Quest phases:
+PhaseTribbleTitle=Крупный оптовик
+PhaseTribbleMessage=Оптовый торговец предлагает вам особый и удивительный предмет за сумму в 1000 кредитов. Вы согласны?
+PhaseTribbleBuyerTitle=Покупатель трибблов
+PhaseTribbleBuyerMessage=Эксцентричный инопланетный миллиардер хочет купить вашу коллекцию трибблов и предлагает пол кредита за каждого из них. Вы примете его предложение?
+
+# Quest clues:
+QuestTribbles=Избавиться от этих надоедливых трибблов.
+
+# Alerts:
+AlertTribblesOwnTitle=Триббл
+AlertTribblesOwnMessage=Теперь вы гордый обладатель маленького, милого, пушистого триббла.
+AlertTribblesGoneTitle=Трибблов больше нет
+AlertTribblesGoneMessage=Пришелец воспользовался своей инопланетной технологией, чтобы телепортировать всё ваше сборище трибблов к себе на корабль.
+AlertTribblesHalfDiedTitle=Половина трибблов сдохла
+AlertTribblesHalfDiedMessage=Похоже, что излучение ионного реактора смертельно для трибблов. Половина всех трибблов на борту вашего корабля сдохла.
+AlertTribblesMostDiedTitle=Большинство трибблов погибло
+AlertTribblesMostDiedMessage=Вы обнаружили, что вместо наркотиков, некоторые грузовые отсеки завалены тушками умерших трибблов!
+AlertTribblesAllDiedTitle=Все Трибблы сдохли
+AlertTribblesAllDiedMessage=Излучение ионного реактора смертоносно для трибблов. Все трибблы на борту вашего корабля как один передохли.
+AlertTribblesSqueekTitle=Триббл
+AlertTribblesSqueekMessage=Писк!
+AlertTribblesAteFoodTitle=Трибблы уничтожили продовольствие
+AlertTribblesAteFoodMessage=Вы обнаружили, что вместо продуктов питания, некоторые отсеки полны копошащихся трибблов!
+AlertTribblesKilledTitle=Трибблы были убиты
+AlertTribblesKilledMessage=Все ваши трибблы погибли во время взрыва.
+AlertTribblesRemovedTitle=Избавление от трибблов
+AlertTribblesRemovedMessage=Трибблы были проданы вместе с вашим кораблём.
+AlertTribblesInspectorTitle=Инспектор космопорта
+AlertTribblesInspectorMessage=Результаты сканирования показывают наличие на борту вашего корабля ^1 трибблов. Это вредители похлеще саранчи! Вы рискуете заполучить здоровенный штраф!
+AlertTribblesTradeInTitle=У вас есть трибблы
+AlertTribblesTradeInMessage=Хм. Вижу, что ваш корабль заражён трибблами. Простите, но это серьёзно снижает его стоимость.
+
+# Encounters:
+EncounterTribbleDangerousNumber=опасное количество
+
+# News:
+NewsNewsTribbleBuyer=Коллекционер в системе ^1 пытается купить Трибблов.
+
+# Special Cargo Titles:
+SpecialCargoTribbleCute=Милый, пушистый триббл.
+SpecialCargoTribblesCute=Милые, пушистые трибблы.
+SpecialCargoTribblesInfestation=Эпидемия трибблов.
+
+* NEWS????
+* Occurrence per phase
+* Test all
 
 ### Princess
 

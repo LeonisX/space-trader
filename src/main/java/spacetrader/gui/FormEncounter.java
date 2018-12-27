@@ -1,6 +1,5 @@
 package spacetrader.gui;
 
-import spacetrader.game.Encounter;
 import spacetrader.controls.Button;
 import spacetrader.controls.*;
 import spacetrader.controls.Graphics;
@@ -9,6 +8,7 @@ import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
+import spacetrader.game.Encounter;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.EncounterResult;
@@ -19,11 +19,9 @@ import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.Math.*;
 import static spacetrader.game.quest.enums.EventName.ENCOUNTER_ON_TRIBBLE_PICTURE_CLICK;
 
 @Facaded
@@ -85,8 +83,6 @@ public class FormEncounter extends SpaceTraderForm {
     private ImageList encounterTypeImageList = new ImageList();
     private ImageList tribblesImageList = new ImageList();
 
-    private List<PictureBox> tribbles;
-
     private Timer timer = new Timer();
     
     private int continueImage = 1;
@@ -105,7 +101,6 @@ public class FormEncounter extends SpaceTraderForm {
         }
 
         updateShipInfo();
-        updateTribbles();
         updateButtons();
 
         if (encounter.getEncounterImageIndex() >= 0) {
@@ -391,24 +386,6 @@ public class FormEncounter extends SpaceTraderForm {
         continuousPicture.setTabStop(false);
         continuousPicture.setVisible(false);
 
-        Point[] coordinates = TribblesQuest.getCoordinates();
-
-        tribbles = Arrays.stream(coordinates).map(c -> {
-            PictureBox pictureBox = new PictureBox();
-            pictureBox.setLocation(c.x, c.y);
-            pictureBox.setBackground(SystemColors.CONTROL);
-            pictureBox.setSize(12, 12);
-            pictureBox.setTabStop(false);
-            pictureBox.setVisible(false);
-            pictureBox.setClick(new EventHandler<Object, EventArgs>() {
-                @Override
-                public void handle(Object sender, EventArgs e) {
-                    tribblePictureClick();
-                }
-            });
-            return pictureBox;
-        }).collect(Collectors.toList());
-
         timer.setInterval(1000);
         timer.setTick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -428,6 +405,23 @@ public class FormEncounter extends SpaceTraderForm {
         continuousImageList.setImageSize(9, 9);
         continuousImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilContinuous.ImageStream"))));
         continuousImageList.setTransparentColor(Color.WHITE);
+
+        List<PictureBox> tribbles = ((TribblesQuest) game.getQuestSystem().getQuest(QuestName.Tribbles)).getCoordinates().stream()
+                .map(c -> {
+                    PictureBox pictureBox = new PictureBox();
+                    pictureBox.setLocation(c.x, c.y); //TODO scale
+                    pictureBox.setBackground(SystemColors.CONTROL);
+                    pictureBox.setSize(12, 12); //TODO scale
+                    pictureBox.setTabStop(false);
+                    pictureBox.setImage(tribblesImageList.getImages()[Functions.getRandom(tribblesImageList.getImages().length)]);
+                    pictureBox.setClick(new EventHandler<Object, EventArgs>() {
+                        @Override
+                        public void handle(Object sender, EventArgs e) {
+                            tribblePictureClick();
+                        }
+                    });
+                    return pictureBox;
+                }).collect(Collectors.toList());
 
         controls.addAll(encounterTypePicture, youLabel, opponentLabel, yourShipPicture, opponentsShipPicture,
                 yourShipLabelValue, opponentsShipLabelValue, yourHullLabelValue, opponentsHullLabelValue,
@@ -585,22 +579,6 @@ public class FormEncounter extends SpaceTraderForm {
 
         yourShipPicture.refresh();
         opponentsShipPicture.refresh();
-    }
-
-    private void updateTribbles() {
-        int tribblesCount = ((TribblesQuest) game.getQuestSystem().getQuest(QuestName.Tribbles)).getTribbles();
-
-        int toShow = min(tribbles.size(),
-                (int) sqrt(tribblesCount / ceil(TribblesQuest.MaxTribbles / pow(tribbles.size() + 1, 2))));
-
-        for (int i = 0; i < toShow; i++) {
-            int index = Functions.getRandom(tribbles.size());
-            while (tribbles.get(index).isVisible()) {
-                index = (index + 1) % tribbles.size();
-            }
-            tribbles.get(index).setImage(tribblesImageList.getImages()[Functions.getRandom(tribblesImageList.getImages().length)]);
-            tribbles.get(index).setVisible(true);
-        }
     }
 
     private void attackButtonClick() {

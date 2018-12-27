@@ -22,6 +22,7 @@ public abstract class Phase implements Serializable {
 
     public abstract void successFlow();
 
+    // TODO occurrence
     public boolean isDesiredSystem() {
         return Game.isCurrentSystemIs(starSystemId);
     }

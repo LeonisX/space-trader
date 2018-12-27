@@ -178,14 +178,16 @@ public class News implements Serializable {
                 // Special stories that always get shown: moon, millionaire, shipyard
 
                 if (starSystem.getSpecialEventType() == SpecialEventType.Moon) {
-                    news.add(Functions.stringVars(Strings.NewsMoonForSale, starSystem.getName()));
+                    news.add(Strings.NewsMoonForSale);
+                }
+
+                if (starSystem.getShipyardId() != ShipyardId.NA) {
+                    news.add(Strings.NewsShipyard);
                 }
 
                 Game.getCurrentGame().getQuestSystem().fireEvent(ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS);
 
-                if (starSystem.getShipyardId() != ShipyardId.NA) {
-                    news.add(Functions.stringVars(Strings.NewsShipyard, starSystem.getName()));
-                }
+                news = news.stream().map(n -> Functions.stringVars(n, starSystem.getName())).collect(Collectors.toList());
 
                 // And not-always-shown stories
                 if (starSystem.getSystemPressure() != SystemPressure.NONE
