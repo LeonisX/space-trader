@@ -389,7 +389,9 @@ public class ReactorQuest extends AbstractQuest {
     }
 
     private void onBeforeKilled(Object object) {
-        showAlert(Alerts.ReactorDestroyed.getValue());
+        if (isReactorOnBoard()) {
+            showAlert(Alerts.ReactorDestroyed.getValue());
+        }
     }
 
     private void onIsConsiderCheat(Object object) {

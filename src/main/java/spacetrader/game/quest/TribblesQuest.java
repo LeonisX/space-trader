@@ -99,7 +99,6 @@ public class TribblesQuest extends AbstractQuest {
         return phases.values();
     }
 
-    //TODO test manually
     public List<Point> getCoordinates() {
         int toShow = min(coordinates.length,
                 (int) sqrt(tribbles / ceil(MaxTribbles / pow(coordinates.length + 1, 2))));
@@ -167,7 +166,7 @@ public class TribblesQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #1");
             showAlert(Alerts.TribblesOwn.getValue());
-            tribbles = 1;
+            setTribbles(1);
             game.confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
@@ -190,7 +189,7 @@ public class TribblesQuest extends AbstractQuest {
 
             showAlert(Alerts.TribblesGone.getValue());
             Game.getCommander().setCash(Game.getCommander().getCash() + (tribbles / 2));
-            tribbles = 0;
+            setTribbles(0);
             game.confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
             game.getQuestSystem().unSubscribeAll(getQuest());
@@ -237,7 +236,6 @@ public class TribblesQuest extends AbstractQuest {
         }
     }
 
-    //TODO test if tribbles affects price
     private void onFormShipListShow(Object object) {
         if (tribbles > 0 && !tribbleMessage) {
             showAlert(Alerts.TribblesTradeIn.getValue());
@@ -273,7 +271,7 @@ public class TribblesQuest extends AbstractQuest {
 
     private void failQuest() {
         game.getQuestSystem().unSubscribeAll(getQuest());
-        tribbles = 0;
+        setTribbles(0);
         setQuestState(QuestState.FAILED);
     }
 
@@ -297,10 +295,10 @@ public class TribblesQuest extends AbstractQuest {
 
             if (((ReactorQuest) game.getQuestSystem().getQuest(QuestName.Reactor)).isReactorOnBoard()) {
                 if (tribbles < 20) {
-                    tribbles = 0;
                     showAlert(Alerts.TribblesAllDied.getValue());
+                    failQuest();
                 } else {
-                    tribbles = tribbles / 2;
+                    setTribbles(tribbles / 2);
                     showAlert(Alerts.TribblesHalfDied.getValue());
                 }
             } else if (ship.getCargo()[narc] > 0) {
@@ -309,25 +307,25 @@ public class TribblesQuest extends AbstractQuest {
                         = commander.getPriceCargo()[narc] * (ship.getCargo()[narc] - dead) / ship.getCargo()[narc];
                 ship.getCargo()[narc] -= dead;
                 ship.getCargo()[TradeItemType.FURS.castToInt()] += dead;
-                tribbles = tribbles - Math.min(dead * (Functions.getRandom(5) + 98), tribbles - 1);
+                setTribbles(tribbles - Math.min(dead * (Functions.getRandom(5) + 98), tribbles - 1));
                 showAlert(Alerts.TribblesMostDied.getValue());
             } else {
-                if (ship.getCargo()[food] > 0 && tribbles < MaxTribbles) {
+                if (ship.getCargo()[food] > 0 && tribbles <= MaxTribbles) {
                     int eaten = ship.getCargo()[food] - Functions.getRandom(ship.getCargo()[food]);
                     commander.getPriceCargo()[food] -= commander.getPriceCargo()[food] * eaten / ship.getCargo()[food];
                     ship.getCargo()[food] -= eaten;
-                    tribbles = tribbles + (eaten * 100);
+                    setTribbles(tribbles + (eaten * 100));
                     showAlert(Alerts.TribblesAteFood.getValue());
                 }
 
                 if (tribbles < MaxTribbles) {
                     int max = ship.getCargo()[food] > 0 ? tribbles : tribbles / 2;
                     int tribblessToAdd = (max > 0) ? Functions.getRandom(max) : 0;
-                    tribbles = tribbles + tribblessToAdd + 1;
+                    setTribbles(tribbles + tribblessToAdd + 1);
                 }
 
                 if (tribbles > MaxTribbles) {
-                    tribbles = MaxTribbles;
+                    setTribbles(MaxTribbles);
                 }
 
                 if ((previousTribbles < 100 && tribbles >= 100)
@@ -347,12 +345,17 @@ public class TribblesQuest extends AbstractQuest {
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getFirst().equals(CheatTitles.Varmints.name())) {
-            tribbles = Math.max(0, cheatWords.getNum1());
+            setTribbles(Math.max(0, cheatWords.getNum1()));
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {
             log.fine("not consider cheat");
         }
+    }
+
+    private void setTribbles(int tribbles) {
+        log.fine("Tribbles: " + this.tribbles + " -> " + tribbles);
+        this.tribbles = tribbles;
     }
 
     enum QuestPhases implements SimpleValueEnum<QuestDialog> {
@@ -401,8 +404,8 @@ public class TribblesQuest extends AbstractQuest {
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         TribblesOwn("A Tribble", "You are now the proud owner of a little, cute, furry tribble."),
         TribblesGone("No More Tribbles", "The alien uses his alien technology to beam over your whole collection of Tribbles to his ship."),
-        TribblesHalfDied("Half The Tribbles Died", "The radiation from the Ion Reactor seems to be deadly to Tribbles. Half the Tribbles on board died."),
         TribblesMostDied("Most Tribbles Died", "You find that, instead of narcotics, some of your cargo bays contain only dead Tribbles!"),
+        TribblesHalfDied("Half The Tribbles Died", "The radiation from the Ion Reactor seems to be deadly to Tribbles. Half the Tribbles on board died."),
         TribblesAllDied("All The Tribbles Died", "The radiation from the Ion Reactor is deadly to Tribbles. All of the Tribbles on board your ship have died."),
         TribblesSqueek("A Tribble", "Squeek!"),
         TribblesAteFood("Tribbles Ate Food", "You find that, instead of food, some of your cargo bays contain only Tribbles!"),
