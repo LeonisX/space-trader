@@ -423,12 +423,12 @@ public class FormEncounter extends SpaceTraderForm {
                     return pictureBox;
                 }).collect(Collectors.toList());
 
+        controls.addAll(tribbles);
         controls.addAll(encounterTypePicture, youLabel, opponentLabel, yourShipPicture, opponentsShipPicture,
                 yourShipLabelValue, opponentsShipLabelValue, yourHullLabelValue, opponentsHullLabelValue,
                 yourShieldsLabelValue, opponentsShieldsLabelValue, encounterLabelValue, actionLabelValue,
                 attackButton, fleeButton, submitButton, bribeButton, surrenderButton, ignoreButton, tradeButton,
                 plunderButton, boardButton, meetButton, drinkButton, interruptButton, yieldButton, continuousPicture);
-        controls.addAll(tribbles);
 
         ReflectionUtils.loadControlsData(this);
     }
