@@ -227,23 +227,9 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-### Princess
+### Princess, Jarek, other quests
 
-* v Write docs for all quest events (ON_...), reorder them
-* v Special Button doesn't disappear
-* v Strange bug in Commander.hashCode
 * Increase difficulty, depends on game difficulty (days to delivery)
-* v Encounters
-* v ShipSpec - in game map: ID -> ShipSpec
-* v Add Scorpion ShipSpec
-* v Create ship by this spec ID
-* v Register Girl end type
-* v Process game ending with Girl
-* v Game ending with Princess
-
-### Jarek
-
-* Increase difficulty, depends on game difficulty (days to delivery). Don't give computer when > Normal, instead money
 
 ### Shipyard
 

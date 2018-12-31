@@ -3,6 +3,43 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+31.12.2018 v.3.32.138
+
+The main innovation of the third version is the Quest Engine. 
+Now the logic of each quest is collected in a separate class. 
+This greatly simplifies the process of creating new quests, as well as testing.
+At the moment, the following quests have been processed:
+
+* Lottery Winner
+* Ambassador Jarek
+* Kidnapped Princess
+* Jonathan Wild
+* Stolen Sculpture
+* Morgan's Reactor
+* Troubles with Tribbles
+
+Changelog:
+
+* Debug controls in FormViewCommander
+* FormMonster: show quest/shipyard features; order by feature
+* Cheats subMenu (FormMonster)
+* Shipyard form in Cheats menu
+* Dialogs and Alerts tests in Cheats menu
+* Docs (Russian and English): spaceships and travelling through Space, skills, mercenaries, encounters in Space, trade goods, equipment
+* Logging (via Java Util Logging)
+* Encounters in separate class (not in Game)
+
+Bug Fixes:
+
+* Fix all/max buttons on Cargo Panel
+* Fix shield initial charge bug
+* Fix special ships graphic bugs
+* Fix stealable cargo
+* Show all quests in MonsterCom
+* Avoid negative values for ship slots
+* After deal in Shipyard - alert in center of Shipyard form
+* Fix bug in hasCrew method
+
 13.11.2018. v.2.17.21
 
 * Full translation for File Dialogs
