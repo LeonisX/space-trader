@@ -50,6 +50,6 @@ public class Button extends BaseComponent {
         };
         userAction.putValue(AbstractAction.NAME, getText());
         asJButton().setAction(userAction);
-        super.setClick(click);
+        //super.setClick(click);
     }
 }

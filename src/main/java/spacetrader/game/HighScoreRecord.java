@@ -1,7 +1,6 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.Difficulty;
-import spacetrader.game.enums.GameEndType;
 
 import java.io.Serializable;
 
@@ -11,12 +10,12 @@ public class HighScoreRecord implements Serializable, Comparable<HighScoreRecord
 
     private String name;
     private int score;
-    private GameEndType type;
+    private int type;
     private int days;
     private int worth;
     private Difficulty difficulty;
 
-    HighScoreRecord(String name, int score, GameEndType type, int days, int worth, Difficulty difficulty) {
+    HighScoreRecord(String name, int score, int type, int days, int worth, Difficulty difficulty) {
         this.name = name;
         this.score = score;
         this.type = type;
@@ -57,7 +56,7 @@ public class HighScoreRecord implements Serializable, Comparable<HighScoreRecord
         return score;
     }
 
-    public GameEndType getType() {
+    public int getType() {
         return type;
     }
 

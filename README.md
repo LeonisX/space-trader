@@ -10,7 +10,8 @@ Useful Source Repositories:
 
 * [Space Trader from Peter Spronk on GitHub](https://github.com/videogamepreservation/spacetrader)
 * [Space Trader from Jay French on GitHub](https://github.com/SpaceTraderGame/SpaceTrader-Windows)
-* [Android version of Space Trader from Russel Wolf aka brucelet](https://bitbucket.org/brucelet/space-trader/src)
+* [Android version of Space Trader from Russel Wolf aka brucelet](https://bitbucket.org/brucelet/space-trader/src), [Official site](http://spacetrader.brucelet.com/)
+* [Android version of Space Trader from Benjamin Schieder aka blind-coder](https://github.com/blind-coder/SpaceTrader), [Official site](https://www.benjamin-schieder.de/)
 * [Dark Nova - iOS, Android sources](https://github.com/deadjim/dark-nova-android)
 
 [Other implementations on GitHub](https://github.com/search?q=space+trader)
@@ -220,15 +221,60 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Those who wish to improve the Russian translation are invited. [Download script](english-russian.xls)
 * Everyone who wants to translate the game into their native language is also welcome. Write to me, I'll tell you what you need to do.
+* Also, I will be glad to anyone who offers a fascinating quest, any interesting name for the planet, or the name of a mercenary.
 * Any suggestions and recommendations are welcome.
 * Have a nice game
 
 ## TODO
 
+### Princess
+
+* v Write docs for all quest events (ON_...), reorder them
+* v Special Button doesn't disappear
+* v Strange bug in Commander.hashCode
+* Increase difficulty, depends on game difficulty (days to delivery)
+* v Encounters
+* v ShipSpec - in game map: ID -> ShipSpec
+* v Add Scorpion ShipSpec
+* v Create ship by this spec ID
+* v Register Girl end type
+* v Process game ending with Girl
+* v Game ending with Princess
+
+### Jarek
+
+* Increase difficulty, depends on game difficulty (days to delivery). Don't give computer when > Normal, instead money
+
+### Shipyard
+
+* Investigate - when new shipyard - can receive 600%
+* Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
+* Update money status (StatusBar) after Shipyard
+
+### Monster.com
+
+* Monster.com - rename cheat, form name (not MonsterCom)
+* MonsterCom: Show only current phase of quest. CheckBox for full view (only for cheat/debug)
+* MonsterCom - second click - order reverse
+* Quest panel with scrolling
+* Panel - Quest Persons: all persons from quests; Show planet. If onboard - onboard
+* All quests - to land passengers on the planets?
+
+### Translate
+
+* ~~Translate all quests~~
+* FormInput, FormViewCommander translate
+* FormMonsterMenuItem, CheatsMenu -> Strings, languages
+* FileDialogs - hide translation logs
+* FormTests, FormAlertTests - refactor, translate
+* На растоянии 1 клик от системы...
+
+### Other
+
 * Different image sizes, font sizes (config)
 * Installers: http://www.jrsoftware.org/isdl.php
 * Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
-* Full Russian description
+* Full Russian description, FAQ
 * Dig about Star Trader for C16
 
 ### Minor tasks
@@ -239,14 +285,27 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Show in Cargo planet names (target)
 * Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
+* On sell, plunder, jettison - show goods with bold
+* Sell - add goods to planet
+* Save last search phase in Find form
+* Buy/Sell equipment - CheckBox, which offers all equipment in debug/cheat modes
 
 ## Known bugs:
 
+* When finish game - see > 100% percents, but in HighScores all OK.
 * Many dialogs don't allow to close them from [x]
 * FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
 * FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,
 * When fire mercenary - he disappears forever
 * 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
+* Commander status, Find system - truncated window sometimes
+* What to do with ending title?? It's too long :(
+* What to do with cheats status title?? It's too long :(
+* Commander status - Всеобщий любимец (70) under button
+* Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
+* After disabling can fully destroy without encounter ending
+* Morgan's Laser - sell price 0 cr.
+* Ability to ignore encounter by press "x"
 
 ## Regressions:
 
@@ -260,12 +319,14 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * passenger modules
 * courier quests
 * more very rare encounters
+* Bug - after prison - Ziyal onboard, can finish quest
 
 ## Far perspectives
 
-* Quests engine
+* ~~Quests engine~~
+* Standard game, Extended game
 * JavaFX UI
 * Full-windowed
 * Site
-* FAQ, description
+* ~~FAQ, description~~
 * New interesting quests

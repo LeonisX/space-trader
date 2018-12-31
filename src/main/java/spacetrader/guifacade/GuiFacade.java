@@ -56,7 +56,7 @@ public class GuiFacade {
     }
 
     /**
-     * Starts an encounter - note that the GUI apperantly decides which kind.
+     * Starts an encounter - note that the GUI apparently decides which kind.
      * <p>
      * todo smells like there's too much game code in that form.
      */
@@ -93,5 +93,9 @@ public class GuiFacade {
 
     public static DialogResult alert(AlertType type, String var1) {
         return FormAlert.alert(type, var1);
+    }
+
+    public static DialogResult alert(AlertType type, WinformPane owner, String var1) {
+        return FormAlert.alert(type, owner, var1);
     }
 }

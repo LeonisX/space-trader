@@ -89,7 +89,7 @@ public class FormGetLoan extends SpaceTraderForm {
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");
 
-        controls.addAll(Arrays.asList(statementLabelValue, nothingButton, maxButton, okButton, numAmount, questionLabel));
+        controls.addAll(statementLabelValue, nothingButton, maxButton, okButton, numAmount, questionLabel);
 
         ReflectionUtils.loadControlsData(this);
     }

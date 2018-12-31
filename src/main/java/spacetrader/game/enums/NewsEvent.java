@@ -25,22 +25,11 @@ public enum NewsEvent implements SpaceTraderEnum {
     CaptHuieDestroyed, // = 20,
     Japori, // = 21,
     JaporiDelivery, // = 22,
-    JarekGetsOut, // = 23,
     Scarab, // = 24,
     ScarabDestroyed, // = 25,
     ScarabHarass, // = 26,
     SpaceMonster, // = 27,
-    SpaceMonsterKilled, // = 28,
-    WildArrested, // = 29,
-    WildGetsOut, // = 30,
-    SculptureStolen, // = 31,
-    SculptureTracked, // = 32,
-    Princess, // = 33,
-    PrincessCentauri, // = 34,
-    PrincessInthara, // = 35,
-    PrincessQonos, // = 36,
-    PrincessRescued, // = 37,
-    PrincessReturned;// = 38
+    SpaceMonsterKilled; // = 32,
 
     public static NewsEvent fromInt(int i) {
         return values()[i];

@@ -95,6 +95,11 @@ public class Label extends BaseComponent {
         return maxLineWidth;
     }
 
+    public Label withAutoSize(boolean autoSize) {
+        setAutoSize(autoSize);
+        return this;
+    }
+
     @Override
     public void setBackground(Color background) {
         asJLabel().setOpaque(background != null);

@@ -3,6 +3,7 @@ package spacetrader.gui;
 import spacetrader.controls.*;
 import spacetrader.controls.enums.*;
 import spacetrader.game.Consts;
+import spacetrader.game.GlobalAssets;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.Difficulty;
 import spacetrader.util.Functions;
@@ -218,7 +219,7 @@ public class FormNewCommander extends SpaceTraderForm {
     }
 
     private void updateOkEnabled() {
-        okButton.setEnabled(0 == points && nameTextBox.getText().length() > 0);
+        okButton.setEnabled((0 == points && nameTextBox.getText().length() > 0) || GlobalAssets.isDebug());
     }
 
     private void numValueChanged() {

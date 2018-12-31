@@ -5,6 +5,13 @@ import spacetrader.game.cheat.CheatCode;
 import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.QuestSystem;
+import spacetrader.game.quest.ReactorQuest;
+import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
+import spacetrader.game.quest.containers.ScoreContainer;
+import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
@@ -12,16 +19,21 @@ import spacetrader.util.Functions;
 import spacetrader.util.Util;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class Game implements Serializable, SpaceTraderGame, SystemTracker, CurrentSystemMgr {
+import static java.util.stream.Collectors.toList;
+import static spacetrader.game.enums.GameEndType.BOUGHT_MOON;
+import static spacetrader.game.enums.GameEndType.KILLED;
+import static spacetrader.game.quest.enums.EventName.*;
+
+public class Game implements Serializable {
 
     static final long serialVersionUID = 110L;
 
-    private static Game game;
+    private static volatile Game game;
+
+    private QuestSystem questSystem;
 
     private Commander commander;
     @CheatCode
@@ -30,27 +42,30 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     // Game Data
     private StarSystem[] universe;
     private int[] wormholes = new int[6];
-    private CrewMember[] mercenaries = new CrewMember[Strings.CrewMemberNames.length];
+    private Map<Integer, CrewMember> mercenaries = new HashMap<>();
     private Ship dragonfly = new Ship(ShipType.DRAGONFLY);
     private Ship scarab = new Ship(ShipType.SCARAB);
-    private Ship scorpion = new Ship(ShipType.SCORPION);
-    private Ship spaceMonster = new Ship(ShipType.SPACE_MONSTER);
+    public Ship spaceMonster = new Ship(ShipType.SPACE_MONSTER);
     private Ship opponent = new Ship(ShipType.GNAT);
     private boolean opponentDisabled = false;
     private int chanceOfTradeInOrbit = 100;
     private int clicks = 0; // Distance from target system, 0 = arrived
     private boolean raided = false; // True when the commander has been raided during the trip
     private boolean inspected = false; // True when the commander has been/ inspected during the trip
-    private boolean tribbleMessage = false; // Is true if the Ship Yard on the current system informed you about the tribbles
     private boolean arrivedViaWormhole = false; // flag to indicate whether player arrived on current planet via wormhole
     private boolean paidForNewspaper = false; // once you buy a paper on a system, you don't have to pay again.
     private boolean litterWarning = false; // Warning against littering has been issued.
-    private ArrayList<NewsEvent> newsEvents = new ArrayList<>(30); // Current Selections
+    
+    private News news;
+    
     private Difficulty difficulty; // Difficulty.NORMAL
     private boolean autoSave = false;
-    private boolean easyEncounters = false;
-    private GameEndType endStatus = GameEndType.NA;
-    private EncounterType encounterType = EncounterType.fromInt(0); // Type of current encounter
+    private int endStatus = GameEndType.NA.castToInt();
+
+    private Encounter encounter;
+
+    private Map<Integer, ShipSpec> shipSpecs; // ShipSpecs by ID
+
     private StarSystemId selectedSystemId = StarSystemId.NA; // Current system on chart
     private StarSystemId warpSystemId = StarSystemId.NA; // Target system for warp
     private StarSystemId trackedSystemId = StarSystemId.NA; // The short-range chart will display an arrow towards
@@ -58,40 +73,24 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     private boolean targetWormhole = false; // Wormhole selected?
     private int[] priceCargoBuy = new int[10];
     private int[] priceCargoSell = new int[10]; // Status of Quests
-    private int questStatusArtifact = 0; // 0 = not given yet, 1 = Artifact on board, 2 = Artifact no longer on
-    // board (either delivered or lost)
-    private int questStatusDragonfly = 0; // 0 = not available, 1 = Go to Baratas, 2 = Go to Melina, 3 = Go
-    // to Regulas, 4 = Go to Zalkon, 5 = Dragonfly destroyed, 6 = Got Shield
+    private int questStatusArtifact = 0; // 0 = not given yet, 1 = Artifact on board, 2 = Artifact no longer on board (either delivered or lost)
+    private int questStatusDragonfly = 0; // 0 = not available, 1 = Go to Baratas, 2 = Go to Melina, 3 = Go to Regulas, 4 = Go to Zalkon, 5 = Dragonfly destroyed, 6 = Got Shield
     private int questStatusExperiment = 0; // 0 = not given yet, 1-11 = days from start; 12 = performed, 13 = cancelled
     private int questStatusGemulon = 0; // 0 = not given yet, 1-7 = days from start, 8 = too late, 9 = in time, 10 = done
-    private int questStatusJapori = 0; // 0 = no disease, 1 = Go to Japori (always at least 10 medicine
-    // canisters), 2 = Assignment finished or canceled
-    private int questStatusJarek = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
+    private int questStatusJapori = 0; // 0 = no disease, 1 = Go to Japori (always at least 10 medicine canisters), 2 = Assignment finished or canceled
     private int questStatusMoon = 0; // 0 = not bought, 1 = bought, 2 = claimed
-    private int questStatusPrincess = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara, 3 =
-    // Go to Qonos, 4 = Princess Rescued, 5-14 = On Board, 15 = Princess Returned, 16 = Got Quantum Disruptor
-    private int questStatusReactor = 0; // 0 = not encountered, 1-20 = days of mission (bays of fuel left = 10 -
-    // (ReactorStatus / 2), 21 = delivered, 22 = Done
-    private int questStatusScarab = 0; // 0 = not given yet, 1 = not destroyed, 2 = destroyed - upgrade not
-    // performed, 3 = destroyed - hull upgrade performed
-    private int questStatusSculpture = 0; // 0 = not given yet, 1 = on board, 2 = delivered, 3 = done
-    private int questStatusSpaceMonster = 0; // 0 = not available, 1 = Space monster is in Acamar system,
-    // 2 = Space monster is destroyed, 3 = Claimed reward
-    private int questStatusWild = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
+    private int questStatusScarab = 0; // 0 = not given yet, 1 = not destroyed, 2 = destroyed - upgrade not performed, 3 = destroyed - hull upgrade performed
+    private int questStatusSpaceMonster = 0; // 0 = not available, 1 = Space monster is in Acamar system, 2 = Space monster is destroyed, 3 = Claimed reward
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
-    private int chanceOfVeryRareEncounter = 5; // Rare encounters not done yet.
-    private ArrayList<VeryRareEncounter> veryRareEncounters = new ArrayList<>(6); // Array of Very Options
-    private GameOptions options = new GameOptions(true); // The rest of the member variables are not saved between games.
+
+    private GameOptions options = new GameOptions(true);
+
+    // The rest of the member variables are not saved between games.
     private transient MainWindow parentWin;
-    private boolean encounterContinueFleeing = false;
-    private boolean encounterContinueAttacking = false;
-    private boolean encounterCmdrFleeing = false;
-    private boolean encounterCmdrHit = false;
-    private boolean encounterOppFleeingPrev = false;
-    private boolean encounterOppFleeing = false;
-    private boolean encounterOppHit = false;
+
+    private GameController gameController;
 
     private Game() {
         // need for tests
@@ -103,34 +102,43 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.parentWin = parentWin;
         this.difficulty = difficulty;
 
-        // Keep Generating a new universe until isPlaceSpecialEvents and isPlaceShipyards return true,
+        questSystem = new QuestSystem();
+        questSystem.initializeQuestsHolder();
+
+        // Keep Generating a new universe until isSpecialEventsInPlace and isShipyardsInPlace return true,
         // indicating all special events and shipyards were placed.
         do {
+            questSystem.rollbackTransaction();
+            questSystem.startTransaction();
             generateUniverse();
-        } while (!(isPlaceSpecialEvents() && isPlaceShipyards()));
+        } while (!(isSpecialEventsInPlace() && isShipyardsInPlace()));
 
-        commander = initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer,
-                StarSystemId.NA));
+        initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer, false, StarSystemId.NA));
+
         generateCrewMemberList();
+
+        shipSpecs = Arrays.stream(Consts.ShipSpecs).map(e -> e.withId(e.getType().castToInt())).collect(Collectors.toMap(ShipSpec::getId, e -> e));
+        shipSpecs.remove(ShipType.QUEST.castToInt());
+        questSystem.fireEvent(ON_AFTER_SHIP_SPECS_INITIALIZED);
 
         createShips();
 
         calculatePrices(commander.getCurrentSystem());
 
-        resetVeryRareEncounters();
-
-        if (getDifficulty().castToInt() < Difficulty.NORMAL.castToInt()) {
-            commander.getCurrentSystem().setSpecialEventType(SpecialEventType.Lottery);
-        }
+        encounter = new Encounter(this);
 
         cheats = new GameCheats();
         if (name.length() == 0) {
             // TODO: JAF - DEBUG
             commander.setCash(1000000);
             cheats.setCheatMode(true);
-            setEasyEncounters(true);
+            encounter.setEasyEncounters(true);
             setCanSuperWarp(true);
         }
+
+        news = new News();
+
+        questSystem.fireEvent(EventName.ON_AFTER_GAME_INITIALIZE);
     }
 
     public static Game getCurrentGame() {
@@ -143,39 +151,15 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
     private void arrested() {
         int term = Math.max(30, -commander.getPoliceRecordScore());
-        int fine = (1 + commander.getWorth() * Math.min(80, -commander.getPoliceRecordScore()) / 50000) * 500;
-        if (commander.getShip().isWildOnBoard()) {
-            fine = (int) (fine * 1.05);
-        }
+        IntContainer fineContainer =
+                new IntContainer((1 + commander.getWorth() * Math.min(80, -commander.getPoliceRecordScore()) / 50000) * 500);
+
+        questSystem.fireEvent(ON_BEFORE_ARRESTED_CALCULATE_FINE, fineContainer);
 
         GuiFacade.alert(AlertType.EncounterArrested);
 
-        GuiFacade.alert(AlertType.JailConvicted, Functions.plural(term, Strings.TimeUnit), Functions.plural(fine,
-                Strings.MoneyUnit));
-
-        if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-            while (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-                commander.getShip().removeEquipment(EquipmentType.GADGET, GadgetType.HIDDEN_CARGO_BAYS);
-            }
-
-            GuiFacade.alert(AlertType.JailHiddenCargoBaysRemoved);
-        }
-
-        if (commander.getShip().isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ReactorConfiscated);
-            setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_NOT_STARTED);
-        }
-
-        if (commander.getShip().isSculptureOnBoard()) {
-            GuiFacade.alert(AlertType.SculptureConfiscated);
-            setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
-        }
-
-        if (commander.getShip().isWildOnBoard()) {
-            GuiFacade.alert(AlertType.WildArrested);
-            newsAddEvent(NewsEvent.WildArrested);
-            setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
-        }
+        GuiFacade.alert(AlertType.JailConvicted, Functions.plural(term, Strings.TimeUnit),
+                Functions.plural(fineContainer.getValue(), Strings.MoneyUnit));
 
         if (commander.getShip().isAnyIllegalCargo()) {
             GuiFacade.alert(AlertType.JailIllegalGoodsImpounded);
@@ -188,38 +172,28 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             commander.setNoClaim(0);
         }
 
-        if (commander.getShip().getCrewCount() - commander.getShip().getSpecialCrew().length > 1) {
+        if (commander.getShip().getCrewCount() - commander.getShip().getSpecialCrew().size() > 1) {
             GuiFacade.alert(AlertType.JailMercenariesLeave);
             for (int i = 1; i < commander.getShip().getCrew().length; i++) {
                 commander.getShip().getCrew()[i] = null;
             }
         }
 
-        if (commander.getShip().isJarekOnBoard()) {
-            GuiFacade.alert(AlertType.JarekTakenHome);
-            setQuestStatusJarek(SpecialEvent.STATUS_JAREK_NOT_STARTED);
-        }
-
-        if (commander.getShip().isPrincessOnBoard()) {
-            GuiFacade.alert(AlertType.PrincessTakenHome);
-            setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_NOT_STARTED);
-        }
+        questSystem.fireEvent(EventName.ON_ARRESTED);
 
         if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             GuiFacade.alert(AlertType.AntidoteTaken);
             setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_DONE);
         }
 
-        if (commander.getCash() >= fine) {
-            commander.setCash(commander.getCash() - fine);
+        if (commander.getCash() >= fineContainer.getValue()) {
+            commander.setCash(commander.getCash() - fineContainer.getValue());
         } else {
-            commander.setCash(Math.max(0, commander.getCash() + commander.getShip().getWorth(true) - fine));
+            commander.setCash(Math.max(0, commander.getCash() + commander.getShip().getWorth(true) - fineContainer.getValue()));
 
             GuiFacade.alert(AlertType.JailShipSold);
 
-            if (commander.getShip().getTribbles() > 0) {
-                GuiFacade.alert(AlertType.TribblesRemoved);
-            }
+            questSystem.fireEvent(EventName.ON_ARRESTED_AND_SHIP_SOLD_FOR_DEBT);
 
             GuiFacade.alert(AlertType.FleaBuilt);
             createFlea();
@@ -251,9 +225,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             setTrackedSystemId(StarSystemId.NA);
         }
 
-        checkReactorOnArrival();
-
-        checkTribblesOnArrival();
+        questSystem.fireEvent(ON_ARRIVAL);
 
         checkDebtOnArrival();
 
@@ -265,7 +237,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
         calculatePrices(commander.getCurrentSystem());
 
-        newsAddEventsOnArrival();
+        news.addEventsOnArrival();
 
         if (getOptions().isNewsAutoShow()) {
             showNewspaper();
@@ -299,85 +271,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 commander.getShip().getCargo()[i] = 0;
                 commander.getPriceCargo()[i] = 0;
             }
-        }
-    }
-
-    private void checkReactorOnArrival() {
-        if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DATE) {
-            GuiFacade.alert(AlertType.ReactorMeltdown);
-            setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_NOT_STARTED);
-            if (commander.getShip().getEscapePod()) {
-                escapeWithPod();
-            } else {
-                GuiFacade.alert(AlertType.ReactorDestroyed);
-                throw new GameEndException(GameEndType.KILLED);
-            }
-        } else {
-            // Reactor warnings: now they know the quest has a time constraint!
-            if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_FUEL_OK + 1) {
-                GuiFacade.alert(AlertType.ReactorWarningFuel);
-            } else if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DATE - 4) {
-                GuiFacade.alert(AlertType.ReactorWarningFuelGone);
-            } else if (getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DATE - 2) {
-                GuiFacade.alert(AlertType.ReactorWarningTemp);
-            }
-        }
-    }
-
-    private void checkTribblesOnArrival() {
-        Ship ship = commander.getShip();
-
-        if (ship.getTribbles() > 0) {
-            int previousTribbles = ship.getTribbles();
-            int narc = TradeItemType.NARCOTICS.castToInt();
-            int food = TradeItemType.FOOD.castToInt();
-
-            if (ship.isReactorOnBoard()) {
-                if (ship.getTribbles() < 20) {
-                    ship.setTribbles(0);
-                    GuiFacade.alert(AlertType.TribblesAllDied);
-                } else {
-                    ship.setTribbles(ship.getTribbles() / 2);
-                    GuiFacade.alert(AlertType.TribblesHalfDied);
-                }
-            } else if (ship.getCargo()[narc] > 0) {
-                int dead = Math.min(1 + Functions.getRandom(3), ship.getCargo()[narc]);
-                commander.getPriceCargo()[narc]
-                        = commander.getPriceCargo()[narc] * (ship.getCargo()[narc] - dead) / ship.getCargo()[narc];
-                ship.getCargo()[narc] -= dead;
-                ship.getCargo()[TradeItemType.FURS.castToInt()] += dead;
-                ship.setTribbles(ship.getTribbles()
-                        - Math.min(dead * (Functions.getRandom(5) + 98), ship.getTribbles() - 1));
-                GuiFacade.alert(AlertType.TribblesMostDied);
-            } else {
-                if (ship.getCargo()[food] > 0 && ship.getTribbles() < Consts.MaxTribbles) {
-                    int eaten = ship.getCargo()[food] - Functions.getRandom(ship.getCargo()[food]);
-                    commander.getPriceCargo()[food] -= commander.getPriceCargo()[food] * eaten / ship.getCargo()[food];
-                    ship.getCargo()[food] -= eaten;
-                    ship.setTribbles(ship.getTribbles() + (eaten * 100));
-                    GuiFacade.alert(AlertType.TribblesAteFood);
-                }
-
-                if (ship.getTribbles() < Consts.MaxTribbles) {
-                    ship.setTribbles(ship.getTribbles() + (1 + Functions
-                            .getRandom(ship.getCargo()[food] > 0 ? ship.getTribbles() : ship.getTribbles() / 2)));
-                }
-
-                if (ship.getTribbles() > Consts.MaxTribbles) {
-                    ship.setTribbles(Consts.MaxTribbles);
-                }
-
-                if ((previousTribbles < 100 && ship.getTribbles() >= 100)
-                        || (previousTribbles < 1000 && ship.getTribbles() >= 1000)
-                        || (previousTribbles < 10000 && ship.getTribbles() >= 10000)
-                        || (previousTribbles < 50000 && ship.getTribbles() >= 50000)
-                        || (previousTribbles < Consts.MaxTribbles && ship.getTribbles() == Consts.MaxTribbles)) {
-                    String qty = (ship.getTribbles()) == Consts.MaxTribbles
-                            ? Strings.TribbleDangerousNumber : Functions.formatNumber(ship.getTribbles());
-                    GuiFacade.alert(AlertType.TribblesInspector, qty);
-                }
-            }
-            setTribbleMessage(false);
         }
     }
 
@@ -427,25 +320,26 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
     private void updatePressuresAndQuantitiesOnArrival() {
         for (int i = 0; i < getUniverse().length; i++) {
+            StarSystem starSystem = getStarSystem(i);
             if (Functions.getRandom(100) < 15) {
-                getUniverse()[i].setSystemPressure((SystemPressure.fromInt(
-                        getUniverse()[i].getSystemPressure() == SystemPressure.NONE ? Functions
+                starSystem.setSystemPressure((SystemPressure.fromInt(
+                        starSystem.getSystemPressure() == SystemPressure.NONE ? Functions
                                 .getRandom(SystemPressure.WAR.castToInt(), SystemPressure.EMPLOYMENT.castToInt() + 1)
                                 : SystemPressure.NONE.castToInt())));
             }
 
-            if (getUniverse()[i].getCountDown() > 0) {
-                getUniverse()[i].setCountDown(getUniverse()[i].getCountDown() - 1);
+            if (starSystem.getCountDown() > 0) {
+                starSystem.setCountDown(starSystem.getCountDown() - 1);
 
-                if (getUniverse()[i].getCountDown() > getCountDownStart()) {
-                    getUniverse()[i].setCountDown(getCountDownStart());
-                } else if (getUniverse()[i].getCountDown() <= 0) {
-                    getUniverse()[i].initializeTradeItems();
+                if (starSystem.getCountDown() > getCountDownStart()) {
+                    starSystem.setCountDown(getCountDownStart());
+                } else if (starSystem.getCountDown() <= 0) {
+                    starSystem.initializeTradeItems();
                 } else {
                     for (int j = 0; j < Consts.TradeItems.length; j++) {
                         if (getWarpSystem().isItemTraded(Consts.TradeItems[j])) {
-                            getUniverse()[i].getTradeItems()[j] = Math
-                                    .max(0, getUniverse()[i].getTradeItems()[j] + Functions.getRandom(-4, 5));
+                            starSystem.getTradeItems()[j] = Math
+                                    .max(0, starSystem.getTradeItems()[j] + Functions.getRandom(-4, 5));
                         }
                     }
                 }
@@ -479,14 +373,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         recalculateBuyPrices(system);
     }
 
-    public boolean getTribbleMessage() {
-        return tribbleMessage;
-    }
-
-    public void setTribbleMessage(boolean tribbleMessage) {
-        this.tribbleMessage = tribbleMessage;
-    }
-
     public StarSystemId getTrackedSystemId() {
         return trackedSystemId;
     }
@@ -495,20 +381,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.trackedSystemId = trackedSystemId;
     }
 
-    private boolean getRaided() {
+    public boolean getRaided() {
         return raided;
     }
 
-    private void setRaided(boolean raided) {
+    public void setRaided(boolean raided) {
         this.raided = raided;
-    }
-
-    public int getQuestStatusWild() {
-        return questStatusWild;
-    }
-
-    public void setQuestStatusWild(int questStatusWild) {
-        this.questStatusWild = questStatusWild;
     }
 
     public int getQuestStatusSpaceMonster() {
@@ -519,14 +397,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.questStatusSpaceMonster = questStatusSpaceMonster;
     }
 
-    public int getQuestStatusSculpture() {
-        return questStatusSculpture;
-    }
-
-    public void setQuestStatusSculpture(int questStatusSculpture) {
-        this.questStatusSculpture = questStatusSculpture;
-    }
-
     public int getQuestStatusScarab() {
         return questStatusScarab;
     }
@@ -535,36 +405,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.questStatusScarab = questStatusScarab;
     }
 
-    public int getQuestStatusReactor() {
-        return questStatusReactor;
-    }
-
-    public void setQuestStatusReactor(int questStatusReactor) {
-        this.questStatusReactor = questStatusReactor;
-    }
-
-    public int getQuestStatusPrincess() {
-        return questStatusPrincess;
-    }
-
-    public void setQuestStatusPrincess(int questStatusPrincess) {
-        this.questStatusPrincess = questStatusPrincess;
-    }
-
     public int getQuestStatusMoon() {
         return questStatusMoon;
     }
 
     public void setQuestStatusMoon(int questStatusMoon) {
         this.questStatusMoon = questStatusMoon;
-    }
-
-    public int getQuestStatusJarek() {
-        return questStatusJarek;
-    }
-
-    public void setQuestStatusJarek(int questStatusJarek) {
-        this.questStatusJarek = questStatusJarek;
     }
 
     public int getQuestStatusJapori() {
@@ -626,12 +472,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.paidForNewspaper = paidForNewspaper;
     }
 
-    private boolean setOpponentDisabled(boolean opponentDisabled) {
+    public boolean setOpponentDisabled(boolean opponentDisabled) {
         this.opponentDisabled = opponentDisabled;
         return opponentDisabled;
     }
 
-    boolean getOpponentDisabled() {
+    public boolean getOpponentDisabled() {
         return opponentDisabled;
     }
 
@@ -651,19 +497,19 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.litterWarning = litterWarning;
     }
 
-    private boolean getJustLootedMarie() {
+    public boolean getJustLootedMarie() {
         return justLootedMarie;
     }
 
-    private void setJustLootedMarie(boolean justLootedMarie) {
+    public void setJustLootedMarie(boolean justLootedMarie) {
         this.justLootedMarie = justLootedMarie;
     }
 
-    private boolean getInspected() {
+    public boolean getInspected() {
         return inspected;
     }
 
-    private void setInspected(boolean inspected) {
+    public void setInspected(boolean inspected) {
         this.inspected = inspected;
     }
 
@@ -675,88 +521,15 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.fabricRipProbability = fabricRipProbability;
     }
 
-    GameEndType getEndStatus() {
+    public int getEndStatus() {
         return endStatus;
     }
 
-    public void setEndStatus(GameEndType endStatus) {
+    public void setEndStatus(int endStatus) {
         this.endStatus = endStatus;
     }
 
-    public EncounterType getEncounterType() {
-        return encounterType;
-    }
-
-    public void setEncounterType(EncounterType encounterType) {
-        this.encounterType = encounterType;
-    }
-
-    private boolean getEncounterOppHit() {
-        return encounterOppHit;
-    }
-
-    private void setEncounterOppHit(boolean encounterOppHit) {
-        this.encounterOppHit = encounterOppHit;
-    }
-
-    private boolean getEncounterOppFleeingPrev() {
-        return encounterOppFleeingPrev;
-    }
-
-    private void setEncounterOppFleeingPrev(boolean encounterOppFleeingPrev) {
-        this.encounterOppFleeingPrev = encounterOppFleeingPrev;
-    }
-
-    private boolean getEncounterOppFleeing() {
-        return encounterOppFleeing;
-    }
-
-    private void setEncounterOppFleeing(boolean encounterOppFleeing) {
-        this.encounterOppFleeing = encounterOppFleeing;
-    }
-
-    public boolean setEncounterContinueAttacking(boolean encounterContinueAttacking) {
-        this.encounterContinueAttacking = encounterContinueAttacking;
-        return encounterContinueAttacking;
-    }
-
-    public boolean getEncounterContinueAttacking() {
-        return encounterContinueAttacking;
-    }
-
-    private boolean getEncounterCmdrHit() {
-        return encounterCmdrHit;
-    }
-
-    private void setEncounterCmdrHit(boolean encounterCmdrHit) {
-        this.encounterCmdrHit = encounterCmdrHit;
-    }
-
-    private boolean getEncounterCmdrFleeing() {
-        return encounterCmdrFleeing;
-    }
-
-    private void setEncounterCmdrFleeing(boolean encounterCmdrFleeing) {
-        this.encounterCmdrFleeing = encounterCmdrFleeing;
-    }
-
-    public boolean getEncounterContinueFleeing() {
-        return encounterContinueFleeing;
-    }
-
-    public void setEncounterContinueFleeing(boolean encounterContinueFleeing) {
-        this.encounterContinueFleeing = encounterContinueFleeing;
-    }
-
-    public boolean isEasyEncounters() {
-        return easyEncounters;
-    }
-
-    public void setEasyEncounters(boolean easyEncounters) {
-        this.easyEncounters = easyEncounters;
-    }
-
-    private int getClicks() {
+    public int getClicks() {
         return clicks;
     }
 
@@ -768,15 +541,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return cheats;
     }
 
-    private int getChanceOfVeryRareEncounter() {
-        return chanceOfVeryRareEncounter;
-    }
-
-    public void setChanceOfVeryRareEncounter(int chanceOfVeryRareEncounter) {
-        this.chanceOfVeryRareEncounter = chanceOfVeryRareEncounter;
-    }
-
-    private int getChanceOfTradeInOrbit() {
+    public int getChanceOfTradeInOrbit() {
         return chanceOfTradeInOrbit;
     }
 
@@ -800,7 +565,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         this.autoSave = autoSave;
     }
 
-    private boolean getArrivedViaWormhole() {
+    public boolean getArrivedViaWormhole() {
         return arrivedViaWormhole;
     }
 
@@ -865,7 +630,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         cargoBuy(tradeItem, max, CargoBuyOp.BUY_SYSTEM);
     }
 
-    private void cargoBuyTrader(int tradeItem) {
+    public void cargoBuyTrader(int tradeItem) {
         cargoBuy(tradeItem, false, CargoBuyOp.BUY_TRADER);
     }
 
@@ -917,7 +682,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 int maxAmount = (op == CargoSellOp.SELL_TRADER) ? Math.min(qtyInHand, getOpponent().getFreeCargoBays())
                         : qtyInHand;
                 if (op == CargoSellOp.DUMP) {
-                    unitCost = 5 * (getDifficulty().castToInt() + 1);
+                    unitCost = 5 * (getDifficultyId() + 1);
                     maxAmount = Math.min(maxAmount, commander.getCashToSpend() / unitCost);
                 }
                 int price = unitPrice > 0 ? unitPrice : -unitCost;
@@ -933,14 +698,14 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                     commander.setCash(commander.getCash() + totalPrice);
 
                     if (op == CargoSellOp.JETTISON) {
-                        if (Functions.getRandom(10) < getDifficulty().castToInt() + 1) {
+                        if (Functions.getRandom(10) < getDifficultyId() + 1) {
                             if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreDubious) {
                                 commander.setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
                             } else {
                                 commander.setPoliceRecordScore(commander.getPoliceRecordScore() - 1);
                             }
 
-                            newsAddEvent(NewsEvent.CaughtLittering);
+                            news.addEvent(NewsEvent.CaughtLittering);
                         }
                     }
                 }
@@ -948,7 +713,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
     }
 
-    private void cargoSellTrader(int tradeItem) {
+    public void cargoSellTrader(int tradeItem) {
         cargoSell(tradeItem, false, CargoSellOp.SELL_TRADER);
     }
 
@@ -960,7 +725,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     }
 
     private void createShips() {
-        getDragonfly().getCrew()[0] = getMercenaries()[CrewMemberId.DRAGONFLY.castToInt()];
+        getDragonfly().getCrew()[0] = mercenaries.get(CrewMemberId.DRAGONFLY.castToInt());
         getDragonfly().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         getDragonfly().addEquipment(Consts.Weapons[WeaponType.PULSE_LASER.castToInt()]);
         getDragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
@@ -969,1228 +734,28 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         getDragonfly().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
         getDragonfly().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-        getScarab().getCrew()[0] = getMercenaries()[CrewMemberId.SCARAB.castToInt()];
+        getScarab().getCrew()[0] = mercenaries.get(CrewMemberId.SCARAB.castToInt());
         getScarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         getScarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
 
-        scorpion.getCrew()[0] = getMercenaries()[CrewMemberId.SCORPION.castToInt()];
-        scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        scorpion.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        scorpion.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-        scorpion.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-        scorpion.addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
-        scorpion.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
-
-        spaceMonster.getCrew()[0] = getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()];
+        spaceMonster.getCrew()[0] = mercenaries.get(CrewMemberId.SPACE_MONSTER.castToInt());
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-    }
 
-    public boolean isDetermineEncounter() {
-        // If there is a specific encounter that needs to happen, it will,
-        // otherwise we'll generate a random encounter.
-        return isDetermineNonRandomEncounter() || isDetermineRandomEncounter();
-    }
-
-    private boolean isDetermineNonRandomEncounter() {
-        boolean showEncounter = false;
-
-        // Encounter with space monster
-        if (getClicks() == 1 && getWarpSystem().getId() == StarSystemId.Acamar
-                && getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
-            setOpponent(spaceMonster);
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.SPACE_MONSTER_IGNORE
-                    : EncounterType.SPACE_MONSTER_ATTACK);
-            showEncounter = true;
-        }
-        // Encounter with the stolen Scarab
-        else if (getArrivedViaWormhole() && getClicks() == 20 && getWarpSystem().getSpecialEventType() != SpecialEventType.NA
-                && getWarpSystem().specialEvent().getType() == SpecialEventType.ScarabDestroyed
-                && getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
-            setOpponent(getScarab());
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.SCARAB_IGNORE
-                    : EncounterType.SCARAB_ATTACK);
-            showEncounter = true;
-        }
-        // Encounter with stolen Dragonfly
-        else if (getClicks() == 1 && getWarpSystem().getId() == StarSystemId.Zalkon
-                && getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON) {
-            setOpponent(getDragonfly());
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.DRAGONFLY_IGNORE
-                    : EncounterType.DRAGONFLY_ATTACK);
-            showEncounter = true;
-        }
-        // Encounter with kidnappers in the Scorpion
-        else if (getClicks() == 1 && getWarpSystem().getId() == StarSystemId.Qonos
-                && getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_QONOS) {
-            setOpponent(scorpion);
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.SCORPION_IGNORE
-                    : EncounterType.SCORPION_ATTACK);
-            showEncounter = true;
-        }
-        // ah, just when you thought you were gonna get away with it...
-        else if (getClicks() == 1 && getJustLootedMarie()) {
-            generateOpponent(OpponentType.POLICE);
-            setEncounterType(EncounterType.MARIE_CELESTE_POLICE);
-            setJustLootedMarie(false);
-
-            showEncounter = true;
-        }
-
-        return showEncounter;
-    }
-
-    private boolean isDeterminePirateEncounter(boolean mantis) {
-        if (mantis) {
-            generateOpponent(OpponentType.MANTIS);
-            setEncounterType(EncounterType.PIRATE_ATTACK);
-        } else {
-            generateOpponent(OpponentType.PIRATE);
-
-            // If you have a cloak, they don't see you
-            if (commander.getShip().isCloaked()) {
-                setEncounterType(EncounterType.PIRATE_IGNORE);
-                // Pirates will mostly attack, but they are cowardly: if your rep is
-                // too high, they tend to flee
-                // if Pirates are in a better ship, they won't flee, even if you
-                // have a very scary
-                // reputation.
-            } else if (getOpponent().getType().castToInt() > commander.getShip().getType().castToInt()
-                    || getOpponent().getType().castToInt() >= ShipType.GRASSHOPPER.castToInt()
-                    || Functions.getRandom(Consts.ReputationScoreElite) > (commander.getReputationScore() * 4)
-                    / (1 + getOpponent().getType().castToInt())) {
-                setEncounterType(EncounterType.PIRATE_ATTACK);
-            } else {
-                setEncounterType(EncounterType.PIRATE_FLEE);
-            }
-        }
-
-        // If they ignore you or flee and you can't see them, the encounter
-        // doesn't take place
-        // If you automatically don't want to confront someone who ignores you,
-        // the
-        // encounter may not take place
-        return getEncounterType() == EncounterType.PIRATE_ATTACK || !(getOpponent().isCloaked() || getOptions()
-                .isAlwaysIgnorePirates());
+        questSystem.fireEvent(ON_CREATE_SHIP);
 
     }
 
-    private boolean isDeterminePoliceEncounter() {
-        generateOpponent(OpponentType.POLICE);
-
-        // If you are cloaked, they don't see you
-        setEncounterType(EncounterType.POLICE_IGNORE);
-        if (!commander.getShip().isCloaked()) {
-            if (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreDubious) {
-                // If you're a criminal, the police will tend to attack
-                // JAF - fixed this; there was code that didn't do anything.
-                // if you're suddenly stuck in a lousy ship, Police won't flee
-                // even if you
-                // have a fearsome reputation.
-                if (getOpponent().getWeaponStrength() > 0
-                        && (commander.getReputationScore() < Consts.ReputationScoreAverage || Functions
-                        .getRandom(Consts.ReputationScoreElite) > (commander.getReputationScore() / (1 + getOpponent()
-                        .getType().castToInt())))
-                        || getOpponent().getType().castToInt() > commander.getShip().getType().castToInt()) {
-                    if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreCriminal) {
-                        setEncounterType(EncounterType.POLICE_SURRENDER);
-                    } else {
-                        setEncounterType(EncounterType.POLICE_ATTACK);
-                    }
-                } else if (getOpponent().isCloaked()) {
-                    setEncounterType(EncounterType.POLICE_IGNORE);
-                } else {
-                    setEncounterType(EncounterType.POLICE_FLEE);
-                }
-            } else if (!getInspected()
-                    && (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreClean
-                    || (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreLawful && Functions
-                    .getRandom(12 - getDifficulty().castToInt()) < 1) || (commander
-                    .getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful && Functions.getRandom(40) == 0))) {
-                // If you're reputation is dubious, the police will inspect you
-                // If your record is clean, the police will inspect you with a
-                // chance of 10% on Normal
-                // If your record indicates you are a lawful trader, the chance
-                // on inspection drops to 2.5%
-                setEncounterType(EncounterType.POLICE_INSPECT);
-                setInspected(true);
-            }
-        }
-
-        // If they ignore you or flee and you can't see them, the encounter
-        // doesn't take place
-        // If you automatically don't want to confront someone who ignores you,
-        // the
-        // encounter may not take place. Otherwise it will - JAF
-        return getEncounterType() == EncounterType.POLICE_ATTACK || getEncounterType() == EncounterType.POLICE_INSPECT
-                || !(getOpponent().isCloaked() || getOptions().isAlwaysIgnorePolice());
-    }
-
-    private boolean isDetermineRandomEncounter() {
-        boolean mantis = false;
-        boolean pirate = false;
-        boolean police = false;
-        boolean trader = false;
-
-        if (getWarpSystem().getId() == StarSystemId.Gemulon && getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-            if (Functions.getRandom(10) > 4) {
-                mantis = true;
-            }
-        } else {
-            // Check if it is time for an encounter
-            int encounter = Functions.getRandom(44 - (2 * getDifficulty().castToInt()));
-            int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore(
-                    commander.getPoliceRecordScore()).getType().castToInt());
-
-            // encounters are half as likely if you're in a flea.
-            if (commander.getShip().getType() == ShipType.FLEA) {
-                encounter *= 2;
-            }
-
-            if (encounter < getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()) {
-                // When you are already raided, other pirates have little to gain
-                pirate = !getRaided();
-            } else if (encounter < getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
-                    + getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier) {
-                // policeModifier adapts itself to your criminal record: you'll
-                // encounter more police if you are a hardened criminal.
-                police = true;
-            } else if (encounter < getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
-                    + getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier
-                    + getWarpSystem().getPoliticalSystem().getActivityTraders().castToInt()) {
-                trader = true;
-            } else if (commander.getShip().isWildOnBoard() && getWarpSystem().getId() == StarSystemId.Kravat) {
-                // if you're coming in to Kravat & you have Wild onboard, there'll be swarms o' cops.
-                police = Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - getDifficulty().castToInt()));
-            } else if (commander.getShip().isArtifactOnBoard() && Functions.getRandom(20) <= 3) {
-                mantis = true;
-            }
-        }
-
-        if (police) {
-            return isDeterminePoliceEncounter();
-        } else if (pirate || mantis) {
-            return isDeterminePirateEncounter(mantis);
-        } else if (trader) {
-            return isDetermineTraderEncounter();
-        } else if (commander.getDays() > 10 && Functions.getRandom(1000) < getChanceOfVeryRareEncounter()
-                && getVeryRareEncounters().size() > 0) {
-            return isDetermineVeryRareEncounter();
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isDetermineTraderEncounter() {
-        generateOpponent(OpponentType.TRADER);
-
-        // If you are cloaked, they don't see you
-        setEncounterType(EncounterType.TRADER_IGNORE);
-        if (!commander.getShip().isCloaked()) {
-            // If you're a criminal, traders tend to flee if you've got at least some reputation
-            if (!commander.getShip().isCloaked()
-                    && commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreCriminal
-                    && Functions.getRandom(Consts.ReputationScoreElite) <= (commander.getReputationScore() * 10)
-                    / (1 + getOpponent().getType().castToInt())) {
-                setEncounterType(EncounterType.TRADER_FLEE);
-                // Will there be trade in orbit?
-            } else if (Functions.getRandom(1000) < getChanceOfTradeInOrbit()) {
-                if (commander.getShip().getFreeCargoBays() > 0 && getOpponent().hasTradeableItems()) {
-                    setEncounterType(EncounterType.TRADER_SELL);
-                    // we fudge on whether the trader has capacity to carry the stuff he's buying.
-                } else if (commander.getShip().hasTradeableItems()) {
-                    setEncounterType(EncounterType.TRADER_BUY);
-                }
-            }
-        }
-
-        // If they ignore you or flee and you can't see them, the encounter doesn't take place
-        // If you automatically don't want to confront someone who ignores you, the
-        // encounter may not take place; otherwise it will.
-        return !getOpponent().isCloaked() && !(getOptions().isAlwaysIgnoreTraders() && (
-                getEncounterType() == EncounterType.TRADER_IGNORE || getEncounterType() == EncounterType.TRADER_FLEE))
-                && !((getEncounterType() == EncounterType.TRADER_BUY || getEncounterType() == EncounterType.TRADER_SELL)
-                && getOptions().isAlwaysIgnoreTradeInOrbit());
-    }
-
-    public boolean isDetermineVeryRareEncounter() {
-        // Very Rare Random Events:
-        // 1. Encounter the abandoned Marie Celeste, which you may loot.
-        // 2. Captain Ahab will trade your Reflective Shield for skill points in Piloting.
-        // 3. Captain Conrad will trade your Military Laser for skill points in Engineering.
-        // 4. Captain Huie will trade your Military Laser for points in Trading.
-        // 5. Encounter an out-of-date bottle of Captain Marmoset's Skill Tonic.
-        // This will affect skills depending on game difficulty level.
-        // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which will invoke
-        // IncreaseRandomSkill one or two times, depending on game difficulty.
-        switch (getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()))) {
-            case MARIE_CELESTE:
-                // Marie Celeste cannot be at Acamar, Qonos, or Zalkon as it may
-                // cause problems with the Space Monster, Scorpion, or Dragonfly
-                if (getClicks() > 1 && commander.getCurrentSystemId() != StarSystemId.Acamar
-                        && commander.getCurrentSystemId() != StarSystemId.Zalkon
-                        && commander.getCurrentSystemId() != StarSystemId.Qonos) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.MARIE_CELESTE);
-                    setEncounterType(EncounterType.MARIE_CELESTE);
-                    generateOpponent(OpponentType.TRADER);
-                    for (int i = 0; i < getOpponent().getCargo().length; i++) {
-                        getOpponent().getCargo()[i] = 0;
-                    }
-                    getOpponent().getCargo()[TradeItemType.NARCOTICS
-                            .castToInt()] = Math.min(getOpponent().getCargoBays(), 5);
-                    return true;
-                }
-                break;
-
-            case CAPTAIN_AHAB:
-                if (commander.getShip().hasShield(ShieldType.REFLECTIVE) && commander.getPilot() < 10
-                        && commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_AHAB);
-                    setEncounterType(EncounterType.CAPTAIN_AHAB);
-                    generateOpponent(OpponentType.FAMOUS_CAPTAIN);
-                    return true;
-                }
-                break;
-
-            case CAPTAIN_CONRAD:
-                if (commander.getShip().hasWeapon(WeaponType.MILITARY_LASER, true) && commander.getEngineer() < 10
-                        && commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_CONRAD);
-                    setEncounterType(EncounterType.CAPTAIN_CONRAD);
-                    generateOpponent(OpponentType.FAMOUS_CAPTAIN);
-                    return true;
-                }
-                break;
-
-            case CAPTAIN_HUIE:
-                if (commander.getShip().hasWeapon(WeaponType.MILITARY_LASER, true) && commander.getTrader() < 10
-                        && commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_HUIE);
-                    setEncounterType(EncounterType.CAPTAIN_HUIE);
-                    generateOpponent(OpponentType.FAMOUS_CAPTAIN);
-                    return true;
-                }
-                break;
-
-            case BOTTLE_OLD:
-                getVeryRareEncounters().remove(VeryRareEncounter.BOTTLE_OLD);
-                setEncounterType(EncounterType.BOTTLE_OLD);
-                generateOpponent(OpponentType.BOTTLE);
-                return true;
-
-            case BOTTLE_GOOD:
-                getVeryRareEncounters().remove(VeryRareEncounter.BOTTLE_GOOD);
-                setEncounterType(EncounterType.BOTTLE_GOOD);
-                generateOpponent(OpponentType.BOTTLE);
-                return true;
-        }
-
-        return false;
-    }
-
-    public void encounterBegin() {
-        // Set up the encounter variables.
-        setEncounterContinueFleeing(setEncounterContinueAttacking(setOpponentDisabled(false)));
-    }
-
-    private void encounterDefeatDragonfly() {
-        commander.setKillsPirate(commander.getKillsPirate() + 1);
-        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-        setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DESTROYED);
-    }
-
-    private void encounterDefeatScarab() {
-        commander.setKillsPirate(commander.getKillsPirate() + 1);
-        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-        setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DESTROYED);
-    }
-
-    private void encounterDefeatScorpion() {
-        commander.setKillsPirate(commander.getKillsPirate() + 1);
-        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-        setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_RESCUED);
-    }
-
-    public void encounterDrink() {
-        if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
-            if (getEncounterType() == EncounterType.BOTTLE_GOOD) {
-                // two points if you're on beginner-normal, one otherwise
-                commander.increaseRandomSkill();
-                if (getDifficulty().castToInt() <= Difficulty.NORMAL.castToInt()) {
-                    commander.increaseRandomSkill();
-                }
-                GuiFacade.alert(AlertType.EncounterTonicConsumedGood);
-            } else {
-                commander.tonicTweakRandomSkill();
-                GuiFacade.alert(AlertType.EncounterTonicConsumedStrange);
-            }
-        }
-    }
-
-    public EncounterResult getEncounterExecuteAction() {
-        EncounterResult result = EncounterResult.CONTINUE;
-        int prevCmdrHull = commander.getShip().getHull();
-        int prevOppHull = getOpponent().getHull();
-
-        setEncounterCmdrHit(false);
-        setEncounterOppHit(false);
-        setEncounterOppFleeingPrev(getEncounterOppFleeing());
-        setEncounterOppFleeing(false);
-
-        // Fire shots
-        switch (getEncounterType()) {
-            case DRAGONFLY_ATTACK:
-            case FAMOUS_CAPTAIN_ATTACK:
-            case MARIE_CELESTE_POLICE:
-            case PIRATE_ATTACK:
-            case POLICE_ATTACK:
-            case SCARAB_ATTACK:
-            case SCORPION_ATTACK:
-            case SPACE_MONSTER_ATTACK:
-            case TRADER_ATTACK:
-                setEncounterCmdrHit(isEncounterExecuteAttack(getOpponent(), commander.getShip(), getEncounterCmdrFleeing()));
-                setEncounterOppHit(!getEncounterCmdrFleeing()
-                        && isEncounterExecuteAttack(commander.getShip(), getOpponent(), false));
-                break;
-            case PIRATE_FLEE:
-            case PIRATE_SURRENDER:
-            case POLICE_FLEE:
-            case TRADER_FLEE:
-            case TRADER_SURRENDER:
-                setEncounterOppHit(!getEncounterCmdrFleeing()
-                        && isEncounterExecuteAttack(commander.getShip(), getOpponent(), true));
-                setEncounterOppFleeing(true);
-                break;
-            default:
-                setEncounterOppHit(!getEncounterCmdrFleeing()
-                        && isEncounterExecuteAttack(commander.getShip(), getOpponent(), false));
-                break;
-        }
-
-        // Determine whether someone gets destroyed
-        if (commander.getShip().getHull() <= 0) {
-            if (commander.getShip().getEscapePod()) {
-                result = EncounterResult.ESCAPE_POD;
-            } else {
-                GuiFacade.alert((getOpponent().getHull() <= 0 ? AlertType.EncounterBothDestroyed
-                        : AlertType.EncounterYouLose));
-
-                result = EncounterResult.KILLED;
-            }
-        } else if (getOpponentDisabled()) {
-            if (getOpponent().getType() == ShipType.DRAGONFLY || getOpponent().getType() == ShipType.SCARAB
-                    || getOpponent().getType() == ShipType.SCORPION) {
-                String str2 = "";
-
-                switch (getOpponent().getType()) {
-                    case DRAGONFLY:
-                        encounterDefeatDragonfly();
-                        break;
-                    case SCARAB:
-                        encounterDefeatScarab();
-                        break;
-                    case SCORPION:
-                        str2 = Strings.EncounterPrincessRescued;
-                        encounterDefeatScorpion();
-                        break;
-                }
-
-                GuiFacade.alert(AlertType.EncounterDisabledOpponent, getEncounterShipText(), str2);
-
-                commander.setReputationScore(
-                        commander.getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
-                result = EncounterResult.NORMAL;
-            } else {
-                encounterUpdateEncounterType(prevCmdrHull, prevOppHull);
-                setEncounterOppFleeing(false);
-            }
-        } else if (getOpponent().getHull() <= 0) {
-            encounterWon();
-
-            result = EncounterResult.NORMAL;
-        } else {
-            boolean escaped = false;
-
-            // Determine whether someone gets away.
-            if (getEncounterCmdrFleeing()
-                    && (getDifficulty() == Difficulty.BEGINNER || (Functions.getRandom(7) + commander
-                    .getShip().getPilot() / 3) * 2 >= Functions.getRandom(getOpponent().getPilot())
-                    * (2 + getDifficulty().castToInt()))) {
-                GuiFacade.alert((getEncounterCmdrHit() ? AlertType.EncounterEscapedHit : AlertType.EncounterEscaped));
-                escaped = true;
-            } else if (getEncounterOppFleeing()
-                    && Functions.getRandom(commander.getShip().getPilot()) * 4 <= Functions.getRandom(7 + getOpponent()
-                    .getPilot() / 3) * 2) {
-                GuiFacade.alert(AlertType.EncounterOpponentEscaped);
-                escaped = true;
-            }
-
-            if (escaped) {
-                result = EncounterResult.NORMAL;
-            } else {
-                // Determine whether the opponent's actions must be changed
-                EncounterType prevEncounter = getEncounterType();
-
-                encounterUpdateEncounterType(prevCmdrHull, prevOppHull);
-
-                // Update the opponent fleeing flag.
-                switch (getEncounterType()) {
-                    case PIRATE_FLEE:
-                    case PIRATE_SURRENDER:
-                    case POLICE_FLEE:
-                    case TRADER_FLEE:
-                    case TRADER_SURRENDER:
-                        setEncounterOppFleeing(true);
-                        break;
-                    default:
-                        setEncounterOppFleeing(false);
-                }
-
-                if (getOptions().isContinuousAttack()
-                        && (getEncounterCmdrFleeing() || !getEncounterOppFleeing() || getOptions()
-                        .isContinuousAttackFleeing()
-                        && (getEncounterType() == prevEncounter || getEncounterType() != EncounterType.PIRATE_SURRENDER
-                        && getEncounterType() != EncounterType.TRADER_SURRENDER))) {
-                    if (getEncounterCmdrFleeing()) {
-                        setEncounterContinueFleeing(true);
-                    } else {
-                        setEncounterContinueAttacking(true);
-                    }
-                }
-            }
-        }
-
-        return result;
-    }
-
-    private boolean isEncounterExecuteAttack(Ship attacker, Ship defender, boolean fleeing) {
-        boolean hit = false;
-
-        // On beginner level, if you flee, you will escape unharmed.
-        // Otherwise, Fighterskill attacker is pitted against pilotskill
-        // defender; if defender
-        // is fleeing the attacker has a free shot, but the chance to hit is smaller
-        // JAF - if the opponent is disabled and attacker has targeting system, they WILL be hit.
-        if (!(getDifficulty() == Difficulty.BEGINNER && defender.isCommandersShip() && fleeing)
-                && (attacker.isCommandersShip() && getOpponentDisabled()
-                && attacker.hasGadget(GadgetType.TARGETING_SYSTEM) || Functions.getRandom(attacker.getFighter()
-                + defender.getSize().castToInt()) >= (fleeing ? 2 : 1)
-                * Functions.getRandom(5 + defender.getPilot() / 2))) {
-            // If the defender is disabled, it only takes one shot to destroy it
-            // completely.
-            if (attacker.isCommandersShip() && getOpponentDisabled()) {
-                defender.setHull(0);
-            } else {
-                int attackerLasers = attacker.getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.MORGANS_LASER);
-                int attackerDisruptors = attacker.getWeaponStrength(WeaponType.PHOTON_DISRUPTOR,
-                        WeaponType.QUANTUM_DISRUPTOR);
-
-                if (defender.getType() == ShipType.SCARAB) {
-                    attackerLasers -= attacker.getWeaponStrength(WeaponType.BEAM_LASER, WeaponType.MILITARY_LASER);
-                    attackerDisruptors -= attacker.getWeaponStrength(WeaponType.PHOTON_DISRUPTOR,
-                            WeaponType.PHOTON_DISRUPTOR);
-                }
-
-                int attackerWeapons = attackerLasers + attackerDisruptors;
-
-                int disrupt = 0;
-
-                // Attempt to disable the opponent if they're not already disabled, their shields are down,
-                // we have disabling weapons, and the option is checked.
-                if (defender.isDisableable() && defender.getShieldCharge() == 0 && !getOpponentDisabled()
-                        && getOptions().isDisableOpponents() && attackerDisruptors > 0) {
-                    disrupt = Functions.getRandom(attackerDisruptors * (100 + 2 * attacker.getFighter()) / 100);
-                } else {
-                    int damage = (attackerWeapons == 0)
-                            ? 0 : Functions.getRandom(attackerWeapons * (100 + 2 * attacker.getFighter()) / 100);
-
-                    if (damage > 0) {
-                        hit = true;
-
-                        // Reactor on board -- damage is boosted!
-                        if (defender.isReactorOnBoard()) {
-                            damage *= (int) (1 + (getDifficulty().castToInt() + 1)
-                                    * (getDifficulty().castToInt() < Difficulty.NORMAL.castToInt() ? 0.25 : 0.33));
-                        }
-
-                        // First, shields are depleted
-                        for (int i = 0; i < defender.getShields().length && defender.getShields()[i] != null && damage > 0; i++) {
-                            int applied = Math.min(defender.getShields()[i].getCharge(), damage);
-                            defender.getShields()[i].setCharge(defender.getShields()[i].getCharge() - applied);
-                            damage -= applied;
-                        }
-
-                        // If there still is damage after the shields have been depleted,
-                        // this is subtracted from the hull, modified by the engineering skill
-                        // of the defender.
-                        // JAF - If the player only has disabling weapons, no damage will be done to the hull.
-                        if (damage > 0) {
-                            damage = Math.max(1, damage - Functions.getRandom(defender.getEngineer()));
-
-                            disrupt = damage * attackerDisruptors / attackerWeapons;
-
-                            // Only that damage coming from Lasers will deplete the hull.
-                            damage -= disrupt;
-
-                            // At least 2 shots on Normal level are needed to destroy the hull
-                            // (3 on Easy, 4 on Beginner, 1 on Hard or
-                            // Impossible). For opponents,
-                            // it is always 2.
-                            damage = Math.min(damage, defender.getHullStrength()
-                                    / (defender.isCommandersShip() ? Math.max(1, spacetrader.game.enums.Difficulty.IMPOSSIBLE
-                                    .castToInt() - getDifficulty().castToInt()) : 2));
-
-                            // If the hull is hardened, damage is halved.
-                            if (getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
-                                damage /= 2;
-                            }
-
-                            defender.setHull(Math.max(0, defender.getHull() - damage));
-                        }
-                    }
-                }
-
-                // Did the opponent get disabled? (Disruptors are 3 times more
-                // effective against the ship's systems than they are against the shields).
-                if (defender.getHull() > 0 && defender.isDisableable()
-                        && Functions.getRandom(100) < disrupt * Consts.DisruptorSystemsMultiplier * 100
-                        / defender.getHull()) {
-                    setOpponentDisabled(true);
-                }
-
-                // Make sure the Scorpion doesn't get destroyed.
-                if (defender.getType() == ShipType.SCORPION && defender.getHull() == 0) {
-                    defender.setHull(1);
-                    setOpponentDisabled(true);
-                }
-            }
-        }
-
-        return hit;
-    }
-
-    public void encounterMeet() {
-        AlertType initialAlert = AlertType.Alert;
-        int skill = 0;
-        EquipmentType equipType = EquipmentType.GADGET;
-        Object equipSubType = null;
-
-        switch (getEncounterType()) {
-            case CAPTAIN_AHAB:
-                // Trade a reflective shield for skill points in piloting?
-                initialAlert = AlertType.MeetCaptainAhab;
-                equipType = EquipmentType.SHIELD;
-                equipSubType = ShieldType.REFLECTIVE;
-                skill = SkillType.PILOT.castToInt();
-                break;
-
-            case CAPTAIN_CONRAD:
-                // Trade a military laser for skill points in engineering?
-                initialAlert = AlertType.MeetCaptainConrad;
-                equipType = EquipmentType.WEAPON;
-                equipSubType = WeaponType.MILITARY_LASER;
-                skill = SkillType.ENGINEER.castToInt();
-                break;
-
-            case CAPTAIN_HUIE:
-                // Trade a military laser for skill points in trading?
-                initialAlert = AlertType.MeetCaptainHuie;
-                equipType = EquipmentType.WEAPON;
-                equipSubType = WeaponType.MILITARY_LASER;
-                skill = SkillType.TRADER.castToInt();
-                break;
-        }
-
-        if (GuiFacade.alert(initialAlert) == DialogResult.YES) {
-            // Remove the equipment we're trading.
-            commander.getShip().removeEquipment(equipType, equipSubType);
-
-            // Add points to the appropriate skill - two points if
-            // beginner-normal, one otherwise.
-            commander.getSkills()[skill] = Math.min(Consts.MaxSkill, commander.getSkills()[skill]
-                    + (getDifficulty().castToInt() <= Difficulty.NORMAL.castToInt() ? 2 : 1));
-
-            GuiFacade.alert(AlertType.SpecialTrainingCompleted);
-        }
-    }
-
-    public void encounterPlunder() {
-        GuiFacade.performPlundering();
-
-        if (getEncounterType().castToInt() >= EncounterType.TRADER_ATTACK.castToInt()) {
-            commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScorePlunderTrader);
-
-            if (getOpponentDisabled()) {
-                commander.setKillsTrader(commander.getKillsTrader() + 1);
-            }
-        } else if (getOpponentDisabled()) {
-            if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
-                GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDisabled,
-                        " " + Strings.EncounterPiratesLocation, Functions.plural(getOpponent().getBounty(), Strings.MoneyUnit));
-
-                commander.setCash(commander.getCash() + getOpponent().getBounty());
-            }
-
-            commander.setKillsPirate(commander.getKillsPirate() + 1);
-            commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-        } else
-            commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScorePlunderPirate);
-
-        commander.setReputationScore(commander.getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
-    }
-
-    private void encounterScoop() {
-        // Chance 50% to pick something up on Normal level, 33% on Hard level, 25% on
-        // Impossible level, and 100% on Easy or Beginner.
-        if ((getDifficulty().castToInt() < Difficulty.NORMAL.castToInt()
-                || Functions.getRandom(getDifficulty().castToInt()) == 0) && getOpponent().getFilledCargoBays() > 0) {
-            // Changed this to actually pick a good that was in the opponent's cargo hold - JAF.
-            int index = Functions.getRandom(getOpponent().getFilledCargoBays());
-            int tradeItem = -1;
-            for (int sum = 0; sum <= index; sum += getOpponent().getCargo()[++tradeItem]) {
-            }
-
-            if (GuiFacade.alert(AlertType.EncounterScoop, Consts.TradeItems[tradeItem].getName()) == DialogResult.YES) {
-                boolean jettisoned = false;
-
-                if (commander.getShip().getFreeCargoBays() == 0
-                        && GuiFacade.alert(AlertType.EncounterScoopNoRoom) == DialogResult.YES) {
-                    GuiFacade.performJettison();
-                    jettisoned = true;
-                }
-
-                if (commander.getShip().getFreeCargoBays() > 0) {
-                    commander.getShip().getCargo()[tradeItem]++;
-                } else if (jettisoned) {
-                    GuiFacade.alert(AlertType.EncounterScoopNoScoop);
-                }
-            }
-        }
-    }
-
-    public void encounterTrade() {
-        boolean buy = (getEncounterType() == EncounterType.TRADER_BUY);
-        int item = (buy ? commander.getShip() : getOpponent()).getRandomTradeableItem();
-        String alertStr = (buy ? Strings.CargoSelling : Strings.CargoBuying);
-
-        int cash = commander.getCash();
-
-        if (getEncounterType() == EncounterType.TRADER_BUY) {
-            cargoSellTrader(item);
-        } else {
-            // EncounterType.TRADER_SELL
-            cargoBuyTrader(item);
-        }
-
-        if (commander.getCash() != cash) {
-            GuiFacade.alert(AlertType.EncounterTradeCompleted, alertStr, Consts.TradeItems[item].getName());
-        }
-    }
-
-    private void encounterUpdateEncounterType(int prevCmdrHull, int prevOppHull) {
-        int chance = Functions.getRandom(100);
-
-        if (getOpponent().getHull() < prevOppHull || getOpponentDisabled()) {
-            switch (getEncounterType()) {
-                case FAMOUS_CAPTAIN_ATTACK:
-                    if (getOpponentDisabled()) {
-                        setEncounterType(EncounterType.FAMOUS_CAPT_DISABLED);
-                    }
-                    break;
-                case PIRATE_ATTACK:
-                case PIRATE_FLEE:
-                case PIRATE_SURRENDER:
-                    if (getOpponentDisabled()) {
-                        setEncounterType(EncounterType.PIRATE_DISABLED);
-                    } else if (getOpponent().getHull() < (prevOppHull * 2) / 3) {
-                        if (commander.getShip().getHull() < (prevCmdrHull * 2) / 3) {
-                            if (chance < 60) {
-                                setEncounterType(EncounterType.PIRATE_FLEE);
-                            }
-                        } else {
-                            if (chance < 10 && getOpponent().getType() != ShipType.MANTIS) {
-                                setEncounterType(EncounterType.PIRATE_SURRENDER);
-                            } else {
-                                setEncounterType(EncounterType.PIRATE_FLEE);
-                            }
-                        }
-                    }
-                    break;
-                case POLICE_ATTACK:
-                case POLICE_FLEE:
-                    if (getOpponentDisabled()) {
-                        setEncounterType(EncounterType.POLICE_DISABLED);
-                    } else if (getOpponent().getHull() < prevOppHull / 2
-                            && (commander.getShip().getHull() >= prevCmdrHull / 2 || chance < 40)) {
-                        setEncounterType(EncounterType.POLICE_FLEE);
-                    }
-                    break;
-                case TRADER_ATTACK:
-                case TRADER_FLEE:
-                case TRADER_SURRENDER:
-                    if (getOpponentDisabled()) {
-                        setEncounterType(EncounterType.TRADER_DISABLED);
-                    } else if (getOpponent().getHull() < (prevOppHull * 2) / 3) {
-                        if (chance < 60) {
-                            setEncounterType(EncounterType.TRADER_SURRENDER);
-                        } else {
-                            setEncounterType(EncounterType.TRADER_FLEE);
-                        }
-                    }
-                    // If you get damaged a lot, the trader tends to keep shooting;
-                    // if you get damaged a little, the trader may keep shooting;
-                    // if you get damaged very little or not at all, the trader will flee.
-                    else if (getOpponent().getHull() < (prevOppHull * 9) / 10
-                            && (commander.getShip().getHull() < (prevCmdrHull * 2) / 3 && chance < 20
-                            || commander.getShip().getHull() < (prevCmdrHull * 9) / 10 && chance < 60 || commander
-                            .getShip().getHull() >= (prevCmdrHull * 9) / 10)) {
-                        setEncounterType(EncounterType.TRADER_FLEE);
-                    }
-            }
-        }
-    }
-
-    public boolean isEncounterVerifyAttack() {
-        boolean attack = true;
-
-        if (commander.getShip().getWeaponStrength() == 0) {
-            GuiFacade.alert(AlertType.EncounterAttackNoWeapons);
-            attack = false;
-        } else if (!getOpponent().isDisableable()
-                && commander.getShip().getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.MORGANS_LASER) == 0) {
-            GuiFacade.alert(AlertType.EncounterAttackNoLasers);
-            attack = false;
-        } else if (getOpponent().getType() == ShipType.SCORPION
-                && commander.getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
-            GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
-            attack = false;
-        } else {
-            switch (getEncounterType()) {
-                case DRAGONFLY_IGNORE:
-                case PIRATE_IGNORE:
-                case SCARAB_IGNORE:
-                case SCORPION_IGNORE:
-                case SPACE_MONSTER_IGNORE:
-                    setEncounterType(EncounterType.fromInt(getEncounterType().castToInt() - 1));
-                    break;
-
-                case POLICE_INSPECT:
-                    if (!commander.getShip().isDetectableIllegalCargoOrPassengers()
-                            && GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) != DialogResult.YES) {
-                        attack = false;
-                    }
-
-                    // Fall through...
-                    if (attack) {
-                    }// goto case POLICE_IGNORE;
-                    else {
-                        break;
-                    }
-
-                case MARIE_CELESTE_POLICE:
-                case POLICE_FLEE:
-                case POLICE_IGNORE:
-                case POLICE_SURRENDER:
-                    if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreCriminal
-                            || GuiFacade.alert(AlertType.EncounterAttackPolice) == DialogResult.YES) {
-                        if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                            commander.setPoliceRecordScore(Consts.PoliceRecordScoreCriminal);
-                        }
-
-                        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackPolice);
-
-                        if (getEncounterType() != EncounterType.POLICE_FLEE) {
-                            setEncounterType(EncounterType.POLICE_ATTACK);
-                        }
-                    } else {
-                        attack = false;
-                    }
-                    break;
-
-                case TRADER_BUY:
-                case TRADER_IGNORE:
-                case TRADER_SELL:
-                    if (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreClean) {
-                        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackTrader);
-                    } else if (GuiFacade.alert(AlertType.EncounterAttackTrader) == DialogResult.YES) {
-                        commander.setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
-                    } else {
-                        attack = false;
-                    }
-
-                    // Fall through...
-                    if (attack) {
-                    }// goto case TRADER_ATTACK;
-                    else {
-                        break;
-                    }
-
-                case TRADER_ATTACK:
-                case TRADER_SURRENDER:
-                    if (Functions.getRandom(Consts.ReputationScoreElite) <= commander.getReputationScore() * 10
-                            / (getOpponent().getType().castToInt() + 1)
-                            || getOpponent().getWeaponStrength() == 0) {
-                        setEncounterType(EncounterType.TRADER_FLEE);
-                    } else {
-                        setEncounterType(EncounterType.TRADER_ATTACK);
-                    }
-                    break;
-
-                case CAPTAIN_AHAB:
-                case CAPTAIN_CONRAD:
-                case CAPTAIN_HUIE:
-                    if (GuiFacade.alert(AlertType.EncounterAttackCaptain) == DialogResult.YES) {
-                        if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreVillain) {
-                            commander.setPoliceRecordScore(Consts.PoliceRecordScoreVillain);
-                        }
-
-                        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackTrader);
-
-                        switch (getEncounterType()) {
-                            case CAPTAIN_AHAB:
-                                newsAddEvent(NewsEvent.CaptAhabAttacked);
-                                break;
-                            case CAPTAIN_CONRAD:
-                                newsAddEvent(NewsEvent.CaptConradAttacked);
-                                break;
-                            case CAPTAIN_HUIE:
-                                newsAddEvent(NewsEvent.CaptHuieAttacked);
-                                break;
-                        }
-
-                        setEncounterType(EncounterType.FAMOUS_CAPTAIN_ATTACK);
-                    } else {
-                        attack = false;
-                    }
-                    break;
-            }
-
-            // Make sure the fleeing flag isn't set if we're attacking.
-            if (attack) {
-                setEncounterCmdrFleeing(false);
-            }
-        }
-
-        return attack;
-    }
-
-    public boolean isEncounterVerifyBoard() {
-        boolean board = false;
-
-        if (GuiFacade.alert(AlertType.EncounterMarieCeleste) == DialogResult.YES) {
-            board = true;
-
-            int narcs = commander.getShip().getCargo()[TradeItemType.NARCOTICS.castToInt()];
-
-            GuiFacade.performPlundering();
-
-            if (commander.getShip().getCargo()[TradeItemType.NARCOTICS.castToInt()] > narcs) {
-                setJustLootedMarie(true);
-            }
-        }
-
-        return board;
-    }
-
-    public boolean isEncounterVerifyBribe() {
-        boolean bribed = false;
-
-        if (getEncounterType() == EncounterType.MARIE_CELESTE_POLICE) {
-            GuiFacade.alert(AlertType.EncounterMarieCelesteNoBribe);
-        } else if (getWarpSystem().getPoliticalSystem().getBribeLevel() <= 0) {
-            GuiFacade.alert(AlertType.EncounterPoliceBribeCant);
-        } else if (commander.getShip().isDetectableIllegalCargoOrPassengers()
-                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
-            // Bribe depends on how easy it is to bribe the police and commander's current worth
-            int diffMod = 10 + 5 * (Difficulty.IMPOSSIBLE.castToInt() - getDifficulty().castToInt());
-            int passMod = commander.getShip().isIllegalSpecialCargo()
-                    ? (getDifficulty().castToInt() <= Difficulty.NORMAL.castToInt() ? 2 : 3)
-                    : 1;
-
-            int bribe = Math.max(100, Math.min(10000, (int) Math.ceil((double) commander.getWorth()
-                    / getWarpSystem().getPoliticalSystem().getBribeLevel() / diffMod / 100) * 100 * passMod));
-
-            if (GuiFacade.alert(AlertType.EncounterPoliceBribe, Functions.plural(bribe, Strings.MoneyUnit)) == DialogResult.YES) {
-                if (commander.getCash() >= bribe) {
-                    commander.setCash(commander.getCash() - bribe);
-                    bribed = true;
-                } else {
-                    GuiFacade.alert(AlertType.EncounterPoliceBribeLowCash);
-                }
-            }
-        }
-
-        return bribed;
-    }
-
-    public boolean isEncounterVerifyFlee() {
-        setEncounterCmdrFleeing(false);
-
-        if (getEncounterType() != EncounterType.POLICE_INSPECT
-                || commander.getShip().isDetectableIllegalCargoOrPassengers()
-                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
-            setEncounterCmdrFleeing(true);
-
-            if (getEncounterType() == EncounterType.MARIE_CELESTE_POLICE
-                    && GuiFacade.alert(AlertType.EncounterPostMarieFlee) == DialogResult.NO) {
-                setEncounterCmdrFleeing(false);
-            } else if (getEncounterType() == EncounterType.POLICE_INSPECT
-                    || getEncounterType() == EncounterType.MARIE_CELESTE_POLICE) {
-                int scoreMod = (getEncounterType() == EncounterType.POLICE_INSPECT) ? Consts.ScoreFleePolice
-                        : Consts.ScoreAttackPolice;
-                int scoreMin = (getEncounterType() == EncounterType.POLICE_INSPECT) ? Consts.PoliceRecordScoreDubious
-                        - (getDifficulty().castToInt() < Difficulty.NORMAL.castToInt() ? 0 : 1)
-                        : Consts.PoliceRecordScoreCriminal;
-
-                setEncounterType(EncounterType.POLICE_ATTACK);
-                commander.setPoliceRecordScore(Math.min(commander.getPoliceRecordScore() + scoreMod, scoreMin));
-            }
-        }
-
-        return getEncounterCmdrFleeing();
-    }
-
-    public boolean isEncounterVerifySubmit() {
-        boolean submit = false;
-
-        if (commander.getShip().isDetectableIllegalCargoOrPassengers()) {
-            String str1 = commander.getShip().getIllegalSpecialCargoDescription("", true, true);
-            String str2 = commander.getShip().isIllegalSpecialCargo() ? Strings.EncounterPoliceSubmitArrested : "";
-
-            if (GuiFacade.alert(AlertType.EncounterPoliceSubmit, str1, str2) == DialogResult.YES) {
-                submit = true;
-
-                // If you carry illegal goods, they are impounded and you are fined
-                if (commander.getShip().isDetectableIllegalCargo()) {
-                    commander.getShip().removeIllegalGoods();
-
-                    int fine = (int) Math.max(100, Math.min(10000,
-                            Math.ceil((double) commander.getWorth()
-                                    / ((Difficulty.IMPOSSIBLE.castToInt()
-                                    - getDifficulty().castToInt() + 2) * 10) / 50) * 50));
-                    int cashPayment = Math.min(commander.getCash(), fine);
-                    commander.setDebt(commander.getDebt() + (fine - cashPayment));
-                    commander.setCash(commander.getCash() - cashPayment);
-
-                    GuiFacade.alert(AlertType.EncounterPoliceFine, Functions.plural(fine, Strings.MoneyUnit));
-
-                    commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreTrafficking);
-                }
-            }
-        } else {
-            submit = true;
-
-            // If you aren't carrying illegal cargo or passengers, the police
-            // will increase your lawfulness record
-            GuiFacade.alert(AlertType.EncounterPoliceNothingFound);
-            commander.setPoliceRecordScore(commander.getPoliceRecordScore() - Consts.ScoreTrafficking);
-        }
-
-        return submit;
-    }
-
-    public EncounterResult getEncounterVerifySurrender() {
-        EncounterResult result = EncounterResult.CONTINUE;
-
-        if (getOpponent().getType() == ShipType.MANTIS) {
-            if (commander.getShip().isArtifactOnBoard()) {
-                if (GuiFacade.alert(AlertType.EncounterAliensSurrender) == DialogResult.YES) {
-                    GuiFacade.alert(AlertType.ArtifactRelinquished);
-                    setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_NOT_STARTED);
-
-                    result = EncounterResult.NORMAL;
-                }
-            } else {
-                GuiFacade.alert(AlertType.EncounterSurrenderRefused);
-            }
-        } else if (getEncounterType() == EncounterType.POLICE_ATTACK || getEncounterType() == EncounterType.POLICE_SURRENDER) {
-            if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScorePsychopath) {
-                GuiFacade.alert(AlertType.EncounterSurrenderRefused);
-            } else if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
-                    commander.getShip().getIllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            false), commander.getShip().getIllegalSpecialCargoActions()})) == DialogResult.YES) {
-                result = EncounterResult.ARRESTED;
-            }
-        } else if (commander.getShip().isPrincessOnBoard() && !commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-            GuiFacade.alert(AlertType.EncounterPiratesSurrenderPrincess);
-        } else {
-            setRaided(true);
-
-            if (commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-                ArrayList<String> precious = new ArrayList<>();
-                if (commander.getShip().isPrincessOnBoard()) {
-                    precious.add(Strings.EncounterHidePrincess);
-                }
-                if (commander.getShip().isSculptureOnBoard()) {
-                    precious.add(Strings.EncounterHideSculpture);
-                }
-
-                GuiFacade.alert(AlertType.PreciousHidden, Functions.stringVars(Strings.ListStrings[precious.size()],
-                        precious.toArray(new String[0])));
-            } else if (commander.getShip().isSculptureOnBoard()) {
-                setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_NOT_STARTED);
-                GuiFacade.alert(AlertType.EncounterPiratesTakeSculpture);
-            }
-
-            ArrayList<Integer> cargoToSteal = commander.getShip().getStealableCargo();
-            if (cargoToSteal.size() == 0) {
-                int blackmail = Math.min(25000, Math.max(500, commander.getWorth() / 20));
-                int cashPayment = Math.min(commander.getCash(), blackmail);
-                commander.setDebt(commander.getDebt() + (blackmail - cashPayment));
-                commander.setCash(commander.getCash() - cashPayment);
-                GuiFacade.alert(AlertType.EncounterPiratesFindNoCargo, Functions
-                        .plural(blackmail, Strings.MoneyUnit));
-            } else {
-                GuiFacade.alert(AlertType.EncounterLooting);
-
-                // Pirates steal as much as they have room for, which could be everything - JAF.
-                // Take most high-priced items - JAF.
-                while (getOpponent().getFreeCargoBays() > 0 && cargoToSteal.size() > 0) {
-                    int item = cargoToSteal.get(0);
-
-                    commander.getPriceCargo()[item] -= commander.getPriceCargo()[item]
-                            / commander.getShip().getCargo()[item];
-                    commander.getShip().getCargo()[item]--;
-                    getOpponent().getCargo()[item]++;
-
-                    cargoToSteal.remove(0);
-                }
-            }
-
-            if (commander.getShip().isWildOnBoard()) {
-                if (getOpponent().getCrewQuarters() > 1) {
-                    // Wild hops onto Pirate Ship
-                    setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
-                    GuiFacade.alert(AlertType.WildGoesPirates);
-                } else {
-                    GuiFacade.alert(AlertType.WildChatsPirates);
-                }
-            }
-
-            // pirates puzzled by reactor
-            if (commander.getShip().isReactorOnBoard()) {
-                GuiFacade.alert(AlertType.EncounterPiratesExamineReactor);
-            }
-
-            result = EncounterResult.NORMAL;
-        }
-
-        return result;
-    }
-
-    public EncounterResult getEncounterVerifyYield() {
-        EncounterResult result = EncounterResult.CONTINUE;
-
-        if (commander.getShip().isIllegalSpecialCargo()) {
-            if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
-                    commander.getShip().getIllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
-                            true), commander.getShip().getIllegalSpecialCargoActions()})) == DialogResult.YES) {
-                result = EncounterResult.ARRESTED;
-            }
-        } else {
-            String str1 = commander.getShip().getIllegalSpecialCargoDescription("", false, true);
-
-            if (GuiFacade.alert(AlertType.EncounterPoliceSubmit, str1, "") == DialogResult.YES) {
-                // Police Record becomes dubious, if it wasn't already.
-                if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreDubious) {
-                    commander.setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
-                }
-
-                commander.getShip().removeIllegalGoods();
-
-                result = EncounterResult.NORMAL;
-            }
-        }
-
-        return result;
-    }
-
-    private void encounterWon() {
-        if (getEncounterType().castToInt() >= EncounterType.PIRATE_ATTACK.castToInt()
-                && getEncounterType().castToInt() <= EncounterType.PIRATE_DISABLED.castToInt()
-                && getOpponent().getType() != ShipType.MANTIS
-                && commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
-            GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDestroyed, "", Functions
-                    .plural(getOpponent().getBounty(), Strings.MoneyUnit));
-        } else {
-            GuiFacade.alert(AlertType.EncounterYouWin);
-        }
-
-        switch (getEncounterType()) {
-            case FAMOUS_CAPTAIN_ATTACK:
-                commander.setKillsTrader(commander.getKillsTrader() + 1);
-                if (commander.getReputationScore() < Consts.ReputationScoreDangerous) {
-                    commander.setReputationScore(Consts.ReputationScoreDangerous);
-                } else {
-                    commander.setReputationScore(commander.getReputationScore() + Consts.ScoreKillCaptain);
-                }
-
-                // bump news flag from attacked to ship destroyed
-                newsReplaceEvent(getNewsLatestEvent(), NewsEvent.fromInt(getNewsLatestEvent().castToInt() + 1));
-                break;
-            case DRAGONFLY_ATTACK:
-                encounterDefeatDragonfly();
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_FLEE:
-            case PIRATE_SURRENDER:
-                commander.setKillsPirate(commander.getKillsPirate() + 1);
-                if (getOpponent().getType() != ShipType.MANTIS) {
-                    if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
-                        commander.setCash(commander.getCash() + getOpponent().getBounty());
-                    }
-                    commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-                    encounterScoop();
-                }
-                break;
-            case POLICE_ATTACK:
-            case POLICE_FLEE:
-                commander.setKillsPolice(commander.getKillsPolice() + 1);
-                commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPolice);
-                break;
-            case SCARAB_ATTACK:
-                encounterDefeatScarab();
-                break;
-            case SPACE_MONSTER_ATTACK:
-                commander.setKillsPirate(commander.getKillsPirate() + 1);
-                commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-                setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED);
-                break;
-            case TRADER_ATTACK:
-            case TRADER_FLEE:
-            case TRADER_SURRENDER:
-                commander.setKillsTrader(commander.getKillsTrader() + 1);
-                commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillTrader);
-                encounterScoop();
-                break;
-        }
-
-        commander.setReputationScore(commander.getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
-    }
-
-    private void escapeWithPod() {
+    public void escapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
-
-        if (commander.getShip().isSculptureOnBoard()) {
-            GuiFacade.alert(AlertType.SculptureSaved);
-        }
-
-        if (commander.getShip().isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ReactorDestroyed);
-            setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
-        }
-
-        if (commander.getShip().getTribbles() > 0) {
-            GuiFacade.alert(AlertType.TribblesKilled);
-        }
 
         if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             int system;
             for (system = 0; system < getUniverse().length
-                    && getUniverse()[system].getSpecialEventType() != SpecialEventType.Japori; system++) {
+                    && getStarSystem(system).getSpecialEventType() != SpecialEventType.Japori; system++) {
             }
-            GuiFacade.alert(AlertType.AntidoteDestroyed, getUniverse()[system].getName());
+            GuiFacade.alert(AlertType.AntidoteDestroyed, getStarSystem(system).getName());
             setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_NOT_STARTED);
         }
 
@@ -2199,22 +764,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
         }
 
-        if (commander.getShip().isJarekOnBoard()) {
-            GuiFacade.alert(AlertType.JarekTakenHome);
-            setQuestStatusJarek(SpecialEvent.STATUS_JAREK_NOT_STARTED);
-        }
-
-        if (commander.getShip().isPrincessOnBoard()) {
-            GuiFacade.alert(AlertType.PrincessTakenHome);
-            setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_NOT_STARTED);
-        }
-
-        if (commander.getShip().isWildOnBoard()) {
-            GuiFacade.alert(AlertType.WildArrested);
-            commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreCaughtWithWild);
-            newsAddEvent(NewsEvent.WildArrested);
-            setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
-        }
+        questSystem.fireEvent(EventName.ON_ESCAPE_WITH_POD);
 
         if (commander.getInsurance()) {
             GuiFacade.alert(AlertType.InsurancePayoff);
@@ -2235,76 +785,42 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         createFlea();
     }
 
-    private boolean isFindDistantSystem(StarSystemId baseSystem, SpecialEventType specEvent) {
-        int bestDistance = 999;
-        int system = -1;
-        for (int i = 0; i < getUniverse().length; i++) {
-            int distance = Functions.distance(getUniverse()[baseSystem.castToInt()], getUniverse()[i]);
-            if (distance >= 70 && distance < bestDistance && getUniverse()[i].getSpecialEventType() == SpecialEventType.NA) {
-                system = i;
-                bestDistance = distance;
-            }
-        }
-        if (system >= 0) {
-            getUniverse()[system].setSpecialEventType(specEvent);
-        }
-
-        return (system >= 0);
-    }
-
     private void generateCrewMemberList() {
-        int[] used = new int[getUniverse().length];
-        int d = getDifficulty().castToInt();
+        List<Integer> usedSystems = Arrays.stream(getUniverse()).map(s -> 0).collect(toList());
+        int d = getDifficultyId();
 
-        // Zeethibal may be on Kravat
-        used[StarSystemId.Kravat.castToInt()] = 1;
-
-        // special individuals:
-        // Zeethibal, Jonathan Wild's Nephew - skills will be set later.
-        // Wild, Jonathan Wild earns his keep now - JAF.
-        // Jarek, Ambassador Jarek earns his keep now - JAF.
         // Dummy pilots for opponents.
-        getMercenaries()[CrewMemberId.ZEETHIBAL.castToInt()] = new CrewMember(CrewMemberId.ZEETHIBAL, 5, 5, 5, 5,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.OPPONENT.castToInt()] = new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.WILD.castToInt()] = new CrewMember(CrewMemberId.WILD, 7, 10, 2, 5, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.JAREK.castToInt()] = new CrewMember(CrewMemberId.JAREK, 3, 2, 10, 4, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.PRINCESS.castToInt()] = new CrewMember(CrewMemberId.PRINCESS, 4, 3, 8, 9,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()] = new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10,
-                10, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.DRAGONFLY.castToInt()] = new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1,
-                6 + d, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.SCARAB.castToInt()] = new CrewMember(CrewMemberId.SCARAB, 5 + d, 6 + d, 1, 6 + d,
-                StarSystemId.NA);
-        getMercenaries()[CrewMemberId.SCORPION.castToInt()] = new CrewMember(CrewMemberId.SCORPION, 8 + d, 8 + d, 1,
-                6 + d, StarSystemId.NA);
-        getMercenaries()[CrewMemberId.SPACE_MONSTER.castToInt()] = new CrewMember(CrewMemberId.SPACE_MONSTER, 8 + d, 8 + d,
-                1, 1 + d, StarSystemId.NA);
+        mercenaries.put(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5, false, StarSystemId.NA));
+
+        questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST, usedSystems);
+
+        mercenaries.put(CrewMemberId.FAMOUS_CAPTAIN.castToInt(), new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10, 10, false, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.DRAGONFLY.castToInt(), new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1, 6 + d, false, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.SCARAB.castToInt(), new CrewMember(CrewMemberId.SCARAB, 5 + d, 6 + d, 1, 6 + d, false, StarSystemId.NA));
+        mercenaries.put(CrewMemberId.SPACE_MONSTER.castToInt(), new CrewMember(CrewMemberId.SPACE_MONSTER, 8 + d, 8 + d, 1, 1 + d, false, StarSystemId.NA));
 
         // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
-        for (int i = 1; i < getMercenaries().length; i++) {
-            // Only create a CrewMember Object if one doesn't already exist in this slot in the array.
-            if (getMercenaries()[i] == null) {
+        for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, QUEST
+            if (!mercenaries.containsKey(i)) { // Create CrewMember if it doesn't exist.
                 StarSystemId id;
                 boolean ok = false;
 
                 do {
                     id = StarSystemId.fromInt(Functions.getRandom(getUniverse().length));
-                    if (used[id.castToInt()] < 3) {
-                        used[id.castToInt()]++;
+                    if (usedSystems.get(id.castToInt()) < 3) {
+                        usedSystems.set(id.castToInt(), usedSystems.get(id.castToInt()) + 1);
                         ok = true;
                     }
                 } while (!ok);
 
-                getMercenaries()[i] = new CrewMember(CrewMemberId.fromInt(i), Functions.randomSkill(),
-                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), id);
+                mercenaries.put(i, new CrewMember(CrewMemberId.fromInt(i), Functions.randomSkill(),
+                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), true, id)
+                );
             }
         }
     }
 
-    private void generateOpponent(OpponentType oppType) {
+    void generateOpponent(OpponentType oppType) {
         setOpponent(new Ship(oppType));
     }
 
@@ -2320,6 +836,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.getMinimumTechLevel().castToInt(), polSys
                     .getMaximumTechLevel().castToInt() + 1));
 
+            //TODO in quest
             // Galvon must be a Monarchy.
             if (id == StarSystemId.Galvon) {
                 size = Size.LARGE;
@@ -2354,12 +871,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                     boolean tooClose = false;
                     for (int j = 0; j < i && !tooClose; j++) {
                         // Minimum distance between any two systems not to be accepted.
-                        if (Functions.distance(getUniverse()[j], x, y) < Consts.MinDistance) {
+                        if (Functions.distance(getStarSystem(j), x, y) < Consts.MinDistance) {
                             tooClose = true;
                         }
 
                         // There should be at least one system which is close enough.
-                        if (Functions.distance(getUniverse()[j], x, y) < Consts.CloseDistance) {
+                        if (Functions.distance(getStarSystem(j), x, y) < Consts.CloseDistance) {
                             closeFound = true;
                         }
                     }
@@ -2375,12 +892,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         for (int i = 0; i < getUniverse().length; i++) {
             int j = Functions.getRandom(getUniverse().length);
             if (!Functions.wormholeExists(j, -1)) {
-                int x = getUniverse()[i].getX();
-                int y = getUniverse()[i].getY();
-                getUniverse()[i].setX(getUniverse()[j].getX());
-                getUniverse()[i].setY(getUniverse()[j].getY());
-                getUniverse()[j].setX(x);
-                getUniverse()[j].setY(y);
+                int x = getStarSystem(i).getX();
+                int y = getStarSystem(i).getY();
+                getStarSystem(i).setX(getStarSystem(j).getX());
+                getStarSystem(i).setY(getStarSystem(j).getY());
+                getStarSystem(j).setX(x);
+                getStarSystem(j).setY(y);
 
                 int w = Util.bruteSeek(getWormholes(), i);
                 if (w >= 0) {
@@ -2399,78 +916,82 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     }
 
     public void handleSpecialEvent() {
-        StarSystem curSys = commander.getCurrentSystem();
-        boolean remove = true;
+        StarSystem currentSystem = commander.getCurrentSystem();
 
-        switch (curSys.getSpecialEventType()) {
+        switch (currentSystem.getSpecialEventType()) {
             case Artifact:
                 setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_ON_BOARD);
+                confirmQuestPhase();
                 break;
             case ArtifactDelivery:
                 setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
+                confirmQuestPhase();
                 break;
             case CargoForSale:
                 GuiFacade.alert(AlertType.SpecialSealedCanisters);
                 int tradeItem = Functions.getRandom(Consts.TradeItems.length);
                 commander.getShip().getCargo()[tradeItem] += 3;
                 commander.getPriceCargo()[tradeItem] += commander.getCurrentSystem().specialEvent().getPrice();
+                confirmQuestPhase();
                 break;
             case Dragonfly:
             case DragonflyBaratas:
             case DragonflyMelina:
             case DragonflyRegulas:
                 setQuestStatusDragonfly(getQuestStatusDragonfly() + 1);
+                confirmQuestPhase();
                 break;
             case DragonflyDestroyed:
-                curSys.setSpecialEventType(SpecialEventType.DragonflyShield);
-                remove = false;
+                switchQuestPhase(SpecialEventType.DragonflyShield);
                 break;
             case DragonflyShield:
                 if (commander.getShip().getFreeShieldSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentLightningShield);
                     commander.getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
                     setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DONE);
+                    confirmQuestPhase();
                 }
                 break;
             case EraseRecord:
                 GuiFacade.alert(AlertType.SpecialCleanRecord);
                 commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-                recalculateSellPrices(curSys);
+                recalculateSellPrices();
+                confirmQuestPhase();
                 break;
             case Experiment:
                 setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_STARTED);
+                confirmQuestPhase();
                 break;
             case ExperimentFailed:
+                confirmQuestPhase();
                 break;
             case ExperimentStopped:
                 setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_CANCELLED);
                 setCanSuperWarp(true);
+                confirmQuestPhase();
                 break;
             case Gemulon:
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_STARTED);
+                confirmQuestPhase();
                 break;
             case GemulonFuel:
                 if (commander.getShip().getFreeGadgetSlots() == 0) {
                     GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
                 } else {
                     GuiFacade.alert(AlertType.EquipmentFuelCompactor);
                     commander.getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
                     setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_DONE);
+                    confirmQuestPhase();
                 }
                 break;
             case GemulonRescued:
-                curSys.setSpecialEventType(SpecialEventType.GemulonFuel);
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_FUEL);
-                remove = false;
+                switchQuestPhase(SpecialEventType.GemulonFuel);
                 break;
             case Japori:
                 // The japori quest should not be removed since you can fail and start it over again.
-                remove = false;
-
                 if (commander.getShip().getFreeCargoBays() < 10) {
                     GuiFacade.alert(AlertType.CargoNoEmptyBays);
                 } else {
@@ -2482,202 +1003,61 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_DONE);
                 commander.increaseRandomSkill();
                 commander.increaseRandomSkill();
-                break;
-            case Jarek:
-                if (commander.getShip().getFreeCrewQuartersCount() == 0) {
-                    GuiFacade.alert(AlertType.SpecialNoQuarters);
-                    remove = false;
-                } else {
-                    CrewMember jarek = getMercenaries()[CrewMemberId.JAREK.castToInt()];
-                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
-                    commander.getShip().hire(jarek);
-                    setQuestStatusJarek(SpecialEvent.STATUS_JAREK_STARTED);
-                }
-                break;
-            case JarekGetsOut:
-                setQuestStatusJarek(SpecialEvent.STATUS_JAREK_DONE);
-                commander.getShip().fire(CrewMemberId.JAREK);
-                break;
-            case Lottery:
+                confirmQuestPhase();
                 break;
             case Moon:
                 GuiFacade.alert(AlertType.SpecialMoonBought);
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_BOUGHT);
+                confirmQuestPhase();
                 break;
             case MoonRetirement:
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
-                throw new GameEndException(GameEndType.BOUGHT_MOON);
-            case Princess:
-                curSys.setSpecialEventType(SpecialEventType.PrincessReturned);
-                remove = false;
-                setQuestStatusPrincess(getQuestStatusPrincess() + 1);
-                break;
-            case PrincessCentauri:
-            case PrincessInthara:
-                setQuestStatusPrincess(getQuestStatusPrincess() + 1);
-                break;
-            case PrincessQonos:
-                if (commander.getShip().getFreeCrewQuartersCount() == 0) {
-                    GuiFacade.alert(AlertType.SpecialNoQuarters);
-                    remove = false;
-                } else {
-                    CrewMember princess = getMercenaries()[CrewMemberId.PRINCESS.castToInt()];
-                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, princess.getName());
-                    commander.getShip().hire(princess);
-                }
-                break;
-            case PrincessQuantum:
-                if (commander.getShip().getFreeWeaponSlots() == 0) {
-                    GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
-                } else {
-                    GuiFacade.alert(AlertType.EquipmentQuantumDisruptor);
-                    commander.getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
-                    setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_DONE);
-                }
-                break;
-            case PrincessReturned:
-                commander.getShip().fire(CrewMemberId.PRINCESS);
-                curSys.setSpecialEventType(SpecialEventType.PrincessQuantum);
-                setQuestStatusPrincess(SpecialEvent.STATUS_PRINCESS_RETURNED);
-                remove = false;
-                break;
-            case Reactor:
-                if (commander.getShip().getFreeCargoBays() < 15) {
-                    GuiFacade.alert(AlertType.CargoNoEmptyBays);
-                    remove = false;
-                } else {
-                    if (commander.getShip().isWildOnBoard()) {
-                        if (GuiFacade.alert(AlertType.WildWontStayAboardReactor, curSys.getName()) == DialogResult.OK) {
-                            GuiFacade.alert(AlertType.WildLeavesShip, curSys.getName());
-                            setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
-                        } else {
-                            remove = false;
-                        }
-                    }
-
-                    if (remove) {
-                        GuiFacade.alert(AlertType.ReactorOnBoard);
-                        setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_FUEL_OK);
-                    }
-                }
-                break;
-            case ReactorDelivered:
-                curSys.setSpecialEventType(SpecialEventType.ReactorLaser);
-                setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DELIVERED);
-                remove = false;
-                break;
-            case ReactorLaser:
-                if (commander.getShip().getFreeWeaponSlots() == 0) {
-                    GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
-                } else {
-                    GuiFacade.alert(AlertType.EquipmentMorgansLaser);
-                    commander.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
-                    setQuestStatusReactor(SpecialEvent.STATUS_REACTOR_DONE);
-                }
-                break;
+                throw new GameEndException(BOUGHT_MOON.castToInt());
             case Scarab:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_HUNTING);
+                confirmQuestPhase();
                 break;
             case ScarabDestroyed:
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DESTROYED);
-                curSys.setSpecialEventType(SpecialEventType.ScarabUpgradeHull);
-                remove = false;
+                switchQuestPhase(SpecialEventType.ScarabUpgradeHull);
                 break;
             case ScarabUpgradeHull:
                 GuiFacade.alert(AlertType.ShipHullUpgraded);
                 commander.getShip().setHullUpgraded(true);
                 commander.getShip().setHull(commander.getShip().getHull() + Consts.HullUpgrade);
                 setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DONE);
-                remove = false;
-                break;
-            case Sculpture:
-                setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT);
-                break;
-            case SculptureDelivered:
-                setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DELIVERED);
-                curSys.setSpecialEventType(SpecialEventType.SculptureHiddenBays);
-                remove = false;
-                break;
-            case SculptureHiddenBays:
-                setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
-                if (commander.getShip().getFreeGadgetSlots() == 0) {
-                    GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                    remove = false;
-                } else {
-                    GuiFacade.alert(AlertType.EquipmentHiddenCompartments);
-                    commander.getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
-                    setQuestStatusSculpture(SpecialEvent.STATUS_SCULPTURE_DONE);
-                }
+                //TODO is it correct????
+                //remove.setValue(false);
                 break;
             case Skill:
                 GuiFacade.alert(AlertType.SpecialSkillIncrease);
                 commander.increaseRandomSkill();
+                confirmQuestPhase();
                 break;
             case SpaceMonster:
                 setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR);
+                confirmQuestPhase();
                 break;
             case SpaceMonsterKilled:
                 setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_DONE);
+                confirmQuestPhase();
                 break;
-            case Tribble:
-                GuiFacade.alert(AlertType.TribblesOwn);
-                commander.getShip().setTribbles(1);
-                break;
-            case TribbleBuyer:
-                GuiFacade.alert(AlertType.TribblesGone);
-                commander.setCash(commander.getCash() + (commander.getShip().getTribbles() / 2));
-                commander.getShip().setTribbles(0);
-                break;
-            case Wild:
-                if (commander.getShip().getFreeCrewQuartersCount() == 0) {
-                    GuiFacade.alert(AlertType.SpecialNoQuarters);
-                    remove = false;
-                } else if (!commander.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
-                    GuiFacade.alert(AlertType.WildWontBoardLaser);
-                    remove = false;
-                } else if (commander.getShip().isReactorOnBoard()) {
-                    GuiFacade.alert(AlertType.WildWontBoardReactor);
-                    remove = false;
-                } else {
-                    CrewMember wild = getMercenaries()[CrewMemberId.WILD.castToInt()];
-                    GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
-                    commander.getShip().hire(wild);
-                    setQuestStatusWild(SpecialEvent.STATUS_WILD_STARTED);
-
-                    if (commander.getShip().isSculptureOnBoard()) {
-                        GuiFacade.alert(AlertType.WildSculpture);
-                    }
-                }
-                break;
-            case WildGetsOut:
-                // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
-                CrewMember zeethibal = getMercenaries()[CrewMemberId.ZEETHIBAL.castToInt()];
-                zeethibal.setCurrentSystem(getUniverse()[StarSystemId.Kravat.castToInt()]);
-                int lowest1 = commander.nthLowestSkill(1);
-                int lowest2 = commander.nthLowestSkill(2);
-                for (int i = 0; i < zeethibal.getSkills().length; i++) {
-                    zeethibal.getSkills()[i] = (i == lowest1 ? 10 : (i == lowest2 ? 8 : 5));
-                }
-
-                setQuestStatusWild(SpecialEvent.STATUS_WILD_DONE);
-                commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-                commander.getShip().fire(CrewMemberId.WILD);
-                recalculateSellPrices(curSys);
-                break;
-        }
-
-        if (curSys.specialEvent().getPrice() != 0) {
-            commander.setCash(commander.getCash() - curSys.specialEvent().getPrice());
-        }
-
-        if (remove) {
-            curSys.setSpecialEventType(SpecialEventType.NA);
         }
     }
 
-    private void incDays(int num) {
+    public void confirmQuestPhase() {
+        StarSystem currentSystem = commander.getCurrentSystem();
+        commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
+        currentSystem.setSpecialEventType(SpecialEventType.NA);
+        questSystem.fireEvent(ON_AFTER_NEW_QUEST_STARTED);
+    }
+
+    public void switchQuestPhase(SpecialEventType specialEventType) {
+        commander.getCurrentSystem().setSpecialEventType(specialEventType);
+    }
+
+
+    public void incDays(int num) {
         commander.setDays(commander.getDays() + num);
 
         if (commander.getInsurance()) {
@@ -2691,8 +1071,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         } else if (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreDubious) {
             commander.setPoliceRecordScore(
                     Math.min(Consts.PoliceRecordScoreDubious, commander.getPoliceRecordScore() + num
-                            / (getDifficulty().castToInt() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
-                            : getDifficulty().castToInt())));
+                            / (getDifficultyId() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
+                            : getDifficultyId())));
         }
 
         // The Space Monster's strength increases 5% per day until it is back to full strength.
@@ -2705,15 +1085,11 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 && getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
             setQuestStatusGemulon(Math.min(getQuestStatusGemulon() + num, SpecialEvent.STATUS_GEMULON_TOO_LATE));
             if (getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-                StarSystem gemulon = getUniverse()[StarSystemId.Gemulon.castToInt()];
+                StarSystem gemulon = getStarSystem(StarSystemId.Gemulon);
                 gemulon.setSpecialEventType(SpecialEventType.GemulonInvaded);
                 gemulon.setTechLevel(TechLevel.PRE_AGRICULTURAL);
                 gemulon.setPoliticalSystemType(PoliticalSystemType.ANARCHY);
             }
-        }
-
-        if (commander.getShip().isReactorOnBoard()) {
-            setQuestStatusReactor(Math.min(getQuestStatusReactor() + num, SpecialEvent.STATUS_REACTOR_DATE));
         }
 
         if (getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
@@ -2721,71 +1097,27 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             setQuestStatusExperiment(Math.min(getQuestStatusExperiment() + num, SpecialEvent.STATUS_EXPERIMENT_PERFORMED));
             if (getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
                 setFabricRipProbability(Consts.FabricRipInitialProbability);
-                getUniverse()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentFailed);
+                getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentFailed);
                 GuiFacade.alert(AlertType.SpecialExperimentPerformed);
-                newsAddEvent(NewsEvent.ExperimentPerformed);
+                news.addEvent(NewsEvent.ExperimentPerformed);
             }
         } else if (getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_PERFORMED
                 && getFabricRipProbability() > 0) {
             setFabricRipProbability(getFabricRipProbability() - num);
         }
 
-        if (commander.getShip().isJarekOnBoard()) {
-            if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT / 2) {
-                GuiFacade.alert(AlertType.SpecialPassengerConcernedJarek);
-            } else if (getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT - 1) {
-                GuiFacade.alert(AlertType.SpecialPassengerImpatientJarek);
-                getMercenaries()[CrewMemberId.JAREK.castToInt()].setPilot(0);
-                getMercenaries()[CrewMemberId.JAREK.castToInt()].setFighter(0);
-                getMercenaries()[CrewMemberId.JAREK.castToInt()].setTrader(0);
-                getMercenaries()[CrewMemberId.JAREK.castToInt()].setEngineer(0);
-            }
+        IntContainer numContainer = new IntContainer(num);
 
-            if (getQuestStatusJarek() < SpecialEvent.STATUS_JAREK_IMPATIENT) {
-                setQuestStatusJarek(getQuestStatusJarek() + 1);
-            }
-        }
-
-        if (commander.getShip().isPrincessOnBoard()) {
-            if (getQuestStatusPrincess() == (SpecialEvent.STATUS_PRINCESS_IMPATIENT + SpecialEvent.STATUS_PRINCESS_RESCUED) / 2) {
-                GuiFacade.alert(AlertType.SpecialPassengerConcernedPrincess);
-            } else if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT - 1) {
-                GuiFacade.alert(AlertType.SpecialPassengerImpatientPrincess);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setPilot(0);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setFighter(0);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setTrader(0);
-                getMercenaries()[CrewMemberId.PRINCESS.castToInt()].setEngineer(0);
-            }
-
-            if (getQuestStatusPrincess() < SpecialEvent.STATUS_PRINCESS_IMPATIENT) {
-                setQuestStatusPrincess(getQuestStatusPrincess() + 1);
-            }
-        }
-
-        if (commander.getShip().isWildOnBoard()) {
-            if (getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT / 2) {
-                GuiFacade.alert(AlertType.SpecialPassengerConcernedWild);
-            } else if (getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT - 1) {
-                GuiFacade.alert(AlertType.SpecialPassengerImpatientWild);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setPilot(0);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setFighter(0);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setTrader(0);
-                getMercenaries()[CrewMemberId.WILD.castToInt()].setEngineer(0);
-            }
-
-            if (getQuestStatusWild() < SpecialEvent.STATUS_WILD_IMPATIENT) {
-                setQuestStatusWild(getQuestStatusWild() + 1);
-            }
-        }
+        questSystem.fireEvent(EventName.ON_INCREMENT_DAYS, numContainer);
     }
 
-    private Commander initializeCommander(String name, CrewMember commanderCrewMember) {
-        Commander commander = new Commander(commanderCrewMember);
-        getMercenaries()[CrewMemberId.COMMANDER.castToInt()] = commander;
-        Strings.CrewMemberNames[CrewMemberId.COMMANDER.castToInt()] = name;
+    private void initializeCommander(String name, CrewMember commanderCrewMember) {
+        commander = new Commander(commanderCrewMember);
+        mercenaries.put(commander.getId(), commander);
+        Strings.CrewMemberNames[commander.getId()] = name;
 
         while (commander.getCurrentSystem() == null) {
-            StarSystem system = getUniverse()[Functions.getRandom(getUniverse().length)];
+            StarSystem system = getStarSystem(Functions.getRandom(getUniverse().length));
             if (system.getSpecialEventType() == SpecialEventType.NA
                     && system.getTechLevel().castToInt() > TechLevel.PRE_AGRICULTURAL.castToInt()
                     && system.getTechLevel().castToInt() < TechLevel.HI_TECH.castToInt()) {
@@ -2793,7 +1125,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 int close = 0;
                 for (int i = 0; i < getUniverse().length && close < 3; i++) {
                     if (i != system.getId().castToInt()
-                            && Functions.distance(getUniverse()[i], system) <= commander.getShip().getFuelTanks()) {
+                            && Functions.distance(getStarSystem(i), system) <= commander.getShip().getFuelTanks()) {
                         close++;
                     }
                 }
@@ -2805,152 +1137,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
 
         commander.getCurrentSystem().setVisited(true);
-        return commander;
-    }
-
-    private void newsAddEvent(NewsEvent newEvent) {
-        getNewsEvents().add(newEvent);
-    }
-
-    private void newsAddEventsOnArrival() {
-        if (commander.getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
-            switch (commander.getCurrentSystem().getSpecialEventType()) {
-                case ArtifactDelivery:
-                    if (commander.getShip().isArtifactOnBoard()) {
-                        newsAddEvent(NewsEvent.ArtifactDelivery);
-                    }
-                    break;
-                case Dragonfly:
-                    newsAddEvent(NewsEvent.Dragonfly);
-                    break;
-                case DragonflyBaratas:
-                    if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS) {
-                        newsAddEvent(NewsEvent.DragonflyBaratas);
-                    }
-                    break;
-                case DragonflyDestroyed:
-                    if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON) {
-                        newsAddEvent(NewsEvent.DragonflyZalkon);
-                    } else if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_DESTROYED) {
-                        newsAddEvent(NewsEvent.DragonflyDestroyed);
-                    }
-                    break;
-                case DragonflyMelina:
-                    if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA) {
-                        newsAddEvent(NewsEvent.DragonflyMelina);
-                    }
-                    break;
-                case DragonflyRegulas:
-                    if (getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_REGULAS) {
-                        newsAddEvent(NewsEvent.DragonflyRegulas);
-                    }
-                    break;
-                case ExperimentFailed:
-                    newsAddEvent(NewsEvent.ExperimentFailed);
-                    break;
-                case ExperimentStopped:
-                    if (getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
-                            && getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
-                        newsAddEvent(NewsEvent.ExperimentStopped);
-                    }
-                    break;
-                case Gemulon:
-                    newsAddEvent(NewsEvent.Gemulon);
-                    break;
-                case GemulonRescued:
-                    if (getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED) {
-                        if (getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-                            newsAddEvent(NewsEvent.GemulonRescued);
-                        } else {
-                            newsAddEvent(NewsEvent.GemulonInvaded);
-                        }
-                    }
-                    break;
-                case Japori:
-                    if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_NOT_STARTED) {
-                        newsAddEvent(NewsEvent.Japori);
-                    }
-                    break;
-                case JaporiDelivery:
-                    if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-                        newsAddEvent(NewsEvent.JaporiDelivery);
-                    }
-                    break;
-                case JarekGetsOut:
-                    if (commander.getShip().isJarekOnBoard()) {
-                        newsAddEvent(NewsEvent.JarekGetsOut);
-                    }
-                    break;
-                case Princess:
-                    newsAddEvent(NewsEvent.Princess);
-                    break;
-                case PrincessCentauri:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI) {
-                        newsAddEvent(NewsEvent.PrincessCentauri);
-                    }
-                    break;
-                case PrincessInthara:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_INTHARA) {
-                        newsAddEvent(NewsEvent.PrincessInthara);
-                    }
-                    break;
-                case PrincessQonos:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_FLY_QONOS) {
-                        newsAddEvent(NewsEvent.PrincessQonos);
-                    } else if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RESCUED) {
-                        newsAddEvent(NewsEvent.PrincessRescued);
-                    }
-                    break;
-                case PrincessReturned:
-                    if (getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_RETURNED) {
-                        newsAddEvent(NewsEvent.PrincessReturned);
-                    }
-                    break;
-                case Scarab:
-                    newsAddEvent(NewsEvent.Scarab);
-                    break;
-                case ScarabDestroyed:
-                    if (getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
-                        newsAddEvent(NewsEvent.ScarabHarass);
-                    } else if (getQuestStatusScarab() >= SpecialEvent.STATUS_SCARAB_DESTROYED) {
-                        newsAddEvent(NewsEvent.ScarabDestroyed);
-                    }
-                    break;
-                case Sculpture:
-                    newsAddEvent(NewsEvent.SculptureStolen);
-                    break;
-                case SculptureDelivered:
-                    newsAddEvent(NewsEvent.SculptureTracked);
-                    break;
-                case SpaceMonsterKilled:
-                    if (getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
-                        newsAddEvent(NewsEvent.SpaceMonster);
-                    } else if (getQuestStatusSpaceMonster() >= SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED) {
-                        newsAddEvent(NewsEvent.SpaceMonsterKilled);
-                    }
-                    break;
-                case WildGetsOut:
-                    if (commander.getShip().isWildOnBoard()) {
-                        newsAddEvent(NewsEvent.WildGetsOut);
-                    }
-                    break;
-            }
-        }
-    }
-
-    private NewsEvent getNewsLatestEvent() {
-        return getNewsEvents().get(getNewsEvents().size() - 1);
-    }
-
-    private void newsReplaceEvent(NewsEvent oldEvent, NewsEvent newEvent) {
-        if (getNewsEvents().indexOf(oldEvent) >= 0) {
-            getNewsEvents().remove(oldEvent);
-        }
-        getNewsEvents().add(newEvent);
-    }
-
-    private void newsResetEvents() {
-        getNewsEvents().clear();
     }
 
     private void normalDeparture(int fuel) {
@@ -2960,12 +1146,12 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         incDays(1);
     }
 
-    private boolean isPlaceShipyards() {
+    private boolean isShipyardsInPlace() {
         boolean goodUniverse = true;
 
         ArrayList<Integer> systemIdList = new ArrayList<>();
         for (int system = 0; system < getUniverse().length; system++) {
-            if (getUniverse()[system].getTechLevel() == TechLevel.HI_TECH) {
+            if (getStarSystem(system).getTechLevel() == TechLevel.HI_TECH) {
                 systemIdList.add(system);
             }
         }
@@ -2975,92 +1161,100 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         } else {
             // Assign the shipyards to High-Tech systems.
             for (int shipyard = 0; shipyard < Consts.Shipyards.length; shipyard++) {
-                getUniverse()[systemIdList.get(Functions.getRandom(systemIdList.size()))]
+                getStarSystem(systemIdList.get(Functions.getRandom(systemIdList.size())))
                         .setShipyardId(ShipyardId.fromInt(shipyard));
             }
         }
-
         return goodUniverse;
     }
 
-    private boolean isPlaceSpecialEvents() {
-        boolean goodUniverse = true;
-        int system;
+    private boolean isSpecialEventsInPlace() {
+        BooleanContainer goodUniverseContainer = new BooleanContainer(true);
 
-        getUniverse()[StarSystemId.Baratas.castToInt()].setSpecialEventType(SpecialEventType.DragonflyBaratas);
-        getUniverse()[StarSystemId.Melina.castToInt()].setSpecialEventType(SpecialEventType.DragonflyMelina);
-        getUniverse()[StarSystemId.Regulas.castToInt()].setSpecialEventType(SpecialEventType.DragonflyRegulas);
-        getUniverse()[StarSystemId.Zalkon.castToInt()].setSpecialEventType(SpecialEventType.DragonflyDestroyed);
-        getUniverse()[StarSystemId.Daled.castToInt()].setSpecialEventType(SpecialEventType.ExperimentStopped);
-        getUniverse()[StarSystemId.Gemulon.castToInt()].setSpecialEventType(SpecialEventType.GemulonRescued);
-        getUniverse()[StarSystemId.Japori.castToInt()].setSpecialEventType(SpecialEventType.JaporiDelivery);
-        getUniverse()[StarSystemId.Devidia.castToInt()].setSpecialEventType(SpecialEventType.JarekGetsOut);
-        getUniverse()[StarSystemId.Utopia.castToInt()].setSpecialEventType(SpecialEventType.MoonRetirement);
-        getUniverse()[StarSystemId.Nix.castToInt()].setSpecialEventType(SpecialEventType.ReactorDelivered);
-        getUniverse()[StarSystemId.Acamar.castToInt()].setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
-        getUniverse()[StarSystemId.Kravat.castToInt()].setSpecialEventType(SpecialEventType.WildGetsOut);
-        getUniverse()[StarSystemId.Endor.castToInt()].setSpecialEventType(SpecialEventType.SculptureDelivered);
-        getUniverse()[StarSystemId.Galvon.castToInt()].setSpecialEventType(SpecialEventType.Princess);
-        getUniverse()[StarSystemId.Centauri.castToInt()].setSpecialEventType(SpecialEventType.PrincessCentauri);
-        getUniverse()[StarSystemId.Inthara.castToInt()].setSpecialEventType(SpecialEventType.PrincessInthara);
-        getUniverse()[StarSystemId.Qonos.castToInt()].setSpecialEventType(SpecialEventType.PrincessQonos);
+        getStarSystem(StarSystemId.Baratas).setSpecialEventType(SpecialEventType.DragonflyBaratas);
+        getStarSystem(StarSystemId.Melina).setSpecialEventType(SpecialEventType.DragonflyMelina);
+        getStarSystem(StarSystemId.Regulas).setSpecialEventType(SpecialEventType.DragonflyRegulas);
+        getStarSystem(StarSystemId.Zalkon).setSpecialEventType(SpecialEventType.DragonflyDestroyed);
+        getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentStopped);
+        getStarSystem(StarSystemId.Gemulon).setSpecialEventType(SpecialEventType.GemulonRescued);
+        getStarSystem(StarSystemId.Japori).setSpecialEventType(SpecialEventType.JaporiDelivery);
+        getStarSystem(StarSystemId.Utopia).setSpecialEventType(SpecialEventType.MoonRetirement);
+        getStarSystem(StarSystemId.Acamar).setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
+
+        questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
 
         // Assign a wormhole location endpoint for the Scarab.
-        for (system = 0; system < getWormholes().length
-                && getUniverse()[getWormholes()[system]].getSpecialEventType() != SpecialEventType.NA; system++) {
-        }
-        if (system < getWormholes().length) {
-            getUniverse()[getWormholes()[system]].setSpecialEventType(SpecialEventType.ScarabDestroyed);
+        OptionalInt freeWormhole = Arrays.stream(getWormholes())
+                .filter(wormhole -> getStarSystem(wormhole).getSpecialEventType() == SpecialEventType.NA).findAny();
+        if (freeWormhole.isPresent()) {
+            getStarSystem(freeWormhole.getAsInt()).setSpecialEventType(SpecialEventType.ScarabDestroyed);
         } else {
-            goodUniverse = false;
+            goodUniverseContainer.setValue(false);
         }
 
-        // Find a Hi-Tech system without a special event.
-        if (goodUniverse) {
-            for (system = 0; system < getUniverse().length
-                    && !(getUniverse()[system].getSpecialEventType() == SpecialEventType.NA && getUniverse()[system].getTechLevel() == TechLevel.HI_TECH); system++) {
-            }
-            if (system < getUniverse().length) {
-                getUniverse()[system].setSpecialEventType(SpecialEventType.ArtifactDelivery);
+        // Find a Hi-Tech system without a special event for ArtifactDelivery.
+        if (goodUniverseContainer.getValue()) {
+            Optional<StarSystem> freeHiTechSystem = Arrays.stream(getUniverse())
+                    .filter(universe -> universe.getSpecialEventType() == SpecialEventType.NA
+                            && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
+            if (freeHiTechSystem.isPresent()) {
+                freeHiTechSystem.get().setSpecialEventType(SpecialEventType.ArtifactDelivery);
             } else {
-                goodUniverse = false;
+                goodUniverseContainer.setValue(false);
             }
-        }
-
-        // Find the closest system at least 70 parsecs away from Nix that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Nix, SpecialEventType.Reactor)) {
-            goodUniverse = false;
         }
 
         // Find the closest system at least 70 parsecs away from Gemulon that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Gemulon, SpecialEventType.Gemulon)) {
-            goodUniverse = false;
+        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Gemulon, SpecialEventType.Gemulon) < 0) {
+            goodUniverseContainer.setValue(false);
         }
 
         // Find the closest system at least 70 parsecs away from Daled that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Daled, SpecialEventType.Experiment)) {
-            goodUniverse = false;
+        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Daled, SpecialEventType.Experiment) < 0) {
+            goodUniverseContainer.setValue(false);
         }
 
-        // Find the closest system at least 70 parsecs away from Endor that doesn't already have a special event.
-        if (goodUniverse && !isFindDistantSystem(StarSystemId.Endor, SpecialEventType.Sculpture)) {
-            goodUniverse = false;
+        if (goodUniverseContainer.getValue()) {
+            questSystem.fireEvent(EventName.ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY, goodUniverseContainer);
         }
 
         // Assign the rest of the events randomly.
-        if (goodUniverse) {
+        //TODO remove after all quests
+        int system;
+        if (goodUniverseContainer.getValue()) {
             for (int i = 0; i < Consts.SpecialEvents.length; i++) {
                 for (int j = 0; j < Consts.SpecialEvents[i].getOccurrence(); j++) {
                     do {
                         system = Functions.getRandom(getUniverse().length);
-                    } while (getUniverse()[system].getSpecialEventType() != SpecialEventType.NA);
+                    } while (getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
 
-                    getUniverse()[system].setSpecialEventType(Consts.SpecialEvents[i].getType());
+                    getStarSystem(system).setSpecialEventType(Consts.SpecialEvents[i].getType());
                 }
             }
         }
 
-        return goodUniverse;
+        if (goodUniverseContainer.getValue()) {
+            questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
+        }
+
+        return goodUniverseContainer.getValue();
+    }
+
+    public int isFindDistantSystem(StarSystemId baseSystem, SpecialEventType specEvent) {
+        int bestDistance = 999;
+        int system = -1;
+        for (int i = 0; i < getUniverse().length; i++) {
+            int distance = Functions.distance(getStarSystem(baseSystem), getStarSystem(i));
+            if (distance >= 70 && distance < bestDistance && getStarSystem(i).getSpecialEventType() == SpecialEventType.NA) {
+                system = i;
+                bestDistance = distance;
+            }
+        }
+        if (system >= 0) {
+            getStarSystem(system).setSpecialEventType(specEvent);
+        }
+
+        return system;
     }
 
     public void recalculateBuyPrices(StarSystem system) {
@@ -3087,24 +1281,14 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     // *************************************************************************
     // After erasure of police record, selling prices must be recalculated
     // *************************************************************************
-    private void recalculateSellPrices(StarSystem system) {
+    public void recalculateSellPrices() {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             priceCargoSell[i] = priceCargoSell[i] * 100 / 90;
         }
     }
 
-    public void resetVeryRareEncounters() {
-        getVeryRareEncounters().clear();
-        getVeryRareEncounters().add(VeryRareEncounter.MARIE_CELESTE);
-        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_AHAB);
-        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_CONRAD);
-        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_HUIE);
-        getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_OLD);
-        getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_GOOD);
-    }
-
     public void selectNextSystemWithinRange(boolean forward) {
-        int[] dest = Destinations();
+        int[] dest = getDestinations();
 
         if (dest.length > 0) {
             int index = spacetrader.util.Util.bruteSeek(dest, getWarpSystemId().castToInt());
@@ -3115,7 +1299,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 index = (dest.length + index + (forward ? 1 : -1)) % dest.length;
             }
 
-            if (Functions.wormholeExists(commander.getCurrentSystem(), getUniverse()[dest[index]])) {
+            if (Functions.wormholeExists(commander.getCurrentSystem(), getStarSystem(dest[index]))) {
                 setSelectedSystemId(commander.getCurrentSystemId());
                 setTargetWormhole(true);
             } else {
@@ -3126,7 +1310,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
     public void showNewspaper() {
         if (!getPaidForNewspaper()) {
-            int cost = getDifficulty().castToInt() + 1;
+            int cost = getDifficultyId() + 1;
 
             if (commander.getCash() < cost) {
                 GuiFacade.alert(AlertType.ArrivalIFNewspaper, Functions.plural(cost, Strings.MoneyUnit));
@@ -3138,7 +1322,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
             }
         }
         if (getPaidForNewspaper()) {
-            GuiFacade.alert(AlertType.Alert, getNewspaperHead(), getNewspaperText());
+            GuiFacade.alert(AlertType.Alert, news.getNewspaperHead(), news.getNewspapersText());
         }
     }
 
@@ -3161,7 +1345,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         while (getClicks() > 0) {
             commander.getShip().performRepairs();
 
-            if (isDetermineEncounter()) {
+            if (encounter.isDetermineEncounter()) {
                 uneventful = false;
 
                 EncounterResult result = GuiFacade.performEncounter(getParentWindow());
@@ -3176,7 +1360,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                         escapeWithPod();
                         break;
                     case KILLED:
-                        throw new GameEndException(GameEndType.KILLED);
+                        throw new GameEndException(KILLED.castToInt());
                 }
             }
 
@@ -3196,23 +1380,15 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         } else if (commander.getCash() < getMercenaryCosts() + getInsuranceCosts() + getWormholeCosts()) {
             GuiFacade.alert(AlertType.LeavingIFWormholeTax);
         } else {
-            boolean wildOk = true;
+            BooleanContainer okWarp = new BooleanContainer(true);
 
-            // if Wild is aboard, make sure ship is armed!
-            if (commander.getShip().isWildOnBoard() && !commander.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
-                if (GuiFacade.alert(AlertType.WildWontStayAboardLaser, commander.getCurrentSystem().getName()) == DialogResult.CANCEL) {
-                    wildOk = false;
-                } else {
-                    GuiFacade.alert(AlertType.WildLeavesShip, commander.getCurrentSystem().getName());
-                    setQuestStatusWild(SpecialEvent.STATUS_WILD_NOT_STARTED);
-                }
-            }
+            questSystem.fireEvent(ON_BEFORE_WARP, okWarp);
 
-            if (wildOk) {
+            if (okWarp.getValue()) {
                 setArrivedViaWormhole(Functions.wormholeExists(commander.getCurrentSystem(), getWarpSystem()));
 
                 if (viaSingularity) {
-                    newsAddEvent(NewsEvent.ExperimentArrival);
+                    news.addEvent(NewsEvent.ExperimentArrival);
                 } else {
                     normalDeparture((viaSingularity || getArrivedViaWormhole())
                             ? 0 : Functions.distance(commander.getCurrentSystem(), getWarpSystem()));
@@ -3220,7 +1396,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
                 commander.getCurrentSystem().setCountDown(getCountDownStart());
 
-                newsResetEvents();
+                news.resetEvents();
 
                 calculatePrices(getWarpSystem());
 
@@ -3243,28 +1419,24 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         warpSystemId = getSelectedSystemId();
 
         commander.getCurrentSystem().setCountDown(getCountDownStart());
-        newsResetEvents();
+        news.resetEvents();
         calculatePrices(getWarpSystem());
         arrive();
     }
 
-    public Commander getCommander() {
-        return commander;
-    }
-
     private int getCountDownStart() {
-        return getDifficulty().castToInt() + 3;
+        return getDifficultyId() + 3;
     }
 
     public int getCurrentCosts() {
         return getInsuranceCosts() + getInterestCosts() + getMercenaryCosts() + getWormholeCosts();
     }
 
-    private int[] Destinations() {
+    private int[] getDestinations() {
         ArrayList<Integer> list = new ArrayList<>();
 
         for (int i = 0; i < getUniverse().length; i++)
-            if (getUniverse()[i].destIsOk()) {
+            if (getStarSystem(i).destIsOk()) {
                 list.add(i);
             }
 
@@ -3276,16 +1448,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return ids;
     }
 
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
     public Ship getDragonfly() {
         return dragonfly;
-    }
-
-    public Ship getScorpion() {
-        return scorpion;
     }
 
     public Ship getSpaceMonster() {
@@ -3294,289 +1458,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
 
     public Ship getScarab() {
         return scarab;
-    }
-
-    public String getEncounterAction() {
-        String action = "";
-
-        if (getOpponentDisabled()) {
-            action = Functions.stringVars(Strings.EncounterActionOppDisabled, getEncounterShipText());
-        } else if (getEncounterOppFleeing()) {
-            if (getEncounterType() == EncounterType.PIRATE_SURRENDER
-                    || getEncounterType() == EncounterType.TRADER_SURRENDER) {
-                action = Functions.stringVars(Strings.EncounterActionOppSurrender, getEncounterShipText());
-            } else {
-                action = Functions.stringVars(Strings.EncounterActionOppFleeing, getEncounterShipText());
-            }
-        } else {
-            action = Functions.stringVars(Strings.EncounterActionOppAttacks, getEncounterShipText());
-        }
-
-        return action;
-    }
-
-    public String getEncounterActionInitial() {
-        String text = "";
-
-        // Set up the fleeing variable initially.
-        setEncounterOppFleeing(false);
-
-        switch (getEncounterType()) {
-            case BOTTLE_GOOD:
-            case BOTTLE_OLD:
-                text = Strings.EncounterTextBottle;
-                break;
-            case CAPTAIN_AHAB:
-            case CAPTAIN_CONRAD:
-            case CAPTAIN_HUIE:
-                text = Strings.EncounterTextFamousCaptain;
-                break;
-            case DRAGONFLY_ATTACK:
-            case PIRATE_ATTACK:
-            case POLICE_ATTACK:
-            case SCARAB_ATTACK:
-            case SCORPION_ATTACK:
-            case SPACE_MONSTER_ATTACK:
-                text = Strings.EncounterTextOpponentAttack;
-                break;
-            case DRAGONFLY_IGNORE:
-            case PIRATE_IGNORE:
-            case POLICE_IGNORE:
-            case SCARAB_IGNORE:
-            case SCORPION_IGNORE:
-            case SPACE_MONSTER_IGNORE:
-            case TRADER_IGNORE:
-                text = commander.getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
-                        : Strings.EncounterTextOpponentIgnore;
-                break;
-            case MARIE_CELESTE:
-                text = Strings.EncounterTextMarieCeleste;
-                break;
-            case MARIE_CELESTE_POLICE:
-                text = Strings.EncounterTextPolicePostMarie;
-                break;
-            case PIRATE_FLEE:
-            case POLICE_FLEE:
-            case TRADER_FLEE:
-                text = Strings.EncounterTextOpponentFlee;
-                setEncounterOppFleeing(true);
-                break;
-            case POLICE_INSPECT:
-                text = Strings.EncounterTextPoliceInspection;
-                break;
-            case POLICE_SURRENDER:
-                text = Strings.EncounterTextPoliceSurrender;
-                break;
-            case TRADER_BUY:
-            case TRADER_SELL:
-                text = Strings.EncounterTextTrader;
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-            case POLICE_DISABLED:
-            case PIRATE_DISABLED:
-            case PIRATE_SURRENDER:
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_SURRENDER:
-                // These should never be the initial encounter type.
-                break;
-        }
-
-        return text;
-    }
-
-    public int getEncounterImageIndex() {
-        int encounterImage = -1;
-
-        switch (getEncounterType()) {
-            case BOTTLE_GOOD:
-            case BOTTLE_OLD:
-            case CAPTAIN_AHAB:
-            case CAPTAIN_CONRAD:
-            case CAPTAIN_HUIE:
-            case MARIE_CELESTE:
-                encounterImage = Consts.EncounterImgSpecial;
-                break;
-            case DRAGONFLY_ATTACK:
-            case DRAGONFLY_IGNORE:
-            case SCARAB_ATTACK:
-            case SCARAB_IGNORE:
-            case SCORPION_ATTACK:
-            case SCORPION_IGNORE:
-                encounterImage = Consts.EncounterImgPirate;
-                break;
-            case MARIE_CELESTE_POLICE:
-            case POLICE_ATTACK:
-            case POLICE_FLEE:
-            case POLICE_IGNORE:
-            case POLICE_INSPECT:
-            case POLICE_SURRENDER:
-                encounterImage = Consts.EncounterImgPolice;
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_FLEE:
-            case PIRATE_IGNORE:
-                if (getOpponent().getType() == ShipType.MANTIS) {
-                    encounterImage = Consts.EncounterImgAlien;
-                } else {
-                    encounterImage = Consts.EncounterImgPirate;
-                }
-                break;
-            case SPACE_MONSTER_ATTACK:
-            case SPACE_MONSTER_IGNORE:
-                encounterImage = Consts.EncounterImgAlien;
-                break;
-            case TRADER_BUY:
-            case TRADER_FLEE:
-            case TRADER_IGNORE:
-            case TRADER_SELL:
-                encounterImage = Consts.EncounterImgTrader;
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-            case POLICE_DISABLED:
-            case PIRATE_DISABLED:
-            case PIRATE_SURRENDER:
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_SURRENDER:
-                // These should never be the initial encounter type.
-                break;
-        }
-
-        return encounterImage;
-    }
-
-    private String getEncounterShipText() {
-
-        String shipText = getOpponent().getName();
-
-        switch (getEncounterType()) {
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-                shipText = Strings.EncounterShipCaptain;
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_DISABLED:
-            case PIRATE_FLEE:
-            case PIRATE_SURRENDER:
-                shipText = (getOpponent().getType() == ShipType.MANTIS)
-                        ? Strings.EncounterShipMantis
-                        : Strings.EncounterShipPirate;
-                break;
-            case POLICE_ATTACK:
-            case POLICE_DISABLED:
-            case POLICE_FLEE:
-                shipText = Strings.EncounterShipPolice;
-                break;
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_FLEE:
-            case TRADER_SURRENDER:
-                shipText = Strings.EncounterShipTrader;
-                break;
-        }
-
-        return shipText;
-    }
-
-    public String getEncounterText() {
-        String cmdrStatus = "";
-        String oppStatus = "";
-
-        if (getEncounterCmdrFleeing()) {
-            cmdrStatus = Functions.stringVars(Strings.EncounterActionCmdrChased, getEncounterShipText());
-        } else if (getEncounterOppHit()) {
-            cmdrStatus = Functions.stringVars(Strings.EncounterActionOppHit, getEncounterShipText());
-        } else {
-            cmdrStatus = Functions.stringVars(Strings.EncounterActionOppMissed, getEncounterShipText());
-        }
-
-        if (getEncounterOppFleeingPrev()) {
-            oppStatus = Functions.stringVars(Strings.EncounterActionOppChased, getEncounterShipText());
-        } else if (getEncounterCmdrHit()) {
-            oppStatus = Functions.stringVars(Strings.EncounterActionCmdrHit, getEncounterShipText());
-        } else {
-            oppStatus = Functions.stringVars(Strings.EncounterActionCmdrMissed, getEncounterShipText());
-        }
-
-        return cmdrStatus + Strings.newline + oppStatus;
-    }
-
-    public String getEncounterTextInitial() {
-        String encounterPretext = "";
-
-        switch (getEncounterType()) {
-            case BOTTLE_GOOD:
-            case BOTTLE_OLD:
-                encounterPretext = Strings.EncounterPretextBottle;
-                break;
-            case DRAGONFLY_ATTACK:
-            case DRAGONFLY_IGNORE:
-            case SCARAB_ATTACK:
-            case SCARAB_IGNORE:
-                encounterPretext = Strings.EncounterPretextStolen;
-                break;
-            case CAPTAIN_AHAB:
-                encounterPretext = Strings.EncounterPretextCaptainAhab;
-                break;
-            case CAPTAIN_CONRAD:
-                encounterPretext = Strings.EncounterPretextCaptainConrad;
-                break;
-            case CAPTAIN_HUIE:
-                encounterPretext = Strings.EncounterPretextCaptainHuie;
-                break;
-            case MARIE_CELESTE:
-                encounterPretext = Strings.EncounterPretextMarie;
-                break;
-            case MARIE_CELESTE_POLICE:
-            case POLICE_ATTACK:
-            case POLICE_FLEE:
-            case POLICE_IGNORE:
-            case POLICE_INSPECT:
-            case POLICE_SURRENDER:
-                encounterPretext = Strings.EncounterPretextPolice;
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_FLEE:
-            case PIRATE_IGNORE:
-                if (getOpponent().getType() == ShipType.MANTIS) {
-                    encounterPretext = Strings.EncounterPretextAlien;
-                } else {
-                    encounterPretext = Strings.EncounterPretextPirate;
-                }
-                break;
-            case SCORPION_ATTACK:
-            case SCORPION_IGNORE:
-                encounterPretext = Strings.EncounterPretextScorpion;
-                break;
-            case SPACE_MONSTER_ATTACK:
-            case SPACE_MONSTER_IGNORE:
-                encounterPretext = Strings.EncounterPretextSpaceMonster;
-                break;
-            case TRADER_BUY:
-            case TRADER_FLEE:
-            case TRADER_IGNORE:
-            case TRADER_SELL:
-                encounterPretext = Strings.EncounterPretextTrader;
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-            case POLICE_DISABLED:
-            case PIRATE_DISABLED:
-            case PIRATE_SURRENDER:
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_SURRENDER:
-                // These should never be the initial encounter type.
-                break;
-        }
-
-        String internal = Functions.stringVars(encounterPretext, getOpponent().getName().toLowerCase());
-
-        return Functions.stringVars(Strings.EncounterText, new String[]{
-                Functions.plural(getClicks(), Strings.DistanceSubunit), getWarpSystem().getName(), internal});
     }
 
     public int getInsuranceCosts() {
@@ -3598,97 +1479,8 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return total;
     }
 
-    public CrewMember[] getMercenaries() {
+    public Map<Integer, CrewMember> getMercenaries() {
         return mercenaries;
-    }
-
-    private ArrayList<NewsEvent> getNewsEvents() {
-        return newsEvents;
-    }
-
-    private String getNewspaperHead() {
-        String[] heads = Strings.NewsMastheads[commander.getCurrentSystem().getPoliticalSystemType().castToInt()];
-        String head = heads[commander.getCurrentSystem().getId().castToInt() % heads.length];
-
-        return Functions.stringVars(head, commander.getCurrentSystem().getName());
-    }
-
-    private String getNewspaperText() {
-        StarSystem curSys = commander.getCurrentSystem();
-        List<String> items = new ArrayList<>();
-
-        // We're using the getRandom2 function so that the same number is
-        // generated each time for the same "version" of the newspaper. -JAF
-        Functions.randSeed(curSys.getId().castToInt(), commander.getDays());
-
-        for (NewsEvent newsEvent : getNewsEvents()) {
-            items.add(Functions.stringVars(Strings.NewsEvent[(newsEvent).castToInt()],
-                    new String[]{commander.getName(), commander.getCurrentSystem().getName(),
-                            commander.getShip().getName()}));
-        }
-
-        if (curSys.getSystemPressure() != SystemPressure.NONE) {
-            items.add(Strings.NewsPressureInternal[curSys.getSystemPressure().castToInt()]);
-        }
-
-        if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
-            String baseStr = Strings.NewsPoliceRecordPsychopath[Functions
-                    .getRandom2(Strings.NewsPoliceRecordPsychopath.length)];
-            items.add(Functions.stringVars(baseStr, commander.getName(), curSys.getName()));
-        } else if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreHero) {
-            String baseStr = Strings.NewsPoliceRecordHero[Functions.getRandom2(Strings.NewsPoliceRecordHero.length)];
-            items.add(Functions.stringVars(baseStr, commander.getName(), curSys.getName()));
-        }
-
-        // and now, finally, useful news (if any)
-        // base probability of a story showing up is (50 / MAXTECHLEVEL) * Current Tech Level
-        // This is then modified by adding 10% for every level of play less than impossible
-        boolean realNews = false;
-        //TODO ???
-        int minProbability = Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10 * (5 - getDifficulty().castToInt());
-        for (int i = 0; i < getUniverse().length; i++) {
-            if (getUniverse()[i].destIsOk() && getUniverse()[i] != curSys) {
-                // Special stories that always get shown: moon, millionaire, shipyard
-                if (getUniverse()[i].getSpecialEventType() != SpecialEventType.NA) {
-                    if (getUniverse()[i].getSpecialEventType() == SpecialEventType.Moon) {
-                        items.add(Functions.stringVars(Strings.NewsMoonForSale, getUniverse()[i].getName()));
-                    } else if (getUniverse()[i].getSpecialEventType() == SpecialEventType.TribbleBuyer) {
-                        items.add(Functions.stringVars(Strings.NewsTribbleBuyer, getUniverse()[i].getName()));
-                    }
-                }
-                if (getUniverse()[i].getShipyardId() != ShipyardId.NA) {
-                    items.add(Functions.stringVars(Strings.NewsShipyard, getUniverse()[i].getName()));
-                }
-
-                // And not-always-shown stories
-                if (getUniverse()[i].getSystemPressure() != SystemPressure.NONE
-                        && Functions.getRandom2(100) <= Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10
-                        * (5 - getDifficulty().castToInt())) {
-                    int index = Functions.getRandom2(Strings.NewsPressureExternal.length);
-                    String baseStr = Strings.NewsPressureExternal[index];
-                    String pressure = Strings.NewsPressureExternalPressures[getUniverse()[i].getSystemPressure().castToInt()];
-                    items.add(Functions.stringVars(baseStr, pressure, getUniverse()[i].getName()));
-                    realNews = true;
-                }
-            }
-        }
-
-        // if there's no useful news, we throw up at least one headline from our canned news list.
-        if (!realNews) {
-            String[] headlines = Strings.NewsHeadlines[curSys.getPoliticalSystemType().castToInt()];
-            boolean[] shown = new boolean[headlines.length];
-
-            int toShow = Functions.getRandom2(headlines.length);
-            for (int i = 0; i <= toShow; i++) {
-                int index = Functions.getRandom2(headlines.length);
-                if (!shown[index]) {
-                    items.add(headlines[index]);
-                    shown[index] = true;
-                }
-            }
-        }
-
-        return items.stream().map(s -> "\u02FE " + s).collect(Collectors.joining(Strings.newline));
     }
 
     public GameOptions getOptions() {
@@ -3704,29 +1496,48 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     }
 
     int getScore() {
-        int worth = (commander.getWorth() < 1000000)
-                ? commander.getWorth() : 1000000 + ((commander.getWorth() - 1000000) / 10);
-        int daysMoon = 0;
-        int modifier = 0;
+        int worth = commander.getWorth();
+        ScoreContainer score = new ScoreContainer(
+                (worth < 1000000) ? worth : 1000000 + ((worth - 1000000) / 10), 0, 0, getEndStatus());
 
-        switch (getEndStatus()) {
-            case KILLED:
-                modifier = 90;
-                break;
-            case RETIRED:
-                modifier = 95;
-                break;
-            case BOUGHT_MOON:
-                daysMoon = Math.max(0, (getDifficulty().castToInt() + 1) * 100 - commander.getDays());
-                modifier = 100;
-                break;
+        if (getEndStatus() <= GameEndType.BOUGHT_MOON.castToInt()) {
+            switch (GameEndType.fromInt(getEndStatus())) {
+                case KILLED:
+                    score.setModifier(90);
+                    break;
+                case RETIRED:
+                    score.setModifier(95);
+                    break;
+                case BOUGHT_MOON:
+                    score.setDaysMoon(Math.max(0, (getDifficultyId() + 1) * 100 - commander.getDays()));
+                    score.setModifier(100);
+                    break;
+            }
+        } else {
+            questSystem.fireEvent(ON_GET_GAME_SCORE, score);
         }
 
-        return (getDifficulty().castToInt() + 1) * modifier * (daysMoon * 1000 + worth) / 250000;
+        return (getDifficultyId() + 1) * score.getModifier() * (score.getDaysMoon() * 1000 + score.getWorth()) / 250000;
+    }
+
+    public static StarSystemId getCurrentSystemId() {
+        return getCommander().getCurrentSystemId();
+    }
+
+    public static boolean isCurrentSystemIs(StarSystemId starSystemId) {
+        return getCurrentSystemId().equals(starSystemId);
+    }
+
+    public static StarSystem getStarSystem(StarSystemId starSystemId) {
+        return getStarSystem(starSystemId.castToInt());
+    }
+
+    public static StarSystem getStarSystem(int starSystemId) {
+        return Game.getCurrentGame().getUniverse()[starSystemId];
     }
 
     public StarSystem getSelectedSystem() {
-        return (selectedSystemId == StarSystemId.NA ? null : getUniverse()[selectedSystemId.castToInt()]);
+        return (selectedSystemId == StarSystemId.NA ? null : getStarSystem(selectedSystemId));
     }
 
     public StarSystemId getSelectedSystemId() {
@@ -3742,12 +1553,28 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
     public void setSelectedSystemByName(String value) {
         boolean found = false;
         for (int i = 0; i < getUniverse().length && !found; i++) {
-            String name = getUniverse()[i].getName();
+            String name = getStarSystem(i).getName();
             if (name.toLowerCase().contains(value.toLowerCase())) {
                 setSelectedSystemId(StarSystemId.fromInt(i));
                 found = true;
             }
         }
+    }
+
+    public StarSystem getTrackedSystem() {
+        return (trackedSystemId == StarSystemId.NA ? null : getStarSystem(trackedSystemId));
+    }
+
+    public StarSystem[] getUniverse() {
+        return universe;
+    }
+
+    public StarSystem getWarpSystem() {
+        return (warpSystemId == StarSystemId.NA) ? null : getStarSystem(warpSystemId);
+    }
+
+    private StarSystemId getWarpSystemId() {
+        return warpSystemId;
     }
 
     public boolean isTargetWormhole() {
@@ -3763,27 +1590,6 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         }
     }
 
-    public StarSystem getTrackedSystem() {
-        return (trackedSystemId == StarSystemId.NA ? null : getUniverse()[trackedSystemId.castToInt()]);
-    }
-
-    public StarSystem[] getUniverse() {
-        return universe;
-    }
-
-    public ArrayList<VeryRareEncounter> getVeryRareEncounters() {
-        return veryRareEncounters;
-    }
-
-    public StarSystem getWarpSystem() {
-        return (warpSystemId == StarSystemId.NA) ? null : getUniverse()[warpSystemId.castToInt()];
-
-    }
-
-    private StarSystemId getWarpSystemId() {
-        return warpSystemId;
-    }
-
     public int getWormholeCosts() {
         return Functions.wormholeExists(commander.getCurrentSystem(), getWarpSystem()) ? Consts.WormDist
                 * commander.getShip().getFuelCost() : 0;
@@ -3797,6 +1603,7 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
         return getOptions().isShowTrackedRange();
     }
 
+    //TODO add all quests
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -3807,78 +1614,118 @@ public class Game implements Serializable, SpaceTraderGame, SystemTracker, Curre
                 clicks == game.clicks &&
                 raided == game.raided &&
                 inspected == game.inspected &&
-                tribbleMessage == game.tribbleMessage &&
                 arrivedViaWormhole == game.arrivedViaWormhole &&
                 paidForNewspaper == game.paidForNewspaper &&
                 litterWarning == game.litterWarning &&
                 autoSave == game.autoSave &&
-                easyEncounters == game.easyEncounters &&
                 targetWormhole == game.targetWormhole &&
                 questStatusArtifact == game.questStatusArtifact &&
                 questStatusDragonfly == game.questStatusDragonfly &&
                 questStatusExperiment == game.questStatusExperiment &&
                 questStatusGemulon == game.questStatusGemulon &&
                 questStatusJapori == game.questStatusJapori &&
-                questStatusJarek == game.questStatusJarek &&
                 questStatusMoon == game.questStatusMoon &&
-                questStatusPrincess == game.questStatusPrincess &&
-                questStatusReactor == game.questStatusReactor &&
                 questStatusScarab == game.questStatusScarab &&
-                questStatusSculpture == game.questStatusSculpture &&
                 questStatusSpaceMonster == game.questStatusSpaceMonster &&
-                questStatusWild == game.questStatusWild &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
-                chanceOfVeryRareEncounter == game.chanceOfVeryRareEncounter &&
-                encounterContinueFleeing == game.encounterContinueFleeing &&
-                encounterContinueAttacking == game.encounterContinueAttacking &&
-                encounterCmdrFleeing == game.encounterCmdrFleeing &&
-                encounterCmdrHit == game.encounterCmdrHit &&
-                encounterOppFleeingPrev == game.encounterOppFleeingPrev &&
-                encounterOppFleeing == game.encounterOppFleeing &&
-                encounterOppHit == game.encounterOppHit &&
                 Objects.equals(commander, game.commander) &&
                 Objects.equals(cheats, game.cheats) &&
                 Arrays.equals(universe, game.universe) &&
                 Arrays.equals(wormholes, game.wormholes) &&
-                Arrays.equals(mercenaries, game.mercenaries) &&
+                mercenaries.equals(game.mercenaries) &&
                 Objects.equals(dragonfly, game.dragonfly) &&
                 Objects.equals(scarab, game.scarab) &&
-                Objects.equals(scorpion, game.scorpion) &&
                 Objects.equals(spaceMonster, game.spaceMonster) &&
                 Objects.equals(opponent, game.opponent) &&
-                Objects.equals(newsEvents, game.newsEvents) &&
+                Objects.equals(news, game.news) &&
                 difficulty == game.difficulty &&
                 endStatus == game.endStatus &&
-                encounterType == game.encounterType &&
                 selectedSystemId == game.selectedSystemId &&
                 warpSystemId == game.warpSystemId &&
                 trackedSystemId == game.trackedSystemId &&
                 Arrays.equals(priceCargoBuy, game.priceCargoBuy) &&
                 Arrays.equals(priceCargoSell, game.priceCargoSell) &&
-                Objects.equals(veryRareEncounters, game.veryRareEncounters) &&
                 Objects.equals(options, game.options) &&
                 Objects.equals(parentWin, game.parentWin);
     }
 
+    //TODO add all quests
     @Override
     public int hashCode() {
-        int result = Objects.hash(commander, cheats, dragonfly, scarab, scorpion, spaceMonster, opponent,
-                opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, tribbleMessage, arrivedViaWormhole,
-                paidForNewspaper, litterWarning, newsEvents, difficulty, autoSave, easyEncounters, endStatus,
-                encounterType, selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
-                questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori, questStatusJarek,
-                questStatusMoon, questStatusPrincess, questStatusReactor, questStatusScarab, questStatusSculpture,
-                questStatusSpaceMonster, questStatusWild, fabricRipProbability, justLootedMarie, canSuperWarp,
-                chanceOfVeryRareEncounter, veryRareEncounters, options, parentWin, encounterContinueFleeing,
-                encounterContinueAttacking, encounterCmdrFleeing, encounterCmdrHit, encounterOppFleeingPrev,
-                encounterOppFleeing, encounterOppHit);
+        int result = Objects.hash(commander, cheats, dragonfly, scarab, spaceMonster, opponent,
+                opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
+                paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
+                selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
+                questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori,
+                questStatusMoon, questStatusScarab, questStatusSpaceMonster, fabricRipProbability,
+                justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
-        result = 31 * result + Arrays.hashCode(mercenaries);
+        result = 31 * result + mercenaries.hashCode();
         result = 31 * result + Arrays.hashCode(priceCargoBuy);
         result = 31 * result + Arrays.hashCode(priceCargoSell);
         return result;
+    }
+
+    public void setController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
+    public GameController getController() {
+        return gameController;
+    }
+
+    public QuestSystem getQuestSystem() {
+        return questSystem;
+    }
+
+    public void setQuestSystem(QuestSystem questSystem) {
+        this.questSystem = questSystem;
+    }
+
+    public static Commander getCommander() {
+        return getCurrentGame().commander;
+    }
+
+    public static Ship getShip() {
+        return getCommander().getShip();
+    }
+
+    public static Difficulty getDifficulty() {
+        return getCurrentGame().difficulty;
+    }
+
+    public static int getDifficultyId() {
+        return getDifficulty().castToInt();
+    }
+
+    public static void setDifficulty(Difficulty difficulty) {
+        getCurrentGame().difficulty = difficulty;
+    }
+
+    public static News getNews() {
+        return getCurrentGame().news;
+    }
+
+    public static void setNews(News news) {
+        getCurrentGame().news = news;
+    }
+
+    public Map<Integer, ShipSpec> getShipSpecs() {
+        return shipSpecs;
+    }
+
+    public void setShipSpecs(Map<Integer, ShipSpec> shipSpecs) {
+        this.shipSpecs = shipSpecs;
+    }
+
+    public Ship createShipByShipSpecId(int shipSpecId) {
+        return new Ship(shipSpecs.get(shipSpecId));
+    }
+
+    public Encounter getEncounter() {
+        return encounter;
     }
 }

@@ -45,7 +45,7 @@ public class PoliticalSystem {
     boolean ShipTypeLikely(ShipType shipType, OpponentType oppType) {
         boolean likely = false;
         int diffMod = Math
-                .max(0, Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
+                .max(0, Game.getDifficultyId() - Difficulty.NORMAL.castToInt());
 
         switch (oppType) {
             case PIRATE:
@@ -81,7 +81,7 @@ public class PoliticalSystem {
         return activityPirates;
     }
 
-    Activity getActivityTraders() {
+    public Activity getActivityTraders() {
         return activityTraders;
     }
 
@@ -93,7 +93,7 @@ public class PoliticalSystem {
         return maxTech;
     }
 
-    int getBribeLevel() {
+    public int getBribeLevel() {
         return bribeLevel;
     }
 

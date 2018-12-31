@@ -1,12 +1,18 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.GameEndType;
 import spacetrader.game.exceptions.FutureVersionException;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.Functions;
 import spacetrader.util.IOUtils;
 import spacetrader.util.Util;
+
+import java.io.Serializable;
+
+import static spacetrader.game.quest.enums.EventName.ON_BEFORE_GAME_END;
+import static spacetrader.game.quest.enums.EventName.ON_GAME_END_ALERT;
 
 /**
  * This is kind-a temp class, to hold functions that are moved from the gui classes (VIEW) downwards. There is already a
@@ -17,7 +23,7 @@ import spacetrader.util.Util;
  *
  * @author Aviv
  */
-public class GameController {
+public class GameController implements Serializable {
 
     private static final String SAVE_ARRIVAL = "autosave_arrival.sav";
     private static final String SAVE_DEPARTURE = "autosave_departure.sav";
@@ -28,7 +34,10 @@ public class GameController {
 
     public GameController(Game game, MainWindow spaceTrader) {
         this.game = game;
-        mainWindow = spaceTrader;
+        this.mainWindow = spaceTrader;
+        if (game != null) {
+            game.setController(this);
+        }
     }
 
     public void cargoBuy(int tradeItem, boolean max) {
@@ -62,26 +71,32 @@ public class GameController {
     public void gameEnd() {
         mainWindow.setInGameControlsEnabled(false);
 
-        AlertType alertType = AlertType.Alert;
-        switch (game.getEndStatus()) {
-            case KILLED:
-                alertType = AlertType.GameEndKilled;
-                break;
-            case RETIRED:
-                alertType = AlertType.GameEndRetired;
-                break;
-            case BOUGHT_MOON:
-                alertType = AlertType.GameEndBoughtMoon;
-                break;
-        }
+        game.getQuestSystem().fireEvent(ON_BEFORE_GAME_END);
 
-        GuiFacade.alert(alertType);
+        if (game.getEndStatus() < 1000) {
+
+            AlertType alertType = AlertType.Alert;
+            switch (GameEndType.fromInt(game.getEndStatus())) {
+                case KILLED:
+                    alertType = AlertType.GameEndKilled;
+                    break;
+                case RETIRED:
+                    alertType = AlertType.GameEndRetired;
+                    break;
+                case BOUGHT_MOON:
+                    alertType = AlertType.GameEndBoughtMoon;
+                    break;
+            }
+            GuiFacade.alert(alertType);
+        } else {
+            game.getQuestSystem().fireEvent(ON_GAME_END_ALERT);
+        }
 
         GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10), Functions
                 .formatNumber(game.getScore() % 10));
 
-        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.getScore(), game.getEndStatus(),
-                game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
+        HighScoreRecord candidate = new HighScoreRecord(Game.getCommander().getName(), game.getScore(), game.getEndStatus(),
+                Game.getCommander().getDays(), Game.getCommander().getWorth(), Game.getDifficulty());
         if (candidate.compareTo(IOUtils.getHighScores()[0]) > 0) {
             if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
@@ -95,6 +110,7 @@ public class GameController {
 
         Game.setCurrentGame(null);
         mainWindow.setGame(null);
+        mainWindow.updateAll();
     }
 
     public static GameController loadGame(String fileName, MainWindow mainWindow) {
@@ -103,9 +119,13 @@ public class GameController {
             if (game != null) {
                 game.setParentWindow(mainWindow);
                 Game.setCurrentGame(game);
+                //QuestSystem.setQuestSystem(game.getQuestSystem());
+                game.getQuestSystem().initializeTransitionMaps();
+                game.getQuestSystem().initializeLoggers();
+                game.getQuestSystem().localizeQuests();
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
-                gameController.setSaveGameDays(game.getCommander().getDays());
+                gameController.setSaveGameDays(Game.getCommander().getDays());
 
                 mainWindow.setGame(game);
                 mainWindow.setInGameControlsEnabled(true);
@@ -119,10 +139,11 @@ public class GameController {
     }
 
     public void saveGame(String fileName, boolean saveFileName) {
-        if (IOUtils.writeObjectToFile(fileName, game) && saveFileName)
+        if (IOUtils.writeObjectToFile(fileName, game) && saveFileName) {
             saveGameFile = fileName;
+        }
 
-        saveGameDays = game.getCommander().getDays();
+        saveGameDays = Game.getCommander().getDays();
     }
 
     public void autoSaveOnArrival() {
@@ -151,5 +172,9 @@ public class GameController {
 
     public void setSaveGameDays(int saveGameDays) {
         this.saveGameDays = saveGameDays;
+    }
+
+    public MainWindow getMainWindow() {
+        return mainWindow;
     }
 }

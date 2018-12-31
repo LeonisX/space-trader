@@ -1,24 +1,7 @@
 package spacetrader.game;
 
 import spacetrader.controls.Rectangle;
-import spacetrader.game.enums.Activity;
-import spacetrader.game.enums.CrewMemberId;
-import spacetrader.game.enums.GadgetType;
-import spacetrader.game.enums.PoliceRecordType;
-import spacetrader.game.enums.PoliticalSystemType;
-import spacetrader.game.enums.ReputationType;
-import spacetrader.game.enums.ShieldType;
-import spacetrader.game.enums.ShipType;
-import spacetrader.game.enums.ShipyardId;
-import spacetrader.game.enums.ShipyardSkill;
-import spacetrader.game.enums.Size;
-import spacetrader.game.enums.SkillType;
-import spacetrader.game.enums.SpecialEventType;
-import spacetrader.game.enums.SpecialResource;
-import spacetrader.game.enums.SystemPressure;
-import spacetrader.game.enums.TechLevel;
-import spacetrader.game.enums.TradeItemType;
-import spacetrader.game.enums.WeaponType;
+import spacetrader.game.enums.*;
 import spacetrader.util.Path;
 
 public class Consts {
@@ -72,7 +55,6 @@ public class Consts {
     public static final int DirectionRight = 3;
 
     public static final int DisruptorSystemsMultiplier = 3;
-    public static final int MaxTribbles = 100000;
 
     public static final int PoliceRecordScorePsychopath = -100;
     public static final int PoliceRecordScoreVillain = -70;
@@ -98,7 +80,8 @@ public class Consts {
     public static final int ScoreAttackPirate = 0;
     public static final int ScoreAttackPolice = -3;
     public static final int ScoreAttackTrader = -2;
-    public static final int ScoreCaughtWithWild = -4;
+
+    //public static final int ScoreCaughtWithWild = -4;
     public static final int ScoreFleePolice = -2;
     public static final int ScoreKillCaptain = 100;
     public static final int ScoreKillPirate = 1;
@@ -224,8 +207,7 @@ public class Consts {
             new Rectangle(15, 0, 34, 0), // Mantis
             new Rectangle(7, 0, 49, 0), // Scarab
             new Rectangle(9, 0, 46, 0), // Bottle
-            new Rectangle(2, 0, 60, 0), // Custom
-            new Rectangle(2, 0, 60, 0) // Scorpion
+            new Rectangle(2, 0, 60, 0)//, // Custom
     };
 
     public static ShipSpec[] ShipSpecs = new ShipSpec[]{
@@ -264,23 +246,17 @@ public class Consts {
                     Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.CUSTOM, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.SCORPION, Size.HUGE, 30, 2, 2, 2, 2, 1, 1, 300, 1, 500000, 0, Activity.NA,
-                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE)
+            new ShipSpec(ShipType.QUEST, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
+                    Activity.NA, TechLevel.UNAVAILABLE)
     };
 
-    static Shipyard[] Shipyards = new Shipyard[]{
+    public static Shipyard[] Shipyards = new Shipyard[]{
             new Shipyard(ShipyardId.CORELLIAN, Size.LARGE, ShipyardSkill.CREW_QUARTERS),
             new Shipyard(ShipyardId.INCOM, Size.MEDIUM, ShipyardSkill.SHIELD_SLOT_UNITS),
             new Shipyard(ShipyardId.KUAT, Size.HUGE, ShipyardSkill.HULL_PER_UNIT),
             new Shipyard(ShipyardId.SIENAR, Size.TINY, ShipyardSkill.WEAPON_SLOT_UNITS),
             new Shipyard(ShipyardId.SOROSUUB, Size.SMALL, ShipyardSkill.FUEL_BASE)
     };
-
-    //TODO was ArrayList
-    public static CrewMemberId[] SpecialCrewMemberIds = new CrewMemberId[]{ // new ArrayList(
-            CrewMemberId.COMMANDER, CrewMemberId.DRAGONFLY, CrewMemberId.FAMOUS_CAPTAIN, CrewMemberId.JAREK,
-            CrewMemberId.OPPONENT, CrewMemberId.PRINCESS, CrewMemberId.SCARAB, CrewMemberId.SCORPION,
-            CrewMemberId.SPACE_MONSTER, CrewMemberId.WILD};
 
     public static SpecialEvent[] SpecialEvents = new SpecialEvent[]{
             new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),
@@ -302,33 +278,15 @@ public class Consts {
             new SpecialEvent(SpecialEventType.GemulonRescued, 0, 0, true),
             new SpecialEvent(SpecialEventType.Japori, 0, 1, false),
             new SpecialEvent(SpecialEventType.JaporiDelivery, 0, 0, true),
-            new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
-            new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
-            new SpecialEvent(SpecialEventType.Lottery, -1000, 0, true),
             new SpecialEvent(SpecialEventType.Moon, 500000, 4, false),
             new SpecialEvent(SpecialEventType.MoonRetirement, 0, 0, false),
-            new SpecialEvent(SpecialEventType.Reactor, 0, 0, false),
-            new SpecialEvent(SpecialEventType.ReactorDelivered, 0, 0, true),
-            new SpecialEvent(SpecialEventType.ReactorLaser, 0, 0, false),
             new SpecialEvent(SpecialEventType.Scarab, 0, 1, true),
             new SpecialEvent(SpecialEventType.ScarabDestroyed, 0, 0, true),
             new SpecialEvent(SpecialEventType.ScarabUpgradeHull, 0, 0, false),
             new SpecialEvent(SpecialEventType.Skill, 3000, 3, false),
             new SpecialEvent(SpecialEventType.SpaceMonster, 0, 1, true),
             new SpecialEvent(SpecialEventType.SpaceMonsterKilled, -15000, 0, true),
-            new SpecialEvent(SpecialEventType.Tribble, 1000, 1, false),
-            new SpecialEvent(SpecialEventType.TribbleBuyer, 0, 3, false),
-            new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
-            new SpecialEvent(SpecialEventType.WildGetsOut, 0, 0, true),
-            new SpecialEvent(SpecialEventType.Sculpture, -2000, 0, false),
-            new SpecialEvent(SpecialEventType.SculptureDelivered, 0, 0, true),
-            new SpecialEvent(SpecialEventType.SculptureHiddenBays, 0, 0, false),
-            new SpecialEvent(SpecialEventType.Princess, 0, 0, true),
-            new SpecialEvent(SpecialEventType.PrincessCentauri, 0, 0, true),
-            new SpecialEvent(SpecialEventType.PrincessInthara, 0, 0, true),
-            new SpecialEvent(SpecialEventType.PrincessQonos, 0, 0, false),
-            new SpecialEvent(SpecialEventType.PrincessQuantum, 0, 0, false),
-            new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true)
+            new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 
     public static TradeItem[] TradeItems = new TradeItem[]{

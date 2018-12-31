@@ -6,7 +6,6 @@ import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.Strings;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.CrewMemberId;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -212,7 +211,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     }
 
     private void updateCurrentCrew() {
-        CrewMember[] crewMembers = game.getCommander().getShip().getCrew();
+        CrewMember[] crewMembers = Game.getShip().getCrew();
 
         crewListBox.getItems().clear();
         for (int i = 1; i < crewMembers.length; i++) {
@@ -234,7 +233,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     }
 
     private void updateForHire() {
-        List<CrewMember> mercs = game.getCommander().getCurrentSystem().getMercenariesForHire();
+        List<CrewMember> mercs = Game.getCommander().getCurrentSystem().getMercenariesForHire();
 
         forHireListBox.getItems().clear();
         forHireListBox.getItems().addAll(mercs);
@@ -256,7 +255,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
         if (selectedCrewMember != null) {
             visible = true;
-            if (selectedCrewMember.getRate() > 0) {
+            if (selectedCrewMember.isMercenary()) {
                 rateVisible = true;
             }
 
@@ -268,9 +267,9 @@ public class FormViewPersonnel extends SpaceTraderForm {
             traderLabelValue.setText(selectedCrewMember.getTrader());
             engineerLabelValue.setText(selectedCrewMember.getEngineer());
 
-            hireFireButton.setText(game.getCommander().getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
+            hireFireButton.setText(Game.getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
                     : Strings.MercenaryHire);
-            hireFireVisible = rateVisible || (selectedCrewMember.getId() == CrewMemberId.ZEETHIBAL);
+            hireFireVisible = rateVisible;
         }
 
         nameLabelValue.setVisible(visible);
@@ -288,18 +287,18 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
     private void hireFireClick() {
         if (selectedCrewMember != null && hireFireButton.isVisible()) {
-            if (game.getCommander().getShip().hasCrew(selectedCrewMember.getId())) {
+            if (Game.getShip().hasCrew(selectedCrewMember.getId())) {
                 if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.getName()) == DialogResult.YES) {
-                    game.getCommander().getShip().fire(selectedCrewMember.getId());
+                    Game.getShip().fire(selectedCrewMember.getId());
 
                     updateAll();
                     game.getParentWindow().updateAll();
                 }
             } else {
-                if (game.getCommander().getShip().getFreeCrewQuartersCount() == 0)
+                if (Game.getShip().getFreeCrewQuartersCount() == 0)
                     GuiFacade.alert(AlertType.CrewNoQuarters, selectedCrewMember.getName());
                 else {
-                    game.getCommander().getShip().hire(selectedCrewMember);
+                    Game.getShip().hire(selectedCrewMember);
 
                     updateAll();
                     game.getParentWindow().updateAll();

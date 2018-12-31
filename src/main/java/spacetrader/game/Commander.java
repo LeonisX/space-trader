@@ -2,12 +2,15 @@ package spacetrader.game;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
+
+import static spacetrader.game.quest.enums.EventName.IS_TRADE_SHIP;
 
 public class Commander extends CrewMember implements Serializable {
 
@@ -52,21 +55,27 @@ public class Commander extends CrewMember implements Serializable {
     }
 
     public boolean isTradeShip(ShipSpec specToBuy, int netPrice, String newShipName) {
+        BooleanContainer canTrade = new BooleanContainer(true);
+
+        Game.getCurrentGame().getQuestSystem().fireEvent(IS_TRADE_SHIP, canTrade);
+
+        if (!canTrade.getValue()) {
+            return false;
+        }
+
         if (netPrice > 0 && getDebt() > 0) {
             GuiFacade.alert(AlertType.DebtNoBuy);
         } else if (netPrice > getCashToSpend()) {
             GuiFacade.alert(AlertType.ShipBuyIF);
-        } else if (specToBuy.getCrewQuarters() < getShip().getSpecialCrew().length) {
-            String passengers = getShip().getSpecialCrew()[1].getName();
-            if (getShip().getSpecialCrew().length > 2) {
-                passengers += " " + Strings.CommanderAnd + " " + getShip().getSpecialCrew()[2].getName();
+        } else if (specToBuy.getCrewQuarters() < getShip().getSpecialCrew().size()) {
+            String passengers = getShip().getSpecialCrew().get(1).getName();
+            if (getShip().getSpecialCrew().size() > 2) {
+                passengers += " " + Strings.CommanderAnd + " " + getShip().getSpecialCrew().get(2).getName();
             }
 
             GuiFacade.alert(AlertType.ShipBuyPassengerQuarters, passengers);
         } else if (specToBuy.getCrewQuarters() < getShip().getCrewCount()) {
             GuiFacade.alert(AlertType.ShipBuyCrewQuarters);
-        } else if (getShip().isReactorOnBoard()) {
-            GuiFacade.alert(AlertType.ShipBuyReactor);
         } else {
             Equipment[] special = new Equipment[]{Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()],
                     Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()],
@@ -129,7 +138,7 @@ public class Commander extends CrewMember implements Serializable {
                     (add[0] || add[1] || add[2] || addPod ? Strings.ShipBuyTransfer : "")) == DialogResult.YES) {
                 CrewMember[] oldCrew = getShip().getCrew();
 
-                setShip(new Ship(specToBuy.getType()));
+                setShip(new Ship(specToBuy));
                 setCash(getCash() - (netPrice + extraCost));
 
                 for (int i = 0; i < Math.min(oldCrew.length, getShip().getCrew().length); i++) {
@@ -283,8 +292,12 @@ public class Commander extends CrewMember implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), cash, debt, killsPirate, killsPolice, killsTrader, policeRecordScore, reputationScore, days, insurance, noClaim, ship);
+        int result = Objects.hash(super.hashCode(), cash, debt, killsPirate, killsPolice, killsTrader, policeRecordScore, reputationScore, days, insurance, noClaim/*, ship*/);
         result = 31 * result + Arrays.hashCode(priceCargo);
         return result;
+    }
+
+    public void spendCash(int cashToSpend) {
+        cash -= cashToSpend;
     }
 }

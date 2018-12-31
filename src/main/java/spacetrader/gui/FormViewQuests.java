@@ -8,8 +8,8 @@ import spacetrader.game.Consts;
 import spacetrader.game.Game;
 import spacetrader.game.SpecialEvent;
 import spacetrader.game.Strings;
-import spacetrader.game.enums.CrewMemberId;
 import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -121,16 +121,6 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (game.getCommander().getShip().isReactorOnBoard()) {
-            if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_FUEL_OK) {
-                quests.add(Strings.QuestReactor);
-            } else {
-                quests.add(Strings.QuestReactorFuel);
-            }
-        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
-            quests.add(Strings.QuestReactorLaser);
-        }
-
         if (game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
             quests.add(Strings.QuestSpaceMonsterKill);
         }
@@ -157,37 +147,6 @@ public class FormViewQuests extends SpaceTraderForm {
                 break;
         }
 
-        switch (game.getQuestStatusPrincess()) {
-            case SpecialEvent.STATUS_PRINCESS_FLY_CENTAURI:
-                quests.add(Strings.QuestPrincessCentauri);
-                break;
-            case SpecialEvent.STATUS_PRINCESS_FLY_INTHARA:
-                quests.add(Strings.QuestPrincessInthara);
-                break;
-            case SpecialEvent.STATUS_PRINCESS_FLY_QONOS:
-                quests.add(Strings.QuestPrincessQonos);
-                break;
-            case SpecialEvent.STATUS_PRINCESS_RESCUED:
-                if (game.getCommander().getShip().isPrincessOnBoard()) {
-                    if (game.getQuestStatusPrincess() == SpecialEvent.STATUS_PRINCESS_IMPATIENT) {
-                        quests.add(Functions.stringVars(
-                                Strings.QuestPrincessReturningImpatient,
-                                game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
-                    } else {
-                        quests.add(Functions.stringVars(
-                                Strings.QuestPrincessReturning,
-                                game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
-                    }
-                } else {
-                    quests.add(Functions.stringVars(Strings.QuestPrincessReturn,
-                            game.getMercenaries()[CrewMemberId.PRINCESS.castToInt()].getName()));
-                }
-                break;
-            case SpecialEvent.STATUS_PRINCESS_RETURNED:
-                quests.add(Strings.QuestPrincessQuantum);
-                break;
-        }
-
         if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
             quests.add(Strings.QuestScarabFind);
         } else if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED) {
@@ -200,35 +159,11 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (game.getCommander().getShip().isSculptureOnBoard()) {
-            quests.add(Strings.QuestSculpture);
-        } else if (game.getQuestStatusReactor() == SpecialEvent.STATUS_REACTOR_DELIVERED) {
-            quests.add(Strings.QuestSculptureHiddenBays);
-        }
-
         if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD) {
             quests.add(Strings.QuestArtifact);
         }
 
-        if (game.getCommander().getShip().isJarekOnBoard()) {
-            if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_IMPATIENT) {
-                quests.add(Strings.QuestJarekImpatient);
-            } else {
-                quests.add(Strings.QuestJarek);
-            }
-        }
-
-        if (game.getCommander().getShip().isWildOnBoard()) {
-            if (game.getQuestStatusWild() == SpecialEvent.STATUS_WILD_IMPATIENT) {
-                quests.add(Strings.QuestWildImpatient);
-            } else {
-                quests.add(Strings.QuestWild);
-            }
-        }
-
-        if (game.getCommander().getShip().getTribbles() > 0) {
-            quests.add(Strings.QuestTribbles);
-        }
+        game.getQuestSystem().fireEvent(EventName.ON_GET_QUESTS_STRINGS, quests);
 
         if (game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT) {
             quests.add(Strings.QuestMoon);

@@ -1,16 +1,11 @@
 package spacetrader.util;
 
-import spacetrader.game.*;
-import spacetrader.game.enums.AlertType;
-import spacetrader.gui.SpaceTrader;
-import spacetrader.guifacade.GuiFacade;
+import spacetrader.game.Game;
+import spacetrader.game.GlobalAssets;
+import spacetrader.game.StarSystem;
+import spacetrader.game.Strings;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.*;
-import java.util.prefs.Preferences;
 
 import static java.util.stream.Collectors.toList;
 
@@ -112,7 +107,19 @@ public class Functions {
         return (index > 0) ? Optional.ofNullable(Strings.pluralMap.get(singular + index)).orElse(singular) : singular;
     }
 
-    static List<String> splitString(String string) {
+    public static String detectPlural(Map<String, String> pluralMap, String string) {
+        if (string.isEmpty()) {
+            return string;
+        }
+        List<String> chunks = Functions.splitString(string);
+        String singular = chunks.remove(0);
+        for (int i = 0; i < chunks.size(); i++) {
+            pluralMap.put(singular + (i + 2), chunks.get(i));
+        }
+        return singular;
+    }
+
+    private static List<String> splitString(String string) {
         return Arrays.stream(string.replace("\\|", TMP).split("\\|"))
                 .map(st -> st.replace(TMP, "|").trim()).filter(s -> !s.isEmpty()).collect(toList());
     }
@@ -208,6 +215,6 @@ public class Functions {
         // int i = Array.IndexOf(wormholes, a);
         int i = Util.bruteSeek(wormholes, a);
 
-        return (i >= 0 ? (Game.getCurrentGame().getUniverse()[wormholes[(i + 1) % wormholes.length]]) : null);
+        return (i >= 0 ? (Game.getStarSystem(wormholes[(i + 1) % wormholes.length])) : null);
     }
 }

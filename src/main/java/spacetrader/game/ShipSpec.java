@@ -7,11 +7,14 @@ import spacetrader.guifacade.GuiEngine;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ShipSpec implements Serializable {
 
     static final long serialVersionUID = 151L;
 
+    private int id;
+    private UUID barCode;
     private ShipType type = ShipType.CUSTOM;
     private Size size = Size.TINY;
     private int cargoBays = 0;
@@ -33,11 +36,13 @@ public class ShipSpec implements Serializable {
     private int imageIndex = Consts.ShipImgUseDefault;
 
     ShipSpec() {
+        barCode = UUID.randomUUID();
     }
 
-    ShipSpec(ShipType type, Size size, int cargoBays, int weaponSlots, int shieldSlots, int gadgetSlots,
-             int crewQuarters, int fuelTanks, int fuelCost, int hullStrength, int repairCost, int price, int occurrence,
-             Activity police, Activity pirates, Activity traders, TechLevel minTechLevel) {
+    public ShipSpec(ShipType type, Size size, int cargoBays, int weaponSlots, int shieldSlots, int gadgetSlots,
+                    int crewQuarters, int fuelTanks, int fuelCost, int hullStrength, int repairCost, int price, int occurrence,
+                    Activity police, Activity pirates, Activity traders, TechLevel minTechLevel) {
+        //super();
         this.type = type;
         this.size = size;
         this.cargoBays = cargoBays;
@@ -54,31 +59,43 @@ public class ShipSpec implements Serializable {
         this.police = police;
         this.pirates = pirates;
         this.traders = traders;
-        minTech = minTechLevel;
+        this.minTech = minTechLevel;
     }
 
-    protected void setValues(ShipType type) {
-        int typeInt = type.castToInt();
+    protected void setValues(ShipSpec shipSpec) {
+        this.type = shipSpec.type;
+        size = shipSpec.size;
+        cargoBays = shipSpec.cargoBays;
+        weaponSlots = shipSpec.weaponSlots;
+        shieldSlots = shipSpec.shieldSlots;
+        gadgetSlots = shipSpec.gadgetSlots;
+        crewQuarters = shipSpec.crewQuarters;
+        fuelTanks = shipSpec.fuelTanks;
+        fuelCost = shipSpec.fuelCost;
+        hullStrength = shipSpec.hullStrength;
+        repairCost = shipSpec.repairCost;
+        price = shipSpec.price;
+        occurrence = shipSpec.occurrence;
+        police = shipSpec.police;
+        pirates = shipSpec.pirates;
+        traders = shipSpec.traders;
+        minTech = shipSpec.minTech;
+        hullUpgraded = shipSpec.hullUpgraded;
+        imageIndex = shipSpec.imageIndex;
+        id = shipSpec.id;
+    }
 
-        this.type = type;
-        size = Consts.ShipSpecs[typeInt].size;
-        cargoBays = Consts.ShipSpecs[typeInt].cargoBays;
-        weaponSlots = Consts.ShipSpecs[typeInt].weaponSlots;
-        shieldSlots = Consts.ShipSpecs[typeInt].shieldSlots;
-        gadgetSlots = Consts.ShipSpecs[typeInt].gadgetSlots;
-        crewQuarters = Consts.ShipSpecs[typeInt].crewQuarters;
-        fuelTanks = Consts.ShipSpecs[typeInt].fuelTanks;
-        fuelCost = Consts.ShipSpecs[typeInt].fuelCost;
-        hullStrength = Consts.ShipSpecs[typeInt].hullStrength;
-        repairCost = Consts.ShipSpecs[typeInt].repairCost;
-        price = Consts.ShipSpecs[typeInt].price;
-        occurrence = Consts.ShipSpecs[typeInt].occurrence;
-        police = Consts.ShipSpecs[typeInt].police;
-        pirates = Consts.ShipSpecs[typeInt].pirates;
-        traders = Consts.ShipSpecs[typeInt].traders;
-        minTech = Consts.ShipSpecs[typeInt].minTech;
-        hullUpgraded = Consts.ShipSpecs[typeInt].hullUpgraded;
-        imageIndex = Consts.ShipSpecs[typeInt].imageIndex;
+    public ShipSpec withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     int getSlotsCount(EquipmentType type) {
@@ -214,7 +231,11 @@ public class ShipSpec implements Serializable {
     }
 
     public int getImageIndex() {
-        return (imageIndex == Consts.ShipImgUseDefault ? getType().castToInt() : imageIndex);
+        if (imageIndex == Consts.ShipImgUseDefault) {
+            return (id < 1000) ? getType().castToInt() : Game.getCurrentGame().getQuestSystem().getShipImageIndex(id);
+        } else {
+            return imageIndex;
+        }
     }
 
     public void setImageIndex(int value) {
@@ -284,6 +305,10 @@ public class ShipSpec implements Serializable {
 
     public boolean isHullUpgraded() {
         return hullUpgraded;
+    }
+
+    public UUID getBarCode() {
+        return barCode;
     }
 
     @Override

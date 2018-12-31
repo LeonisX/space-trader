@@ -8,7 +8,9 @@ import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
@@ -18,7 +20,7 @@ import java.util.List;
 class SystemPanel extends Panel {
 
     private final SpaceTrader mainWindow;
-    private CurrentSystemMgr game = null;
+    private Game game = null;
     private GameController controller = null;
     private Commander commander;
 
@@ -53,7 +55,7 @@ class SystemPanel extends Panel {
         this.mainWindow = mainWindow;
     }
 
-    void setGame(CurrentSystemMgr game, GameController controller, Commander commander) {
+    void setGame(Game game, GameController controller, Commander commander) {
         this.game = game;
         this.controller = controller;
         this.commander = commander;
@@ -206,6 +208,8 @@ class SystemPanel extends Panel {
             if (specialButton.isVisible()) {
                 setToolTip(specialButton, system.specialEvent().getTitle());
             }
+
+            game.getQuestSystem().fireEvent(EventName.ON_BEFORE_SPECIAL_BUTTON_SHOW, specialButton);
         }
     }
 
@@ -219,34 +223,41 @@ class SystemPanel extends Panel {
     }
 
     private void specialButtonClick() {
+        //TODO remove after all quests
         SpecialEvent specEvent = commander.getCurrentSystem().specialEvent();
-        String button1Text, button2Text;
-        DialogResult button1Result, button2Result;
+        if (specEvent != null && specEvent.getType() != SpecialEventType.ASSIGNED) {
+            String button1Text, button2Text;
+            DialogResult button1Result, button2Result;
 
-        if (specEvent.isMessageOnly()) {
-            button1Text = Strings.AlertsOk;
-            button2Text = null;
-            button1Result = DialogResult.OK;
-            button2Result = DialogResult.NONE;
-        } else {
-            button1Text = Strings.AlertsYes;
-            button2Text = Strings.AlertsNo;
-            button1Result = DialogResult.YES;
-            button2Result = DialogResult.NO;
-        }
+            if (specEvent.isMessageOnly()) {
+                button1Text = Strings.AlertsOk;
+                button2Text = null;
+                button1Result = DialogResult.OK;
+                button2Result = DialogResult.NONE;
+            } else {
+                button1Text = Strings.AlertsYes;
+                button2Text = Strings.AlertsNo;
+                button1Result = DialogResult.YES;
+                button2Result = DialogResult.NO;
+            }
 
-        FormAlert alert = new FormAlert(specEvent.getTitle(), specEvent.getString(), button1Text, button1Result,
-                button2Text, button2Result, null);
-        if (alert.showDialog() != DialogResult.NO) {
-            if (commander.getCashToSpend() < specEvent.getPrice())
-                GuiFacade.alert(AlertType.SpecialIF);
-            else {
-                try {
-                    game.handleSpecialEvent();
-                } catch (GameEndException ex) {
-                    controller.gameEnd();
+            FormAlert alert = new FormAlert(specEvent.getTitle(), specEvent.getString(), button1Text, button1Result,
+                    button2Text, button2Result, null);
+            if (alert.showDialog() != DialogResult.NO) {
+                if (commander.getCashToSpend() < specEvent.getPrice())
+                    GuiFacade.alert(AlertType.SpecialIF);
+                else {
+                    try {
+                        game.handleSpecialEvent();
+                    } catch (GameEndException ex) {
+                        controller.gameEnd();
+                    }
                 }
             }
+        }
+
+        if (game != null) {
+            game.getQuestSystem().fireEvent(EventName.ON_SPECIAL_BUTTON_CLICKED, specialButton);
         }
 
         mainWindow.updateAll();

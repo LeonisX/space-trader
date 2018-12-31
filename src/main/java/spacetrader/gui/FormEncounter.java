@@ -8,20 +8,21 @@ import spacetrader.controls.enums.BorderStyle;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.game.Consts;
+import spacetrader.game.Encounter;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
-import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.EncounterResult;
+import spacetrader.game.quest.TribblesQuest;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.Facaded;
-import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
-import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static java.lang.Math.*;
+import static spacetrader.game.quest.enums.EventName.ENCOUNTER_ON_TRIBBLE_PICTURE_CLICK;
 
 @Facaded
 public class FormEncounter extends SpaceTraderForm {
@@ -41,7 +42,8 @@ public class FormEncounter extends SpaceTraderForm {
     private static final int INT = 12;
 
     private final Game game = Game.getCurrentGame();
-    private final Ship commanderShip = game.getCommander().getShip();
+    private final Encounter encounter = game.getEncounter();
+    private final Ship commanderShip = Game.getShip();
     private final Ship opponent = game.getOpponent();
 
     private Button attackButton = new Button();
@@ -81,47 +83,6 @@ public class FormEncounter extends SpaceTraderForm {
     private ImageList encounterTypeImageList = new ImageList();
     private ImageList tribblesImageList = new ImageList();
 
-    //TODO refactor, optimize, generate on fly.
-    //TODO clean-up configs
-    private PictureBox tribblePicture00 = new PictureBox();
-    private PictureBox tribblePicture50 = new PictureBox();
-    private PictureBox tribblePicture10 = new PictureBox();
-    private PictureBox tribblePicture40 = new PictureBox();
-    private PictureBox tribblePicture20 = new PictureBox();
-    private PictureBox tribblePicture30 = new PictureBox();
-    private PictureBox tribblePicture04 = new PictureBox();
-    private PictureBox tribblePicture03 = new PictureBox();
-    private PictureBox tribblePicture02 = new PictureBox();
-    private PictureBox tribblePicture01 = new PictureBox();
-    private PictureBox tribblePicture05 = new PictureBox();
-    private PictureBox tribblePicture11 = new PictureBox();
-    private PictureBox tribblePicture12 = new PictureBox();
-    private PictureBox tribblePicture13 = new PictureBox();
-    private PictureBox tribblePicture14 = new PictureBox();
-    private PictureBox tribblePicture15 = new PictureBox();
-    private PictureBox tribblePicture21 = new PictureBox();
-    private PictureBox tribblePicture22 = new PictureBox();
-    private PictureBox tribblePicture23 = new PictureBox();
-    private PictureBox tribblePicture24 = new PictureBox();
-    private PictureBox tribblePicture25 = new PictureBox();
-    private PictureBox tribblePicture31 = new PictureBox();
-    private PictureBox tribblePicture32 = new PictureBox();
-    private PictureBox tribblePicture33 = new PictureBox();
-    private PictureBox tribblePicture34 = new PictureBox();
-    private PictureBox tribblePicture35 = new PictureBox();
-    private PictureBox tribblePicture41 = new PictureBox();
-    private PictureBox tribblePicture51 = new PictureBox();
-    private PictureBox tribblePicture42 = new PictureBox();
-    private PictureBox tribblePicture52 = new PictureBox();
-    private PictureBox tribblePicture43 = new PictureBox();
-    private PictureBox tribblePicture53 = new PictureBox();
-    private PictureBox tribblePicture44 = new PictureBox();
-    private PictureBox tribblePicture45 = new PictureBox();
-    private PictureBox tribblePicture54 = new PictureBox();
-    private PictureBox tribblePicture55 = new PictureBox();
-
-    private PictureBox[] tribblesArray;
-
     private Timer timer = new Timer();
     
     private int continueImage = 1;
@@ -132,25 +93,24 @@ public class FormEncounter extends SpaceTraderForm {
         initializeComponent();
 
         // Set up the Game encounter variables.
-        game.encounterBegin();
+        encounter.encounterBegin();
 
         // Enable the control box (the X button) if cheats are enabled.
-        if (game.isEasyEncounters()) {
+        if (encounter.isEasyEncounters()) {
             setControlBox(true);
         }
 
         updateShipInfo();
-        updateTribbles();
         updateButtons();
 
-        if (game.getEncounterImageIndex() >= 0) {
-            encounterTypePicture.setImage(encounterTypeImageList.getImages()[game.getEncounterImageIndex()]);
+        if (encounter.getEncounterImageIndex() >= 0) {
+            encounterTypePicture.setImage(encounterTypeImageList.getImages()[encounter.getEncounterImageIndex()]);
         } else {
             encounterTypePicture.setVisible(false);
         }
 
-        encounterLabelValue.setText(game.getEncounterTextInitial());
-        actionLabelValue.setText(game.getEncounterActionInitial());
+        encounterLabelValue.setText(encounter.getEncounterTextInitial());
+        actionLabelValue.setText(encounter.getEncounterActionInitial());
     }
 
     private void initializeComponent() {
@@ -426,65 +386,6 @@ public class FormEncounter extends SpaceTraderForm {
         continuousPicture.setTabStop(false);
         continuousPicture.setVisible(false);
 
-        tribblePicture00.setLocation(16, 16);
-        tribblePicture01.setLocation(56, 8);
-        tribblePicture02.setLocation(96, 16);
-        tribblePicture03.setLocation(128, 8);
-        tribblePicture04.setLocation(176, 8);
-        tribblePicture05.setLocation(208, 16);
-        tribblePicture10.setLocation(8, 56);
-        tribblePicture11.setLocation(32, 80);
-        tribblePicture12.setLocation(88, 56);
-        tribblePicture13.setLocation(128, 40);
-        tribblePicture14.setLocation(192, 72);
-        tribblePicture15.setLocation(216, 48);
-        tribblePicture20.setLocation(8, 96);
-        tribblePicture21.setLocation(56, 96);
-        tribblePicture22.setLocation(96, 80);
-        tribblePicture23.setLocation(136, 88);
-        tribblePicture24.setLocation(176, 104);
-        tribblePicture25.setLocation(216, 96);
-        tribblePicture30.setLocation(16, 136);
-        tribblePicture31.setLocation(56, 128);
-        tribblePicture32.setLocation(96, 120);
-        tribblePicture33.setLocation(128, 128);
-        tribblePicture34.setLocation(168, 144);
-        tribblePicture35.setLocation(208, 128);
-        tribblePicture40.setLocation(8, 184);
-        tribblePicture41.setLocation(48, 176);
-        tribblePicture42.setLocation(88, 168);
-        tribblePicture43.setLocation(136, 176);
-        tribblePicture44.setLocation(184, 184);
-        tribblePicture45.setLocation(216, 176);
-        tribblePicture50.setLocation(16, 224);
-        tribblePicture51.setLocation(64, 216);
-        tribblePicture52.setLocation(96, 224);
-        tribblePicture53.setLocation(144, 216);
-        tribblePicture54.setLocation(176, 224);
-        tribblePicture55.setLocation(208, 216);
-
-        tribblesArray = new PictureBox[]{
-                tribblePicture00, tribblePicture01, tribblePicture02, tribblePicture03, tribblePicture04, tribblePicture05, 
-                tribblePicture10, tribblePicture11, tribblePicture12, tribblePicture13, tribblePicture14, tribblePicture15,
-                tribblePicture20, tribblePicture21, tribblePicture22, tribblePicture23, tribblePicture24, tribblePicture25, 
-                tribblePicture30, tribblePicture31, tribblePicture32, tribblePicture33, tribblePicture34, tribblePicture35, 
-                tribblePicture40, tribblePicture41, tribblePicture42, tribblePicture43, tribblePicture44, tribblePicture45, 
-                tribblePicture50, tribblePicture51, tribblePicture52, tribblePicture53, tribblePicture54, tribblePicture55
-        };
-
-        Arrays.stream(tribblesArray).forEach(picture -> {
-            picture.setBackground(SystemColors.CONTROL);
-            picture.setSize(12, 12);
-            picture.setTabStop(false);
-            picture.setVisible(false);
-            picture.setClick(new EventHandler<Object, EventArgs>() {
-                @Override
-                public void handle(Object sender, EventArgs e) {
-                    tribblePictureClick();
-                }
-            });
-        });
-
         timer.setInterval(1000);
         timer.setTick(new EventHandler<Object, EventArgs>() {
             @Override
@@ -505,12 +406,29 @@ public class FormEncounter extends SpaceTraderForm {
         continuousImageList.setImageStream(((ImageListStreamer) (resources.getObject("ilContinuous.ImageStream"))));
         continuousImageList.setTransparentColor(Color.WHITE);
 
+        List<PictureBox> tribbles = ((TribblesQuest) game.getQuestSystem().getQuest(QuestName.Tribbles)).getCoordinates().stream()
+                .map(c -> {
+                    PictureBox pictureBox = new PictureBox();
+                    pictureBox.setLocation(c.x, c.y); //TODO scale
+                    pictureBox.setBackground(SystemColors.CONTROL);
+                    pictureBox.setSize(12, 12); //TODO scale
+                    pictureBox.setTabStop(false);
+                    pictureBox.setImage(tribblesImageList.getImages()[Functions.getRandom(tribblesImageList.getImages().length)]);
+                    pictureBox.setClick(new EventHandler<Object, EventArgs>() {
+                        @Override
+                        public void handle(Object sender, EventArgs e) {
+                            tribblePictureClick();
+                        }
+                    });
+                    return pictureBox;
+                }).collect(Collectors.toList());
+
+        controls.addAll(tribbles);
         controls.addAll(encounterTypePicture, youLabel, opponentLabel, yourShipPicture, opponentsShipPicture,
                 yourShipLabelValue, opponentsShipLabelValue, yourHullLabelValue, opponentsHullLabelValue,
                 yourShieldsLabelValue, opponentsShieldsLabelValue, encounterLabelValue, actionLabelValue,
                 attackButton, fleeButton, submitButton, bribeButton, surrenderButton, ignoreButton, tradeButton,
                 plunderButton, boardButton, meetButton, drinkButton, interruptButton, yieldButton, continuousPicture);
-        controls.addAll(tribblesArray);
 
         ReflectionUtils.loadControlsData(this);
     }
@@ -518,21 +436,21 @@ public class FormEncounter extends SpaceTraderForm {
     private void disableAuto() {
         timer.stop();
 
-        game.setEncounterContinueFleeing(false);
-        game.setEncounterContinueAttacking(false);
+        encounter.setEncounterContinueFleeing(false);
+        encounter.setEncounterContinueAttacking(false);
         interruptButton.setVisible(false);
         continuousPicture.setVisible(false);
     }
 
     private void executeAction() {
-        if ((result = game.getEncounterExecuteAction()) == EncounterResult.CONTINUE) {
+        if ((result = encounter.getEncounterExecuteAction()) == EncounterResult.CONTINUE) {
             updateButtons();
             updateShipStats();
 
-            encounterLabelValue.setText(game.getEncounterText());
-            actionLabelValue.setText(game.getEncounterAction());
+            encounterLabelValue.setText(encounter.getEncounterText());
+            actionLabelValue.setText(encounter.getEncounterAction());
 
-            if (game.getEncounterContinueFleeing() || game.getEncounterContinueAttacking()) {
+            if (encounter.getEncounterContinueFleeing() || encounter.getEncounterContinueAttacking()) {
                 timer.start();
             }
         } else {
@@ -548,7 +466,7 @@ public class FormEncounter extends SpaceTraderForm {
     private void updateButtons() {
         boolean[] visible = new boolean[buttons.length];
 
-        switch (game.getEncounterType()) {
+        switch (encounter.getEncounterType()) {
             case BOTTLE_GOOD:
             case BOTTLE_OLD:
                 visible[DRINK] = true;
@@ -563,7 +481,7 @@ public class FormEncounter extends SpaceTraderForm {
                 break;
             case DRAGONFLY_ATTACK:
             case FAMOUS_CAPTAIN_ATTACK:
-            case SCORPION_ATTACK:
+            case QUEST_ATTACK:
             case SPACE_MONSTER_ATTACK:
             case TRADER_ATTACK:
                 visible[ATTACK] = true;
@@ -577,7 +495,7 @@ public class FormEncounter extends SpaceTraderForm {
             case PIRATE_FLEE:
             case PIRATE_IGNORE:
             case SCARAB_IGNORE:
-            case SCORPION_IGNORE:
+            case QUEST_IGNORE:
             case SPACE_MONSTER_IGNORE:
             case TRADER_FLEE:
             case TRADER_IGNORE:
@@ -623,7 +541,7 @@ public class FormEncounter extends SpaceTraderForm {
                 break;
         }
 
-        if (game.getEncounterContinueAttacking() || game.getEncounterContinueFleeing()) {
+        if (encounter.getEncounterContinueAttacking() || encounter.getEncounterContinueFleeing()) {
             visible[INT] = true;
         }
 
@@ -663,42 +581,28 @@ public class FormEncounter extends SpaceTraderForm {
         opponentsShipPicture.refresh();
     }
 
-    private void updateTribbles() {
-        int toShow = min(tribblesArray.length,
-                (int) sqrt(commanderShip.getTribbles() / ceil(Consts.MaxTribbles / pow(tribblesArray.length + 1, 2))));
-
-        for (int i = 0; i < toShow; i++) {
-            int index = Functions.getRandom(tribblesArray.length);
-            while (tribblesArray[index].isVisible()) {
-                index = (index + 1) % tribblesArray.length;
-            }
-            tribblesArray[index].setImage(tribblesImageList.getImages()[Functions.getRandom(tribblesImageList.getImages().length)]);
-            tribblesArray[index].setVisible(true);
-        }
-    }
-
     private void attackButtonClick() {
         disableAuto();
 
-        if (game.isEncounterVerifyAttack()) {
+        if (encounter.isEncounterVerifyAttack()) {
             executeAction();
         }
     }
 
     private void boardButtonClick() {
-        if (game.isEncounterVerifyBoard()) {
+        if (encounter.isEncounterVerifyBoard()) {
             exit(EncounterResult.NORMAL);
         }
     }
 
     private void bribeButtonClick() {
-        if (game.isEncounterVerifyBribe()) {
+        if (encounter.isEncounterVerifyBribe()) {
             exit(EncounterResult.NORMAL);
         }
     }
 
     private void drinkButtonClick() {
-        game.encounterDrink();
+        encounter.encounterDrink();
 
         exit(EncounterResult.NORMAL);
     }
@@ -706,7 +610,7 @@ public class FormEncounter extends SpaceTraderForm {
     private void fleeButtonClick() {
         disableAuto();
 
-        if (game.isEncounterVerifyFlee()) {
+        if (encounter.isEncounterVerifyFlee()) {
             executeAction();
         }
     }
@@ -722,7 +626,7 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void meetButtonClick() {
-        game.encounterMeet();
+        encounter.encounterMeet();
 
         exit(EncounterResult.NORMAL);
     }
@@ -730,13 +634,13 @@ public class FormEncounter extends SpaceTraderForm {
     private void plunderButtonClick() {
         disableAuto();
 
-        game.encounterPlunder();
+        encounter.encounterPlunder();
 
         exit(EncounterResult.NORMAL);
     }
 
     private void submitButtonClick() {
-        if (game.isEncounterVerifySubmit()) {
+        if (encounter.isEncounterVerifySubmit()) {
             exit(commanderShip.isIllegalSpecialCargo() ? EncounterResult.ARRESTED : EncounterResult.NORMAL);
         }
     }
@@ -744,19 +648,19 @@ public class FormEncounter extends SpaceTraderForm {
     private void surrenderButtonClick() {
         disableAuto();
 
-        if ((result = game.getEncounterVerifySurrender()) != EncounterResult.CONTINUE) {
+        if ((result = encounter.getEncounterVerifySurrender()) != EncounterResult.CONTINUE) {
             close();
         }
     }
 
     private void tradeButtonClick() {
-        game.encounterTrade();
+        encounter.encounterTrade();
 
         exit(EncounterResult.NORMAL);
     }
 
     private void yieldButtonClick() {
-        if ((result = game.getEncounterVerifyYield()) != EncounterResult.CONTINUE) {
+        if ((result = encounter.getEncounterVerifyYield()) != EncounterResult.CONTINUE) {
             close();
         }
     }
@@ -770,7 +674,7 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void tribblePictureClick() {
-        GuiFacade.alert(AlertType.TribblesSqueek);
+        game.getQuestSystem().fireEvent(ENCOUNTER_ON_TRIBBLE_PICTURE_CLICK);
     }
 
     private void timerTick() {

@@ -1,14 +1,20 @@
 package spacetrader.game;
 
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
-import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static spacetrader.game.quest.enums.EventName.*;
 
 public class Ship extends ShipSpec implements Serializable {
 
@@ -16,7 +22,6 @@ public class Ship extends ShipSpec implements Serializable {
 
     private int fuel;
     private int hull;
-    private int tribbles = 0;
     private int[] cargo = new int[10];
     private Weapon[] weapons;
     private Shield[] shields;
@@ -34,7 +39,13 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public Ship(ShipType type) {
+        super();
         setValues(type);
+    }
+
+    public Ship(ShipSpec shipSpec) {
+        super();
+        setValues(shipSpec);
     }
 
     public Ship(OpponentType oppType) {
@@ -52,13 +63,13 @@ public class Ship extends ShipSpec implements Serializable {
             addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
             addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-            getCrew()[0] = Game.getCurrentGame().getMercenaries()[CrewMemberId.FAMOUS_CAPTAIN.castToInt()];
+            getCrew()[0] = Game.getCurrentGame().getMercenaries().get(CrewMemberId.FAMOUS_CAPTAIN.castToInt());
         } else if (oppType == OpponentType.BOTTLE) {
             setValues(ShipType.BOTTLE);
         } else {
-            int tries = (oppType == OpponentType.MANTIS) ? Game.getCurrentGame().getDifficulty().castToInt() + 1
-                    : Math.max(1, Game.getCurrentGame().getCommander().getWorth() / 150000
-                            + Game.getCurrentGame().getDifficulty().castToInt() - Difficulty.NORMAL.castToInt());
+            int tries = (oppType == OpponentType.MANTIS) ? Game.getDifficultyId() + 1
+                    : Math.max(1, Game.getCommander().getWorth() / 150000
+                            + Game.getDifficultyId() - Difficulty.NORMAL.castToInt());
 
             generateOpponentShip(oppType);
             generateOpponentAddCrew();
@@ -92,9 +103,14 @@ public class Ship extends ShipSpec implements Serializable {
 
     public int getBaseWorth(boolean forInsurance) {
         // Trade-in value is three-fourths the original price subtract repair costs subtract costs to fill tank with fuel
-        int price = getPrice() * (getTribbles() > 0 && !forInsurance ? 1 : 3) / 4
-                        - (getHullStrength() - getHull()) * getRepairCost()
-                        - (getFuelTanks() - getFuel()) * getFuelCost();
+        BooleanContainer reduceThePrice = new BooleanContainer(false);
+
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_BASE_WORTH, reduceThePrice);
+
+        int shipPrice = getPrice() * (reduceThePrice.getValue() && !forInsurance ? 1 : 3) / 4;
+        int price = shipPrice - (getHullStrength() - getHull()) * getRepairCost()
+                - (getFuelTanks() - getFuel()) * getFuelCost();
+
         // Add 3/4 of the price of each item of equipment
         for (Weapon weapon : weapons) {
             if (weapon != null) {
@@ -154,7 +170,7 @@ public class Ship extends ShipSpec implements Serializable {
         }
     }
 
-    public void fire(CrewMemberId crewId) {
+    public void fire(int crewId) {
         int skill = getTrader();
         boolean found = false;
         CrewMember merc = null;
@@ -170,17 +186,17 @@ public class Ship extends ShipSpec implements Serializable {
         }
 
         if (getTrader() != skill) {
-            Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+            Game.getCurrentGame().recalculateBuyPrices(Game.getCommander().getCurrentSystem());
         }
 
-        if (merc != null && !Util.arrayContains(Consts.SpecialCrewMemberIds, (merc.getId()))) {
+        if (merc != null && merc.isMercenary()) {
             StarSystem[] universe = Game.getCurrentGame().getUniverse();
 
             // The leaving Mercenary travels to a nearby random system.
             merc.setCurrentSystemId(StarSystemId.NA);
             while (merc.getCurrentSystemId() == StarSystemId.NA) {
                 StarSystem system = universe[Functions.getRandom(universe.length)];
-                if (Functions.distance(system, Game.getCurrentGame().getCommander().getCurrentSystem()) < Consts.MaxRange) {
+                if (Functions.distance(system, Game.getCommander().getCurrentSystem()) < Consts.MaxRange) {
                     merc.setCurrentSystemId(system.getId());
                 }
             }
@@ -189,7 +205,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     private void generateOpponentAddCargo(boolean pirate) {
         if (getCargoBays() > 0) {
-            Difficulty diff = Game.getCurrentGame().getDifficulty();
+            Difficulty diff = Game.getDifficulty();
             int baysToFill = getCargoBays();
 
             if (diff.castToInt() >= Difficulty.NORMAL.castToInt()) {
@@ -213,20 +229,16 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     private void generateOpponentAddCrew() {
-        CrewMember[] mercs = Game.getCurrentGame().getMercenaries();
-        Difficulty diff = Game.getCurrentGame().getDifficulty();
+        Map<Integer, CrewMember> mercs = Game.getCurrentGame().getMercenaries();
+        Difficulty diff = Game.getDifficulty();
 
-        getCrew()[0] = mercs[CrewMemberId.OPPONENT.castToInt()];
+        getCrew()[0] = mercs.get(CrewMemberId.OPPONENT.castToInt());
         getCrew()[0].setPilot(1 + Functions.getRandom(Consts.MaxSkill));
         getCrew()[0].setFighter(1 + Functions.getRandom(Consts.MaxSkill));
         getCrew()[0].setTrader(1 + Functions.getRandom(Consts.MaxSkill));
+        getCrew()[0].setEngineer(1 + Functions.getRandom(Consts.MaxSkill));
 
-        if (Game.getCurrentGame().getWarpSystem().getId() == StarSystemId.Kravat && isWildOnBoard()
-                && Functions.getRandom(10) < diff.castToInt() + 1) {
-            getCrew()[0].setEngineer(Consts.MaxSkill);
-        } else {
-            getCrew()[0].setEngineer(1 + Functions.getRandom(Consts.MaxSkill));
-        }
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT, getCrew()[0]);
 
         int numCrew;
         if (diff == Difficulty.IMPOSSIBLE) {
@@ -240,8 +252,8 @@ public class Ship extends ShipSpec implements Serializable {
 
         for (int i = 1; i < numCrew; i++) {
             // Keep getting a new random mercenary until we have a non-special one.
-            while (getCrew()[i] == null || Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId())) {
-                getCrew()[i] = mercs[Functions.getRandom(mercs.length)];
+            while (getCrew()[i] == null || !getCrew()[i].isMercenary()) {
+                getCrew()[i] = mercs.get(Functions.getRandom(mercs.size()));
             }
         }
     }
@@ -250,7 +262,7 @@ public class Ship extends ShipSpec implements Serializable {
         if (getGadgetSlots() > 0) {
             int numGadgets;
 
-            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE) {
+            if (Game.getDifficulty() == Difficulty.IMPOSSIBLE) {
                 numGadgets = getGadgetSlots();
             } else {
                 numGadgets = Functions.getRandom(getGadgetSlots() + 1);
@@ -277,14 +289,6 @@ public class Ship extends ShipSpec implements Serializable {
                 addEquipment(Consts.Gadgets[bestGadgetType]);
             }
         }
-    }
-
-    public int getTribbles() {
-        return tribbles;
-    }
-
-    public void setTribbles(int tribbles) {
-        this.tribbles = tribbles;
     }
 
     public int getHull() {
@@ -315,7 +319,7 @@ public class Ship extends ShipSpec implements Serializable {
         if (getShieldSlots() > 0) {
             int numShields;
 
-            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE) {
+            if (Game.getDifficulty() == Difficulty.IMPOSSIBLE) {
                 numShields = getShieldSlots();
             } else {
                 numShields = Functions.getRandom(getShieldSlots() + 1);
@@ -356,7 +360,7 @@ public class Ship extends ShipSpec implements Serializable {
         if (getWeaponSlots() > 0) {
             int numWeapons;
 
-            if (Game.getCurrentGame().getDifficulty() == Difficulty.IMPOSSIBLE) {
+            if (Game.getDifficulty() == Difficulty.IMPOSSIBLE) {
                 numWeapons = getWeaponSlots();
             } else if (getWeaponSlots() == 1) {
                 numWeapons = 1;
@@ -401,35 +405,35 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     private void generateOpponentShip(OpponentType oppType) {
-        Commander cmdr = Game.getCurrentGame().getCommander();
+        Commander cmdr = Game.getCommander();
         PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().getPoliticalSystem();
 
         if (oppType == OpponentType.MANTIS) {
             setValues(ShipType.MANTIS);
         } else {
             ShipType oppShipType;
-            int tries = 1;
+            IntContainer tries = new IntContainer(1);
 
             switch (oppType) {
                 case PIRATE:
                     // Pirates become better when you get richer
-                    tries = 1 + cmdr.getWorth() / 100000;
-                    tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
-                            - Difficulty.NORMAL.castToInt());
+                    tries.setValue(1 + cmdr.getWorth() / 100000);
+                    tries.setValue(Math.max(1, tries.getValue() + Game.getDifficultyId() - Difficulty.NORMAL.castToInt()));
                     break;
                 case POLICE:
-                    // The police will try to hunt you down with better ships if you are
-                    // a villain, and they will try even harder when you are considered to
-                    // be a psychopath (or are transporting Jonathan Wild)
-                    if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScorePsychopath || cmdr.getShip().isWildOnBoard()) {
-                        tries = 5;
+                    // The police will try to hunt you down with better ships if you are a villain, and they will
+                    // try even harder when you are considered to be a psychopath (or are transporting Jonathan Wild)
+                    if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScorePsychopath) {
+                        tries.setValue(5);
                     } else if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScoreVillain) {
-                        tries = 3;
+                        tries.setValue(3);
                     } else {
-                        tries = 1;
+                        tries.setValue(1);
                     }
-                    tries = Math.max(1, tries + Game.getCurrentGame().getDifficulty().castToInt()
-                            - Difficulty.NORMAL.castToInt());
+
+                    Game.getCurrentGame().getQuestSystem().fireEvent(ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES, tries);
+
+                    tries.setValue(Math.max(1, tries.getValue() + Game.getDifficultyId() - Difficulty.NORMAL.castToInt()));
                     break;
             }
 
@@ -447,7 +451,7 @@ public class Ship extends ShipSpec implements Serializable {
                 }
             }
 
-            for (int i = 0; i < tries; i++) {
+            for (int i = 0; i < tries.getValue(); i++) {
                 int x = Functions.getRandom(total);
                 int sum = -1;
                 int j = -1;
@@ -488,14 +492,8 @@ public class Ship extends ShipSpec implements Serializable {
         return index;
     }
 
-    public boolean hasCrew(CrewMemberId id) {
-        boolean found = false;
-        for (int i = 0; i < getCrew().length && !found; i++) {
-            if (getCrew()[i] != null && getCrew()[i].getId() == id) {
-                found = true;
-            }
-        }
-        return found;
+    public boolean hasCrew(int id) {
+        return Arrays.stream(getCrew()).filter(Objects::nonNull).anyMatch(c -> c.getId() == id);
     }
 
     boolean hasEquipment(Equipment item) {
@@ -536,7 +534,7 @@ public class Ship extends ShipSpec implements Serializable {
     // *************************************************************************
     boolean hasTradeableItems() {
         boolean found = false;
-        boolean criminal = Game.getCurrentGame().getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
+        boolean criminal = Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
         tradeableItems = new boolean[10];
 
         for (int i = 0; i < getCargo().length; i++) {
@@ -558,7 +556,7 @@ public class Ship extends ShipSpec implements Serializable {
         return found;
     }
 
-    boolean hasWeapon(WeaponType weaponType, boolean exactCompare) {
+    public boolean hasWeapon(WeaponType weaponType, boolean exactCompare) {
         boolean found = false;
         for (int i = 0; i < getWeapons().length && !found; i++) {
             if (getWeapons()[i] != null
@@ -584,41 +582,23 @@ public class Ship extends ShipSpec implements Serializable {
         }
 
         if (getTrader() != skill) {
-            Game.getCurrentGame().recalculateBuyPrices(Game.getCurrentGame().getCommander().getCurrentSystem());
+            Game.getCurrentGame().recalculateBuyPrices(Game.getCommander().getCurrentSystem());
         }
     }
 
     String getIllegalSpecialCargoActions() {
         ArrayList<String> actions = new ArrayList<>();
 
-        if (isReactorOnBoard()) {
-            actions.add(Strings.EncounterPoliceSurrenderReactor);
-        } else if (isWildOnBoard()) {
-            actions.add(Strings.EncounterPoliceSurrenderWild);
-        }
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_ILLEGAL_SPECIAL_CARGO_ACTIONS, actions);
 
-        if (isSculptureOnBoard()) {
-            actions.add(Strings.EncounterPoliceSurrenderSculpt);
-        }
-
-        return (actions.size() == 0)
-                ? ""
-                : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions.formatList(actions));
+        return actions.isEmpty() ? "" : Functions.stringVars(Strings.EncounterPoliceSurrenderAction, Functions.formatList(actions));
     }
 
     String getIllegalSpecialCargoDescription(String wrapper, boolean includePassengers, boolean includeTradeItems) {
         ArrayList<String> items = new ArrayList<>();
 
-        if (includePassengers && isWildOnBoard()) {
-            items.add(Strings.EncounterPoliceSubmitWild);
-        }
-
-        if (isReactorOnBoard()) {
-            items.add(Strings.EncounterPoliceSubmitReactor);
-        }
-
-        if (isSculptureOnBoard()) {
-            items.add(Strings.EncounterPoliceSubmitSculpture);
+        if (includePassengers) {
+            Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_ILLEGAL_SPECIAL_CARGO_DESCRIPTION, items);
         }
 
         if (includeTradeItems && isDetectableIllegalCargo()) {
@@ -669,7 +649,7 @@ public class Ship extends ShipSpec implements Serializable {
         equip[last] = null;
     }
 
-    void removeEquipment(EquipmentType type, Object subType) {
+    public void removeEquipment(EquipmentType type, Object subType) {
         boolean found = false;
         Equipment[] equip = getEquipmentsByType(type);
 
@@ -685,15 +665,22 @@ public class Ship extends ShipSpec implements Serializable {
         for (int i = 0; i < Consts.TradeItems.length; i++) {
             if (Consts.TradeItems[i].isIllegal()) {
                 getCargo()[i] = 0;
-                Game.getCurrentGame().getCommander().getPriceCargo()[i] = 0;
+                Game.getCommander().getPriceCargo()[i] = 0;
             }
         }
     }
 
-    @Override
     public void setValues(ShipType type) {
-        super.setValues(type);
+        setValues(Consts.ShipSpecs[type.castToInt()]);
+    }
 
+    @Override
+    public void setValues(ShipSpec shipSpec) {
+        super.setValues(shipSpec);
+        initializeShip();
+    }
+
+    private void initializeShip() {
         weapons = new Weapon[getWeaponSlots()];
         shields = new Shield[getShieldSlots()];
         gadgets = new Gadget[getGadgetSlots()];
@@ -706,7 +693,7 @@ public class Ship extends ShipSpec implements Serializable {
         return getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.QUANTUM_DISRUPTOR);
     }
 
-    int getWeaponStrength(WeaponType min, WeaponType max) {
+    public int getWeaponStrength(WeaponType min, WeaponType max) {
         int total = 0;
 
         for (int i = 0; i < getWeapons().length; i++) {
@@ -722,7 +709,7 @@ public class Ship extends ShipSpec implements Serializable {
     public int getWorth(boolean forInsurance) {
         int price = getBaseWorth(forInsurance);
         for (int i = 0; i < cargo.length; i++) {
-            price += Game.getCurrentGame().getCommander().getPriceCargo()[i];
+            price += Game.getCommander().getPriceCargo()[i];
         }
 
         return price;
@@ -762,14 +749,14 @@ public class Ship extends ShipSpec implements Serializable {
         return bays + getExtraCargoBays() + getHiddenCargoBays();
     }
 
-    boolean isCloaked() {
-        int oppEng = isCommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCurrentGame().getCommander()
+    public boolean isCloaked() {
+        int oppEng = isCommandersShip() ? Game.getCurrentGame().getOpponent().getEngineer() : Game.getCommander()
                 .getShip().getEngineer();
         return hasGadget(GadgetType.CLOAKING_DEVICE) && getEngineer() > oppEng;
     }
 
     boolean isCommandersShip() {
-        return this == Game.getCurrentGame().getCommander().getShip();
+        return this == Game.getShip();
     }
 
     public CrewMember[] getCrew() {
@@ -831,17 +818,15 @@ public class Ship extends ShipSpec implements Serializable {
     // filled bays. JAF
 
     public int getFilledCargoBays() {
-        int filled = getFilledNormalCargoBays();
+        IntContainer filled = new IntContainer(getFilledNormalCargoBays());
 
         if (isCommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-            filled += 10;
+            filled.setValue(filled.getValue() + 10);
         }
 
-        if (isReactorOnBoard()) {
-            filled += 5 + 10 - (Game.getCurrentGame().getQuestStatusReactor() - 1) / 2;
-        }
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_FILLED_CARGO_BAYS, filled);
 
-        return filled;
+        return filled.getValue();
     }
 
     private int getFilledNormalCargoBays() {
@@ -881,10 +866,6 @@ public class Ship extends ShipSpec implements Serializable {
         return gadgets;
     }
 
-    private boolean isHagglingComputerOnBoard() {
-        return isCommandersShip() && Game.getCurrentGame().getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE;
-    }
-
     private int getHiddenCargoBays() {
         int bays = 0;
 
@@ -903,30 +884,13 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public boolean isIllegalSpecialCargo() {
-        return isWildOnBoard() || isReactorOnBoard() || isSculptureOnBoard();
-    }
-
-    public boolean isJarekOnBoard() {
-        return hasCrew(CrewMemberId.JAREK);
+        BooleanContainer isIllegalCargo = new BooleanContainer(false);
+        Game.getCurrentGame().getQuestSystem().fireEvent(IS_ILLEGAL_SPECIAL_CARGO, isIllegalCargo);
+        return isIllegalCargo.getValue();
     }
 
     public int getPilot() {
         return getSkills()[SkillType.PILOT.castToInt()];
-    }
-
-    public boolean isPrincessOnBoard() {
-        return hasCrew(CrewMemberId.PRINCESS);
-    }
-
-    public boolean isReactorOnBoard() {
-        int status = Game.getCurrentGame().getQuestStatusReactor();
-        return isCommandersShip() && status > SpecialEvent.STATUS_REACTOR_NOT_STARTED
-                && status < SpecialEvent.STATUS_REACTOR_DELIVERED;
-    }
-
-    public boolean isSculptureOnBoard() {
-        return isCommandersShip()
-                && Game.getCurrentGame().getQuestStatusSculpture() == SpecialEvent.STATUS_SCULPTURE_IN_TRANSIT;
     }
 
     public int getShieldCharge() {
@@ -976,7 +940,7 @@ public class Ship extends ShipSpec implements Serializable {
                 }
             }
 
-            skills[skill] = Math.max(1, Game.getCurrentGame().getDifficulty().adjustSkill(max));
+            skills[skill] = Math.max(1, Game.getDifficulty().adjustSkill(max));
         }
 
         // Adjust skills based on any gadgets on board.
@@ -990,26 +954,13 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     // Crew members that are not hired/fired - Commander, Jarek, Princess, and Wild - JAF
-    CrewMember[] getSpecialCrew() {
-        ArrayList<CrewMember> list = new ArrayList<>();
-        for (int i = 0; i < getCrew().length; i++) {
-            if (getCrew()[i] != null && Util.arrayContains(Consts.SpecialCrewMemberIds, getCrew()[i].getId())) {
-                list.add(getCrew()[i]);
-            }
-        }
-
-        CrewMember[] crew = new CrewMember[list.size()];
-        for (int i = 0; i < crew.length; i++) {
-            crew[i] = list.get(i);
-        }
-
-        return crew;
+    List<CrewMember> getSpecialCrew() {
+        return Arrays.stream(getCrew()).filter(c -> c != null && !c.isMercenary()).collect(Collectors.toList());
     }
 
     // Sort all cargo based on value and put some of it in hidden bays, if they are present.
     ArrayList<Integer> getStealableCargo() {
-        // Put all of the cargo items in a list and sort it. Reverse it so the
-        // most expensive items are first.
+        // Put all of the cargo items in a list and sort it. Reverse it so the most expensive items are first.
         ArrayList<Integer> tradeItems = new ArrayList<>();
         for (int tradeItem = 0; tradeItem < getCargo().length; tradeItem++) {
             for (int count = 0; count < getCargo()[tradeItem]; count++) {
@@ -1019,15 +970,14 @@ public class Ship extends ShipSpec implements Serializable {
         tradeItems.sort();
         tradeItems.reverse();
 
-        int hidden = getHiddenCargoBays();
-        if (isPrincessOnBoard()) {
-            hidden--;
-        }
-        if (isSculptureOnBoard()) {
-            hidden--;
-        }
+        IntContainer intContainer = new IntContainer(getHiddenCargoBays());
+
+        Game.getCurrentGame().getQuestSystem().fireEvent(ENCOUNTER_GET_STEALABLE_CARGO, intContainer);
+
+        int hidden = intContainer.getValue();
 
         if (hidden > 0) {
+            hidden = Math.min(hidden, tradeItems.size());
             tradeItems.removeRange(0, hidden);
         }
 
@@ -1039,15 +989,11 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public int getTrader() {
-        return getSkills()[SkillType.TRADER.castToInt()] + (isHagglingComputerOnBoard() ? 1 : 0);
+        return Game.getCurrentGame().getQuestSystem().affectSkills(getSkills())[SkillType.TRADER.castToInt()];
     }
 
     public Weapon[] getWeapons() {
         return weapons;
-    }
-
-    public boolean isWildOnBoard() {
-        return hasCrew(CrewMemberId.WILD);
     }
 
     // For test purposes
@@ -1101,7 +1047,6 @@ public class Ship extends ShipSpec implements Serializable {
         Ship ship = (Ship) o;
         return fuel == ship.fuel &&
                 hull == ship.hull &&
-                tribbles == ship.tribbles &&
                 pod == ship.pod &&
                 escapePod == ship.escapePod &&
                 Arrays.equals(cargo, ship.cargo) &&
@@ -1114,7 +1059,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), fuel, hull, tribbles, pod, escapePod);
+        int result = Objects.hash(super.hashCode(), fuel, hull, pod, escapePod);
         result = 31 * result + Arrays.hashCode(cargo);
         result = 31 * result + Arrays.hashCode(weapons);
         result = 31 * result + Arrays.hashCode(shields);

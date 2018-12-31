@@ -9,6 +9,7 @@ import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.*;
 import spacetrader.game.enums.GadgetType;
+import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
@@ -16,7 +17,7 @@ import spacetrader.util.ReflectionUtils;
 public class FormViewShip extends SpaceTraderForm {
 
     private Game game = Game.getCurrentGame();
-    private Ship ship = game.getCommander().getShip();
+    private Ship ship = Game.getShip();
 
     private Button closeButton = new Button();
     private Label typeLabel = new Label();
@@ -184,20 +185,14 @@ public class FormViewShip extends SpaceTraderForm {
                         + (Functions.plural(ship.getFreeGadgetSlots(), Strings.ShipGadgetSlot) + Strings.newline));
             }
         }
+
+        if (equipTitleLabelValue.getText().endsWith("<BR>")) {
+            equipTitleLabelValue.setText(equipTitleLabelValue.getText().substring(0, equipTitleLabelValue.getText().length() - 4));
+        }
     }
 
     private void displaySpecialCargo() {
         ArrayList<String> specialCargo = new ArrayList<>(12);
-
-        if (ship.getTribbles() > 0) {
-            if (ship.getTribbles() == Consts.MaxTribbles) {
-                specialCargo.add(Strings.SpecialCargoTribblesInfest);
-            } else if (ship.getTribbles() == 1){
-                specialCargo.add(Strings.SpecialCargoTribbleCute);
-            } else {
-                specialCargo.add(Strings.SpecialCargoTribblesCute);
-            }
-        }
 
         if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             specialCargo.add(Strings.SpecialCargoJapori);
@@ -207,19 +202,7 @@ public class FormViewShip extends SpaceTraderForm {
             specialCargo.add(Strings.SpecialCargoArtifact);
         }
 
-        if (game.getQuestStatusJarek() == SpecialEvent.STATUS_JAREK_DONE) {
-            specialCargo.add(Strings.SpecialCargoJarek);
-        }
-
-        if (ship.isReactorOnBoard()) {
-            specialCargo.add(Strings.SpecialCargoReactor);
-            specialCargo.add(Functions.plural(10 - ((game.getQuestStatusReactor() - 1) / 2), Strings.ShipBay)
-                    + " " + Strings.SpecialCargoReactorBays);
-        }
-
-        if (ship.isSculptureOnBoard()) {
-            specialCargo.add(Strings.SpecialCargoSculpture);
-        }
+        game.getQuestSystem().fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO, specialCargo);
 
         if (game.getCanSuperWarp()) {
             specialCargo.add(Strings.SpecialCargoExperiment);

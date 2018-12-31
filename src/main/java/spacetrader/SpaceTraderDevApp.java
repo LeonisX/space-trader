@@ -3,11 +3,7 @@ package spacetrader;
 import spacetrader.controls.BaseComponent;
 import spacetrader.game.Game;
 import spacetrader.game.GlobalAssets;
-import spacetrader.game.enums.CargoBuyOp;
-import spacetrader.game.enums.CargoSellOp;
-import spacetrader.game.enums.Difficulty;
-import spacetrader.game.enums.ShipyardId;
-import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.enums.*;
 import spacetrader.gui.*;
 import spacetrader.gui.cheat.FormMonster;
 import spacetrader.guifacade.GuiEngine;
@@ -17,6 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static spacetrader.game.enums.AlertType.EncounterDrinkContents;
 
@@ -24,12 +23,22 @@ public class SpaceTraderDevApp {
 
     public static void main(String[] args) {
         try {
+            //String.format(format, date, source, logger, level, message, thrown);
+            //                        1      2      3       4       5        6
+            System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT [%4$-7s] %2$s %5$s %6$s%n");
+            Logger.getLogger("").setLevel(Level.ALL);
+            for (Handler handler : Logger.getLogger("").getHandlers()) {
+                handler.setLevel(Level.ALL);
+                handler.setFilter(record -> record.getLoggerName().startsWith("spacetrader"));
+            }
+
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             UIManager.put("swing.boldMetal", Boolean.FALSE);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+        GlobalAssets.setDebug(true);
         GlobalAssets.loadVersion();
         GlobalAssets.loadLanguageFromRegistry();
         GlobalAssets.loadStrings();
@@ -49,15 +58,16 @@ public class SpaceTraderDevApp {
         Game.setCurrentGame(null);
 
         spaceTrader.showWindow();
+        spaceTrader.newGameMenuItemClick();
     }
 
 
     private static void dumpAll(SpaceTrader spaceTrader) {
         Game game = new Game("name", Difficulty.BEGINNER, 8, 8, 8, 8, null);
-        game.getCommander().getShip().getCargo()[1] = 12;
+        Game.getShip().getCargo()[1] = 12;
         game.setSelectedSystemId(StarSystemId.Aldea);
         game.warpDirect();
-        Game.getCurrentGame().getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
+        Game.getCommander().getCurrentSystem().setShipyardId(ShipyardId.CORELLIAN);
 
         List<BaseComponent> components = Arrays.asList(
                 spaceTrader,

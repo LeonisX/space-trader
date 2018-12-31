@@ -12,7 +12,7 @@ class TargetSystemPanel extends Panel {
 
     private final SpaceTrader mainWindow;
     
-    private SystemTracker game = null;
+    private Game game = null;
     private GameController controller = null;
     private Commander commander;
 
@@ -51,7 +51,7 @@ class TargetSystemPanel extends Panel {
         this.mainWindow = mainWindow;
     }
 
-    void setGame(SystemTracker game, GameController controller, Commander commander) {
+    void setGame(Game game, GameController controller, Commander commander) {
         this.game = game;
         this.controller = controller;
         this.commander = commander;

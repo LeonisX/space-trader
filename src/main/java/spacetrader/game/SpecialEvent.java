@@ -35,50 +35,20 @@ public class SpecialEvent {
     public final static int STATUS_JAPORI_IN_TRANSIT = 1;
     public final static int STATUS_JAPORI_DONE = 2;
 
-    public final static int STATUS_JAREK_NOT_STARTED = 0;
-    public final static int STATUS_JAREK_STARTED = 1;
-    public final static int STATUS_JAREK_IMPATIENT = 11;
-    public final static int STATUS_JAREK_DONE = 12;
-
     public final static int STATUS_MOON_NOT_STARTED = 0;
     public final static int STATUS_MOON_BOUGHT = 1;
     public final static int STATUS_MOON_DONE = 2;
-
-    public final static int STATUS_PRINCESS_NOT_STARTED = 0;
-    public final static int STATUS_PRINCESS_FLY_CENTAURI = 1;
-    public final static int STATUS_PRINCESS_FLY_INTHARA = 2;
-    public final static int STATUS_PRINCESS_FLY_QONOS = 3;
-    public final static int STATUS_PRINCESS_RESCUED = 4;
-    public final static int STATUS_PRINCESS_IMPATIENT = 14;
-    public final static int STATUS_PRINCESS_RETURNED = 15;
-    public final static int STATUS_PRINCESS_DONE = 16;
-
-    public final static int STATUS_REACTOR_NOT_STARTED = 0;
-    public final static int STATUS_REACTOR_FUEL_OK = 1;
-    public final static int STATUS_REACTOR_DATE = 20;
-    public final static int STATUS_REACTOR_DELIVERED = 21;
-    public final static int STATUS_REACTOR_DONE = 22;
 
     public final static int STATUS_SCARAB_NOT_STARTED = 0;
     public final static int STATUS_SCARAB_HUNTING = 1;
     public final static int STATUS_SCARAB_DESTROYED = 2;
     public final static int STATUS_SCARAB_DONE = 3;
 
-    public final static int STATUS_SCULPTURE_NOT_STARTED = 0;
-    public final static int STATUS_SCULPTURE_IN_TRANSIT = 1;
-    public final static int STATUS_SCULPTURE_DELIVERED = 2;
-    public final static int STATUS_SCULPTURE_DONE = 3;
-
     //TODO unused???
     public final static int STATUS_SPACE_MONSTER_NOT_STARTED = 0;
     public final static int STATUS_SPACE_MONSTER_AT_ACAMAR = 1;
     public final static int STATUS_SPACE_MONSTER_DESTROYED = 2;
     public final static int STATUS_SPACE_MONSTER_DONE = 3;
-
-    public final static int STATUS_WILD_NOT_STARTED = 0;
-    public final static int STATUS_WILD_STARTED = 1;
-    public final static int STATUS_WILD_IMPATIENT = 11;
-    public final static int STATUS_WILD_DONE = 12;
 
     private SpecialEventType type;
     private int price;
@@ -118,11 +88,11 @@ public class SpecialEvent {
     }
 
     public String getString() {
-        return Strings.SpecialEventStrings[type.castToInt()];
+        return Strings.QuestPhaseMessages[type.castToInt()];
     }
 
     public String getTitle() {
-        return Strings.SpecialEventTitles[type.castToInt()];
+        return Strings.QuestPhaseTitles[type.castToInt()];
     }
 
     public SpecialEventType getType() {

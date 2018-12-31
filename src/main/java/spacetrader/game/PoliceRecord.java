@@ -12,10 +12,10 @@ public class PoliceRecord {
         this.minScore = minScore;
     }
 
-    public static PoliceRecord getPoliceRecordFromScore(int PoliceRecordScore) {
+    public static PoliceRecord getPoliceRecordFromScore() {
         int i;
         for (i = 0; i < Consts.PoliceRecords.length
-                && Game.getCurrentGame().getCommander().getPoliceRecordScore() >= Consts.PoliceRecords[i].getMinScore(); i++) {
+                && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecords[i].getMinScore(); i++) {
         }
         return Consts.PoliceRecords[Math.max(0, i - 1)];
     }

@@ -27,7 +27,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
     public FormPayBackLoan() {
         initializeComponent();
 
-        Commander commander = Game.getCurrentGame().getCommander();
+        Commander commander = Game.getCommander();
         int max = Math.min(commander.getDebt(), commander.getCash());
         numAmount.setMaximum(max);
         numAmount.setMinimum(Math.min(commander.getDebt(), 1));

@@ -3,6 +3,7 @@ package spacetrader.controls;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.GraphicsUnit;
 import spacetrader.game.Consts;
+import spacetrader.game.Game;
 import spacetrader.game.Ship;
 
 import java.awt.*;
@@ -76,8 +77,12 @@ public class Graphics {
     }
 
     public static void paintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
-        int x = Consts.ShipImageOffsets[ship.getType().castToInt()].getX();
-        int width = Consts.ShipImageOffsets[ship.getType().castToInt()].getWidth();
+        Rectangle shipImageOffset =  (ship.getId() < 1000)
+                ? Consts.ShipImageOffsets[ship.getType().castToInt()]
+                : Game.getCurrentGame().getQuestSystem().getShipImageOffset(ship.getId());
+
+        int x = shipImageOffset.getX(); //TODO multiple
+        int width = shipImageOffset.getWidth();
 
         int startDamage = x + width - ship.getHull() * width / ship.getHullStrength();
         int startShield = x + width + 2

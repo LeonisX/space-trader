@@ -23,7 +23,7 @@ import java.awt.*;
 public class FormShipyard extends SpaceTraderForm {
 
     private final Game game = Game.getCurrentGame();
-    private final Shipyard shipyard = Game.getCurrentGame().getCommander().getCurrentSystem().getShipyard();
+    private final Shipyard shipyard;
 
     private final ShipType[] imgTypes = new ShipType[]{ShipType.FLEA, ShipType.GNAT, ShipType.FIREFLY,
             ShipType.MOSQUITO, ShipType.BUMBLEBEE, ShipType.BEETLE, ShipType.HORNET, ShipType.GRASSHOPPER,
@@ -102,6 +102,16 @@ public class FormShipyard extends SpaceTraderForm {
     private ArrayList<Size> sizes = null;
 
     public FormShipyard() {
+        shipyard = Game.getCommander().getCurrentSystem().getShipyard();
+        initializeForm();
+    }
+
+    FormShipyard(int shipyardId) {
+        shipyard = Consts.Shipyards[shipyardId];
+        initializeForm();
+    }
+
+    private void initializeForm() {
         initializeComponent();
 
         this.setText(Functions.stringVars(Strings.ShipyardTitle, shipyard.getName()));
@@ -113,7 +123,7 @@ public class FormShipyard extends SpaceTraderForm {
         skillDescriptionLabelValue.setText(Strings.ShipyardSkillDescriptions[shipyard.getSkill().castToInt()]);
         warningLabelValue
                 .setText(Functions.stringVars(Strings.ShipyardWarning, Integer.toString(Shipyard.PENALTY_FIRST_PCT),
-                Integer.toString(Shipyard.PENALTY_SECOND_PCT)));
+                        Integer.toString(Shipyard.PENALTY_SECOND_PCT)));
 
         openDialog.setInitialDirectory(Consts.CustomImagesDirectory);
         saveDialog.setInitialDirectory(Consts.CustomTemplatesDirectory);
@@ -376,6 +386,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        cargoBaysNum.setMinimum(0);
 
         fuelTanksLabel.setAutoSize(true);
         fuelTanksLabel.setLocation(8, 47);
@@ -400,6 +411,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        fuelTanksNum.setMinimum(0);
 
         hullStrengthLabel.setAutoSize(true);
         hullStrengthLabel.setLocation(8, 71);
@@ -425,6 +437,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        hullStrengthNum.setMinimum(0);
 
         weaponsSlotsLabel.setAutoSize(true);
         weaponsSlotsLabel.setLocation(8, 95);
@@ -449,6 +462,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        weaponsSlotsNum.setMinimum(0);
 
         shieldSlotsLabel.setAutoSize(true);
         shieldSlotsLabel.setLocation(8, 119);
@@ -473,6 +487,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        shieldSlotsNum.setMinimum(0);
 
         gadgetSlotsLabel.setAutoSize(true);
         gadgetSlotsLabel.setLocation(8, 143);
@@ -497,6 +512,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        gadgetSlotsNum.setMinimum(0);
 
         crewQuartersLabel.setAutoSize(true);
         crewQuartersLabel.setLocation(8, 167);
@@ -523,6 +539,7 @@ public class FormShipyard extends SpaceTraderForm {
                 numValueChanged();
             }
         });
+        crewQuartersNum.setMinimum(0);
 
         unitsUsedLabel.setAutoSize(true);
         unitsUsedLabel.setLocation(8, 191);
@@ -692,7 +709,7 @@ public class FormShipyard extends SpaceTraderForm {
             ShipTemplate template = (ShipTemplate) templateComboBox.getSelectedItem();
 
             if (template.getName().equals(Strings.ShipNameCurrentShip)) {
-                shipNameTextBox.setText(game.getCommander().getShip().getName());
+                shipNameTextBox.setText(Game.getShip().getName());
             } else if (template.getName().endsWith(Strings.ShipNameTemplateSuffixDefault)
                     || template.getName().endsWith(Strings.ShipNameTemplateSuffixMinimum)) {
                 shipNameTextBox.setText("");
@@ -742,7 +759,7 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void loadTemplateList() {
-        ShipTemplate currentShip = new ShipTemplate(game.getCommander().getShip(), Strings.ShipNameCurrentShip);
+        ShipTemplate currentShip = new ShipTemplate(Game.getShip(), Strings.ShipNameCurrentShip);
         templateComboBox.getItems().addElement(currentShip);
 
         templateComboBox.getItems().addElement(Consts.ShipTemplateSeparator);
@@ -884,7 +901,7 @@ public class FormShipyard extends SpaceTraderForm {
 
     private void constructButtonClick() {
         if (constructButtonEnabled()) {
-            if (game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
+            if (Game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
                     .getText())) {
                 Strings.ShipNames[ShipType.CUSTOM.castToInt()] = shipNameTextBox.getText();
 
@@ -893,13 +910,13 @@ public class FormShipyard extends SpaceTraderForm {
                 }
 
                 // Replace the current custom images with the new ones.
-                if (game.getCommander().getShip().getImageIndex() == ShipType.CUSTOM.castToInt()) {
+                if (Game.getShip().getImageIndex() == ShipType.CUSTOM.castToInt()) {
                     GuiEngine.getImageProvider().setCustomShipImages(customImages);
 
-                    game.getCommander().getShip().updateCustomImageOffsetConstants();
+                    Game.getShip().updateCustomImageOffsetConstants();
                 }
 
-                GuiFacade.alert(AlertType.ShipDesignThanks, shipyard.getName());
+                GuiFacade.alert(AlertType.ShipDesignThanks, this, shipyard.getName());
                 close();
             }
         }

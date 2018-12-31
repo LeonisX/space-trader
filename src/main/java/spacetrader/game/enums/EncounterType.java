@@ -26,8 +26,6 @@ public enum EncounterType implements SpaceTraderEnum {
     POLICE_INSPECT, // = 21,
     SCARAB_ATTACK, // = 22,
     SCARAB_IGNORE, // = 23,
-    SCORPION_ATTACK, // = 24,
-    SCORPION_IGNORE, // = 25,
     SPACE_MONSTER_ATTACK, // = 26,
     SPACE_MONSTER_IGNORE, // = 27,
     TRADER_ATTACK, // = 28,
@@ -36,10 +34,12 @@ public enum EncounterType implements SpaceTraderEnum {
     TRADER_SURRENDER, // = 31,
     TRADER_DISABLED, // = 32,
     TRADER_BUY, // = 33,
-    TRADER_SELL; // = 34
+    TRADER_SELL, // = 34
+    QUEST_ATTACK,
+    QUEST_IGNORE;
 
-    public static EncounterType fromInt(int i) {
-        return values()[i];
+    public EncounterType getPreviousEncounter() {
+        return EncounterType.values()[this.castToInt() - 1];
     }
 
     @Override

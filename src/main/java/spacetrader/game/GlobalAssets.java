@@ -21,6 +21,8 @@ public class GlobalAssets {
     private static final String VERSION_FILE = "version.properties";
     private static final String VERSION = "version";
 
+    private static boolean debug;
+
     private static Language language = Language.ENGLISH;
 
     private static ImageList ilChartImages;
@@ -100,6 +102,14 @@ public class GlobalAssets {
 
     public static ImageList getShipImages() {
         return ilShipImages;
+    }
+
+    public static boolean isDebug() {
+        return debug;
+    }
+
+    public static void setDebug(boolean debug) {
+        GlobalAssets.debug = debug;
     }
 
     public static Image[] getCustomShipImages() {

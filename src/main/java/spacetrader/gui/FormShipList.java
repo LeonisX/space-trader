@@ -14,6 +14,8 @@ import spacetrader.util.ReflectionUtils;
 import java.awt.*;
 import java.util.Arrays;
 
+import static spacetrader.game.quest.enums.EventName.ON_FORM_SHIP_LIST_SHOW;
+
 public class FormShipList extends SpaceTraderForm {
 
     private final int[] prices = new int[Consts.ShipSpecs.length];
@@ -99,12 +101,9 @@ public class FormShipList extends SpaceTraderForm {
         initializeComponent();
         
         updateAll();
-        info(game.getCommander().getShip().getType().castToInt());
+        info(Game.getShip().getType().castToInt());
 
-        if (game.getCommander().getShip().getTribbles() > 0 && !game.getTribbleMessage()) {
-            GuiFacade.alert(AlertType.TribblesTradeIn);
-            game.setTribbleMessage(true);
-        }
+        game.getQuestSystem().fireEvent(ON_FORM_SHIP_LIST_SHOW);
     }
 
     private void initializeComponent() {
@@ -392,7 +391,7 @@ public class FormShipList extends SpaceTraderForm {
     private void buy(int id) {
         info(id);
 
-        if (game.getCommander().isTradeShip(Consts.ShipSpecs[id], prices[id])) {
+        if (Game.getCommander().isTradeShip(Consts.ShipSpecs[id], prices[id])) {
             if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
                 game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
             }
@@ -421,14 +420,14 @@ public class FormShipList extends SpaceTraderForm {
         for (int i = 0; i < priceLabels.length; i++) {
             buyButtons[i].setVisible(false);
 
-            if (Consts.ShipSpecs[i].getMinimumTechLevel().castToInt() > game.getCommander().getCurrentSystem()
+            if (Consts.ShipSpecs[i].getMinimumTechLevel().castToInt() > Game.getCommander().getCurrentSystem()
                     .getTechLevel().castToInt()) {
                 priceLabels[i].setText(Strings.CargoBuyNA);
-            } else if (Consts.ShipSpecs[i].getType() == game.getCommander().getShip().getType()) {
+            } else if (Consts.ShipSpecs[i].getType() == Game.getShip().getType()) {
                 priceLabels[i].setText(Strings.ShipBuyGotOne);
             } else {
                 buyButtons[i].setVisible(true);
-                prices[i] = Consts.ShipSpecs[i].getPrice() - game.getCommander().getShip().getWorth(false);
+                prices[i] = Consts.ShipSpecs[i].getPrice() - Game.getShip().getWorth(false);
                 priceLabels[i].setText(Functions.formatMoney(prices[i]));
             }
         }

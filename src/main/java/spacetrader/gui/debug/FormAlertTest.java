@@ -1,7 +1,9 @@
 package spacetrader.gui.debug;
 
 import spacetrader.controls.*;
-import spacetrader.controls.enums.*;
+import spacetrader.controls.enums.DialogResult;
+import spacetrader.controls.enums.FormBorderStyle;
+import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Consts;
 import spacetrader.game.SpecialEvent;
 import spacetrader.game.enums.AlertType;
@@ -31,22 +33,16 @@ public class FormAlertTest extends SpaceTraderForm {
     private ComboBox<SpecialEventType> selSpecialEvent = new ComboBox<>();
     private Label lblSpecialEvent = new Label();
 
-    public static void main(String[] args) {
-        Launcher.runForm(new FormAlertTest());
-    }
-
-    FormAlertTest() {
+    public FormAlertTest() {
         initializeComponent();
 
-        AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.WildWontStayAboardReactor.ordinal());
-//			for (AlertType type = AlertType.Alert; type.castToInt() <= AlertType.WildWontStayAboardReactor.castToInt(); type++)
+        AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.AntidoteDestroyed.ordinal());
         for (AlertType type : alerts) {
             selAlertType.getItems().addElement(type);
         }
         selAlertType.setSelectedIndex(0);
 
-        SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.Artifact.ordinal(), SpecialEventType.WildGetsOut.ordinal());
-//			for (SpecialEventType type = SpecialEventType.Artifact; type < SpecialEventType.WildGetsOut; type++)
+        SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.Artifact.ordinal(), SpecialEventType.CargoForSale.ordinal());
         for (SpecialEventType type : events) {
             selSpecialEvent.getItems().addElement(type);
         }
@@ -60,7 +56,7 @@ public class FormAlertTest extends SpaceTraderForm {
         // lblAlertType
         //
         this.lblAlertType.setAutoSize(true);
-        this.lblAlertType.setLocation(8, 1);
+        this.lblAlertType.setLocation(8, 19);
         this.lblAlertType.setName("lblAlertType");
         this.lblAlertType.setSize(56, 13);
         this.lblAlertType.setTabIndex(0);

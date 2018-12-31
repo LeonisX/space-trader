@@ -12,10 +12,10 @@ public class Reputation {
         this.minScore = minScore;
     }
 
-    public static Reputation getReputationFromScore(int ReputationScore) {
+    public static Reputation getReputationFromScore() {
         int i;
         for (i = 0; i < Consts.Reputations.length
-                && Game.getCurrentGame().getCommander().getReputationScore() >= Consts.Reputations[i].getMinScore(); i++) {
+                && Game.getCommander().getReputationScore() >= Consts.Reputations[i].getMinScore(); i++) {
         }
         return Consts.Reputations[Math.max(0, i - 1)];
     }
