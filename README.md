@@ -236,6 +236,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Investigate - when new shipyard - can receive 600%
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
 * Update money status (StatusBar) after Shipyard
+* Instead of the custom ship name sometimes see "Bottle"
 
 ### Monster.com
 
@@ -292,6 +293,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * After disabling can fully destroy without encounter ending
 * Morgan's Laser - sell price 0 cr.
 * Ability to ignore encounter by press "x"
+* Strange - when start new game - see few visited systems
 
 ## Regressions:
 

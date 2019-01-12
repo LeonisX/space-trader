@@ -790,7 +790,6 @@ public class Ship extends ShipSpec implements Serializable {
 
     boolean isDisableable() {
         BooleanContainer notDisableable = new BooleanContainer(true);
-
         Game.getCurrentGame().getQuestSystem().fireEvent(ENCOUNTER_IS_DISABLEABLE, notDisableable);
 
         return !isCommandersShip() && getType() != ShipType.BOTTLE && getType() != ShipType.MANTIS && notDisableable.getValue();

@@ -245,10 +245,13 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
+        ArrayList<String> questStrings = (ArrayList<String>) object;
         if (questStatus == STATUS_SPACE_MONSTER_AT_ACAMAR) {
-            ArrayList<String> questStrings = (ArrayList<String>) object;
-            questStrings.add(QuestClues.QuestSpaceMonsterKill.getValue());
-            log.fine(QuestClues.QuestSpaceMonsterKill.getValue());
+            questStrings.add(QuestClues.SpaceMonsterKill.getValue());
+            log.fine(QuestClues.SpaceMonsterKill.getValue());
+        } else if (questStatus == STATUS_SPACE_MONSTER_DESTROYED) {
+            questStrings.add(QuestClues.SpaceMonsterReward.getValue());
+            log.fine(QuestClues.SpaceMonsterReward.getValue());
         } else {
             log.fine("skipped");
         }
@@ -278,7 +281,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
     private void encounterIsDisableable(Object object) {
         if (spaceMonster.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
-            ((BooleanContainer) object).setValue(true);
+            ((BooleanContainer) object).setValue(false);
         }
     }
 
@@ -302,7 +305,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     private void onNewsAddEventOnArrival(Object object) {
         News result = null;
 
-        if (Game.isCurrentSystemIs(phases.get(QuestPhases.SpaceMonster).getStarSystemId())) {
+        if (Game.isCurrentSystemIs(StarSystemId.Acamar)) {
             if (questStatus == STATUS_SPACE_MONSTER_AT_ACAMAR) {
                 result = News.SpaceMonster;
             } else if (questStatus >= STATUS_SPACE_MONSTER_DESTROYED) {
@@ -359,7 +362,8 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     private EnumMap<QuestPhases, Phase> phases = new EnumMap<>(QuestPhases.class);
 
     enum QuestClues implements SimpleValueEnum<String> {
-        QuestSpaceMonsterKill("Kill the space monster at Acamar.");
+        SpaceMonsterKill("Kill the space monster at Acamar."),
+        SpaceMonsterReward("Get rewarded for killing a space monster at Acamar.");
 
         private String value;
 
