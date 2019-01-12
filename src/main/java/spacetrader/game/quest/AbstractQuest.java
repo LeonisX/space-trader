@@ -215,6 +215,11 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return null;
     }
 
+    @Override
+    public String getShipName() {
+        return null;
+    }
+
     void showSpecialButtonIfCanBeExecuted(Object object, Phase phase) {
         if (phase.canBeExecuted()) {
             log.finest("phase `" + phase.getTitle() + "` : " + Game.getCurrentSystemId() + " ~ " + phase.getStarSystemIds());

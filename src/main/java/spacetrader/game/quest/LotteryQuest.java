@@ -15,13 +15,13 @@ import java.util.EnumMap;
 
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
-import static spacetrader.game.quest.enums.Repeatable.DISPOSABLE;
+import static spacetrader.game.quest.enums.Repeatable.ONE_TIME;
 
 class LotteryQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511501L;
 
-    private static final Repeatable REPEATABLE = DISPOSABLE;
+    private static final Repeatable REPEATABLE = ONE_TIME;
     private static final int OCCURRENCE = 0;
 
     public LotteryQuest(QuestName id) {

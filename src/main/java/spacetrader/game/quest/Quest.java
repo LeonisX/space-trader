@@ -51,5 +51,7 @@ public interface Quest {
 
     Integer getShipImageIndex();
 
+    String getShipName();
+
     void localize();
 }

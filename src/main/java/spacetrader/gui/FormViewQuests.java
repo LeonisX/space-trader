@@ -121,10 +121,6 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
-            quests.add(Strings.QuestSpaceMonsterKill);
-        }
-
         if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
             quests.add(Strings.QuestJaporiDeliver);
         }

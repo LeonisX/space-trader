@@ -32,7 +32,7 @@ class JarekQuest extends AbstractQuest {
     private static final int STATUS_JAREK_IMPATIENT = 11;
     private static final int STATUS_JAREK_DONE = 12;
 
-    private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
+    private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered

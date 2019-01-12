@@ -39,7 +39,7 @@ class WildQuest extends AbstractQuest {
     private static final int SCORE_CAUGHT_WITH_WILD = -4;
 
 
-    private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
+    private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered

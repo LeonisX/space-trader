@@ -202,7 +202,6 @@ public class Consts {
             new Rectangle(7, 0, 50, 0), // Grasshopper
             new Rectangle(2, 0, 60, 0), // Termite
             new Rectangle(2, 0, 60, 0), // Wasp
-            new Rectangle(7, 0, 49, 0), // Space Monster
             new Rectangle(21, 0, 22, 0), // Dragonfly
             new Rectangle(15, 0, 34, 0), // Mantis
             new Rectangle(7, 0, 49, 0), // Scarab
@@ -234,8 +233,6 @@ public class Consts {
             new ShipSpec(ShipType.WASP, Size.HUGE, 35, 3, 2, 2, 3, 14, 5, 200, 20, 300000, 2, Activity.MANY,
                     Activity.ABUNDANT, Activity.MODERATE, TechLevel.HI_TECH),
             // The ships below can't be bought (mostly)
-            new ShipSpec(ShipType.SPACE_MONSTER, Size.HUGE, 0, 3, 0, 0, 1, 1, 1, 500, 1, 500000, 0, Activity.NA,
-                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.DRAGONFLY, Size.SMALL, 0, 2, 3, 2, 1, 1, 1, 10, 1, 500000, 0, Activity.NA,
                     Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.MANTIS, Size.MEDIUM, 0, 3, 1, 3, 3, 1, 1, 300, 1, 500000, 0, Activity.NA, Activity.NA,
@@ -284,8 +281,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.ScarabDestroyed, 0, 0, true),
             new SpecialEvent(SpecialEventType.ScarabUpgradeHull, 0, 0, false),
             new SpecialEvent(SpecialEventType.Skill, 3000, 3, false),
-            new SpecialEvent(SpecialEventType.SpaceMonster, 0, 1, true),
-            new SpecialEvent(SpecialEventType.SpaceMonsterKilled, -15000, 0, true),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

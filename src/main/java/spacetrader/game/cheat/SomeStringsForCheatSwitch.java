@@ -43,7 +43,7 @@ public enum SomeStringsForCheatSwitch {
     //Princess,
     Scarab,
     //Sculpture,
-    SpaceMonster,
+    //SpaceMonster,
     //Wild,
     Swag,
     Test,

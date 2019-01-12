@@ -74,7 +74,6 @@ public class GuiFacade {
         GuiEngine.getCheat().showTestForm();
     }
 
-
     public static DialogResult alert(AlertType type) {
         return FormAlert.alert(type);
     }

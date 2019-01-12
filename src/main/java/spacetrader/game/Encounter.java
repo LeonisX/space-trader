@@ -61,13 +61,8 @@ public class Encounter implements Serializable {
     private boolean isDetermineNonRandomEncounter() {
         BooleanContainer showEncounter = new BooleanContainer(false);
 
-        // Encounter with space monster
-        if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Acamar
-                && game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
-            game.setOpponent(game.spaceMonster);
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.SPACE_MONSTER_IGNORE
-                    : EncounterType.SPACE_MONSTER_ATTACK);
-            showEncounter.setValue(true);
+        if (!showEncounter.getValue()) {
+
         }
         // Encounter with the stolen Scarab
         else if (game.getArrivedViaWormhole() && game.getClicks() == 20 && game.getWarpSystem().getSpecialEventType() != SpecialEventType.NA
@@ -394,7 +389,6 @@ public class Encounter implements Serializable {
             case POLICE_ATTACK:
             case SCARAB_ATTACK:
             case QUEST_ATTACK:
-            case SPACE_MONSTER_ATTACK:
             case TRADER_ATTACK:
                 setEncounterCmdrHit(isEncounterExecuteAttack(game.getOpponent(), commander.getShip(), getEncounterCmdrFleeing()));
                 setEncounterOppHit(!getEncounterCmdrFleeing()
@@ -817,7 +811,6 @@ public class Encounter implements Serializable {
                 case PIRATE_IGNORE:
                 case SCARAB_IGNORE:
                 case QUEST_IGNORE:
-                case SPACE_MONSTER_IGNORE:
                     setEncounterType(getEncounterType().getPreviousEncounter());
                     break;
 
@@ -1183,11 +1176,6 @@ public class Encounter implements Serializable {
             case SCARAB_ATTACK:
                 encounterDefeatScarab();
                 break;
-            case SPACE_MONSTER_ATTACK:
-                commander.setKillsPirate(commander.getKillsPirate() + 1);
-                commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-                game.setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED);
-                break;
             case TRADER_ATTACK:
             case TRADER_FLEE:
             case TRADER_SURRENDER:
@@ -1197,9 +1185,10 @@ public class Encounter implements Serializable {
                 break;
         }
 
+        game.getQuestSystem().fireEvent(ENCOUNTER_ON_ENCOUNTER_WON);
+
         commander.setReputationScore(commander.getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
     }
-
 
     public void resetVeryRareEncounters() {
         getVeryRareEncounters().clear();
@@ -1210,9 +1199,6 @@ public class Encounter implements Serializable {
         getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_OLD);
         getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_GOOD);
     }
-
-
-
 
     public String getEncounterAction() {
         String action;
@@ -1254,7 +1240,6 @@ public class Encounter implements Serializable {
             case POLICE_ATTACK:
             case SCARAB_ATTACK:
             case QUEST_ATTACK:
-            case SPACE_MONSTER_ATTACK:
                 text = Strings.EncounterTextOpponentAttack;
                 break;
             case DRAGONFLY_IGNORE:
@@ -1262,7 +1247,6 @@ public class Encounter implements Serializable {
             case POLICE_IGNORE:
             case SCARAB_IGNORE:
             case QUEST_IGNORE:
-            case SPACE_MONSTER_IGNORE:
             case TRADER_IGNORE:
                 text = commander.getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
                         : Strings.EncounterTextOpponentIgnore;
@@ -1305,7 +1289,7 @@ public class Encounter implements Serializable {
     }
 
     public int getEncounterImageIndex() {
-        int encounterImage = -1;
+        IntContainer encounterImage = new IntContainer(-1);
 
         switch (getEncounterType()) {
             case BOTTLE_GOOD:
@@ -1314,7 +1298,7 @@ public class Encounter implements Serializable {
             case CAPTAIN_CONRAD:
             case CAPTAIN_HUIE:
             case MARIE_CELESTE:
-                encounterImage = Consts.EncounterImgSpecial;
+                encounterImage.setValue(Consts.EncounterImgSpecial);
                 break;
             case DRAGONFLY_ATTACK:
             case DRAGONFLY_IGNORE:
@@ -1322,7 +1306,7 @@ public class Encounter implements Serializable {
             case SCARAB_IGNORE:
             case QUEST_ATTACK:
             case QUEST_IGNORE:
-                encounterImage = Consts.EncounterImgPirate;
+                encounterImage.setValue(Consts.EncounterImgPirate);
                 break;
             case MARIE_CELESTE_POLICE:
             case POLICE_ATTACK:
@@ -1330,26 +1314,22 @@ public class Encounter implements Serializable {
             case POLICE_IGNORE:
             case POLICE_INSPECT:
             case POLICE_SURRENDER:
-                encounterImage = Consts.EncounterImgPolice;
+                encounterImage.setValue(Consts.EncounterImgPolice);
                 break;
             case PIRATE_ATTACK:
             case PIRATE_FLEE:
             case PIRATE_IGNORE:
                 if (game.getOpponent().getType() == ShipType.MANTIS) {
-                    encounterImage = Consts.EncounterImgAlien;
+                    encounterImage.setValue(Consts.EncounterImgAlien);
                 } else {
-                    encounterImage = Consts.EncounterImgPirate;
+                    encounterImage.setValue(Consts.EncounterImgPirate);
                 }
-                break;
-            case SPACE_MONSTER_ATTACK:
-            case SPACE_MONSTER_IGNORE:
-                encounterImage = Consts.EncounterImgAlien;
                 break;
             case TRADER_BUY:
             case TRADER_FLEE:
             case TRADER_IGNORE:
             case TRADER_SELL:
-                encounterImage = Consts.EncounterImgTrader;
+                encounterImage.setValue(Consts.EncounterImgTrader);
                 break;
             case FAMOUS_CAPTAIN_ATTACK:
             case FAMOUS_CAPT_DISABLED:
@@ -1363,7 +1343,9 @@ public class Encounter implements Serializable {
                 break;
         }
 
-        return encounterImage;
+        game.getQuestSystem().fireEvent(ENCOUNTER_GET_IMAGE_INDEX, encounterImage);
+
+        return encounterImage.getValue();
     }
 
     public String getEncounterShipText() {
@@ -1464,10 +1446,6 @@ public class Encounter implements Serializable {
                 } else {
                     encounterPretext.setValue(Strings.EncounterPretextPirate);
                 }
-                break;
-            case SPACE_MONSTER_ATTACK:
-            case SPACE_MONSTER_IGNORE:
-                encounterPretext.setValue(Strings.EncounterPretextSpaceMonster);
                 break;
             case TRADER_BUY:
             case TRADER_FLEE:

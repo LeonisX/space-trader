@@ -6,12 +6,10 @@ import spacetrader.game.cheat.GameCheats;
 import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.QuestSystem;
-import spacetrader.game.quest.ReactorQuest;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.enums.EventName;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
@@ -45,7 +43,6 @@ public class Game implements Serializable {
     private Map<Integer, CrewMember> mercenaries = new HashMap<>();
     private Ship dragonfly = new Ship(ShipType.DRAGONFLY);
     private Ship scarab = new Ship(ShipType.SCARAB);
-    public Ship spaceMonster = new Ship(ShipType.SPACE_MONSTER);
     private Ship opponent = new Ship(ShipType.GNAT);
     private boolean opponentDisabled = false;
     private int chanceOfTradeInOrbit = 100;
@@ -80,7 +77,6 @@ public class Game implements Serializable {
     private int questStatusJapori = 0; // 0 = no disease, 1 = Go to Japori (always at least 10 medicine canisters), 2 = Assignment finished or canceled
     private int questStatusMoon = 0; // 0 = not bought, 1 = bought, 2 = claimed
     private int questStatusScarab = 0; // 0 = not given yet, 1 = not destroyed, 2 = destroyed - upgrade not performed, 3 = destroyed - hull upgrade performed
-    private int questStatusSpaceMonster = 0; // 0 = not available, 1 = Space monster is in Acamar system, 2 = Space monster is destroyed, 3 = Claimed reward
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
@@ -373,10 +369,6 @@ public class Game implements Serializable {
         recalculateBuyPrices(system);
     }
 
-    public StarSystemId getTrackedSystemId() {
-        return trackedSystemId;
-    }
-
     public void setTrackedSystemId(StarSystemId trackedSystemId) {
         this.trackedSystemId = trackedSystemId;
     }
@@ -387,14 +379,6 @@ public class Game implements Serializable {
 
     public void setRaided(boolean raided) {
         this.raided = raided;
-    }
-
-    public int getQuestStatusSpaceMonster() {
-        return questStatusSpaceMonster;
-    }
-
-    public void setQuestStatusSpaceMonster(int questStatusSpaceMonster) {
-        this.questStatusSpaceMonster = questStatusSpaceMonster;
     }
 
     public int getQuestStatusScarab() {
@@ -738,13 +722,7 @@ public class Game implements Serializable {
         getScarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
         getScarab().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
 
-        spaceMonster.getCrew()[0] = mercenaries.get(CrewMemberId.SPACE_MONSTER.castToInt());
-        spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        spaceMonster.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-
         questSystem.fireEvent(ON_CREATE_SHIP);
-
     }
 
     public void escapeWithPod() {
@@ -797,7 +775,6 @@ public class Game implements Serializable {
         mercenaries.put(CrewMemberId.FAMOUS_CAPTAIN.castToInt(), new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10, 10, false, StarSystemId.NA));
         mercenaries.put(CrewMemberId.DRAGONFLY.castToInt(), new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1, 6 + d, false, StarSystemId.NA));
         mercenaries.put(CrewMemberId.SCARAB.castToInt(), new CrewMember(CrewMemberId.SCARAB, 5 + d, 6 + d, 1, 6 + d, false, StarSystemId.NA));
-        mercenaries.put(CrewMemberId.SPACE_MONSTER.castToInt(), new CrewMember(CrewMemberId.SPACE_MONSTER, 8 + d, 8 + d, 1, 1 + d, false, StarSystemId.NA));
 
         // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
         for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, QUEST
@@ -1034,14 +1011,6 @@ public class Game implements Serializable {
                 commander.increaseRandomSkill();
                 confirmQuestPhase();
                 break;
-            case SpaceMonster:
-                setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR);
-                confirmQuestPhase();
-                break;
-            case SpaceMonsterKilled:
-                setQuestStatusSpaceMonster(SpecialEvent.STATUS_SPACE_MONSTER_DONE);
-                confirmQuestPhase();
-                break;
         }
     }
 
@@ -1073,12 +1042,6 @@ public class Game implements Serializable {
                     Math.min(Consts.PoliceRecordScoreDubious, commander.getPoliceRecordScore() + num
                             / (getDifficultyId() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
                             : getDifficultyId())));
-        }
-
-        // The Space Monster's strength increases 5% per day until it is back to full strength.
-        if (spaceMonster.getHull() < spaceMonster.getHullStrength()) {
-            spaceMonster.setHull(
-                    Math.min(spaceMonster.getHullStrength(), (int) (spaceMonster.getHull() * Math.pow(1.05, num))));
         }
 
         if (getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
@@ -1179,7 +1142,6 @@ public class Game implements Serializable {
         getStarSystem(StarSystemId.Gemulon).setSpecialEventType(SpecialEventType.GemulonRescued);
         getStarSystem(StarSystemId.Japori).setSpecialEventType(SpecialEventType.JaporiDelivery);
         getStarSystem(StarSystemId.Utopia).setSpecialEventType(SpecialEventType.MoonRetirement);
-        getStarSystem(StarSystemId.Acamar).setSpecialEventType(SpecialEventType.SpaceMonsterKilled);
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL);
 
@@ -1452,10 +1414,6 @@ public class Game implements Serializable {
         return dragonfly;
     }
 
-    public Ship getSpaceMonster() {
-        return spaceMonster;
-    }
-
     public Ship getScarab() {
         return scarab;
     }
@@ -1626,7 +1584,6 @@ public class Game implements Serializable {
                 questStatusJapori == game.questStatusJapori &&
                 questStatusMoon == game.questStatusMoon &&
                 questStatusScarab == game.questStatusScarab &&
-                questStatusSpaceMonster == game.questStatusSpaceMonster &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
@@ -1637,7 +1594,6 @@ public class Game implements Serializable {
                 mercenaries.equals(game.mercenaries) &&
                 Objects.equals(dragonfly, game.dragonfly) &&
                 Objects.equals(scarab, game.scarab) &&
-                Objects.equals(spaceMonster, game.spaceMonster) &&
                 Objects.equals(opponent, game.opponent) &&
                 Objects.equals(news, game.news) &&
                 difficulty == game.difficulty &&
@@ -1654,12 +1610,12 @@ public class Game implements Serializable {
     //TODO add all quests
     @Override
     public int hashCode() {
-        int result = Objects.hash(commander, cheats, dragonfly, scarab, spaceMonster, opponent,
+        int result = Objects.hash(commander, cheats, dragonfly, scarab, opponent,
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
                 selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
                 questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori,
-                questStatusMoon, questStatusScarab, questStatusSpaceMonster, fabricRipProbability,
+                questStatusMoon, questStatusScarab, fabricRipProbability,
                 justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
@@ -1679,10 +1635,6 @@ public class Game implements Serializable {
 
     public QuestSystem getQuestSystem() {
         return questSystem;
-    }
-
-    public void setQuestSystem(QuestSystem questSystem) {
-        this.questSystem = questSystem;
     }
 
     public static Commander getCommander() {
@@ -1715,10 +1667,6 @@ public class Game implements Serializable {
 
     public Map<Integer, ShipSpec> getShipSpecs() {
         return shipSpecs;
-    }
-
-    public void setShipSpecs(Map<Integer, ShipSpec> shipSpecs) {
-        this.shipSpecs = shipSpecs;
     }
 
     public Ship createShipByShipSpecId(int shipSpecId) {

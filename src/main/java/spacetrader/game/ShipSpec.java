@@ -252,7 +252,9 @@ public class ShipSpec implements Serializable {
     }
 
     public String getName() {
-        return Strings.ShipNames[getType().castToInt()];
+        return (id < 1000)
+                ? Strings.ShipNames[getType().castToInt()]
+                : Game.getCurrentGame().getQuestSystem().getShipName(id);
     }
 
     int getOccurrence() {

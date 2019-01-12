@@ -40,7 +40,7 @@ public class TribblesQuest extends AbstractQuest {
             new Point(208, 216)
     };
 
-    private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
+    private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     //TODO remove in future, if don't need
     private static final int OCCURRENCE = 1;
 

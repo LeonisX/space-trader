@@ -44,12 +44,6 @@ public class SpecialEvent {
     public final static int STATUS_SCARAB_DESTROYED = 2;
     public final static int STATUS_SCARAB_DONE = 3;
 
-    //TODO unused???
-    public final static int STATUS_SPACE_MONSTER_NOT_STARTED = 0;
-    public final static int STATUS_SPACE_MONSTER_AT_ACAMAR = 1;
-    public final static int STATUS_SPACE_MONSTER_DESTROYED = 2;
-    public final static int STATUS_SPACE_MONSTER_DONE = 3;
-
     private SpecialEventType type;
     private int price;
     private int occurrence;

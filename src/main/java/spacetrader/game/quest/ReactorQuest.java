@@ -34,7 +34,7 @@ public class ReactorQuest extends AbstractQuest {
     private static final int STATUS_REACTOR_DELIVERED = 21;
     private static final int STATUS_REACTOR_DONE = 22;
 
-    private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
+    private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
     private volatile int questStatus = 0; // 0 = not encountered, 1-20 = days of mission (bays of fuel left = 10 - (ReactorStatus / 2), 21 = delivered, 22 = Done

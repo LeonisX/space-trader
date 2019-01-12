@@ -184,9 +184,7 @@ public class GameCheats implements Serializable {
                         case Scarab:
                             game.setQuestStatusScarab(Math.max(0, words.getNum2()));
                             break;
-                        case SpaceMonster:
-                            game.setQuestStatusSpaceMonster(Math.max(0, words.getNum2()));
-                            break;
+
                         default:
 
                             String text = Strings.CheatsArtifact + ": " + game.getQuestStatusArtifact() + Strings.newline
@@ -195,8 +193,7 @@ public class GameCheats implements Serializable {
                                     + Strings.CheatsGemulon + ": " + game.getQuestStatusGemulon() + Strings.newline
                                     + Strings.CheatsJapori + ": " + game.getQuestStatusJapori() + Strings.newline
                                     + Strings.CheatsMoon + ": " + game.getQuestStatusMoon() + Strings.newline
-                                    + Strings.CheatsScarab + ": " + game.getQuestStatusScarab() + Strings.newline
-                                    + Strings.CheatsSpaceMonster + ": " + game.getQuestStatusSpaceMonster() + Strings.newline;
+                                    + Strings.CheatsScarab + ": " + game.getQuestStatusScarab() + Strings.newline;
 
                             Map<String, Integer> strings = new HashMap<>();
                             game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);

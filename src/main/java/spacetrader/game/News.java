@@ -105,13 +105,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.ScarabDestroyed.castToInt());
                     }
                     break;
-                case SpaceMonsterKilled:
-                    if (Game.getCurrentGame().getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_AT_ACAMAR) {
-                        addEvent(NewsEvent.SpaceMonster.castToInt());
-                    } else if (Game.getCurrentGame().getQuestStatusSpaceMonster() >= SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED) {
-                        addEvent(NewsEvent.SpaceMonsterKilled.castToInt());
-                    }
-                    break;
             }
         }
     }

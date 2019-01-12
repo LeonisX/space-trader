@@ -129,7 +129,6 @@ public class StarSystem implements Serializable {
             case GemulonFuel:
             case GemulonInvaded:
             case Skill:
-            case SpaceMonster:
                 show = true;
                 break;
             case EraseRecord:
@@ -164,9 +163,6 @@ public class StarSystem implements Serializable {
             case ScarabDestroyed:
             case ScarabUpgradeHull:
                 show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED;
-                break;
-            case SpaceMonsterKilled:
-                show = game.getQuestStatusSpaceMonster() == SpecialEvent.STATUS_SPACE_MONSTER_DESTROYED;
                 break;
         }
 

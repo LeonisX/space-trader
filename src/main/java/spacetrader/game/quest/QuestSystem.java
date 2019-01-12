@@ -207,6 +207,10 @@ public class QuestSystem implements Serializable {
         return questShipSpecs.get(shipSpecId).getShipImageIndex();
     }
 
+    public String getShipName(int shipSpecId) {
+        return questShipSpecs.get(shipSpecId).getShipName();
+    }
+
     public Rectangle getShipImageOffset(int shipSpecId) {
         return questShipSpecs.get(shipSpecId).getShipImageOffset();
     }

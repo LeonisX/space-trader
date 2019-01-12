@@ -5,10 +5,10 @@ public enum EventName {
     // Initialization
     ON_ASSIGN_EVENTS_MANUAL,                    // Jarek, Princess, .... Manual assigns an event to a specific system.
     ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY,          // Sculpture, Reactor. Assign an event at a distance of no more than 70 parsec
-    ON_ASSIGN_EVENTS_RANDOMLY,                  // Jarek. Randomly assigns an event to a specific system. For example - start of event
+    ON_ASSIGN_EVENTS_RANDOMLY,                  // Jarek, Space Monster. Randomly assigns an event to a specific system. For example - start of event
     ON_GENERATE_CREW_MEMBER_LIST,               // Jarek, Princess, ... Adds quest characters to the game.
-    ON_AFTER_SHIP_SPECS_INITIALIZED,            // Princess (Scorpion). Supplements the list of ship specs. Including quest.
-    ON_CREATE_SHIP,                             // Princess (Scorpion). Unique quest ships are created at the beginning of the game.
+    ON_AFTER_SHIP_SPECS_INITIALIZED,            // Princess (Scorpion), Space Monster. Supplements the list of ship specs. Including quest.
+    ON_CREATE_SHIP,                             // Princess (Scorpion), Space Monster. Unique quest ships are created at the beginning of the game.
     ON_AFTER_GAME_INITIALIZE,                   // Lottery. Right after full game initialization. Add current system ID to quest
 
     // Main flow (very common)
@@ -33,10 +33,12 @@ public enum EventName {
     // a villain, and they will try even harder when you are considered to be a psychopath (or are transporting Jonathan Wild)
 
     // Encounters
-    ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess. Starts a predefined encounter with Scorpion.
+    ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess, Space Monster. Starts a predefined encounter with Scorpion.
     ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK,      // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
-    ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion). Used to generate an introductory text of encounter
+    ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion), Space Monster. Used to generate an introductory text of encounter
+    ENCOUNTER_GET_IMAGE_INDEX,                  // Space Monster - before opponent show
     ENCOUNTER_IS_EXECUTE_ATTACK,                // Reactor. Reactor affects damage levels
+    ENCOUNTER_IS_DISABLEABLE,                   // Space Monster. Don't allow to disable
     ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, // Princess (Scorpion). The action that occurs after processing the effects of an attack. It is necessary that Scorpion was not accidentally destroyed.
     ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, // Princess (Scorpion). Action that occurs when an opponent is disabled
     ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER,   // Princess (Scorpion). Check whether there is any possibility to surrender. For example, if the Princess is on board, you cannot surrender.
@@ -44,6 +46,7 @@ public enum EventName {
     ENCOUNTER_ON_ROBBERY,                       // Princess (Scorpion), Sculpture, Reactor. Used to generate a list of items that were hidden in secret cargo bays.
     ENCOUNTER_GET_STEALABLE_CARGO,              // Princess (Scorpion), Sculpture. Used to generate a list of goods that will be stolen during an attack. Princess will take one cargo bay
     ENCOUNTER_ON_TRIBBLE_PICTURE_CLICK,         // Tribbles. On Tribble picture click
+    ENCOUNTER_ON_ENCOUNTER_WON,                 // Space Monster. After winning in encounter
 
     // After Encounters
     IS_ILLEGAL_SPECIAL_CARGO,                   // Wild, Sculpture, Reactor. Determine whether there is an illegal special cargo on board

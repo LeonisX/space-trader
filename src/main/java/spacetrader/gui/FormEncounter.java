@@ -177,7 +177,7 @@ public class FormEncounter extends SpaceTraderForm {
         opponentsShipLabelValue.setControlBinding(ControlBinding.LEFT);
         opponentsShipLabelValue.setLocation(148, 88);
         //opponentsShipLabelValue.setSize(80, 13);
-        //opponentsShipLabelValue.setText("Space Monster");
+        //opponentsShipLabelValue.setText("Space Mon-ster");
 
         yourHullLabelValue.setAutoSize(true);
         yourHullLabelValue.setControlBinding(ControlBinding.LEFT);
@@ -482,7 +482,6 @@ public class FormEncounter extends SpaceTraderForm {
             case DRAGONFLY_ATTACK:
             case FAMOUS_CAPTAIN_ATTACK:
             case QUEST_ATTACK:
-            case SPACE_MONSTER_ATTACK:
             case TRADER_ATTACK:
                 visible[ATTACK] = true;
                 visible[FLEE] = true;
@@ -496,7 +495,6 @@ public class FormEncounter extends SpaceTraderForm {
             case PIRATE_IGNORE:
             case SCARAB_IGNORE:
             case QUEST_IGNORE:
-            case SPACE_MONSTER_IGNORE:
             case TRADER_FLEE:
             case TRADER_IGNORE:
                 visible[ATTACK] = true;

@@ -28,8 +28,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     ScarabDestroyed, // = 28,
     ScarabUpgradeHull, // = 29,
     Skill, // = 30,
-    SpaceMonster, // = 31,
-    SpaceMonsterKilled, // = 32,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

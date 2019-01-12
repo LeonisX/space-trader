@@ -375,7 +375,6 @@ public class Strings {
     public static String CheatsJapori = "Japori";
     public static String CheatsMoon = "Moon";
     public static String CheatsScarab = "Scarab";
-    public static String CheatsSpaceMonster = "SpaceMonster";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -417,7 +416,6 @@ public class Strings {
     public static String EncounterPretextMariePolice = "the Customs Police in a ^1";
     public static String EncounterPretextPirate = "a pirate ^1";
     public static String EncounterPretextPolice = "a police ^1";
-    public static String EncounterPretextSpaceMonster = "a horrifying ^1";
     public static String EncounterPretextStolen = "a stolen ^1";
     public static String EncounterPretextTrader = "a trader ^1";
     public static String EncounterShieldStrength = "Shields at ^1%";
@@ -489,7 +487,6 @@ public class Strings {
     public static String QuestScarabFind = "Find and destroy the Scarab (which is hiding at the exit to a wormhole).";
     public static String QuestScarabHull = "Get your hull upgraded at ^1.";
     public static String QuestScarabNotify = "Notify the authorities at ^1 that the Scarab has been destroyed.";
-    public static String QuestSpaceMonsterKill = "Kill the space monster at Acamar.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -563,7 +560,6 @@ public class Strings {
             "Captain", // crew of famous captain ships
             "Dragonfly", // dummy crew member used in opponent ship
             "Scarab", // dummy crew member used in opponent ship
-            "SpaceMonster", // dummy crew member used in opponent ship
             "Aragorn", // My first son's middle name, and from Lord of the Rings
             "Brady", // My third son's middle name, and QB of the New England Patriots
             "Eight of Nine", // From Star Trek - Seven's younger sibling ;)
@@ -644,9 +640,7 @@ public class Strings {
             "Disease Antidotes Arrive! Health Officials Optimistic.",
             "Security Scandal: Test Craft Confirmed Stolen.",
             "Wormhole Traffic Delayed as Stolen Craft Destroyed.",
-            "Wormhole Travelers Harassed by Unusual Ship!",
-            "Space Monster Threatens Homeworld!",
-            "Hero Slays Space Monster! Parade, Honors Planned for Today."
+            "Wormhole Travelers Harassed by Unusual Ship!"
     };
 
     public static String[][] NewsHeadlines = new String[][]{
@@ -789,9 +783,7 @@ public class Strings {
             "Captain Renwick developed a new organic hull material for his ship which cannot be damaged except by Pulse lasers. While he was celebrating this success, pirates boarded and stole the craft, which they have named the Scarab. Rumors suggest it's being hidden at the exit to a wormhole. Destroy the ship for a reward!",
             "Space Corps is indebted to you for destroying the Scarab and the pirates who stole it. As a reward, we can have Captain Renwick upgrade the hull of your ship. Note that his upgrades won't be transferable if you buy a new ship! Come back with the ship you wish to upgrade.",
             "The organic hull used in the Scarab is still not ready for day-to-day use. But Captain Renwick can certainly upgrade your hull with some of his retrofit technology. It's light stuff, and won't reduce your ship's range. Should he upgrade your ship?",
-            "An alien with a fast-learning machine offers to increase one of your skills for the reasonable sum of 3000 credits. You won't be able to pick that skill, though. Do you accept his offer?",
-            "A space monster has invaded the Acamar system and is disturbing the trade routes. You'll be rewarded handsomely if you manage to destroy it.",
-            "We thank you for destroying the space monster that circled our system for so long. Please accept 15000 credits as reward for your heroic deed.",
+            "An alien with a fast-learning machine offers to increase one of your skills for the reasonable sum of 3000 credits. You won't be able to pick that skill, though. Do you accept his offer?"
             };
 
     public static String[] QuestPhaseTitles = new String[]{
@@ -803,7 +795,6 @@ public class Strings {
             "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
             "Moon For Sale", "Retirement", "Scarab Stolen",
             "Scarab Destroyed", "Upgrade Hull", "Skill Increase",
-            "Space Monster", "Monster Killed",
             //TODO delete
             "ASSIGNED"};
 
@@ -833,7 +824,7 @@ public class Strings {
     public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
 
     public static String[] ShipNames = new String[]{"Flea", "Gnat", "Firefly", "Mosquito", "Bumblebee", "Beetle",
-            "Hornet", "Grasshopper", "Termite", "Wasp", "Space Monster", "Dragonfly", "Mantis", "Scarab", "Bottle",
+            "Hornet", "Grasshopper", "Termite", "Wasp", "Dragonfly", "Mantis", "Scarab", "Bottle",
             ShipNameCustomShip};
 
     public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};

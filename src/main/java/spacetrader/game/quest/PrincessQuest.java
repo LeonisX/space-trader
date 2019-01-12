@@ -39,7 +39,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private static final int STATUS_PRINCESS_RETURNED = 15;
     private static final int STATUS_DONE = 16;
 
-    private static final Repeatable REPEATABLE = Repeatable.DISPOSABLE;
+    private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
     private int questStatus = 0; // 0 = not available, 1 = Go to Centauri, 2 = Go to Inthara, // 3 = Go to Qonos,
