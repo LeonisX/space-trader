@@ -23,6 +23,7 @@ public enum EventName {
     ON_FORM_SHIP_LIST_SHOW,                     // Tribbles. Show warning when showing FormShipList
     ON_GET_BASE_WORTH,                          // Tribbles. Reduce the cost of the ship under certain conditions
     ON_GET_FILLED_CARGO_BAYS,                   // Reactor. Some goods take place in cargo bays
+    ON_DISPLAY_SHIP_EQUIPMENT,                       // Scarab. Show hardened hull
 
     IS_TRADE_SHIP,                              // Reactor. Before you sell / exchange ship
 
@@ -37,7 +38,11 @@ public enum EventName {
     ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK,      // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
     ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion), Space Monster. Used to generate an introductory text of encounter
     ENCOUNTER_GET_IMAGE_INDEX,                  // Space Monster - before opponent show
-    ENCOUNTER_IS_EXECUTE_ATTACK,                // Reactor. Reactor affects damage levels
+    ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS,       // All quest enemy ships
+    ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS,       // All quest enemy ships
+    ENCOUNTER_IS_EXECUTE_ATTACK_GET_WEAPONS,    // Scarab
+    ENCOUNTER_IS_EXECUTE_ATTACK_PRIMARY_DAMAGE, // Reactor. Reactor affects damage levels
+    ENCOUNTER_IS_EXECUTE_ATTACK_SECONDARY_DAMAGE,//Scarab
     ENCOUNTER_IS_DISABLEABLE,                   // Space Monster. Don't allow to disable
     ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, // Princess (Scorpion). The action that occurs after processing the effects of an attack. It is necessary that Scorpion was not accidentally destroyed.
     ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, // Princess (Scorpion). Action that occurs when an opponent is disabled

@@ -133,6 +133,14 @@ public class QuestSystem implements Serializable {
         return skillsCopy;
     }
 
+    public int[] affectShipCharacteristics(int[] characteristics) {
+        //log.fine("affectShipCharacteristics: " + Arrays.toString(characteristics));
+        int[] characteristicsCopy = characteristics.clone();
+        getQuests().forEach(q -> q.affectShipCharacteristics(characteristicsCopy));
+        //log.fine("characteristicsCopy: " + Arrays.toString(characteristicsCopy));
+        return characteristicsCopy;
+    }
+
     public Collection<Quest> getQuests() {
         return quests.values();
     }

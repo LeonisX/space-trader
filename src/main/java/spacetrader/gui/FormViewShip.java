@@ -14,6 +14,11 @@ import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static spacetrader.game.quest.enums.EventName.ON_DISPLAY_SHIP_EQUIPMENT;
+
 public class FormViewShip extends SpaceTraderForm {
 
     private Game game = Game.getCurrentGame();
@@ -96,10 +101,9 @@ public class FormViewShip extends SpaceTraderForm {
     }
 
     private void displayEquipment() {
-        if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
-            equipTitleLabelValue.setText(equipTitleLabelValue.getText() + (Strings.ShipHull + Strings.newline + Strings.newline));
-            equipLabelValue.setText(equipLabelValue.getText() + (Strings.ShipHardened + Strings.newline + Strings.newline));
-        }
+        List<StringBuilder> equipPair = Arrays.asList(new StringBuilder(), new StringBuilder()); // equipTitle, equip
+
+        game.getQuestSystem().fireEvent(ON_DISPLAY_SHIP_EQUIPMENT, equipPair);
 
         boolean equipPrinted = false;
 
@@ -111,10 +115,8 @@ public class FormViewShip extends SpaceTraderForm {
                 }
             }
             if (count > 0) {
-                equipTitleLabelValue.setText(equipTitleLabelValue.getText()
-                        + (equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline));
-                equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.plural(count, Consts.Weapons[i].getName()) + Strings.newline));
+                equipPair.get(0).append(equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline);
+                equipPair.get(1).append(Functions.plural(count, Consts.Weapons[i].getName())).append(Strings.newline);
                 equipPrinted = true;
             }
         }
@@ -127,10 +129,8 @@ public class FormViewShip extends SpaceTraderForm {
                 }
             }
             if (count > 0) {
-                equipTitleLabelValue.setText(equipTitleLabelValue.getText()
-                        + (equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline));
-                equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.plural(count, Consts.Shields[i].getName()) + Strings.newline));
+                equipPair.get(0).append(equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline);
+                equipPair.get(1).append(Functions.plural(count, Consts.Shields[i].getName())).append(Strings.newline);
                 equipPrinted = true;
             }
         }
@@ -143,16 +143,13 @@ public class FormViewShip extends SpaceTraderForm {
                 }
             }
             if (count > 0) {
-                equipTitleLabelValue.setText(equipTitleLabelValue.getText()
-                        + (equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline));
+                equipPair.get(0).append(equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline);
 
                 if (i == GadgetType.EXTRA_CARGO_BAYS.castToInt() || i == GadgetType.HIDDEN_CARGO_BAYS.castToInt()) {
                     count *= 5;
-                    equipLabelValue.setText(equipLabelValue.getText()
-                            + (Consts.Gadgets[i].getName().replace("5", Functions.formatNumber(count)) + Strings.newline));
+                    equipPair.get(1).append(Consts.Gadgets[i].getName().replace("5", Functions.formatNumber(count))).append(Strings.newline);
                 } else {
-                    equipLabelValue.setText(equipLabelValue.getText()
-                            + (Functions.plural(count, Consts.Gadgets[i].getName()) + Strings.newline));
+                    equipPair.get(1).append(Functions.plural(count, Consts.Gadgets[i].getName())).append(Strings.newline);
                 }
 
                 equipPrinted = true;
@@ -160,31 +157,30 @@ public class FormViewShip extends SpaceTraderForm {
         }
 
         if (ship.getEscapePod()) {
-            equipTitleLabelValue.setText(equipTitleLabelValue.getText()
-                    + (equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline));
-            equipLabelValue.setText(equipLabelValue.getText() + ("1 " + Strings.ShipInfoEscapePod + Strings.newline));
+            equipPair.get(0).append(equipPrinted ? Strings.newline : Strings.ShipEquipment + Strings.newline);
+            equipPair.get(1).append("1 ").append(Strings.ShipInfoEscapePod).append(Strings.newline);
             equipPrinted = true;
         }
 
         if (ship.getFreeSlots() > 0) {
-            equipTitleLabelValue.setText(equipTitleLabelValue.getText() + ((equipPrinted ? Strings.newline : "") + Strings.ShipUnfilled));
-            equipLabelValue.setText(equipLabelValue.getText() + (equipPrinted ? Strings.newline : ""));
+            equipPair.get(0).append(equipPrinted ? Strings.newline : "").append(Strings.ShipUnfilled);
+            equipPair.get(1).append(equipPrinted ? Strings.newline : "");
 
             if (ship.getFreeWeaponSlots() > 0) {
-                equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.plural(ship.getFreeWeaponSlots(), Strings.ShipWeaponSlot) + Strings.newline));
+                equipPair.get(1).append(Functions.plural(ship.getFreeWeaponSlots(), Strings.ShipWeaponSlot)).append(Strings.newline);
             }
 
             if (ship.getFreeShieldSlots() > 0) {
-                equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.plural(ship.getFreeShieldSlots(), Strings.ShipShiedSlot) + Strings.newline));
+                equipPair.get(1).append(Functions.plural(ship.getFreeShieldSlots(), Strings.ShipShiedSlot)).append(Strings.newline);
             }
 
             if (ship.getFreeGadgetSlots() > 0) {
-                equipLabelValue.setText(equipLabelValue.getText()
-                        + (Functions.plural(ship.getFreeGadgetSlots(), Strings.ShipGadgetSlot) + Strings.newline));
+                equipPair.get(1).append(Functions.plural(ship.getFreeGadgetSlots(), Strings.ShipGadgetSlot)).append(Strings.newline);
             }
         }
+
+        equipTitleLabelValue.setText(equipPair.get(0).toString());
+        equipLabelValue.setText(equipPair.get(1).toString());
 
         if (equipTitleLabelValue.getText().endsWith("<BR>")) {
             equipTitleLabelValue.setText(equipTitleLabelValue.getText().substring(0, equipTitleLabelValue.getText().length() - 4));

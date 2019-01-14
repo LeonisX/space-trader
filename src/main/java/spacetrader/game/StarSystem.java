@@ -156,14 +156,6 @@ public class StarSystem implements Serializable {
             case MoonRetirement:
                 show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;
                 break;
-            case Scarab:
-                show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_NOT_STARTED
-                        && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
-                break;
-            case ScarabDestroyed:
-            case ScarabUpgradeHull:
-                show = game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED;
-                break;
         }
 
         return show;

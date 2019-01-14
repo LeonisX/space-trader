@@ -6,7 +6,6 @@ import spacetrader.game.enums.VeryRareEncounter;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
-import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -53,9 +52,6 @@ public class GameCheats implements Serializable {
                     break;
                 case DeLorean:
                     Game.getCommander().setDays(Math.max(0, words.getNum1()));
-                    break;
-                case Diamond:
-                    ship.setHullUpgraded(!ship.getHullUpgraded());
                     break;
                 case Energize:
                     game.setCanSuperWarp(!game.getCanSuperWarp());
@@ -181,9 +177,6 @@ public class GameCheats implements Serializable {
                         case Moon:
                             game.setQuestStatusMoon(Math.max(0, words.getNum2()));
                             break;
-                        case Scarab:
-                            game.setQuestStatusScarab(Math.max(0, words.getNum2()));
-                            break;
 
                         default:
 
@@ -192,8 +185,7 @@ public class GameCheats implements Serializable {
                                     + Strings.CheatsExperiment + ": " + game.getQuestStatusExperiment() + Strings.newline
                                     + Strings.CheatsGemulon + ": " + game.getQuestStatusGemulon() + Strings.newline
                                     + Strings.CheatsJapori + ": " + game.getQuestStatusJapori() + Strings.newline
-                                    + Strings.CheatsMoon + ": " + game.getQuestStatusMoon() + Strings.newline
-                                    + Strings.CheatsScarab + ": " + game.getQuestStatusScarab() + Strings.newline;
+                                    + Strings.CheatsMoon + ": " + game.getQuestStatusMoon() + Strings.newline;
 
                             Map<String, Integer> strings = new HashMap<>();
                             game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);

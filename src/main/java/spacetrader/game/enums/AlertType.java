@@ -131,7 +131,6 @@ public enum AlertType implements SpaceTraderEnum {
     ShipBuyTransfer,
     ShipDesignIF,
     ShipDesignThanks,
-    ShipHullUpgraded,
     SpecialCleanRecord,
     SpecialExperimentPerformed,
     SpecialIF,

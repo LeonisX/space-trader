@@ -4,11 +4,9 @@ import spacetrader.controls.*;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.game.Consts;
 import spacetrader.game.Game;
 import spacetrader.game.SpecialEvent;
 import spacetrader.game.Strings;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
@@ -141,18 +139,6 @@ public class FormViewQuests extends SpaceTraderForm {
             case SpecialEvent.STATUS_DRAGONFLY_DESTROYED:
                 quests.add(Strings.QuestDragonflyShield);
                 break;
-        }
-
-        if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
-            quests.add(Strings.QuestScarabFind);
-        } else if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DESTROYED) {
-            if (Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull.castToInt()].getLocation() == null) {
-                quests.add(Functions.stringVars(Strings.QuestScarabNotify,
-                        Consts.SpecialEvents[SpecialEventType.ScarabDestroyed.castToInt()].getLocation().getName()));
-            } else {
-                quests.add(Functions.stringVars(Strings.QuestScarabHull,
-                        Consts.SpecialEvents[SpecialEventType.ScarabUpgradeHull.castToInt()].getLocation().getName()));
-            }
         }
 
         if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD) {

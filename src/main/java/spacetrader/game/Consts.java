@@ -27,7 +27,6 @@ public class Consts {
     public static final int StartClicks = 20;
     public static final int MaxFuelTanks = 20;
     public static final int FuelCompactorTanks = 3;
-    public static final int HullUpgrade = 50;
     public static final int MaxShip = 9;
     public static final int MaxSlots = 5;
     public static final int FleaConversionCost = 500;
@@ -204,7 +203,6 @@ public class Consts {
             new Rectangle(2, 0, 60, 0), // Wasp
             new Rectangle(21, 0, 22, 0), // Dragonfly
             new Rectangle(15, 0, 34, 0), // Mantis
-            new Rectangle(7, 0, 49, 0), // Scarab
             new Rectangle(9, 0, 46, 0), // Bottle
             new Rectangle(2, 0, 60, 0)//, // Custom
     };
@@ -236,8 +234,6 @@ public class Consts {
             new ShipSpec(ShipType.DRAGONFLY, Size.SMALL, 0, 2, 3, 2, 1, 1, 1, 10, 1, 500000, 0, Activity.NA,
                     Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.MANTIS, Size.MEDIUM, 0, 3, 1, 3, 3, 1, 1, 300, 1, 500000, 0, Activity.NA, Activity.NA,
-                    Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.SCARAB, Size.LARGE, 20, 2, 0, 0, 2, 1, 1, 400, 1, 500000, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.BOTTLE, Size.SMALL, 0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
@@ -277,9 +273,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.JaporiDelivery, 0, 0, true),
             new SpecialEvent(SpecialEventType.Moon, 500000, 4, false),
             new SpecialEvent(SpecialEventType.MoonRetirement, 0, 0, false),
-            new SpecialEvent(SpecialEventType.Scarab, 0, 1, true),
-            new SpecialEvent(SpecialEventType.ScarabDestroyed, 0, 0, true),
-            new SpecialEvent(SpecialEventType.ScarabUpgradeHull, 0, 0, false),
             new SpecialEvent(SpecialEventType.Skill, 3000, 3, false),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };

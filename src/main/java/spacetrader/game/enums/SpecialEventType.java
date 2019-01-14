@@ -24,9 +24,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     JaporiDelivery, // = 18,
     Moon, // = 22,
     MoonRetirement, // = 23,
-    Scarab, // = 27,
-    ScarabDestroyed, // = 28,
-    ScarabUpgradeHull, // = 29,
     Skill, // = 30,
     ASSIGNED;
 

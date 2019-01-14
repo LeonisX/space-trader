@@ -95,16 +95,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.JaporiDelivery.castToInt());
                     }
                     break;
-                case Scarab:
-                    addEvent(NewsEvent.Scarab.castToInt());
-                    break;
-                case ScarabDestroyed:
-                    if (Game.getCurrentGame().getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
-                        addEvent(NewsEvent.ScarabHarass.castToInt());
-                    } else if (Game.getCurrentGame().getQuestStatusScarab() >= SpecialEvent.STATUS_SCARAB_DESTROYED) {
-                        addEvent(NewsEvent.ScarabDestroyed.castToInt());
-                    }
-                    break;
             }
         }
     }

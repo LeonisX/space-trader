@@ -6,8 +6,6 @@ import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.controls.enums.*;
 import spacetrader.game.*;
-import spacetrader.game.enums.AlertType;
-import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
@@ -392,10 +390,6 @@ public class FormShipList extends SpaceTraderForm {
         info(id);
 
         if (Game.getCommander().isTradeShip(Consts.ShipSpecs[id], prices[id])) {
-            if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
-                game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
-            }
-
             updateAll();
             game.getParentWindow().updateAll();
         }

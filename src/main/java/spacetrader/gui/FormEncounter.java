@@ -11,6 +11,7 @@ import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Encounter;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
+import spacetrader.game.enums.Buttons;
 import spacetrader.game.enums.EncounterResult;
 import spacetrader.game.quest.TribblesQuest;
 import spacetrader.game.quest.enums.QuestName;
@@ -19,27 +20,14 @@ import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static spacetrader.game.quest.enums.EventName.ENCOUNTER_ON_TRIBBLE_PICTURE_CLICK;
+import static spacetrader.game.quest.enums.EventName.*;
 
 @Facaded
 public class FormEncounter extends SpaceTraderForm {
-
-    private static final int ATTACK = 0;
-    private static final int BOARD = 1;
-    private static final int DRINK = 2;
-    private static final int FLEE = 3;
-    private static final int IGNORE = 4;
-    private static final int PLUNDER = 5;
-    private static final int MEET = 6;
-    private static final int SUBMIT = 7;
-    private static final int SURRENDER = 8;
-    private static final int TRADE = 9;
-    private static final int YIELD = 10;
-    private static final int BRIBE = 11;
-    private static final int INT = 12;
 
     private final Game game = Game.getCurrentGame();
     private final Encounter encounter = game.getEncounter();
@@ -464,27 +452,26 @@ public class FormEncounter extends SpaceTraderForm {
     }
 
     private void updateButtons() {
-        boolean[] visible = new boolean[buttons.length];
+        List<Boolean> visible = Arrays.stream(buttons).map(b -> false).collect(Collectors.toList());
 
         switch (encounter.getEncounterType()) {
             case BOTTLE_GOOD:
             case BOTTLE_OLD:
-                visible[DRINK] = true;
-                visible[IGNORE] = true;
+                visible.set(Buttons.DRINK.ordinal(), true);
+                visible.set(Buttons.IGNORE.ordinal(), true);
                 break;
             case CAPTAIN_AHAB:
             case CAPTAIN_CONRAD:
             case CAPTAIN_HUIE:
-                visible[ATTACK] = true;
-                visible[IGNORE] = true;
-                visible[MEET] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.IGNORE.ordinal(), true);
+                visible.set(Buttons.MEET.ordinal(), true);
                 break;
             case DRAGONFLY_ATTACK:
             case FAMOUS_CAPTAIN_ATTACK:
-            case QUEST_ATTACK:
             case TRADER_ATTACK:
-                visible[ATTACK] = true;
-                visible[FLEE] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.FLEE.ordinal(), true);
                 break;
             case DRAGONFLY_IGNORE:
             case FAMOUS_CAPT_DISABLED:
@@ -493,68 +480,71 @@ public class FormEncounter extends SpaceTraderForm {
             case POLICE_IGNORE:
             case PIRATE_FLEE:
             case PIRATE_IGNORE:
-            case SCARAB_IGNORE:
-            case QUEST_IGNORE:
             case TRADER_FLEE:
             case TRADER_IGNORE:
-                visible[ATTACK] = true;
-                visible[IGNORE] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.IGNORE.ordinal(), true);
                 break;
             case MARIE_CELESTE:
-                visible[BOARD] = true;
-                visible[IGNORE] = true;
+                visible.set(Buttons.BOARD.ordinal(), true);
+                visible.set(Buttons.IGNORE.ordinal(), true);
                 break;
             case MARIE_CELESTE_POLICE:
-                visible[ATTACK] = true;
-                visible[FLEE] = true;
-                visible[YIELD] = true;
-                visible[BRIBE] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.FLEE.ordinal(), true);
+                visible.set(Buttons.YIELD.ordinal(), true);
+                visible.set(Buttons.BRIBE.ordinal(), true);
                 break;
             case PIRATE_ATTACK:
             case POLICE_ATTACK:
             case POLICE_SURRENDER:
-            case SCARAB_ATTACK:
-                visible[ATTACK] = true;
-                visible[FLEE] = true;
-                visible[SURRENDER] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.FLEE.ordinal(), true);
+                visible.set(Buttons.SURRENDER.ordinal(), true);
                 break;
             case PIRATE_DISABLED:
             case PIRATE_SURRENDER:
             case TRADER_DISABLED:
             case TRADER_SURRENDER:
-                visible[ATTACK] = true;
-                visible[PLUNDER] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.PLUNDER.ordinal(), true);
                 break;
             case POLICE_INSPECT:
-                visible[ATTACK] = true;
-                visible[FLEE] = true;
-                visible[SUBMIT] = true;
-                visible[BRIBE] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.FLEE.ordinal(), true);
+                visible.set(Buttons.SUBMIT.ordinal(), true);
+                visible.set(Buttons.BRIBE.ordinal(), true);
                 break;
             case TRADER_BUY:
             case TRADER_SELL:
-                visible[ATTACK] = true;
-                visible[IGNORE] = true;
-                visible[TRADE] = true;
+                visible.set(Buttons.ATTACK.ordinal(), true);
+                visible.set(Buttons.IGNORE.ordinal(), true);
+                visible.set(Buttons.TRADE.ordinal(), true);
+                break;
+            case QUEST_ATTACK:
+                game.getQuestSystem().fireEvent(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, visible);
+                break;
+            case QUEST_IGNORE:
+                game.getQuestSystem().fireEvent(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, visible);
                 break;
         }
 
         if (encounter.getEncounterContinueAttacking() || encounter.getEncounterContinueFleeing()) {
-            visible[INT] = true;
+            visible.set(Buttons.INT.ordinal(), true);
         }
 
         int left = attackButton.getLeft();
 
-        for (int i = 0; i < visible.length; i++) {
-            if (visible[i]) {
+        for (int i = 0; i < visible.size(); i++) {
+            if (visible.get(i)) {
                 buttons[i].setLeft(left);
                 //TODO scale
                 left += buttons[i].getWidth() + 4;
             }
-            buttons[i].setVisible(visible[i]);
+            buttons[i].setVisible(visible.get(i));
         }
 
-        continuousPicture.setVisible(visible[INT]);
+        continuousPicture.setVisible(visible.get(Buttons.INT.ordinal()));
 
         if (continuousPicture.isVisible()) {
             continuousPicture.setLeft(left);

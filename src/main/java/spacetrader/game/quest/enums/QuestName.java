@@ -9,6 +9,7 @@ public enum QuestName {
     Sculpture,
     Reactor,
     Tribbles,
-    SpaceMonster
+    SpaceMonster,
+    Scarab
 
 }

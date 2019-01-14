@@ -39,11 +39,6 @@ public class SpecialEvent {
     public final static int STATUS_MOON_BOUGHT = 1;
     public final static int STATUS_MOON_DONE = 2;
 
-    public final static int STATUS_SCARAB_NOT_STARTED = 0;
-    public final static int STATUS_SCARAB_HUNTING = 1;
-    public final static int STATUS_SCARAB_DESTROYED = 2;
-    public final static int STATUS_SCARAB_DONE = 3;
-
     private SpecialEventType type;
     private int price;
     private int occurrence;

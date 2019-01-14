@@ -13,13 +13,9 @@ import spacetrader.game.quest.enums.*;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
-import spacetrader.stub.ArrayList;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -176,6 +172,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     @Override
     public void affectSkills(int[] skills) {
+    }
+
+    @Override
+    public void affectShipCharacteristics(int[] skills) {
     }
 
     public abstract void registerListener();

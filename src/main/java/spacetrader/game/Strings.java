@@ -297,8 +297,6 @@ public class Strings {
     public static String AlertsShipDesignIFMessage = "You don't have enough money to create this design.";
     public static String AlertsShipDesignThanksTitle = "Thank you!";
     public static String AlertsShipDesignThanksMessage = "^1 thanks you for your business!";
-    public static String AlertsShipHullUpgradedTitle = "Hull Upgraded";
-    public static String AlertsShipHullUpgradedMessage = "Technicians spend the day retrofitting the hull of your ship.";
     public static String AlertsSpecialCleanRecordTitle = "Clean Record";
     public static String AlertsSpecialCleanRecordMessage = "The hacker resets your police record to Clean.";
     public static String AlertsSpecialExperimentPerformedTitle = "Experiment Performed";
@@ -374,7 +372,6 @@ public class Strings {
     public static String CheatsGemulon = "Gemulon";
     public static String CheatsJapori = "Japori";
     public static String CheatsMoon = "Moon";
-    public static String CheatsScarab = "Scarab";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -484,9 +481,6 @@ public class Strings {
     public static String QuestGemulonInformTomorrow = "Inform Gemulon about alien invasion by tomorrow.";
     public static String QuestJaporiDeliver = "Deliver antidote to Japori.";
     public static String QuestMoon = "Claim your moon at Utopia.";
-    public static String QuestScarabFind = "Find and destroy the Scarab (which is hiding at the exit to a wormhole).";
-    public static String QuestScarabHull = "Get your hull upgraded at ^1.";
-    public static String QuestScarabNotify = "Notify the authorities at ^1 that the Scarab has been destroyed.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -494,8 +488,6 @@ public class Strings {
     public static String ShipBay = "bay";
     public static String ShipEquipment = "Equipment:";
     public static String ShipGadgetSlot = "gadget slot";
-    public static String ShipHardened = "Hardened";
-    public static String ShipHull = "Hull:";
     public static String ShipShiedSlot = "shield slot";
     public static String ShipWeaponSlot = "weapon slot";
     public static String ShipUnfilled = "Unfilled:";
@@ -559,7 +551,7 @@ public class Strings {
             //"Jarek", // now earns his keep!
             "Captain", // crew of famous captain ships
             "Dragonfly", // dummy crew member used in opponent ship
-            "Scarab", // dummy crew member used in opponent ship
+            //"Scarab", // dummy crew member used in opponent ship
             "Aragorn", // My first son's middle name, and from Lord of the Rings
             "Brady", // My third son's middle name, and QB of the New England Patriots
             "Eight of Nine", // From Star Trek - Seven's younger sibling ;)
@@ -637,10 +629,7 @@ public class Strings {
             "Famed Captain Huie Attacked by Brigand!",
             "Citizens Mourn Destruction of Captain Huie's Ship!",
             "Editorial: We Must Help Japori!",
-            "Disease Antidotes Arrive! Health Officials Optimistic.",
-            "Security Scandal: Test Craft Confirmed Stolen.",
-            "Wormhole Traffic Delayed as Stolen Craft Destroyed.",
-            "Wormhole Travelers Harassed by Unusual Ship!"
+            "Disease Antidotes Arrive! Health Officials Optimistic."
     };
 
     public static String[][] NewsHeadlines = new String[][]{
@@ -780,9 +769,6 @@ public class Strings {
             "Thank you for delivering the medicine to us. We don't have any money to reward you, but we do have an alien fast-learning machine with which we will increase your skills.",
             "There is a small but habitable moon for sale in the Utopia system, for the very reasonable sum of half a million credits. If you accept it, you can retire to it and live a peaceful, happy, and wealthy life. Do you wish to buy it?",
             "Welcome to the Utopia system. Your own moon is available for you to retire to it, if you feel inclined to do that. Are you ready to retire and lead a happy, peaceful, and wealthy life?",
-            "Captain Renwick developed a new organic hull material for his ship which cannot be damaged except by Pulse lasers. While he was celebrating this success, pirates boarded and stole the craft, which they have named the Scarab. Rumors suggest it's being hidden at the exit to a wormhole. Destroy the ship for a reward!",
-            "Space Corps is indebted to you for destroying the Scarab and the pirates who stole it. As a reward, we can have Captain Renwick upgrade the hull of your ship. Note that his upgrades won't be transferable if you buy a new ship! Come back with the ship you wish to upgrade.",
-            "The organic hull used in the Scarab is still not ready for day-to-day use. But Captain Renwick can certainly upgrade your hull with some of his retrofit technology. It's light stuff, and won't reduce your ship's range. Should he upgrade your ship?",
             "An alien with a fast-learning machine offers to increase one of your skills for the reasonable sum of 3000 credits. You won't be able to pick that skill, though. Do you accept his offer?"
             };
 
@@ -793,8 +779,7 @@ public class Strings {
             "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
             "Alien Invasion", "Fuel Compactor", "Gemulon Invaded",
             "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
-            "Moon For Sale", "Retirement", "Scarab Stolen",
-            "Scarab Destroyed", "Upgrade Hull", "Skill Increase",
+            "Moon For Sale", "Retirement", "Skill Increase",
             //TODO delete
             "ASSIGNED"};
 
@@ -824,8 +809,7 @@ public class Strings {
     public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
 
     public static String[] ShipNames = new String[]{"Flea", "Gnat", "Firefly", "Mosquito", "Bumblebee", "Beetle",
-            "Hornet", "Grasshopper", "Termite", "Wasp", "Dragonfly", "Mantis", "Scarab", "Bottle",
-            ShipNameCustomShip};
+            "Hornet", "Grasshopper", "Termite", "Wasp", "Dragonfly", "Mantis", "Bottle", ShipNameCustomShip};
 
     public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};
 

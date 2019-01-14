@@ -2,10 +2,7 @@ package spacetrader.game;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.containers.BooleanContainer;
-import spacetrader.game.quest.containers.IntContainer;
-import spacetrader.game.quest.containers.RandomEncounterContainer;
-import spacetrader.game.quest.containers.StringContainer;
+import spacetrader.game.quest.containers.*;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
@@ -13,12 +10,12 @@ import spacetrader.util.Functions;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.*;
-import static spacetrader.game.quest.enums.EventName.ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER;
 
 public class Encounter implements Serializable {
     
@@ -63,15 +60,6 @@ public class Encounter implements Serializable {
 
         if (!showEncounter.getValue()) {
 
-        }
-        // Encounter with the stolen Scarab
-        else if (game.getArrivedViaWormhole() && game.getClicks() == 20 && game.getWarpSystem().getSpecialEventType() != SpecialEventType.NA
-                && game.getWarpSystem().specialEvent().getType() == SpecialEventType.ScarabDestroyed
-                && game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_HUNTING) {
-            game.setOpponent(game.getScarab());
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.SCARAB_IGNORE
-                    : EncounterType.SCARAB_ATTACK);
-            showEncounter.setValue(true);
         }
         // Encounter with stolen Dragonfly
         else if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Zalkon
@@ -348,12 +336,6 @@ public class Encounter implements Serializable {
         game.setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DESTROYED);
     }
 
-    private void encounterDefeatScarab() {
-        commander.setKillsPirate(commander.getKillsPirate() + 1);
-        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-        game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_DESTROYED);
-    }
-
     public void encounterDrink() {
         if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
             if (getEncounterType() == EncounterType.BOTTLE_GOOD) {
@@ -387,7 +369,6 @@ public class Encounter implements Serializable {
             case MARIE_CELESTE_POLICE:
             case PIRATE_ATTACK:
             case POLICE_ATTACK:
-            case SCARAB_ATTACK:
             case QUEST_ATTACK:
             case TRADER_ATTACK:
                 setEncounterCmdrHit(isEncounterExecuteAttack(game.getOpponent(), commander.getShip(), getEncounterCmdrFleeing()));
@@ -428,16 +409,9 @@ public class Encounter implements Serializable {
 
             if (specialShipDisabled.getValue()) {
                 result = EncounterResult.NORMAL;
-            } else if (game.getOpponent().getType() == ShipType.DRAGONFLY || game.getOpponent().getType() == ShipType.SCARAB) {
+            } else if (game.getOpponent().getType() == ShipType.DRAGONFLY) {
 
-                switch (game.getOpponent().getType()) {
-                    case DRAGONFLY:
-                        encounterDefeatDragonfly();
-                        break;
-                    case SCARAB:
-                        encounterDefeatScarab();
-                        break;
-                }
+                encounterDefeatDragonfly();
 
                 GuiFacade.alert(AlertType.EncounterDisabledOpponent, getEncounterShipText(), "");
 
@@ -511,8 +485,7 @@ public class Encounter implements Serializable {
         boolean hit = false;
 
         // On beginner level, if you flee, you will escape unharmed.
-        // Otherwise, Fighterskill attacker is pitted against pilotskill
-        // defender; if defender
+        // Otherwise, Fighterskill attacker is pitted against pilotskill defender; if defender
         // is fleeing the attacker has a free shot, but the chance to hit is smaller
         // JAF - if the opponent is disabled and attacker has targeting system, they WILL be hit.
         if (!(Game.getDifficulty() == Difficulty.BEGINNER && defender.isCommandersShip() && fleeing)
@@ -520,76 +493,60 @@ public class Encounter implements Serializable {
                 && attacker.hasGadget(GadgetType.TARGETING_SYSTEM) || Functions.getRandom(attacker.getFighter()
                 + defender.getSize().castToInt()) >= (fleeing ? 2 : 1)
                 * Functions.getRandom(5 + defender.getPilot() / 2))) {
-            // If the defender is disabled, it only takes one shot to destroy it
-            // completely.
+            // If the defender is disabled, it only takes one shot to destroy it completely.
             if (attacker.isCommandersShip() && game.getOpponentDisabled()) {
                 defender.setHull(0);
             } else {
-                int attackerLasers = attacker.getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.MORGANS_LASER);
-                int attackerDisruptors = attacker.getWeaponStrength(WeaponType.PHOTON_DISRUPTOR,
-                        WeaponType.QUANTUM_DISRUPTOR);
+                OpponentsContainer opponents = new OpponentsContainer(attacker, defender);
+                opponents.setAttackerLasers(attacker.getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.MORGANS_LASER));
+                opponents.setAttackerDisruptors(attacker.getWeaponStrength(WeaponType.PHOTON_DISRUPTOR,
+                        WeaponType.QUANTUM_DISRUPTOR));
 
-                if (defender.getType() == ShipType.SCARAB) {
-                    attackerLasers -= attacker.getWeaponStrength(WeaponType.BEAM_LASER, WeaponType.MILITARY_LASER);
-                    attackerDisruptors -= attacker.getWeaponStrength(WeaponType.PHOTON_DISRUPTOR,
-                            WeaponType.PHOTON_DISRUPTOR);
-                }
-
-                int attackerWeapons = attackerLasers + attackerDisruptors;
+                game.getQuestSystem().fireEvent(ENCOUNTER_IS_EXECUTE_ATTACK_GET_WEAPONS, opponents);
 
                 int disrupt = 0;
 
                 // Attempt to disable the opponent if they're not already disabled, their shields are down,
                 // we have disabling weapons, and the option is checked.
                 if (defender.isDisableable() && defender.getShieldCharge() == 0 && !game.getOpponentDisabled()
-                        && game.getOptions().isDisableOpponents() && attackerDisruptors > 0) {
-                    disrupt = Functions.getRandom(attackerDisruptors * (100 + 2 * attacker.getFighter()) / 100);
+                        && game.getOptions().isDisableOpponents() && opponents.getAttackerDisruptors() > 0) {
+                    disrupt = Functions.getRandom(opponents.getAttackerDisruptors() * (100 + 2 * attacker.getFighter()) / 100);
                 } else {
-                    int damage = (attackerWeapons == 0)
-                            ? 0 : Functions.getRandom(attackerWeapons * (100 + 2 * attacker.getFighter()) / 100);
+                    IntContainer damage = new IntContainer((opponents.getAttackerWeapons() == 0)
+                            ? 0 : Functions.getRandom(opponents.getAttackerWeapons() * (100 + 2 * attacker.getFighter()) / 100));
 
-                    if (damage > 0) {
+                    if (damage.getValue() > 0) {
                         hit = true;
 
-                        IntContainer damageContainer = new IntContainer(damage);
-
-                        game.getQuestSystem().fireEvent(ENCOUNTER_IS_EXECUTE_ATTACK, damageContainer);
-
-                        damage = damageContainer.getValue();
+                        game.getQuestSystem().fireEvent(ENCOUNTER_IS_EXECUTE_ATTACK_PRIMARY_DAMAGE, damage);
 
                         // First, shields are depleted
-                        for (int i = 0; i < defender.getShields().length && defender.getShields()[i] != null && damage > 0; i++) {
-                            int applied = Math.min(defender.getShields()[i].getCharge(), damage);
+                        for (int i = 0; i < defender.getShields().length && defender.getShields()[i] != null && damage.getValue() > 0; i++) {
+                            int applied = Math.min(defender.getShields()[i].getCharge(), damage.getValue());
                             defender.getShields()[i].setCharge(defender.getShields()[i].getCharge() - applied);
-                            damage -= applied;
+                            damage.subtract(applied);
                         }
 
-                        // If there still is damage after the shields have been depleted,
-                        // this is subtracted from the hull, modified by the engineering skill
-                        // of the defender.
+                        // If there still is damage after the shields have been depleted, this is subtracted
+                        // from the hull, modified by the engineering skill of the defender.
                         // JAF - If the player only has disabling weapons, no damage will be done to the hull.
-                        if (damage > 0) {
-                            damage = Math.max(1, damage - Functions.getRandom(defender.getEngineer()));
+                        if (damage.getValue() > 0) {
+                            damage.setValue(Math.max(1, damage.getValue() - Functions.getRandom(defender.getEngineer())));
 
-                            disrupt = damage * attackerDisruptors / attackerWeapons;
+                            disrupt = damage.getValue() * opponents.getAttackerDisruptors() / opponents.getAttackerWeapons();
 
                             // Only that damage coming from Lasers will deplete the hull.
-                            damage -= disrupt;
+                            damage.subtract(disrupt);
 
                             // At least 2 shots on Normal level are needed to destroy the hull
-                            // (3 on Easy, 4 on Beginner, 1 on Hard or
-                            // Impossible). For opponents,
-                            // it is always 2.
-                            damage = Math.min(damage, defender.getHullStrength()
+                            // (3 on Easy, 4 on Beginner, 1 on Hard or Impossible). For opponents, it is always 2.
+                            damage.setValue(Math.min(damage.getValue(), defender.getHullStrength()
                                     / (defender.isCommandersShip() ? Math.max(1, spacetrader.game.enums.Difficulty.IMPOSSIBLE
-                                    .castToInt() - Game.getDifficultyId()) : 2));
+                                    .castToInt() - Game.getDifficultyId()) : 2)));
 
-                            // If the hull is hardened, damage is halved.
-                            if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
-                                damage /= 2;
-                            }
+                            game.getQuestSystem().fireEvent(ENCOUNTER_IS_EXECUTE_ATTACK_SECONDARY_DAMAGE, damage);
 
-                            defender.setHull(Math.max(0, defender.getHull() - damage));
+                            defender.setHull(Math.max(0, defender.getHull() - damage.getValue()));
                         }
                     }
                 }
@@ -809,7 +766,6 @@ public class Encounter implements Serializable {
             switch (getEncounterType()) {
                 case DRAGONFLY_IGNORE:
                 case PIRATE_IGNORE:
-                case SCARAB_IGNORE:
                 case QUEST_IGNORE:
                     setEncounterType(getEncounterType().getPreviousEncounter());
                     break;
@@ -1063,7 +1019,7 @@ public class Encounter implements Serializable {
 
             if (allowRobbery.getValue()) {
 
-                ArrayList<String> precious = new ArrayList<>();
+                List<String> precious = new java.util.ArrayList<>();
 
                 game.getQuestSystem().fireEvent(ENCOUNTER_ON_ROBBERY, precious);
 
@@ -1173,9 +1129,6 @@ public class Encounter implements Serializable {
                 commander.setKillsPolice(commander.getKillsPolice() + 1);
                 commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPolice);
                 break;
-            case SCARAB_ATTACK:
-                encounterDefeatScarab();
-                break;
             case TRADER_ATTACK:
             case TRADER_FLEE:
             case TRADER_SURRENDER:
@@ -1238,14 +1191,12 @@ public class Encounter implements Serializable {
             case DRAGONFLY_ATTACK:
             case PIRATE_ATTACK:
             case POLICE_ATTACK:
-            case SCARAB_ATTACK:
             case QUEST_ATTACK:
                 text = Strings.EncounterTextOpponentAttack;
                 break;
             case DRAGONFLY_IGNORE:
             case PIRATE_IGNORE:
             case POLICE_IGNORE:
-            case SCARAB_IGNORE:
             case QUEST_IGNORE:
             case TRADER_IGNORE:
                 text = commander.getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
@@ -1302,8 +1253,6 @@ public class Encounter implements Serializable {
                 break;
             case DRAGONFLY_ATTACK:
             case DRAGONFLY_IGNORE:
-            case SCARAB_ATTACK:
-            case SCARAB_IGNORE:
             case QUEST_ATTACK:
             case QUEST_IGNORE:
                 encounterImage.setValue(Consts.EncounterImgPirate);
@@ -1414,8 +1363,6 @@ public class Encounter implements Serializable {
                 break;
             case DRAGONFLY_ATTACK:
             case DRAGONFLY_IGNORE:
-            case SCARAB_ATTACK:
-            case SCARAB_IGNORE:
                 encounterPretext.setValue(Strings.EncounterPretextStolen);
                 break;
             case CAPTAIN_AHAB:

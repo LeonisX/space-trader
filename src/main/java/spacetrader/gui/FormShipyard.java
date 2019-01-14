@@ -22,7 +22,6 @@ import java.awt.*;
 
 public class FormShipyard extends SpaceTraderForm {
 
-    private final Game game = Game.getCurrentGame();
     private final Shipyard shipyard;
 
     private final ShipType[] imgTypes = new ShipType[]{ShipType.FLEA, ShipType.GNAT, ShipType.FIREFLY,
@@ -904,10 +903,6 @@ public class FormShipyard extends SpaceTraderForm {
             if (Game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
                     .getText())) {
                 Strings.ShipNames[ShipType.CUSTOM.castToInt()] = shipNameTextBox.getText();
-
-                if (game.getQuestStatusScarab() == SpecialEvent.STATUS_SCARAB_DONE) {
-                    game.setQuestStatusScarab(SpecialEvent.STATUS_SCARAB_NOT_STARTED);
-                }
 
                 // Replace the current custom images with the new ones.
                 if (Game.getShip().getImageIndex() == ShipType.CUSTOM.castToInt()) {

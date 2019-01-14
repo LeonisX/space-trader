@@ -39,6 +39,8 @@ public interface Quest {
 
     void affectSkills(int[] skillsCopy);
 
+    void affectShipCharacteristics(int[] characteristicsCopy);
+
     boolean isQuestIsActive();
 
     boolean isQuestIsInactive();

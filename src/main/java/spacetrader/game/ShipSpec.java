@@ -32,7 +32,6 @@ public class ShipSpec implements Serializable {
     private Activity pirates = Activity.NA;
     private Activity traders = Activity.NA;
     private TechLevel minTech = TechLevel.UNAVAILABLE;
-    private boolean hullUpgraded = false;
     private int imageIndex = Consts.ShipImgUseDefault;
 
     ShipSpec() {
@@ -80,7 +79,6 @@ public class ShipSpec implements Serializable {
         pirates = shipSpec.pirates;
         traders = shipSpec.traders;
         minTech = shipSpec.minTech;
-        hullUpgraded = shipSpec.hullUpgraded;
         imageIndex = shipSpec.imageIndex;
         id = shipSpec.id;
     }
@@ -175,14 +173,6 @@ public class ShipSpec implements Serializable {
         this.price = price;
     }
 
-    public boolean getHullUpgraded() {
-        return hullUpgraded;
-    }
-
-    public void setHullUpgraded(boolean hullUpgraded) {
-        this.hullUpgraded = hullUpgraded;
-    }
-
     public int getGadgetSlots() {
         return gadgetSlots;
     }
@@ -208,7 +198,7 @@ public class ShipSpec implements Serializable {
     }
 
     public int getHullStrength() {
-        return hullStrength + (getHullUpgraded() ? Consts.HullUpgrade : 0);
+        return Game.getCurrentGame().getQuestSystem().affectShipCharacteristics(new int[]{hullStrength})[0];
     }
 
     public void setHullStrength(int hullStrength) {
@@ -305,10 +295,6 @@ public class ShipSpec implements Serializable {
         this.minTech = minTech;
     }
 
-    public boolean isHullUpgraded() {
-        return hullUpgraded;
-    }
-
     public UUID getBarCode() {
         return barCode;
     }
@@ -329,7 +315,6 @@ public class ShipSpec implements Serializable {
                 repairCost == shipSpec.repairCost &&
                 price == shipSpec.price &&
                 occurrence == shipSpec.occurrence &&
-                hullUpgraded == shipSpec.hullUpgraded &&
                 imageIndex == shipSpec.imageIndex &&
                 type == shipSpec.type &&
                 size == shipSpec.size &&
@@ -342,6 +327,6 @@ public class ShipSpec implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(type, size, cargoBays, weaponSlots, shieldSlots, gadgetSlots, crewQuarters, fuelTanks,
-                fuelCost, hullStrength, repairCost, price, occurrence, police, pirates, traders, minTech, hullUpgraded, imageIndex);
+                fuelCost, hullStrength, repairCost, price, occurrence, police, pirates, traders, minTech, imageIndex);
     }
 }
