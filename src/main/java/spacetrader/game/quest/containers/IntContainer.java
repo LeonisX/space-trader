@@ -15,4 +15,28 @@ public class IntContainer {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public void plus(int number) {
+        value += number;
+    }
+
+    public void subtract(int number) {
+        value -= number;
+    }
+
+    public void multipleBy(int number) {
+        value *= number;
+    }
+
+    public void divideBy(int number) {
+        value /= number;
+    }
+
+    public void multipleBy(double number) {
+        value = (int) (value * number);
+    }
+
+    public void dec() {
+        value--;
+    }
 }
