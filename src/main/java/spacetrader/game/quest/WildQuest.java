@@ -38,7 +38,6 @@ class WildQuest extends AbstractQuest {
 
     private static final int SCORE_CAUGHT_WITH_WILD = -4;
 
-
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
@@ -361,7 +360,7 @@ class WildQuest extends AbstractQuest {
     private void onBeforeArrestedCalculateFine(Object object) {
         if (wildOnBoard) {
             IntContainer fine = (IntContainer) object;
-            fine.setValue((int) (fine.getValue() * 1.05));
+            fine.multipleBy(1.05);
         }
     }
 

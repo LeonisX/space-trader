@@ -76,7 +76,7 @@ public class ReactorQuest extends AbstractQuest {
 
         getTransitionMap().put(IS_TRADE_SHIP, this::isTradeShip);
 
-        getTransitionMap().put(ENCOUNTER_IS_EXECUTE_ATTACK, this::encounterIsExecuteAttack);
+        getTransitionMap().put(ENCOUNTER_IS_EXECUTE_ATTACK_PRIMARY_DAMAGE, this::encounterIsExecuteAttack);
         getTransitionMap().put(ENCOUNTER_ON_ROBBERY, this::encounterOnRobbery);
 
         getTransitionMap().put(IS_ILLEGAL_SPECIAL_CARGO, this::onIsIllegalSpecialCargo);
@@ -280,8 +280,7 @@ public class ReactorQuest extends AbstractQuest {
 
     private void onGetFilledCargoBays(Object object) {
         if (isReactorOnBoard()) {
-            IntContainer filled = (IntContainer) object;
-            filled.setValue(filled.getValue() + 5 + 10 - (questStatus - 1) / 2);
+            ((IntContainer) object).plus(5 + 10 - (questStatus - 1) / 2);
         }
     }
 
@@ -296,7 +295,7 @@ public class ReactorQuest extends AbstractQuest {
     private void encounterIsExecuteAttack(Object object) {
         if (isReactorOnBoard()) {
             IntContainer damage = (IntContainer) object;
-            damage.setValue(damage.getValue() * (int) (1 + (Game.getDifficultyId() + 1)
+            damage.multipleBy((int) (1 + (Game.getDifficultyId() + 1)
                     * (Game.getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0.25 : 0.33)));
         }
     }

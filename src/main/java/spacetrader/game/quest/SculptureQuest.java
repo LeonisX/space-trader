@@ -44,8 +44,7 @@ class SculptureQuest extends AbstractQuest {
 
         registerListener();
 
-        dumpAllStrings();
-        //localize();
+        localize();
 
         log.fine("started...");
     }
@@ -262,7 +261,7 @@ class SculptureQuest extends AbstractQuest {
 
         //TODO HOW I HAS GOT HIDDEN_CARGO_BAYS WO Sculpture???
         if (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-            ((spacetrader.stub.ArrayList<String>) object).add(Encounters.HideSculpture.getValue());
+            ((ArrayList<String>) object).add(Encounters.HideSculpture.getValue());
         } else {
             showAlert(Alerts.EncounterPiratesTakeSculpture.getValue());
             failQuest();
@@ -271,7 +270,7 @@ class SculptureQuest extends AbstractQuest {
 
     private void encounterGetStealableCargo(Object object) {
         if (sculptureOnBoard) {
-            ((IntContainer) object).setValue(((IntContainer) object).getValue() - 1);
+            ((IntContainer) object).dec();
         }
     }
 

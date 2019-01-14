@@ -14,7 +14,6 @@ import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.GuiFacade;
-import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
@@ -107,6 +106,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, this::encounterDetermineNonRandomEncounter);
         getTransitionMap().put(ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK, this::encounterCheckPossibilityOfAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
+        getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
+        getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, this::encounterExecuteAttackKeepSpecialShip);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
         getTransitionMap().put(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, this::encounterCheckPossibilityOfSurrender);
@@ -442,6 +443,20 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void encounterShowIgnoreActionButtons(Object object) {
+        List<Boolean> visible = (ArrayList<Boolean>) object;
+        visible.set(Buttons.ATTACK.ordinal(), true);
+        visible.set(Buttons.IGNORE.ordinal(), true);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void encounterShowAttackActionButtons(Object object) {
+        List<Boolean> visible = (ArrayList<Boolean>) object;
+        visible.set(Buttons.ATTACK.ordinal(), true);
+        visible.set(Buttons.FLEE.ordinal(), true);
+    }
+
     private void encounterExecuteAttackKeepSpecialShip(Object object) {
         Ship defender = ((Ship) object);
         if (defender.getBarCode() == scorpion.getBarCode() && defender.getHull() == 0) {
@@ -482,7 +497,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private void encounterGetStealableCargo(Object object) {
         if (princessOnBoard) {
-            ((IntContainer) object).setValue(((IntContainer) object).getValue() - 1);
+            ((IntContainer) object).dec();
         }
     }
 
