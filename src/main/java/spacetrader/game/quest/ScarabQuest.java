@@ -261,10 +261,6 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.ScarabDestroyed);
             authoritiesNotified = true;
-            //TODO is it correct????
-            //questStatus = STATUS_SCARAB_DESTROYED;
-            //TODO is it correct????
-            //remove.setValue(false);
         }
 
         @Override
@@ -288,8 +284,6 @@ class ScarabQuest extends AbstractQuest implements Serializable {
             shipBarCode = Game.getShip().getBarCode();
             Game.getShip().setHull(Game.getShip().getHull() + HULL_UPGRADE);
             questStatus = STATUS_SCARAB_DONE;
-            //TODO is it correct????
-            //remove.setValue(false);
             setQuestState(QuestState.FINISHED);
             game.confirmQuestPhase();
             game.getQuestSystem().unSubscribeAll(getQuest());
