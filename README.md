@@ -294,6 +294,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Morgan's Laser - sell price 0 cr.
 * Ability to ignore encounter by press "x"
 * Strange - when start new game - see few visited systems
+* Bug? Don't hide wormhole route after arrive
 
 ## Regressions:
 
