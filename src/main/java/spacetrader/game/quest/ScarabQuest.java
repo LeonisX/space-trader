@@ -161,8 +161,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         if (hullUpgraded != null) {
             return hullUpgraded; // for cheats
         } else {
-            boolean isHardened = shipSpec.getBarCode() == shipBarCode && questStatus == STATUS_SCARAB_DONE;
-            return isHardened;
+            return shipSpec.getBarCode() == shipBarCode && questStatus == STATUS_SCARAB_DONE;
         }
     }
 

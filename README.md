@@ -227,7 +227,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Now any ship after Scarab quest gets hardened hull - fixed, need to test
 * Ship name (FormViewShip) - Bottle :(
 
 ### Princess, Jarek, other quests
