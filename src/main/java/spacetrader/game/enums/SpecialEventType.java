@@ -24,7 +24,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     JaporiDelivery, // = 18,
     Moon, // = 22,
     MoonRetirement, // = 23,
-    Skill, // = 30,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

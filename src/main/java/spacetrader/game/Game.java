@@ -978,11 +978,6 @@ public class Game implements Serializable {
             case MoonRetirement:
                 setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
                 throw new GameEndException(BOUGHT_MOON.castToInt());
-            case Skill:
-                GuiFacade.alert(AlertType.SpecialSkillIncrease);
-                commander.increaseRandomSkill();
-                confirmQuestPhase();
-                break;
         }
     }
 

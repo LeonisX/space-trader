@@ -2,7 +2,7 @@ package spacetrader.game.quest.enums;
 
 public enum QuestName {
 
-    Lottery,
+    Lottery, Reactor, Sculpture, Tribbles/*,
     Jarek,
     Princess,
     Wild,
@@ -10,6 +10,7 @@ public enum QuestName {
     Reactor,
     Tribbles,
     SpaceMonster,
-    Scarab
+    Scarab*/
+    , SkillIncrease
 
 }

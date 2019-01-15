@@ -128,7 +128,6 @@ public class StarSystem implements Serializable {
             case Gemulon:
             case GemulonFuel:
             case GemulonInvaded:
-            case Skill:
                 show = true;
                 break;
             case EraseRecord:

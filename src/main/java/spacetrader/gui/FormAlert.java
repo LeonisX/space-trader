@@ -534,9 +534,6 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsSpecialSealedCanistersTitle, AlertsSpecialSealedCanistersMessage,
                         AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);
-            case SpecialSkillIncrease:
-                return new FormAlert(AlertsSpecialSkillIncreaseTitle, AlertsSpecialSkillIncreaseMessage, AlertsOk, DialogResult.OK,
-                        null, DialogResult.NONE, args);
             case SpecialTimespaceFabricRip:
                 return new FormAlert(
                         AlertsSpecialTimespaceFabricRipTitle, AlertsSpecialTimespaceFabricRipMessage, AlertsOk,

@@ -273,7 +273,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.JaporiDelivery, 0, 0, true),
             new SpecialEvent(SpecialEventType.Moon, 500000, 4, false),
             new SpecialEvent(SpecialEventType.MoonRetirement, 0, 0, false),
-            new SpecialEvent(SpecialEventType.Skill, 3000, 3, false),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

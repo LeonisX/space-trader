@@ -313,8 +313,6 @@ public class Strings {
     public static String AlertsSpecialPassengerOnBoardMessage = "You have taken ^1 on board. While on board ^1 will lend you expertise, but may stop helping if the journey takes too long.";
     public static String AlertsSpecialSealedCanistersTitle = "Sealed Canisters";
     public static String AlertsSpecialSealedCanistersMessage = "You bought the sealed canisters and put them in your cargo bays.";
-    public static String AlertsSpecialSkillIncreaseTitle = "Skill Increase";
-    public static String AlertsSpecialSkillIncreaseMessage = "The alien increases one of your skills. ";
     public static String AlertsSpecialTimespaceFabricRipTitle = "Timespace Fabric Rip";
     public static String AlertsSpecialTimespaceFabricRipMessage = "You have flown through a tear in the timespace continuum caused by Dr. Fehler's failed experiment. You may not have reached" + Strings.newline + "your planned destination!";
     public static String AlertsSpecialTrainingCompletedTitle = "Training Completed";
@@ -768,8 +766,7 @@ public class Strings {
             "A strange disease has invaded the Japori system. We would like you to deliver these ten canisters of special antidote to Japori. Note that, if you accept, ten of your cargo bays will remain in use on your way to Japori. Do you accept this mission?",
             "Thank you for delivering the medicine to us. We don't have any money to reward you, but we do have an alien fast-learning machine with which we will increase your skills.",
             "There is a small but habitable moon for sale in the Utopia system, for the very reasonable sum of half a million credits. If you accept it, you can retire to it and live a peaceful, happy, and wealthy life. Do you wish to buy it?",
-            "Welcome to the Utopia system. Your own moon is available for you to retire to it, if you feel inclined to do that. Are you ready to retire and lead a happy, peaceful, and wealthy life?",
-            "An alien with a fast-learning machine offers to increase one of your skills for the reasonable sum of 3000 credits. You won't be able to pick that skill, though. Do you accept his offer?"
+            "Welcome to the Utopia system. Your own moon is available for you to retire to it, if you feel inclined to do that. Are you ready to retire and lead a happy, peaceful, and wealthy life?"
             };
 
     public static String[] QuestPhaseTitles = new String[]{
@@ -779,7 +776,7 @@ public class Strings {
             "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
             "Alien Invasion", "Fuel Compactor", "Gemulon Invaded",
             "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
-            "Moon For Sale", "Retirement", "Skill Increase",
+            "Moon For Sale", "Retirement",
             //TODO delete
             "ASSIGNED"};
 
