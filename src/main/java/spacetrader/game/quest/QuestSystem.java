@@ -4,6 +4,7 @@ import spacetrader.controls.Rectangle;
 import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.ShipSpec;
+import spacetrader.game.quest.containers.ShipSpecContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.QuestName;
 
@@ -133,12 +134,13 @@ public class QuestSystem implements Serializable {
         return skillsCopy;
     }
 
-    public int[] affectShipCharacteristics(int[] characteristics) {
-        //log.fine("affectShipCharacteristics: " + Arrays.toString(characteristics));
-        int[] characteristicsCopy = characteristics.clone();
-        getQuests().forEach(q -> q.affectShipCharacteristics(characteristicsCopy));
-        //log.fine("characteristicsCopy: " + Arrays.toString(characteristicsCopy));
-        return characteristicsCopy;
+    //TODO may be need to do universal, not only for hull
+    public int affectShipHullStrength(ShipSpec shipSpec) {
+        //log.fine("affectShipHullStrength: " + shipSpec);
+        ShipSpecContainer shipSpecContainer = new ShipSpecContainer(shipSpec);
+        getQuests().forEach(q -> q.affectShipHullStrength(shipSpecContainer));
+        //log.fine("characteristicsCopy: " + shipSpecContainer.getHullStrength());
+        return shipSpecContainer.getHullStrength();
     }
 
     public Collection<Quest> getQuests() {

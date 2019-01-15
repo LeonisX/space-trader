@@ -4,10 +4,7 @@ import spacetrader.controls.Rectangle;
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.containers.BooleanContainer;
-import spacetrader.game.quest.containers.IntContainer;
-import spacetrader.game.quest.containers.OpponentsContainer;
-import spacetrader.game.quest.containers.StringContainer;
+import spacetrader.game.quest.containers.*;
 import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
@@ -65,8 +62,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
@@ -132,9 +128,9 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     }
 
     @Override
-    public void affectShipCharacteristics(int[] characteristics) {
-        if (isHardenedHull()) {
-            characteristics[0] = characteristics[0] + HULL_UPGRADE;
+    public void affectShipHullStrength(ShipSpecContainer shipSpecContainer) {
+        if (isHardenedHull(shipSpecContainer.getShipSpec())) {
+            shipSpecContainer.setHullStrength(shipSpecContainer.getHullStrength() + HULL_UPGRADE);
         }
     }
 
@@ -161,11 +157,12 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         I18n.localizeStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
 
-    private boolean isHardenedHull() {
+    private boolean isHardenedHull(ShipSpec shipSpec) {
         if (hullUpgraded != null) {
             return hullUpgraded; // for cheats
         } else {
-            return Game.getCommander() != null && Game.getShip().getBarCode() == shipBarCode && questStatus == STATUS_SCARAB_DONE;
+            boolean isHardened = shipSpec.getBarCode() == shipBarCode && questStatus == STATUS_SCARAB_DONE;
+            return isHardened;
         }
     }
 
@@ -330,7 +327,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void onDisplayShipEquipment(Object object) {
-        if (isHardenedHull()) {
+        if (isHardenedHull(Game.getShip())) {
             List<StringBuilder> equipPair = (List<StringBuilder>) object;
             equipPair.get(0).append(Encounters.ShipHull.getValue()).append(Strings.newline).append(Strings.newline);
             equipPair.get(1).append(Encounters.ShipHardened.getValue()).append(Strings.newline).append(Strings.newline);
@@ -341,6 +338,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
     // Encounter with the stolen Scarab
     private void encounterDetermineNonRandomEncounter(Object object) {
+        //TODO need constant instead of 20
         if (game.getArrivedViaWormhole() && game.getClicks() == 20 && game.getWarpSystem().getSpecialEventType() != SpecialEventType.NA
                 && game.getWarpSystem().getId() == phases.get(QuestPhases.ScarabDestroyed).getStarSystemId()
                 && questStatus == STATUS_SCARAB_HUNTING) {
@@ -381,9 +379,9 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         }
     }
 
+    // If the hull is hardened, damage is halved.
     private void encounterIsExecuteAttackSecondaryDamage(Object object) {
-        // If the hull is hardened, damage is halved.
-        if (isHardenedHull()) {
+        if (isHardenedHull(Game.getShip())) {
             ((IntContainer) object).divideBy(2);
         }
     }
@@ -391,9 +389,8 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     private void encounterExecuteActionOpponentDisabled(Object object) {
         if (game.getOpponent().getBarCode() == scarab.getBarCode()) {
             encounterDefeatScarab();
-
-            GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), PrincessQuest.Encounters.PrincessRescued.getValue());
-
+            GuiFacade.alert(AlertType.EncounterDisabledOpponent,
+                    game.getEncounter().getEncounterShipText(), PrincessQuest.Encounters.PrincessRescued.getValue());
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -435,6 +432,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getFirst().equals(CheatTitles.Diamond.name())) {
             hullUpgraded = (hullUpgraded == null) || !hullUpgraded;
+            shipBarCode = Game.getShip().getBarCode();
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {
@@ -446,6 +444,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getSecond().equals(CheatTitles.Scarab.name())) {
             questStatus = Math.max(0, cheatWords.getNum2());
+            shipBarCode = Game.getShip().getBarCode();
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {

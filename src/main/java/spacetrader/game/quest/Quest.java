@@ -1,6 +1,7 @@
 package spacetrader.game.quest;
 
 import spacetrader.controls.Rectangle;
+import spacetrader.game.quest.containers.ShipSpecContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
@@ -39,7 +40,7 @@ public interface Quest {
 
     void affectSkills(int[] skillsCopy);
 
-    void affectShipCharacteristics(int[] characteristicsCopy);
+    void affectShipHullStrength(ShipSpecContainer shipSpecContainer);
 
     boolean isQuestIsActive();
 

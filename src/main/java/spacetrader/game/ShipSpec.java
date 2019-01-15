@@ -198,7 +198,11 @@ public class ShipSpec implements Serializable {
     }
 
     public int getHullStrength() {
-        return Game.getCurrentGame().getQuestSystem().affectShipCharacteristics(new int[]{hullStrength})[0];
+        return Game.getCurrentGame().getQuestSystem().affectShipHullStrength(this);
+    }
+
+    public int getBaseHullStrength() {
+        return hullStrength;
     }
 
     public void setHullStrength(int hullStrength) {

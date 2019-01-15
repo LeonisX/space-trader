@@ -9,6 +9,7 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.containers.ShipSpecContainer;
 import spacetrader.game.quest.enums.*;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.Facaded;
@@ -175,7 +176,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     @Override
-    public void affectShipCharacteristics(int[] skills) {
+    public void affectShipHullStrength(ShipSpecContainer shipSpecContainer) {
     }
 
     public abstract void registerListener();
