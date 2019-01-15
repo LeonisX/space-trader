@@ -268,14 +268,13 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterGetIntroductoryText(Object object) {
-        if (spaceMonster.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
+        if (opponentIsSpaceMonster()) {
             ((StringContainer) object).setValue(Encounters.PretextSpaceMonster.getValue());
         }
     }
 
     private void encounterGetEncounterImageIndex(Object object) {
-        if (game.getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK
-                || game.getEncounter().getEncounterType() == EncounterType.QUEST_IGNORE) {
+        if (opponentIsSpaceMonster()) {
             ((IntContainer) object).setValue(Consts.EncounterImgAlien);
         }
     }
@@ -295,7 +294,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterIsDisableable(Object object) {
-        if (spaceMonster.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
+        if (opponentIsSpaceMonster()) {
             ((BooleanContainer) object).setValue(false);
         }
     }
@@ -334,6 +333,10 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
         } else {
             log.fine("skipped");
         }
+    }
+
+    private boolean opponentIsSpaceMonster() {
+        return spaceMonster.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode();
     }
 
     private void onIsConsiderCheat(Object object) {
