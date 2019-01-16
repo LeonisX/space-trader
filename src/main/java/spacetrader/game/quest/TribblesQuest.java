@@ -279,7 +279,7 @@ public class TribblesQuest extends AbstractQuest {
     private void onNewsAddEventFromNearestSystems(Object object) {
         NewsContainer newsContainer = (NewsContainer) object;
         if (isQuestIsActive() && phases.get(QuestPhases.TribbleBuyer).isDesiredSystem(newsContainer.getStarSystem())) {
-            newsContainer.getNews().add(News.NewsTribbleBuyer.getValue());
+            newsContainer.getNews().add(News.TribbleBuyer.getValue());
         }
     }
 
@@ -452,7 +452,7 @@ public class TribblesQuest extends AbstractQuest {
     }
 
     enum News implements SimpleValueEnum<String> {
-        NewsTribbleBuyer("Collector in ^1 System seeks to purchase Tribbles.");
+        TribbleBuyer("Collector in ^1 System seeks to purchase Tribbles.");
 
         private String value;
 

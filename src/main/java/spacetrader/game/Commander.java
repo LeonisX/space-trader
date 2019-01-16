@@ -3,6 +3,7 @@ package spacetrader.game;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import static spacetrader.game.quest.enums.EventName.IS_TRADE_SHIP;
+import static spacetrader.game.quest.enums.EventName.ON_GET_WORTH;
 
 public class Commander extends CrewMember implements Serializable {
 
@@ -186,8 +188,9 @@ public class Commander extends CrewMember implements Serializable {
     }
 
     public int getWorth() {
-        return getShip().getPrice() + cash - debt
-                + (Game.getCurrentGame().getQuestStatusMoon() > 0 ? SpecialEvent.MOON_COST : 0);
+        IntContainer worth = new IntContainer(getShip().getPrice() + cash - debt);
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_WORTH, worth);
+        return worth.getValue();
     }
 
     public Ship getShip() {

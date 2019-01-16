@@ -28,6 +28,7 @@ public class QuestSystem implements Serializable {
     private volatile Map<String, Quest> quests;
     private volatile Map<EventName, List<String>> eventListeners;
 
+    //TODO move to questId???
     private Map<Integer, Quest> questMercenaries = new HashMap<>();
     private Map<Integer, Quest> questNews = new HashMap<>();
     private Map<Integer, Quest> questShipSpecs = new HashMap<>();

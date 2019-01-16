@@ -4,8 +4,7 @@ public enum GameEndType implements SpaceTraderEnum {
 
     NA, // = -1,
     KILLED, // = 0,
-    RETIRED, // = 1,
-    QUEST; //BOUGHT_MOON, BOUGHT_MOON_GIRL; // = 3 //TODO need????
+    RETIRED; // = 1
 
     public static GameEndType fromInt(int i) {
         return values()[i + 1];

@@ -1393,7 +1393,7 @@ public class Game implements Serializable {
         ScoreContainer score = new ScoreContainer(
                 (worth < 1000000) ? worth : 1000000 + ((worth - 1000000) / 10), 0, 0, getEndStatus());
 
-        if (getEndStatus() < GameEndType.QUEST.castToInt()) {
+        if (getEndStatus() < 1000) {
             switch (GameEndType.fromInt(getEndStatus())) {
                 case KILLED:
                     score.setModifier(90);

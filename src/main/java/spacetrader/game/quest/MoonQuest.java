@@ -1,27 +1,25 @@
 package spacetrader.game.quest;
 
-import spacetrader.controls.Rectangle;
-import spacetrader.controls.enums.DialogResult;
-import spacetrader.game.*;
+import spacetrader.game.Game;
+import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.*;
-import spacetrader.game.quest.containers.*;
+import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.containers.IntContainer;
+import spacetrader.game.quest.containers.NewsContainer;
+import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.gui.FormAlert;
-import spacetrader.guifacade.GuiFacade;
-import spacetrader.util.Functions;
 
 import java.io.Serializable;
 import java.util.*;
 
-import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.enums.EventName.*;
-import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-//TODO -princess
 class MoonQuest extends AbstractQuest implements Serializable {
 
     static final long serialVersionUID = -4731305242511511L;
@@ -31,7 +29,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
     private static final int STATUS_MOON_BOUGHT = 1;
     private static final int STATUS_MOON_DONE = 2;
 
-    public final static int MOON_COST = 500000;
+    private final static int MOON_COST = 500000;
 
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
@@ -39,6 +37,8 @@ class MoonQuest extends AbstractQuest implements Serializable {
     private int questStatus = 0; // 0 = not bought, 1 = bought, 2 = claimed
 
     private int gameEndTypeId;
+
+    private int imageIndex = 2;
 
     public MoonQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
@@ -51,8 +51,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
@@ -61,6 +60,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
         for (int i = 0; i < phases.length; i++) {
             this.phases.put(values[i], phases[i]);
             phases[i].setQuest(this);
+            phases[i].setOccurrence(values[i].getValue().getOccurrence());
             phases[i].setPhaseEnum(values[i]);
         }
     }
@@ -76,10 +76,10 @@ class MoonQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
 
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
+        getTransitionMap().put(ON_GET_WORTH, this::onGetWorth);
 
         getTransitionMap().put(ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS, this::onNewsAddEventFromNearestSystems);
 
-        getTransitionMap().put(ON_BEFORE_GAME_END, this::onBeforeGameEnd);
         getTransitionMap().put(ON_GAME_END_ALERT, this::onGameEndAlert);
         getTransitionMap().put(ON_GET_GAME_SCORE, this::onGetGameScore);
 
@@ -119,6 +119,10 @@ class MoonQuest extends AbstractQuest implements Serializable {
         log.fine("registered");
     }
 
+    int getEndTypeId() {
+        return gameEndTypeId;
+    }
+
     @Override
     public String getNewsTitle(int newsId) {
         return News.values()[getNewsIds().indexOf(newsId)].getValue();
@@ -132,53 +136,30 @@ class MoonQuest extends AbstractQuest implements Serializable {
     }
 
     private void onAssignEventsRandomly(Object object) {
-        phases.get(QuestPhases.Moon).setStarSystemId(occupyFreeSystemWithEvent());
+        for (int i = 0; i < phases.get(QuestPhases.Moon).getOccurrence(); i++) {
+            phases.get(QuestPhases.Moon).setStarSystemId(occupyFreeSystemWithEvent());
+        }
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
         phases.forEach((key, value) -> showSpecialButtonIfCanBeExecuted(object, value));
     }
 
-
-    //TODO
-
-    /*case Moon:
-    show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
-                        && Game.getCommander().getWorth() > SpecialEvent.MOON_COST * .8;
-                break;
-            case MoonRetirement:
-    show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;
-                break;*/
-
-    //TODO
-            /*new SpecialEvent(SpecialEventType.Moon, 500000, 4, false),
-            new SpecialEvent(SpecialEventType.MoonRetirement, 0, 0, false),*/
-
-    /*case Moon:
-            GuiFacade.alert(AlertType.SpecialMoonBought);
-    setQuestStatusMoon(SpecialEvent.STATUS_MOON_BOUGHT);
-    confirmQuestPhase();
-                break;
-            case MoonRetirement:
-    setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
-                throw new GameEndException(BOUGHT_MOON.castToInt());*/
-
-
     //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
     class MoonPhase extends Phase { //new SpecialEvent(SpecialEventType.Moon, 500000, 4, false),
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem()
-                    && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
-                    && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage
-                    && questStatus == STATUS_NOT_STARTED;
+            return questStatus == STATUS_MOON_NOT_STARTED && isDesiredSystem()
+                    && Game.getCommander().getWorth() > MOON_COST * .8;
         }
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + QuestPhases.Princess);
-            questStatus = STATUS_FLY_CENTAURI;
+            log.fine("phase #" + QuestPhases.Moon);
+            showAlert(Alerts.SpecialMoonBought.getValue());
+            questStatus = STATUS_MOON_BOUGHT;
+            Game.getCurrentGame().confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
 
@@ -188,74 +169,21 @@ class MoonQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    /*class PrincessQonosPhase extends Phase { //new SpecialEvent(SpecialEventType.PrincessQonos, 0, 0, false),
-
-        @Override
-        public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem() && questStatus == STATUS_PRINCESS_RESCUED;
-        }
-
-        @Override
-        public void successFlow() {
-            log.fine("phase #" + QuestPhases.PrincessQonos);
-            //TODO where does the princess go? need to test this case.
-            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
-                GuiFacade.alert(AlertType.SpecialNoQuarters);
-            } else {
-                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, princess.getName());
-                Game.getShip().hire(princess);
-                princessOnBoard = true;
-                questStatus = STATUS_PRINCESS_RESCUED;
-                game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "PrincessQonosPhase{} " + super.toString();
-        }
-    }
-
-    class PrincessReturnedPhase extends Phase { //new SpecialEvent(SpecialEventType.PrincessReturned, 0, 0, true),
-
-        @Override
-        public boolean canBeExecuted() {
-            return princessOnBoard && isDesiredSystem() && questStatus >= STATUS_PRINCESS_RESCUED
-                    && questStatus <= STATUS_PRINCESS_IMPATIENT;
-        }
-
-        @Override
-        public void successFlow() {
-            log.fine("phase #" + QuestPhases.PrincessReturned);
-            questStatus = STATUS_PRINCESS_RETURNED;
-            removePassenger();
-        }
-
-        @Override
-        public String toString() {
-            return "PrincessReturnedPhase{} " + super.toString();
-        }
-    }*/
-
     class MoonRetirementPhase extends Phase { //new SpecialEvent(SpecialEventType.MoonRetirement, 0, 0, false),
 
         @Override
         public boolean canBeExecuted() {
-            return !princessOnBoard && isDesiredSystem() && questStatus == STATUS_PRINCESS_RETURNED;
+            return isDesiredSystem() && questStatus == STATUS_MOON_BOUGHT;
         }
 
         @Override
         public void successFlow() {
-            log.fine("phase #" + QuestPhases.PrincessQuantum);
-            if (Game.getShip().getFreeWeaponSlots() == 0) {
-                GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-            } else {
-                showAlert(Alerts.EquipmentQuantumDisruptor.getValue());
-                Game.getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
-                questStatus = STATUS_DONE;
-                setQuestState(QuestState.FINISHED);
-                game.getQuestSystem().unSubscribeAll(getQuest());
-            }
+            log.fine("phase #" + QuestPhases.MoonRetirement);
+
+            questStatus = STATUS_MOON_DONE;
+            setQuestState(QuestState.FINISHED);
+            game.getQuestSystem().unSubscribeAll(getQuest());
+            throw new GameEndException(gameEndTypeId);
         }
 
         @Override
@@ -285,39 +213,34 @@ class MoonQuest extends AbstractQuest implements Serializable {
         }
     }
 
+    private void onGetWorth(Object object) {
+        if (questStatus > STATUS_MOON_NOT_STARTED) {
+            ((IntContainer) object).plus(MOON_COST);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private void onNewsAddEventFromNearestSystems(Object object) {
         NewsContainer newsContainer = (NewsContainer) object;
-        if (isQuestIsActive() && phases.get(QuestPhases.Moon).isDesiredSystem(newsContainer.getStarSystem())) {
+        if (!isQuestIsActive() && phases.get(QuestPhases.Moon).isDesiredSystem(newsContainer.getStarSystem())) {
             newsContainer.getNews().add(News.MoonForSale.getValue());
         }
     }
 
-    //TODO need to check this flow
-    private void onBeforeGameEnd(Object object) {
-        if (game.getEndStatus() == GameEndType.BOUGHT_MOON.castToInt() && questStatus >= STATUS_PRINCESS_RETURNED) {
-            game.setEndStatus(gameEndTypeId);
-        }
-    }
-
     private void onGameEndAlert(Object object) {
-        //TODO need to pass string value as image ID, and get image by this value
-        new FormAlert(Alerts.GameEndBoughtMoon.getValue().getTitle(), GameEndType.QUEST.castToInt()).showDialog();
+        if (game.getEndStatus() == gameEndTypeId) {
+            new FormAlert(Alerts.GameEndBoughtMoon.getValue().getTitle(), imageIndex).showDialog();
+        }
     }
 
     private void onGetGameScore(Object object) {
-        ScoreContainer score = (ScoreContainer) object;
-        if (score.getEndStatus() == 1) {
-            score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
-            score.setModifier(100); //TODO 110????
+        if (game.getEndStatus() == gameEndTypeId) {
+            ScoreContainer score = (ScoreContainer) object;
+            if (score.getEndStatus() == 1) {
+                score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
+                score.setModifier(100);
+            }
         }
-
-        //TODO
-        /*switch (GameEndType.fromInt(getEndStatus())) {
-        case BOUGHT_MOON:
-        score.setDaysMoon(Math.max(0, (getDifficultyId() + 1) * 100 - commander.getDays()));
-        score.setModifier(100);
-        break;*/
     }
 
     @Override
@@ -384,27 +307,6 @@ class MoonQuest extends AbstractQuest implements Serializable {
             this.value = value;
         }
     }
-
-    //TODO
-    /*case GameEndBoughtMoon:
-            return new FormAlert(AlertsGameEndBoughtMoonTitle, GameEndType.BOUGHT_MOON.castToInt());
-
-
-            case GameEndRetired:
-            return new FormAlert(AlertsGameEndRetiredTitle, GameEndType.RETIRED.castToInt());
-
-
-
-            case GameRetire:
-            return new FormAlert(AlertsGameRetireTitle, AlertsGameRetireMessage, AlertsYes, DialogResult.YES, AlertsNo,
-                                 DialogResult.NO, args);
-
-
-
-            case SpecialMoonBought:
-            return new FormAlert(AlertsSpecialMoonBoughtTitle, AlertsSpecialMoonBoughtMessage, AlertsOk,
-                                 DialogResult.OK, null, DialogResult.NONE, args);*/
-
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         SpecialMoonBought("Moon Bought", "You bought a moon in the Utopia system. Go there to claim it."),
@@ -492,6 +394,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
         return "MoonQuest{" +
                 "questStatus=" + questStatus +
                 ", gameEndTypeId=" + gameEndTypeId +
+                ", imageIndex=" + imageIndex +
                 "} " + super.toString();
     }
 }

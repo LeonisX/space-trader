@@ -20,6 +20,14 @@ public class IntContainer {
         value += number;
     }
 
+    public void add(int number) {
+        value += number;
+    }
+
+    public void minus(int number) {
+        value -= number;
+    }
+
     public void subtract(int number) {
         value -= number;
     }

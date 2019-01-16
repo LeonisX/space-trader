@@ -23,7 +23,8 @@ public enum EventName {
     ON_FORM_SHIP_LIST_SHOW,                     // Tribbles. Show warning when showing FormShipList
     ON_GET_BASE_WORTH,                          // Tribbles. Reduce the cost of the ship under certain conditions
     ON_GET_FILLED_CARGO_BAYS,                   // Reactor. Some goods take place in cargo bays
-    ON_DISPLAY_SHIP_EQUIPMENT,                       // Scarab. Show hardened hull
+    ON_DISPLAY_SHIP_EQUIPMENT,                  // Scarab. Show hardened hull
+    ON_GET_WORTH,                               // Moon - add Moon price to Commander worth
 
     IS_TRADE_SHIP,                              // Reactor. Before you sell / exchange ship
 

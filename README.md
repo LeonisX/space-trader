@@ -227,12 +227,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Finish quest
-* Fix Princess
-* Test
-* Clean strings
-* NewsNews
-
+* Error when try to see high scores w/o game
 * Ship name (FormViewShip) - Bottle :(
 
 ### Princess, Jarek, other quests
