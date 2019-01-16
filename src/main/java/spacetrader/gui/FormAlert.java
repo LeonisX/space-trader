@@ -394,8 +394,6 @@ public class FormAlert extends SpaceTraderForm {
             case GameClearHighScores:
                 return new FormAlert(AlertsGameClearHighScoresTitle, AlertsGameClearHighScoresMessage, AlertsYes,
                         DialogResult.YES, AlertsNo, DialogResult.NO, args);
-            case GameEndBoughtMoon:
-                return new FormAlert(AlertsGameEndBoughtMoonTitle, GameEndType.BOUGHT_MOON.castToInt());
             case GameEndHighScoreAchieved:
                 return new FormAlert(AlertsGameEndHighScoreAchievedTitle, AlertsGameEndHighScoreAchievedMessage, AlertsOk, DialogResult.OK,
                         null, DialogResult.NONE, args);
@@ -518,9 +516,6 @@ public class FormAlert extends SpaceTraderForm {
             case SpecialIF:
                 return new FormAlert(AlertsSpecialIFTitle, AlertsSpecialIFMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case SpecialMoonBought:
-                return new FormAlert(AlertsSpecialMoonBoughtTitle, AlertsSpecialMoonBoughtMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
             case SpecialNoQuarters:
                 return new FormAlert(AlertsSpecialNoQuartersTitle, AlertsSpecialNoQuartersMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);

@@ -166,10 +166,6 @@ public class News implements Serializable {
 
                 newsContainer.setStarSystem(starSystem);
 
-                if (starSystem.getSpecialEventType() == SpecialEventType.Moon) {
-                    newsContainer.getNews().add(Strings.NewsMoonForSale);
-                }
-
                 if (starSystem.getShipyardId() != ShipyardId.NA) {
                     newsContainer.getNews().add(Strings.NewsShipyard);
                 }

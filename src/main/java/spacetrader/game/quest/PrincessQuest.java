@@ -589,6 +589,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
+    //TODO need to fix
     private void onBeforeGameEnd(Object object) {
         if (game.getEndStatus() == GameEndType.BOUGHT_MOON.castToInt() && questStatus >= STATUS_PRINCESS_RETURNED) {
             game.setEndStatus(gameEndTypeId);

@@ -22,8 +22,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     GemulonRescued, // = 16,
     Japori, // = 17,
     JaporiDelivery, // = 18,
-    Moon, // = 22,
-    MoonRetirement, // = 23,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

@@ -83,9 +83,6 @@ public class GameController implements Serializable {
                 case RETIRED:
                     alertType = AlertType.GameEndRetired;
                     break;
-                case BOUGHT_MOON:
-                    alertType = AlertType.GameEndBoughtMoon;
-                    break;
             }
             GuiFacade.alert(alertType);
         } else {

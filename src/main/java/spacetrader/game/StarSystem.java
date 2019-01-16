@@ -148,13 +148,6 @@ public class StarSystem implements Serializable {
             case JaporiDelivery:
                 show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT;
                 break;
-            case Moon:
-                show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_NOT_STARTED
-                        && Game.getCommander().getWorth() > SpecialEvent.MOON_COST * .8;
-                break;
-            case MoonRetirement:
-                show = game.getQuestStatusMoon() == SpecialEvent.STATUS_MOON_BOUGHT;
-                break;
         }
 
         return show;

@@ -4,8 +4,6 @@ import spacetrader.game.enums.SpecialEventType;
 
 public class SpecialEvent {
 
-    public final static int MOON_COST = 500000;
-
     public final static int STATUS_ARTIFACT_NOT_STARTED = 0;
     public final static int STATUS_ARTIFACT_ON_BOARD = 1;
     public final static int STATUS_ARTIFACT_DONE = 2;
@@ -34,10 +32,6 @@ public class SpecialEvent {
     public final static int STATUS_JAPORI_NOT_STARTED = 0;
     public final static int STATUS_JAPORI_IN_TRANSIT = 1;
     public final static int STATUS_JAPORI_DONE = 2;
-
-    public final static int STATUS_MOON_NOT_STARTED = 0;
-    public final static int STATUS_MOON_BOUGHT = 1;
-    public final static int STATUS_MOON_DONE = 2;
 
     private SpecialEventType type;
     private int price;

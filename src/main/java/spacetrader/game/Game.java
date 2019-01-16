@@ -21,7 +21,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
-import static spacetrader.game.enums.GameEndType.BOUGHT_MOON;
 import static spacetrader.game.enums.GameEndType.KILLED;
 import static spacetrader.game.quest.enums.EventName.*;
 
@@ -74,7 +73,6 @@ public class Game implements Serializable {
     private int questStatusExperiment = 0; // 0 = not given yet, 1-11 = days from start; 12 = performed, 13 = cancelled
     private int questStatusGemulon = 0; // 0 = not given yet, 1-7 = days from start, 8 = too late, 9 = in time, 10 = done
     private int questStatusJapori = 0; // 0 = no disease, 1 = Go to Japori (always at least 10 medicine canisters), 2 = Assignment finished or canceled
-    private int questStatusMoon = 0; // 0 = not bought, 1 = bought, 2 = claimed
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
@@ -380,14 +378,6 @@ public class Game implements Serializable {
 
     public void setRaided(boolean raided) {
         this.raided = raided;
-    }
-
-    public int getQuestStatusMoon() {
-        return questStatusMoon;
-    }
-
-    public void setQuestStatusMoon(int questStatusMoon) {
-        this.questStatusMoon = questStatusMoon;
     }
 
     public int getQuestStatusJapori() {
@@ -970,14 +960,6 @@ public class Game implements Serializable {
                 commander.increaseRandomSkill();
                 confirmQuestPhase();
                 break;
-            case Moon:
-                GuiFacade.alert(AlertType.SpecialMoonBought);
-                setQuestStatusMoon(SpecialEvent.STATUS_MOON_BOUGHT);
-                confirmQuestPhase();
-                break;
-            case MoonRetirement:
-                setQuestStatusMoon(SpecialEvent.STATUS_MOON_DONE);
-                throw new GameEndException(BOUGHT_MOON.castToInt());
         }
     }
 
@@ -1108,7 +1090,6 @@ public class Game implements Serializable {
         getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentStopped);
         getStarSystem(StarSystemId.Gemulon).setSpecialEventType(SpecialEventType.GemulonRescued);
         getStarSystem(StarSystemId.Japori).setSpecialEventType(SpecialEventType.JaporiDelivery);
-        getStarSystem(StarSystemId.Utopia).setSpecialEventType(SpecialEventType.MoonRetirement);
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverseContainer);
 
@@ -1412,17 +1393,13 @@ public class Game implements Serializable {
         ScoreContainer score = new ScoreContainer(
                 (worth < 1000000) ? worth : 1000000 + ((worth - 1000000) / 10), 0, 0, getEndStatus());
 
-        if (getEndStatus() <= GameEndType.BOUGHT_MOON.castToInt()) {
+        if (getEndStatus() < GameEndType.QUEST.castToInt()) {
             switch (GameEndType.fromInt(getEndStatus())) {
                 case KILLED:
                     score.setModifier(90);
                     break;
                 case RETIRED:
                     score.setModifier(95);
-                    break;
-                case BOUGHT_MOON:
-                    score.setDaysMoon(Math.max(0, (getDifficultyId() + 1) * 100 - commander.getDays()));
-                    score.setModifier(100);
                     break;
             }
         } else {
@@ -1536,7 +1513,6 @@ public class Game implements Serializable {
                 questStatusExperiment == game.questStatusExperiment &&
                 questStatusGemulon == game.questStatusGemulon &&
                 questStatusJapori == game.questStatusJapori &&
-                questStatusMoon == game.questStatusMoon &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
@@ -1567,7 +1543,7 @@ public class Game implements Serializable {
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
                 selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
                 questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori,
-                questStatusMoon, fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
+                fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
         result = 31 * result + mercenaries.hashCode();

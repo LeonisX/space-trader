@@ -11,6 +11,7 @@ public enum QuestName {
     Tribbles,
     SpaceMonster,
     Scarab,
-    Skill
+    Skill,
+    Moon
 
 }

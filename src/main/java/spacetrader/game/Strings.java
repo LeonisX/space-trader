@@ -217,7 +217,6 @@ public class Strings {
     public static String AlertsGameAbandonConfirmMessage = "Are you sure you want to abandon your current game?";
     public static String AlertsGameClearHighScoresTitle = "Clear High Scores";
     public static String AlertsGameClearHighScoresMessage = "Are you sure you wish to clear the high score table?";
-    public static String AlertsGameEndBoughtMoonTitle = "You Have Retired";
     public static String AlertsGameEndHighScoreAchievedTitle = "Congratulations!";
     public static String AlertsGameEndHighScoreAchievedMessage = "You have made the high-score list!";
     public static String AlertsGameEndHighScoreCheatTitle = "Naughty, Naughty!";
@@ -303,8 +302,6 @@ public class Strings {
     public static String AlertsSpecialExperimentPerformedMessage = "The galaxy is abuzz with news of a terrible malfunction in Dr. Fehler's laboratory. Evidently, he was not warned in time and he performed his experiment... with disastrous results!";
     public static String AlertsSpecialIFTitle = "Not Enough Money";
     public static String AlertsSpecialIFMessage = "You don't have enough cash to spend to accept this offer.";
-    public static String AlertsSpecialMoonBoughtTitle = "Moon Bought";
-    public static String AlertsSpecialMoonBoughtMessage = "You bought a moon in the Utopia system. Go there to claim it.";
     public static String AlertsSpecialNoQuartersTitle = "No Free Quarters";
     public static String AlertsSpecialNoQuartersMessage = "There are currently no free crew quarters on your ship.";
     public static String AlertsSpecialNotEnoughBaysTitle = "Not Enough Bays";
@@ -369,7 +366,6 @@ public class Strings {
     public static String CheatsExperiment = "Experiment";
     public static String CheatsGemulon = "Gemulon";
     public static String CheatsJapori = "Japori";
-    public static String CheatsMoon = "Moon";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -457,7 +453,6 @@ public class Strings {
 
     public static String NA = "N/A";
 
-    public static String NewsMoonForSale = "Seller in ^1 System has Utopian Moon available.";
     public static String NewsShipyard = "Shipyard in ^1 System offers to design custom ships.";
 
     public static String OptionsKeepEmptyCargoBays = "to leave empty when buying goods in-system";
@@ -478,7 +473,6 @@ public class Strings {
     public static String QuestGemulonInformDays = "Inform Gemulon about alien invasion within ^1.";
     public static String QuestGemulonInformTomorrow = "Inform Gemulon about alien invasion by tomorrow.";
     public static String QuestJaporiDeliver = "Deliver antidote to Japori.";
-    public static String QuestMoon = "Claim your moon at Utopia.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -596,7 +590,7 @@ public class Strings {
     public static String[] GadgetNames = new String[]{"5 Extra Cargo Bays", "Auto-Repair System", "Navigating System",
             "Targeting System", "Cloaking Device", "Fuel Compactor", "5 Hidden Cargo Bays"};
 
-    public static String[] GameCompletionTypes = new String[]{"Was killed", "Retired", "Claimed moon"};
+    public static String[] GameCompletionTypes = new String[]{"Was killed", "Retired"};
 
     public static String[] ListStrings = new String[]{"", "^1", "^1 and ^2", "^1, ^2, and ^3", "^1, ^2, ^3, and ^4"};
 
@@ -765,8 +759,6 @@ public class Strings {
             "This information of the arrival of the alien invasion force allows us to prepare a defense. You have saved our way of life. As a reward, we have a fuel compactor gadget for you, which will increase the travel distance by 3 parsecs for any ship. Return here to get it installed.",
             "A strange disease has invaded the Japori system. We would like you to deliver these ten canisters of special antidote to Japori. Note that, if you accept, ten of your cargo bays will remain in use on your way to Japori. Do you accept this mission?",
             "Thank you for delivering the medicine to us. We don't have any money to reward you, but we do have an alien fast-learning machine with which we will increase your skills.",
-            "There is a small but habitable moon for sale in the Utopia system, for the very reasonable sum of half a million credits. If you accept it, you can retire to it and live a peaceful, happy, and wealthy life. Do you wish to buy it?",
-            "Welcome to the Utopia system. Your own moon is available for you to retire to it, if you feel inclined to do that. Are you ready to retire and lead a happy, peaceful, and wealthy life?"
             };
 
     public static String[] QuestPhaseTitles = new String[]{
@@ -776,7 +768,6 @@ public class Strings {
             "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
             "Alien Invasion", "Fuel Compactor", "Gemulon Invaded",
             "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
-            "Moon For Sale", "Retirement",
             //TODO delete
             "ASSIGNED"};
 
