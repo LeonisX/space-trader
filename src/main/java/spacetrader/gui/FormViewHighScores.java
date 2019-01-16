@@ -8,7 +8,7 @@ import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
 import spacetrader.game.HighScoreRecord;
 import spacetrader.game.Strings;
-import spacetrader.game.enums.GameEndType;
+import spacetrader.game.enums.Difficulty;
 import spacetrader.util.Functions;
 import spacetrader.util.IOUtils;
 import spacetrader.util.ReflectionUtils;
@@ -40,9 +40,9 @@ public class FormViewHighScores extends SpaceTraderForm {
         for (int i = highScores.length - 1; i >= 0 && highScores[i] != null; i--) {
             lblName[2 - i].setText(highScores[i].getName());
             lblScore[2 - i].setText(Functions.formatNumber(highScores[i].getScore() / 10) + "." + highScores[i].getScore() % 10 + "%");
-            String gameCompletion = highScores[i].getType() < GameEndType.QUEST.castToInt()
+            String gameCompletion = highScores[i].getType() < 1000
                     ? Strings.GameCompletionTypes[highScores[i].getType()]
-                    : Game.getCurrentGame().getQuestSystem().getGameCompletionText(highScores[i].getType());
+                    : getGameCompletionText(highScores[i].getType());
             lblStatus[2 - i].setText(Functions.stringVars(Strings.HighScoreStatus, new String[]
                     {
                             gameCompletion,
@@ -54,6 +54,16 @@ public class FormViewHighScores extends SpaceTraderForm {
             lblScore[2 - i].setVisible(true);
             lblStatus[2 - i].setVisible(true);
         }
+    }
+
+    private String getGameCompletionText(int type) {
+        Game game;
+        if (null == Game.getCurrentGame()) {
+            game = new Game("", Difficulty.BEGINNER,1,1,1,1, null);
+        } else {
+            game = Game.getCurrentGame();
+        }
+        return game.getQuestSystem().getGameCompletionText(type);
     }
 
     private void initializeComponent() {
