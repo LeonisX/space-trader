@@ -2,7 +2,6 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Game;
 import spacetrader.game.enums.Difficulty;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -24,7 +23,7 @@ class LotteryQuest extends AbstractQuest {
     private static final Repeatable REPEATABLE = ONE_TIME;
     private static final int OCCURRENCE = 0;
 
-    public LotteryQuest(QuestName id) {
+    public LotteryQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
         initializePhases(QuestPhases.values(), new FirstPhase());
         initializeTransitionMap();

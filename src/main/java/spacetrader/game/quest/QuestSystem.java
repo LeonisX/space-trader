@@ -13,6 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -24,24 +25,24 @@ public class QuestSystem implements Serializable {
 
     private static final Logger log = Logger.getLogger(QuestSystem.class.getName());
 
-    private volatile EnumMap<QuestName, Quest> quests;
-    private volatile Map<EventName, List<QuestName>> eventListeners;
+    private volatile Map<String, Quest> quests;
+    private volatile Map<EventName, List<String>> eventListeners;
 
     private Map<Integer, Quest> questMercenaries = new HashMap<>();
     private Map<Integer, Quest> questNews = new HashMap<>();
     private Map<Integer, Quest> questShipSpecs = new HashMap<>();
     private Map<Integer, Quest> questGameEndTypes = new HashMap<>();
 
-    private volatile int specialCrewIdCounter = 1000;
-    private volatile int newsIdCounter = 1000;
-    private volatile int encounterIdCounter = 1000;
-    private volatile int shipSpecIdCounter = 1000;
-    private volatile int gameEndTypeIdCounter = 1000;
+    private volatile AtomicInteger specialCrewIdCounter = new AtomicInteger(1000);
+    private volatile AtomicInteger newsIdCounter = new AtomicInteger(1000);
+    private volatile AtomicInteger encounterIdCounter = new AtomicInteger(1000);
+    private volatile AtomicInteger shipSpecIdCounter = new AtomicInteger(1000);
+    private volatile AtomicInteger gameEndTypeIdCounter = new AtomicInteger(1000);
 
-    private transient Set<QuestName> questsBeforeTransaction = new HashSet<>();
+    private transient Set<String> questsBeforeTransaction = new HashSet<>();
 
     public void initializeQuestsHolder() {
-        setQuestsMap(new EnumMap<>(QuestName.class));
+        setQuestsMap(new HashMap<>());
         setEventListeners(new HashMap<>());
         Arrays.stream(EventName.values()).forEach(e -> eventListeners.put(e, new ArrayList<>()));
 
@@ -57,13 +58,18 @@ public class QuestSystem implements Serializable {
             field.setAccessible(true);
             int occurrence = Math.max(field.getInt(null), 1);
             for (int i = 0; i < occurrence; i++) {
-                Constructor<?> c = clazz.getConstructor(id.getClass());
-                Quest quest = (Quest) c.newInstance(id);
-                getQuestsMap().put(id, quest);
+                Constructor<?> c = clazz.getConstructor(String.class);
+                String questId = getQuestId(id, i);
+                Quest quest = (Quest) c.newInstance(questId);
+                getQuestsMap().put(questId, quest);
             }
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getQuestId(QuestName questName, int id) {
+        return questName.name() + "[" + id + "]";
     }
 
     CrewMember registerNewSpecialCrewMember(CrewMember crewMember, Quest quest) {
@@ -93,37 +99,38 @@ public class QuestSystem implements Serializable {
         quests.values().forEach(q -> q.initializeLogger(q));
     }
 
-    private void setQuestsMap(EnumMap<QuestName, Quest> map) {
+    private void setQuestsMap(Map<String, Quest> map) {
         quests = map;
     }
 
-    EnumMap<QuestName, Quest> getQuestsMap() {
+    private Map<String, Quest> getQuestsMap() {
         return quests;
     }
 
+    //TODO right now this works only for quests with occurrence 0, 1
     public Quest getQuest(QuestName questName) {
-        return quests.get(questName);
+        return quests.get(getQuestId(questName, 0));
     }
 
     int generateSpecialCrewId() {
-        return specialCrewIdCounter++;
+        return specialCrewIdCounter.getAndIncrement();
     }
 
     int generateNewsId() {
-        return newsIdCounter++;
+        return newsIdCounter.getAndIncrement();
     }
 
     //TODO ??? need to be used???
     int generateEncounterId() {
-        return encounterIdCounter++;
+        return encounterIdCounter.getAndIncrement();
     }
 
     private int generateShipSpecIdCounter() {
-        return shipSpecIdCounter++;
+        return shipSpecIdCounter.getAndIncrement();
     }
 
     private int generateGameEndTypeIdCounter() {
-        return gameEndTypeIdCounter++;
+        return gameEndTypeIdCounter.getAndIncrement();
     }
 
     public int[] affectSkills(int[] skills) {
@@ -180,6 +187,7 @@ public class QuestSystem implements Serializable {
 
     void unSubscribe(EventName eventName, Quest quest) {
         log.fine(eventName.toString() + "; " + quest.getClass().getName());
+        //TODO need fix
         getEventListeners().get(eventName).removeIf(q -> q.getClass().equals(quest.getClass()));
     }
 
@@ -188,11 +196,11 @@ public class QuestSystem implements Serializable {
         getEventListeners().forEach((key, value) -> unSubscribe(key, quest));
     }
 
-    private Map<EventName, List<QuestName>> getEventListeners() {
+    private Map<EventName, List<String>> getEventListeners() {
         return eventListeners;
     }
 
-    private void setEventListeners(Map<EventName, List<QuestName>> eventListeners) {
+    private void setEventListeners(Map<EventName, List<String>> eventListeners) {
         this.eventListeners = eventListeners;
     }
 
@@ -235,7 +243,7 @@ public class QuestSystem implements Serializable {
     public void rollbackTransaction() {
         if (!questsBeforeTransaction.isEmpty()) {
             log.fine("started");
-            Set<QuestName> toRemove = new HashSet<>(quests.keySet());
+            Set<String> toRemove = new HashSet<>(quests.keySet());
             toRemove.removeAll(questsBeforeTransaction);
             log.fine(toRemove.toString());
 

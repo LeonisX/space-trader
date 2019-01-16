@@ -5,7 +5,6 @@ import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.*;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -50,7 +49,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(7, 0, 49, 0);
     private static final Integer SHIP_IMAGE_INDEX = 14;
 
-    public ScarabQuest(QuestName id) {
+    public ScarabQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
         initializePhases(QuestPhases.values(), new ScarabPhase(), new ScarabDestroyedPhase(), new ScarabUpgradeHullPhase());
         initializeTransitionMap();

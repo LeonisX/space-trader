@@ -1,7 +1,6 @@
 package spacetrader.game.quest;
 
 import spacetrader.game.Game;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -11,7 +10,7 @@ import java.util.*;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-class SkillIncreaseQuest extends AbstractQuest {
+class SkillQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511510L;
 
@@ -19,7 +18,7 @@ class SkillIncreaseQuest extends AbstractQuest {
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 3;
 
-    public SkillIncreaseQuest(QuestName id) {
+    public SkillQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new SkillPhase());
@@ -28,6 +27,7 @@ class SkillIncreaseQuest extends AbstractQuest {
         registerListener();
 
         //localize();
+        dumpAllStrings();
 
         log.fine("started...");
     }
@@ -159,6 +159,6 @@ class SkillIncreaseQuest extends AbstractQuest {
 
     @Override
     public String toString() {
-        return "SkillIncreaseQuest{} " + super.toString();
+        return "SkillQuest{} " + super.toString();
     }
 }

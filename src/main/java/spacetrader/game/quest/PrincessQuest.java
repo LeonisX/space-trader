@@ -8,7 +8,6 @@ import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.containers.StringContainer;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -58,7 +57,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private int gameEndTypeId;
 
-    public PrincessQuest(QuestName id) {
+    public PrincessQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
         initializePhases(QuestPhases.values(), new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
                 new PrincessQonosPhase(), new PrincessReturnedPhase(), new PrincessQuantumPhase());

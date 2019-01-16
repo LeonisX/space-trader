@@ -9,7 +9,6 @@ import spacetrader.game.enums.*;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -39,7 +38,7 @@ public class ReactorQuest extends AbstractQuest {
 
     private volatile int questStatus = 0; // 0 = not encountered, 1-20 = days of mission (bays of fuel left = 10 - (ReactorStatus / 2), 21 = delivered, 22 = Done
 
-    public ReactorQuest(QuestName id) {
+    public ReactorQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new ReactorPhase(), new ReactorDeliveredPhase(), new ReactorLaserPhase());

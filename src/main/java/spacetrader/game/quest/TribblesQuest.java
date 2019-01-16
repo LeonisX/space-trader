@@ -48,7 +48,7 @@ public class TribblesQuest extends AbstractQuest {
 
     private int tribbles = 0;
 
-    public TribblesQuest(QuestName id) {
+    public TribblesQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new TribblePhase(), new TribbleBuyerPhase());

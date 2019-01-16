@@ -3,7 +3,6 @@ package spacetrader.game.quest;
 import spacetrader.controls.Rectangle;
 import spacetrader.game.quest.containers.ShipSpecContainer;
 import spacetrader.game.quest.enums.EventName;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 
 import java.util.Collection;
@@ -16,9 +15,9 @@ public interface Quest {
 
     void setQuest(Quest quest);
 
-    QuestName getId();
+    String getId();
 
-    void setId(QuestName id);
+    void setId(String id);
 
     String getCrewMemberName(int id);
 

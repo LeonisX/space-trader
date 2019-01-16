@@ -47,7 +47,7 @@ class WildQuest extends AbstractQuest {
     private CrewMember zeethibal; // Zeethibal, Jonathan Wild's Nephew - skills will be set later.
     private boolean wildOnBoard;
 
-    public WildQuest(QuestName id) {
+    public WildQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new WildPhase(), new WildGetsOutPhase());

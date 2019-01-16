@@ -9,13 +9,13 @@ import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SkillType;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.guifacade.GuiFacade;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.enums.EventName.*;
@@ -35,14 +35,14 @@ class JarekQuest extends AbstractQuest {
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
-    private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
+    private volatile AtomicInteger questStatus = new AtomicInteger(0); // 0 = not delivered, 1-11 = on board, 12 = delivered
 
     private CrewMember jarek; // Jarek, Ambassador Jarek earns his keep now - JAF.
     private boolean jarekOnBoard;
 
     private UUID shipBarCode = UUID.randomUUID();
 
-    public JarekQuest(QuestName id) {
+    public JarekQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new JarekPhase(), new JarekGetsOutPhase());
@@ -97,7 +97,7 @@ class JarekQuest extends AbstractQuest {
     }
 
     private boolean isHagglingComputerOnBoard() {
-        return Game.getShip().getBarCode() == shipBarCode && questStatus == STATUS_JAREK_DONE;
+        return Game.getShip().getBarCode() == shipBarCode && questStatus.get() == STATUS_JAREK_DONE;
     }
 
     @Override
@@ -183,7 +183,7 @@ class JarekQuest extends AbstractQuest {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
                 Game.getShip().hire(jarek);
                 jarekOnBoard = true;
-                questStatus = STATUS_JAREK_STARTED;
+                questStatus.set(STATUS_JAREK_STARTED);
                 setQuestState(QuestState.ACTIVE);
                 Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
             }
@@ -205,7 +205,7 @@ class JarekQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #2");
             setQuestState(QuestState.FINISHED);
-            questStatus = STATUS_JAREK_DONE;
+            questStatus.set(STATUS_JAREK_DONE);
             removePassenger();
             shipBarCode = Game.getShip().getBarCode();
             game.getQuestSystem().unSubscribeAll(getQuest());
@@ -240,7 +240,7 @@ class JarekQuest extends AbstractQuest {
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
         if (jarekOnBoard) {
-            if (questStatus == STATUS_JAREK_IMPATIENT) {
+            if (questStatus.get() == STATUS_JAREK_IMPATIENT) {
                 ((ArrayList<String>) object).add(QuestClues.JarekImpatient.getValue());
                 log.fine(QuestClues.JarekImpatient.getValue());
             } else {
@@ -276,7 +276,7 @@ class JarekQuest extends AbstractQuest {
 
     private void failQuest() {
         game.getQuestSystem().unSubscribeAll(getQuest());
-        questStatus = STATUS_NOT_STARTED;
+        questStatus.set(STATUS_NOT_STARTED);
         setQuestState(QuestState.FAILED);
         removePassenger();
     }
@@ -289,9 +289,9 @@ class JarekQuest extends AbstractQuest {
     private void onIncrementDays(Object object) {
         if (jarekOnBoard) {
             log.fine(questStatus + "");
-            if (questStatus == STATUS_JAREK_IMPATIENT / 2) {
+            if (questStatus.get() == STATUS_JAREK_IMPATIENT / 2) {
                 showAlert(Alerts.SpecialPassengerConcernedJarek.getValue());
-            } else if (questStatus == STATUS_JAREK_IMPATIENT - 1) {
+            } else if (questStatus.get() == STATUS_JAREK_IMPATIENT - 1) {
                 showAlert(Alerts.SpecialPassengerImpatientJarek.getValue());
                 jarek.setPilot(0);
                 jarek.setFighter(0);
@@ -299,8 +299,8 @@ class JarekQuest extends AbstractQuest {
                 jarek.setEngineer(0);
             }
 
-            if (questStatus < STATUS_JAREK_IMPATIENT) {
-                questStatus++;
+            if (questStatus.get() < STATUS_JAREK_IMPATIENT) {
+                questStatus.getAndIncrement();
             }
         } else {
             log.fine("skipped");
@@ -319,7 +319,7 @@ class JarekQuest extends AbstractQuest {
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getSecond().equals(CheatTitles.Jarek.name())) {
-            questStatus = Math.max(0, cheatWords.getNum2());
+            questStatus.set(Math.max(0, cheatWords.getNum2()));
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {
@@ -330,7 +330,7 @@ class JarekQuest extends AbstractQuest {
     @SuppressWarnings("unchecked")
     private void onIsConsiderDefaultCheat(Object object) {
         log.fine("");
-        ((Map<String, Integer>) object).put(CheatTitles.Jarek.getValue(), questStatus);
+        ((Map<String, Integer>) object).put(CheatTitles.Jarek.getValue(), questStatus.get());
     }
 
     enum QuestPhases implements SimpleValueEnum<QuestDialog> {

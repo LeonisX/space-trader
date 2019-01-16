@@ -1,11 +1,12 @@
 package spacetrader.game.quest;
 
-import spacetrader.game.*;
+import spacetrader.game.Consts;
+import spacetrader.game.Game;
+import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -34,7 +35,7 @@ class SculptureQuest extends AbstractQuest {
 
     private boolean sculptureOnBoard;
 
-    public SculptureQuest(QuestName id) {
+    public SculptureQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializePhases(QuestPhases.values(), new SculpturePhase(), new SculptureDeliveredPhase(), new SculptureHiddenBaysPhase());
