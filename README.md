@@ -227,32 +227,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-
-## Skill Quest
-
-# Quest phases:
-PhaseSpecialSkillIncreaseTitle=Skill Increase
-PhaseSpecialSkillIncreaseMessage=An alien with a fast-learning machine offers to increase one of your skills for the reasonable sum of 3000 credits. You won't be able to pick that skill, though. Do you accept his offer?
-
-# Alerts:
-AlertSpecialSkillIncreaseTitle=Skill Increase
-AlertSpecialSkillIncreaseMessage=The alien increases one of your skills.
-
-
-
-## Skill Quest
-
-# Quest phases:
-PhaseSpecialSkillIncreaseTitle=Повысить навык
-PhaseSpecialSkillIncreaseMessage=Пришелец с машиной для быстрого обучения предлагает увеличить один из ваших навыков за разумную сумму в 3000 кредитов. Правда, вы не сможете выбрать, какое именно умение. Вы примете его предложение?
-
-# Alerts:
-AlertSpecialSkillIncreaseTitle=Увеличение навыка
-AlertSpecialSkillIncreaseMessage=Пришелец повысил один из ваших навыков.
-
-* Test all phrases
-* Test price
-* Test upgraded skill
 * Ship name (FormViewShip) - Bottle :(
 
 ### Princess, Jarek, other quests
