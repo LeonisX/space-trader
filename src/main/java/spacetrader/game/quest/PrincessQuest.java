@@ -8,6 +8,7 @@ import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.ScoreContainer;
 import spacetrader.game.quest.containers.StringContainer;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -56,6 +57,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private boolean princessOnBoard;
 
     private int gameEndTypeId;
+
+    private int imageIndex = 3;
 
     public PrincessQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
@@ -139,6 +142,11 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     @Override
     public Integer getShipImageIndex() {
         return SHIP_IMAGE_INDEX;
+    }
+
+    @Override
+    public String getShipName() {
+        return CrewNames.Scorpion.getValue();
     }
 
     @Override
@@ -589,23 +597,26 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    //TODO need to fix
     private void onBeforeGameEnd(Object object) {
-        if (game.getEndStatus() == GameEndType.BOUGHT_MOON.castToInt() && questStatus >= STATUS_PRINCESS_RETURNED) {
+        MoonQuest moonQuest = (MoonQuest) game.getQuestSystem().getQuest(QuestName.Moon);
+        if (game.getEndStatus() == moonQuest.getEndTypeId() && questStatus >= STATUS_PRINCESS_RETURNED) {
             game.setEndStatus(gameEndTypeId);
         }
     }
 
     private void onGameEndAlert(Object object) {
-        //TODO need to pass string value as image ID, and get image by this value
-        new FormAlert(Alerts.GameEndBoughtMoonGirl.getValue().getTitle(), GameEndType.QUEST.castToInt()).showDialog();
+        if (game.getEndStatus() == gameEndTypeId) {
+            new FormAlert(Alerts.GameEndBoughtMoonGirl.getValue().getTitle(), imageIndex).showDialog();
+        }
     }
 
     private void onGetGameScore(Object object) {
-        ScoreContainer score = (ScoreContainer) object;
-        if (score.getEndStatus() == 1) {
-            score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
-            score.setModifier(100); //TODO 110????
+        if (game.getEndStatus() == gameEndTypeId) {
+            ScoreContainer score = (ScoreContainer) object;
+            if (score.getEndStatus() == 1) {
+                score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
+                score.setModifier(100); //TODO 110????
+            }
         }
     }
 
@@ -828,6 +839,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
                 ", scorpion=" + scorpion +
                 ", princessOnBoard=" + princessOnBoard +
                 ", gameEndTypeId=" + gameEndTypeId +
+                ", imageIndex=" + imageIndex +
                 "} " + super.toString();
     }
 }
