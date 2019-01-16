@@ -26,8 +26,7 @@ class SkillQuest extends AbstractQuest {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
