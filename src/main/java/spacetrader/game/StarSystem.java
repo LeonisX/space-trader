@@ -125,9 +125,6 @@ public class StarSystem implements Serializable {
                 break;
             case DragonflyShield:
             case ExperimentFailed:
-            case Gemulon:
-            case GemulonFuel:
-            case GemulonInvaded:
                 show = true;
                 break;
             case EraseRecord:
@@ -136,10 +133,6 @@ public class StarSystem implements Serializable {
             case ExperimentStopped:
                 show = game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
                         && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED;
-                break;
-            case GemulonRescued:
-                show = game.getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
-                        && game.getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE;
                 break;
         }
 

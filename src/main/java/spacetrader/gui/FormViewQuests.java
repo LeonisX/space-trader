@@ -94,19 +94,6 @@ public class FormViewQuests extends SpaceTraderForm {
     private List<String> getQuestStrings() {
         ArrayList<String> quests = new ArrayList<>(12);
 
-        if (game.getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
-                && game.getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_DATE) {
-            if (game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_DATE - 1) {
-                quests.add(Strings.QuestGemulonInformTomorrow);
-            } else {
-                quests.add(Functions.stringVars(Strings.QuestGemulonInformDays,
-                        Functions.plural(SpecialEvent.STATUS_GEMULON_DATE
-                                - game.getQuestStatusGemulon(), Strings.TimeUnit)));
-            }
-        } else if (game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_FUEL) {
-            quests.add(Strings.QuestGemulonFuel);
-        }
-
         if (game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
                 && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_DATE) {
             if (game.getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_DATE - 1) {

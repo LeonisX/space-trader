@@ -265,10 +265,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.Experiment, 0, 0, true),
             new SpecialEvent(SpecialEventType.ExperimentFailed, 0, 0, true),
             new SpecialEvent(SpecialEventType.ExperimentStopped, 0, 0, true),
-            new SpecialEvent(SpecialEventType.Gemulon, 0, 0, true),
-            new SpecialEvent(SpecialEventType.GemulonFuel, 0, 0, false),
-            new SpecialEvent(SpecialEventType.GemulonInvaded, 0, 0, true),
-            new SpecialEvent(SpecialEventType.GemulonRescued, 0, 0, true),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

@@ -171,37 +171,31 @@ public class Encounter implements Serializable {
     private boolean isDetermineRandomEncounter() {
         RandomEncounterContainer opponents = new RandomEncounterContainer();
 
-        if (game.getWarpSystem().getId() == StarSystemId.Gemulon && game.getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-            if (Functions.getRandom(10) > 4) {
-                opponents.setMantis(true);
-            }
-        } else {
-            // Check if it is time for an encounter
-            int encounter = Functions.getRandom(44 - (2 * Game.getDifficultyId()));
-            int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore().getType().castToInt());
+        game.getQuestSystem().fireEvent(ON_DETERMINE_RANDOM_ENCOUNTER, opponents);
 
-            // encounters are half as likely if you're in a flea.
-            if (commander.getShip().getType() == ShipType.FLEA) {
-                encounter *= 2;
-            }
+        // Check if it is time for an encounter
+        int encounter = Functions.getRandom(44 - (2 * Game.getDifficultyId()));
+        int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore().getType().castToInt());
 
-            if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()) {
-                // When you are already raided, other pirates have little to gain
-                opponents.setPirate(!game.getRaided());
-            } else if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
-                    + game.getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier) {
-                // policeModifier adapts itself to your criminal record: you'll
-                // encounter more police if you are a hardened criminal.
-                opponents.setPolice(true);
-            } else if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
-                    + game.getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier
-                    + game.getWarpSystem().getPoliticalSystem().getActivityTraders().castToInt()) {
-                opponents.setTrader(true);
-            } else if (commander.getShip().isArtifactOnBoard() && Functions.getRandom(20) <= 3) {
-                opponents.setMantis(true);
-            }
+        // encounters are half as likely if you're in a flea.
+        if (commander.getShip().getType() == ShipType.FLEA) {
+            encounter *= 2;
+        }
 
-            game.getQuestSystem().fireEvent(ON_DETERMINE_RANDOM_ENCOUNTER, opponents);
+        if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()) {
+            // When you are already raided, other pirates have little to gain
+            opponents.setPirate(!game.getRaided());
+        } else if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
+                + game.getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier) {
+            // policeModifier adapts itself to your criminal record: you'll
+            // encounter more police if you are a hardened criminal.
+            opponents.setPolice(true);
+        } else if (encounter < game.getWarpSystem().getPoliticalSystem().getActivityPirates().castToInt()
+                + game.getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier
+                + game.getWarpSystem().getPoliticalSystem().getActivityTraders().castToInt()) {
+            opponents.setTrader(true);
+        } else if (commander.getShip().isArtifactOnBoard() && Functions.getRandom(20) <= 3) {
+            opponents.setMantis(true);
         }
 
         if (opponents.isPolice()) {
@@ -213,9 +207,7 @@ public class Encounter implements Serializable {
         } else if (commander.getDays() > 10 && Functions.getRandom(1000) < getChanceOfVeryRareEncounter()
                 && getVeryRareEncounters().size() > 0) {
             return isDetermineVeryRareEncounter();
-        } else {
-            return false;
-        }
+        } else return false;
     }
 
     private boolean isDetermineTraderEncounter() {
@@ -225,6 +217,7 @@ public class Encounter implements Serializable {
         setEncounterType(EncounterType.TRADER_IGNORE);
         if (!commander.getShip().isCloaked()) {
             // If you're a criminal, traders tend to flee if you've got at least some reputation
+            //TODO duplicated code?
             if (!commander.getShip().isCloaked()
                     && commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreCriminal
                     && Functions.getRandom(Consts.ReputationScoreElite) <= (commander.getReputationScore() * 10)

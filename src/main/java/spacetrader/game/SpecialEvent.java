@@ -22,13 +22,6 @@ public class SpecialEvent {
     public final static int STATUS_EXPERIMENT_PERFORMED = 12;
     public final static int STATUS_EXPERIMENT_CANCELLED = 13;
 
-    public final static int STATUS_GEMULON_NOT_STARTED = 0;
-    public final static int STATUS_GEMULON_STARTED = 1;
-    public final static int STATUS_GEMULON_DATE = 7;
-    public final static int STATUS_GEMULON_TOO_LATE = 8;
-    public final static int STATUS_GEMULON_FUEL = 9;
-    public final static int STATUS_GEMULON_DONE = 10;
-
     private SpecialEventType type;
     private int price;
     private int occurrence;
@@ -39,19 +32,6 @@ public class SpecialEvent {
         this.price = price;
         this.occurrence = occurrence;
         this.messageOnly = messageOnly;
-    }
-
-    public StarSystem getLocation() {
-        StarSystem location = null;
-        StarSystem[] universe = Game.getCurrentGame().getUniverse();
-
-        for (int i = 0; i < universe.length && location == null; i++) {
-            if (universe[i].getSpecialEventType() == getType()) {
-                location = universe[i];
-            }
-        }
-
-        return location;
     }
 
     public boolean isMessageOnly() {

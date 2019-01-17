@@ -86,7 +86,6 @@ public class FormsTest extends SpaceTraderForm {
             Game.getShip().setWeapons(new Weapon[Game.getShip().getWeaponSlots()]);
             Game.getShip().setShields(new Shield[Game.getShip().getShieldSlots()]);
             Game.getShip().setGadgets(new Gadget[Game.getShip().getGadgetSlots()]);
-            game.setQuestStatusGemulon(1);
             Game.getCommander().setReputationScore(10);
 
             for (int i = 0; i < Consts.Weapons.length; i++) {

@@ -71,7 +71,6 @@ public class Game implements Serializable {
     private int questStatusArtifact = 0; // 0 = not given yet, 1 = Artifact on board, 2 = Artifact no longer on board (either delivered or lost)
     private int questStatusDragonfly = 0; // 0 = not available, 1 = Go to Baratas, 2 = Go to Melina, 3 = Go to Regulas, 4 = Go to Zalkon, 5 = Dragonfly destroyed, 6 = Got Shield
     private int questStatusExperiment = 0; // 0 = not given yet, 1-11 = days from start; 12 = performed, 13 = cancelled
-    private int questStatusGemulon = 0; // 0 = not given yet, 1-7 = days from start, 8 = too late, 9 = in time, 10 = done
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
@@ -372,14 +371,6 @@ public class Game implements Serializable {
 
     public void setRaided(boolean raided) {
         this.raided = raided;
-    }
-
-    public int getQuestStatusGemulon() {
-        return questStatusGemulon;
-    }
-
-    public void setQuestStatusGemulon(int questStatusGemulon) {
-        this.questStatusGemulon = questStatusGemulon;
     }
 
     public int getQuestStatusExperiment() {
@@ -904,24 +895,6 @@ public class Game implements Serializable {
                 setCanSuperWarp(true);
                 confirmQuestPhase();
                 break;
-            case Gemulon:
-                setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_STARTED);
-                confirmQuestPhase();
-                break;
-            case GemulonFuel:
-                if (commander.getShip().getFreeGadgetSlots() == 0) {
-                    GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                } else {
-                    GuiFacade.alert(AlertType.EquipmentFuelCompactor);
-                    commander.getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
-                    setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_DONE);
-                    confirmQuestPhase();
-                }
-                break;
-            case GemulonRescued:
-                setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_FUEL);
-                switchQuestPhase(SpecialEventType.GemulonFuel);
-                break;
         }
     }
 
@@ -935,7 +908,6 @@ public class Game implements Serializable {
     public void switchQuestPhase(SpecialEventType specialEventType) {
         commander.getCurrentSystem().setSpecialEventType(specialEventType);
     }
-
 
     public void incDays(int num) {
         commander.setDays(commander.getDays() + num);
@@ -953,17 +925,6 @@ public class Game implements Serializable {
                     Math.min(Consts.PoliceRecordScoreDubious, commander.getPoliceRecordScore() + num
                             / (getDifficultyId() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
                             : getDifficultyId())));
-        }
-
-        if (getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
-                && getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-            setQuestStatusGemulon(Math.min(getQuestStatusGemulon() + num, SpecialEvent.STATUS_GEMULON_TOO_LATE));
-            if (getQuestStatusGemulon() == SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-                StarSystem gemulon = getStarSystem(StarSystemId.Gemulon);
-                gemulon.setSpecialEventType(SpecialEventType.GemulonInvaded);
-                gemulon.setTechLevel(TechLevel.PRE_AGRICULTURAL);
-                gemulon.setPoliticalSystemType(PoliticalSystemType.ANARCHY);
-            }
         }
 
         if (getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
@@ -1050,7 +1011,6 @@ public class Game implements Serializable {
         getStarSystem(StarSystemId.Regulas).setSpecialEventType(SpecialEventType.DragonflyRegulas);
         getStarSystem(StarSystemId.Zalkon).setSpecialEventType(SpecialEventType.DragonflyDestroyed);
         getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentStopped);
-        getStarSystem(StarSystemId.Gemulon).setSpecialEventType(SpecialEventType.GemulonRescued);
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverseContainer);
 
@@ -1064,11 +1024,6 @@ public class Game implements Serializable {
             } else {
                 goodUniverseContainer.setValue(false);
             }
-        }
-
-        // Find the closest system at least 70 parsecs away from Gemulon that doesn't already have a special event.
-        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Gemulon, SpecialEventType.Gemulon) < 0) {
-            goodUniverseContainer.setValue(false);
         }
 
         // Find the closest system at least 70 parsecs away from Daled that doesn't already have a special event.
@@ -1472,7 +1427,6 @@ public class Game implements Serializable {
                 questStatusArtifact == game.questStatusArtifact &&
                 questStatusDragonfly == game.questStatusDragonfly &&
                 questStatusExperiment == game.questStatusExperiment &&
-                questStatusGemulon == game.questStatusGemulon &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
@@ -1500,10 +1454,9 @@ public class Game implements Serializable {
     public int hashCode() {
         int result = Objects.hash(commander, cheats, dragonfly, opponent,
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
-                paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
-                selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
-                questStatusDragonfly, questStatusExperiment, questStatusGemulon,
-                fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
+                paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus, selectedSystemId,
+                warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact, questStatusDragonfly,
+                questStatusExperiment, fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
         result = 31 * result + mercenaries.hashCode();

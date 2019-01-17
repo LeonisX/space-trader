@@ -227,6 +227,12 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Gemulon:
+* dump
+* clean strings
+* test all
+
+
 * Uncomment QuestNames
 * Ship name (FormViewShip) - Bottle :(
 

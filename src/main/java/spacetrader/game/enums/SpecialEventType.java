@@ -16,10 +16,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     Experiment, // = 10,
     ExperimentFailed, // = 11,
     ExperimentStopped, // = 12,
-    Gemulon, // = 13,
-    GemulonFuel, // = 14,
-    GemulonInvaded, // = 15,
-    GemulonRescued, // = 16,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

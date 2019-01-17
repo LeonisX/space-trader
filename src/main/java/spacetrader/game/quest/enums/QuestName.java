@@ -13,6 +13,7 @@ public enum QuestName {
     //Scarab,
     //Skill,
     Moon,
-    Japori
+    //Japori,
+    Gemulon
 
 }

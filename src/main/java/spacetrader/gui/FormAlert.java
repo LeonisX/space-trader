@@ -357,9 +357,6 @@ public class FormAlert extends SpaceTraderForm {
             case EquipmentExtraBaysInUse:
                 return new FormAlert(AlertsEquipmentExtraBaysInUseTitle, AlertsEquipmentExtraBaysInUseMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EquipmentFuelCompactor:
-                return new FormAlert(AlertsEquipmentFuelCompactorTitle, AlertsEquipmentFuelCompactorMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
             case EquipmentIF:
                 return new FormAlert(AlertsEquipmentIFTitle, AlertsEquipmentIFMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);

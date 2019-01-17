@@ -12,7 +12,7 @@ public class RandomEncounterContainer {
     }
 
     public void setMantis(boolean mantis) {
-        this.mantis = mantis;
+        this.mantis = mantis && isNotSet();
     }
 
     public boolean isPirate() {
@@ -20,7 +20,7 @@ public class RandomEncounterContainer {
     }
 
     public void setPirate(boolean pirate) {
-        this.pirate = pirate;
+        this.pirate = pirate && isNotSet();
     }
 
     public boolean isPolice() {
@@ -28,7 +28,7 @@ public class RandomEncounterContainer {
     }
 
     public void setPolice(boolean police) {
-        this.police = police;
+        this.police = police && isNotSet();
     }
 
     public boolean isTrader() {
@@ -36,6 +36,10 @@ public class RandomEncounterContainer {
     }
 
     public void setTrader(boolean trader) {
-        this.trader = trader;
+        this.trader = trader && isNotSet();
+    }
+
+    private boolean isNotSet() {
+        return !(police || pirate || trader || mantis);
     }
 }

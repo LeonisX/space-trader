@@ -190,8 +190,6 @@ public class Strings {
     public static String AlertsEquipmentEscapePodMessage = "Do you want to buy an escape pod for 2000 credits?";
     public static String AlertsEquipmentExtraBaysInUseTitle = "Cargo Bays Full";
     public static String AlertsEquipmentExtraBaysInUseMessage = "The extra cargo bays are still filled with goods. You can only sell them when they're empty.";
-    public static String AlertsEquipmentFuelCompactorTitle = "Fuel Compactor";
-    public static String AlertsEquipmentFuelCompactorMessage = "You now have a fuel compactor installed on your ship.";
     public static String AlertsEquipmentIFTitle = "Not Enough Money";
     public static String AlertsEquipmentIFMessage = "You don't have enough money to spend on this item.";
     public static String AlertsEquipmentLightningShieldTitle = "Lightning Shield";
@@ -357,7 +355,6 @@ public class Strings {
     public static String CheatsArtifact = "Artifact";
     public static String CheatsDragonfly = "Dragonfly";
     public static String CheatsExperiment = "Experiment";
-    public static String CheatsGemulon = "Gemulon";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -461,9 +458,6 @@ public class Strings {
     public static String QuestDragonflyZalkon = "Follow the Dragonfly to Zalkon.";
     public static String QuestExperimentInformDays = "Stop Dr. Fehler's experiment at Daled within ^1.";
     public static String QuestExperimentInformTomorrow = "Stop Dr. Fehler's experiment at Daled by tomorrow.";
-    public static String QuestGemulonFuel = "Get your fuel compactor at Gemulon.";
-    public static String QuestGemulonInformDays = "Inform Gemulon about alien invasion within ^1.";
-    public static String QuestGemulonInformTomorrow = "Inform Gemulon about alien invasion by tomorrow.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -601,9 +595,6 @@ public class Strings {
             "Travelers Report Timespace Damage, Warp Problems!",
             "Scientists cancel High-profile Test! Committee to Investigate Design.",
             "Travelers Claim Sighting of Ship Materializing in Orbit!",
-            "Editorial: Who Will Warn Gemulon?",
-            "Alien Invasion Devastates Planet!",
-            "Invasion Imminent! Plans in Place to Repel Hostile Invaders.",
             "Thug Assaults Captain Ahab!",
             "Destruction of Captain Ahab's Ship Causes Anger!",
             "Captain Conrad Comes Under Attack By Criminal!",
@@ -741,10 +732,7 @@ public class Strings {
             "While reviewing the plans for Dr. Fehler's new space-warping drive, Dr. Lowenstam discovered a critical error. If you don't go to Daled and stop the experiment within ten days, the time-space continuum itself could be damaged!",
             "Dr. Fehler can't understand why the experiment failed. But the failure has had a dramatic and disastrous effect on the fabric of space-time itself. It seems that Dr. Fehler won't be getting tenure any time soon... and you may have trouble when you warp!",
             "Upon your warning, Dr. Fehler calls off the experiment. As your  reward, you are given a Portable Singularity. This device will, for one time only, instantaneously transport you to any system in the galaxy. The Singularity can be accessed  by clicking the \"J\" (Jump) button on the Galactic Chart.",
-            "We received word that aliens will invade Gemulon seven days from now. We know exactly at which coordinates they will arrive, but we can't warn Gemulon because an ion storm disturbs all forms of communication. We need someone, anyone, to deliver this info to Gemulon within six days.",
-            "Do you wish us to install the fuel compactor on your current ship? (You need a free gadget slot)",
-            "Alas, Gemulon has been invaded by aliens, which has thrown us back to pre-agricultural times. If only we had known the exact coordinates where they first arrived at our system, we might have prevented this tragedy from happening.",
-            "This information of the arrival of the alien invasion force allows us to prepare a defense. You have saved our way of life. As a reward, we have a fuel compactor gadget for you, which will increase the travel distance by 3 parsecs for any ship. Return here to get it installed."
+
             };
 
     public static String[] QuestPhaseTitles = new String[]{
@@ -752,8 +740,6 @@ public class Strings {
             "Dragonfly", "Dragonfly Destroyed", "Weird Ship", "Lightning Ship",
             "Lightning Shield", "Strange Ship", "Erase Record",
             "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
-            "Alien Invasion", "Fuel Compactor", "Gemulon Invaded",
-            "Gemulon Rescued",
             //TODO delete
             "ASSIGNED"};
 

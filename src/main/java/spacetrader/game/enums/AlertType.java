@@ -79,7 +79,6 @@ public enum AlertType implements SpaceTraderEnum {
     EquipmentBuy,
     EquipmentEscapePod,
     EquipmentExtraBaysInUse,
-    EquipmentFuelCompactor,
     EquipmentIF,
     EquipmentLightningShield,
     EquipmentNotEnoughSlots,

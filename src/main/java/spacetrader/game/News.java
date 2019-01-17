@@ -73,18 +73,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.ExperimentStopped.castToInt());
                     }
                     break;
-                case Gemulon:
-                    addEvent(NewsEvent.Gemulon.castToInt());
-                    break;
-                case GemulonRescued:
-                    if (Game.getCurrentGame().getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED) {
-                        if (Game.getCurrentGame().getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE) {
-                            addEvent(NewsEvent.GemulonRescued.castToInt());
-                        } else {
-                            addEvent(NewsEvent.GemulonInvaded.castToInt());
-                        }
-                    }
-                    break;
             }
         }
     }
