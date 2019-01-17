@@ -289,8 +289,6 @@ public class Strings {
     public static String AlertsShipDesignThanksMessage = "^1 thanks you for your business!";
     public static String AlertsSpecialCleanRecordTitle = "Clean Record";
     public static String AlertsSpecialCleanRecordMessage = "The hacker resets your police record to Clean.";
-    public static String AlertsSpecialExperimentPerformedTitle = "Experiment Performed";
-    public static String AlertsSpecialExperimentPerformedMessage = "The galaxy is abuzz with news of a terrible malfunction in Dr. Fehler's laboratory. Evidently, he was not warned in time and he performed his experiment... with disastrous results!";
     public static String AlertsSpecialIFTitle = "Not Enough Money";
     public static String AlertsSpecialIFMessage = "You don't have enough cash to spend to accept this offer.";
     public static String AlertsSpecialNoQuartersTitle = "No Free Quarters";
@@ -301,8 +299,6 @@ public class Strings {
     public static String AlertsSpecialPassengerOnBoardMessage = "You have taken ^1 on board. While on board ^1 will lend you expertise, but may stop helping if the journey takes too long.";
     public static String AlertsSpecialSealedCanistersTitle = "Sealed Canisters";
     public static String AlertsSpecialSealedCanistersMessage = "You bought the sealed canisters and put them in your cargo bays.";
-    public static String AlertsSpecialTimespaceFabricRipTitle = "Timespace Fabric Rip";
-    public static String AlertsSpecialTimespaceFabricRipMessage = "You have flown through a tear in the timespace continuum caused by Dr. Fehler's failed experiment. You may not have reached" + Strings.newline + "your planned destination!";
     public static String AlertsSpecialTrainingCompletedTitle = "Training Completed";
     public static String AlertsSpecialTrainingCompletedMessage = "After a few hours of training with a top expert, you feel your abilities have improved significantly.";
     public static String AlertsTravelArrivalTitle = "Arrival";
@@ -354,7 +350,6 @@ public class Strings {
     public static String CheatsVeryRareEncountersRemaining = "Remaining Very Rare Encounters";
     public static String CheatsArtifact = "Artifact";
     public static String CheatsDragonfly = "Dragonfly";
-    public static String CheatsExperiment = "Experiment";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -456,8 +451,6 @@ public class Strings {
     public static String QuestDragonflyRegulas = "Follow the Dragonfly to Regulas.";
     public static String QuestDragonflyShield = "Get your lightning shield at Zalkon.";
     public static String QuestDragonflyZalkon = "Follow the Dragonfly to Zalkon.";
-    public static String QuestExperimentInformDays = "Stop Dr. Fehler's experiment at Daled within ^1.";
-    public static String QuestExperimentInformTomorrow = "Stop Dr. Fehler's experiment at Daled by tomorrow.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -495,7 +488,6 @@ public class Strings {
     public static String ShipyardWelcome = "Welcome to ^1 Shipyards! Our best engineer, ^2, is at your service.";
 
     public static String SpecialCargoArtifact = "An alien artifact.";
-    public static String SpecialCargoExperiment = "A portable singularity.";
     public static String SpecialCargoNone = "No special items.";
 
     public static String StatusBarBays = "Bays:";
@@ -591,9 +583,6 @@ public class Strings {
             "Rumors Continue: Melina Orbitted by Odd Starcraft.",
             "Strange Ship Observed in Regulas Orbit.",
             "Unidentified Ship: A Threat to Zalkon?",
-            "Huge Explosion Reported at Research Facility.",
-            "Travelers Report Timespace Damage, Warp Problems!",
-            "Scientists cancel High-profile Test! Committee to Investigate Design.",
             "Travelers Claim Sighting of Ship Materializing in Orbit!",
             "Thug Assaults Captain Ahab!",
             "Destruction of Captain Ahab's Ship Causes Anger!",
@@ -728,18 +717,13 @@ public class Strings {
             "A ship with shields that seemed to be like lightning recently fought many other ships in our system. I have never seen anything like it before. After it left, I heard it went to the Regulas system.",
             "A small ship with shields like I have never seen before was here a few days ago. It destroyed at least ten police ships! Last thing I heard was that it went to the Zalkon system.",
             "Colonel Jackson here. Do you want us to install a lightning shield on your current ship?",
-            "A hacker conveys to you that he has cracked the passwords to the galaxy-wide police computer network, and that he can erase your police record for the sum of 5000 credits. Do you want him to do that?",
-            "While reviewing the plans for Dr. Fehler's new space-warping drive, Dr. Lowenstam discovered a critical error. If you don't go to Daled and stop the experiment within ten days, the time-space continuum itself could be damaged!",
-            "Dr. Fehler can't understand why the experiment failed. But the failure has had a dramatic and disastrous effect on the fabric of space-time itself. It seems that Dr. Fehler won't be getting tenure any time soon... and you may have trouble when you warp!",
-            "Upon your warning, Dr. Fehler calls off the experiment. As your  reward, you are given a Portable Singularity. This device will, for one time only, instantaneously transport you to any system in the galaxy. The Singularity can be accessed  by clicking the \"J\" (Jump) button on the Galactic Chart.",
-
+            "A hacker conveys to you that he has cracked the passwords to the galaxy-wide police computer network, and that he can erase your police record for the sum of 5000 credits. Do you want him to do that?"
             };
 
     public static String[] QuestPhaseTitles = new String[]{
             "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
             "Dragonfly", "Dragonfly Destroyed", "Weird Ship", "Lightning Ship",
             "Lightning Shield", "Strange Ship", "Erase Record",
-            "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
             //TODO delete
             "ASSIGNED"};
 

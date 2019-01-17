@@ -34,7 +34,7 @@ public enum SomeStringsForCheatSwitch {
     Status,
     Artifact,
     Dragonfly,
-    Experiment,
+    //Experiment,
     Gemulon,
     //Japori,
     //Jarek,

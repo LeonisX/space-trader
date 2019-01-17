@@ -16,12 +16,6 @@ public class SpecialEvent {
     public final static int STATUS_DRAGONFLY_DESTROYED = 5;
     public final static int STATUS_DRAGONFLY_DONE = 6;
 
-    public final static int STATUS_EXPERIMENT_NOT_STARTED = 0;
-    public final static int STATUS_EXPERIMENT_STARTED = 1;
-    public final static int STATUS_EXPERIMENT_DATE = 11;
-    public final static int STATUS_EXPERIMENT_PERFORMED = 12;
-    public final static int STATUS_EXPERIMENT_CANCELLED = 13;
-
     private SpecialEventType type;
     private int price;
     private int occurrence;

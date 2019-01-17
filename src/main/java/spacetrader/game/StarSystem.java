@@ -99,7 +99,6 @@ public class StarSystem implements Serializable {
         switch (getSpecialEventType()) {
             case Artifact:
             case Dragonfly:
-            case Experiment:
                 show = Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
                 break;
             case ArtifactDelivery:
@@ -124,15 +123,10 @@ public class StarSystem implements Serializable {
                         && game.getQuestStatusDragonfly() < SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
                 break;
             case DragonflyShield:
-            case ExperimentFailed:
                 show = true;
                 break;
             case EraseRecord:
                 show = Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
-                break;
-            case ExperimentStopped:
-                show = game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
-                        && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED;
                 break;
         }
 

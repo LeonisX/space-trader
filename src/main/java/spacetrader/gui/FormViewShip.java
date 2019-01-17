@@ -196,10 +196,6 @@ public class FormViewShip extends SpaceTraderForm {
 
         game.getQuestSystem().fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO, specialCargo);
 
-        if (game.getCanSuperWarp()) {
-            specialCargo.add(Strings.SpecialCargoExperiment);
-        }
-
         specialCargoLabelValue.setText(specialCargo.size() == 0 ? Strings.SpecialCargoNone
                 : String.join(Strings.newline + Strings.newline, specialCargo));
     }

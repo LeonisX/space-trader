@@ -227,6 +227,75 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+
+## Experiment Quest
+
+# Quest phases:
+PhaseExperimentTitle=Dangerous Experiment
+PhaseExperimentMessage=While reviewing the plans for Dr. Fehler's new space-warping drive, Dr. Lowenstam discovered a critical error. If you don't go to Daled and stop the experiment within ten days, the time-space continuum itself could be damaged!
+PhaseExperimentFailedTitle=Experiment Failed
+PhaseExperimentFailedMessage=Dr. Fehler can't understand why the experiment failed. But the failure has had a dramatic and disastrous effect on the fabric of space-time itself. It seems that Dr. Fehler won't be getting tenure any time soon... and you may have trouble when you warp!
+PhaseExperimentStoppedTitle=Disaster Averted
+PhaseExperimentStoppedMessage=Upon your warning, Dr. Fehler calls off the experiment. As your  reward, you are given a Portable Singularity. This device will, for one time only, instantaneously transport you to any system in the galaxy. The Singularity can be accessed  by clicking the "J" (Jump) button on the Galactic Chart.
+
+# Quest clues:
+QuestExperimentInformDays=Stop Dr. Fehler's experiment at Daled within ^1.
+QuestExperimentInformTomorrow=Stop Dr. Fehler's experiment at Daled by tomorrow.
+
+# Alerts:
+AlertExperimentPerformedTitle=Experiment Performed
+AlertExperimentPerformedMessage=The galaxy is abuzz with news of a terrible malfunction in Dr. Fehler's laboratory. Evidently, he was not warned in time and he performed his experiment... with disastrous results!
+AlertTimespaceFabricRipTitle=Timespace Fabric Rip
+AlertTimespaceFabricRipMessage=You have flown through a tear in the timespace continuum caused by Dr. Fehler's failed experiment. You may not have reached<BR>your planned destination!
+
+# News:
+NewsExperimentFailed=Huge Explosion Reported at Research Facility.
+NewsExperimentPerformed=Travelers Report Timespace Damage, Warp Problems!
+NewsExperimentStopped=Scientists cancel High-profile Test! Committee to Investigate Design.
+
+# Special Cargo Titles:
+SpecialCargoPortableSingularity=A portable singularity.
+
+# Cheat Titles:
+CheatExperiment=Experiment
+
+
+=========================================================
+
+
+
+## Experiment Quest
+
+# Quest phases:
+PhaseExperimentTitle=Опасный эксперимент
+PhaseExperimentMessage=Изучая чертежи нового варп-двигателя доктора Фелера, доктор Лоуэнстам обнаружил критическую ошибку. Если вы немедленно не вылетите в систему Далед и не остановите эксперимент в течение десяти дней, то пространственно-временной континуум может быть поврежден!
+PhaseExperimentFailedTitle=Эксперимент провалился
+PhaseExperimentFailedMessage=Доктор Фелер не может понять, почему эксперимент провалился. Но эта неудача оказала драматическое и катастрофическое воздействие на ткань пространства-времени. Похоже, что доктор Фелер в ближайшее время будет отстранён от разработки... а у вас, во время варп-прыжков, могут возникать проблемы!
+PhaseExperimentStoppedTitle=Аварийное предупреждение
+PhaseExperimentStoppedMessage=После вашего предупреждения доктор Фелер остановил эксперимент. В качестве награды вам вручается портативная сингулярность. Это устройство может один раз мгновенно перенести вас в любую систему в галактике. Активизировать сингулярность можно нажатием клавиши "J" (Прыжок) на Галактической карте.
+
+# Quest clues:
+QuestExperimentInformDays=В течении ^1 остановить эксперимент доктора Фелера в системе Далед.
+QuestExperimentInformTomorrow=До завтра остановить эксперимент доктора Фелера в системе Далед.
+
+# Alerts:
+AlertExperimentPerformedTitle=Эксперимент состоялся
+AlertExperimentPerformedMessage=Галактика взбудоражена новостями об ужасной неисправности в лаборатории доктора Фелера. По-видимому, он не был предупреждён в срок, и запустил свой эксперимент... с катастрофическими последствиями!
+AlertTimespaceFabricRipTitle=Пространственно-временная ткань разорвана
+AlertTimespaceFabricRipMessage=Вы пролетели сквозь разрыв в пространственно-временном континууме, образовавшийся после неудавшегося эксперимента доктора Фелера. Вероятно, вам не удалось достичь запланированного пункта назначения!
+
+# News:
+NewsExperimentFailed=В исследовательской лаборатории был зарегистрирован мощнейший взрыв.
+NewsExperimentPerformed=Путешественники сообщают о повреждении пространства-времени, проблемах с варпом!
+NewsExperimentStopped=Учёные отменили выдающееся исследование! Создан комитет по анализу расчётов.
+
+# Special Cargo Titles:
+SpecialCargoPortableSingularity=Портативная сингулярность.
+
+# Cheat Titles:
+CheatExperiment=Эксперимент
+
+* Test all
 * Uncomment QuestNames
 * Ship name (FormViewShip) - Bottle :(
 

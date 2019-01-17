@@ -94,18 +94,6 @@ public class FormViewQuests extends SpaceTraderForm {
     private List<String> getQuestStrings() {
         ArrayList<String> quests = new ArrayList<>(12);
 
-        if (game.getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
-                && game.getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_DATE) {
-            if (game.getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_DATE - 1) {
-                quests.add(Strings.QuestExperimentInformTomorrow);
-            } else {
-                quests.add(Functions.stringVars(
-                        Strings.QuestExperimentInformDays, Functions.plural(
-                                SpecialEvent.STATUS_EXPERIMENT_DATE
-                                        - game.getQuestStatusExperiment(), Strings.TimeUnit)));
-            }
-        }
-
         switch (game.getQuestStatusDragonfly()) {
             case SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS:
                 quests.add(Strings.QuestDragonflyBaratas);

@@ -64,15 +64,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.DragonflyRegulas.castToInt());
                     }
                     break;
-                case ExperimentFailed:
-                    addEvent(NewsEvent.ExperimentFailed.castToInt());
-                    break;
-                case ExperimentStopped:
-                    if (Game.getCurrentGame().getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
-                            && Game.getCurrentGame().getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
-                        addEvent(NewsEvent.ExperimentStopped.castToInt());
-                    }
-                    break;
             }
         }
     }

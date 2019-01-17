@@ -70,7 +70,6 @@ public class Game implements Serializable {
     private int[] priceCargoSell = new int[10]; // Status of Quests
     private int questStatusArtifact = 0; // 0 = not given yet, 1 = Artifact on board, 2 = Artifact no longer on board (either delivered or lost)
     private int questStatusDragonfly = 0; // 0 = not available, 1 = Go to Baratas, 2 = Go to Melina, 3 = Go to Regulas, 4 = Go to Zalkon, 5 = Dragonfly destroyed, 6 = Got Shield
-    private int questStatusExperiment = 0; // 0 = not given yet, 1-11 = days from start; 12 = performed, 13 = cancelled
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
@@ -122,7 +121,7 @@ public class Game implements Serializable {
         cheats = new GameCheats();
         if (name.length() == 0) {
             // TODO: JAF - DEBUG
-            commander.setCash(1000000);
+            commander.setCash(2000000);
             cheats.setCheatMode(true);
             encounter.setEasyEncounters(true);
             setCanSuperWarp(true);
@@ -373,14 +372,6 @@ public class Game implements Serializable {
         this.raided = raided;
     }
 
-    public int getQuestStatusExperiment() {
-        return questStatusExperiment;
-    }
-
-    public void setQuestStatusExperiment(int questStatusExperiment) {
-        this.questStatusExperiment = questStatusExperiment;
-    }
-
     public int getQuestStatusDragonfly() {
         return questStatusDragonfly;
     }
@@ -457,7 +448,7 @@ public class Game implements Serializable {
         this.inspected = inspected;
     }
 
-    private int getFabricRipProbability() {
+    public int getFabricRipProbability() {
         return fabricRipProbability;
     }
 
@@ -883,18 +874,6 @@ public class Game implements Serializable {
                 recalculateSellPrices();
                 confirmQuestPhase();
                 break;
-            case Experiment:
-                setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_STARTED);
-                confirmQuestPhase();
-                break;
-            case ExperimentFailed:
-                confirmQuestPhase();
-                break;
-            case ExperimentStopped:
-                setQuestStatusExperiment(SpecialEvent.STATUS_EXPERIMENT_CANCELLED);
-                setCanSuperWarp(true);
-                confirmQuestPhase();
-                break;
         }
     }
 
@@ -925,20 +904,6 @@ public class Game implements Serializable {
                     Math.min(Consts.PoliceRecordScoreDubious, commander.getPoliceRecordScore() + num
                             / (getDifficultyId() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
                             : getDifficultyId())));
-        }
-
-        if (getQuestStatusExperiment() > SpecialEvent.STATUS_EXPERIMENT_NOT_STARTED
-                && getQuestStatusExperiment() < SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
-            setQuestStatusExperiment(Math.min(getQuestStatusExperiment() + num, SpecialEvent.STATUS_EXPERIMENT_PERFORMED));
-            if (getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_PERFORMED) {
-                setFabricRipProbability(Consts.FabricRipInitialProbability);
-                getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentFailed);
-                GuiFacade.alert(AlertType.SpecialExperimentPerformed);
-                news.addEvent(NewsEvent.ExperimentPerformed);
-            }
-        } else if (getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_PERFORMED
-                && getFabricRipProbability() > 0) {
-            setFabricRipProbability(getFabricRipProbability() - num);
         }
 
         IntContainer numContainer = new IntContainer(num);
@@ -1010,7 +975,6 @@ public class Game implements Serializable {
         getStarSystem(StarSystemId.Melina).setSpecialEventType(SpecialEventType.DragonflyMelina);
         getStarSystem(StarSystemId.Regulas).setSpecialEventType(SpecialEventType.DragonflyRegulas);
         getStarSystem(StarSystemId.Zalkon).setSpecialEventType(SpecialEventType.DragonflyDestroyed);
-        getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentStopped);
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverseContainer);
 
@@ -1024,11 +988,6 @@ public class Game implements Serializable {
             } else {
                 goodUniverseContainer.setValue(false);
             }
-        }
-
-        // Find the closest system at least 70 parsecs away from Daled that doesn't already have a special event.
-        if (goodUniverseContainer.getValue() && isFindDistantSystem(StarSystemId.Daled, SpecialEventType.Experiment) < 0) {
-            goodUniverseContainer.setValue(false);
         }
 
         if (goodUniverseContainer.getValue()) {
@@ -1145,13 +1104,7 @@ public class Game implements Serializable {
 
     // Returns true if an encounter occurred.
     private boolean isTravel() {
-        // if timespace is ripped, we may switch the warp system here.
-        if (getQuestStatusExperiment() == SpecialEvent.STATUS_EXPERIMENT_PERFORMED
-                && getFabricRipProbability() > 0
-                && (getFabricRipProbability() == Consts.FabricRipInitialProbability || Functions.getRandom(100) < getFabricRipProbability())) {
-            GuiFacade.alert(AlertType.SpecialTimespaceFabricRip);
-            setSelectedSystemId(StarSystemId.fromInt(Functions.getRandom(getUniverse().length)));
-        }
+        questSystem.fireEvent(IS_TRAVEL);
 
         boolean uneventful = true;
         setRaided(false);
@@ -1207,8 +1160,7 @@ public class Game implements Serializable {
                 if (viaSingularity) {
                     news.addEvent(NewsEvent.ExperimentArrival);
                 } else {
-                    normalDeparture((viaSingularity || getArrivedViaWormhole())
-                            ? 0 : Functions.distance(commander.getCurrentSystem(), getWarpSystem()));
+                    normalDeparture(getArrivedViaWormhole() ? 0 : Functions.distance(commander.getCurrentSystem(), getWarpSystem()));
                 }
 
                 commander.getCurrentSystem().setCountDown(getCountDownStart());
@@ -1426,7 +1378,6 @@ public class Game implements Serializable {
                 targetWormhole == game.targetWormhole &&
                 questStatusArtifact == game.questStatusArtifact &&
                 questStatusDragonfly == game.questStatusDragonfly &&
-                questStatusExperiment == game.questStatusExperiment &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
@@ -1456,7 +1407,7 @@ public class Game implements Serializable {
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus, selectedSystemId,
                 warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact, questStatusDragonfly,
-                questStatusExperiment, fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
+                fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
         result = 31 * result + mercenaries.hashCode();

@@ -29,6 +29,7 @@ public enum EventName {
     IS_TRADE_SHIP,                              // Reactor. Before you sell / exchange ship
 
     ON_BEFORE_WARP,                             // Wild. It is possible to cancel the warp
+    IS_TRAVEL,                                  // Experiment.
     ON_DETERMINE_RANDOM_ENCOUNTER,              // Wild. The ability to influence the generation of encouters. For example, add hordes of police
     ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT,      // Wild. Ability to adjust the characteristics of the first member of the crew of the opponent ship
     ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES,     // Wild. The police will try to hunt you down with better ships if you are

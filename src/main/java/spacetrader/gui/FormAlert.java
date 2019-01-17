@@ -498,9 +498,6 @@ public class FormAlert extends SpaceTraderForm {
             case SpecialCleanRecord:
                 return new FormAlert(AlertsSpecialCleanRecordTitle, AlertsSpecialCleanRecordMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case SpecialExperimentPerformed:
-                return new FormAlert(AlertsSpecialExperimentPerformedTitle, AlertsSpecialExperimentPerformedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case SpecialIF:
                 return new FormAlert(AlertsSpecialIFTitle, AlertsSpecialIFMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -517,10 +514,6 @@ public class FormAlert extends SpaceTraderForm {
                 return new FormAlert(AlertsSpecialSealedCanistersTitle, AlertsSpecialSealedCanistersMessage,
                         AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);
-            case SpecialTimespaceFabricRip:
-                return new FormAlert(
-                        AlertsSpecialTimespaceFabricRipTitle, AlertsSpecialTimespaceFabricRipMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
             case SpecialTrainingCompleted:
                 return new FormAlert(AlertsSpecialTrainingCompletedTitle, AlertsSpecialTrainingCompletedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
