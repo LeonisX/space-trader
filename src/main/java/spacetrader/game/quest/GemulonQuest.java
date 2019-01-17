@@ -213,7 +213,6 @@ public class GemulonQuest extends AbstractQuest {
         }
     }
 
-
     class GemulonInvadedPhase extends Phase { //new SpecialEvent(SpecialEventType.GemulonInvaded, 0, 0, true),
         @Override
         public boolean canBeExecuted() {
@@ -223,8 +222,8 @@ public class GemulonQuest extends AbstractQuest {
         @Override
         public void successFlow() {
             log.fine("phase #4");
-            game.getQuestSystem().unSubscribeAll(getQuest());
             setQuestState(QuestState.FAILED);
+            questStatus.set(STATUS_GEMULON_DONE);
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
 
@@ -290,7 +289,7 @@ public class GemulonQuest extends AbstractQuest {
         } else if (phases.get(QuestPhases.GemulonRescued).isDesiredSystem()) {
             if (questStatus.get() > STATUS_GEMULON_NOT_STARTED && questStatus.get() < STATUS_GEMULON_TOO_LATE) {
                 result = News.GemulonRescued;
-            } else if (questStatus.get() == STATUS_GEMULON_TOO_LATE) {
+            } else if (questStatus.get() == STATUS_GEMULON_TOO_LATE || getQuestState() == QuestState.FAILED) {
                 result = News.GemulonInvaded;
             }
         }
