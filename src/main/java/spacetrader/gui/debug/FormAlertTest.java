@@ -36,7 +36,7 @@ public class FormAlertTest extends SpaceTraderForm {
     public FormAlertTest() {
         initializeComponent();
 
-        AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.AntidoteDestroyed.ordinal());
+        AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.ArrivalIFFuel.ordinal());
         for (AlertType type : alerts) {
             selAlertType.getItems().addElement(type);
         }

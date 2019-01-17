@@ -269,8 +269,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.GemulonFuel, 0, 0, false),
             new SpecialEvent(SpecialEventType.GemulonInvaded, 0, 0, true),
             new SpecialEvent(SpecialEventType.GemulonRescued, 0, 0, true),
-            new SpecialEvent(SpecialEventType.Japori, 0, 1, false),
-            new SpecialEvent(SpecialEventType.JaporiDelivery, 0, 0, true),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

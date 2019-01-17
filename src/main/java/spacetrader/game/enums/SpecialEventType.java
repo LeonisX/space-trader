@@ -20,8 +20,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     GemulonFuel, // = 14,
     GemulonInvaded, // = 15,
     GemulonRescued, // = 16,
-    Japori, // = 17,
-    JaporiDelivery, // = 18,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

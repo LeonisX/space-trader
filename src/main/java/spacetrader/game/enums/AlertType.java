@@ -3,9 +3,6 @@ package spacetrader.game.enums;
 public enum AlertType implements SpaceTraderEnum {
 
     Alert,
-    AntidoteOnBoard,
-    AntidoteDestroyed,
-    AntidoteTaken,
     AppStart,
     ArrivalBuyNewspaper,
     ArrivalIFFuel,

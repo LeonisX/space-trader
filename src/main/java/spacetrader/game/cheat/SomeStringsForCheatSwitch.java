@@ -36,7 +36,7 @@ public enum SomeStringsForCheatSwitch {
     Dragonfly,
     Experiment,
     Gemulon,
-    Japori,
+    //Japori,
     //Jarek,
     //Moon,
     //Reactor,

@@ -188,11 +188,7 @@ public class FormViewShip extends SpaceTraderForm {
     }
 
     private void displaySpecialCargo() {
-        ArrayList<String> specialCargo = new ArrayList<>(12);
-
-        if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-            specialCargo.add(Strings.SpecialCargoJapori);
-        }
+        List<String> specialCargo = new ArrayList<>(12);
 
         if (ship.isArtifactOnBoard()) {
             specialCargo.add(Strings.SpecialCargoArtifact);

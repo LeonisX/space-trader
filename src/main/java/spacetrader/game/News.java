@@ -85,16 +85,6 @@ public class News implements Serializable {
                         }
                     }
                     break;
-                case Japori:
-                    if (Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_NOT_STARTED) {
-                        addEvent(NewsEvent.Japori.castToInt());
-                    }
-                    break;
-                case JaporiDelivery:
-                    if (Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-                        addEvent(NewsEvent.JaporiDelivery.castToInt());
-                    }
-                    break;
             }
         }
     }

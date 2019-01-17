@@ -821,13 +821,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     public int getFilledCargoBays() {
         IntContainer filled = new IntContainer(getFilledNormalCargoBays());
-
-        if (isCommandersShip() && Game.getCurrentGame().getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-            filled.setValue(filled.getValue() + 10);
-        }
-
         Game.getCurrentGame().getQuestSystem().fireEvent(ON_GET_FILLED_CARGO_BAYS, filled);
-
         return filled.getValue();
     }
 

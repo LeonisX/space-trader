@@ -128,15 +128,6 @@ public class FormAlert extends SpaceTraderForm {
         switch (type) {
             case Alert:
                 return new FormAlert(AlertsAlertTitle, AlertsAlertMessage, AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case AntidoteOnBoard:
-                return new FormAlert(AlertsAntidoteOnBoardTitle, AlertsAntidoteOnBoardMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case AntidoteDestroyed:
-                return new FormAlert(AlertsAntidoteDestroyedTitle, AlertsAntidoteDestroyedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case AntidoteTaken:
-                return new FormAlert(AlertsAntidoteTakenTitle, AlertsAntidoteTakenMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case AppStart:
                 return new FormAlert(AlertsAppStartTitle, SPLASH_INDEX);
             case ArrivalBuyNewspaper:

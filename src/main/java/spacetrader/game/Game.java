@@ -72,7 +72,6 @@ public class Game implements Serializable {
     private int questStatusDragonfly = 0; // 0 = not available, 1 = Go to Baratas, 2 = Go to Melina, 3 = Go to Regulas, 4 = Go to Zalkon, 5 = Dragonfly destroyed, 6 = Got Shield
     private int questStatusExperiment = 0; // 0 = not given yet, 1-11 = days from start; 12 = performed, 13 = cancelled
     private int questStatusGemulon = 0; // 0 = not given yet, 1-7 = days from start, 8 = too late, 9 = in time, 10 = done
-    private int questStatusJapori = 0; // 0 = no disease, 1 = Go to Japori (always at least 10 medicine canisters), 2 = Assignment finished or canceled
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
@@ -175,11 +174,6 @@ public class Game implements Serializable {
         }
 
         questSystem.fireEvent(EventName.ON_ARRESTED);
-
-        if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-            GuiFacade.alert(AlertType.AntidoteTaken);
-            setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_DONE);
-        }
 
         if (commander.getCash() >= fineContainer.getValue()) {
             commander.setCash(commander.getCash() - fineContainer.getValue());
@@ -378,14 +372,6 @@ public class Game implements Serializable {
 
     public void setRaided(boolean raided) {
         this.raided = raided;
-    }
-
-    public int getQuestStatusJapori() {
-        return questStatusJapori;
-    }
-
-    public void setQuestStatusJapori(int questStatusJapori) {
-        this.questStatusJapori = questStatusJapori;
     }
 
     public int getQuestStatusGemulon() {
@@ -707,15 +693,6 @@ public class Game implements Serializable {
     public void escapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
 
-        if (getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-            int system;
-            for (system = 0; system < getUniverse().length
-                    && getStarSystem(system).getSpecialEventType() != SpecialEventType.Japori; system++) {
-            }
-            GuiFacade.alert(AlertType.AntidoteDestroyed, getStarSystem(system).getName());
-            setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_NOT_STARTED);
-        }
-
         if (commander.getShip().isArtifactOnBoard()) {
             GuiFacade.alert(AlertType.ArtifactLost);
             setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
@@ -945,21 +922,6 @@ public class Game implements Serializable {
                 setQuestStatusGemulon(SpecialEvent.STATUS_GEMULON_FUEL);
                 switchQuestPhase(SpecialEventType.GemulonFuel);
                 break;
-            case Japori:
-                // The japori quest should not be removed since you can fail and start it over again.
-                if (commander.getShip().getFreeCargoBays() < 10) {
-                    GuiFacade.alert(AlertType.CargoNoEmptyBays);
-                } else {
-                    GuiFacade.alert(AlertType.AntidoteOnBoard);
-                    setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_IN_TRANSIT);
-                }
-                break;
-            case JaporiDelivery:
-                setQuestStatusJapori(SpecialEvent.STATUS_JAPORI_DONE);
-                commander.increaseRandomSkill();
-                commander.increaseRandomSkill();
-                confirmQuestPhase();
-                break;
         }
     }
 
@@ -1089,7 +1051,6 @@ public class Game implements Serializable {
         getStarSystem(StarSystemId.Zalkon).setSpecialEventType(SpecialEventType.DragonflyDestroyed);
         getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ExperimentStopped);
         getStarSystem(StarSystemId.Gemulon).setSpecialEventType(SpecialEventType.GemulonRescued);
-        getStarSystem(StarSystemId.Japori).setSpecialEventType(SpecialEventType.JaporiDelivery);
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverseContainer);
 
@@ -1512,7 +1473,6 @@ public class Game implements Serializable {
                 questStatusDragonfly == game.questStatusDragonfly &&
                 questStatusExperiment == game.questStatusExperiment &&
                 questStatusGemulon == game.questStatusGemulon &&
-                questStatusJapori == game.questStatusJapori &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
@@ -1542,7 +1502,7 @@ public class Game implements Serializable {
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus,
                 selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
-                questStatusDragonfly, questStatusExperiment, questStatusGemulon, questStatusJapori,
+                questStatusDragonfly, questStatusExperiment, questStatusGemulon,
                 fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);

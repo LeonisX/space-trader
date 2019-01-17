@@ -227,6 +227,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Uncomment QuestNames
 * Ship name (FormViewShip) - Bottle :(
 
 ### Princess, Jarek, other quests

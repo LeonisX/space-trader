@@ -119,10 +119,6 @@ public class FormViewQuests extends SpaceTraderForm {
             }
         }
 
-        if (game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT) {
-            quests.add(Strings.QuestJaporiDeliver);
-        }
-
         switch (game.getQuestStatusDragonfly()) {
             case SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS:
                 quests.add(Strings.QuestDragonflyBaratas);

@@ -141,13 +141,6 @@ public class StarSystem implements Serializable {
                 show = game.getQuestStatusGemulon() > SpecialEvent.STATUS_GEMULON_NOT_STARTED
                         && game.getQuestStatusGemulon() < SpecialEvent.STATUS_GEMULON_TOO_LATE;
                 break;
-            case Japori:
-                show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_NOT_STARTED
-                        && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
-                break;
-            case JaporiDelivery:
-                show = game.getQuestStatusJapori() == SpecialEvent.STATUS_JAPORI_IN_TRANSIT;
-                break;
         }
 
         return show;

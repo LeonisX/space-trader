@@ -21,16 +21,9 @@ public class Strings {
     public static String AlertsNo = "No";
     public static String AlertsOk = "Ok";
     public static String AlertsYes = "Yes";
-
     public static String AlertsAlertTitle = "^1";
     public static String AlertsAlertMessage = "^2";
-    public static String AlertsAntidoteOnBoardTitle = "Antidote";
-    public static String AlertsAntidoteOnBoardMessage = "Ten of your cargo bays now contain antidote for the Japori system.";
-    public static String AlertsAntidoteDestroyedTitle = "Antidote Destroyed";
-    public static String AlertsAntidoteDestroyedMessage = "The antidote for the Japori system has been destroyed with your ship. You should return to ^1 and get some more.";
-    public static String AlertsAntidoteTakenTitle = "Antidote Taken";
-    public static String AlertsAntidoteTakenMessage = "The Space Corps removed the antidote for Japori from your ship and delivered it, fulfilling your assignment.";
-    public static String AlertsAppStartTitle = "Space Trader for Windows";
+    public static String AlertsAppStartTitle = "Space Trader for Java 8";
     public static String AlertsArrivalBuyNewspaperTitle = "Buy Newspaper?";
     public static String AlertsArrivalBuyNewspaperMessage = "The local newspaper costs ^1. Do you wish to buy a copy?";
     public static String AlertsArrivalBuyNewspaperAccept = "Buy Newspaper";
@@ -365,7 +358,6 @@ public class Strings {
     public static String CheatsDragonfly = "Dragonfly";
     public static String CheatsExperiment = "Experiment";
     public static String CheatsGemulon = "Gemulon";
-    public static String CheatsJapori = "Japori";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -472,7 +464,6 @@ public class Strings {
     public static String QuestGemulonFuel = "Get your fuel compactor at Gemulon.";
     public static String QuestGemulonInformDays = "Inform Gemulon about alien invasion within ^1.";
     public static String QuestGemulonInformTomorrow = "Inform Gemulon about alien invasion by tomorrow.";
-    public static String QuestJaporiDeliver = "Deliver antidote to Japori.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -511,7 +502,6 @@ public class Strings {
 
     public static String SpecialCargoArtifact = "An alien artifact.";
     public static String SpecialCargoExperiment = "A portable singularity.";
-    public static String SpecialCargoJapori = "10 bays of antidote.";
     public static String SpecialCargoNone = "No special items.";
 
     public static String StatusBarBays = "Bays:";
@@ -619,9 +609,7 @@ public class Strings {
             "Captain Conrad Comes Under Attack By Criminal!",
             "Captain Conrad's Ship Destroyed by Villain!",
             "Famed Captain Huie Attacked by Brigand!",
-            "Citizens Mourn Destruction of Captain Huie's Ship!",
-            "Editorial: We Must Help Japori!",
-            "Disease Antidotes Arrive! Health Officials Optimistic."
+            "Citizens Mourn Destruction of Captain Huie's Ship!"
     };
 
     public static String[][] NewsHeadlines = new String[][]{
@@ -756,9 +744,7 @@ public class Strings {
             "We received word that aliens will invade Gemulon seven days from now. We know exactly at which coordinates they will arrive, but we can't warn Gemulon because an ion storm disturbs all forms of communication. We need someone, anyone, to deliver this info to Gemulon within six days.",
             "Do you wish us to install the fuel compactor on your current ship? (You need a free gadget slot)",
             "Alas, Gemulon has been invaded by aliens, which has thrown us back to pre-agricultural times. If only we had known the exact coordinates where they first arrived at our system, we might have prevented this tragedy from happening.",
-            "This information of the arrival of the alien invasion force allows us to prepare a defense. You have saved our way of life. As a reward, we have a fuel compactor gadget for you, which will increase the travel distance by 3 parsecs for any ship. Return here to get it installed.",
-            "A strange disease has invaded the Japori system. We would like you to deliver these ten canisters of special antidote to Japori. Note that, if you accept, ten of your cargo bays will remain in use on your way to Japori. Do you accept this mission?",
-            "Thank you for delivering the medicine to us. We don't have any money to reward you, but we do have an alien fast-learning machine with which we will increase your skills.",
+            "This information of the arrival of the alien invasion force allows us to prepare a defense. You have saved our way of life. As a reward, we have a fuel compactor gadget for you, which will increase the travel distance by 3 parsecs for any ship. Return here to get it installed."
             };
 
     public static String[] QuestPhaseTitles = new String[]{
@@ -767,7 +753,7 @@ public class Strings {
             "Lightning Shield", "Strange Ship", "Erase Record",
             "Dangerous Experiment", "Experiment Failed", "Disaster Averted",
             "Alien Invasion", "Fuel Compactor", "Gemulon Invaded",
-            "Gemulon Rescued", "Japori Disease", "Medicine Delivery",
+            "Gemulon Rescued",
             //TODO delete
             "ASSIGNED"};
 

@@ -29,10 +29,6 @@ public class SpecialEvent {
     public final static int STATUS_GEMULON_FUEL = 9;
     public final static int STATUS_GEMULON_DONE = 10;
 
-    public final static int STATUS_JAPORI_NOT_STARTED = 0;
-    public final static int STATUS_JAPORI_IN_TRANSIT = 1;
-    public final static int STATUS_JAPORI_DONE = 2;
-
     private SpecialEventType type;
     private int price;
     private int occurrence;

@@ -4,7 +4,7 @@ public enum QuestName {
 
     //Lottery,
     //Jarek,
-    Princess,
+    //Princess,
     //Wild,
     Sculpture,
     Reactor,
@@ -12,6 +12,7 @@ public enum QuestName {
     //SpaceMonster,
     //Scarab,
     //Skill,
-    Moon
+    Moon,
+    Japori
 
 }
