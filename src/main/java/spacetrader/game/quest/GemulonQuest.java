@@ -50,8 +50,7 @@ public class GemulonQuest extends AbstractQuest {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
