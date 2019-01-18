@@ -868,12 +868,6 @@ public class Game implements Serializable {
                     confirmQuestPhase();
                 }
                 break;
-            case EraseRecord:
-                GuiFacade.alert(AlertType.SpecialCleanRecord);
-                commander.setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-                recalculateSellPrices();
-                confirmQuestPhase();
-                break;
         }
     }
 
@@ -1313,7 +1307,7 @@ public class Game implements Serializable {
         boolean found = false;
         for (int i = 0; i < getUniverse().length && !found; i++) {
             String name = getStarSystem(i).getName();
-            if (name.toLowerCase().contains(value.toLowerCase())) {
+            if (name.toLowerCase().equals(value.toLowerCase())) {
                 setSelectedSystemId(StarSystemId.fromInt(i));
                 found = true;
             }
