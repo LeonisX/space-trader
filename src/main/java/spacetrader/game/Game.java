@@ -879,7 +879,9 @@ public class Game implements Serializable {
 
     public void confirmQuestPhase() {
         StarSystem currentSystem = commander.getCurrentSystem();
-        commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
+        if (null != currentSystem.specialEvent()) {
+            commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
+        }
         currentSystem.setSpecialEventType(SpecialEventType.NA);
         questSystem.fireEvent(ON_AFTER_NEW_QUEST_STARTED);
     }
@@ -905,6 +907,8 @@ public class Game implements Serializable {
                             / (getDifficultyId() <= spacetrader.game.enums.Difficulty.NORMAL.castToInt() ? 1
                             : getDifficultyId())));
         }
+
+        news.resetEvents();
 
         IntContainer numContainer = new IntContainer(num);
 
@@ -1164,8 +1168,6 @@ public class Game implements Serializable {
                 }
 
                 commander.getCurrentSystem().setCountDown(getCountDownStart());
-
-                news.resetEvents();
 
                 calculatePrices(getWarpSystem());
 

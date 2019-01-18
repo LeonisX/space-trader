@@ -278,10 +278,11 @@ public class ExperimentQuest extends AbstractQuest {
         News result = null;
 
         if (phases.get(QuestPhases.ExperimentFailed).isDesiredSystem()) {
-            result = News.ExperimentFailed;
-        } else if (phases.get(QuestPhases.ExperimentStopped).isDesiredSystem()
-                && questStatus.get() > STATUS_EXPERIMENT_NOT_STARTED && questStatus.get() < STATUS_EXPERIMENT_PERFORMED) {
-            result = News.ExperimentStopped;
+            if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED) {
+                result = News.ExperimentFailed;
+            } else if (questStatus.get() > STATUS_EXPERIMENT_NOT_STARTED && questStatus.get() < STATUS_EXPERIMENT_PERFORMED) {
+                result = News.ExperimentStopped;
+            }
         }
 
         if (result != null) {
@@ -356,7 +357,7 @@ public class ExperimentQuest extends AbstractQuest {
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         ExperimentPerformed("Experiment Performed", "The galaxy is abuzz with news of a terrible malfunction in Dr. Fehler's laboratory. Evidently, he was not warned in time and he performed his experiment... with disastrous results!"),
-        TimespaceFabricRip("Timespace Fabric Rip", "You have flown through a tear in the timespace continuum caused by Dr. Fehler's failed experiment. You may not have reached" + Strings.newline + "your planned destination!");
+        TimespaceFabricRip("Timespace Fabric Rip", "You have flown through a tear in the timespace continuum caused by Dr. Fehler's failed experiment. You may not have reached your planned destination!");
 
         private AlertDialog value;
 
