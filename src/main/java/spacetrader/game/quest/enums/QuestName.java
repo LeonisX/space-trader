@@ -15,6 +15,7 @@ public enum QuestName {
     Moon,
     //Japori,
     //Gemulon
-    Experiment
+    //Experiment
+    EraseRecord
 
 }

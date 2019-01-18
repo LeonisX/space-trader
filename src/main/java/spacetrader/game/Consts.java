@@ -261,7 +261,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.DragonflyMelina, 0, 0, true),
             new SpecialEvent(SpecialEventType.DragonflyRegulas, 0, 0, true),
             new SpecialEvent(SpecialEventType.DragonflyShield, 0, 0, false),
-            new SpecialEvent(SpecialEventType.EraseRecord, 5000, 3, false),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 

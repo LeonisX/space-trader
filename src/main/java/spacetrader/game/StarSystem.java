@@ -125,9 +125,6 @@ public class StarSystem implements Serializable {
             case DragonflyShield:
                 show = true;
                 break;
-            case EraseRecord:
-                show = Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious;
-                break;
         }
 
         return show;

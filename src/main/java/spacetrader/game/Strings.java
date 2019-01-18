@@ -287,8 +287,6 @@ public class Strings {
     public static String AlertsShipDesignIFMessage = "You don't have enough money to create this design.";
     public static String AlertsShipDesignThanksTitle = "Thank you!";
     public static String AlertsShipDesignThanksMessage = "^1 thanks you for your business!";
-    public static String AlertsSpecialCleanRecordTitle = "Clean Record";
-    public static String AlertsSpecialCleanRecordMessage = "The hacker resets your police record to Clean.";
     public static String AlertsSpecialIFTitle = "Not Enough Money";
     public static String AlertsSpecialIFMessage = "You don't have enough cash to spend to accept this offer.";
     public static String AlertsSpecialNoQuartersTitle = "No Free Quarters";
@@ -717,13 +715,12 @@ public class Strings {
             "A ship with shields that seemed to be like lightning recently fought many other ships in our system. I have never seen anything like it before. After it left, I heard it went to the Regulas system.",
             "A small ship with shields like I have never seen before was here a few days ago. It destroyed at least ten police ships! Last thing I heard was that it went to the Zalkon system.",
             "Colonel Jackson here. Do you want us to install a lightning shield on your current ship?",
-            "A hacker conveys to you that he has cracked the passwords to the galaxy-wide police computer network, and that he can erase your police record for the sum of 5000 credits. Do you want him to do that?"
             };
 
     public static String[] QuestPhaseTitles = new String[]{
             "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
             "Dragonfly", "Dragonfly Destroyed", "Weird Ship", "Lightning Ship",
-            "Lightning Shield", "Strange Ship", "Erase Record",
+            "Lightning Shield", "Strange Ship",
             //TODO delete
             "ASSIGNED"};
 

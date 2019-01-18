@@ -495,9 +495,6 @@ public class FormAlert extends SpaceTraderForm {
             case ShipDesignThanks:
                 return new FormAlert(AlertsShipDesignThanksTitle, AlertsShipDesignThanksMessage, AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);
-            case SpecialCleanRecord:
-                return new FormAlert(AlertsSpecialCleanRecordTitle, AlertsSpecialCleanRecordMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
             case SpecialIF:
                 return new FormAlert(AlertsSpecialIFTitle, AlertsSpecialIFMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
