@@ -8,14 +8,6 @@ public class SpecialEvent {
     public final static int STATUS_ARTIFACT_ON_BOARD = 1;
     public final static int STATUS_ARTIFACT_DONE = 2;
 
-    public final static int STATUS_DRAGONFLY_NOT_STARTED = 0;
-    public final static int STATUS_DRAGONFLY_FLY_BARATAS = 1;
-    public final static int STATUS_DRAGONFLY_FLY_MELINA = 2;
-    public final static int STATUS_DRAGONFLY_FLY_REGULAS = 3;
-    public final static int STATUS_DRAGONFLY_FLY_ZALKON = 4;
-    public final static int STATUS_DRAGONFLY_DESTROYED = 5;
-    public final static int STATUS_DRAGONFLY_DONE = 6;
-
     private SpecialEventType type;
     private int price;
     private int occurrence;

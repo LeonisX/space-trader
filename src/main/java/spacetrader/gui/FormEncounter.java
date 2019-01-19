@@ -467,13 +467,11 @@ public class FormEncounter extends SpaceTraderForm {
                 visible.set(Buttons.IGNORE.ordinal(), true);
                 visible.set(Buttons.MEET.ordinal(), true);
                 break;
-            case DRAGONFLY_ATTACK:
             case FAMOUS_CAPTAIN_ATTACK:
             case TRADER_ATTACK:
                 visible.set(Buttons.ATTACK.ordinal(), true);
                 visible.set(Buttons.FLEE.ordinal(), true);
                 break;
-            case DRAGONFLY_IGNORE:
             case FAMOUS_CAPT_DISABLED:
             case POLICE_DISABLED:
             case POLICE_FLEE:

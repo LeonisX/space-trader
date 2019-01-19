@@ -39,31 +39,6 @@ public class News implements Serializable {
                         addEvent(NewsEvent.ArtifactDelivery.castToInt());
                     }
                     break;
-                case Dragonfly:
-                    addEvent(NewsEvent.Dragonfly.castToInt());
-                    break;
-                case DragonflyBaratas:
-                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS) {
-                        addEvent(NewsEvent.DragonflyBaratas.castToInt());
-                    }
-                    break;
-                case DragonflyDestroyed:
-                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON) {
-                        addEvent(NewsEvent.DragonflyZalkon.castToInt());
-                    } else if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_DESTROYED) {
-                        addEvent(NewsEvent.DragonflyDestroyed.castToInt());
-                    }
-                    break;
-                case DragonflyMelina:
-                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA) {
-                        addEvent(NewsEvent.DragonflyMelina.castToInt());
-                    }
-                    break;
-                case DragonflyRegulas:
-                    if (Game.getCurrentGame().getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_REGULAS) {
-                        addEvent(NewsEvent.DragonflyRegulas.castToInt());
-                    }
-                    break;
             }
         }
     }

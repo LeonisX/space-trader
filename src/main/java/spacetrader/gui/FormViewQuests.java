@@ -94,24 +94,6 @@ public class FormViewQuests extends SpaceTraderForm {
     private List<String> getQuestStrings() {
         ArrayList<String> quests = new ArrayList<>(12);
 
-        switch (game.getQuestStatusDragonfly()) {
-            case SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS:
-                quests.add(Strings.QuestDragonflyBaratas);
-                break;
-            case SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA:
-                quests.add(Strings.QuestDragonflyMelina);
-                break;
-            case SpecialEvent.STATUS_DRAGONFLY_FLY_REGULAS:
-                quests.add(Strings.QuestDragonflyRegulas);
-                break;
-            case SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON:
-                quests.add(Strings.QuestDragonflyZalkon);
-                break;
-            case SpecialEvent.STATUS_DRAGONFLY_DESTROYED:
-                quests.add(Strings.QuestDragonflyShield);
-                break;
-        }
-
         if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD) {
             quests.add(Strings.QuestArtifact);
         }

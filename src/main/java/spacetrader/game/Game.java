@@ -40,7 +40,6 @@ public class Game implements Serializable {
     private StarSystem[] universe;
     private int[] wormholes = new int[6];
     private Map<Integer, CrewMember> mercenaries = new HashMap<>();
-    private Ship dragonfly;
     private Ship opponent;
     private boolean opponentDisabled = false;
     private int chanceOfTradeInOrbit = 100;
@@ -69,7 +68,6 @@ public class Game implements Serializable {
     private int[] priceCargoBuy = new int[10];
     private int[] priceCargoSell = new int[10]; // Status of Quests
     private int questStatusArtifact = 0; // 0 = not given yet, 1 = Artifact on board, 2 = Artifact no longer on board (either delivered or lost)
-    private int questStatusDragonfly = 0; // 0 = not available, 1 = Go to Baratas, 2 = Go to Melina, 3 = Go to Regulas, 4 = Go to Zalkon, 5 = Dragonfly destroyed, 6 = Got Shield
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
@@ -110,9 +108,9 @@ public class Game implements Serializable {
         shipSpecs.remove(ShipType.QUEST.castToInt());
         questSystem.fireEvent(ON_AFTER_SHIP_SPECS_INITIALIZED);
 
-        dragonfly = new Ship(ShipType.DRAGONFLY);
         opponent = new Ship(ShipType.GNAT);
-        createShips();
+        // Here we create all quest ships
+        questSystem.fireEvent(ON_CREATE_SHIP);
 
         calculatePrices(commander.getCurrentSystem());
 
@@ -370,14 +368,6 @@ public class Game implements Serializable {
 
     public void setRaided(boolean raided) {
         this.raided = raided;
-    }
-
-    public int getQuestStatusDragonfly() {
-        return questStatusDragonfly;
-    }
-
-    public void setQuestStatusDragonfly(int questStatusDragonfly) {
-        this.questStatusDragonfly = questStatusDragonfly;
     }
 
     public int getQuestStatusArtifact() {
@@ -659,19 +649,6 @@ public class Game implements Serializable {
         commander.setNoClaim(0);
     }
 
-    private void createShips() {
-        getDragonfly().getCrew()[0] = mercenaries.get(CrewMemberId.DRAGONFLY.castToInt());
-        getDragonfly().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        getDragonfly().addEquipment(Consts.Weapons[WeaponType.PULSE_LASER.castToInt()]);
-        getDragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
-        getDragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
-        getDragonfly().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
-        getDragonfly().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
-        getDragonfly().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
-
-        questSystem.fireEvent(ON_CREATE_SHIP);
-    }
-
     public void escapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
 
@@ -711,7 +688,6 @@ public class Game implements Serializable {
         questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST, usedSystems);
 
         mercenaries.put(CrewMemberId.FAMOUS_CAPTAIN.castToInt(), new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10, 10, false, StarSystemId.NA));
-        mercenaries.put(CrewMemberId.DRAGONFLY.castToInt(), new CrewMember(CrewMemberId.DRAGONFLY, 4 + d, 6 + d, 1, 6 + d, false, StarSystemId.NA));
 
         // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
         for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, QUEST
@@ -848,26 +824,6 @@ public class Game implements Serializable {
                 commander.getPriceCargo()[tradeItem] += commander.getCurrentSystem().specialEvent().getPrice();
                 confirmQuestPhase();
                 break;
-            case Dragonfly:
-            case DragonflyBaratas:
-            case DragonflyMelina:
-            case DragonflyRegulas:
-                setQuestStatusDragonfly(getQuestStatusDragonfly() + 1);
-                confirmQuestPhase();
-                break;
-            case DragonflyDestroyed:
-                switchQuestPhase(SpecialEventType.DragonflyShield);
-                break;
-            case DragonflyShield:
-                if (commander.getShip().getFreeShieldSlots() == 0) {
-                    GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
-                } else {
-                    GuiFacade.alert(AlertType.EquipmentLightningShield);
-                    commander.getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
-                    setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DONE);
-                    confirmQuestPhase();
-                }
-                break;
         }
     }
 
@@ -967,35 +923,30 @@ public class Game implements Serializable {
     }
 
     private boolean isSpecialEventsInPlace() {
-        BooleanContainer goodUniverseContainer = new BooleanContainer(true);
+        BooleanContainer goodUniverse = new BooleanContainer(true);
 
-        getStarSystem(StarSystemId.Baratas).setSpecialEventType(SpecialEventType.DragonflyBaratas);
-        getStarSystem(StarSystemId.Melina).setSpecialEventType(SpecialEventType.DragonflyMelina);
-        getStarSystem(StarSystemId.Regulas).setSpecialEventType(SpecialEventType.DragonflyRegulas);
-        getStarSystem(StarSystemId.Zalkon).setSpecialEventType(SpecialEventType.DragonflyDestroyed);
-
-        questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverseContainer);
+        questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverse);
 
         // Find a Hi-Tech system without a special event for ArtifactDelivery.
-        if (goodUniverseContainer.getValue()) {
+        if (goodUniverse.getValue()) {
             Optional<StarSystem> freeHiTechSystem = Arrays.stream(getUniverse())
                     .filter(universe -> universe.getSpecialEventType() == SpecialEventType.NA
                             && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
             if (freeHiTechSystem.isPresent()) {
                 freeHiTechSystem.get().setSpecialEventType(SpecialEventType.ArtifactDelivery);
             } else {
-                goodUniverseContainer.setValue(false);
+                goodUniverse.setValue(false);
             }
         }
 
-        if (goodUniverseContainer.getValue()) {
-            questSystem.fireEvent(EventName.ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY, goodUniverseContainer);
+        if (goodUniverse.getValue()) {
+            questSystem.fireEvent(EventName.ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY, goodUniverse);
         }
 
         // Assign the rest of the events randomly.
         //TODO remove after all quests
         int system;
-        if (goodUniverseContainer.getValue()) {
+        if (goodUniverse.getValue()) {
             for (int i = 0; i < Consts.SpecialEvents.length; i++) {
                 for (int j = 0; j < Consts.SpecialEvents[i].getOccurrence(); j++) {
                     do {
@@ -1007,11 +958,11 @@ public class Game implements Serializable {
             }
         }
 
-        if (goodUniverseContainer.getValue()) {
+        if (goodUniverse.getValue()) {
             questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
         }
 
-        return goodUniverseContainer.getValue();
+        return goodUniverse.getValue();
     }
 
     public int isFindDistantSystem(StarSystemId baseSystem, SpecialEventType specEvent) {
@@ -1213,10 +1164,6 @@ public class Game implements Serializable {
         return ids;
     }
 
-    public Ship getDragonfly() {
-        return dragonfly;
-    }
-
     public int getInsuranceCosts() {
         return commander.getInsurance() ? (int) Math.max(1, commander.getShip().getBaseWorth(true) * Consts.InsRate
                 * (100 - commander.getNoClaim()) / 100) : 0;
@@ -1373,7 +1320,6 @@ public class Game implements Serializable {
                 autoSave == game.autoSave &&
                 targetWormhole == game.targetWormhole &&
                 questStatusArtifact == game.questStatusArtifact &&
-                questStatusDragonfly == game.questStatusDragonfly &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
@@ -1382,7 +1328,6 @@ public class Game implements Serializable {
                 Arrays.equals(universe, game.universe) &&
                 Arrays.equals(wormholes, game.wormholes) &&
                 mercenaries.equals(game.mercenaries) &&
-                Objects.equals(dragonfly, game.dragonfly) &&
                 Objects.equals(opponent, game.opponent) &&
                 Objects.equals(news, game.news) &&
                 difficulty == game.difficulty &&
@@ -1399,10 +1344,10 @@ public class Game implements Serializable {
     //TODO add all quests
     @Override
     public int hashCode() {
-        int result = Objects.hash(commander, cheats, dragonfly, opponent,
+        int result = Objects.hash(commander, cheats, opponent,
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus, selectedSystemId,
-                warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact, questStatusDragonfly,
+                warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
                 fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);

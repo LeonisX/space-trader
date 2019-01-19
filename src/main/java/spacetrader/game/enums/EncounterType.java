@@ -7,8 +7,6 @@ public enum EncounterType implements SpaceTraderEnum {
     CAPTAIN_AHAB, // = 2,
     CAPTAIN_CONRAD, // = 3,
     CAPTAIN_HUIE, // = 4,
-    DRAGONFLY_ATTACK, // = 5,
-    DRAGONFLY_IGNORE, // = 6,
     FAMOUS_CAPTAIN_ATTACK, // = 7,
     FAMOUS_CAPT_DISABLED, // = 8,
     MARIE_CELESTE, // = 9,

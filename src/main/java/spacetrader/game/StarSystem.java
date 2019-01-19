@@ -93,12 +93,10 @@ public class StarSystem implements Serializable {
     }
 
     public boolean showSpecialButton() {
-        Game game = Game.getCurrentGame();
         boolean show = false;
 
         switch (getSpecialEventType()) {
             case Artifact:
-            case Dragonfly:
                 show = Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
                 break;
             case ArtifactDelivery:
@@ -106,24 +104,6 @@ public class StarSystem implements Serializable {
                 break;
             case CargoForSale:
                 show = Game.getShip().getFreeCargoBays() >= 3;
-                break;
-            case DragonflyBaratas:
-                show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_NOT_STARTED
-                        && game.getQuestStatusDragonfly() < SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
-                break;
-            case DragonflyDestroyed:
-                show = game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
-                break;
-            case DragonflyMelina:
-                show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_FLY_BARATAS
-                        && game.getQuestStatusDragonfly() < SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
-                break;
-            case DragonflyRegulas:
-                show = game.getQuestStatusDragonfly() > SpecialEvent.STATUS_DRAGONFLY_FLY_MELINA
-                        && game.getQuestStatusDragonfly() < SpecialEvent.STATUS_DRAGONFLY_DESTROYED;
-                break;
-            case DragonflyShield:
-                show = true;
                 break;
         }
 

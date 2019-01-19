@@ -192,8 +192,6 @@ public class Strings {
     public static String AlertsEquipmentExtraBaysInUseMessage = "The extra cargo bays are still filled with goods. You can only sell them when they're empty.";
     public static String AlertsEquipmentIFTitle = "Not Enough Money";
     public static String AlertsEquipmentIFMessage = "You don't have enough money to spend on this item.";
-    public static String AlertsEquipmentLightningShieldTitle = "Lightning Shield";
-    public static String AlertsEquipmentLightningShieldMessage = "You now have one lightning shield installed on your ship.";
     public static String AlertsEquipmentNotEnoughSlotsTitle = "Not Enough Slots";
     public static String AlertsEquipmentNotEnoughSlotsMessage = "You have already filled all of your available slots for this type of item.";
     public static String AlertsEquipmentSellTitle = "Sell Item";
@@ -347,7 +345,6 @@ public class Strings {
 
     public static String CheatsVeryRareEncountersRemaining = "Remaining Very Rare Encounters";
     public static String CheatsArtifact = "Artifact";
-    public static String CheatsDragonfly = "Dragonfly";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -389,7 +386,6 @@ public class Strings {
     public static String EncounterPretextMariePolice = "the Customs Police in a ^1";
     public static String EncounterPretextPirate = "a pirate ^1";
     public static String EncounterPretextPolice = "a police ^1";
-    public static String EncounterPretextStolen = "a stolen ^1";
     public static String EncounterPretextTrader = "a trader ^1";
     public static String EncounterShieldStrength = "Shields at ^1%";
     public static String EncounterShieldNone = "No Shields";
@@ -444,11 +440,6 @@ public class Strings {
 
     public static String QuestNone = "There are no open quests.";
     public static String QuestArtifact = "Deliver the alien artifact to Professor Berger at some hi-tech system.";
-    public static String QuestDragonflyBaratas = "Follow the Dragonfly to Baratas.";
-    public static String QuestDragonflyMelina = "Follow the Dragonfly to Melina.";
-    public static String QuestDragonflyRegulas = "Follow the Dragonfly to Regulas.";
-    public static String QuestDragonflyShield = "Get your lightning shield at Zalkon.";
-    public static String QuestDragonflyZalkon = "Follow the Dragonfly to Zalkon.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -516,7 +507,7 @@ public class Strings {
             //"Wild", // now earns his keep!
             //"Jarek", // now earns his keep!
             "Captain", // crew of famous captain ships
-            "Dragonfly", // dummy crew member used in opponent ship
+            //"Dragonfly", // dummy crew member used in opponent ship
             //"Scarab", // dummy crew member used in opponent ship
             "Aragorn", // My first son's middle name, and from Lord of the Rings
             "Brady", // My third son's middle name, and QB of the New England Patriots
@@ -575,12 +566,6 @@ public class Strings {
     public static String[] NewsEvent = new String[]{
             "Scientist Adds Alien Artifact to Museum Collection.",
             "Police Trace Orbiting Space Litter to ^1.",
-            "Experimental Craft Stolen! Critics Demand Security Review.",
-            "Investigators Report Strange Craft.",
-            "Spectacular Display as Stolen Ship Destroyed in Fierce Space Battle.",
-            "Rumors Continue: Melina Orbitted by Odd Starcraft.",
-            "Strange Ship Observed in Regulas Orbit.",
-            "Unidentified Ship: A Threat to Zalkon?",
             "Travelers Claim Sighting of Ship Materializing in Orbit!",
             "Thug Assaults Captain Ahab!",
             "Destruction of Captain Ahab's Ship Causes Anger!",
@@ -708,19 +693,11 @@ public class Strings {
     public static String[] QuestPhaseMessages = new String[]{
             "This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?",
             "This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.",
-            "A trader in second-hand goods offers you 3 sealed cargo canisters for the sum of 1000 credits. It could be a good deal: they could contain robots. Then again, it might just be water. Do you want the canisters?",
-            "This is Colonel Jackson of the Space Corps. An experimental ship, code-named \"Dragonfly\", has been stolen. It is equipped with very special, almost indestructible shields. It shouldn't fall into the wrong hands and we will reward you if you destroy it. It has been last seen in the Baratas system.",
-            "A small ship of a weird design docked here recently for repairs. The engineer who worked on it said that it had a weak hull, but incredibly strong shields. I heard it took off in the direction of the Melina system.",
-            "Hello, Commander. This is Colonel Jackson again. On behalf of the Space Corps, I thank you for your valuable assistance in destroying the Dragonfly. As a reward, we will install one of the experimental shields on your ship. Return here for that when you're ready.",
-            "A ship with shields that seemed to be like lightning recently fought many other ships in our system. I have never seen anything like it before. After it left, I heard it went to the Regulas system.",
-            "A small ship with shields like I have never seen before was here a few days ago. It destroyed at least ten police ships! Last thing I heard was that it went to the Zalkon system.",
-            "Colonel Jackson here. Do you want us to install a lightning shield on your current ship?",
+            "A trader in second-hand goods offers you 3 sealed cargo canisters for the sum of 1000 credits. It could be a good deal: they could contain robots. Then again, it might just be water. Do you want the canisters?"
             };
 
     public static String[] QuestPhaseTitles = new String[]{
             "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
-            "Dragonfly", "Dragonfly Destroyed", "Weird Ship", "Lightning Ship",
-            "Lightning Shield", "Strange Ship",
             //TODO delete
             "ASSIGNED"};
 
@@ -750,7 +727,7 @@ public class Strings {
     public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
 
     public static String[] ShipNames = new String[]{"Flea", "Gnat", "Firefly", "Mosquito", "Bumblebee", "Beetle",
-            "Hornet", "Grasshopper", "Termite", "Wasp", "Dragonfly", "Mantis", "Bottle", ShipNameCustomShip};
+            "Hornet", "Grasshopper", "Termite", "Wasp", "Mantis", "Bottle", ShipNameCustomShip};
 
     public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};
 

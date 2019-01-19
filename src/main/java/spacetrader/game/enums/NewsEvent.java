@@ -4,12 +4,6 @@ public enum NewsEvent implements SpaceTraderEnum {
 
     ArtifactDelivery, // = 0,
     CaughtLittering, // = 1,
-    Dragonfly, // = 2,
-    DragonflyBaratas, // = 3,
-    DragonflyDestroyed, // = 4,
-    DragonflyMelina, // = 5,
-    DragonflyRegulas, // = 6,
-    DragonflyZalkon, // = 7,
     ExperimentArrival, // = 11,
     CaptAhabAttacked, // = 15,
     CaptAhabDestroyed, // = 16,

@@ -61,14 +61,6 @@ public class Encounter implements Serializable {
         if (!showEncounter.getValue()) {
 
         }
-        // Encounter with stolen Dragonfly
-        else if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Zalkon
-                && game.getQuestStatusDragonfly() == SpecialEvent.STATUS_DRAGONFLY_FLY_ZALKON) {
-            game.setOpponent(game.getDragonfly());
-            setEncounterType(commander.getShip().isCloaked() ? EncounterType.DRAGONFLY_IGNORE
-                    : EncounterType.DRAGONFLY_ATTACK);
-            showEncounter.setValue(true);
-        }
         // ah, just when you thought you were gonna get away with it...
         else if (game.getClicks() == 1 && game.getJustLootedMarie()) {
             game.generateOpponent(OpponentType.POLICE);
@@ -323,12 +315,6 @@ public class Encounter implements Serializable {
         setEncounterContinueFleeing(setEncounterContinueAttacking(game.setOpponentDisabled(false)));
     }
 
-    private void encounterDefeatDragonfly() {
-        commander.setKillsPirate(commander.getKillsPirate() + 1);
-        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
-        game.setQuestStatusDragonfly(SpecialEvent.STATUS_DRAGONFLY_DESTROYED);
-    }
-
     public void encounterDrink() {
         if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
             if (getEncounterType() == EncounterType.BOTTLE_GOOD) {
@@ -357,7 +343,6 @@ public class Encounter implements Serializable {
 
         // Fire shots
         switch (getEncounterType()) {
-            case DRAGONFLY_ATTACK:
             case FAMOUS_CAPTAIN_ATTACK:
             case MARIE_CELESTE_POLICE:
             case PIRATE_ATTACK:
@@ -401,15 +386,6 @@ public class Encounter implements Serializable {
             game.getQuestSystem().fireEvent(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, specialShipDisabled);
 
             if (specialShipDisabled.getValue()) {
-                result = EncounterResult.NORMAL;
-            } else if (game.getOpponent().getType() == ShipType.DRAGONFLY) {
-
-                encounterDefeatDragonfly();
-
-                GuiFacade.alert(AlertType.EncounterDisabledOpponent, getEncounterShipText(), "");
-
-                commander.setReputationScore(
-                        commander.getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
                 result = EncounterResult.NORMAL;
             } else {
                 encounterUpdateEncounterType(prevCmdrHull, prevOppHull);
@@ -757,7 +733,6 @@ public class Encounter implements Serializable {
             attack = false;
         } else {
             switch (getEncounterType()) {
-                case DRAGONFLY_IGNORE:
                 case PIRATE_IGNORE:
                 case QUEST_IGNORE:
                     setEncounterType(getEncounterType().getPreviousEncounter());
@@ -1102,9 +1077,6 @@ public class Encounter implements Serializable {
                 // bump news flag from attacked to ship destroyed
                 Game.getNews().replaceLastAttackedEventWithDestroyedEvent();
                 break;
-            case DRAGONFLY_ATTACK:
-                encounterDefeatDragonfly();
-                break;
             case PIRATE_ATTACK:
             case PIRATE_FLEE:
             case PIRATE_SURRENDER:
@@ -1181,13 +1153,11 @@ public class Encounter implements Serializable {
             case CAPTAIN_HUIE:
                 text = Strings.EncounterTextFamousCaptain;
                 break;
-            case DRAGONFLY_ATTACK:
             case PIRATE_ATTACK:
             case POLICE_ATTACK:
             case QUEST_ATTACK:
                 text = Strings.EncounterTextOpponentAttack;
                 break;
-            case DRAGONFLY_IGNORE:
             case PIRATE_IGNORE:
             case POLICE_IGNORE:
             case QUEST_IGNORE:
@@ -1244,8 +1214,6 @@ public class Encounter implements Serializable {
             case MARIE_CELESTE:
                 encounterImage.setValue(Consts.EncounterImgSpecial);
                 break;
-            case DRAGONFLY_ATTACK:
-            case DRAGONFLY_IGNORE:
             case QUEST_ATTACK:
             case QUEST_IGNORE:
                 encounterImage.setValue(Consts.EncounterImgPirate);
@@ -1353,10 +1321,6 @@ public class Encounter implements Serializable {
             case BOTTLE_GOOD:
             case BOTTLE_OLD:
                 encounterPretext.setValue(Strings.EncounterPretextBottle);
-                break;
-            case DRAGONFLY_ATTACK:
-            case DRAGONFLY_IGNORE:
-                encounterPretext.setValue(Strings.EncounterPretextStolen);
                 break;
             case CAPTAIN_AHAB:
                 encounterPretext.setValue(Strings.EncounterPretextCaptainAhab);

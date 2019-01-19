@@ -572,6 +572,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
                     result = News.Princess;
                 }
                 break;
+                //TODO try to catch these news in other systems
             case STATUS_FLY_CENTAURI:
                 result = News.PrincessCentauri;
                 break;

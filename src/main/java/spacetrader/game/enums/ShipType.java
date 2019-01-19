@@ -12,7 +12,6 @@ public enum ShipType implements SpaceTraderEnum {
     GRASSHOPPER,//7
     TERMITE,
     WASP,        // 9
-    DRAGONFLY,    // 11
     MANTIS,        // 12
     BOTTLE,        // 14
     CUSTOM,        // 15

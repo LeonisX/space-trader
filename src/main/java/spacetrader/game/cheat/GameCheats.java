@@ -162,14 +162,10 @@ public class GameCheats implements Serializable {
                         case Artifact:
                             game.setQuestStatusArtifact(Math.max(0, words.getNum2()));
                             break;
-                        case Dragonfly:
-                            game.setQuestStatusDragonfly(Math.max(0, words.getNum2()));
-                            break;
 
                         default:
 
-                            String text = Strings.CheatsArtifact + ": " + game.getQuestStatusArtifact() + Strings.newline
-                                    + Strings.CheatsDragonfly + ": " + game.getQuestStatusDragonfly() + Strings.newline;
+                            String text = Strings.CheatsArtifact + ": " + game.getQuestStatusArtifact() + Strings.newline;
 
                             Map<String, Integer> strings = new HashMap<>();
                             game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);

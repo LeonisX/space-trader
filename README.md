@@ -229,11 +229,22 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Uncomment QuestNames
 * Ship name (FormViewShip) - Bottle :(
-* Many quests, for example Experiment - news appear prior action
 
-### Princess, Jarek, other quests
+### News
 
+* Clean from old events
+* Try to simplify. May be keep only map: ID -> TTL?
+* Find start of the flight and clear news at the start of flight
+* AbstractQuest - methods to get/set news, commander, ship, ...
+* Game - remove static methods
+* News: Time to live?
+* Check all news - when can - implement in phases
+
+### Quests
+
+* More flexible news. Many quests, for example Experiment - news appear prior action
 * Increase difficulty, depends on game difficulty (days to delivery)
+* DragonflyQuest: when disabled - don't show news about explosion. Need to check on windows version - if can disable
 
 ### Shipyard
 

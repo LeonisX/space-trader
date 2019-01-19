@@ -6,12 +6,6 @@ public enum SpecialEventType implements SpaceTraderEnum {
     Artifact, // = 0,
     ArtifactDelivery, // = 1,
     CargoForSale, // = 2,
-    Dragonfly, // = 3,
-    DragonflyBaratas, // = 4,
-    DragonflyDestroyed, // = 5,
-    DragonflyMelina, // = 6,
-    DragonflyRegulas, // = 7,
-    DragonflyShield, // = 8,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

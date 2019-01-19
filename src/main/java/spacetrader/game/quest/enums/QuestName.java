@@ -14,8 +14,9 @@ public enum QuestName {
     //Skill,
     Moon,
     //Japori,
-    //Gemulon
-    //Experiment
-    EraseRecord
+    //Gemulon,
+    //Experiment,
+    //EraseRecord,
+    Dragonfly
 
 }

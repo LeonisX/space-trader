@@ -35,7 +35,6 @@ public enum CrewMemberId implements SpaceTraderEnum {
     YORVICK, // = 29,
     OPPONENT, // = 31,
     FAMOUS_CAPTAIN, // = 34,
-    DRAGONFLY, // = 35,
     ARAGORN, // = 38,
     BRADY, // = 39,
     EIGHT_OF_NINE, // = 40,

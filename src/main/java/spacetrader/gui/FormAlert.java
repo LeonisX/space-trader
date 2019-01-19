@@ -360,9 +360,6 @@ public class FormAlert extends SpaceTraderForm {
             case EquipmentIF:
                 return new FormAlert(AlertsEquipmentIFTitle, AlertsEquipmentIFMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case EquipmentLightningShield:
-                return new FormAlert(AlertsEquipmentLightningShieldTitle, AlertsEquipmentLightningShieldMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case EquipmentNotEnoughSlots:
                 return new FormAlert(AlertsEquipmentNotEnoughSlotsTitle, AlertsEquipmentNotEnoughSlotsMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);

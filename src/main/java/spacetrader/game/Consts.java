@@ -201,7 +201,6 @@ public class Consts {
             new Rectangle(7, 0, 50, 0), // Grasshopper
             new Rectangle(2, 0, 60, 0), // Termite
             new Rectangle(2, 0, 60, 0), // Wasp
-            new Rectangle(21, 0, 22, 0), // Dragonfly
             new Rectangle(15, 0, 34, 0), // Mantis
             new Rectangle(9, 0, 46, 0), // Bottle
             new Rectangle(2, 0, 60, 0)//, // Custom
@@ -231,8 +230,6 @@ public class Consts {
             new ShipSpec(ShipType.WASP, Size.HUGE, 35, 3, 2, 2, 3, 14, 5, 200, 20, 300000, 2, Activity.MANY,
                     Activity.ABUNDANT, Activity.MODERATE, TechLevel.HI_TECH),
             // The ships below can't be bought (mostly)
-            new ShipSpec(ShipType.DRAGONFLY, Size.SMALL, 0, 2, 3, 2, 1, 1, 1, 10, 1, 500000, 0, Activity.NA,
-                    Activity.NA, Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.MANTIS, Size.MEDIUM, 0, 3, 1, 3, 3, 1, 1, 300, 1, 500000, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.BOTTLE, Size.SMALL, 0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0, Activity.NA, Activity.NA,
@@ -255,12 +252,6 @@ public class Consts {
             new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),
             new SpecialEvent(SpecialEventType.ArtifactDelivery, -20000, 0, true),
             new SpecialEvent(SpecialEventType.CargoForSale, 1000, 3, false),
-            new SpecialEvent(SpecialEventType.Dragonfly, 0, 1, true),
-            new SpecialEvent(SpecialEventType.DragonflyBaratas, 0, 0, true),
-            new SpecialEvent(SpecialEventType.DragonflyDestroyed, 0, 0, true),
-            new SpecialEvent(SpecialEventType.DragonflyMelina, 0, 0, true),
-            new SpecialEvent(SpecialEventType.DragonflyRegulas, 0, 0, true),
-            new SpecialEvent(SpecialEventType.DragonflyShield, 0, 0, false),
             new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
     };
 
