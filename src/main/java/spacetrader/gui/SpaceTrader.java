@@ -626,7 +626,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         targetSystemPanel.setGame(game, controller, commander);
         galacticChartPanel.setGame(game, controller, commander);
         shortRangeChartPanel.setGame(game, commander);
-        systemPanel.setGame(game, controller, commander);
+        systemPanel.setGame(game, commander);
         shipyardPanel.setGame(commander);
         statusBar.setGame(commander);
     }
