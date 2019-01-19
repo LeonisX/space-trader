@@ -159,7 +159,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
             log.fine("phase #" + QuestPhases.Moon);
             showAlert(Alerts.SpecialMoonBought.getValue());
             questStatus = STATUS_MOON_BOUGHT;
-            Game.getCurrentGame().confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
 

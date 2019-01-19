@@ -177,7 +177,7 @@ public class ReactorQuest extends AbstractQuest {
                 if (!isConflict.getValue()) {
                     showAlert(Alerts.ReactorOnBoard.getValue());
                     questStatus = STATUS_REACTOR_FUEL_OK;
-                    game.confirmQuestPhase();
+                    confirmQuestPhase();
                     setQuestState(QuestState.ACTIVE);
                     //Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
                 }
@@ -223,7 +223,7 @@ public class ReactorQuest extends AbstractQuest {
                 showAlert(Alerts.EquipmentMorgansLaser.getValue());
                 Game.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
                 questStatus = STATUS_REACTOR_DONE;
-                game.confirmQuestPhase();
+                confirmQuestPhase();
                 setQuestState(QuestState.FINISHED);
                 game.getQuestSystem().unSubscribeAll(getQuest());
             }

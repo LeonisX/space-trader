@@ -158,7 +158,7 @@ public class GemulonQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #1");
             questStatus.set(STATUS_GEMULON_STARTED);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
 
@@ -202,7 +202,7 @@ public class GemulonQuest extends AbstractQuest {
                 Game.getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
                 questStatus.set(STATUS_GEMULON_DONE);
                 setQuestState(QuestState.FINISHED);
-                Game.getCurrentGame().confirmQuestPhase();
+                confirmQuestPhase();
                 game.getQuestSystem().unSubscribeAll(getQuest());
             }
         }

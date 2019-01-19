@@ -167,7 +167,7 @@ public class TribblesQuest extends AbstractQuest {
             log.fine("phase #1");
             showAlert(Alerts.TribblesOwn.getValue());
             setTribbles(1);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
 
@@ -190,7 +190,7 @@ public class TribblesQuest extends AbstractQuest {
             showAlert(Alerts.TribblesGone.getValue());
             Game.getCommander().setCash(Game.getCommander().getCash() + (tribbles / 2));
             setTribbles(0);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
             game.getQuestSystem().unSubscribeAll(getQuest());
         }

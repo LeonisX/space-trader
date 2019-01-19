@@ -160,7 +160,7 @@ public class ExperimentQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #1");
             questStatus.set(STATUS_EXPERIMENT_STARTED);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
 
@@ -180,7 +180,7 @@ public class ExperimentQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #2");
             setQuestState(QuestState.FAILED);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             questStatus.set(STATUS_EXPERIMENT_NOT_STARTED);
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
@@ -205,7 +205,7 @@ public class ExperimentQuest extends AbstractQuest {
             questStatus.set(STATUS_EXPERIMENT_CANCELLED);
             game.setCanSuperWarp(true);
             setQuestState(QuestState.FINISHED);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
 

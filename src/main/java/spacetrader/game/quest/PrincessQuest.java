@@ -4,10 +4,7 @@ import spacetrader.controls.Rectangle;
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.containers.BooleanContainer;
-import spacetrader.game.quest.containers.IntContainer;
-import spacetrader.game.quest.containers.ScoreContainer;
-import spacetrader.game.quest.containers.StringContainer;
+import spacetrader.game.quest.containers.*;
 import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
@@ -112,7 +109,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, this::encounterExecuteAttackKeepSpecialShip);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
-        getTransitionMap().put(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, this::encounterCheckPossibilityOfSurrender);
+        getTransitionMap().put(ENCOUNTER_ON_VERIFY_SURRENDER, this::encounterOnVerifySurrender);
         getTransitionMap().put(ENCOUNTER_ON_ROBBERY, this::encounterOnRobbery);
         getTransitionMap().put(ENCOUNTER_GET_STEALABLE_CARGO, this::encounterGetStealableCargo);
 
@@ -487,11 +484,13 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    private void encounterCheckPossibilityOfSurrender(Object object) {
-        if (princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
+    private void encounterOnVerifySurrender(Object object) {
+        SurrenderContainer surrenderContainer = (SurrenderContainer) object;
+        // If princess on board and no hidden cargo bays - continue fight to die.
+        if (!surrenderContainer.isMatch() && princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
                 && game.getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK) {
             showAlert(Alerts.EncounterPiratesSurrenderPrincess.getValue());
-            ((BooleanContainer) object).setValue(true);
+            surrenderContainer.setMatch(true);
         }
     }
 

@@ -70,6 +70,7 @@ class SculptureQuest extends AbstractQuest {
 
         getTransitionMap().put(ON_DISPLAY_SPECIAL_CARGO, this::onDisplaySpecialCargo);
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
+
         getTransitionMap().put(ENCOUNTER_ON_ROBBERY, this::encounterOnRobbery);
         getTransitionMap().put(ENCOUNTER_GET_STEALABLE_CARGO, this::encounterGetStealableCargo);
 
@@ -166,7 +167,7 @@ class SculptureQuest extends AbstractQuest {
             sculptureOnBoard = true;
             questStatus = STATUS_SCULPTURE_IN_TRANSIT;
             //TODO refactor all phases with this method
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
 
@@ -210,7 +211,7 @@ class SculptureQuest extends AbstractQuest {
             } else {
                 showAlert(Alerts.EquipmentHiddenCompartments.getValue());
                 Game.getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
-                game.confirmQuestPhase();
+                confirmQuestPhase();
                 questStatus = STATUS_SCULPTURE_DONE;
                 setQuestState(QuestState.FINISHED);
                 game.getQuestSystem().unSubscribeAll(getQuest());

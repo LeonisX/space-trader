@@ -236,7 +236,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
             log.fine("phase #" + QuestPhases.Scarab);
             questStatus = STATUS_SCARAB_HUNTING;
             setQuestState(QuestState.ACTIVE);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
         }
 
         @Override
@@ -280,7 +280,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
             Game.getShip().setHull(Game.getShip().getHull() + HULL_UPGRADE);
             questStatus = STATUS_SCARAB_DONE;
             setQuestState(QuestState.FINISHED);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
 

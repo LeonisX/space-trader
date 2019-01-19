@@ -97,7 +97,7 @@ class EraseRecordQuest extends AbstractQuest {
             showAlert(Alerts.SpecialCleanRecord.getValue());
             Game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
             game.recalculateSellPrices();
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
             setQuestState(QuestState.FINISHED);
         }

@@ -225,7 +225,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.Dragonfly);
             questStatus++;
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }
 
@@ -246,7 +246,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.DragonflyBaratas);
             questStatus++;
-            game.confirmQuestPhase();
+            confirmQuestPhase();
         }
 
         @Override
@@ -266,7 +266,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.DragonflyMelina);
             questStatus++;
-            game.confirmQuestPhase();
+            confirmQuestPhase();
         }
 
         @Override
@@ -286,7 +286,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.DragonflyRegulas);
             questStatus++;
-            game.confirmQuestPhase();
+            confirmQuestPhase();
         }
 
         @Override

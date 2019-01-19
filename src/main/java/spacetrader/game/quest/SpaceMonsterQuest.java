@@ -202,7 +202,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
             log.fine("phase #" + QuestPhases.SpaceMonster);
             questStatus = STATUS_SPACE_MONSTER_AT_ACAMAR;
             setQuestState(QuestState.ACTIVE);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
         }
 
         @Override
@@ -224,7 +224,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
             questStatus = STATUS_SPACE_MONSTER_DONE;
             setQuestState(QuestState.FINISHED);
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
 

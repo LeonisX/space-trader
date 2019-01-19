@@ -146,7 +146,7 @@ public class JaporiQuest extends AbstractQuest {
             } else {
                 showAlert(Alerts.AntidoteOnBoard.getValue());
                 questStatus = STATUS_JAPORI_IN_TRANSIT;
-                game.confirmQuestPhase();
+                confirmQuestPhase();
                 setQuestState(QuestState.ACTIVE);
             }
         }
@@ -169,7 +169,7 @@ public class JaporiQuest extends AbstractQuest {
             questStatus = STATUS_JAPORI_DONE;
             Game.getCommander().increaseRandomSkill();
             Game.getCommander().increaseRandomSkill();
-            game.confirmQuestPhase();
+            confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
             game.getQuestSystem().unSubscribeAll(getQuest());
         }

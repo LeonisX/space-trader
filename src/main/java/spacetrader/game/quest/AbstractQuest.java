@@ -10,7 +10,10 @@ import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.containers.ShipSpecContainer;
-import spacetrader.game.quest.enums.*;
+import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.MessageType;
+import spacetrader.game.quest.enums.QuestState;
+import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.Facaded;
 import spacetrader.guifacade.GuiFacade;
@@ -285,6 +288,13 @@ public abstract class AbstractQuest implements Quest, Serializable {
     DialogResult showCancelAlert(AlertDialog dialog, String... args) {
         String ok = dialog.getAccept() == null ? Strings.AlertsOk : dialog.getAccept();
         FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), ok, DialogResult.OK, AlertsCancel, DialogResult.CANCEL, args);
+        return formAlert.showDialog((WinformPane) game.getParentWindow());
+    }
+
+    @Facaded
+    DialogResult showYesNoAlert(AlertDialog dialog, String... args) {
+        String yes = dialog.getAccept() == null ? Strings.AlertsYes : dialog.getAccept();
+        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), yes, DialogResult.YES, Strings.AlertsNo, DialogResult.NO, args);
         return formAlert.showDialog((WinformPane) game.getParentWindow());
     }
 

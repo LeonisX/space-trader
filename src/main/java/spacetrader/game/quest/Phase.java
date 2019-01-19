@@ -2,12 +2,15 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
+import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static spacetrader.game.quest.enums.EventName.ON_AFTER_NEW_QUEST_STARTED;
 
 public abstract class Phase implements Serializable {
 
@@ -18,6 +21,12 @@ public abstract class Phase implements Serializable {
     private SimpleValueEnum<QuestDialog> phase;
 
     private int occurrence;
+
+    public void confirmQuestPhase() {
+        Game.getCommander().setCash(Game.getCommander().getCash() - phase.getValue().getPrice());
+        Game.getCommander().getCurrentSystem().setSpecialEventType(SpecialEventType.NA);
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_AFTER_NEW_QUEST_STARTED);
+    }
 
     public String getTitle() {
         return phase.getValue().getTitle();
