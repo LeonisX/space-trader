@@ -188,11 +188,7 @@ public class FormViewShip extends SpaceTraderForm {
     }
 
     private void displaySpecialCargo() {
-        List<String> specialCargo = new ArrayList<>(12);
-
-        if (ship.isArtifactOnBoard()) {
-            specialCargo.add(Strings.SpecialCargoArtifact);
-        }
+        List<String> specialCargo = new ArrayList<>();
 
         game.getQuestSystem().fireEvent(EventName.ON_DISPLAY_SPECIAL_CARGO, specialCargo);
 

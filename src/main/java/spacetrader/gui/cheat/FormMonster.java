@@ -13,7 +13,6 @@ import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.Phase;
-import spacetrader.game.quest.enums.QuestState;
 import spacetrader.gui.FontCollection;
 import spacetrader.gui.SpaceTraderForm;
 import spacetrader.stub.ArrayList;
@@ -324,10 +323,6 @@ public class FormMonster extends SpaceTraderForm {
                                 : createQuestRow(p, s))
                 ).collect(toList()));
         for (StarSystem system : game.getUniverse()) {
-            //TODO remove after all quests
-            if (system.showSpecialButton()) {
-                questSystems.add(createQuestRow(system.getId().castToInt()));
-            }
             if (system.getShipyardId() != ShipyardId.NA) {
                 shipyardSystems.add(createShipyardRow(system.getId().castToInt()));
             }
@@ -337,13 +332,6 @@ public class FormMonster extends SpaceTraderForm {
         sortMercenaries("N"); // Sort mercenaries by name.
         sortRows(questSystems, "S"); // Sort quests by system name.
         sortRows(shipyardSystems, "S"); // Sort shipyards by system name.
-    }
-
-    private Row createQuestRow(int systemId) {
-        StarSystem system = Game.getStarSystem(systemId);
-        String title = system.specialEvent().getTitle();
-        String state = Strings.QuestStates[QuestState.UNKNOWN.ordinal()];
-        return new Row(systemId, system.getName(), title, state);
     }
 
     private Row createQuestRow(Phase phase, StarSystemId starSystemId) {

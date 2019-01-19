@@ -5,11 +5,9 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Game;
-import spacetrader.game.SpecialEvent;
 import spacetrader.game.Strings;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.stub.ArrayList;
-import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
 import java.util.Arrays;
@@ -92,14 +90,8 @@ public class FormViewQuests extends SpaceTraderForm {
     }
 
     private List<String> getQuestStrings() {
-        ArrayList<String> quests = new ArrayList<>(12);
-
-        if (game.getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD) {
-            quests.add(Strings.QuestArtifact);
-        }
-
+        List<String> quests = new ArrayList<>();
         game.getQuestSystem().fireEvent(EventName.ON_GET_QUESTS_STRINGS, quests);
-
         return quests;
     }
 
