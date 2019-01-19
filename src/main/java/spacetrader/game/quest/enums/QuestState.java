@@ -8,6 +8,5 @@ public enum QuestState {
     ACTIVE,
     SUSPENDED,
     FAILED,
-    FINISHED,
-    UNKNOWN, //TODO delete after quests system
+    FINISHED
 }

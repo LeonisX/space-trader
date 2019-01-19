@@ -726,10 +726,6 @@ public class Ship extends ShipSpec implements Serializable {
         return illegalCargo > 0;
     }
 
-    public boolean isArtifactOnBoard() {
-        return isCommandersShip() && Game.getCurrentGame().getQuestStatusArtifact() == SpecialEvent.STATUS_ARTIFACT_ON_BOARD;
-    }
-
     public int[] getCargo() {
         return cargo;
     }

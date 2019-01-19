@@ -145,12 +145,6 @@ public class FormAlert extends SpaceTraderForm {
             case ArrivalIFRepairs:
                 return new FormAlert(AlertsArrivalIFRepairsTitle, AlertsArrivalIFRepairsMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ArtifactLost:
-                return new FormAlert(AlertsArtifactLostTitle, AlertsArtifactLostMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case ArtifactRelinquished:
-                return new FormAlert(AlertsArtifactRelinquishedTitle, AlertsArtifactRelinquishedMessage, AlertsOk,
-                        DialogResult.OK, null, DialogResult.NONE, args);
             case CargoIF:
                 return new FormAlert(AlertsCargoIFTitle, AlertsCargoIFMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -216,9 +210,6 @@ public class FormAlert extends SpaceTraderForm {
             case Egg:
                 return new FormAlert(AlertsEggTitle, AlertsEggMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterAliensSurrender:
-                return new FormAlert(AlertsEncounterAliensSurrenderTitle, AlertsEncounterAliensSurrenderMessage,
-                        AlertsYes, DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case EncounterArrested:
                 return new FormAlert(AlertsEncounterArrestedTitle, AlertsEncounterArrestedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -504,10 +495,6 @@ public class FormAlert extends SpaceTraderForm {
             case SpecialPassengerOnBoard:
                 return new FormAlert(AlertsSpecialPassengerOnBoardTitle, AlertsSpecialPassengerOnBoardMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case SpecialSealedCanisters:
-                return new FormAlert(AlertsSpecialSealedCanistersTitle, AlertsSpecialSealedCanistersMessage,
-                        AlertsOk, DialogResult.OK, null,
-                        DialogResult.NONE, args);
             case SpecialTrainingCompleted:
                 return new FormAlert(AlertsSpecialTrainingCompletedTitle, AlertsSpecialTrainingCompletedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);

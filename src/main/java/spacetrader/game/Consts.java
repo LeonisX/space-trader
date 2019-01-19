@@ -248,13 +248,6 @@ public class Consts {
             new Shipyard(ShipyardId.SOROSUUB, Size.SMALL, ShipyardSkill.FUEL_BASE)
     };
 
-    public static SpecialEvent[] SpecialEvents = new SpecialEvent[]{
-            new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),
-            new SpecialEvent(SpecialEventType.ArtifactDelivery, -20000, 0, true),
-            new SpecialEvent(SpecialEventType.CargoForSale, 1000, 3, false),
-            new SpecialEvent(SpecialEventType.ASSIGNED, 0, 0, true)
-    };
-
     public static TradeItem[] TradeItems = new TradeItem[]{
             new TradeItem(TradeItemType.WATER, TechLevel.PRE_AGRICULTURAL, TechLevel.PRE_AGRICULTURAL,
                     TechLevel.MEDIEVAL, 30, 3, 4, SystemPressure.DROUGHT, SpecialResource.SWEET_OCEANS,

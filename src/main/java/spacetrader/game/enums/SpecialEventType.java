@@ -2,10 +2,9 @@ package spacetrader.game.enums;
 
 public enum SpecialEventType implements SpaceTraderEnum {
 
+    //TODO think, how to occupy system gently. May be boolean field.
+    //TODO think, may be don't need to clean this field after quest fail
     NA, // = -1,
-    Artifact, // = 0,
-    ArtifactDelivery, // = 1,
-    CargoForSale, // = 2,
     ASSIGNED;
 
     public static SpecialEventType fromInt(int i) {

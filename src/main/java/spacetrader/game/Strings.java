@@ -35,10 +35,6 @@ public class Strings {
     public static String AlertsArrivalIFNewspaperMessage = "Sorry! A newspaper costs ^1 in this system. You don't have enough money!";
     public static String AlertsArrivalIFRepairsTitle = "No Full Repairs";
     public static String AlertsArrivalIFRepairsMessage = "You don't have enough money to get your hull fully repaired.";
-    public static String AlertsArtifactLostTitle = "Artifact Lost";
-    public static String AlertsArtifactLostMessage = "The alien artifact has been lost in the wreckage of your ship.";
-    public static String AlertsArtifactRelinquishedTitle = "Artifact Relinquished";
-    public static String AlertsArtifactRelinquishedMessage = "The aliens take the artifact from you.";
     public static String AlertsCargoIFTitle = "Not Enough Money";
     public static String AlertsCargoIFMessage = "You don't have enough money to spend on any of these goods.";
     public static String AlertsCargoNoEmptyBaysTitle = "No Empty Bays";
@@ -85,8 +81,6 @@ public class Strings {
     public static String AlertsDebtWarningMessage = "Your debt is getting too large. Reduce it quickly or your ship will be put on a chain!";
     public static String AlertsEggTitle = "Egg";
     public static String AlertsEggMessage = "Congratulations! An eccentric Easter Bunny decides to exchange your trade goods for a special present!";
-    public static String AlertsEncounterAliensSurrenderTitle = "Surrender";
-    public static String AlertsEncounterAliensSurrenderMessage = "If you surrender to the aliens, they will take the artifact. Are you sure you wish to do that?";
     public static String AlertsEncounterArrestedTitle = "Arrested";
     public static String AlertsEncounterArrestedMessage = "You are arrested and taken to the space station, where you are brought before a court of law.";
     public static String AlertsEncounterAttackCaptainTitle = "Really Attack?";
@@ -293,8 +287,6 @@ public class Strings {
     public static String AlertsSpecialNotEnoughBaysMessage = "You don't have enough empty cargo bays at the moment.";
     public static String AlertsSpecialPassengerOnBoardTitle = "Passenger On Board";
     public static String AlertsSpecialPassengerOnBoardMessage = "You have taken ^1 on board. While on board ^1 will lend you expertise, but may stop helping if the journey takes too long.";
-    public static String AlertsSpecialSealedCanistersTitle = "Sealed Canisters";
-    public static String AlertsSpecialSealedCanistersMessage = "You bought the sealed canisters and put them in your cargo bays.";
     public static String AlertsSpecialTrainingCompletedTitle = "Training Completed";
     public static String AlertsSpecialTrainingCompletedMessage = "After a few hours of training with a top expert, you feel your abilities have improved significantly.";
     public static String AlertsTravelArrivalTitle = "Arrival";
@@ -344,7 +336,6 @@ public class Strings {
     public static String ChartDistance = "^1 to ^2.";
 
     public static String CheatsVeryRareEncountersRemaining = "Remaining Very Rare Encounters";
-    public static String CheatsArtifact = "Artifact";
     public static String CheatsStatusOfQuests = "Status of Quests";
 
     public static String CommanderAnd = "and";
@@ -439,7 +430,6 @@ public class Strings {
     public static String PointsRemaining = "remaining: ^1.";
 
     public static String QuestNone = "There are no open quests.";
-    public static String QuestArtifact = "Deliver the alien artifact to Professor Berger at some hi-tech system.";
 
     public static String ShipBuyGotOne = "got one";
     public static String ShipBuyTransfer = "and transfer your unique equipment to the new ship";
@@ -476,7 +466,6 @@ public class Strings {
     public static String ShipyardWarning = "Bear in mind that getting too close to the maximum number of units will result in a \"Crowding Penalty\" due to the engineering difficulty of squeezing everything in.  There is a modest penalty at 80%, and a more severe one at 90%.";
     public static String ShipyardWelcome = "Welcome to ^1 Shipyards! Our best engineer, ^2, is at your service.";
 
-    public static String SpecialCargoArtifact = "An alien artifact.";
     public static String SpecialCargoNone = "No special items.";
 
     public static String StatusBarBays = "Bays:";
@@ -564,7 +553,6 @@ public class Strings {
      * Current System ^3 Commander's Ship Type
      */
     public static String[] NewsEvent = new String[]{
-            "Scientist Adds Alien Artifact to Museum Collection.",
             "Police Trace Orbiting Space Litter to ^1.",
             "Travelers Claim Sighting of Ship Materializing in Orbit!",
             "Thug Assaults Captain Ahab!",
@@ -690,17 +678,6 @@ public class Strings {
             "Cold Snap Continues!", "Serious Crop Failure! Must We Ration?",
             "Jobless Rate at All-Time Low!"};
 
-    public static String[] QuestPhaseMessages = new String[]{
-            "This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?",
-            "This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.",
-            "A trader in second-hand goods offers you 3 sealed cargo canisters for the sum of 1000 credits. It could be a good deal: they could contain robots. Then again, it might just be water. Do you want the canisters?"
-            };
-
-    public static String[] QuestPhaseTitles = new String[]{
-            "Alien Artifact", "Artifact Delivery", "Cargo For Sale",
-            //TODO delete
-            "ASSIGNED"};
-
     public static String[] SpecialResources = new String[]{"Nothing Special",
             "Mineral Rich", "Mineral Poor", "Desert", "Sweetwater Oceans",
             "Rich Soil", "Poor Soil", "Rich Fauna", "Lifeless",
@@ -709,7 +686,7 @@ public class Strings {
 
     //TODO remove unneeded
     public static String[] QuestStates = new String[]{"Inactive", "Scheduled", "Subscribed", "Active", "Suspended",
-            "Failed", "Finished", "Unknown"};
+            "Failed", "Finished"};
 
     public static String[] PoliceRecordNames = new String[]{"Psychopath", "Villain", "Criminal", "Crook", "Dubious",
             "Clean", "Lawful", "Trusted", "Liked", "Hero"};

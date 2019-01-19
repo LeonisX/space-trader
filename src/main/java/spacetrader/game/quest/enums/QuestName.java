@@ -17,6 +17,8 @@ public enum QuestName {
     //Gemulon,
     //Experiment,
     //EraseRecord,
-    Dragonfly
+    //Dragonfly,
+    Artifact,
+    Cargo
 
 }

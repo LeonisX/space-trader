@@ -5,7 +5,6 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
 import spacetrader.game.Consts;
-import spacetrader.game.SpecialEvent;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.SpecialEventType;
 import spacetrader.gui.FormAlert;
@@ -42,11 +41,12 @@ public class FormAlertTest extends SpaceTraderForm {
         }
         selAlertType.setSelectedIndex(0);
 
-        SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.Artifact.ordinal(), SpecialEventType.CargoForSale.ordinal());
+        //TODO fix, if can.
+        /*SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.ordinal(), SpecialEventType.CargoForSale.ordinal());
         for (SpecialEventType type : events) {
             selSpecialEvent.getItems().addElement(type);
         }
-        selSpecialEvent.setSelectedIndex(0);
+        selSpecialEvent.setSelectedIndex(0);*/
     }
 
     private void initializeComponent() {
@@ -217,7 +217,8 @@ public class FormAlertTest extends SpaceTraderForm {
     }
 
     private void btnTestSpecialEvent_Click() {
-        SpecialEvent specEvent = Consts.SpecialEvents[((SpecialEventType) selSpecialEvent.getSelectedItem()).castToInt()];
+        //TODO fix if can
+        /*SpecialEvent specEvent = Consts.SpecialEvents[((SpecialEventType) selSpecialEvent.getSelectedItem()).castToInt()];
         String btn1, btn2;
         DialogResult res1, res2;
 
@@ -233,6 +234,6 @@ public class FormAlertTest extends SpaceTraderForm {
             res2 = DialogResult.NO;
         }
 
-        (new FormAlert(specEvent.getTitle(), specEvent.getString(), btn1, res1, btn2, res2, null)).showDialog(this);
+        (new FormAlert(specEvent.getTitle(), specEvent.getString(), btn1, res1, btn2, res2, null)).showDialog(this);*/
     }
 }

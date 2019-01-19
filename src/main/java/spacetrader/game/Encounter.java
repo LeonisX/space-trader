@@ -2,8 +2,10 @@ package spacetrader.game;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.ArtifactQuest;
 import spacetrader.game.quest.containers.*;
 import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
@@ -165,6 +167,8 @@ public class Encounter implements Serializable {
 
         game.getQuestSystem().fireEvent(ON_DETERMINE_RANDOM_ENCOUNTER, opponents);
 
+        ArtifactQuest artifactQuest = (ArtifactQuest) game.getQuestSystem().getQuest(QuestName.Artifact);
+
         // Check if it is time for an encounter
         int encounter = Functions.getRandom(44 - (2 * Game.getDifficultyId()));
         int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore().getType().castToInt());
@@ -186,7 +190,7 @@ public class Encounter implements Serializable {
                 + game.getWarpSystem().getPoliticalSystem().getActivityPolice().castToInt() * policeModifier
                 + game.getWarpSystem().getPoliticalSystem().getActivityTraders().castToInt()) {
             opponents.setTrader(true);
-        } else if (commander.getShip().isArtifactOnBoard() && Functions.getRandom(20) <= 3) {
+        } else if (artifactQuest.isArtifactOnBoard() && Functions.getRandom(20) <= 3) {
             opponents.setMantis(true);
         }
 
@@ -950,35 +954,22 @@ public class Encounter implements Serializable {
     }
 
     public EncounterResult getEncounterVerifySurrender() {
-        EncounterResult result = EncounterResult.CONTINUE;
+        SurrenderContainer surrenderContainer = new SurrenderContainer(EncounterResult.CONTINUE);
 
-        BooleanContainer fightToDie = new BooleanContainer(false);
+        game.getQuestSystem().fireEvent(ENCOUNTER_ON_VERIFY_SURRENDER, surrenderContainer);
 
-        game.getQuestSystem().fireEvent(ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER, fightToDie);
+        if (surrenderContainer.isMatch()) {
+            return surrenderContainer.getResult();
+        }
 
-        if (fightToDie.getValue()) {
-            // If princess on board and no hidden cargo bays - continue fight to die.
-        } else if (game.getOpponent().getType() == ShipType.MANTIS) {
-            if (commander.getShip().isArtifactOnBoard()) {
-                if (GuiFacade.alert(AlertType.EncounterAliensSurrender) == DialogResult.YES) {
-                    GuiFacade.alert(AlertType.ArtifactRelinquished);
-                    game.setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_NOT_STARTED);
-
-                    result = EncounterResult.NORMAL;
-                }
-            } else {
-                GuiFacade.alert(AlertType.EncounterSurrenderRefused);
-            }
-        } else if (getEncounterType() == EncounterType.POLICE_ATTACK || getEncounterType() == EncounterType.POLICE_SURRENDER) {
+        if (getEncounterType() == EncounterType.POLICE_ATTACK || getEncounterType() == EncounterType.POLICE_SURRENDER) {
             if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScorePsychopath) {
                 GuiFacade.alert(AlertType.EncounterSurrenderRefused);
             } else if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
                     commander.getShip().getIllegalSpecialCargoDescription(Strings.EncounterPoliceSurrenderCargo, true,
                             false), commander.getShip().getIllegalSpecialCargoActions()})) == DialogResult.YES) {
-                result = EncounterResult.ARRESTED;
+                surrenderContainer.setResult(EncounterResult.ARRESTED);
             }
-        /*} else if (commander.getShip().isPrincessOnBoard() && !commander.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-            GuiFacade.alert(AlertType.EncounterPiratesSurrenderPrincess);*/
         } else {
             game.setRaided(true);
 
@@ -1021,10 +1012,10 @@ public class Encounter implements Serializable {
                 }
             }
 
-            result = EncounterResult.NORMAL;
+            surrenderContainer.setResult(EncounterResult.NORMAL);
         }
 
-        return result;
+        return surrenderContainer.getResult();
     }
 
     public EncounterResult getEncounterVerifyYield() {

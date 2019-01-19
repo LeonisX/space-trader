@@ -9,8 +9,6 @@ public enum AlertType implements SpaceTraderEnum {
     ArrivalIFFuelRepairs,
     ArrivalIFNewspaper,
     ArrivalIFRepairs,
-    ArtifactLost,
-    ArtifactRelinquished,
     CargoIF,
     CargoNoEmptyBays,
     CargoNoneAvailable,
@@ -33,7 +31,6 @@ public enum AlertType implements SpaceTraderEnum {
     DebtTooLargeTrade,
     DebtWarning,
     Egg,
-    EncounterAliensSurrender,
     EncounterArrested,
     EncounterAttackCaptain,
     EncounterAttackNoDisruptors,
@@ -129,11 +126,9 @@ public enum AlertType implements SpaceTraderEnum {
     SpecialNoQuarters,
     SpecialNotEnoughBays,
     SpecialPassengerOnBoard,
-    SpecialSealedCanisters,
     SpecialTrainingCompleted,
     TravelArrival,
-    TravelUneventfulTrip,
-    Quest; //TODO need???
+    TravelUneventfulTrip;
 
     @Override
     public int castToInt() {

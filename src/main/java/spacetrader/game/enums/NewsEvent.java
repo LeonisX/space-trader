@@ -2,7 +2,6 @@ package spacetrader.game.enums;
 
 public enum NewsEvent implements SpaceTraderEnum {
 
-    ArtifactDelivery, // = 0,
     CaughtLittering, // = 1,
     ExperimentArrival, // = 11,
     CaptAhabAttacked, // = 15,

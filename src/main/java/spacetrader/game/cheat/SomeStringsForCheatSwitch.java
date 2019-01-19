@@ -32,7 +32,7 @@ public enum SomeStringsForCheatSwitch {
     Scratch,
     Skin,
     Status,
-    Artifact,
+    //Artifact,
     //Dragonfly,
     //Experiment,
     //Gemulon,

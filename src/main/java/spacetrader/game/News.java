@@ -2,7 +2,6 @@ package spacetrader.game;
 
 import spacetrader.game.enums.NewsEvent;
 import spacetrader.game.enums.ShipyardId;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.SystemPressure;
 import spacetrader.game.quest.containers.NewsContainer;
 import spacetrader.stub.ArrayList;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.ON_NEWS_ADD_EVENT_FROM_NEAREST_SYSTEMS;
-import static spacetrader.game.quest.enums.EventName.ON_NEWS_ADD_EVENT_ON_ARRIVAL;
 
 public class News implements Serializable {
 
@@ -28,19 +26,6 @@ public class News implements Serializable {
 
     public void addEvent(NewsEvent newsEvent) {
         newsEvents.add(newsEvent.castToInt());
-    }
-
-    void addEventsOnArrival() {
-        Game.getCurrentGame().getQuestSystem().fireEvent(ON_NEWS_ADD_EVENT_ON_ARRIVAL);
-        if (Game.getCommander().getCurrentSystem().getSpecialEventType() != SpecialEventType.NA) {
-            switch (Game.getCommander().getCurrentSystem().getSpecialEventType()) {
-                case ArtifactDelivery:
-                    if (Game.getCommander().getShip().isArtifactOnBoard()) {
-                        addEvent(NewsEvent.ArtifactDelivery.castToInt());
-                    }
-                    break;
-            }
-        }
     }
 
     public void replaceLastAttackedEventWithDestroyedEvent() {

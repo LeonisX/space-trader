@@ -155,29 +155,17 @@ public class GameCheats implements Serializable {
                 case Skin:
                     ship.setHull(Math.max(0, Math.min(ship.getHullStrength(), words.getNum1())));
                     break;
-                case Status: {
+                case Status:
                     game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_CHEAT, words);
 
-                    switch (SomeStringsForCheatSwitch.find(words.getSecond())) {
-                        case Artifact:
-                            game.setQuestStatusArtifact(Math.max(0, words.getNum2()));
-                            break;
+                    Map<String, Integer> strings = new HashMap<>();
+                    game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);
 
-                        default:
+                    String text = strings.entrySet().stream()
+                            .map(e -> e.getKey() + ": " + e.getValue()).collect(joining(Strings.newline));
 
-                            String text = Strings.CheatsArtifact + ": " + game.getQuestStatusArtifact() + Strings.newline;
-
-                            Map<String, Integer> strings = new HashMap<>();
-                            game.getQuestSystem().fireEvent(EventName.IS_CONSIDER_STATUS_DEFAULT_CHEAT, strings);
-
-                            text = text + strings.entrySet().stream()
-                                    .map(e -> e.getKey() + ": " + e.getValue()).collect(joining(Strings.newline));
-
-                            GuiFacade.alert(AlertType.Alert, Strings.CheatsStatusOfQuests, text);
-                            break;
-                    }
-                }
-                break;
+                    GuiFacade.alert(AlertType.Alert, Strings.CheatsStatusOfQuests, text);
+                    break;
                 case Swag:
                     if (words.getNum1() >= 0 && words.getNum1() < ship.getCargo().length) {
                         ship.getCargo()[words.getNum1()] = Math.max(0, Math.min(ship.getFreeCargoBays() + ship.getCargo()[words.getNum1()], words.getNum2()));

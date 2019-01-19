@@ -67,7 +67,6 @@ public class Game implements Serializable {
     private boolean targetWormhole = false; // Wormhole selected?
     private int[] priceCargoBuy = new int[10];
     private int[] priceCargoSell = new int[10]; // Status of Quests
-    private int questStatusArtifact = 0; // 0 = not given yet, 1 = Artifact on board, 2 = Artifact no longer on board (either delivered or lost)
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
@@ -222,7 +221,7 @@ public class Game implements Serializable {
 
         calculatePrices(commander.getCurrentSystem());
 
-        news.addEventsOnArrival();
+        questSystem.fireEvent(ON_NEWS_ADD_EVENT_ON_ARRIVAL);
 
         if (getOptions().isNewsAutoShow()) {
             showNewspaper();
@@ -368,14 +367,6 @@ public class Game implements Serializable {
 
     public void setRaided(boolean raided) {
         this.raided = raided;
-    }
-
-    public int getQuestStatusArtifact() {
-        return questStatusArtifact;
-    }
-
-    public void setQuestStatusArtifact(int questStatusArtifact) {
-        this.questStatusArtifact = questStatusArtifact;
     }
 
     /**
@@ -652,11 +643,6 @@ public class Game implements Serializable {
     public void escapeWithPod() {
         GuiFacade.alert(AlertType.EncounterEscapePodActivated);
 
-        if (commander.getShip().isArtifactOnBoard()) {
-            GuiFacade.alert(AlertType.ArtifactLost);
-            setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
-        }
-
         questSystem.fireEvent(EventName.ON_ESCAPE_WITH_POD);
 
         if (commander.getInsurance()) {
@@ -805,41 +791,6 @@ public class Game implements Serializable {
         }
     }
 
-    public void handleSpecialEvent() {
-        StarSystem currentSystem = commander.getCurrentSystem();
-
-        switch (currentSystem.getSpecialEventType()) {
-            case Artifact:
-                setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_ON_BOARD);
-                confirmQuestPhase();
-                break;
-            case ArtifactDelivery:
-                setQuestStatusArtifact(SpecialEvent.STATUS_ARTIFACT_DONE);
-                confirmQuestPhase();
-                break;
-            case CargoForSale:
-                GuiFacade.alert(AlertType.SpecialSealedCanisters);
-                int tradeItem = Functions.getRandom(Consts.TradeItems.length);
-                commander.getShip().getCargo()[tradeItem] += 3;
-                commander.getPriceCargo()[tradeItem] += commander.getCurrentSystem().specialEvent().getPrice();
-                confirmQuestPhase();
-                break;
-        }
-    }
-
-    public void confirmQuestPhase() {
-        StarSystem currentSystem = commander.getCurrentSystem();
-        if (null != currentSystem.specialEvent()) {
-            commander.setCash(commander.getCash() - currentSystem.specialEvent().getPrice());
-        }
-        currentSystem.setSpecialEventType(SpecialEventType.NA);
-        questSystem.fireEvent(ON_AFTER_NEW_QUEST_STARTED);
-    }
-
-    public void switchQuestPhase(SpecialEventType specialEventType) {
-        commander.getCurrentSystem().setSpecialEventType(specialEventType);
-    }
-
     public void incDays(int num) {
         commander.setDays(commander.getDays() + num);
 
@@ -927,35 +878,8 @@ public class Game implements Serializable {
 
         questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverse);
 
-        // Find a Hi-Tech system without a special event for ArtifactDelivery.
-        if (goodUniverse.getValue()) {
-            Optional<StarSystem> freeHiTechSystem = Arrays.stream(getUniverse())
-                    .filter(universe -> universe.getSpecialEventType() == SpecialEventType.NA
-                            && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
-            if (freeHiTechSystem.isPresent()) {
-                freeHiTechSystem.get().setSpecialEventType(SpecialEventType.ArtifactDelivery);
-            } else {
-                goodUniverse.setValue(false);
-            }
-        }
-
         if (goodUniverse.getValue()) {
             questSystem.fireEvent(EventName.ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY, goodUniverse);
-        }
-
-        // Assign the rest of the events randomly.
-        //TODO remove after all quests
-        int system;
-        if (goodUniverse.getValue()) {
-            for (int i = 0; i < Consts.SpecialEvents.length; i++) {
-                for (int j = 0; j < Consts.SpecialEvents[i].getOccurrence(); j++) {
-                    do {
-                        system = Functions.getRandom(getUniverse().length);
-                    } while (getStarSystem(system).getSpecialEventType() != SpecialEventType.NA);
-
-                    getStarSystem(system).setSpecialEventType(Consts.SpecialEvents[i].getType());
-                }
-            }
         }
 
         if (goodUniverse.getValue()) {
@@ -1319,7 +1243,6 @@ public class Game implements Serializable {
                 litterWarning == game.litterWarning &&
                 autoSave == game.autoSave &&
                 targetWormhole == game.targetWormhole &&
-                questStatusArtifact == game.questStatusArtifact &&
                 fabricRipProbability == game.fabricRipProbability &&
                 justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
@@ -1347,7 +1270,7 @@ public class Game implements Serializable {
         int result = Objects.hash(commander, cheats, opponent,
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus, selectedSystemId,
-                warpSystemId, trackedSystemId, targetWormhole, questStatusArtifact,
+                warpSystemId, trackedSystemId, targetWormhole,
                 fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);

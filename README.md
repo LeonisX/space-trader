@@ -227,6 +227,94 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+
+
+## Artifact Quest
+
+# Quest phases:
+PhaseArtifactTitle=Alien Artifact
+PhaseArtifactMessage=This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?
+PhaseArtifactDeliveryTitle=Artifact Delivery
+PhaseArtifactDeliveryMessage=This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.
+
+# Quest clues:
+QuestArtifact=Deliver the alien artifact to Professor Berger at some hi-tech system.
+
+# Alerts:
+AlertArtifactLostTitle=Artifact Lost
+AlertArtifactLostMessage=The alien artifact has been lost in the wreckage of your ship.
+AlertEncounterAliensSurrenderTitle=Surrender
+AlertEncounterAliensSurrenderMessage=If you surrender to the aliens, they will take the artifact. Are you sure you wish to do that?
+AlertArtifactRelinquishedTitle=Artifact Relinquished
+AlertArtifactRelinquishedMessage=The aliens take the artifact from you.
+
+# News:
+NewsArtifactDelivery=Scientist Adds Alien Artifact to Museum Collection.
+
+# Special Cargo Titles:
+SpecialCargoArtifact=An alien artifact.
+
+# Cheat Titles:
+CheatArtifact=Artifact
+
+
+## Cargo Quest
+
+# Quest phases:
+PhaseCargoForSaleTitle=Cargo For Sale
+PhaseCargoForSaleMessage=A trader in second-hand goods offers you 3 sealed cargo canisters for the sum of 1000 credits. It could be a good deal: they could contain robots. Then again, it might just be water. Do you want the canisters?
+
+# Alerts:
+AlertSpecialSealedCanistersTitle=Sealed Canisters
+AlertSpecialSealedCanistersMessage=You bought the sealed canisters and put them in your cargo bays.
+
+===================================================================================================
+
+## Artifact Quest
+
+# Quest phases:
+PhaseArtifactTitle=Инопланетный артефакт
+PhaseArtifactMessage=Этот инопланетный артефакт должен быть доставлен профессору Бергеру, но он в настоящее время путешествует. Вероятно, вы сможете найти его в солнечной системе с уровнем развития хай-тек. Однако инопланетная раса, которая произвела этот артефакт, скорее всего захочет вернуть его, и может стать помехой перевозчику. Вы готовы доставить его за приличное денежное вознаграждение?
+PhaseArtifactDeliveryTitle=Доставка артефакта
+PhaseArtifactDeliveryMessage=Это профессор Бергер. Благодарю вас за то, что доставили мне этот инопланетный артефакт. Надеюсь, что инопланетяне не слишком досаждали вам. Я перечислил на ваш счёт 20000 кредитов, которые, как я полагаю, компенсирует все ваши неприятности.
+
+# Quest clues:
+QuestArtifact=Доставить инопланетный артефакт профессору Бергеру в какую-то систему уровня хай-тек.
+
+# Alerts:
+AlertArtifactLostTitle=Артефакт был утерян
+AlertArtifactLostMessage=Инопланетный артефакт был навсегда потерян в облаке обломков, оставшемся на месте гибели вашего корабля.
+AlertEncounterAliensSurrenderTitle=Капитуляция
+AlertEncounterAliensSurrenderMessage=Если вы сдадитесь пришельцам, то они отберут артефакт. Вы уверены, что хотите это сделать?
+AlertArtifactRelinquishedTitle=Артефакт был отдан
+AlertArtifactRelinquishedMessage=Пришельцы забрали у вас артефакт.
+
+# News:
+NewsArtifactDelivery=Учёные добавили инопланетный артефакт в коллекцию музея.
+
+# Special Cargo Titles:
+SpecialCargoArtifact=Инопланетный артефакт.
+
+# Cheat Titles:
+CheatArtifact=Артефакт
+
+
+## Cargo Quest
+
+# Quest phases:
+PhaseCargoForSaleTitle=Груз на продажу
+PhaseCargoForSaleMessage=Торговец подержанными товарами предлагает вам 3 запечатанных грузовых контейнера на сумму 1000 кредитов. Сделка окажется очень выгодной, если в них находятся роботы. Опять же, там может быть просто вода. Вы купите эти контейнеры?
+
+# Alerts:
+AlertSpecialSealedCanistersTitle=Запечатанные контейнеры
+AlertSpecialSealedCanistersMessage=Вы прибрели запечатанные контейнеры и погрузили их в трюм.
+
+
+* When surrender - see pirates robbery :(
+* Need to cover pirates encounters, arrested, like for Sculpture
+* Test alllll
+* StarSystem SpecialEventType - replace with boolean, think how to remove at all
+* Fix FormAlertTest, if can
 * Uncomment QuestNames
 * Ship name (FormViewShip) - Bottle :(
 

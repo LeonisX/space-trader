@@ -48,7 +48,7 @@ public enum EventName {
     ENCOUNTER_IS_DISABLEABLE,                   // Space Monster. Don't allow to disable
     ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, // Princess (Scorpion). The action that occurs after processing the effects of an attack. It is necessary that Scorpion was not accidentally destroyed.
     ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, // Princess (Scorpion). Action that occurs when an opponent is disabled
-    ENCOUNTER_CHECK_POSSIBILITY_OF_SURRENDER,   // Princess (Scorpion). Check whether there is any possibility to surrender. For example, if the Princess is on board, you cannot surrender.
+    ENCOUNTER_ON_VERIFY_SURRENDER,              // Princess (Scorpion), Artifact. Check whether there is any possibility to surrender. For example, if the Princess is on board, you cannot surrender.
     ENCOUNTER_ON_SURRENDER_IF_RAIDED,           // Wild. Ability to change the situation with robbery
     ENCOUNTER_ON_ROBBERY,                       // Princess (Scorpion), Sculpture, Reactor. Used to generate a list of items that were hidden in secret cargo bays.
     ENCOUNTER_GET_STEALABLE_CARGO,              // Princess (Scorpion), Sculpture. Used to generate a list of goods that will be stolen during an attack. Princess will take one cargo bay

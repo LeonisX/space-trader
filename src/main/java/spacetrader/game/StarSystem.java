@@ -92,24 +92,6 @@ public class StarSystem implements Serializable {
                 .getTechUsage().castToInt());
     }
 
-    public boolean showSpecialButton() {
-        boolean show = false;
-
-        switch (getSpecialEventType()) {
-            case Artifact:
-                show = Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
-                break;
-            case ArtifactDelivery:
-                show = Game.getShip().isArtifactOnBoard();
-                break;
-            case CargoForSale:
-                show = Game.getShip().getFreeCargoBays() >= 3;
-                break;
-        }
-
-        return show;
-    }
-
     public int getCountDown() {
         return countDown;
     }
@@ -176,10 +158,6 @@ public class StarSystem implements Serializable {
 
     public Size getSize() {
         return size;
-    }
-
-    public SpecialEvent specialEvent() {
-        return (specialEventType == SpecialEventType.NA ? null : Consts.SpecialEvents[specialEventType.castToInt()]);
     }
 
     public SpecialEventType getSpecialEventType() {
