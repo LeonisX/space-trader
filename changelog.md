@@ -3,6 +3,33 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+20.01.2019 v.3.43.178
+
+New quests in Quest System:
+
+* Space Monster
+* Scarab Stolen
+* Skill Increase
+* Moon For Sale
+* Japori Disease
+* Alien Invasion
+* Dangerous Experiment
+* Erase Record
+* Dragonfly
+* Alien Artifact (with improvement)
+* Cargo For Sale
+
+Changelog:
+
+* Remove unneeded SpecialEventType enum
+* Allow to create few independent quests with same type
+* Delete unneeded files
+
+Bug fixes:
+
+* Fix warp to Ray system
+* Fix error when try to see high scores w/o started game
+
 31.12.2018 v.3.32.138
 
 The main innovation of the third version is the Quest Engine. 

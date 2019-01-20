@@ -1,1 +1,1 @@
-java -jar space-trader-3.32.138.jar
+java -jar space-trader-3.43.178.jar
