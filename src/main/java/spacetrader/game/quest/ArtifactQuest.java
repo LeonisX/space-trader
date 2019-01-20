@@ -7,6 +7,7 @@ import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.SurrenderContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
@@ -71,6 +72,8 @@ public class ArtifactQuest extends AbstractQuest {
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
         getTransitionMap().put(ENCOUNTER_ON_VERIFY_SURRENDER, this::encounterOnVerifySurrender);
+        getTransitionMap().put(ENCOUNTER_ON_ROBBERY, this::encounterOnRobbery);
+        getTransitionMap().put(ENCOUNTER_GET_STEALABLE_CARGO, this::encounterGetStealableCargo);
 
         getTransitionMap().put(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
         getTransitionMap().put(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
@@ -106,6 +109,7 @@ public class ArtifactQuest extends AbstractQuest {
         I18n.dumpStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
+        I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.dumpStrings(Res.SpecialCargo, Arrays.stream(SpecialCargo.values()));
         I18n.dumpStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
@@ -116,6 +120,7 @@ public class ArtifactQuest extends AbstractQuest {
         I18n.localizeStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
+        I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.SpecialCargo, Arrays.stream(SpecialCargo.values()));
         I18n.localizeStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
@@ -233,6 +238,26 @@ public class ArtifactQuest extends AbstractQuest {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private void encounterOnRobbery(Object object) {
+        if (!isArtifactOnBoard()) {
+            return;
+        }
+
+        //TODO if too much stealable items - will be hidden cargo bays overflow
+        if (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+            ((ArrayList<String>) object).add(Encounters.HideArtifact.getValue());
+        } else {
+            showAlert(Alerts.EncounterPiratesNotTakeArtifact.getValue());
+        }
+    }
+
+    private void encounterGetStealableCargo(Object object) {
+        if (isArtifactOnBoard()) {
+            ((IntContainer) object).dec();
+        }
+    }
+
     private void onEscapeWithPod(Object object) {
         if (isArtifactOnBoard()) {
             log.fine("Lost Artifact");
@@ -327,7 +352,8 @@ public class ArtifactQuest extends AbstractQuest {
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         ArtifactLost("Artifact Lost", "The alien artifact has been lost in the wreckage of your ship."),
         EncounterAliensSurrender("Surrender", "If you surrender to the aliens, they will take the artifact. Are you sure you wish to do that?"),
-        ArtifactRelinquished("Artifact Relinquished", "The aliens take the artifact from you.");
+        ArtifactRelinquished("Artifact Relinquished", "The aliens take the artifact from you."),
+        EncounterPiratesNotTakeArtifact("Pirates left Artifact", "Pirates are very interested in an Alien Artifact. But since no one could say what it is, their leader forbade even to touch him so as not to pick up some unknown infection.");
 
         private AlertDialog value;
 
@@ -352,6 +378,26 @@ public class ArtifactQuest extends AbstractQuest {
         private String value;
 
         News(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
+    enum Encounters implements SimpleValueEnum<String> {
+        HideArtifact("the Alien Artifact");
+
+        private String value;
+
+        Encounters(String value) {
             this.value = value;
         }
 

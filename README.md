@@ -247,6 +247,11 @@ AlertEncounterAliensSurrenderTitle=Surrender
 AlertEncounterAliensSurrenderMessage=If you surrender to the aliens, they will take the artifact. Are you sure you wish to do that?
 AlertArtifactRelinquishedTitle=Artifact Relinquished
 AlertArtifactRelinquishedMessage=The aliens take the artifact from you.
+AlertEncounterPiratesNotTakeArtifactTitle=Pirates left Artifact
+AlertEncounterPiratesNotTakeArtifactMessage=Pirates are very interested in an Alien Artifact. But since no one could say what it is, their leader forbade even to touch him so as not to pick up some unknown infection.");
+
+# Encounters:
+EncounterHideArtifact=the Alien Artifact
 
 # News:
 NewsArtifactDelivery=Scientist Adds Alien Artifact to Museum Collection.
@@ -288,6 +293,11 @@ AlertEncounterAliensSurrenderTitle=Капитуляция
 AlertEncounterAliensSurrenderMessage=Если вы сдадитесь пришельцам, то они отберут артефакт. Вы уверены, что хотите это сделать?
 AlertArtifactRelinquishedTitle=Артефакт был отдан
 AlertArtifactRelinquishedMessage=Пришельцы забрали у вас артефакт.
+AlertEncounterPiratesNotTakeArtifactTitle=Пираты оставили артефакт
+AlertEncounterPiratesNotTakeArtifactMessage=Пираты живо заинтересовались инопланетным артефактом. Но поскольку никто не мог сказать, что это такое, их предводитель запретил даже прикасаться к нему, чтобы не подцепить какую-то неизвестную заразу.");
+
+# Encounters:
+EncounterHideArtifact=инопланетный артефакт
 
 # News:
 NewsArtifactDelivery=Учёные добавили инопланетный артефакт в коллекцию музея.
