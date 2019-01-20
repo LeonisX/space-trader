@@ -227,57 +227,13 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-## Artifact Quest
-
-# Quest phases:
-PhaseArtifactTitle=Инопланетный артефакт
-PhaseArtifactMessage=Этот инопланетный артефакт должен быть доставлен профессору Бергеру, но он в настоящее время путешествует. Вероятно, вы сможете найти его в солнечной системе с уровнем развития хай-тек. Однако инопланетная раса, которая произвела этот артефакт, скорее всего захочет вернуть его, и может стать помехой перевозчику. Вы готовы доставить его за приличное денежное вознаграждение?
-PhaseArtifactDeliveryTitle=Доставка артефакта
-PhaseArtifactDeliveryMessage=Это профессор Бергер. Благодарю вас за то, что доставили мне этот инопланетный артефакт. Надеюсь, что инопланетяне не слишком досаждали вам. Я перечислил на ваш счёт 20000 кредитов, которые, как я полагаю, компенсирует все ваши неприятности.
-
-# Quest clues:
-QuestArtifact=Доставить инопланетный артефакт профессору Бергеру в какую-то систему уровня хай-тек.
-
-# Alerts:
-AlertArtifactLostTitle=Артефакт был утерян
-AlertArtifactLostMessage=Инопланетный артефакт был навсегда потерян в облаке обломков, оставшемся на месте гибели вашего корабля.
-AlertEncounterAliensSurrenderTitle=Капитуляция
-AlertEncounterAliensSurrenderMessage=Если вы сдадитесь пришельцам, то они отберут артефакт. Вы уверены, что хотите это сделать?
-AlertArtifactRelinquishedTitle=Артефакт был отдан
-AlertArtifactRelinquishedMessage=Пришельцы забрали у вас артефакт.
-AlertEncounterPiratesNotTakeArtifactTitle=Пираты оставили артефакт
-AlertEncounterPiratesNotTakeArtifactMessage=Пираты живо заинтересовались инопланетным артефактом. Но поскольку никто не мог сказать, что это такое, их предводитель запретил даже прикасаться к нему, чтобы не подцепить какую-то неизвестную заразу.
-
-# Encounters:
-EncounterHideArtifact=инопланетный артефакт
-
-# News:
-NewsArtifactDelivery=Учёные добавили инопланетный артефакт в коллекцию музея.
-
-# Special Cargo Titles:
-SpecialCargoArtifact=Инопланетный артефакт.
-
-# Cheat Titles:
-CheatArtifact=Артефакт
-
-
-## Cargo Quest
-
-# Quest phases:
-PhaseCargoForSaleTitle=Груз на продажу
-PhaseCargoForSaleMessage=Торговец подержанными товарами предлагает вам 3 запечатанных грузовых контейнера на сумму 1000 кредитов. Сделка окажется очень выгодной, если в них находятся роботы. Опять же, там может быть просто вода. Вы купите эти контейнеры?
-
-# Alerts:
-AlertSpecialSealedCanistersTitle=Запечатанные контейнеры
-AlertSpecialSealedCanistersMessage=Вы прибрели запечатанные контейнеры и погрузили их в трюм.
-
-
 * Check all quests with price and fix all
 * Test alllll
 * StarSystem SpecialEventType - replace with boolean, think how to remove at all
 * Fix FormAlertTest, if can
 * Uncomment QuestNames
 * Ship name (FormViewShip) - Bottle :(
+* Autosize doesn't works in FormViewQuests (ArtifactQuest))
 
 ### News
 
