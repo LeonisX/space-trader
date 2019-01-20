@@ -232,23 +232,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## Artifact Quest
 
 # Quest phases:
-PhaseArtifactTitle=Alien Artifact
-PhaseArtifactMessage=This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?
 PhaseArtifactDeliveryTitle=Artifact Delivery
 PhaseArtifactDeliveryMessage=This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.
-
-# Quest clues:
-QuestArtifact=Deliver the alien artifact to Professor Berger at some hi-tech system.
-
-# Alerts:
-AlertArtifactLostTitle=Artifact Lost
-AlertArtifactLostMessage=The alien artifact has been lost in the wreckage of your ship.
-AlertEncounterAliensSurrenderTitle=Surrender
-AlertEncounterAliensSurrenderMessage=If you surrender to the aliens, they will take the artifact. Are you sure you wish to do that?
-AlertArtifactRelinquishedTitle=Artifact Relinquished
-AlertArtifactRelinquishedMessage=The aliens take the artifact from you.
-AlertEncounterPiratesNotTakeArtifactTitle=Pirates left Artifact
-AlertEncounterPiratesNotTakeArtifactMessage=Pirates are very interested in an Alien Artifact. But since no one could say what it is, their leader forbade even to touch him so as not to pick up some unknown infection.");
 
 # Encounters:
 EncounterHideArtifact=the Alien Artifact
@@ -256,11 +241,6 @@ EncounterHideArtifact=the Alien Artifact
 # News:
 NewsArtifactDelivery=Scientist Adds Alien Artifact to Museum Collection.
 
-# Special Cargo Titles:
-SpecialCargoArtifact=An alien artifact.
-
-# Cheat Titles:
-CheatArtifact=Artifact
 
 
 ## Cargo Quest
@@ -294,7 +274,7 @@ AlertEncounterAliensSurrenderMessage=Если вы сдадитесь прише
 AlertArtifactRelinquishedTitle=Артефакт был отдан
 AlertArtifactRelinquishedMessage=Пришельцы забрали у вас артефакт.
 AlertEncounterPiratesNotTakeArtifactTitle=Пираты оставили артефакт
-AlertEncounterPiratesNotTakeArtifactMessage=Пираты живо заинтересовались инопланетным артефактом. Но поскольку никто не мог сказать, что это такое, их предводитель запретил даже прикасаться к нему, чтобы не подцепить какую-то неизвестную заразу.");
+AlertEncounterPiratesNotTakeArtifactMessage=Пираты живо заинтересовались инопланетным артефактом. Но поскольку никто не мог сказать, что это такое, их предводитель запретил даже прикасаться к нему, чтобы не подцепить какую-то неизвестную заразу.
 
 # Encounters:
 EncounterHideArtifact=инопланетный артефакт
@@ -320,6 +300,8 @@ AlertSpecialSealedCanistersTitle=Запечатанные контейнеры
 AlertSpecialSealedCanistersMessage=Вы прибрели запечатанные контейнеры и погрузили их в трюм.
 
 
+* Even if hidden - aliens scanned ship and discovered artifact :(
+* Check all quests with price and fix all
 * When surrender - see pirates robbery :(
 * Need to cover pirates encounters, arrested, like for Sculpture
 * Test alllll

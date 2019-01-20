@@ -263,7 +263,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
             else {
                 try {
                     ((Button) object).setVisible(false);
-                    Game.getCommander().spendCash(dialog.getPrice());
+                    //Game.getCommander().spendCash(dialog.getPrice());
                     operation.run();
                 } catch (GameEndException ex) {
                     Game.getCurrentGame().getController().gameEnd();
