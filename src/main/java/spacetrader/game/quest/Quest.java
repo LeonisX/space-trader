@@ -33,6 +33,8 @@ public interface Quest {
 
     Collection<Phase> getPhases();
 
+    Collection<QuestDialog> getQuestDialogs();
+
     String getNewsTitle(int newsId);
 
     QuestState getQuestState();

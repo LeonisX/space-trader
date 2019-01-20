@@ -16,6 +16,7 @@ import spacetrader.util.Functions;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.*;
 import static spacetrader.game.quest.enums.EventName.*;
@@ -97,6 +98,11 @@ public class TribblesQuest extends AbstractQuest {
     @Override
     public Collection<Phase> getPhases() {
         return phases.values();
+    }
+
+    @Override
+    public Collection<QuestDialog> getQuestDialogs() {
+        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
     public List<Point> getCoordinates() {

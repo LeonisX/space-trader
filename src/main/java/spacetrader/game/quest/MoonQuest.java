@@ -16,6 +16,7 @@ import spacetrader.gui.FormAlert;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
@@ -90,6 +91,11 @@ class MoonQuest extends AbstractQuest implements Serializable {
     @Override
     public Collection<Phase> getPhases() {
         return phases.values();
+    }
+
+    @Override
+    public Collection<QuestDialog> getQuestDialogs() {
+        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
     @Override

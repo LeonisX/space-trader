@@ -16,6 +16,7 @@ import spacetrader.util.Functions;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
@@ -93,6 +94,11 @@ public class ExperimentQuest extends AbstractQuest {
     public void registerListener() {
         getTransitionMap().keySet().forEach(this::registerOperation);
         log.fine("registered");
+    }
+
+    @Override
+    public Collection<QuestDialog> getQuestDialogs() {
+        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
     @Override

@@ -210,6 +210,10 @@ public class QuestSystem implements Serializable {
         return getQuests().stream().flatMap(q -> q.getPhases().stream());
     }
 
+    public Stream<QuestDialog> getQuestDialogsStream() {
+        return getQuests().stream().flatMap(q -> q.getQuestDialogs().stream());
+    }
+
     public String getNewsTitle(int newsEventId) {
         return questNews.get(newsEventId).getNewsTitle(newsEventId);
     }

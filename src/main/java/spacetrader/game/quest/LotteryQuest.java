@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumMap;
+import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
@@ -69,6 +70,11 @@ class LotteryQuest extends AbstractQuest {
     @Override
     public Collection<Phase> getPhases() {
         return phases.values();
+    }
+
+    @Override
+    public Collection<QuestDialog> getQuestDialogs() {
+        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
     @Override

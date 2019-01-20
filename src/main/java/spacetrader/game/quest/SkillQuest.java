@@ -6,6 +6,7 @@ import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
@@ -52,6 +53,11 @@ class SkillQuest extends AbstractQuest {
     @Override
     public Collection<Phase> getPhases() {
         return phases.values();
+    }
+
+    @Override
+    public Collection<QuestDialog> getQuestDialogs() {
+        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
     @Override

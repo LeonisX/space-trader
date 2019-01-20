@@ -230,7 +230,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Check all quests with price and fix all
 * Test alllll
 * StarSystem SpecialEventType - replace with boolean, think how to remove at all
-* Fix FormAlertTest, if can
 * Uncomment QuestNames
 * Ship name (FormViewShip) - Bottle :(
 * Autosize doesn't works in FormViewQuests (ArtifactQuest))

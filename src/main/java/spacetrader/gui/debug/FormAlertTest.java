@@ -4,9 +4,10 @@ import spacetrader.controls.*;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
 import spacetrader.controls.enums.FormStartPosition;
-import spacetrader.game.Consts;
+import spacetrader.game.Game;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.SpecialEventType;
+import spacetrader.game.quest.QuestDialog;
+import spacetrader.game.quest.enums.MessageType;
 import spacetrader.gui.FormAlert;
 import spacetrader.gui.SpaceTraderForm;
 import spacetrader.guifacade.GuiFacade;
@@ -29,7 +30,7 @@ public class FormAlertTest extends SpaceTraderForm {
     private Panel panel1 = new Panel();
     private Button btnTestAlert = new Button();
     private Button btnTestSpecialEvent = new Button();
-    private ComboBox<SpecialEventType> selSpecialEvent = new ComboBox<>();
+    private ComboBox<QuestDialog> selSpecialEvent = new ComboBox<>();
     private Label lblSpecialEvent = new Label();
 
     public FormAlertTest() {
@@ -41,12 +42,8 @@ public class FormAlertTest extends SpaceTraderForm {
         }
         selAlertType.setSelectedIndex(0);
 
-        //TODO fix, if can.
-        /*SpecialEventType[] events = Arrays.copyOfRange(SpecialEventType.values(), SpecialEventType.ordinal(), SpecialEventType.CargoForSale.ordinal());
-        for (SpecialEventType type : events) {
-            selSpecialEvent.getItems().addElement(type);
-        }
-        selSpecialEvent.setSelectedIndex(0);*/
+        Game.getCurrentGame().getQuestSystem().getQuestDialogsStream().forEach(d -> selSpecialEvent.getItems().addElement(d));
+        selSpecialEvent.setSelectedIndex(0);
     }
 
     private void initializeComponent() {
@@ -160,7 +157,7 @@ public class FormAlertTest extends SpaceTraderForm {
                 this.lblSpecialEvent}));
         this.panel1.setLocation(8, 168);
         this.panel1.setName("panel1");
-        this.panel1.setSize(200, 80);
+        this.panel1.setSize(300, 80);
         this.panel1.setTabIndex(2);
         this.panel1.setTabStop(false);
         this.panel1.setText("Test Special Alert");
@@ -182,7 +179,7 @@ public class FormAlertTest extends SpaceTraderForm {
         //
         this.selSpecialEvent.setLocation(88, 16);
         this.selSpecialEvent.setName("selSpecialEvent");
-        this.selSpecialEvent.setSize(104, 21);
+        this.selSpecialEvent.setSize(204, 21);
         this.selSpecialEvent.setTabIndex(4);
         //
         // lblSpecialEvent
@@ -217,12 +214,11 @@ public class FormAlertTest extends SpaceTraderForm {
     }
 
     private void btnTestSpecialEvent_Click() {
-        //TODO fix if can
-        /*SpecialEvent specEvent = Consts.SpecialEvents[((SpecialEventType) selSpecialEvent.getSelectedItem()).castToInt()];
+        QuestDialog dialog = (QuestDialog) selSpecialEvent.getSelectedItem();
         String btn1, btn2;
         DialogResult res1, res2;
 
-        if (specEvent.isMessageOnly()) {
+        if (dialog.getMessageType() == MessageType.ALERT) {
             btn1 = "Ok";
             btn2 = null;
             res1 = DialogResult.OK;
@@ -234,6 +230,6 @@ public class FormAlertTest extends SpaceTraderForm {
             res2 = DialogResult.NO;
         }
 
-        (new FormAlert(specEvent.getTitle(), specEvent.getString(), btn1, res1, btn2, res2, null)).showDialog(this);*/
+        (new FormAlert(dialog.getTitle(), dialog.getMessage(), btn1, res1, btn2, res2, null)).showDialog(this);
     }
 }

@@ -16,6 +16,7 @@ import spacetrader.guifacade.GuiFacade;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.enums.EventName.*;
@@ -94,6 +95,11 @@ class JarekQuest extends AbstractQuest {
     @Override
     public Collection<Phase> getPhases() {
         return phases.values();
+    }
+
+    @Override
+    public Collection<QuestDialog> getQuestDialogs() {
+        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
     private boolean isHagglingComputerOnBoard() {

@@ -13,6 +13,7 @@ import spacetrader.util.Functions;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
@@ -109,6 +110,11 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     @Override
     public Collection<Phase> getPhases() {
         return phases.values();
+    }
+
+    @Override
+    public Collection<QuestDialog> getQuestDialogs() {
+        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
     @Override

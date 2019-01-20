@@ -4,7 +4,7 @@ import spacetrader.game.quest.enums.MessageType;
 
 import java.io.Serializable;
 
-class QuestDialog extends AlertDialog implements Serializable {
+public class QuestDialog extends AlertDialog implements Serializable {
 
     private final MessageType messageType;
     private final int price;
@@ -25,7 +25,7 @@ class QuestDialog extends AlertDialog implements Serializable {
         this.occurrence = occurrence;
     }
 
-    MessageType getMessageType() {
+    public MessageType getMessageType() {
         return messageType;
     }
 
@@ -35,5 +35,11 @@ class QuestDialog extends AlertDialog implements Serializable {
 
     public int getOccurrence() {
         return occurrence;
+    }
+
+
+    @Override
+    public String toString() {
+        return getTitle();
     }
 }
