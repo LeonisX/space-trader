@@ -5,7 +5,6 @@ import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
@@ -130,7 +129,7 @@ public class ExperimentQuest extends AbstractQuest {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Daled);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.ExperimentStopped).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.ExperimentFailed).setStarSystemId(starSystem.getId());
     }
@@ -142,7 +141,7 @@ public class ExperimentQuest extends AbstractQuest {
         if (!goodUniverse.getValue()) {
             return;
         }
-        int systemId = game.isFindDistantSystem(StarSystemId.Gemulon, SpecialEventType.ASSIGNED);
+        int systemId = game.isFindDistantSystem(StarSystemId.Gemulon);
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
@@ -271,7 +270,7 @@ public class ExperimentQuest extends AbstractQuest {
             questStatus.set(Math.min(questStatus.get() + ((IntContainer) object).getValue(), STATUS_EXPERIMENT_PERFORMED));
             if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED) {
                 game.setFabricRipProbability(Consts.FabricRipInitialProbability);
-                Game.getStarSystem(StarSystemId.Daled).setSpecialEventType(SpecialEventType.ASSIGNED);
+                Game.getStarSystem(StarSystemId.Daled).setQuestSystem(true);
                 showAlert(Alerts.ExperimentPerformed.getValue());
                 Game.getNews().addEvent(getNewsIds().get(News.ExperimentPerformed.ordinal()));
             }

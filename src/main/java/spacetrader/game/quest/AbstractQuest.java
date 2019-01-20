@@ -6,7 +6,6 @@ import spacetrader.controls.WinformPane;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.containers.ShipSpecContainer;
@@ -88,10 +87,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     StarSystemId occupyFreeSystemWithEvent() {
         List<StarSystem> freeSystems = Arrays.stream(game.getUniverse())
-                .filter(s -> s.getSpecialEventType() == SpecialEventType.NA).collect(Collectors.toList());
+                .filter(s -> !s.isQuestSystem()).collect(Collectors.toList());
         StarSystem system = freeSystems.get(ThreadLocalRandom.current().nextInt(freeSystems.size()));
 
-        system.setSpecialEventType(SpecialEventType.ASSIGNED);
+        system.setQuestSystem(true);
         log.fine(system.getId().toString());
         return system.getId();
     }

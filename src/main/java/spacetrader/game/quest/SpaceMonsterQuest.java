@@ -7,7 +7,6 @@ import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.StringContainer;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -163,7 +162,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Acamar);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.SpaceMonsterKilled).setStarSystemId(starSystem.getId());
     }
 

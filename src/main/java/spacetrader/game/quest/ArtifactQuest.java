@@ -137,10 +137,10 @@ public class ArtifactQuest extends AbstractQuest {
         // Find a Hi-Tech system without a special event for ArtifactDelivery.
         if (goodUniverse.getValue()) {
             Optional<StarSystem> freeHiTechSystem = Arrays.stream(Game.getCurrentGame().getUniverse())
-                    .filter(universe -> universe.getSpecialEventType() == SpecialEventType.NA
+                    .filter(universe -> !universe.isQuestSystem()
                             && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
             if (freeHiTechSystem.isPresent()) {
-                freeHiTechSystem.get().setSpecialEventType(SpecialEventType.ASSIGNED);
+                freeHiTechSystem.get().setQuestSystem(true);
                 phases.get(QuestPhases.ArtifactDelivery).setStarSystemId(freeHiTechSystem.get().getId());
             } else {
                 goodUniverse.setValue(false);

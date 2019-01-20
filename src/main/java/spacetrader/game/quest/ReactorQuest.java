@@ -137,7 +137,7 @@ public class ReactorQuest extends AbstractQuest {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Nix);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.ReactorDelivered).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.ReactorLaser).setStarSystemId(starSystem.getId());
     }
@@ -149,7 +149,7 @@ public class ReactorQuest extends AbstractQuest {
         if (!goodUniverse.getValue()) {
             return;
         }
-        int systemId = game.isFindDistantSystem(StarSystemId.Nix, SpecialEventType.ASSIGNED);
+        int systemId = game.isFindDistantSystem(StarSystemId.Nix);
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
@@ -185,7 +185,7 @@ public class ReactorQuest extends AbstractQuest {
                     questStatus = STATUS_REACTOR_FUEL_OK;
                     confirmQuestPhase();
                     setQuestState(QuestState.ACTIVE);
-                    //Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+                    //Game.getCurrentGame().getSelectedSystem().setQuestSystem(false);
                 }
             }
         }

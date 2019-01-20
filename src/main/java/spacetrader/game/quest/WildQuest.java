@@ -7,7 +7,6 @@ import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.enums.WeaponType;
 import spacetrader.game.quest.containers.BooleanContainer;
@@ -161,7 +160,7 @@ class WildQuest extends AbstractQuest {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Kravat);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.WildGetsOut).setStarSystemId(starSystem.getId());
     }
 
@@ -204,7 +203,7 @@ class WildQuest extends AbstractQuest {
                 showAlert(Alerts.WildWontBoardReactor.getValue());
             } else {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
-                Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+                Game.getCurrentGame().getSelectedSystem().setQuestSystem(false);
                 Game.getShip().hire(wild);
                 questStatus = STATUS_WILD_STARTED;
                 setQuestState(QuestState.ACTIVE);

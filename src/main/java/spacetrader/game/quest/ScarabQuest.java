@@ -190,10 +190,10 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         log.fine("");
         // Assign a wormhole location endpoint for the Scarab.
         OptionalInt freeWormhole = Arrays.stream(Game.getCurrentGame().getWormholes())
-                .filter(wormhole -> Game.getStarSystem(wormhole).getSpecialEventType() == SpecialEventType.NA).findAny();
+                .filter(wormhole -> !Game.getStarSystem(wormhole).isQuestSystem()).findAny();
         if (freeWormhole.isPresent()) {
             StarSystem starSystem = Game.getStarSystem(freeWormhole.getAsInt());
-            starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+            starSystem.setQuestSystem(true);
             phases.get(QuestPhases.ScarabDestroyed).setStarSystemId(starSystem.getId());
             phases.get(QuestPhases.ScarabUpgradeHull).setStarSystemId(starSystem.getId());
         } else {
@@ -343,7 +343,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     // Encounter with the stolen Scarab
     private void encounterDetermineNonRandomEncounter(Object object) {
         //TODO need constant instead of 20
-        if (game.getArrivedViaWormhole() && game.getClicks() == 20 && game.getWarpSystem().getSpecialEventType() != SpecialEventType.NA
+        if (game.getArrivedViaWormhole() && game.getClicks() == 20 && game.getWarpSystem().isQuestSystem()
                 && game.getWarpSystem().getId() == phases.get(QuestPhases.ScarabDestroyed).getStarSystemId()
                 && questStatus == STATUS_SCARAB_HUNTING) {
             game.setOpponent(scarab);

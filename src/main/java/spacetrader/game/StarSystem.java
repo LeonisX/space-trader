@@ -16,7 +16,7 @@ public class StarSystem implements Serializable {
     private PoliticalSystemType politicalSystemType;
     private SystemPressure systemPressure;
     private SpecialResource specialResource;
-    private SpecialEventType specialEventType = SpecialEventType.NA;
+    private boolean questSystem = false;
     private int[] tradeItems = new int[10];
     private int countDown = 0;
     private boolean visited = false;
@@ -160,12 +160,12 @@ public class StarSystem implements Serializable {
         return size;
     }
 
-    public SpecialEventType getSpecialEventType() {
-        return specialEventType;
+    public boolean isQuestSystem() {
+        return questSystem;
     }
 
-    public void setSpecialEventType(SpecialEventType value) {
-        specialEventType = value;
+    public void setQuestSystem(boolean value) {
+        questSystem = value;
     }
 
     public SpecialResource getSpecialResource() {
@@ -231,14 +231,14 @@ public class StarSystem implements Serializable {
                 politicalSystemType == that.politicalSystemType &&
                 systemPressure == that.systemPressure &&
                 specialResource == that.specialResource &&
-                specialEventType == that.specialEventType &&
+                questSystem == that.questSystem &&
                 Arrays.equals(tradeItems, that.tradeItems) &&
                 shipyardId == that.shipyardId;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, x, y, size, techLevel, politicalSystemType, systemPressure, specialResource, specialEventType, countDown, visited, shipyardId);
+        int result = Objects.hash(id, x, y, size, techLevel, politicalSystemType, systemPressure, specialResource, questSystem, countDown, visited, shipyardId);
         result = 31 * result + Arrays.hashCode(tradeItems);
         return result;
     }

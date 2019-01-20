@@ -128,7 +128,7 @@ public class GemulonQuest extends AbstractQuest {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Gemulon);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.GemulonRescued).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.GemulonFuel).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.GemulonInvaded).setStarSystemId(starSystem.getId());
@@ -141,7 +141,7 @@ public class GemulonQuest extends AbstractQuest {
         if (!goodUniverse.getValue()) {
             return;
         }
-        int systemId = game.isFindDistantSystem(StarSystemId.Gemulon, SpecialEventType.ASSIGNED);
+        int systemId = game.isFindDistantSystem(StarSystemId.Gemulon);
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
@@ -280,7 +280,7 @@ public class GemulonQuest extends AbstractQuest {
             questStatus.set(Math.min(questStatus.get() + ((IntContainer) object).getValue(), STATUS_GEMULON_TOO_LATE));
             if (questStatus.get() == STATUS_GEMULON_TOO_LATE) {
                 StarSystem gemulon = Game.getStarSystem(StarSystemId.Gemulon);
-                gemulon.setSpecialEventType(SpecialEventType.ASSIGNED);
+                gemulon.setQuestSystem(true);
                 gemulon.setTechLevel(TechLevel.PRE_AGRICULTURAL);
                 gemulon.setPoliticalSystemType(PoliticalSystemType.ANARCHY);
             }

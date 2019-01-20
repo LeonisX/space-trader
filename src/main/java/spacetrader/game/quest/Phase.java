@@ -2,7 +2,6 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 
@@ -24,7 +23,7 @@ public abstract class Phase implements Serializable {
 
     public void confirmQuestPhase() {
         Game.getCommander().setCash(Game.getCommander().getCash() - phase.getValue().getPrice());
-        Game.getCommander().getCurrentSystem().setSpecialEventType(SpecialEventType.NA);
+        Game.getCommander().getCurrentSystem().setQuestSystem(false);
         Game.getCurrentGame().getQuestSystem().fireEvent(ON_AFTER_NEW_QUEST_STARTED);
     }
 

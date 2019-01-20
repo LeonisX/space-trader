@@ -116,7 +116,7 @@ public class GameController implements Serializable {
             if (game != null) {
                 game.setParentWindow(mainWindow);
                 Game.setCurrentGame(game);
-                //QuestSystem.setQuestSystem(game.getQuestSystem());
+                //QuestSystem.setQuestSystem(game.isQuestSystem());
                 game.getQuestSystem().initializeTransitionMaps();
                 game.getQuestSystem().initializeLoggers();
                 game.getQuestSystem().localizeQuests();

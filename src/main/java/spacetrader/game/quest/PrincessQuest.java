@@ -196,21 +196,21 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Galvon);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.Princess).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.PrincessReturned).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.PrincessQuantum).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Centauri);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessCentauri).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Inthara);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessInthara).setStarSystemId(starSystem.getId());
 
         starSystem = Game.getStarSystem(StarSystemId.Qonos);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessQonos).setStarSystemId(starSystem.getId());
     }
 
@@ -276,7 +276,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.PrincessCentauri);
             questStatus = STATUS_FLY_INTHARA;
-            game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+            game.getSelectedSystem().setQuestSystem(false);
         }
 
         @Override
@@ -296,7 +296,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.PrincessInthara);
             questStatus = STATUS_FLY_QONOS;
-            game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+            game.getSelectedSystem().setQuestSystem(false);
         }
 
         @Override
@@ -323,7 +323,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
                 Game.getShip().hire(princess);
                 princessOnBoard = true;
                 questStatus = STATUS_PRINCESS_RESCUED;
-                game.getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+                game.getSelectedSystem().setQuestSystem(false);
             }
         }
 

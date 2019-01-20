@@ -2,7 +2,6 @@ package spacetrader.game.quest;
 
 import spacetrader.game.Consts;
 import spacetrader.game.Game;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -104,7 +103,7 @@ class EraseRecordQuest extends AbstractQuest {
             Game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
             game.recalculateSellPrices();
             confirmQuestPhase();
-            Game.getCurrentGame().getSelectedSystem().setSpecialEventType(SpecialEventType.NA);
+            Game.getCurrentGame().getSelectedSystem().setQuestSystem(false);
             setQuestState(QuestState.FINISHED);
         }
 

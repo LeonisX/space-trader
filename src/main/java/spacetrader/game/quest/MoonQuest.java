@@ -3,7 +3,6 @@ package spacetrader.game.quest;
 import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.containers.IntContainer;
@@ -137,7 +136,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Utopia);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.MoonRetirement).setStarSystemId(starSystem.getId());
     }
 

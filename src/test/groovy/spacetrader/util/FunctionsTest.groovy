@@ -176,12 +176,12 @@ class FunctionsTest extends Specification {
                         new StarSystem(id: StarSystemId.Aldea, x: 1, y: 2, size: Size.LARGE,
                                 techLevel: TechLevel.MEDIEVAL, politicalSystemType: PoliticalSystemType.CAPITALIST,
                                 systemPressure: SystemPressure.CROP_FAILURE, specialResource: SpecialResource.DESERT,
-                                specialEventType: SpecialEventType.Dragonfly, tradeItems: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], countDown: 11,
+                                questSystem: false, tradeItems: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], countDown: 11,
                                 visited: true, shipyardId: ShipyardId.KUAT),
                         new StarSystem(id: StarSystemId.Balosnee, x: 11, y: 12, size: Size.MEDIUM,
                                 techLevel: TechLevel.HI_TECH, politicalSystemType: PoliticalSystemType.CYBERNETIC,
                                 systemPressure: SystemPressure.NONE, specialResource: SpecialResource.NOTHING,
-                                specialEventType: SpecialEventType.NA, tradeItems: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], countDown: 111,
+                                questSystem: true, tradeItems: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], countDown: 111,
                                 visited: false, shipyardId: ShipyardId.NA)
                 ],
 

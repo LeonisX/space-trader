@@ -4,7 +4,6 @@ import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.SpecialEventType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.enums.QuestState;
@@ -124,7 +123,7 @@ public class JaporiQuest extends AbstractQuest {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         StarSystem starSystem = Game.getStarSystem(StarSystemId.Japori);
-        starSystem.setSpecialEventType(SpecialEventType.ASSIGNED);
+        starSystem.setQuestSystem(true);
         phases.get(QuestPhases.JaporiDelivery).setStarSystemId(starSystem.getId());
     }
 
@@ -244,7 +243,7 @@ public class JaporiQuest extends AbstractQuest {
             // Second try
             questStatus = STATUS_JAPORI_NOT_STARTED;
             setQuestState(QuestState.INACTIVE);
-            Game.getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).setSpecialEventType(SpecialEventType.ASSIGNED);
+            Game.getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).setQuestSystem(true);
         } else {
             log.fine("Escaped w/o Antidote");
         }

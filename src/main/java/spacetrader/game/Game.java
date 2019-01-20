@@ -823,7 +823,7 @@ public class Game implements Serializable {
 
         while (commander.getCurrentSystem() == null) {
             StarSystem system = getStarSystem(Functions.getRandom(getUniverse().length));
-            if (system.getSpecialEventType() == SpecialEventType.NA
+            if (!system.isQuestSystem()
                     && system.getTechLevel().castToInt() > TechLevel.PRE_AGRICULTURAL.castToInt()
                     && system.getTechLevel().castToInt() < TechLevel.HI_TECH.castToInt()) {
                 // Make sure at least three other systems can be reached
@@ -889,18 +889,18 @@ public class Game implements Serializable {
         return goodUniverse.getValue();
     }
 
-    public int isFindDistantSystem(StarSystemId baseSystem, SpecialEventType specEvent) {
+    public int isFindDistantSystem(StarSystemId baseSystem) {
         int bestDistance = 999;
         int system = -1;
         for (int i = 0; i < getUniverse().length; i++) {
             int distance = Functions.distance(getStarSystem(baseSystem), getStarSystem(i));
-            if (distance >= 70 && distance < bestDistance && getStarSystem(i).getSpecialEventType() == SpecialEventType.NA) {
+            if (distance >= 70 && distance < bestDistance && !getStarSystem(i).isQuestSystem()) {
                 system = i;
                 bestDistance = distance;
             }
         }
         if (system >= 0) {
-            getStarSystem(system).setSpecialEventType(specEvent);
+            getStarSystem(system).setQuestSystem(true);
         }
 
         return system;
