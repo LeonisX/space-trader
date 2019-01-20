@@ -185,7 +185,6 @@ public class ReactorQuest extends AbstractQuest {
                     questStatus = STATUS_REACTOR_FUEL_OK;
                     confirmQuestPhase();
                     setQuestState(QuestState.ACTIVE);
-                    //Game.getCurrentGame().getSelectedSystem().setQuestSystem(false);
                 }
             }
         }

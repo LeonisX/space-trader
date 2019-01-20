@@ -104,6 +104,7 @@ class LotteryQuest extends AbstractQuest {
         if (phases.get(QuestPhases.LotteryWinner).canBeExecuted() && isQuestIsActive()) {
             showDialogAndProcessResult(object, QuestPhases.LotteryWinner.getValue(), () -> phases.get(QuestPhases.LotteryWinner).successFlow());
             game.getQuestSystem().unSubscribeAll(getQuest());
+            phases.get(QuestPhases.LotteryWinner).confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
             log.fine("executed");
         } else {

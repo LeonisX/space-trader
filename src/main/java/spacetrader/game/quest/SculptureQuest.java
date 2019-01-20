@@ -172,7 +172,6 @@ class SculptureQuest extends AbstractQuest {
 
             sculptureOnBoard = true;
             questStatus = STATUS_SCULPTURE_IN_TRANSIT;
-            //TODO refactor all phases with this method
             confirmQuestPhase();
             setQuestState(QuestState.ACTIVE);
         }

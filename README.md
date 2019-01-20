@@ -227,12 +227,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Check all quests with price and fix all
-* Test alllll
-* Uncomment QuestNames
-* Ship name (FormViewShip) - Bottle :(
-* Autosize doesn't works in FormViewQuests (ArtifactQuest))
-
 ### News
 
 * Clean from old events
@@ -315,6 +309,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Strange - when start new game - see few visited systems
 * Very strange - after arrival see, that I visited other systems. Or arrive in other system
 * Bug? Don't hide wormhole route after arrive
+* Ship name (FormViewShip) - Bottle :(
+* Autosize doesn't works in FormViewQuests (ArtifactQuest))
 
 ## Regressions:
 

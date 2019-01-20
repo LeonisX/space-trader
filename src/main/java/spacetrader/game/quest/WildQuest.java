@@ -203,7 +203,7 @@ class WildQuest extends AbstractQuest {
                 showAlert(Alerts.WildWontBoardReactor.getValue());
             } else {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
-                Game.getCurrentGame().getSelectedSystem().setQuestSystem(false);
+                confirmQuestPhase();
                 Game.getShip().hire(wild);
                 questStatus = STATUS_WILD_STARTED;
                 setQuestState(QuestState.ACTIVE);

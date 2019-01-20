@@ -190,7 +190,7 @@ class JarekQuest extends AbstractQuest {
                 jarekOnBoard = true;
                 questStatus.set(STATUS_JAREK_STARTED);
                 setQuestState(QuestState.ACTIVE);
-                Game.getCurrentGame().getSelectedSystem().setQuestSystem(false);
+                confirmQuestPhase();
             }
         }
 

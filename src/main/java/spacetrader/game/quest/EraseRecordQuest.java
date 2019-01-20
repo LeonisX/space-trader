@@ -103,7 +103,6 @@ class EraseRecordQuest extends AbstractQuest {
             Game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
             game.recalculateSellPrices();
             confirmQuestPhase();
-            Game.getCurrentGame().getSelectedSystem().setQuestSystem(false);
             setQuestState(QuestState.FINISHED);
         }
 

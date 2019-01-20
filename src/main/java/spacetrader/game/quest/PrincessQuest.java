@@ -276,7 +276,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.PrincessCentauri);
             questStatus = STATUS_FLY_INTHARA;
-            game.getSelectedSystem().setQuestSystem(false);
+            confirmQuestPhase();
         }
 
         @Override
@@ -296,7 +296,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.PrincessInthara);
             questStatus = STATUS_FLY_QONOS;
-            game.getSelectedSystem().setQuestSystem(false);
+            confirmQuestPhase();
         }
 
         @Override
@@ -323,7 +323,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
                 Game.getShip().hire(princess);
                 princessOnBoard = true;
                 questStatus = STATUS_PRINCESS_RESCUED;
-                game.getSelectedSystem().setQuestSystem(false);
+                confirmQuestPhase();
             }
         }
 
