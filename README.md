@@ -227,34 +227,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-
-
-## Artifact Quest
-
-# Quest phases:
-PhaseArtifactDeliveryTitle=Artifact Delivery
-PhaseArtifactDeliveryMessage=This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles.
-
-# Encounters:
-EncounterHideArtifact=the Alien Artifact
-
-# News:
-NewsArtifactDelivery=Scientist Adds Alien Artifact to Museum Collection.
-
-
-
-## Cargo Quest
-
-# Quest phases:
-PhaseCargoForSaleTitle=Cargo For Sale
-PhaseCargoForSaleMessage=A trader in second-hand goods offers you 3 sealed cargo canisters for the sum of 1000 credits. It could be a good deal: they could contain robots. Then again, it might just be water. Do you want the canisters?
-
-# Alerts:
-AlertSpecialSealedCanistersTitle=Sealed Canisters
-AlertSpecialSealedCanistersMessage=You bought the sealed canisters and put them in your cargo bays.
-
-===================================================================================================
-
 ## Artifact Quest
 
 # Quest phases:
@@ -300,10 +272,7 @@ AlertSpecialSealedCanistersTitle=Запечатанные контейнеры
 AlertSpecialSealedCanistersMessage=Вы прибрели запечатанные контейнеры и погрузили их в трюм.
 
 
-* Even if hidden - aliens scanned ship and discovered artifact :(
 * Check all quests with price and fix all
-* When surrender - see pirates robbery :(
-* Need to cover pirates encounters, arrested, like for Sculpture
 * Test alllll
 * StarSystem SpecialEventType - replace with boolean, think how to remove at all
 * Fix FormAlertTest, if can

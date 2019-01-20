@@ -976,6 +976,8 @@ public class Encounter implements Serializable {
             BooleanContainer allowRobbery = new BooleanContainer(true);
             game.getQuestSystem().fireEvent(ENCOUNTER_ON_SURRENDER_IF_RAIDED, allowRobbery);
 
+            allowRobbery.setValue(allowRobbery.getValue() && game.getOpponent().getType() != ShipType.MANTIS);
+
             if (allowRobbery.getValue()) {
 
                 List<String> precious = new java.util.ArrayList<>();
