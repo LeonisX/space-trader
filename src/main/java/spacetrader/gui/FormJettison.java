@@ -261,7 +261,7 @@ public class FormJettison extends SpaceTraderForm {
     }
 
     private void updateAll() {
-        Ship ship = Game.getShip();
+        Ship ship = game.getShip();
 
         for (int i = 0; i < jettisonButtons.length; i++) {
             jettisonButtons[i].setText(ship.getCargo()[i]);

@@ -44,7 +44,7 @@ public class Encounter implements Serializable {
 
     public Encounter(Game game) {
         this.game = game;
-        this.commander = Game.getCommander();
+        this.commander = game.getCommander();
         
         resetVeryRareEncounters();
 

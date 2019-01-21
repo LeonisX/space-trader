@@ -211,7 +211,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     }
 
     private void updateCurrentCrew() {
-        CrewMember[] crewMembers = Game.getShip().getCrew();
+        CrewMember[] crewMembers = game.getShip().getCrew();
 
         crewListBox.getItems().clear();
         for (int i = 1; i < crewMembers.length; i++) {
@@ -233,7 +233,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
     }
 
     private void updateForHire() {
-        List<CrewMember> mercs = Game.getCommander().getCurrentSystem().getMercenariesForHire();
+        List<CrewMember> mercs = game.getCommander().getCurrentSystem().getMercenariesForHire();
 
         forHireListBox.getItems().clear();
         forHireListBox.getItems().addAll(mercs);
@@ -267,7 +267,7 @@ public class FormViewPersonnel extends SpaceTraderForm {
             traderLabelValue.setText(selectedCrewMember.getTrader());
             engineerLabelValue.setText(selectedCrewMember.getEngineer());
 
-            hireFireButton.setText(Game.getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
+            hireFireButton.setText(game.getShip().hasCrew(selectedCrewMember.getId()) ? Strings.MercenaryFire
                     : Strings.MercenaryHire);
             hireFireVisible = rateVisible;
         }
@@ -287,18 +287,18 @@ public class FormViewPersonnel extends SpaceTraderForm {
 
     private void hireFireClick() {
         if (selectedCrewMember != null && hireFireButton.isVisible()) {
-            if (Game.getShip().hasCrew(selectedCrewMember.getId())) {
+            if (game.getShip().hasCrew(selectedCrewMember.getId())) {
                 if (GuiFacade.alert(AlertType.CrewFireMercenary, selectedCrewMember.getName()) == DialogResult.YES) {
-                    Game.getShip().fire(selectedCrewMember.getId());
+                    game.getShip().fire(selectedCrewMember.getId());
 
                     updateAll();
                     game.getParentWindow().updateAll();
                 }
             } else {
-                if (Game.getShip().getFreeCrewQuartersCount() == 0)
+                if (game.getShip().getFreeCrewQuartersCount() == 0)
                     GuiFacade.alert(AlertType.CrewNoQuarters, selectedCrewMember.getName());
                 else {
-                    Game.getShip().hire(selectedCrewMember);
+                    game.getShip().hire(selectedCrewMember);
 
                     updateAll();
                     game.getParentWindow().updateAll();

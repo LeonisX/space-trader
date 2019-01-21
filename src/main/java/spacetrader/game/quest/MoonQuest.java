@@ -156,7 +156,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
         @Override
         public boolean canBeExecuted() {
             return questStatus == STATUS_MOON_NOT_STARTED && isDesiredSystem()
-                    && Game.getCommander().getWorth() > MOON_COST * .8;
+                    && getCommander().getWorth() > MOON_COST * .8;
         }
 
         @Override
@@ -242,7 +242,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
         if (game.getEndStatus() == gameEndTypeId) {
             ScoreContainer score = (ScoreContainer) object;
             if (score.getEndStatus() == 1) {
-                score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
+                score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - getCommander().getDays()));
                 score.setModifier(100);
             }
         }

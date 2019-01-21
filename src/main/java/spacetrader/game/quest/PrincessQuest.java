@@ -247,8 +247,8 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         @Override
         public boolean canBeExecuted() {
             return !princessOnBoard && isDesiredSystem()
-                    && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
-                    && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage
+                    && getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful
+                    && getCommander().getReputationScore() >= Consts.ReputationScoreAverage
                     && questStatus == STATUS_NOT_STARTED;
         }
 
@@ -316,11 +316,11 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         public void successFlow() {
             log.fine("phase #" + QuestPhases.PrincessQonos);
             //TODO where does the princess go? need to test this case.
-            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
+            if (getShip().getFreeCrewQuartersCount() == 0) {
                 GuiFacade.alert(AlertType.SpecialNoQuarters);
             } else {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, princess.getName());
-                Game.getShip().hire(princess);
+                getShip().hire(princess);
                 princessOnBoard = true;
                 questStatus = STATUS_PRINCESS_RESCUED;
                 confirmQuestPhase();
@@ -364,11 +364,11 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         @Override
         public void successFlow() {
             log.fine("phase #" + QuestPhases.PrincessQuantum);
-            if (Game.getShip().getFreeWeaponSlots() == 0) {
+            if (getShip().getFreeWeaponSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
                 showAlert(Alerts.EquipmentQuantumDisruptor.getValue());
-                Game.getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
+                getShip().addEquipment(Consts.Weapons[WeaponType.QUANTUM_DISRUPTOR.castToInt()]);
                 questStatus = STATUS_DONE;
                 setQuestState(QuestState.FINISHED);
                 game.getQuestSystem().unSubscribeAll(getQuest());
@@ -434,21 +434,21 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatus == STATUS_FLY_QONOS) {
             game.setOpponent(scorpion);
-            game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            game.getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
 
     private void encounterCheckPossibilityOfAttack(Object object) {
         if (game.getOpponent().getBarCode() == scorpion.getBarCode()
-                && Game.getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
+                && getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
             ((BooleanContainer) object).setValue(true);
         }
     }
 
     private void encounterGetIntroductoryText(Object object) {
-        if (scorpion.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
+        if (scorpion.getBarCode() == game.getOpponent().getBarCode()) {
             ((StringContainer) object).setValue(Encounters.PretextScorpion.getValue());
         }
     }
@@ -477,15 +477,15 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private void encounterExecuteActionOpponentDisabled(Object object) {
         if (game.getOpponent().getBarCode() == scorpion.getBarCode()) {
-            Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
-            Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
+            getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
+            getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
             questStatus = STATUS_PRINCESS_RESCUED;
 
             GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), Encounters.PrincessRescued.getValue());
 
-            Game.getCommander().setReputationScore(
+            getCommander().setReputationScore(
                     //TODO getOpponent().getType() == 16
-                    Game.getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
+                    getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -493,7 +493,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private void encounterOnVerifySurrender(Object object) {
         SurrenderContainer surrenderContainer = (SurrenderContainer) object;
         // If princess on board and no hidden cargo bays - continue fight to die.
-        if (!surrenderContainer.isMatch() && princessOnBoard && !Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
+        if (!surrenderContainer.isMatch() && princessOnBoard && !getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
                 && game.getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK) {
             showAlert(Alerts.EncounterPiratesSurrenderPrincess.getValue());
             surrenderContainer.setMatch(true);
@@ -502,7 +502,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void encounterOnRobbery(Object object) {
-        if (princessOnBoard && Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+        if (princessOnBoard && getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             ((ArrayList<String>) object).add(Encounters.HidePrincess.getValue());
         }
     }
@@ -543,7 +543,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void removePassenger() {
-        Game.getCommander().getShip().fire(princess.getId());
+        getCommander().getShip().fire(princess.getId());
         princessOnBoard = false;
     }
 
@@ -573,7 +573,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
         switch (questStatus) {
             case STATUS_NOT_STARTED:
-                if (Game.isCurrentSystemIs(StarSystemId.Galvon)) {
+                if (isCurrentSystemIs(StarSystemId.Galvon)) {
                     result = News.Princess;
                 }
                 break;
@@ -620,7 +620,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         if (game.getEndStatus() == gameEndTypeId) {
             ScoreContainer score = (ScoreContainer) object;
             if (score.getEndStatus() == 1) {
-                score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - Game.getCommander().getDays()));
+                score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - getCommander().getDays()));
                 score.setModifier(100); //TODO 110????
             }
         }

@@ -31,7 +31,7 @@ public class FormEncounter extends SpaceTraderForm {
 
     private final Game game = Game.getCurrentGame();
     private final Encounter encounter = game.getEncounter();
-    private final Ship commanderShip = Game.getShip();
+    private final Ship commanderShip = game.getShip();
     private final Ship opponent = game.getOpponent();
 
     private Button attackButton = new Button();

@@ -211,7 +211,7 @@ public class Shipyard {
     }
 
     public int getTradeIn() {
-        return Game.getShip().getWorth(false);
+        return Game.getCurrentGame().getShip().getWorth(false);
     }
 
     public int getUnitsCrew() {

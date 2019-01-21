@@ -48,8 +48,7 @@ public class ExperimentQuest extends AbstractQuest {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
@@ -157,7 +156,7 @@ public class ExperimentQuest extends AbstractQuest {
     class ExperimentPhase extends Phase { //new SpecialEvent(SpecialEventType.Experiment, 0, 0, true),
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+            return game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
             && questStatus.get() == STATUS_EXPERIMENT_NOT_STARTED && isDesiredSystem();
         }
 

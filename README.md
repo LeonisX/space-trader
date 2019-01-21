@@ -227,6 +227,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* opponent in quests
+getMercenaries() in abstract
+Game.getCurrentGame in quests
+
 ### News
 
 * Clean from old events

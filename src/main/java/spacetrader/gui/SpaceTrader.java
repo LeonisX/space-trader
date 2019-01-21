@@ -619,7 +619,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     public void setGame(Game game) {
         this.game = game;
         controller = new GameController(game, this);
-        commander = (game == null) ? null : Game.getCommander();
+        commander = (game == null) ? null : game.getCommander();
 
         dockPanel.setGame(commander);
         cargoPanel.setGame(controller);

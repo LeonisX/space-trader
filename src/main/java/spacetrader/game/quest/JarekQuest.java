@@ -102,7 +102,7 @@ class JarekQuest extends AbstractQuest {
     }
 
     private boolean isHagglingComputerOnBoard() {
-        return Game.getShip().getBarCode() == shipBarCode && questStatus.get() == STATUS_JAREK_DONE;
+        return getShip().getBarCode() == shipBarCode && questStatus.get() == STATUS_JAREK_DONE;
     }
 
     @Override
@@ -175,18 +175,18 @@ class JarekQuest extends AbstractQuest {
     class JarekPhase extends Phase { //new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+            return getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
                     && !jarekOnBoard && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #1");
-            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
+            if (getShip().getFreeCrewQuartersCount() == 0) {
                 GuiFacade.alert(AlertType.SpecialNoQuarters);
             } else {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
-                Game.getShip().hire(jarek);
+                getShip().hire(jarek);
                 jarekOnBoard = true;
                 questStatus.set(STATUS_JAREK_STARTED);
                 setQuestState(QuestState.ACTIVE);
@@ -212,7 +212,7 @@ class JarekQuest extends AbstractQuest {
             setQuestState(QuestState.FINISHED);
             questStatus.set(STATUS_JAREK_DONE);
             removePassenger();
-            shipBarCode = Game.getShip().getBarCode();
+            shipBarCode = getShip().getBarCode();
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
 
@@ -287,7 +287,7 @@ class JarekQuest extends AbstractQuest {
     }
 
     private void removePassenger() {
-        Game.getCommander().getShip().fire(jarek.getId());
+        getShip().fire(jarek.getId());
         jarekOnBoard = false;
     }
 
@@ -313,7 +313,7 @@ class JarekQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        if (jarekOnBoard && Game.isCurrentSystemIs(StarSystemId.Devidia)) {
+        if (jarekOnBoard && isCurrentSystemIs(StarSystemId.Devidia)) {
             log.fine("" + getNewsIds().get(0));
             Game.getNews().addEvent(getNewsIds().get(0));
         } else {

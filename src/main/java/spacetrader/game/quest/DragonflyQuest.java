@@ -223,7 +223,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+            return getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
                     && questStatus == STATUS_DRAGONFLY_NOT_STARTED && isDesiredSystem();
         }
 
@@ -330,11 +330,11 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
         @Override
         public void successFlow() {
             log.fine("phase #" + QuestPhases.DragonflyShield);
-            if (Game.getShip().getFreeShieldSlots() == 0) {
+            if (getShip().getFreeShieldSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
                 showAlert(Alerts.EquipmentLightningShield.getValue());
-                Game.getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
+                getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
                 questStatus = STATUS_DRAGONFLY_DONE;
                 setQuestState(QuestState.FINISHED);
                 game.getQuestSystem().unSubscribeAll(getQuest());
@@ -392,7 +392,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Zalkon && questStatus == STATUS_DRAGONFLY_FLY_ZALKON) {
             game.setOpponent(dragonfly);
-            game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            game.getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -423,15 +423,15 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
             GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), "");
 
-            Game.getCommander().setReputationScore(
-                    Game.getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
+            getCommander().setReputationScore(
+                    getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
             ((BooleanContainer) object).setValue(true);
         }
     }
 
     private void encounterDefeatDragonfly() {
-        Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
-        Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
+        getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
+        getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
         //questStatus = STATUS_DRAGONFLY_DESTROYED;
         dragonflyDestroyed = true;
     }

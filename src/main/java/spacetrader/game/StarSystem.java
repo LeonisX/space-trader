@@ -101,13 +101,13 @@ public class StarSystem implements Serializable {
     }
 
     public boolean destIsOk() {
-        Commander comm = Game.getCommander();
+        Commander comm = Game.getCurrentGame().getCommander();
         return this != comm.getCurrentSystem()
                 && (getDistance() <= comm.getShip().getFuel() || Functions.wormholeExists(comm.getCurrentSystem(), this));
     }
 
     public int getDistance() {
-        return Functions.distance(this, Game.getCommander().getCurrentSystem());
+        return Functions.distance(this, Game.getCurrentGame().getCommander().getCurrentSystem());
     }
 
     public StarSystemId getId() {
@@ -115,7 +115,7 @@ public class StarSystem implements Serializable {
     }
 
     public List<CrewMember> getMercenariesForHire() {
-        Commander cmdr = Game.getCommander();
+        Commander cmdr = Game.getCurrentGame().getCommander();
         Collection<CrewMember> mercs = Game.getCurrentGame().getMercenaries().values();
         List<CrewMember> forHire = new ArrayList<>();
 

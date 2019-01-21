@@ -22,7 +22,7 @@ import static java.lang.Math.min;
 public class FormViewBank extends SpaceTraderForm {
     
     private final Game game = Game.getCurrentGame();
-    private final Commander commander = Game.getCommander();
+    private final Commander commander = game.getCommander();
 
     private final int maxLoan = commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreClean
             ? min(25000, max(1000, commander.getWorth() / 5000 * 500)) : 500;

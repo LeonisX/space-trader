@@ -98,7 +98,7 @@ class SkillQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #1");
             showAlert(Alerts.SpecialSkillIncrease.getValue());
-            Game.getCommander().increaseRandomSkill();
+            getCommander().increaseRandomSkill();
             confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
             game.getQuestSystem().unSubscribeAll(getQuest());

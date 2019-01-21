@@ -307,7 +307,7 @@ public class FormMonster extends SpaceTraderForm {
 
     private String currentSystemDisplay(CrewMember merc) {
         return (null == merc.getCurrentSystem() ? Strings.Unknown
-                : (Game.getShip().hasCrew(merc.getId()) ? Functions.stringVars(Strings.MercOnBoard, merc
+                : (game.getShip().hasCrew(merc.getId()) ? Functions.stringVars(Strings.MercOnBoard, merc
                 .getCurrentSystem().getName()) : merc.getCurrentSystem().getName()));
     }
 
@@ -453,7 +453,7 @@ public class FormMonster extends SpaceTraderForm {
             label = new Label(THREE_SPACES + merc.getEngineer() + EIGHT_SPACES).withAutoSize(true);
             ePanel.asJPanel().add(label.asSwingObject());
 
-            label = optionalLinkLabel((merc.getCurrentSystem() != null) && !Game.getShip().hasCrew(merc.getId()), currentSystemDisplay(merc));
+            label = optionalLinkLabel((merc.getCurrentSystem() != null) && !game.getShip().hasCrew(merc.getId()), currentSystemDisplay(merc));
             systemPanel.asJPanel().add(label.asSwingObject());
         }
     }

@@ -221,9 +221,9 @@ public class FormViewCommander extends SpaceTraderForm {
         cashButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCommander().getCash(), "Cash", "How much cash does the commander has?");
+                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getCash(), "Cash", "How much cash does the commander has?");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCommander().setCash(formInput.getValue());
+                    Game.getCurrentGame().getCommander().setCash(formInput.getValue());
                     initializeScreen();
                     Game.getCurrentGame().getController().getMainWindow().updateAll();
                 }
@@ -247,9 +247,9 @@ public class FormViewCommander extends SpaceTraderForm {
         debtButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCommander().getDebt(), "Debt", "What is the debt of the commander?");
+                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getDebt(), "Debt", "What is the debt of the commander?");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCommander().setDebt(formInput.getValue());
+                    Game.getCurrentGame().getCommander().setDebt(formInput.getValue());
                     initializeScreen();
                     Game.getCurrentGame().getController().getMainWindow().updateAll();
                 }
@@ -304,9 +304,9 @@ public class FormViewCommander extends SpaceTraderForm {
         reputationButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCommander().getReputationScore(), "Reputation", "What is the reputation of the commander [0..1500]?");
+                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getReputationScore(), "Reputation", "What is the reputation of the commander [0..1500]?");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCommander().setReputationScore(formInput.getValue());
+                    Game.getCurrentGame().getCommander().setReputationScore(formInput.getValue());
                     initializeScreen();
                     Game.getCurrentGame().getController().getMainWindow().updateAll();
                 }
@@ -330,9 +330,9 @@ public class FormViewCommander extends SpaceTraderForm {
         policeRecordButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCommander().getPoliceRecordScore(), "Police Record", "What is the police record of the commander [-100..75]?");
+                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getPoliceRecordScore(), "Police Record", "What is the police record of the commander [-100..75]?");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCommander().setPoliceRecordScore(formInput.getValue());
+                    Game.getCurrentGame().getCommander().setPoliceRecordScore(formInput.getValue());
                     initializeScreen();
                     Game.getCurrentGame().getController().getMainWindow().updateAll();
                 }
@@ -366,7 +366,7 @@ public class FormViewCommander extends SpaceTraderForm {
     }
 
     private void initializeScreen() {
-        Commander cmdr = Game.getCommander();
+        Commander cmdr = Game.getCurrentGame().getCommander();
 
         nameLabelValue.setText(cmdr.getName());
         difficultyLabelValue.setText(Strings.DifficultyLevels[Game.getDifficultyId()]);

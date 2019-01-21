@@ -201,11 +201,11 @@ public class GemulonQuest extends AbstractQuest {
         @Override
         public void successFlow() {
             log.fine("phase #3");
-            if (Game.getShip().getFreeGadgetSlots() == 0) {
+            if (getShip().getFreeGadgetSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
                 showAlert(Alerts.EquipmentFuelCompactor.getValue());
-                Game.getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
+                getShip().addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
                 questStatus.set(STATUS_GEMULON_DONE);
                 setQuestState(QuestState.FINISHED);
                 confirmQuestPhase();

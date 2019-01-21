@@ -30,7 +30,7 @@ public class FormCargoSell extends SpaceTraderForm {
     public FormCargoSell(int item, int maxAmount, CargoSellOp op, int price) {
         initializeComponent();
 
-        Commander commander = Game.getCommander();
+        Commander commander = Game.getCurrentGame().getCommander();
         int cost = commander.getPriceCargo()[item] / commander.getShip().getCargo()[item];
 
         numericUpDown.setMaximum(maxAmount);

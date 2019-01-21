@@ -164,6 +164,30 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.newsIds = newsIds;
     }
 
+    Commander getCommander() {
+        return game.getCommander();
+    }
+
+    Ship getShip() {
+        return game.getShip();
+    }
+
+    Ship getOpponent() {
+        return game.getOpponent();
+    }
+
+    void setOpponent(Ship opponent) {
+        game.setOpponent(opponent);
+    }
+
+    StarSystemId getCurrentSystemId() {
+        return getCommander().getCurrentSystemId();
+    }
+
+    boolean isCurrentSystemIs(StarSystemId starSystemId) {
+        return getCurrentSystemId().equals(starSystemId);
+    }
+
     @Override
     public QuestState getQuestState() {
         return questState;
@@ -225,7 +249,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     void showSpecialButtonIfCanBeExecuted(Object object, Phase phase) {
         if (phase.canBeExecuted()) {
-            log.finest("phase `" + phase.getTitle() + "` : " + Game.getCurrentSystemId() + " ~ " + phase.getStarSystemIds());
+            log.finest("phase `" + phase.getTitle() + "` : " + getCurrentSystemId() + " ~ " + phase.getStarSystemIds());
             showSpecialButton(object, phase.getTitle());
         }
     }
@@ -257,7 +281,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
                 button2Text, button2Result, null);
 
         if (alert.showDialog() != DialogResult.NO) {
-            if (Game.getCommander().getCashToSpend() < dialog.getPrice())
+            if (getCommander().getCashToSpend() < dialog.getPrice())
                 GuiFacade.alert(AlertType.SpecialIF);
             else {
                 try {

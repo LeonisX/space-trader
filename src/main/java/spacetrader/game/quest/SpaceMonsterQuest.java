@@ -267,7 +267,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Acamar && questStatus == STATUS_SPACE_MONSTER_AT_ACAMAR) {
             game.setOpponent(spaceMonster);
-            game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            game.getEncounter().setEncounterType(game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -306,8 +306,8 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
     private void encounterOnEncounterWon(Object object) {
         if (game.getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //SPACE_MONSTER_ATTACK
-            Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
-            Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
+            getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
+            getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
             questStatus = STATUS_SPACE_MONSTER_DESTROYED;
         }
     }
@@ -324,7 +324,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     private void onNewsAddEventOnArrival(Object object) {
         News result = null;
 
-        if (Game.isCurrentSystemIs(StarSystemId.Acamar)) {
+        if (isCurrentSystemIs(StarSystemId.Acamar)) {
             if (questStatus == STATUS_SPACE_MONSTER_AT_ACAMAR) {
                 result = News.SpaceMonster;
             } else if (questStatus >= STATUS_SPACE_MONSTER_DESTROYED) {

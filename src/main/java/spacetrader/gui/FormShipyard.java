@@ -101,7 +101,7 @@ public class FormShipyard extends SpaceTraderForm {
     private ArrayList<Size> sizes = null;
 
     public FormShipyard() {
-        shipyard = Game.getCommander().getCurrentSystem().getShipyard();
+        shipyard = Game.getCurrentGame().getCommander().getCurrentSystem().getShipyard();
         initializeForm();
     }
 
@@ -708,7 +708,7 @@ public class FormShipyard extends SpaceTraderForm {
             ShipTemplate template = (ShipTemplate) templateComboBox.getSelectedItem();
 
             if (template.getName().equals(Strings.ShipNameCurrentShip)) {
-                shipNameTextBox.setText(Game.getShip().getName());
+                shipNameTextBox.setText(Game.getCurrentGame().getShip().getName());
             } else if (template.getName().endsWith(Strings.ShipNameTemplateSuffixDefault)
                     || template.getName().endsWith(Strings.ShipNameTemplateSuffixMinimum)) {
                 shipNameTextBox.setText("");
@@ -758,7 +758,7 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void loadTemplateList() {
-        ShipTemplate currentShip = new ShipTemplate(Game.getShip(), Strings.ShipNameCurrentShip);
+        ShipTemplate currentShip = new ShipTemplate(Game.getCurrentGame().getShip(), Strings.ShipNameCurrentShip);
         templateComboBox.getItems().addElement(currentShip);
 
         templateComboBox.getItems().addElement(Consts.ShipTemplateSeparator);
@@ -900,15 +900,15 @@ public class FormShipyard extends SpaceTraderForm {
 
     private void constructButtonClick() {
         if (constructButtonEnabled()) {
-            if (Game.getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
+            if (Game.getCurrentGame().getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
                     .getText())) {
                 Strings.ShipNames[ShipType.CUSTOM.castToInt()] = shipNameTextBox.getText();
 
                 // Replace the current custom images with the new ones.
-                if (Game.getShip().getImageIndex() == ShipType.CUSTOM.castToInt()) {
+                if (Game.getCurrentGame().getShip().getImageIndex() == ShipType.CUSTOM.castToInt()) {
                     GuiEngine.getImageProvider().setCustomShipImages(customImages);
 
-                    Game.getShip().updateCustomImageOffsetConstants();
+                    Game.getCurrentGame().getShip().updateCustomImageOffsetConstants();
                 }
 
                 GuiFacade.alert(AlertType.ShipDesignThanks, this, shipyard.getName());

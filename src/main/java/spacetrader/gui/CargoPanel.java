@@ -836,7 +836,7 @@ class CargoPanel extends Panel {
 
         Game game = Game.getCurrentGame();
 
-        if (game == null || Game.getCommander().getCurrentSystem() == null) {
+        if (game == null || game.getCommander().getCurrentSystem() == null) {
             for (int i = 0; i < sellPriceArray.length; i++) {
                 sellPriceArray[i].setText("");
                 buyPriceArray[i].setText("");
@@ -852,7 +852,7 @@ class CargoPanel extends Panel {
         }
         int[] buy = game.getPriceCargoBuy();
         int[] sell = game.getPriceCargoSell();
-        Commander commander = Game.getCommander();
+        Commander commander = game.getCommander();
         StarSystem warpSystem = game.getWarpSystem();
 
         for (int i = 0; i < sellPriceArray.length; i++) {

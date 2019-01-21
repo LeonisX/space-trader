@@ -234,7 +234,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         @Override
         public boolean canBeExecuted() {
             return isDesiredSystem() && questStatus == STATUS_SCARAB_NOT_STARTED
-                    && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
+                    && getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
         }
 
         @Override
@@ -282,8 +282,8 @@ class ScarabQuest extends AbstractQuest implements Serializable {
             log.fine("phase #" + QuestPhases.ScarabUpgradeHull);
 
             showAlert(Alerts.ShipHullUpgraded.getValue());
-            shipBarCode = Game.getShip().getBarCode();
-            Game.getShip().setHull(Game.getShip().getHull() + HULL_UPGRADE);
+            shipBarCode = getShip().getBarCode();
+            getShip().setHull(getShip().getHull() + HULL_UPGRADE);
             questStatus = STATUS_SCARAB_DONE;
             setQuestState(QuestState.FINISHED);
             confirmQuestPhase();
@@ -331,7 +331,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void onDisplayShipEquipment(Object object) {
-        if (isHardenedHull(Game.getShip())) {
+        if (isHardenedHull(getShip())) {
             List<StringBuilder> equipPair = (List<StringBuilder>) object;
             equipPair.get(0).append(Encounters.ShipHull.getValue()).append(Strings.newline).append(Strings.newline);
             equipPair.get(1).append(Encounters.ShipHardened.getValue()).append(Strings.newline).append(Strings.newline);
@@ -347,7 +347,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
                 && game.getWarpSystem().getId() == phases.get(QuestPhases.ScarabDestroyed).getStarSystemId()
                 && questStatus == STATUS_SCARAB_HUNTING) {
             game.setOpponent(scarab);
-            game.getEncounter().setEncounterType(Game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            game.getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -385,7 +385,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
     // If the hull is hardened, damage is halved.
     private void encounterIsExecuteAttackSecondaryDamage(Object object) {
-        if (isHardenedHull(Game.getShip())) {
+        if (isHardenedHull(getShip())) {
             ((IntContainer) object).divideBy(2);
         }
     }
@@ -400,8 +400,8 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterDefeatScarab() {
-        Game.getCommander().setKillsPirate(Game.getCommander().getKillsPirate() + 1);
-        Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
+        getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
+        getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
         questStatus = STATUS_SCARAB_DESTROYED;
     }
 
@@ -436,7 +436,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getFirst().equals(CheatTitles.Diamond.name())) {
             hullUpgraded = (hullUpgraded == null) || !hullUpgraded;
-            shipBarCode = Game.getShip().getBarCode();
+            shipBarCode = getShip().getBarCode();
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {
@@ -448,7 +448,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         CheatWords cheatWords = (CheatWords) object;
         if (cheatWords.getSecond().equals(CheatTitles.Scarab.name())) {
             questStatus = Math.max(0, cheatWords.getNum2());
-            shipBarCode = Game.getShip().getBarCode();
+            shipBarCode = getShip().getBarCode();
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {

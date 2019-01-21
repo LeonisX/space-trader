@@ -85,11 +85,11 @@ class LotteryQuest extends AbstractQuest {
 
     private void onAfterGameInitialize(Object object) {
         log.fine("");
-        phases.get(QuestPhases.LotteryWinner).setStarSystemId(Game.getCurrentSystemId());
+        phases.get(QuestPhases.LotteryWinner).setStarSystemId(getCurrentSystemId());
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
-        log.fine(Game.getCurrentSystemId() + " ~ " + phases.get(QuestPhases.LotteryWinner).getStarSystemIds());
+        log.fine(getCurrentSystemId() + " ~ " + phases.get(QuestPhases.LotteryWinner).getStarSystemIds());
         if (phases.get(QuestPhases.LotteryWinner).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
             log.fine("executed");
             setQuestState(QuestState.ACTIVE);

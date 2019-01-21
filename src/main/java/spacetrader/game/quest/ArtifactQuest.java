@@ -45,8 +45,7 @@ public class ArtifactQuest extends AbstractQuest {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
@@ -161,7 +160,7 @@ public class ArtifactQuest extends AbstractQuest {
         @Override
         public boolean canBeExecuted() {
             return isDesiredSystem() && questStatus == STATUS_ARTIFACT_NOT_STARTED
-                    && Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
+                    && getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
         }
 
         @Override
@@ -251,7 +250,7 @@ public class ArtifactQuest extends AbstractQuest {
         }
 
         //TODO if too much stealable items - will be hidden cargo bays overflow
-        if (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+        if (getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             ((ArrayList<String>) object).add(Encounters.HideArtifact.getValue());
         } else {
             showAlert(Alerts.EncounterPiratesNotTakeArtifact.getValue());

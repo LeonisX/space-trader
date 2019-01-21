@@ -17,8 +17,16 @@ public class News implements Serializable {
 
     //TODO
     //static final long serialVersionUID = 110L;
+    
+    private Game game;
+    private Commander commander;
 
     private ArrayList<Integer> newsEvents = new ArrayList<>(); // News for current system
+
+    public News(Game game) {
+        this.game = game;
+        this.commander = game.getCommander();
+    }
 
     public void addEvent(int newEventId) {
         newsEvents.add(newEventId);
@@ -44,10 +52,10 @@ public class News implements Serializable {
     }
 
     String getNewspaperHead() {
-        String[] heads = Strings.NewsMastheads[Game.getCommander().getCurrentSystem().getPoliticalSystemType().castToInt()];
-        String head = heads[Game.getCommander().getCurrentSystem().getId().castToInt() % heads.length];
+        String[] heads = Strings.NewsMastheads[commander.getCurrentSystem().getPoliticalSystemType().castToInt()];
+        String head = heads[commander.getCurrentSystem().getId().castToInt() % heads.length];
 
-        return Functions.stringVars(head, Game.getCommander().getCurrentSystem().getName());
+        return Functions.stringVars(head, commander.getCurrentSystem().getName());
     }
 
     private String getNewspaperText(Integer newsEventId) {
@@ -55,29 +63,29 @@ public class News implements Serializable {
     }
 
     String getNewspapersText() {
-        StarSystem curSys = Game.getCommander().getCurrentSystem();
+        StarSystem curSys = commander.getCurrentSystem();
         List<String> news = new ArrayList<>();
 
         // We're using the getRandom2 function so that the same number is
         // generated each time for the same "version" of the newspaper. -JAF
-        Functions.randSeed(curSys.getId().castToInt(), Game.getCommander().getDays());
+        Functions.randSeed(curSys.getId().castToInt(), commander.getDays());
 
         for (Integer newsEventId : newsEvents) {
-            news.add(Functions.stringVars(getNewspaperText(newsEventId), new String[]{Game.getCommander().getName(),
-                    Game.getCommander().getCurrentSystem().getName(), Game.getCommander().getShip().getName()}));
+            news.add(Functions.stringVars(getNewspaperText(newsEventId), new String[]{commander.getName(),
+                    commander.getCurrentSystem().getName(), commander.getShip().getName()}));
         }
 
         if (curSys.getSystemPressure() != SystemPressure.NONE) {
             news.add(Strings.NewsPressureInternal[curSys.getSystemPressure().castToInt()]);
         }
 
-        if (Game.getCommander().getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
+        if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreVillain) {
             String baseStr = Strings.NewsPoliceRecordPsychopath[Functions
                     .getRandom2(Strings.NewsPoliceRecordPsychopath.length)];
-            news.add(Functions.stringVars(baseStr, Game.getCommander().getName(), curSys.getName()));
-        } else if (Game.getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreHero) {
+            news.add(Functions.stringVars(baseStr, commander.getName(), curSys.getName()));
+        } else if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreHero) {
             String baseStr = Strings.NewsPoliceRecordHero[Functions.getRandom2(Strings.NewsPoliceRecordHero.length)];
-            news.add(Functions.stringVars(baseStr, Game.getCommander().getName(), curSys.getName()));
+            news.add(Functions.stringVars(baseStr, commander.getName(), curSys.getName()));
         }
 
         // and now, finally, useful news (if any)

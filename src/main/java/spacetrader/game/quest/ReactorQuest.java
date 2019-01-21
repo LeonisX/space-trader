@@ -166,15 +166,15 @@ public class ReactorQuest extends AbstractQuest {
         @Override
         public boolean canBeExecuted() {
             return questStatus == STATUS_REACTOR_NOT_STARTED
-                    && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
-                    && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage
+                    && getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
+                    && getCommander().getReputationScore() >= Consts.ReputationScoreAverage
                     && !isReactorOnBoard() && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #1");
-            if (Game.getShip().getFreeCargoBays() < 15) {
+            if (getShip().getFreeCargoBays() < 15) {
                 GuiFacade.alert(AlertType.CargoNoEmptyBays);
             } else {
                 BooleanContainer isConflict = new BooleanContainer(false);
@@ -222,11 +222,11 @@ public class ReactorQuest extends AbstractQuest {
         @Override
         public void successFlow() {
             log.fine("phase #3");
-            if (Game.getShip().getFreeWeaponSlots() == 0) {
+            if (getShip().getFreeWeaponSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
                 showAlert(Alerts.EquipmentMorgansLaser.getValue());
-                Game.getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
+                getShip().addEquipment(Consts.Weapons[WeaponType.MORGANS_LASER.castToInt()]);
                 questStatus = STATUS_REACTOR_DONE;
                 confirmQuestPhase();
                 setQuestState(QuestState.FINISHED);
@@ -373,7 +373,7 @@ public class ReactorQuest extends AbstractQuest {
         if (questStatus == STATUS_REACTOR_DATE) {
             showAlert(Alerts.ReactorMeltdown.getValue());
             failQuest();
-            if (Game.getShip().getEscapePod()) {
+            if (getShip().getEscapePod()) {
                 game.escapeWithPod();
             } else {
                 showAlert(Alerts.ReactorDestroyed.getValue());

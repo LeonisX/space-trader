@@ -188,23 +188,23 @@ class WildQuest extends AbstractQuest {
     class WildPhase extends Phase { //new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
+            return getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
                     && !wildOnBoard && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #1");
-            if (Game.getShip().getFreeCrewQuartersCount() == 0) {
+            if (getShip().getFreeCrewQuartersCount() == 0) {
                 GuiFacade.alert(AlertType.SpecialNoQuarters);
-            } else if (!Game.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
+            } else if (!getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
                 showAlert(Alerts.WildWontBoardLaser.getValue());
             } else if (((ReactorQuest) game.getQuestSystem().getQuest(QuestName.Reactor)).isReactorOnBoard()) {
                 showAlert(Alerts.WildWontBoardReactor.getValue());
             } else {
                 GuiFacade.alert(AlertType.SpecialPassengerOnBoard, wild.getName());
                 confirmQuestPhase();
-                Game.getShip().hire(wild);
+                getShip().hire(wild);
                 questStatus = STATUS_WILD_STARTED;
                 setQuestState(QuestState.ACTIVE);
                 wildOnBoard = true;
@@ -230,14 +230,14 @@ class WildQuest extends AbstractQuest {
             log.fine("phase #2");
             // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
             zeethibal.setCurrentSystem(Game.getStarSystem(StarSystemId.Kravat));
-            int lowest1 = Game.getCommander().nthLowestSkill(1);
-            int lowest2 = Game.getCommander().nthLowestSkill(2);
+            int lowest1 = getCommander().nthLowestSkill(1);
+            int lowest2 = getCommander().nthLowestSkill(2);
             for (int i = 0; i < zeethibal.getSkills().length; i++) {
                 zeethibal.getSkills()[i] = (i == lowest1 ? 10 : (i == lowest2 ? 8 : 5));
             }
 
-            Game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
-            Game.getCurrentGame().recalculateSellPrices();
+            getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
+            game.recalculateSellPrices();
             game.getQuestSystem().unSubscribeAll(getQuest());
             setQuestState(QuestState.FINISHED);
             questStatus = STATUS_WILD_DONE;
@@ -263,8 +263,8 @@ class WildQuest extends AbstractQuest {
     // TODO repeat if < normal, otherwise fail
     private void onSpecialButtonClickedResolveIsConflict(Object object) {
         if (wildOnBoard) {
-            if (showCancelAlert(Alerts.WildWontStayAboardReactor.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.OK) {
-                showAlert(Alerts.WildLeavesShip.getValue(), Game.getCommander().getCurrentSystem().getName());
+            if (showCancelAlert(Alerts.WildWontStayAboardReactor.getValue(), getCommander().getCurrentSystem().getName()) == DialogResult.OK) {
+                showAlert(Alerts.WildLeavesShip.getValue(), getCommander().getCurrentSystem().getName());
                 failQuest();
             } else {
                 ((BooleanContainer) object).setValue(true);
@@ -295,11 +295,11 @@ class WildQuest extends AbstractQuest {
 
     private void onBeforeWarp(Object object) {
         // if Wild is aboard, make sure ship is armed!
-        if (wildOnBoard && !Game.getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
-            if (showCancelAlert(Alerts.WildWontStayAboardLaser.getValue(), Game.getCommander().getCurrentSystem().getName()) == DialogResult.CANCEL) {
+        if (wildOnBoard && !getShip().hasWeapon(WeaponType.BEAM_LASER, false)) {
+            if (showCancelAlert(Alerts.WildWontStayAboardLaser.getValue(), getCommander().getCurrentSystem().getName()) == DialogResult.CANCEL) {
                 ((BooleanContainer) object).setValue(false);
             } else {
-                showAlert(Alerts.WildLeavesShip.getValue(), Game.getCommander().getCurrentSystem().getName());
+                showAlert(Alerts.WildLeavesShip.getValue(), getCommander().getCurrentSystem().getName());
                 failQuest();
             }
         }
@@ -314,7 +314,7 @@ class WildQuest extends AbstractQuest {
     }
 
     private void onBeforeEncounterGenerateOpponent(Object object) {
-        if (Game.getCurrentGame().getWarpSystem().getId() == StarSystemId.Kravat && wildOnBoard
+        if (game.getWarpSystem().getId() == StarSystemId.Kravat && wildOnBoard
                 && Functions.getRandom(10) < Game.getDifficulty().castToInt() + 1) {
             ((CrewMember) object).setEngineer(Consts.MaxSkill);
         }
@@ -386,7 +386,7 @@ class WildQuest extends AbstractQuest {
         if (wildOnBoard) {
             log.fine("Escaped + Wild");
             showAlert(Alerts.WildArrested.getValue());
-            Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
+            getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
             Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
             failQuest();
         } else {
@@ -402,7 +402,7 @@ class WildQuest extends AbstractQuest {
     }
 
     private void removePassenger() {
-        Game.getCommander().getShip().fire(wild.getId());
+        getCommander().getShip().fire(wild.getId());
         wildOnBoard = false;
     }
 
@@ -428,7 +428,7 @@ class WildQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        if (wildOnBoard && Game.isCurrentSystemIs(StarSystemId.Kravat)) {
+        if (wildOnBoard && isCurrentSystemIs(StarSystemId.Kravat)) {
             log.fine("" + getNewsIds().get(News.WildGotToKravat.ordinal()));
             Game.getNews().addEvent(getNewsIds().get(News.WildGotToKravat.ordinal()));
         } else {

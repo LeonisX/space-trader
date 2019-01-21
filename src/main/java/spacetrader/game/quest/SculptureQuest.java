@@ -162,8 +162,8 @@ class SculptureQuest extends AbstractQuest {
         @Override
         public boolean canBeExecuted() {
             return isDesiredSystem() && questStatus == STATUS_SCULPTURE_NOT_STARTED
-                    && Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
-                    && Game.getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
+                    && getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
+                    && getCommander().getReputationScore() >= Consts.ReputationScoreAverage;
         }
 
         @Override
@@ -211,11 +211,11 @@ class SculptureQuest extends AbstractQuest {
         @Override
         public void successFlow() {
             log.fine("phase #3");
-            if (Game.getShip().getFreeGadgetSlots() == 0) {
+            if (getShip().getFreeGadgetSlots() == 0) {
                 GuiFacade.alert(AlertType.EquipmentNotEnoughSlots);
             } else {
                 showAlert(Alerts.EquipmentHiddenCompartments.getValue());
-                Game.getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
+                getShip().addEquipment(Consts.Gadgets[GadgetType.HIDDEN_CARGO_BAYS.castToInt()]);
                 confirmQuestPhase();
                 questStatus = STATUS_SCULPTURE_DONE;
                 setQuestState(QuestState.FINISHED);
@@ -267,7 +267,7 @@ class SculptureQuest extends AbstractQuest {
         }
 
         //TODO HOW I HAS GOT HIDDEN_CARGO_BAYS WO Sculpture???
-        if (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+        if (getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             ((ArrayList<String>) object).add(Encounters.HideSculpture.getValue());
         } else {
             showAlert(Alerts.EncounterPiratesTakeSculpture.getValue());
@@ -303,10 +303,10 @@ class SculptureQuest extends AbstractQuest {
 
     private void onArrested(Object object) {
 
-        if (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+        if (getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
             log.fine("Arrested + Hidden Cargo Bays");
-            while (Game.getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-                Game.getShip().removeEquipment(EquipmentType.GADGET, GadgetType.HIDDEN_CARGO_BAYS);
+            while (getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
+                getShip().removeEquipment(EquipmentType.GADGET, GadgetType.HIDDEN_CARGO_BAYS);
             }
             showAlert(Alerts.JailHiddenCargoBaysRemoved.getValue());
         } else {

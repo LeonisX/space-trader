@@ -22,8 +22,8 @@ public abstract class Phase implements Serializable {
     private int occurrence;
 
     public void confirmQuestPhase() {
-        Game.getCommander().setCash(Game.getCommander().getCash() - phase.getValue().getPrice());
-        Game.getCommander().getCurrentSystem().setQuestSystem(false);
+        Game.getCurrentGame().getCommander().setCash(Game.getCurrentGame().getCommander().getCash() - phase.getValue().getPrice());
+        Game.getCurrentGame().getCommander().getCurrentSystem().setQuestSystem(false);
         Game.getCurrentGame().getQuestSystem().fireEvent(ON_AFTER_NEW_QUEST_STARTED);
     }
 
@@ -44,7 +44,7 @@ public abstract class Phase implements Serializable {
     }
 
     boolean isDesiredSystem() {
-        return starSystemIds.stream().anyMatch(Game::isCurrentSystemIs);
+        return starSystemIds.stream().anyMatch(Game.getCurrentGame()::isCurrentSystemIs);
     }
 
     boolean isDesiredSystem(StarSystem starSystem) {

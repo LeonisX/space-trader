@@ -92,7 +92,7 @@ class EraseRecordQuest extends AbstractQuest {
     class EraseRecordPhase extends Phase { //new SpecialEvent(SpecialEventType.EraseRecord, 5000, 3, false)
         @Override
         public boolean canBeExecuted() {
-            return Game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
+            return game.getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
                     && isDesiredSystem() && getQuestState() != QuestState.FINISHED;
         }
 
@@ -100,7 +100,7 @@ class EraseRecordQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #1");
             showAlert(Alerts.SpecialCleanRecord.getValue());
-            Game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
+            game.getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreClean);
             game.recalculateSellPrices();
             confirmQuestPhase();
             setQuestState(QuestState.FINISHED);

@@ -194,7 +194,7 @@ public class TribblesQuest extends AbstractQuest {
             log.fine("phase #2");
 
             showAlert(Alerts.TribblesGone.getValue());
-            Game.getCommander().setCash(Game.getCommander().getCash() + (tribbles / 2));
+            getCommander().setCash(getCommander().getCash() + (tribbles / 2));
             setTribbles(0);
             confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
@@ -291,8 +291,8 @@ public class TribblesQuest extends AbstractQuest {
 
     // checkTribblesOnArrival
     private void onArrival(Object object) {
-        Ship ship = Game.getShip();
-        Commander commander = Game.getCommander();
+        Ship ship = getShip();
+        Commander commander = getCommander();
 
         if (tribbles > 0) {
             int previousTribbles = tribbles;

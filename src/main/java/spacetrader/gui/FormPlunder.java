@@ -256,7 +256,7 @@ public class FormPlunder extends SpaceTraderForm {
     }
 
     private void updateAll() {
-        Ship ship = Game.getShip();
+        Ship ship = game.getShip();
         Ship opp = game.getOpponent();
 
         for (int i = 0; i < plunderButtons.length; i++) {

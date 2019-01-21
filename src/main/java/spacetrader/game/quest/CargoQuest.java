@@ -29,8 +29,7 @@ class CargoQuest extends AbstractQuest {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
@@ -94,7 +93,7 @@ class CargoQuest extends AbstractQuest {
     class CargoForSalePhase extends Phase { //new SpecialEvent(SpecialEventType.CargoForSale, 1000, 3, false)
         @Override
         public boolean canBeExecuted() {
-            return isDesiredSystem() && getQuestState() == QuestState.INACTIVE && Game.getShip().getFreeCargoBays() >= 3;
+            return isDesiredSystem() && getQuestState() == QuestState.INACTIVE && getShip().getFreeCargoBays() >= 3;
         }
 
         @Override
@@ -102,8 +101,8 @@ class CargoQuest extends AbstractQuest {
             log.fine("phase #1");
             showAlert(Alerts.SpecialSealedCanisters.getValue());
             int tradeItem = Functions.getRandom(Consts.TradeItems.length);
-            Game.getShip().getCargo()[tradeItem] += 3;
-            Game.getCommander().getPriceCargo()[tradeItem] += QuestPhases.CargoForSale.getValue().getPrice();
+            getShip().getCargo()[tradeItem] += 3;
+            getCommander().getPriceCargo()[tradeItem] += QuestPhases.CargoForSale.getValue().getPrice();
             confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
             game.getQuestSystem().unSubscribeAll(getQuest());

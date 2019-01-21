@@ -92,8 +92,8 @@ public class GameController implements Serializable {
         GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10), Functions
                 .formatNumber(game.getScore() % 10));
 
-        HighScoreRecord candidate = new HighScoreRecord(Game.getCommander().getName(), game.getScore(), game.getEndStatus(),
-                Game.getCommander().getDays(), Game.getCommander().getWorth(), Game.getDifficulty());
+        HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.getScore(), game.getEndStatus(),
+                game.getCommander().getDays(), game.getCommander().getWorth(), Game.getDifficulty());
         if (candidate.compareTo(IOUtils.getHighScores()[0]) > 0) {
             if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
@@ -122,7 +122,7 @@ public class GameController implements Serializable {
                 game.getQuestSystem().localizeQuests();
                 GameController gameController = new GameController(game, mainWindow);
                 gameController.setSaveGameFile(fileName);
-                gameController.setSaveGameDays(Game.getCommander().getDays());
+                gameController.setSaveGameDays(game.getCommander().getDays());
 
                 mainWindow.setGame(game);
                 mainWindow.setInGameControlsEnabled(true);
@@ -140,7 +140,7 @@ public class GameController implements Serializable {
             saveGameFile = fileName;
         }
 
-        saveGameDays = Game.getCommander().getDays();
+        saveGameDays = game.getCommander().getDays();
     }
 
     public void autoSaveOnArrival() {

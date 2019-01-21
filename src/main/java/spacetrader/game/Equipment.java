@@ -72,7 +72,7 @@ public abstract class Equipment implements Serializable, Cloneable {
     }
 
     public int getPrice() {
-        Commander cmdr = Game.getCommander();
+        Commander cmdr = Game.getCurrentGame().getCommander();
 
         if (cmdr != null && cmdr.getCurrentSystem().getTechLevel().castToInt() >= getMinimumTechLevel().castToInt()) {
             return (price * (100 - cmdr.getShip().getTrader())) / 100;

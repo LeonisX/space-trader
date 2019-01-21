@@ -146,7 +146,7 @@ public class JaporiQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #1");
             // The japori quest should not be removed since you can fail and start it over again.
-            if (Game.getShip().getFreeCargoBays() < 10) {
+            if (getShip().getFreeCargoBays() < 10) {
                 GuiFacade.alert(AlertType.CargoNoEmptyBays);
             } else {
                 showAlert(Alerts.AntidoteOnBoard.getValue());
@@ -172,8 +172,8 @@ public class JaporiQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #2");
             questStatus = STATUS_JAPORI_DONE;
-            Game.getCommander().increaseRandomSkill();
-            Game.getCommander().increaseRandomSkill();
+            getCommander().increaseRandomSkill();
+            getCommander().increaseRandomSkill();
             confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
             game.getQuestSystem().unSubscribeAll(getQuest());
@@ -254,7 +254,7 @@ public class JaporiQuest extends AbstractQuest {
 
         if (phases.get(QuestPhases.Japori).isDesiredSystem() && questStatus == STATUS_JAPORI_NOT_STARTED) {
             result = News.Japori;
-        } else if (Game.isCurrentSystemIs(StarSystemId.Japori)) {
+        } else if (isCurrentSystemIs(StarSystemId.Japori)) {
             switch (questStatus) {
                 case STATUS_JAPORI_NOT_STARTED:
                     result = News.JaporiEpidemy;

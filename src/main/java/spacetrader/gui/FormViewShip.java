@@ -22,7 +22,7 @@ import static spacetrader.game.quest.enums.EventName.ON_DISPLAY_SHIP_EQUIPMENT;
 public class FormViewShip extends SpaceTraderForm {
 
     private Game game = Game.getCurrentGame();
-    private Ship ship = Game.getShip();
+    private Ship ship = game.getShip();
 
     private Button closeButton = new Button();
     private Label typeLabel = new Label();

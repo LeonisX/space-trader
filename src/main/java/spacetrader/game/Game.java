@@ -124,8 +124,7 @@ public class Game implements Serializable {
             setCanSuperWarp(true);
         }
 
-        news = new News();
-
+        news = new News(game);
 
         questSystem.fireEvent(EventName.ON_AFTER_GAME_INITIALIZE);
     }
@@ -1144,11 +1143,11 @@ public class Game implements Serializable {
         return (getDifficultyId() + 1) * score.getModifier() * (score.getDaysMoon() * 1000 + score.getWorth()) / 250000;
     }
 
-    public static StarSystemId getCurrentSystemId() {
-        return getCommander().getCurrentSystemId();
+    public StarSystemId getCurrentSystemId() {
+        return commander.getCurrentSystemId();
     }
 
-    public static boolean isCurrentSystemIs(StarSystemId starSystemId) {
+    public boolean isCurrentSystemIs(StarSystemId starSystemId) {
         return getCurrentSystemId().equals(starSystemId);
     }
 
@@ -1292,12 +1291,12 @@ public class Game implements Serializable {
         return questSystem;
     }
 
-    public static Commander getCommander() {
-        return getCurrentGame().commander;
+    public Commander getCommander() {
+        return commander;
     }
 
-    public static Ship getShip() {
-        return getCommander().getShip();
+    public Ship getShip() {
+        return commander.getShip();
     }
 
     public static Difficulty getDifficulty() {
