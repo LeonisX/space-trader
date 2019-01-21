@@ -171,8 +171,8 @@ class WildQuest extends AbstractQuest {
     @SuppressWarnings("unchecked")
     private void onGenerateCrewMemberList(Object object) {
         log.fine("");
-        Game.getCurrentGame().getMercenaries().put(wild.getId(), wild);
-        Game.getCurrentGame().getMercenaries().put(zeethibal.getId(), zeethibal);
+        getMercenaries().put(wild.getId(), wild);
+        getMercenaries().put(zeethibal.getId(), zeethibal);
 
         List<Integer> usedSystems = (List<Integer>) object;
 
@@ -332,7 +332,7 @@ class WildQuest extends AbstractQuest {
             BooleanContainer allowRobbery = (BooleanContainer) object;
             allowRobbery.setValue(false);
 
-            if (game.getOpponent().getCrewQuarters() > 1) {
+            if (getOpponent().getCrewQuarters() > 1) {
                 // Wild hops onto Pirate Ship
                 showAlert(Alerts.WildGoesPirates.getValue());
                 failQuest();

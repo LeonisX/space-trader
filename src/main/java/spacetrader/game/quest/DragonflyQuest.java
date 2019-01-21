@@ -193,7 +193,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
     private void onGenerateCrewMemberList(Object object) {
         log.fine("");
-        game.getMercenaries().put(dragonflyCrew.getId(), dragonflyCrew);
+        getMercenaries().put(dragonflyCrew.getId(), dragonflyCrew);
     }
 
     private void afterShipSpecInitialized(Object object) {
@@ -391,14 +391,14 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
     // Encounter with stolen Dragonfly
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Zalkon && questStatus == STATUS_DRAGONFLY_FLY_ZALKON) {
-            game.setOpponent(dragonfly);
-            game.getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            setOpponent(dragonfly);
+            getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
 
     private void encounterGetIntroductoryText(Object object) {
-        if (dragonfly.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
+        if (dragonfly.getBarCode() == getOpponent().getBarCode()) {
             ((StringContainer) object).setValue(Encounters.PretextStolenDragonfly.getValue());
         }
     }
@@ -418,13 +418,13 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterExecuteActionOpponentDisabled(Object object) {
-        if (game.getOpponent().getBarCode() == dragonfly.getBarCode()) {
+        if (getOpponent().getBarCode() == dragonfly.getBarCode()) {
             encounterDefeatDragonfly();
 
-            GuiFacade.alert(AlertType.EncounterDisabledOpponent, game.getEncounter().getEncounterShipText(), "");
+            GuiFacade.alert(AlertType.EncounterDisabledOpponent, getEncounter().getEncounterShipText(), "");
 
             getCommander().setReputationScore(
-                    getCommander().getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
+                    getCommander().getReputationScore() + (getOpponent().getType().castToInt() / 2 + 1));
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -438,7 +438,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
     //TODO in future run this check in Encounter.encounterWon()
     private void encounterOnEncounterWon(Object object) {
-        if (game.getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //DRAGONFLY_ATTACK
+        if (getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //DRAGONFLY_ATTACK
             encounterDefeatDragonfly();
         }
     }

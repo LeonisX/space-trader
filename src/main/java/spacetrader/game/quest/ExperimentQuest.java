@@ -234,7 +234,7 @@ public class ExperimentQuest extends AbstractQuest {
         if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED && game.getFabricRipProbability() > 0
                 && (game.getFabricRipProbability() == Consts.FabricRipInitialProbability || Functions.getRandom(100) < game.getFabricRipProbability())) {
             showAlert(Alerts.TimespaceFabricRip.getValue());
-            game.setSelectedSystemId(StarSystemId.fromInt(Functions.getRandom(game.getUniverse().length)));
+            game.setSelectedSystemId(StarSystemId.fromInt(Functions.getRandom(getUniverse().length)));
         }
     }
 

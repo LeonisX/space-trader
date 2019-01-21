@@ -227,16 +227,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* opponent in quests
-getMercenaries() in abstract
-Game.getCurrentGame in quests
-
 ### News
 
 * Clean from old events
 * Try to simplify. May be keep only map: ID -> TTL?
 * Find start of the flight and clear news at the start of flight
-* AbstractQuest - methods to get/set news, commander, ship, ...
 * Game - remove static methods
 * News: Time to live?
 * Check all news - when can - implement in phases

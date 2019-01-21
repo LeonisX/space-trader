@@ -172,7 +172,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
     private void onGenerateCrewMemberList(Object object) {
         log.fine("");
-        game.getMercenaries().put(spaceMonsterCrew.getId(), spaceMonsterCrew);
+        getMercenaries().put(spaceMonsterCrew.getId(), spaceMonsterCrew);
 }
 
     private void afterShipSpecInitialized(Object object) {
@@ -266,8 +266,8 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     // Encounter with space monster
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Acamar && questStatus == STATUS_SPACE_MONSTER_AT_ACAMAR) {
-            game.setOpponent(spaceMonster);
-            game.getEncounter().setEncounterType(game.getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            setOpponent(spaceMonster);
+            getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -305,7 +305,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterOnEncounterWon(Object object) {
-        if (game.getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //SPACE_MONSTER_ATTACK
+        if (getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //SPACE_MONSTER_ATTACK
             getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
             getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
             questStatus = STATUS_SPACE_MONSTER_DESTROYED;
@@ -341,7 +341,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     }
 
     private boolean opponentIsSpaceMonster() {
-        return spaceMonster.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode();
+        return spaceMonster.getBarCode() == getOpponent().getBarCode();
     }
 
     private void onIsConsiderCheat(Object object) {

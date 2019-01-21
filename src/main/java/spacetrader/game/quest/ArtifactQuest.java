@@ -135,7 +135,7 @@ public class ArtifactQuest extends AbstractQuest {
         BooleanContainer goodUniverse = (BooleanContainer) object;
         // Find a Hi-Tech system without a special event for ArtifactDelivery.
         if (goodUniverse.getValue()) {
-            Optional<StarSystem> freeHiTechSystem = Arrays.stream(Game.getCurrentGame().getUniverse())
+            Optional<StarSystem> freeHiTechSystem = Arrays.stream(getUniverse())
                     .filter(universe -> !universe.isQuestSystem()
                             && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
             if (freeHiTechSystem.isPresent()) {
@@ -229,7 +229,7 @@ public class ArtifactQuest extends AbstractQuest {
 
     private void encounterOnVerifySurrender(Object object) {
         SurrenderContainer surrenderContainer = (SurrenderContainer) object;
-        if (!surrenderContainer.isMatch() && game.getOpponent().getType() == ShipType.MANTIS) {
+        if (!surrenderContainer.isMatch() && getOpponent().getType() == ShipType.MANTIS) {
             if (isArtifactOnBoard()) {
                 if (showYesNoAlert(Alerts.EncounterAliensSurrender.getValue()) == DialogResult.YES) {
                     showAlert(Alerts.ArtifactRelinquished.getValue());

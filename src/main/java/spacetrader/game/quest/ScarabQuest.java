@@ -189,7 +189,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     private void onAssignEventsManual(Object object) {
         log.fine("");
         // Assign a wormhole location endpoint for the Scarab.
-        OptionalInt freeWormhole = Arrays.stream(Game.getCurrentGame().getWormholes())
+        OptionalInt freeWormhole = Arrays.stream(game.getWormholes())
                 .filter(wormhole -> !Game.getStarSystem(wormhole).isQuestSystem()).findAny();
         if (freeWormhole.isPresent()) {
             StarSystem starSystem = Game.getStarSystem(freeWormhole.getAsInt());
@@ -208,7 +208,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
     private void onGenerateCrewMemberList(Object object) {
         log.fine("");
-        game.getMercenaries().put(scarabCrew.getId(), scarabCrew);
+        getMercenaries().put(scarabCrew.getId(), scarabCrew);
     }
 
     private void afterShipSpecInitialized(Object object) {
@@ -346,14 +346,14 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         if (game.getArrivedViaWormhole() && game.getClicks() == 20 && game.getWarpSystem().isQuestSystem()
                 && game.getWarpSystem().getId() == phases.get(QuestPhases.ScarabDestroyed).getStarSystemId()
                 && questStatus == STATUS_SCARAB_HUNTING) {
-            game.setOpponent(scarab);
-            game.getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            setOpponent(scarab);
+            getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
             ((BooleanContainer) object).setValue(true);
         }
     }
 
     private void encounterGetIntroductoryText(Object object) {
-        if (scarab.getBarCode() == Game.getCurrentGame().getOpponent().getBarCode()) {
+        if (scarab.getBarCode() == getOpponent().getBarCode()) {
             ((StringContainer) object).setValue(Encounters.PretextStolenScarab.getValue());
         }
     }
@@ -391,10 +391,10 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterExecuteActionOpponentDisabled(Object object) {
-        if (game.getOpponent().getBarCode() == scarab.getBarCode()) {
+        if (getOpponent().getBarCode() == scarab.getBarCode()) {
             encounterDefeatScarab();
             GuiFacade.alert(AlertType.EncounterDisabledOpponent,
-                    game.getEncounter().getEncounterShipText(), PrincessQuest.Encounters.PrincessRescued.getValue());
+                    getEncounter().getEncounterShipText(), PrincessQuest.Encounters.PrincessRescued.getValue());
             ((BooleanContainer) object).setValue(true);
         }
     }
@@ -406,7 +406,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterOnEncounterWon(Object object) {
-        if (game.getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //SCARAB_ATTACK
+        if (getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //SCARAB_ATTACK
             encounterDefeatScarab();
         }
     }

@@ -86,7 +86,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
     }
 
     StarSystemId occupyFreeSystemWithEvent() {
-        List<StarSystem> freeSystems = Arrays.stream(game.getUniverse())
+        List<StarSystem> freeSystems = Arrays.stream(getUniverse())
                 .filter(s -> !s.isQuestSystem()).collect(Collectors.toList());
         StarSystem system = freeSystems.get(ThreadLocalRandom.current().nextInt(freeSystems.size()));
 
@@ -180,12 +180,24 @@ public abstract class AbstractQuest implements Quest, Serializable {
         game.setOpponent(opponent);
     }
 
+    Encounter getEncounter() {
+        return game.getEncounter();
+    }
+
     StarSystemId getCurrentSystemId() {
         return getCommander().getCurrentSystemId();
     }
 
     boolean isCurrentSystemIs(StarSystemId starSystemId) {
         return getCurrentSystemId().equals(starSystemId);
+    }
+
+    StarSystem[] getUniverse() {
+        return game.getUniverse();
+    }
+
+    Map<Integer, CrewMember> getMercenaries() {
+        return game.getMercenaries();
     }
 
     @Override
@@ -286,10 +298,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
             else {
                 try {
                     ((Button) object).setVisible(false);
-                    //Game.getCommander().spendCash(dialog.getPrice());
+                    //getCommander().spendCash(dialog.getPrice());
                     operation.run();
                 } catch (GameEndException ex) {
-                    Game.getCurrentGame().getController().gameEnd();
+                    game.getController().gameEnd();
                 }
             }
         }

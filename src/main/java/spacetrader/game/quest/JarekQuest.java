@@ -164,7 +164,7 @@ class JarekQuest extends AbstractQuest {
 
     private void onGenerateCrewMemberList(Object object) {
         log.fine("");
-        Game.getCurrentGame().getMercenaries().put(jarek.getId(), jarek);
+        getMercenaries().put(jarek.getId(), jarek);
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
