@@ -4,11 +4,6 @@ public enum EncounterType implements SpaceTraderEnum {
 
     BOTTLE_GOOD, // = 0,
     BOTTLE_OLD, // = 1,
-    CAPTAIN_AHAB, // = 2,
-    CAPTAIN_CONRAD, // = 3,
-    CAPTAIN_HUIE, // = 4,
-    FAMOUS_CAPTAIN_ATTACK, // = 7,
-    FAMOUS_CAPT_DISABLED, // = 8,
     MARIE_CELESTE, // = 9,
     MARIE_CELESTE_POLICE, // = 10,
     PIRATE_ATTACK, // = 11,
@@ -28,12 +23,10 @@ public enum EncounterType implements SpaceTraderEnum {
     TRADER_SURRENDER, // = 31,
     TRADER_DISABLED, // = 32,
     TRADER_BUY, // = 33,
-    TRADER_SELL, // = 34
-    QUEST_ATTACK,
-    QUEST_IGNORE;
+    TRADER_SELL; // = 34
 
-    public EncounterType getPreviousEncounter() {
-        return EncounterType.values()[this.castToInt() - 1];
+    public static EncounterType fromInt(int index) {
+        return EncounterType.values()[index];
     }
 
     @Override

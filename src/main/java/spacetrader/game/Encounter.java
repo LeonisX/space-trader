@@ -13,25 +13,25 @@ import spacetrader.util.Functions;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static spacetrader.game.enums.VeryRareEncounter.*;
 import static spacetrader.game.quest.enums.EventName.*;
 
 public class Encounter implements Serializable {
-    
+
     private Game game;
     private Commander commander;
-    
+
     private boolean easyEncounters = false;
 
     //TODO need initialize??? test
-    private EncounterType encounterType = EncounterType.values()[0]; // Type of current encounter
-    private Map<Integer, EncounterType> encounters; // Encounters by ID
+    private Integer encounterType = EncounterType.values()[0].castToInt(); // Type of current encounter
+    private List<Integer> encounters; // Encounters
 
     private int chanceOfVeryRareEncounter = 5; // Rare encounters not done yet.
-    private ArrayList<VeryRareEncounter> veryRareEncounters = new ArrayList<>(6); // Array of Very Options
+    private List<Integer> veryRareEncounters = new ArrayList<>(); // Array of Very Options
 
     // The rest of the member variables are not saved between games.
     private boolean encounterContinueFleeing = false;
@@ -45,10 +45,10 @@ public class Encounter implements Serializable {
     public Encounter(Game game) {
         this.game = game;
         this.commander = game.getCommander();
-        
-        resetVeryRareEncounters();
 
-        encounters = Arrays.stream(EncounterType.values()).collect(Collectors.toMap(EncounterType::castToInt, e -> e));
+        initializeVeryRareEncounters();
+
+        encounters = Arrays.stream(EncounterType.values()).map(EncounterType::castToInt).collect(Collectors.toList());
     }
 
     public boolean isDetermineEncounter() {
@@ -107,8 +107,8 @@ public class Encounter implements Serializable {
         // If you automatically don't want to confront someone who ignores you,
         // the
         // encounter may not take place
-        return getEncounterType() == EncounterType.PIRATE_ATTACK || !(game.getOpponent().isCloaked() || game.getOptions()
-                .isAlwaysIgnorePirates());
+        return encounterType == EncounterType.PIRATE_ATTACK.castToInt()
+                || !(game.getOpponent().isCloaked() || game.getOptions().isAlwaysIgnorePirates());
     }
 
     private boolean isDeterminePoliceEncounter() {
@@ -158,7 +158,7 @@ public class Encounter implements Serializable {
         // If you automatically don't want to confront someone who ignores you,
         // the
         // encounter may not take place. Otherwise it will - JAF
-        return getEncounterType() == EncounterType.POLICE_ATTACK || getEncounterType() == EncounterType.POLICE_INSPECT
+        return encounterType == EncounterType.POLICE_ATTACK.castToInt() || encounterType == EncounterType.POLICE_INSPECT.castToInt()
                 || !(game.getOpponent().isCloaked() || game.getOptions().isAlwaysIgnorePolice());
     }
 
@@ -234,8 +234,8 @@ public class Encounter implements Serializable {
         // If you automatically don't want to confront someone who ignores you, the
         // encounter may not take place; otherwise it will.
         return !game.getOpponent().isCloaked() && !(game.getOptions().isAlwaysIgnoreTraders() && (
-                getEncounterType() == EncounterType.TRADER_IGNORE || getEncounterType() == EncounterType.TRADER_FLEE))
-                && !((getEncounterType() == EncounterType.TRADER_BUY || getEncounterType() == EncounterType.TRADER_SELL)
+                encounterType == EncounterType.TRADER_IGNORE.castToInt() || encounterType == EncounterType.TRADER_FLEE.castToInt()))
+                && !((encounterType == EncounterType.TRADER_BUY.castToInt() || encounterType == EncounterType.TRADER_SELL.castToInt())
                 && game.getOptions().isAlwaysIgnoreTradeInOrbit());
     }
 
@@ -249,68 +249,38 @@ public class Encounter implements Serializable {
         // This will affect skills depending on game difficulty level.
         // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which will invoke
         // IncreaseRandomSkill one or two times, depending on game difficulty.
-        switch (getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()))) {
-            case MARIE_CELESTE:
-                // Marie Celeste cannot be at Acamar, Qonos, or Zalkon as it may
-                // cause problems with the Space Monster, Scorpion, or Dragonfly
-                if (game.getClicks() > 1 && commander.getCurrentSystemId() != StarSystemId.Acamar
-                        && commander.getCurrentSystemId() != StarSystemId.Zalkon
-                        && commander.getCurrentSystemId() != StarSystemId.Qonos) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.MARIE_CELESTE);
-                    setEncounterType(EncounterType.MARIE_CELESTE);
-                    game.generateOpponent(OpponentType.TRADER);
-                    for (int i = 0; i < game.getOpponent().getCargo().length; i++) {
-                        game.getOpponent().getCargo()[i] = 0;
-                    }
-                    game.getOpponent().getCargo()[TradeItemType.NARCOTICS
-                            .castToInt()] = Math.min(game.getOpponent().getCargoBays(), 5);
-                    return true;
+        Integer veryRareEncounterId = getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()));
+        if (veryRareEncounterId == MARIE_CELESTE.castToInt()) {
+            // Marie Celeste cannot be at Acamar, Qonos, or Zalkon as it may
+            // cause problems with the Space Monster, Scorpion, or Dragonfly
+            if (game.getClicks() > 1 && commander.getCurrentSystemId() != StarSystemId.Acamar
+                    && commander.getCurrentSystemId() != StarSystemId.Zalkon
+                    && commander.getCurrentSystemId() != StarSystemId.Qonos) {
+                getVeryRareEncounters().remove(MARIE_CELESTE.castToInt());
+                setEncounterType(EncounterType.MARIE_CELESTE);
+                game.generateOpponent(OpponentType.TRADER);
+                for (int i = 0; i < game.getOpponent().getCargo().length; i++) {
+                    game.getOpponent().getCargo()[i] = 0;
                 }
-                break;
-
-            case CAPTAIN_AHAB:
-                if (commander.getShip().hasShield(ShieldType.REFLECTIVE) && commander.getPilot() < 10
-                        && commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_AHAB);
-                    setEncounterType(EncounterType.CAPTAIN_AHAB);
-                    game.generateOpponent(OpponentType.FAMOUS_CAPTAIN);
-                    return true;
-                }
-                break;
-
-            case CAPTAIN_CONRAD:
-                if (commander.getShip().hasWeapon(WeaponType.MILITARY_LASER, true) && commander.getEngineer() < 10
-                        && commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_CONRAD);
-                    setEncounterType(EncounterType.CAPTAIN_CONRAD);
-                    game.generateOpponent(OpponentType.FAMOUS_CAPTAIN);
-                    return true;
-                }
-                break;
-
-            case CAPTAIN_HUIE:
-                if (commander.getShip().hasWeapon(WeaponType.MILITARY_LASER, true) && commander.getTrader() < 10
-                        && commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                    getVeryRareEncounters().remove(VeryRareEncounter.CAPTAIN_HUIE);
-                    setEncounterType(EncounterType.CAPTAIN_HUIE);
-                    game.generateOpponent(OpponentType.FAMOUS_CAPTAIN);
-                    return true;
-                }
-                break;
-
-            case BOTTLE_OLD:
-                getVeryRareEncounters().remove(VeryRareEncounter.BOTTLE_OLD);
+                game.getOpponent().getCargo()[TradeItemType.NARCOTICS
+                        .castToInt()] = Math.min(game.getOpponent().getCargoBays(), 5);
+                return true;
+            } else if (veryRareEncounterId == BOTTLE_OLD.castToInt()) {
+                getVeryRareEncounters().remove(BOTTLE_OLD.castToInt());
                 setEncounterType(EncounterType.BOTTLE_OLD);
                 game.generateOpponent(OpponentType.BOTTLE);
                 return true;
-
-            case BOTTLE_GOOD:
-                getVeryRareEncounters().remove(VeryRareEncounter.BOTTLE_GOOD);
+            } else if (veryRareEncounterId == BOTTLE_GOOD.castToInt()) {
+                getVeryRareEncounters().remove(BOTTLE_GOOD.castToInt());
                 setEncounterType(EncounterType.BOTTLE_GOOD);
                 game.generateOpponent(OpponentType.BOTTLE);
                 return true;
+            } else {
+                BooleanContainer happened = new BooleanContainer(false);
+                game.getQuestSystem().fireEvent(ON_DETERMINE_VERY_RARE_ENCOUNTER, happened);
+                return happened.getValue();
+            }
         }
-
         return false;
     }
 
@@ -321,7 +291,7 @@ public class Encounter implements Serializable {
 
     public void encounterDrink() {
         if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
-            if (getEncounterType() == EncounterType.BOTTLE_GOOD) {
+            if (encounterType == EncounterType.BOTTLE_GOOD.castToInt()) {
                 // two points if you're on beginner-normal, one otherwise
                 commander.increaseRandomSkill();
                 if (Game.getDifficultyId() <= Difficulty.NORMAL.castToInt()) {
@@ -346,12 +316,13 @@ public class Encounter implements Serializable {
         setEncounterOppFleeing(false);
 
         // Fire shots
+        //TODO fire event ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS
         switch (getEncounterType()) {
             case FAMOUS_CAPTAIN_ATTACK:
             case MARIE_CELESTE_POLICE:
             case PIRATE_ATTACK:
             case POLICE_ATTACK:
-            case QUEST_ATTACK:
+            case QUEST_ATTACK (+scorp):
             case TRADER_ATTACK:
                 setEncounterCmdrHit(isEncounterExecuteAttack(game.getOpponent(), commander.getShip(), getEncounterCmdrFleeing()));
                 setEncounterOppHit(!getEncounterCmdrFleeing()
@@ -420,11 +391,12 @@ public class Encounter implements Serializable {
                 result = EncounterResult.NORMAL;
             } else {
                 // Determine whether the opponent's actions must be changed
-                EncounterType prevEncounter = getEncounterType();
+                int prevEncounter = encounterType;
 
                 encounterUpdateEncounterType(prevCmdrHull, prevOppHull);
 
                 // Update the opponent fleeing flag.
+                //TODO fire event ENCOUNTER_GET_EXECUTE_ACTION_OPPONENT_FLEEING
                 switch (getEncounterType()) {
                     case PIRATE_FLEE:
                     case PIRATE_SURRENDER:
@@ -438,10 +410,9 @@ public class Encounter implements Serializable {
                 }
 
                 if (game.getOptions().isContinuousAttack()
-                        && (getEncounterCmdrFleeing() || !getEncounterOppFleeing() || game.getOptions()
-                        .isContinuousAttackFleeing()
-                        && (getEncounterType() == prevEncounter || getEncounterType() != EncounterType.PIRATE_SURRENDER
-                        && getEncounterType() != EncounterType.TRADER_SURRENDER))) {
+                        && (getEncounterCmdrFleeing() || !getEncounterOppFleeing() || game.getOptions().isContinuousAttackFleeing()
+                        && (encounterType == prevEncounter || encounterType != EncounterType.PIRATE_SURRENDER.castToInt()
+                        && encounterType != EncounterType.TRADER_SURRENDER.castToInt()))) {
                     if (getEncounterCmdrFleeing()) {
                         setEncounterContinueFleeing(true);
                     } else {
@@ -540,54 +511,13 @@ public class Encounter implements Serializable {
     }
 
     public void encounterMeet() {
-        AlertType initialAlert = AlertType.Alert;
-        int skill = 0;
-        EquipmentType equipType = EquipmentType.GADGET;
-        Object equipSubType = null;
-
-        switch (getEncounterType()) {
-            case CAPTAIN_AHAB:
-                // Trade a reflective shield for skill points in piloting?
-                initialAlert = AlertType.MeetCaptainAhab;
-                equipType = EquipmentType.SHIELD;
-                equipSubType = ShieldType.REFLECTIVE;
-                skill = SkillType.PILOT.castToInt();
-                break;
-
-            case CAPTAIN_CONRAD:
-                // Trade a military laser for skill points in engineering?
-                initialAlert = AlertType.MeetCaptainConrad;
-                equipType = EquipmentType.WEAPON;
-                equipSubType = WeaponType.MILITARY_LASER;
-                skill = SkillType.ENGINEER.castToInt();
-                break;
-
-            case CAPTAIN_HUIE:
-                // Trade a military laser for skill points in trading?
-                initialAlert = AlertType.MeetCaptainHuie;
-                equipType = EquipmentType.WEAPON;
-                equipSubType = WeaponType.MILITARY_LASER;
-                skill = SkillType.TRADER.castToInt();
-                break;
-        }
-
-        if (GuiFacade.alert(initialAlert) == DialogResult.YES) {
-            // Remove the equipment we're trading.
-            commander.getShip().removeEquipment(equipType, equipSubType);
-
-            // Add points to the appropriate skill - two points if
-            // beginner-normal, one otherwise.
-            commander.getSkills()[skill] = Math.min(Consts.MaxSkill, commander.getSkills()[skill]
-                    + (Game.getDifficultyId() <= Difficulty.NORMAL.castToInt() ? 2 : 1));
-
-            GuiFacade.alert(AlertType.SpecialTrainingCompleted);
-        }
+        game.getQuestSystem().fireEvent(ENCOUNTER_MEET);
     }
 
     public void encounterPlunder() {
         GuiFacade.performPlundering();
 
-        if (getEncounterType().castToInt() >= EncounterType.TRADER_ATTACK.castToInt()) {
+        if (encounterType >= EncounterType.TRADER_ATTACK.castToInt()) {
             commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScorePlunderTrader);
 
             if (game.getOpponentDisabled()) {
@@ -639,13 +569,13 @@ public class Encounter implements Serializable {
     }
 
     public void encounterTrade() {
-        boolean buy = (getEncounterType() == EncounterType.TRADER_BUY);
+        boolean buy = (encounterType == EncounterType.TRADER_BUY.castToInt());
         int item = (buy ? commander.getShip() : game.getOpponent()).getRandomTradeableItem();
         String alertStr = (buy ? Strings.CargoSelling : Strings.CargoBuying);
 
         int cash = commander.getCash();
 
-        if (getEncounterType() == EncounterType.TRADER_BUY) {
+        if (encounterType == EncounterType.TRADER_BUY.castToInt()) { //TODO if (buy) ???
             game.cargoSellTrader(item);
         } else {
             // EncounterType.TRADER_SELL
@@ -661,181 +591,146 @@ public class Encounter implements Serializable {
         int chance = Functions.getRandom(100);
 
         if (game.getOpponent().getHull() < prevOppHull || game.getOpponentDisabled()) {
-            switch (getEncounterType()) {
-                case FAMOUS_CAPTAIN_ATTACK:
-                    if (game.getOpponentDisabled()) {
-                        setEncounterType(EncounterType.FAMOUS_CAPT_DISABLED);
-                    }
-                    break;
-                case PIRATE_ATTACK:
-                case PIRATE_FLEE:
-                case PIRATE_SURRENDER:
-                    if (game.getOpponentDisabled()) {
-                        setEncounterType(EncounterType.PIRATE_DISABLED);
-                    } else if (game.getOpponent().getHull() < (prevOppHull * 2) / 3) {
-                        if (commander.getShip().getHull() < (prevCmdrHull * 2) / 3) {
-                            if (chance < 60) {
-                                setEncounterType(EncounterType.PIRATE_FLEE);
-                            }
-                        } else {
-                            if (chance < 10 && game.getOpponent().getType() != ShipType.MANTIS) {
-                                setEncounterType(EncounterType.PIRATE_SURRENDER);
+            if (encounterType < 1000) {
+                switch (EncounterType.fromInt(encounterType)) {
+                    case PIRATE_ATTACK:
+                    case PIRATE_FLEE:
+                    case PIRATE_SURRENDER:
+                        if (game.getOpponentDisabled()) {
+                            setEncounterType(EncounterType.PIRATE_DISABLED);
+                        } else if (game.getOpponent().getHull() < (prevOppHull * 2) / 3) {
+                            if (commander.getShip().getHull() < (prevCmdrHull * 2) / 3) {
+                                if (chance < 60) {
+                                    setEncounterType(EncounterType.PIRATE_FLEE);
+                                }
                             } else {
-                                setEncounterType(EncounterType.PIRATE_FLEE);
+                                if (chance < 10 && game.getOpponent().getType() != ShipType.MANTIS) {
+                                    setEncounterType(EncounterType.PIRATE_SURRENDER);
+                                } else {
+                                    setEncounterType(EncounterType.PIRATE_FLEE);
+                                }
                             }
                         }
-                    }
-                    break;
-                case POLICE_ATTACK:
-                case POLICE_FLEE:
-                    if (game.getOpponentDisabled()) {
-                        setEncounterType(EncounterType.POLICE_DISABLED);
-                    } else if (game.getOpponent().getHull() < prevOppHull / 2
-                            && (commander.getShip().getHull() >= prevCmdrHull / 2 || chance < 40)) {
-                        setEncounterType(EncounterType.POLICE_FLEE);
-                    }
-                    break;
-                case TRADER_ATTACK:
-                case TRADER_FLEE:
-                case TRADER_SURRENDER:
-                    if (game.getOpponentDisabled()) {
-                        setEncounterType(EncounterType.TRADER_DISABLED);
-                    } else if (game.getOpponent().getHull() < (prevOppHull * 2) / 3) {
-                        if (chance < 60) {
-                            setEncounterType(EncounterType.TRADER_SURRENDER);
-                        } else {
+                        break;
+                    case POLICE_ATTACK:
+                    case POLICE_FLEE:
+                        if (game.getOpponentDisabled()) {
+                            setEncounterType(EncounterType.POLICE_DISABLED);
+                        } else if (game.getOpponent().getHull() < prevOppHull / 2
+                                && (commander.getShip().getHull() >= prevCmdrHull / 2 || chance < 40)) {
+                            setEncounterType(EncounterType.POLICE_FLEE);
+                        }
+                        break;
+                    case TRADER_ATTACK:
+                    case TRADER_FLEE:
+                    case TRADER_SURRENDER:
+                        if (game.getOpponentDisabled()) {
+                            setEncounterType(EncounterType.TRADER_DISABLED);
+                        } else if (game.getOpponent().getHull() < (prevOppHull * 2) / 3) {
+                            if (chance < 60) {
+                                setEncounterType(EncounterType.TRADER_SURRENDER);
+                            } else {
+                                setEncounterType(EncounterType.TRADER_FLEE);
+                            }
+                        }
+                        // If you get damaged a lot, the trader tends to keep shooting;
+                        // if you get damaged a little, the trader may keep shooting;
+                        // if you get damaged very little or not at all, the trader will flee.
+                        else if (game.getOpponent().getHull() < (prevOppHull * 9) / 10
+                                && (commander.getShip().getHull() < (prevCmdrHull * 2) / 3 && chance < 20
+                                || commander.getShip().getHull() < (prevCmdrHull * 9) / 10 && chance < 60 || commander
+                                .getShip().getHull() >= (prevCmdrHull * 9) / 10)) {
                             setEncounterType(EncounterType.TRADER_FLEE);
                         }
-                    }
-                    // If you get damaged a lot, the trader tends to keep shooting;
-                    // if you get damaged a little, the trader may keep shooting;
-                    // if you get damaged very little or not at all, the trader will flee.
-                    else if (game.getOpponent().getHull() < (prevOppHull * 9) / 10
-                            && (commander.getShip().getHull() < (prevCmdrHull * 2) / 3 && chance < 20
-                            || commander.getShip().getHull() < (prevCmdrHull * 9) / 10 && chance < 60 || commander
-                            .getShip().getHull() >= (prevCmdrHull * 9) / 10)) {
-                        setEncounterType(EncounterType.TRADER_FLEE);
-                    }
+                }
+            } else {
+                game.getQuestSystem().fireEvent(ENCOUNTER_UPDATE_ENCOUNTER_TYPE);
             }
         }
     }
 
     public boolean isEncounterVerifyAttack() {
-        boolean attack = true;
+        BooleanContainer attack = new BooleanContainer(true);
 
-        BooleanContainer cantAttackScorpion = new BooleanContainer(false);
-        game.getQuestSystem().fireEvent(ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK, cantAttackScorpion);
-
-        if (cantAttackScorpion.getValue()) {
-            attack = false;
-        } else if (commander.getShip().getWeaponStrength() == 0) {
+        if (commander.getShip().getWeaponStrength() == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoWeapons);
-            attack = false;
+            attack.setValue(false);
         } else if (!game.getOpponent().isDisableable()
                 && commander.getShip().getWeaponStrength(WeaponType.PULSE_LASER, WeaponType.MORGANS_LASER) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoLasers);
-            attack = false;
+            attack.setValue(false);
         } else {
-            switch (getEncounterType()) {
-                case PIRATE_IGNORE:
-                case QUEST_IGNORE:
-                    setEncounterType(getEncounterType().getPreviousEncounter());
-                    break;
-
-                case POLICE_INSPECT:
-                    if (!commander.getShip().isDetectableIllegalCargoOrPassengers()
-                            && GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) != DialogResult.YES) {
-                        attack = false;
-                    }
-
-                    // Fall through...
-                    if (attack) {
-                    }// goto case POLICE_IGNORE;
-                    else {
+            if (encounterType < 1000) {
+                switch (EncounterType.fromInt(encounterType)) {
+                    case PIRATE_IGNORE:
+                        setEncounterType(EncounterType.PIRATE_ATTACK);
                         break;
-                    }
 
-                case MARIE_CELESTE_POLICE:
-                case POLICE_FLEE:
-                case POLICE_IGNORE:
-                case POLICE_SURRENDER:
-                    if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreCriminal
-                            || GuiFacade.alert(AlertType.EncounterAttackPolice) == DialogResult.YES) {
-                        if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-                            commander.setPoliceRecordScore(Consts.PoliceRecordScoreCriminal);
+                    case POLICE_INSPECT:
+                        if (!commander.getShip().isDetectableIllegalCargoOrPassengers()
+                                && GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) != DialogResult.YES) {
+                            attack.setValue(false);
+                        }
+                        if (!attack.getValue()) {
+                            break;
                         }
 
-                        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackPolice);
+                    case MARIE_CELESTE_POLICE:
+                    case POLICE_FLEE:
+                    case POLICE_IGNORE:
+                    case POLICE_SURRENDER:
+                        if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScoreCriminal
+                                || GuiFacade.alert(AlertType.EncounterAttackPolice) == DialogResult.YES) {
+                            if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
+                                commander.setPoliceRecordScore(Consts.PoliceRecordScoreCriminal);
+                            }
 
-                        if (getEncounterType() != EncounterType.POLICE_FLEE) {
-                            setEncounterType(EncounterType.POLICE_ATTACK);
+                            commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackPolice);
+
+                            if (encounterType != EncounterType.POLICE_FLEE.castToInt()) {
+                                setEncounterType(EncounterType.POLICE_ATTACK);
+                            }
+                        } else {
+                            attack.setValue(false);
                         }
-                    } else {
-                        attack = false;
-                    }
-                    break;
-
-                case TRADER_BUY:
-                case TRADER_IGNORE:
-                case TRADER_SELL:
-                    if (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreClean) {
-                        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackTrader);
-                    } else if (GuiFacade.alert(AlertType.EncounterAttackTrader) == DialogResult.YES) {
-                        commander.setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
-                    } else {
-                        attack = false;
-                    }
-                    if (!attack) {
                         break;
-                    }
 
-                case TRADER_ATTACK:
-                case TRADER_SURRENDER:
-                    if (Functions.getRandom(Consts.ReputationScoreElite) <= commander.getReputationScore() * 10
-                            / (game.getOpponent().getType().castToInt() + 1)
-                            || game.getOpponent().getWeaponStrength() == 0) {
-                        setEncounterType(EncounterType.TRADER_FLEE);
-                    } else {
-                        setEncounterType(EncounterType.TRADER_ATTACK);
-                    }
-                    break;
-
-                case CAPTAIN_AHAB:
-                case CAPTAIN_CONRAD:
-                case CAPTAIN_HUIE:
-                    if (GuiFacade.alert(AlertType.EncounterAttackCaptain) == DialogResult.YES) {
-                        if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreVillain) {
-                            commander.setPoliceRecordScore(Consts.PoliceRecordScoreVillain);
+                    case TRADER_BUY:
+                    case TRADER_IGNORE:
+                    case TRADER_SELL:
+                        if (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreClean) {
+                            commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackTrader);
+                        } else if (GuiFacade.alert(AlertType.EncounterAttackTrader) == DialogResult.YES) {
+                            commander.setPoliceRecordScore(Consts.PoliceRecordScoreDubious);
+                        } else {
+                            attack.setValue(false);
+                        }
+                        if (!attack.getValue()) {
+                            break;
                         }
 
-                        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackTrader);
-
-                        switch (getEncounterType()) {
-                            case CAPTAIN_AHAB:
-                                Game.getNews().addEvent(NewsEvent.CaptAhabAttacked);
-                                break;
-                            case CAPTAIN_CONRAD:
-                                Game.getNews().addEvent(NewsEvent.CaptConradAttacked);
-                                break;
-                            case CAPTAIN_HUIE:
-                                Game.getNews().addEvent(NewsEvent.CaptHuieAttacked);
-                                break;
+                    case TRADER_ATTACK:
+                    case TRADER_SURRENDER:
+                        if (Functions.getRandom(Consts.ReputationScoreElite) <= commander.getReputationScore() * 10
+                                / (game.getOpponent().getType().castToInt() + 1)
+                                || game.getOpponent().getWeaponStrength() == 0) {
+                            setEncounterType(EncounterType.TRADER_FLEE);
+                        } else {
+                            setEncounterType(EncounterType.TRADER_ATTACK);
                         }
-
-                        setEncounterType(EncounterType.FAMOUS_CAPTAIN_ATTACK);
-                    } else {
-                        attack = false;
-                    }
-                    break;
+                        break;
+                }
+            } else {
+                game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_ATTACK, attack);
             }
 
             // Make sure the fleeing flag isn't set if we're attacking.
-            if (attack) {
+            if (attack.getValue()) {
                 setEncounterCmdrFleeing(false);
             }
         }
 
-        return attack;
+        return attack.getValue();
     }
 
     public boolean isEncounterVerifyBoard() {
@@ -859,7 +754,7 @@ public class Encounter implements Serializable {
     public boolean isEncounterVerifyBribe() {
         boolean bribed = false;
 
-        if (getEncounterType() == EncounterType.MARIE_CELESTE_POLICE) {
+        if (encounterType == EncounterType.MARIE_CELESTE_POLICE.castToInt()) {
             GuiFacade.alert(AlertType.EncounterMarieCelesteNoBribe);
         } else if (game.getWarpSystem().getPoliticalSystem().getBribeLevel() <= 0) {
             GuiFacade.alert(AlertType.EncounterPoliceBribeCant);
@@ -890,23 +785,23 @@ public class Encounter implements Serializable {
     public boolean isEncounterVerifyFlee() {
         setEncounterCmdrFleeing(false);
 
-        if (getEncounterType() != EncounterType.POLICE_INSPECT
+        if (encounterType != EncounterType.POLICE_INSPECT.castToInt()
                 || commander.getShip().isDetectableIllegalCargoOrPassengers()
                 || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
             setEncounterCmdrFleeing(true);
 
-            if (getEncounterType() == EncounterType.MARIE_CELESTE_POLICE
+            if (encounterType == EncounterType.MARIE_CELESTE_POLICE.castToInt()
                     && GuiFacade.alert(AlertType.EncounterPostMarieFlee) == DialogResult.NO) {
                 setEncounterCmdrFleeing(false);
-            } else if (getEncounterType() == EncounterType.POLICE_INSPECT
-                    || getEncounterType() == EncounterType.MARIE_CELESTE_POLICE) {
-                int scoreMod = (getEncounterType() == EncounterType.POLICE_INSPECT) ? Consts.ScoreFleePolice
+            } else if (encounterType == EncounterType.POLICE_INSPECT.castToInt()
+                    || encounterType == EncounterType.MARIE_CELESTE_POLICE.castToInt()) {
+                int scoreMod = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.ScoreFleePolice
                         : Consts.ScoreAttackPolice;
-                int scoreMin = (getEncounterType() == EncounterType.POLICE_INSPECT) ? Consts.PoliceRecordScoreDubious
+                int scoreMin = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.PoliceRecordScoreDubious
                         - (Game.getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0 : 1)
                         : Consts.PoliceRecordScoreCriminal;
 
-                setEncounterType(EncounterType.POLICE_ATTACK);
+                setEncounterType(EncounterType.POLICE_ATTACK.castToInt());
                 commander.setPoliceRecordScore(Math.min(commander.getPoliceRecordScore() + scoreMod, scoreMin));
             }
         }
@@ -962,7 +857,7 @@ public class Encounter implements Serializable {
             return surrenderContainer.getResult();
         }
 
-        if (getEncounterType() == EncounterType.POLICE_ATTACK || getEncounterType() == EncounterType.POLICE_SURRENDER) {
+        if (encounterType == EncounterType.POLICE_ATTACK.castToInt() || encounterType == EncounterType.POLICE_SURRENDER.castToInt()) {
             if (commander.getPoliceRecordScore() <= Consts.PoliceRecordScorePsychopath) {
                 GuiFacade.alert(AlertType.EncounterSurrenderRefused);
             } else if (GuiFacade.alert(AlertType.EncounterPoliceSurrender, (new String[]{
@@ -1048,8 +943,8 @@ public class Encounter implements Serializable {
     }
 
     private void encounterWon() {
-        if (getEncounterType().castToInt() >= EncounterType.PIRATE_ATTACK.castToInt()
-                && getEncounterType().castToInt() <= EncounterType.PIRATE_DISABLED.castToInt()
+        if (encounterType >= EncounterType.PIRATE_ATTACK.castToInt()
+                && encounterType <= EncounterType.PIRATE_DISABLED.castToInt()
                 && game.getOpponent().getType() != ShipType.MANTIS
                 && commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
             GuiFacade.alert(AlertType.EncounterPiratesBounty, Strings.EncounterPiratesDestroyed, "", Functions
@@ -1058,57 +953,45 @@ public class Encounter implements Serializable {
             GuiFacade.alert(AlertType.EncounterYouWin);
         }
 
-        switch (getEncounterType()) {
-            case FAMOUS_CAPTAIN_ATTACK:
-                commander.setKillsTrader(commander.getKillsTrader() + 1);
-                if (commander.getReputationScore() < Consts.ReputationScoreDangerous) {
-                    commander.setReputationScore(Consts.ReputationScoreDangerous);
-                } else {
-                    commander.setReputationScore(commander.getReputationScore() + Consts.ScoreKillCaptain);
-                }
-
-                // bump news flag from attacked to ship destroyed
-                Game.getNews().replaceLastAttackedEventWithDestroyedEvent();
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_FLEE:
-            case PIRATE_SURRENDER:
-                commander.setKillsPirate(commander.getKillsPirate() + 1);
-                if (game.getOpponent().getType() != ShipType.MANTIS) {
-                    if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
-                        commander.setCash(commander.getCash() + game.getOpponent().getBounty());
+        if (encounterType < 1000) {
+            switch (EncounterType.fromInt(encounterType)) {
+                case PIRATE_ATTACK:
+                case PIRATE_FLEE:
+                case PIRATE_SURRENDER:
+                    commander.setKillsPirate(commander.getKillsPirate() + 1);
+                    if (game.getOpponent().getType() != ShipType.MANTIS) {
+                        if (commander.getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious) {
+                            commander.setCash(commander.getCash() + game.getOpponent().getBounty());
+                        }
+                        commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
+                        encounterScoop();
                     }
-                    commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPirate);
+                    break;
+                case POLICE_ATTACK:
+                case POLICE_FLEE:
+                    commander.setKillsPolice(commander.getKillsPolice() + 1);
+                    commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPolice);
+                    break;
+                case TRADER_ATTACK:
+                case TRADER_FLEE:
+                case TRADER_SURRENDER:
+                    commander.setKillsTrader(commander.getKillsTrader() + 1);
+                    commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillTrader);
                     encounterScoop();
-                }
-                break;
-            case POLICE_ATTACK:
-            case POLICE_FLEE:
-                commander.setKillsPolice(commander.getKillsPolice() + 1);
-                commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillPolice);
-                break;
-            case TRADER_ATTACK:
-            case TRADER_FLEE:
-            case TRADER_SURRENDER:
-                commander.setKillsTrader(commander.getKillsTrader() + 1);
-                commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreKillTrader);
-                encounterScoop();
-                break;
+                    break;
+            }
+        } else {
+            game.getQuestSystem().fireEvent(ENCOUNTER_ON_ENCOUNTER_WON);
         }
-
-        game.getQuestSystem().fireEvent(ENCOUNTER_ON_ENCOUNTER_WON);
 
         commander.setReputationScore(commander.getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
     }
 
-    public void resetVeryRareEncounters() {
-        getVeryRareEncounters().clear();
-        getVeryRareEncounters().add(VeryRareEncounter.MARIE_CELESTE);
-        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_AHAB);
-        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_CONRAD);
-        getVeryRareEncounters().add(VeryRareEncounter.CAPTAIN_HUIE);
-        getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_OLD);
-        getVeryRareEncounters().add(VeryRareEncounter.BOTTLE_GOOD);
+    public void initializeVeryRareEncounters() {
+        veryRareEncounters = new ArrayList<>(game.getQuestSystem().getVeryRareEncounters());
+        veryRareEncounters.add(MARIE_CELESTE.castToInt());
+        veryRareEncounters.add(BOTTLE_OLD.castToInt());
+        veryRareEncounters.add(BOTTLE_GOOD.castToInt());
     }
 
     public String getEncounterAction() {
@@ -1117,8 +1000,8 @@ public class Encounter implements Serializable {
         if (game.getOpponentDisabled()) {
             action = Functions.stringVars(Strings.EncounterActionOppDisabled, getEncounterShipText());
         } else if (getEncounterOppFleeing()) {
-            if (getEncounterType() == EncounterType.PIRATE_SURRENDER
-                    || getEncounterType() == EncounterType.TRADER_SURRENDER) {
+            if (encounterType == EncounterType.PIRATE_SURRENDER.castToInt()
+                    || encounterType == EncounterType.TRADER_SURRENDER.castToInt()) {
                 action = Functions.stringVars(Strings.EncounterActionOppSurrender, getEncounterShipText());
             } else {
                 action = Functions.stringVars(Strings.EncounterActionOppFleeing, getEncounterShipText());
@@ -1131,157 +1014,145 @@ public class Encounter implements Serializable {
     }
 
     public String getEncounterActionInitial() {
-        String text = "";
+        StringContainer text = new StringContainer("");
 
         // Set up the fleeing variable initially.
         setEncounterOppFleeing(false);
 
-        switch (getEncounterType()) {
-            case BOTTLE_GOOD:
-            case BOTTLE_OLD:
-                text = Strings.EncounterTextBottle;
-                break;
-            case CAPTAIN_AHAB:
-            case CAPTAIN_CONRAD:
-            case CAPTAIN_HUIE:
-                text = Strings.EncounterTextFamousCaptain;
-                break;
-            case PIRATE_ATTACK:
-            case POLICE_ATTACK:
-            case QUEST_ATTACK:
-                text = Strings.EncounterTextOpponentAttack;
-                break;
-            case PIRATE_IGNORE:
-            case POLICE_IGNORE:
-            case QUEST_IGNORE:
-            case TRADER_IGNORE:
-                text = commander.getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
-                        : Strings.EncounterTextOpponentIgnore;
-                break;
-            case MARIE_CELESTE:
-                text = Strings.EncounterTextMarieCeleste;
-                break;
-            case MARIE_CELESTE_POLICE:
-                text = Strings.EncounterTextPolicePostMarie;
-                break;
-            case PIRATE_FLEE:
-            case POLICE_FLEE:
-            case TRADER_FLEE:
-                text = Strings.EncounterTextOpponentFlee;
-                setEncounterOppFleeing(true);
-                break;
-            case POLICE_INSPECT:
-                text = Strings.EncounterTextPoliceInspection;
-                break;
-            case POLICE_SURRENDER:
-                text = Strings.EncounterTextPoliceSurrender;
-                break;
-            case TRADER_BUY:
-            case TRADER_SELL:
-                text = Strings.EncounterTextTrader;
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-            case POLICE_DISABLED:
-            case PIRATE_DISABLED:
-            case PIRATE_SURRENDER:
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_SURRENDER:
-                // These should never be the initial encounter type.
-                break;
+        if (encounterType < 1000) {
+            switch (EncounterType.fromInt(encounterType)) {
+                case BOTTLE_GOOD:
+                case BOTTLE_OLD:
+                    text.setValue(Strings.EncounterTextBottle);
+                    break;
+                case PIRATE_ATTACK:
+                case POLICE_ATTACK:
+                    text.setValue(Strings.EncounterTextOpponentAttack);
+                    break;
+                case PIRATE_IGNORE:
+                case POLICE_IGNORE:
+                case TRADER_IGNORE:
+                    text.setValue(commander.getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
+                            : Strings.EncounterTextOpponentIgnore);
+                    break;
+                case MARIE_CELESTE:
+                    text.setValue(Strings.EncounterTextMarieCeleste);
+                    break;
+                case MARIE_CELESTE_POLICE:
+                    text.setValue(Strings.EncounterTextPolicePostMarie);
+                    break;
+                case PIRATE_FLEE:
+                case POLICE_FLEE:
+                case TRADER_FLEE:
+                    text.setValue(Strings.EncounterTextOpponentFlee);
+                    setEncounterOppFleeing(true);
+                    break;
+                case POLICE_INSPECT:
+                    text.setValue(Strings.EncounterTextPoliceInspection);
+                    break;
+                case POLICE_SURRENDER:
+                    text.setValue(Strings.EncounterTextPoliceSurrender);
+                    break;
+                case TRADER_BUY:
+                case TRADER_SELL:
+                    text.setValue(Strings.EncounterTextTrader);
+                    break;
+                case POLICE_DISABLED:
+                case PIRATE_DISABLED:
+                case PIRATE_SURRENDER:
+                case TRADER_ATTACK:
+                case TRADER_DISABLED:
+                case TRADER_SURRENDER:
+                    // These should never be the initial encounter type.
+                    break;
+            }
+        } else {
+            game.getQuestSystem().fireEvent(ENCOUNTER_GET_INTRODUCTORY_ACTION, text);
         }
 
-        return text;
+        return text.getValue();
     }
 
     public int getEncounterImageIndex() {
         IntContainer encounterImage = new IntContainer(-1);
 
-        switch (getEncounterType()) {
-            case BOTTLE_GOOD:
-            case BOTTLE_OLD:
-            case CAPTAIN_AHAB:
-            case CAPTAIN_CONRAD:
-            case CAPTAIN_HUIE:
-            case MARIE_CELESTE:
-                encounterImage.setValue(Consts.EncounterImgSpecial);
-                break;
-            case QUEST_ATTACK:
-            case QUEST_IGNORE:
-                encounterImage.setValue(Consts.EncounterImgPirate);
-                break;
-            case MARIE_CELESTE_POLICE:
-            case POLICE_ATTACK:
-            case POLICE_FLEE:
-            case POLICE_IGNORE:
-            case POLICE_INSPECT:
-            case POLICE_SURRENDER:
-                encounterImage.setValue(Consts.EncounterImgPolice);
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_FLEE:
-            case PIRATE_IGNORE:
-                if (game.getOpponent().getType() == ShipType.MANTIS) {
-                    encounterImage.setValue(Consts.EncounterImgAlien);
-                } else {
-                    encounterImage.setValue(Consts.EncounterImgPirate);
-                }
-                break;
-            case TRADER_BUY:
-            case TRADER_FLEE:
-            case TRADER_IGNORE:
-            case TRADER_SELL:
-                encounterImage.setValue(Consts.EncounterImgTrader);
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-            case POLICE_DISABLED:
-            case PIRATE_DISABLED:
-            case PIRATE_SURRENDER:
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_SURRENDER:
-                // These should never be the initial encounter type.
-                break;
+        if (encounterType < 1000) {
+            switch (EncounterType.fromInt(encounterType)) {
+                case BOTTLE_GOOD:
+                case BOTTLE_OLD:
+                case MARIE_CELESTE:
+                    encounterImage.setValue(Consts.EncounterImgSpecial);
+                    break;
+                case MARIE_CELESTE_POLICE:
+                case POLICE_ATTACK:
+                case POLICE_FLEE:
+                case POLICE_IGNORE:
+                case POLICE_INSPECT:
+                case POLICE_SURRENDER:
+                    encounterImage.setValue(Consts.EncounterImgPolice);
+                    break;
+                case PIRATE_ATTACK:
+                case PIRATE_FLEE:
+                case PIRATE_IGNORE:
+                    if (game.getOpponent().getType() == ShipType.MANTIS) {
+                        encounterImage.setValue(Consts.EncounterImgAlien);
+                    } else {
+                        encounterImage.setValue(Consts.EncounterImgPirate);
+                    }
+                    break;
+                case TRADER_BUY:
+                case TRADER_FLEE:
+                case TRADER_IGNORE:
+                case TRADER_SELL:
+                    encounterImage.setValue(Consts.EncounterImgTrader);
+                    break;
+                case POLICE_DISABLED:
+                case PIRATE_DISABLED:
+                case PIRATE_SURRENDER:
+                case TRADER_ATTACK:
+                case TRADER_DISABLED:
+                case TRADER_SURRENDER:
+                    // These should never be the initial encounter type.
+                    break;
+            }
+        } else {
+            game.getQuestSystem().fireEvent(ENCOUNTER_GET_IMAGE_INDEX, encounterImage);
         }
-
-        game.getQuestSystem().fireEvent(ENCOUNTER_GET_IMAGE_INDEX, encounterImage);
 
         return encounterImage.getValue();
     }
 
     public String getEncounterShipText() {
+        StringContainer shipText = new StringContainer(game.getOpponent().getName());
 
-        String shipText = game.getOpponent().getName();
-
-        switch (getEncounterType()) {
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-                shipText = Strings.EncounterShipCaptain;
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_DISABLED:
-            case PIRATE_FLEE:
-            case PIRATE_SURRENDER:
-                shipText = (game.getOpponent().getType() == ShipType.MANTIS)
-                        ? Strings.EncounterShipMantis
-                        : Strings.EncounterShipPirate;
-                break;
-            case POLICE_ATTACK:
-            case POLICE_DISABLED:
-            case POLICE_FLEE:
-                shipText = Strings.EncounterShipPolice;
-                break;
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_FLEE:
-            case TRADER_SURRENDER:
-                shipText = Strings.EncounterShipTrader;
-                break;
+        if (encounterType < 1000) {
+            switch (EncounterType.fromInt(encounterType)) {
+                case PIRATE_ATTACK:
+                case PIRATE_DISABLED:
+                case PIRATE_FLEE:
+                case PIRATE_SURRENDER:
+                    shipText.setValue((game.getOpponent().getType() == ShipType.MANTIS)
+                            ? Strings.EncounterShipMantis
+                            : Strings.EncounterShipPirate);
+                    break;
+                case POLICE_ATTACK:
+                case POLICE_DISABLED:
+                case POLICE_FLEE:
+                    shipText.setValue(Strings.EncounterShipPolice);
+                    break;
+                case TRADER_ATTACK:
+                case TRADER_DISABLED:
+                case TRADER_FLEE:
+                case TRADER_SURRENDER:
+                    shipText.setValue(Strings.EncounterShipTrader);
+                    break;
+                default:
+            }
+        } else {
+            game.getQuestSystem().fireEvent(EventName.ENCOUNTER_GET_ENCOUNTER_SHIP_TEXT, shipText);
         }
 
-        return shipText;
+        return shipText.getValue();
     }
 
     public String getEncounterText() {
@@ -1310,59 +1181,49 @@ public class Encounter implements Serializable {
     public String getEncounterTextInitial() {
         StringContainer encounterPretext = new StringContainer("");
 
-        switch (getEncounterType()) {
-            case BOTTLE_GOOD:
-            case BOTTLE_OLD:
-                encounterPretext.setValue(Strings.EncounterPretextBottle);
-                break;
-            case CAPTAIN_AHAB:
-                encounterPretext.setValue(Strings.EncounterPretextCaptainAhab);
-                break;
-            case CAPTAIN_CONRAD:
-                encounterPretext.setValue(Strings.EncounterPretextCaptainConrad);
-                break;
-            case CAPTAIN_HUIE:
-                encounterPretext.setValue(Strings.EncounterPretextCaptainHuie);
-                break;
-            case MARIE_CELESTE:
-                encounterPretext.setValue(Strings.EncounterPretextMarie);
-                break;
-            case MARIE_CELESTE_POLICE:
-            case POLICE_ATTACK:
-            case POLICE_FLEE:
-            case POLICE_IGNORE:
-            case POLICE_INSPECT:
-            case POLICE_SURRENDER:
-                encounterPretext.setValue(Strings.EncounterPretextPolice);
-                break;
-            case PIRATE_ATTACK:
-            case PIRATE_FLEE:
-            case PIRATE_IGNORE:
-                if (game.getOpponent().getType() == ShipType.MANTIS) {
-                    encounterPretext.setValue(Strings.EncounterPretextAlien);
-                } else {
-                    encounterPretext.setValue(Strings.EncounterPretextPirate);
-                }
-                break;
-            case TRADER_BUY:
-            case TRADER_FLEE:
-            case TRADER_IGNORE:
-            case TRADER_SELL:
-                encounterPretext.setValue(Strings.EncounterPretextTrader);
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
-            case FAMOUS_CAPT_DISABLED:
-            case POLICE_DISABLED:
-            case PIRATE_DISABLED:
-            case PIRATE_SURRENDER:
-            case TRADER_ATTACK:
-            case TRADER_DISABLED:
-            case TRADER_SURRENDER:
-                // These should never be the initial encounter type.
-                break;
-            default:
-                game.getQuestSystem().fireEvent(EventName.ENCOUNTER_GET_INTRODUCTORY_TEXT, encounterPretext);
-
+        if (encounterType < 1000) {
+            switch (EncounterType.fromInt(encounterType)) {
+                case BOTTLE_GOOD:
+                case BOTTLE_OLD:
+                    encounterPretext.setValue(Strings.EncounterPretextBottle);
+                    break;
+                case MARIE_CELESTE:
+                    encounterPretext.setValue(Strings.EncounterPretextMarie);
+                    break;
+                case MARIE_CELESTE_POLICE:
+                case POLICE_ATTACK:
+                case POLICE_FLEE:
+                case POLICE_IGNORE:
+                case POLICE_INSPECT:
+                case POLICE_SURRENDER:
+                    encounterPretext.setValue(Strings.EncounterPretextPolice);
+                    break;
+                case PIRATE_ATTACK:
+                case PIRATE_FLEE:
+                case PIRATE_IGNORE:
+                    if (game.getOpponent().getType() == ShipType.MANTIS) {
+                        encounterPretext.setValue(Strings.EncounterPretextAlien);
+                    } else {
+                        encounterPretext.setValue(Strings.EncounterPretextPirate);
+                    }
+                    break;
+                case TRADER_BUY:
+                case TRADER_FLEE:
+                case TRADER_IGNORE:
+                case TRADER_SELL:
+                    encounterPretext.setValue(Strings.EncounterPretextTrader);
+                    break;
+                case POLICE_DISABLED:
+                case PIRATE_DISABLED:
+                case PIRATE_SURRENDER:
+                case TRADER_ATTACK:
+                case TRADER_DISABLED:
+                case TRADER_SURRENDER:
+                    // These should never be the initial encounter type.
+                    break;
+            }
+        } else {
+            game.getQuestSystem().fireEvent(EventName.ENCOUNTER_GET_INTRODUCTORY_TEXT, encounterPretext);
         }
 
         String internal = Functions.stringVars(encounterPretext.getValue(), game.getOpponent().getName().toLowerCase());
@@ -1371,7 +1232,7 @@ public class Encounter implements Serializable {
                 Functions.plural(game.getClicks(), Strings.DistanceSubunit), game.getWarpSystem().getName(), internal});
     }
 
-    public ArrayList<VeryRareEncounter> getVeryRareEncounters() {
+    public List<Integer> getVeryRareEncounters() {
         return veryRareEncounters;
     }
 
@@ -1383,12 +1244,16 @@ public class Encounter implements Serializable {
         this.chanceOfVeryRareEncounter = chanceOfVeryRareEncounter;
     }
 
-    public EncounterType getEncounterType() {
+    public Integer getEncounterType() {
         return encounterType;
     }
 
-    public void setEncounterType(EncounterType encounterType) {
+    public void setEncounterType(Integer encounterType) {
         this.encounterType = encounterType;
+    }
+
+    public void setEncounterType(EncounterType encounterType) {
+        this.encounterType = encounterType.castToInt();
     }
 
     private boolean getEncounterOppHit() {
@@ -1470,7 +1335,7 @@ public class Encounter implements Serializable {
                 encounterOppFleeingPrev == encounter.encounterOppFleeingPrev &&
                 encounterOppFleeing == encounter.encounterOppFleeing &&
                 encounterOppHit == encounter.encounterOppHit &&
-                encounterType == encounter.encounterType &&
+                Objects.equals(encounterType, encounter.encounterType) &&
                 Objects.equals(encounters, encounter.encounters) &&
                 Objects.equals(veryRareEncounters, encounter.veryRareEncounters);
     }

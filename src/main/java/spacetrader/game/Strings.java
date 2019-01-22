@@ -83,10 +83,6 @@ public class Strings {
     public static String AlertsEggMessage = "Congratulations! An eccentric Easter Bunny decides to exchange your trade goods for a special present!";
     public static String AlertsEncounterArrestedTitle = "Arrested";
     public static String AlertsEncounterArrestedMessage = "You are arrested and taken to the space station, where you are brought before a court of law.";
-    public static String AlertsEncounterAttackCaptainTitle = "Really Attack?";
-    public static String AlertsEncounterAttackCaptainMessage = "Famous Captains get famous by, among other things, destroying everyone who attacks them. Do you really want to attack?";
-    public static String AlertsEncounterAttackCaptainAccept = "Really Attack";
-    public static String AlertsEncounterAttackCaptainCancel = "OK, I Won't";
     public static String AlertsEncounterAttackNoDisruptorsTitle = "No Disabling Weapons";
     public static String AlertsEncounterAttackNoDisruptorsMessage = "You have no disabling weapons! You would only be able to destroy your opponent, which would defeat the purpose of your quest.";
     public static String AlertsEncounterAttackNoLasersTitle = "No Hull-Damaging Weapons";
@@ -236,15 +232,6 @@ public class Strings {
     public static String AlertsLeavingIFMercenariesMessage = "You don't have enough cash to pay your mercenaries to come with you on this trip. Fire them or make sure you have enough cash.";
     public static String AlertsLeavingIFWormholeTaxTitle = "Wormhole Tax";
     public static String AlertsLeavingIFWormholeTaxMessage = "You don't have enough money to pay for the wormhole tax.";
-    public static String AlertsMeetCaptainAhabTitle = "Meet Captain Ahab";
-    public static String AlertsMeetCaptainAhabMessage = "Captain Ahab is in need of a spare shield for an upcoming mission. He offers to trade you some piloting lessons for your reflective shield. Do you wish to trade?";
-    public static String AlertsMeetCaptainAhabAccept = "Yes, Trade Shield";
-    public static String AlertsMeetCaptainConradTitle = "Meet Captain Conrad";
-    public static String AlertsMeetCaptainConradMessage = "Captain Conrad is in need of a military laser. She offers to trade you some engineering training for your military laser. Do you wish to trade?";
-    public static String AlertsMeetCaptainConradAccept = "Yes, Trade Laser";
-    public static String AlertsMeetCaptainHuieTitle = "Meet Captain Huie";
-    public static String AlertsMeetCaptainHuieMessage = "Captain Huie is in need of a military laser. She offers to exchange some bargaining training for your military laser. Do you wish to trade?";
-    public static String AlertsMeetCaptainHuieAccept = "Yes, Trade Laser";
     public static String AlertsNewGameConfirmTitle = "New Game";
     public static String AlertsNewGameConfirmMessage = "Are you sure you wish to start a new game?";
     public static String AlertsNewGameMoreSkillPointsTitle = "More Skill Points";
@@ -369,9 +356,6 @@ public class Strings {
     public static String EncounterPoliceSurrenderAction = "They will ^1. ";
     public static String EncounterPretextAlien = "an alien ^1";
     public static String EncounterPretextBottle = "a floating ^1";
-    public static String EncounterPretextCaptainAhab = "the famous Captain Ahab in a ^1";
-    public static String EncounterPretextCaptainConrad = "the famous Captain Conrad in a ^1";
-    public static String EncounterPretextCaptainHuie = "the famous Captain Huie in a ^1";
     public static String EncounterPretextMarie = "a drifting ^1";
     //TODO
     public static String EncounterPretextMariePolice = "the Customs Police in a ^1";
@@ -380,14 +364,12 @@ public class Strings {
     public static String EncounterPretextTrader = "a trader ^1";
     public static String EncounterShieldStrength = "Shields at ^1%";
     public static String EncounterShieldNone = "No Shields";
-    public static String EncounterShipCaptain = "Captain";
     public static String EncounterShipMantis = "alien ship";
     public static String EncounterShipPirate = "pirate ship";
     public static String EncounterShipPolice = "police ship";
     public static String EncounterShipTrader = "trader ship";
     public static String EncounterText = "At ^1 from ^2 you encounter ^3.";
     public static String EncounterTextBottle = "It appears to be a rare bottle of Captain Marmoset's Skill Tonic!";
-    public static String EncounterTextFamousCaptain = "The Captain requests a brief meeting with you.";
     public static String EncounterTextMarieCeleste = "The Marie Celeste appears to be completely abandoned.";
     public static String EncounterTextOpponentAttack = "Your opponent attacks.";
     public static String EncounterTextOpponentFlee = "Your opponent is fleeing.";
@@ -402,7 +384,7 @@ public class Strings {
     public static String EquipmentNoneForSale = "None for sale";
     public static String EquipmentNoSlots = "No slots";
 
-    public static String FileFormatBad = "The file is not a Space Trader for Windows file, or is the wrong version or has been corrupted.";
+    public static String FileFormatBad = "The file is not a Space Trader for Java 8 file, or is the wrong version or has been corrupted.";
     public static String FileFutureVersion = "The version of the file is greater than the current version. You should upgrade to the latest version of Space Trader for Windows.";
 
     public static String HighScoreEmpty = "Empty";
@@ -495,7 +477,7 @@ public class Strings {
             "Opponent", // crew of opponent mantis, pirate, police, and trader ships
             //"Wild", // now earns his keep!
             //"Jarek", // now earns his keep!
-            "Captain", // crew of famous captain ships
+            //"Captain", // crew of famous captain ships
             //"Dragonfly", // dummy crew member used in opponent ship
             //"Scarab", // dummy crew member used in opponent ship
             "Aragorn", // My first son's middle name, and from Lord of the Rings
@@ -552,15 +534,10 @@ public class Strings {
      * In News Events, the following variables can be used: ^1 Commander Name ^2
      * Current System ^3 Commander's Ship Type
      */
+    //TODO make stationar news
     public static String[] NewsEvent = new String[]{
             "Police Trace Orbiting Space Litter to ^1.",
-            "Travelers Claim Sighting of Ship Materializing in Orbit!",
-            "Thug Assaults Captain Ahab!",
-            "Destruction of Captain Ahab's Ship Causes Anger!",
-            "Captain Conrad Comes Under Attack By Criminal!",
-            "Captain Conrad's Ship Destroyed by Villain!",
-            "Famed Captain Huie Attacked by Brigand!",
-            "Citizens Mourn Destruction of Captain Huie's Ship!"
+            "Travelers Claim Sighting of Ship Materializing in Orbit!"
     };
 
     public static String[][] NewsHeadlines = new String[][]{
@@ -861,8 +838,7 @@ public class Strings {
     public static String[] TradeItemNames = new String[]{"Water", "Furs", "Food", "Ore", "Games", "Firearms",
             "Medicine", "Machines", "Narcotics", "Robots"};
 
-    public static String[] VeryRareEncounters = new String[]{"Marie Celeste", "Captain Ahab", "Captain Conrad",
-            "Captain Huie", "Dated Tonic", "Good Tonic"};
+    public static String[] VeryRareEncounters = new String[]{"Marie Celeste", "Dated Tonic", "Good Tonic"};
 
     public static String[] WeaponNames = new String[]{"Pulse Laser", "Beam Laser", "Military Laser", "Morgan's Laser",
             "Photon Disruptor", "Quantum Disruptor"};

@@ -460,19 +460,10 @@ public class FormEncounter extends SpaceTraderForm {
                 visible.set(Buttons.DRINK.ordinal(), true);
                 visible.set(Buttons.IGNORE.ordinal(), true);
                 break;
-            case CAPTAIN_AHAB:
-            case CAPTAIN_CONRAD:
-            case CAPTAIN_HUIE:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.IGNORE.ordinal(), true);
-                visible.set(Buttons.MEET.ordinal(), true);
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
             case TRADER_ATTACK:
                 visible.set(Buttons.ATTACK.ordinal(), true);
                 visible.set(Buttons.FLEE.ordinal(), true);
                 break;
-            case FAMOUS_CAPT_DISABLED:
             case POLICE_DISABLED:
             case POLICE_FLEE:
             case POLICE_IGNORE:
@@ -519,6 +510,7 @@ public class FormEncounter extends SpaceTraderForm {
                 visible.set(Buttons.IGNORE.ordinal(), true);
                 visible.set(Buttons.TRADE.ordinal(), true);
                 break;
+                //TODO full rewrite. one event. only if >= 1000. Also for captain
             case QUEST_ATTACK:
                 game.getQuestSystem().fireEvent(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, visible);
                 break;

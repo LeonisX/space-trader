@@ -58,6 +58,9 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private int imageIndex = 3;
 
+    private int scorpionAttackEncounter; // SCORPION_ATTACK
+    private int scorpionIgnoreEncounter; // SCORPION_IGNORE
+
     public PrincessQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
         initializePhases(QuestPhases.values(), new PrincessPhase(), new PrincessCentauriPhase(), new PrincessIntharaPhase(),
@@ -67,6 +70,9 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         int d = Game.getDifficultyId();
         princess = registerNewSpecialCrewMember(4, 3, 8, 9, false);
         scorpionCrew = registerNewSpecialCrewMember(8 + d, 8 + d, 1, 6 + d, false);
+
+        scorpionAttackEncounter = registerNewEncounter();
+        scorpionIgnoreEncounter = registerNewEncounter();
 
         registerNews(News.values().length);
 
@@ -104,8 +110,10 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
         getTransitionMap().put(ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, this::encounterDetermineNonRandomEncounter);
-        getTransitionMap().put(ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK, this::encounterCheckPossibilityOfAttack);
+        getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
+        getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
+        getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
         getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, this::encounterExecuteAttackKeepSpecialShip);
@@ -434,22 +442,44 @@ class PrincessQuest extends AbstractQuest implements Serializable {
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Qonos && questStatus == STATUS_FLY_QONOS) {
             setOpponent(scorpion);
-            getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            getEncounter().setEncounterType(getShip().isCloaked() ? scorpionIgnoreEncounter : scorpionAttackEncounter);
             ((BooleanContainer) object).setValue(true);
         }
     }
 
-    private void encounterCheckPossibilityOfAttack(Object object) {
+    private void encounterVerifyAttack(Object object) {
         if (getOpponent().getBarCode() == scorpion.getBarCode()
                 && getShip().getWeaponStrength(WeaponType.PHOTON_DISRUPTOR, WeaponType.QUANTUM_DISRUPTOR) == 0) {
             GuiFacade.alert(AlertType.EncounterAttackNoDisruptors);
-            ((BooleanContainer) object).setValue(true);
+            ((BooleanContainer) object).setValue(false);
+        }
+        if (getEncounter().getEncounterType() == scorpionIgnoreEncounter) {
+            getEncounter().setEncounterType(scorpionAttackEncounter);
         }
     }
 
     private void encounterGetIntroductoryText(Object object) {
-        if (scorpion.getBarCode() == getOpponent().getBarCode()) {
+        if (scorpion.getBarCode() == getOpponent().getBarCode()) { //TODO opponentIsScorpion
             ((StringContainer) object).setValue(Encounters.PretextScorpion.getValue());
+        }
+    }
+
+    private void encounterGetIntroductoryAction(Object object) {
+        if (scorpion.getBarCode() == getOpponent().getBarCode()) {
+            //TODO custom encounterType
+            /*case QUEST_ATTACK:
+                ((StringContainer) object).setValue(Strings.EncounterTextOpponentAttack);
+                break;
+            case QUEST_IGNORE:
+                ((StringContainer) object).setValue(getCommander().getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
+                        : Strings.EncounterTextOpponentIgnore);
+                break;*/
+        }
+    }
+
+    private void encounterGetEncounterImageIndex(Object object) {
+        if (scorpion.getBarCode() == getOpponent().getBarCode()) {
+            ((IntContainer) object).setValue(Consts.EncounterImgPirate);
         }
     }
 
@@ -494,7 +524,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         SurrenderContainer surrenderContainer = (SurrenderContainer) object;
         // If princess on board and no hidden cargo bays - continue fight to die.
         if (!surrenderContainer.isMatch() && princessOnBoard && !getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)
-                && getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK) {
+                && getEncounter().getEncounterType() == EncounterType.PIRATE_ATTACK.castToInt()) {
             showAlert(Alerts.EncounterPiratesSurrenderPrincess.getValue());
             surrenderContainer.setMatch(true);
         }

@@ -672,8 +672,6 @@ public class Game implements Serializable {
 
         questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST, usedSystems);
 
-        mercenaries.put(CrewMemberId.FAMOUS_CAPTAIN.castToInt(), new CrewMember(CrewMemberId.FAMOUS_CAPTAIN, 10, 10, 10, 10, false, StarSystemId.NA));
-
         // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
         for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, QUEST
             if (!mercenaries.containsKey(i)) { // Create CrewMember if it doesn't exist.

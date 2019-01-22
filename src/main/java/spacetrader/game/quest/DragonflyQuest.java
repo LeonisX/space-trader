@@ -5,6 +5,7 @@ import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.BooleanContainer;
+import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
@@ -46,6 +47,9 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
     private boolean dragonflyDestroyed = false;
 
+    private int dragonflyAttackEncounter; // DRAGONFLY_ATTACK
+    private int dragonflyIgnoreEncounter; // DRAGONFLY_IGNORE
+
     private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(21, 0, 22, 0); // Dragonfly
     private static final Integer SHIP_IMAGE_INDEX = 13;
 
@@ -57,6 +61,9 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
         int d = Game.getDifficultyId();
         dragonflyCrew = registerNewSpecialCrewMember(4 + d, 6 + d, 1, 6 + d, false);
+
+        dragonflyAttackEncounter = registerNewEncounter();
+        dragonflyIgnoreEncounter = registerNewEncounter();
 
         registerNews(News.values().length);
 
@@ -91,7 +98,10 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
         getTransitionMap().put(ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, this::encounterDetermineNonRandomEncounter);
+        getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
+        getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
+        getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
         getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
@@ -392,14 +402,39 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Zalkon && questStatus == STATUS_DRAGONFLY_FLY_ZALKON) {
             setOpponent(dragonfly);
-            getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            getEncounter().setEncounterType(getShip().isCloaked() ? dragonflyIgnoreEncounter : dragonflyAttackEncounter);
             ((BooleanContainer) object).setValue(true);
         }
     }
 
+    private void encounterVerifyAttack(Object object) {
+        if (getEncounter().getEncounterType() == dragonflyIgnoreEncounter) {
+            getEncounter().setEncounterType(dragonflyAttackEncounter);
+        }
+    }
+
     private void encounterGetIntroductoryText(Object object) {
-        if (dragonfly.getBarCode() == getOpponent().getBarCode()) {
+        if (dragonfly.getBarCode() == getOpponent().getBarCode()) { // TODO opponentIsDragonfly()
             ((StringContainer) object).setValue(Encounters.PretextStolenDragonfly.getValue());
+        }
+    }
+
+    private void encounterGetIntroductoryAction(Object object) {
+        if (dragonfly.getBarCode() == getOpponent().getBarCode()) {
+            //TODO custom encounterType
+            /*case QUEST_ATTACK:
+                ((StringContainer) object).setValue(Strings.EncounterTextOpponentAttack);
+                break;
+            case QUEST_IGNORE:
+                ((StringContainer) object).setValue(getCommander().getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
+                        : Strings.EncounterTextOpponentIgnore);
+                break;*/
+        }
+    }
+
+    private void encounterGetEncounterImageIndex(Object object) {
+        if (dragonfly.getBarCode() == getOpponent().getBarCode()) {
+            ((IntContainer) object).setValue(Consts.EncounterImgPirate);
         }
     }
 
@@ -438,7 +473,7 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
     //TODO in future run this check in Encounter.encounterWon()
     private void encounterOnEncounterWon(Object object) {
-        if (getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //DRAGONFLY_ATTACK
+        if (getEncounter().getEncounterType() == dragonflyAttackEncounter) { //DRAGONFLY_ATTACK
             encounterDefeatDragonfly();
         }
     }

@@ -58,7 +58,7 @@ public class GameCheats implements Serializable {
                     break;
                 case Events:
                     if (words.getSecond().equals("Reset")) {
-                        game.getEncounter().resetVeryRareEncounters();
+                        game.getEncounter().initializeVeryRareEncounters();
                     } else {
                         StringBuilder textBuilder = new StringBuilder();
                         for (VeryRareEncounter veryRareEncounter : game.getEncounter().getVeryRareEncounters()) {

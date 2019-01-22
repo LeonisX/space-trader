@@ -82,7 +82,6 @@ public class Consts {
 
     //public static final int ScoreCaughtWithWild = -4;
     public static final int ScoreFleePolice = -2;
-    public static final int ScoreKillCaptain = 100;
     public static final int ScoreKillPirate = 1;
     public static final int ScoreKillPolice = -6;
     public static final int ScoreKillTrader = -4;

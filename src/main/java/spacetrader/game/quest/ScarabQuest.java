@@ -47,6 +47,9 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
     private UUID shipBarCode = UUID.randomUUID();
 
+    private int scarabAttackEncounter; // SCARAB_ATTACK
+    private int scarabIgnoreEncounter; // SCARAB_IGNORE
+
     private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(7, 0, 49, 0);
     private static final Integer SHIP_IMAGE_INDEX = 14;
 
@@ -57,6 +60,9 @@ class ScarabQuest extends AbstractQuest implements Serializable {
 
         int d = Game.getDifficultyId();
         scarabCrew = registerNewSpecialCrewMember(5 + d, 6 + d, 1, 6 + d, false);
+
+        scarabAttackEncounter = registerNewEncounter();
+        scarabIgnoreEncounter = registerNewEncounter();
 
         registerNews(News.values().length);
 
@@ -92,7 +98,10 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ON_DISPLAY_SHIP_EQUIPMENT, this::onDisplayShipEquipment);
 
         getTransitionMap().put(ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, this::encounterDetermineNonRandomEncounter);
+        getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
+        getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
+        getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
         getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
         getTransitionMap().put(ENCOUNTER_IS_EXECUTE_ATTACK_GET_WEAPONS, this::encounterIsExecuteAttackGetWeapons);
@@ -347,14 +356,39 @@ class ScarabQuest extends AbstractQuest implements Serializable {
                 && game.getWarpSystem().getId() == phases.get(QuestPhases.ScarabDestroyed).getStarSystemId()
                 && questStatus == STATUS_SCARAB_HUNTING) {
             setOpponent(scarab);
-            getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            getEncounter().setEncounterType(getShip().isCloaked() ? scarabIgnoreEncounter : scarabAttackEncounter);
             ((BooleanContainer) object).setValue(true);
         }
     }
 
+    private void encounterVerifyAttack(Object object) {
+        if (getEncounter().getEncounterType() == scarabIgnoreEncounter) {
+            getEncounter().setEncounterType(scarabAttackEncounter);
+        }
+    }
+
     private void encounterGetIntroductoryText(Object object) {
-        if (scarab.getBarCode() == getOpponent().getBarCode()) {
+        if (scarab.getBarCode() == getOpponent().getBarCode()) { //TODO opponentIsScarab()
             ((StringContainer) object).setValue(Encounters.PretextStolenScarab.getValue());
+        }
+    }
+
+    private void encounterGetIntroductoryAction(Object object) {
+        if (scarab.getBarCode() == getOpponent().getBarCode()) {
+            //TODO custom encounterType
+            /*case QUEST_ATTACK:
+                ((StringContainer) object).setValue(Strings.EncounterTextOpponentAttack);
+                break;
+            case QUEST_IGNORE:
+                ((StringContainer) object).setValue(getCommander().getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
+                        : Strings.EncounterTextOpponentIgnore);
+                break;*/
+        }
+    }
+
+    private void encounterGetEncounterImageIndex(Object object) {
+        if (scarab.getBarCode() == getOpponent().getBarCode()) {
+            ((IntContainer) object).setValue(Consts.EncounterImgPirate);
         }
     }
 
@@ -406,7 +440,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterOnEncounterWon(Object object) {
-        if (getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //SCARAB_ATTACK
+        if (getEncounter().getEncounterType() == scarabAttackEncounter) { //SCARAB_ATTACK
             encounterDefeatScarab();
         }
     }

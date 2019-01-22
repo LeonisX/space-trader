@@ -10,6 +10,7 @@ import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.guifacade.GuiFacade;
 
 import java.io.Serializable;
 import java.util.*;
@@ -39,6 +40,9 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
     private Ship spaceMonster; //ShipType.SPACE_MONSTER, //10
 
+    private int spaceMonsterAttackEncounter; // SPACE_MONSTER_ATTACK
+    private int spaceMonsterIgnoreEncounter; // SPACE_MONSTER_IGNORE
+
     private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(7, 0, 49, 0);
     private static final Integer SHIP_IMAGE_INDEX = 15;
 
@@ -49,6 +53,9 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
         int d = Game.getDifficultyId();
         spaceMonsterCrew = registerNewSpecialCrewMember(8 + d, 8 + d, 1, 1 + d, false);
+
+        spaceMonsterAttackEncounter = registerNewEncounter();
+        spaceMonsterIgnoreEncounter = registerNewEncounter();
 
         registerNews(News.values().length);
 
@@ -83,7 +90,9 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
         getTransitionMap().put(ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, this::encounterDetermineNonRandomEncounter);
+        getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
+        getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
         getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
@@ -267,14 +276,33 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     private void encounterDetermineNonRandomEncounter(Object object) {
         if (game.getClicks() == 1 && game.getWarpSystem().getId() == StarSystemId.Acamar && questStatus == STATUS_SPACE_MONSTER_AT_ACAMAR) {
             setOpponent(spaceMonster);
-            getEncounter().setEncounterType(getShip().isCloaked() ? EncounterType.QUEST_IGNORE : EncounterType.QUEST_ATTACK);
+            getEncounter().setEncounterType(getShip().isCloaked() ? spaceMonsterIgnoreEncounter : spaceMonsterAttackEncounter);
             ((BooleanContainer) object).setValue(true);
+        }
+    }
+
+    private void encounterVerifyAttack(Object object) {
+        if (getEncounter().getEncounterType() == spaceMonsterIgnoreEncounter) {
+            getEncounter().setEncounterType(spaceMonsterAttackEncounter);
         }
     }
 
     private void encounterGetIntroductoryText(Object object) {
         if (opponentIsSpaceMonster()) {
             ((StringContainer) object).setValue(Encounters.PretextSpaceMonster.getValue());
+        }
+    }
+
+    private void encounterGetIntroductoryAction(Object object) {
+        if (opponentIsSpaceMonster()) {
+            //TODO custom encounterType
+            /*case QUEST_ATTACK:
+                ((StringContainer) object).setValue(Strings.EncounterTextOpponentAttack);
+                break;
+            case QUEST_IGNORE:
+                ((StringContainer) object).setValue(getCommander().getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
+                        : Strings.EncounterTextOpponentIgnore);
+                break;*/
         }
     }
 
@@ -305,7 +333,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     }
 
     private void encounterOnEncounterWon(Object object) {
-        if (getEncounter().getEncounterType() == EncounterType.QUEST_ATTACK) { //SPACE_MONSTER_ATTACK
+        if (getEncounter().getEncounterType() == spaceMonsterAttackEncounter) { //SPACE_MONSTER_ATTACK
             getCommander().setKillsPirate(getCommander().getKillsPirate() + 1);
             getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreKillPirate);
             questStatus = STATUS_SPACE_MONSTER_DESTROYED;

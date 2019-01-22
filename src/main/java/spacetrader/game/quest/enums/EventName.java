@@ -30,16 +30,21 @@ public enum EventName {
 
     ON_BEFORE_WARP,                             // Wild. It is possible to cancel the warp
     IS_TRAVEL,                                  // Experiment.
-    ON_DETERMINE_RANDOM_ENCOUNTER,              // Wild. The ability to influence the generation of encouters. For example, add hordes of police
+    ON_DETERMINE_RANDOM_ENCOUNTER,              // Wild. The ability to influence the generation of encounters. For example, add hordes of police
+    ON_DETERMINE_VERY_RARE_ENCOUNTER,           // Very rare encounters
     ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT,      // Wild. Ability to adjust the characteristics of the first member of the crew of the opponent ship
     ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES,     // Wild. The police will try to hunt you down with better ships if you are
     // a villain, and they will try even harder when you are considered to be a psychopath (or are transporting Jonathan Wild)
 
+
+    //TODO correct order of very rare encounters
     // Encounters
     ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess, Space Monster. Starts a predefined encounter with Scorpion.
-    ENCOUNTER_CHECK_POSSIBILITY_OF_ATTACK,      // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
+    ENCOUNTER_VERIFY_ATTACK,      // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
     ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion), Space Monster. Used to generate an introductory text of encounter
-    ENCOUNTER_GET_IMAGE_INDEX,                  // Space Monster - before opponent show
+    ENCOUNTER_GET_INTRODUCTORY_ACTION,          //
+    ENCOUNTER_GET_ENCOUNTER_SHIP_TEXT,          // Very rare encounters
+    ENCOUNTER_GET_IMAGE_INDEX,                  // Very rare encounters, Space Monster - before opponent show
     ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS,       // All quest enemy ships
     ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS,       // All quest enemy ships
     ENCOUNTER_IS_EXECUTE_ATTACK_GET_WEAPONS,    // Scarab
@@ -77,5 +82,5 @@ public enum EventName {
     // Cheats
     IS_CONSIDER_CHEAT,                          // Tribbles. General cheats
     IS_CONSIDER_STATUS_CHEAT,                   // Jarek, Princess, ... Change the status of the quest (for example, Jarek questStatus)
-    IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
+    ENCOUNTER_UPDATE_ENCOUNTER_TYPE, ENCOUNTER_MEET, IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
 }

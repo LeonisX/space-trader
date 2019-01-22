@@ -213,9 +213,6 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterArrested:
                 return new FormAlert(AlertsEncounterArrestedTitle, AlertsEncounterArrestedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterAttackCaptain:
-                return new FormAlert(AlertsEncounterAttackCaptainTitle, AlertsEncounterAttackCaptainMessage,
-                        AlertsEncounterAttackCaptainAccept, DialogResult.YES, AlertsEncounterAttackCaptainCancel, DialogResult.NO, args);
             case EncounterAttackNoDisruptors:
                 return new FormAlert(AlertsEncounterAttackNoDisruptorsTitle, AlertsEncounterAttackNoDisruptorsMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
@@ -425,15 +422,6 @@ public class FormAlert extends SpaceTraderForm {
             case LeavingIFWormholeTax:
                 return new FormAlert(AlertsLeavingIFWormholeTaxTitle, AlertsLeavingIFWormholeTaxMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case MeetCaptainAhab:
-                return new FormAlert(AlertsMeetCaptainAhabTitle, AlertsMeetCaptainAhabMessage,
-                        AlertsMeetCaptainAhabAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
-            case MeetCaptainConrad:
-                return new FormAlert(AlertsMeetCaptainConradTitle, AlertsMeetCaptainConradMessage,
-                        AlertsMeetCaptainConradAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
-            case MeetCaptainHuie:
-                return new FormAlert(AlertsMeetCaptainHuieTitle, AlertsMeetCaptainHuieMessage,
-                        AlertsMeetCaptainHuieAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
             case NewGameConfirm:
                 return new FormAlert(AlertsNewGameConfirmTitle, AlertsNewGameConfirmMessage, AlertsYes, DialogResult.YES,
                         AlertsNo, DialogResult.NO, args);

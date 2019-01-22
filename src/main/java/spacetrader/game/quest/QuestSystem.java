@@ -33,12 +33,16 @@ public class QuestSystem implements Serializable {
     private Map<Integer, Quest> questNews = new HashMap<>();
     private Map<Integer, Quest> questShipSpecs = new HashMap<>();
     private Map<Integer, Quest> questGameEndTypes = new HashMap<>();
+    private Map<Integer, Quest> questEncounters = new HashMap<>();
+    private Map<Integer, Quest> questVeryRareEncounters = new HashMap<>();
 
     private volatile AtomicInteger specialCrewIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger newsIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger encounterIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger shipSpecIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger gameEndTypeIdCounter = new AtomicInteger(1000);
+    private volatile AtomicInteger encounter = new AtomicInteger(1000);
+    private volatile AtomicInteger veryRareEncounter = new AtomicInteger(1000);
 
     private transient Set<String> questsBeforeTransaction = new HashSet<>();
 
@@ -96,6 +100,18 @@ public class QuestSystem implements Serializable {
         return gameEndTypeId;
     }
 
+    int registerNewEncounter(AbstractQuest quest) {
+        int encounterId = generateEncounterId();
+        questEncounters.put(encounterId, quest);
+        return encounterId;
+    }
+
+    int registerNewVeryRareEncounter(AbstractQuest quest) {
+        int veryRareEncounterId = generateVeryRareEncounterIdCounter();
+        questVeryRareEncounters.put(veryRareEncounterId, quest);
+        return veryRareEncounterId;
+    }
+
     public void initializeLoggers() {
         quests.values().forEach(q -> q.initializeLogger(q));
     }
@@ -132,6 +148,14 @@ public class QuestSystem implements Serializable {
 
     private int generateGameEndTypeIdCounter() {
         return gameEndTypeIdCounter.getAndIncrement();
+    }
+
+    private int generateEncounterIdCounter() {
+        return encounter.getAndIncrement();
+    }
+
+    private int generateVeryRareEncounterIdCounter() {
+        return veryRareEncounter.getAndIncrement();
     }
 
     public int[] affectSkills(int[] skills) {
@@ -236,6 +260,10 @@ public class QuestSystem implements Serializable {
 
     public Rectangle getShipImageOffset(int shipSpecId) {
         return questShipSpecs.get(shipSpecId).getShipImageOffset();
+    }
+
+    public Collection<Integer> getVeryRareEncounters() {
+        return questVeryRareEncounters.keySet();
     }
 
     //TODO test

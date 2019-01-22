@@ -1,15 +1,10 @@
 package spacetrader.game.enums;
 
+//TODO remove, create 2 separate news
 public enum NewsEvent implements SpaceTraderEnum {
 
     CaughtLittering, // = 1,
-    ExperimentArrival, // = 11,
-    CaptAhabAttacked, // = 15,
-    CaptAhabDestroyed, // = 16,
-    CaptConradAttacked, // = 17,
-    CaptConradDestroyed, // = 18,
-    CaptHuieAttacked, // = 19,
-    CaptHuieDestroyed; // = 20,
+    ExperimentArrival; // = 11,
 
     public static NewsEvent fromInt(int i) {
         return values()[i];
