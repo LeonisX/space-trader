@@ -72,6 +72,9 @@ class I18n {
             if (alert.getValue().getAccept() != null) {
                 System.out.println(getHeadAcceptValue(Res.Alerts.getPrefix(), alert.name(), alert.getValue().getAccept()));
             }
+            if (alert.getValue().getCancel() != null) {
+                System.out.println(getHeadCancelValue(Res.Alerts.getPrefix(), alert.name(), alert.getValue().getCancel()));
+            }
         });
     }
 
@@ -86,7 +89,8 @@ class I18n {
         alerts.forEach(alert -> alert.setValue(new AlertDialog(
                 strings.get(getHeadTitle(Res.Alerts.getPrefix(), alert.name())),
                 strings.get(getHeadMessage(Res.Alerts.getPrefix(), alert.name())),
-                strings.get(getHeadAccept(Res.Alerts.getPrefix(), alert.name()))))
+                strings.get(getHeadAccept(Res.Alerts.getPrefix(), alert.name())),
+                strings.get(getHeadCancel(Res.Alerts.getPrefix(), alert.name()))))
         );
     }
 
@@ -124,6 +128,14 @@ class I18n {
     }
 
     private static String getHeadAcceptValue(String prefix, String key, String value) {
+        return getHeadAccept(prefix, key) + "=" + value;
+    }
+
+    private static String getHeadCancel(String prefix, String key) {
+        return getHead(prefix, key, "Cancel");
+    }
+
+    private static String getHeadCancelValue(String prefix, String key, String value) {
         return getHeadAccept(prefix, key) + "=" + value;
     }
 

@@ -85,6 +85,10 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return game.getQuestSystem().registerNewVeryRareEncounter(this);
     }
 
+    int registerNewOpponentType() {
+        return game.getQuestSystem().registerNewOpponentType();
+    }
+
     void registerNews(int count) {
         for (int i = 0; i < count; i++) {
             int newsId = game.getQuestSystem().generateNewsId();
@@ -337,7 +341,8 @@ public abstract class AbstractQuest implements Quest, Serializable {
     @Facaded
     DialogResult showYesNoAlert(AlertDialog dialog, String... args) {
         String yes = dialog.getAccept() == null ? Strings.AlertsYes : dialog.getAccept();
-        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), yes, DialogResult.YES, Strings.AlertsNo, DialogResult.NO, args);
+        String no = dialog.getCancel() == null ? Strings.AlertsNo : dialog.getCancel();
+        FormAlert formAlert = new FormAlert(dialog.getTitle(), dialog.getMessage(), yes, DialogResult.YES, no, DialogResult.NO, args);
         return formAlert.showDialog((WinformPane) game.getParentWindow());
     }
 

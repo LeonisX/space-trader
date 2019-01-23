@@ -10,6 +10,10 @@ public enum OpponentType implements SpaceTraderEnum {
     POLICE,
     TRADER;
 
+    public static OpponentType fromInt(int value) {
+        return OpponentType.values()[value];
+    }
+
     @Override
     public int castToInt() {
         return ordinal();

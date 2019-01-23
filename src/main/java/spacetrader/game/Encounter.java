@@ -33,6 +33,8 @@ public class Encounter implements Serializable {
     private int chanceOfVeryRareEncounter = 5; // Rare encounters not done yet.
     private List<Integer> veryRareEncounters = new ArrayList<>(); // Array of Very Options
 
+    private int veryRareEncounterId; // current ID, used right after its generation
+
     // The rest of the member variables are not saved between games.
     private boolean encounterContinueFleeing = false;
     private boolean encounterContinueAttacking = false;
@@ -243,14 +245,11 @@ public class Encounter implements Serializable {
     public boolean isDetermineVeryRareEncounter() {
         // Very Rare Random Events:
         // 1. Encounter the abandoned Marie Celeste, which you may loot.
-        // 2. Captain Ahab will trade your Reflective Shield for skill points in Piloting.
-        // 3. Captain Conrad will trade your Military Laser for skill points in Engineering.
-        // 4. Captain Huie will trade your Military Laser for points in Trading.
         // 5. Encounter an out-of-date bottle of Captain Marmoset's Skill Tonic.
         // This will affect skills depending on game difficulty level.
         // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which will invoke
         // IncreaseRandomSkill one or two times, depending on game difficulty.
-        Integer veryRareEncounterId = getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()));
+        veryRareEncounterId = getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()));
         if (veryRareEncounterId == MARIE_CELESTE.castToInt()) {
             // Marie Celeste cannot be at Acamar, Qonos, or Zalkon as it may
             // cause problems with the Space Monster, Scorpion, or Dragonfly
@@ -266,21 +265,21 @@ public class Encounter implements Serializable {
                 game.getOpponent().getCargo()[TradeItemType.NARCOTICS
                         .castToInt()] = Math.min(game.getOpponent().getCargoBays(), 5);
                 return true;
-            } else if (veryRareEncounterId == BOTTLE_OLD.castToInt()) {
-                getVeryRareEncounters().remove(BOTTLE_OLD.castToInt());
-                setEncounterType(EncounterType.BOTTLE_OLD);
-                game.generateOpponent(OpponentType.BOTTLE);
-                return true;
-            } else if (veryRareEncounterId == BOTTLE_GOOD.castToInt()) {
-                getVeryRareEncounters().remove(BOTTLE_GOOD.castToInt());
-                setEncounterType(EncounterType.BOTTLE_GOOD);
-                game.generateOpponent(OpponentType.BOTTLE);
-                return true;
-            } else {
-                BooleanContainer happened = new BooleanContainer(false);
-                game.getQuestSystem().fireEvent(ON_DETERMINE_VERY_RARE_ENCOUNTER, happened);
-                return happened.getValue();
             }
+        } else if (veryRareEncounterId == BOTTLE_OLD.castToInt()) {
+            getVeryRareEncounters().remove(BOTTLE_OLD.castToInt());
+            setEncounterType(EncounterType.BOTTLE_OLD);
+            game.generateOpponent(OpponentType.BOTTLE);
+            return true;
+        } else if (veryRareEncounterId == BOTTLE_GOOD.castToInt()) {
+            getVeryRareEncounters().remove(BOTTLE_GOOD.castToInt());
+            setEncounterType(EncounterType.BOTTLE_GOOD);
+            game.generateOpponent(OpponentType.BOTTLE);
+            return true;
+        } else {
+            BooleanContainer happened = new BooleanContainer(false);
+            game.getQuestSystem().fireEvent(ON_DETERMINE_VERY_RARE_ENCOUNTER, happened);
+            return happened.getValue();
         }
         return false;
     }
@@ -1323,6 +1322,11 @@ public class Encounter implements Serializable {
         this.easyEncounters = easyEncounters;
     }
 
+    public int getVeryRareEncounterId() {
+        return veryRareEncounterId;
+    }
+
+    //TODO
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -1342,6 +1346,7 @@ public class Encounter implements Serializable {
                 Objects.equals(veryRareEncounters, encounter.veryRareEncounters);
     }
 
+    //TODO
     @Override
     public int hashCode() {
         return Objects.hash(easyEncounters, encounterType, encounters, chanceOfVeryRareEncounter, veryRareEncounters, encounterContinueFleeing, encounterContinueAttacking, encounterCmdrFleeing, encounterCmdrHit, encounterOppFleeingPrev, encounterOppFleeing, encounterOppHit);

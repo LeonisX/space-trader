@@ -60,6 +60,8 @@ public class Game implements Serializable {
 
     private Map<Integer, ShipSpec> shipSpecs; // ShipSpecs by ID
 
+    private List<Integer> opponentTypes;
+
     private StarSystemId selectedSystemId = StarSystemId.NA; // Current system on chart
     private StarSystemId warpSystemId = StarSystemId.NA; // Target system for warp
     private StarSystemId trackedSystemId = StarSystemId.NA; // The short-range chart will display an arrow towards
@@ -87,6 +89,8 @@ public class Game implements Serializable {
         game = this;
         this.parentWin = parentWin;
         this.difficulty = difficulty;
+
+        opponentTypes = Arrays.stream(OpponentType.values()).map(OpponentType::castToInt).collect(toList());
 
         questSystem = new QuestSystem();
         questSystem.initializeQuestsHolder();
@@ -693,7 +697,11 @@ public class Game implements Serializable {
         }
     }
 
-    void generateOpponent(OpponentType oppType) {
+    public void generateOpponent(OpponentType oppType) {
+        setOpponent(new Ship(oppType));
+    }
+
+    public void generateOpponent(int oppType) {
         setOpponent(new Ship(oppType));
     }
 
@@ -1327,5 +1335,13 @@ public class Game implements Serializable {
 
     public Encounter getEncounter() {
         return encounter;
+    }
+
+    public List<Integer> getOpponentTypes() {
+        return opponentTypes;
+    }
+
+    public void setOpponentTypes(List<Integer> opponentTypes) {
+        this.opponentTypes = opponentTypes;
     }
 }

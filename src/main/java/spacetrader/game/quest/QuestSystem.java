@@ -43,6 +43,7 @@ public class QuestSystem implements Serializable {
     private volatile AtomicInteger gameEndTypeIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger encounter = new AtomicInteger(1000);
     private volatile AtomicInteger veryRareEncounter = new AtomicInteger(1000);
+    private volatile AtomicInteger opponentTypeEncounter = new AtomicInteger(1000);
 
     private transient Set<String> questsBeforeTransaction = new HashSet<>();
 
@@ -112,6 +113,12 @@ public class QuestSystem implements Serializable {
         return veryRareEncounterId;
     }
 
+    int registerNewOpponentType() {
+        int opponentTypeId = generateOpponentTypeIdCounter();
+        Game.getCurrentGame().getOpponentTypes().add(opponentTypeId);
+        return opponentTypeId;
+    }
+
     public void initializeLoggers() {
         quests.values().forEach(q -> q.initializeLogger(q));
     }
@@ -156,6 +163,10 @@ public class QuestSystem implements Serializable {
 
     private int generateVeryRareEncounterIdCounter() {
         return veryRareEncounter.getAndIncrement();
+    }
+
+    private int generateOpponentTypeIdCounter() {
+        return opponentTypeEncounter.getAndIncrement();
     }
 
     public int[] affectSkills(int[] skills) {

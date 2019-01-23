@@ -274,8 +274,6 @@ public class Strings {
     public static String AlertsSpecialNotEnoughBaysMessage = "You don't have enough empty cargo bays at the moment.";
     public static String AlertsSpecialPassengerOnBoardTitle = "Passenger On Board";
     public static String AlertsSpecialPassengerOnBoardMessage = "You have taken ^1 on board. While on board ^1 will lend you expertise, but may stop helping if the journey takes too long.";
-    public static String AlertsSpecialTrainingCompletedTitle = "Training Completed";
-    public static String AlertsSpecialTrainingCompletedMessage = "After a few hours of training with a top expert, you feel your abilities have improved significantly.";
     public static String AlertsTravelArrivalTitle = "Arrival";
     public static String AlertsTravelArrivalMessage = "You arrive at your destination.";
     public static String AlertsTravelUneventfulTripTitle = "Uneventful Trip";

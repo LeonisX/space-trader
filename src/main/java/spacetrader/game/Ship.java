@@ -29,6 +29,9 @@ public class Ship extends ShipSpec implements Serializable {
     private CrewMember[] crewMembers;
     private boolean pod = false;
 
+    private int opponentType;
+    private boolean initialized;
+
     // The following does not need to be saved. It's more of a temp variable.
     private boolean[] tradeableItems;
 
@@ -49,27 +52,17 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public Ship(OpponentType oppType) {
+        this(oppType.castToInt());
+    }
+
+    public Ship(int oppType) {
+        this.opponentType = oppType;
         Game.getCurrentGame().getQuestSystem().fireEvent(ON_ENCOUNTER_GENERATE_OPPONENT, this);
 
-        if (oppType == OpponentType.FAMOUS_CAPTAIN) {
-            setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
-
-            for (int i = 0; i < getShields().length; i++) {
-                addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-            }
-
-            for (int i = 0; i < getWeapons().length; i++) {
-                addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-            }
-
-            addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
-            addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
-
-            getCrew()[0] = Game.getCurrentGame().getMercenaries().get(CrewMemberId.FAMOUS_CAPTAIN.castToInt());
-        } else if (oppType == OpponentType.BOTTLE) {
+        if (oppType == OpponentType.BOTTLE.castToInt() && !initialized) {
             setValues(ShipType.BOTTLE);
-        } else {
-            int tries = (oppType == OpponentType.MANTIS) ? Game.getDifficultyId() + 1
+        } else if (!initialized) {
+            int tries = (oppType == OpponentType.MANTIS.castToInt()) ? Game.getDifficultyId() + 1
                     : Math.max(1, Game.getCurrentGame().getCommander().getWorth() / 150000
                             + Game.getDifficultyId() - Difficulty.NORMAL.castToInt());
 
@@ -79,12 +72,12 @@ public class Ship extends ShipSpec implements Serializable {
             generateOpponentAddShields(tries);
             generateOpponentAddWeapons(tries);
 
-            if (oppType != OpponentType.MANTIS) {
+            if (oppType != OpponentType.MANTIS.castToInt()) {
                 generateOpponentSetHullStrength();
             }
 
-            if (oppType != OpponentType.POLICE) {
-                generateOpponentAddCargo(oppType == OpponentType.PIRATE);
+            if (oppType != OpponentType.POLICE.castToInt()) {
+                generateOpponentAddCargo(oppType == OpponentType.PIRATE.castToInt());
             }
         }
     }
@@ -406,40 +399,42 @@ public class Ship extends ShipSpec implements Serializable {
         }
     }
 
-    private void generateOpponentShip(OpponentType oppType) {
+    private void generateOpponentShip(int oppType) {
         Commander cmdr = Game.getCurrentGame().getCommander();
         PoliticalSystem polSys = Game.getCurrentGame().getWarpSystem().getPoliticalSystem();
 
-        if (oppType == OpponentType.MANTIS) {
+        if (oppType == OpponentType.MANTIS.castToInt()) {
             setValues(ShipType.MANTIS);
         } else {
             ShipType oppShipType;
             IntContainer tries = new IntContainer(1);
 
-            switch (oppType) {
-                case PIRATE:
-                    // Pirates become better when you get richer
-                    tries.setValue(1 + cmdr.getWorth() / 100000);
-                    tries.setValue(Math.max(1, tries.getValue() + Game.getDifficultyId() - Difficulty.NORMAL.castToInt()));
-                    break;
-                case POLICE:
-                    // The police will try to hunt you down with better ships if you are a villain, and they will
-                    // try even harder when you are considered to be a psychopath (or are transporting Jonathan Wild)
-                    if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScorePsychopath) {
-                        tries.setValue(5);
-                    } else if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScoreVillain) {
-                        tries.setValue(3);
-                    } else {
-                        tries.setValue(1);
-                    }
+            if (oppType < 1000) {
+                switch (OpponentType.fromInt(oppType)) {
+                    case PIRATE:
+                        // Pirates become better when you get richer
+                        tries.setValue(1 + cmdr.getWorth() / 100000);
+                        tries.setValue(Math.max(1, tries.getValue() + Game.getDifficultyId() - Difficulty.NORMAL.castToInt()));
+                        break;
+                    case POLICE:
+                        // The police will try to hunt you down with better ships if you are a villain, and they will
+                        // try even harder when you are considered to be a psychopath (or are transporting Jonathan Wild)
+                        if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScorePsychopath) {
+                            tries.setValue(5);
+                        } else if (cmdr.getPoliceRecordScore() < Consts.PoliceRecordScoreVillain) {
+                            tries.setValue(3);
+                        } else {
+                            tries.setValue(1);
+                        }
 
-                    Game.getCurrentGame().getQuestSystem().fireEvent(ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES, tries);
+                        Game.getCurrentGame().getQuestSystem().fireEvent(ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES, tries);
 
-                    tries.setValue(Math.max(1, tries.getValue() + Game.getDifficultyId() - Difficulty.NORMAL.castToInt()));
-                    break;
+                        tries.setValue(Math.max(1, tries.getValue() + Game.getDifficultyId() - Difficulty.NORMAL.castToInt()));
+                        break;
+                }
             }
 
-            if (oppType == OpponentType.TRADER) {
+            if (oppType == OpponentType.TRADER.castToInt()) {
                 oppShipType = ShipType.FLEA;
             } else {
                 oppShipType = ShipType.GNAT;
@@ -520,7 +515,7 @@ public class Ship extends ShipSpec implements Serializable {
         return found;
     }
 
-    boolean hasShield(ShieldType shieldType) {
+    public boolean hasShield(ShieldType shieldType) {
         boolean found = false;
         for (int i = 0; i < getShields().length && !found; i++) {
             if (getShields()[i] != null && getShields()[i].getType() == shieldType) {
@@ -1031,6 +1026,22 @@ public class Ship extends ShipSpec implements Serializable {
 
     public boolean isEscapePod() {
         return escapePod;
+    }
+
+    public int getOpponentType() {
+        return opponentType;
+    }
+
+    public void setOpponentType(int opponentType) {
+        this.opponentType = opponentType;
+    }
+
+    public boolean isInitialized() {
+        return initialized;
+    }
+
+    public void setInitialized(boolean initialized) {
+        this.initialized = initialized;
     }
 
     @Override

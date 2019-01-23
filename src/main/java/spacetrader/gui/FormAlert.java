@@ -483,9 +483,6 @@ public class FormAlert extends SpaceTraderForm {
             case SpecialPassengerOnBoard:
                 return new FormAlert(AlertsSpecialPassengerOnBoardTitle, AlertsSpecialPassengerOnBoardMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case SpecialTrainingCompleted:
-                return new FormAlert(AlertsSpecialTrainingCompletedTitle, AlertsSpecialTrainingCompletedMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case TravelArrival:
                 return new FormAlert(AlertsTravelArrivalTitle, AlertsTravelArrivalMessage, AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);

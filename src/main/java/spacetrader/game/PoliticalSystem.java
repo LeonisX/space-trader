@@ -42,24 +42,25 @@ public class PoliticalSystem {
         this.wanted = wanted;
     }
 
-    boolean ShipTypeLikely(ShipType shipType, OpponentType oppType) {
+    boolean ShipTypeLikely(ShipType shipType, int oppType) {
         boolean likely = false;
-        int diffMod = Math
-                .max(0, Game.getDifficultyId() - Difficulty.NORMAL.castToInt());
+        int diffMod = Math.max(0, Game.getDifficultyId() - Difficulty.NORMAL.castToInt());
 
-        switch (oppType) {
-            case PIRATE:
-                likely = getActivityPirates().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
-                        .getPirates().castToInt();
-                break;
-            case POLICE:
-                likely = getActivityPolice().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
-                        .getPolice().castToInt();
-                break;
-            case TRADER:
-                likely = getActivityTraders().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
-                        .getTraders().castToInt();
-                break;
+        if (oppType < 1000) {
+            switch (OpponentType.fromInt(oppType)) {
+                case PIRATE:
+                    likely = getActivityPirates().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                            .getPirates().castToInt();
+                    break;
+                case POLICE:
+                    likely = getActivityPolice().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                            .getPolice().castToInt();
+                    break;
+                case TRADER:
+                    likely = getActivityTraders().castToInt() + diffMod >= Consts.ShipSpecs[shipType.castToInt()]
+                            .getTraders().castToInt();
+                    break;
+            }
         }
 
         return likely;
