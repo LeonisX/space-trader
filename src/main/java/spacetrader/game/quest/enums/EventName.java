@@ -40,13 +40,13 @@ public enum EventName {
     //TODO correct order of very rare encounters
     // Encounters
     ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess, Space Monster. Starts a predefined encounter with Scorpion.
-    ENCOUNTER_VERIFY_ATTACK,      // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
+    ON_ENCOUNTER_GENERATE_OPPONENT,
+    ENCOUNTER_VERIFY_ATTACK,                    // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
     ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion), Space Monster. Used to generate an introductory text of encounter
     ENCOUNTER_GET_INTRODUCTORY_ACTION,          //
     ENCOUNTER_GET_ENCOUNTER_SHIP_TEXT,          // Very rare encounters
     ENCOUNTER_GET_IMAGE_INDEX,                  // Very rare encounters, Space Monster - before opponent show
-    ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS,       // All quest enemy ships
-    ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS,       // All quest enemy ships
+    ENCOUNTER_SHOW_ACTION_BUTTONS,              // All quest enemy ships
     ENCOUNTER_IS_EXECUTE_ATTACK_GET_WEAPONS,    // Scarab
     ENCOUNTER_IS_EXECUTE_ATTACK_PRIMARY_DAMAGE, // Reactor. Reactor affects damage levels
     ENCOUNTER_IS_EXECUTE_ATTACK_SECONDARY_DAMAGE,//Scarab

@@ -49,6 +49,8 @@ public class Ship extends ShipSpec implements Serializable {
     }
 
     public Ship(OpponentType oppType) {
+        Game.getCurrentGame().getQuestSystem().fireEvent(ON_ENCOUNTER_GENERATE_OPPONENT, this);
+
         if (oppType == OpponentType.FAMOUS_CAPTAIN) {
             setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 

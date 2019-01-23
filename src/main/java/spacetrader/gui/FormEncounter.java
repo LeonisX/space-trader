@@ -13,6 +13,7 @@ import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.Buttons;
 import spacetrader.game.enums.EncounterResult;
+import spacetrader.game.enums.EncounterType;
 import spacetrader.game.quest.TribblesQuest;
 import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.Facaded;
@@ -454,69 +455,67 @@ public class FormEncounter extends SpaceTraderForm {
     private void updateButtons() {
         List<Boolean> visible = Arrays.stream(buttons).map(b -> false).collect(Collectors.toList());
 
-        switch (encounter.getEncounterType()) {
-            case BOTTLE_GOOD:
-            case BOTTLE_OLD:
-                visible.set(Buttons.DRINK.ordinal(), true);
-                visible.set(Buttons.IGNORE.ordinal(), true);
-                break;
-            case TRADER_ATTACK:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.FLEE.ordinal(), true);
-                break;
-            case POLICE_DISABLED:
-            case POLICE_FLEE:
-            case POLICE_IGNORE:
-            case PIRATE_FLEE:
-            case PIRATE_IGNORE:
-            case TRADER_FLEE:
-            case TRADER_IGNORE:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.IGNORE.ordinal(), true);
-                break;
-            case MARIE_CELESTE:
-                visible.set(Buttons.BOARD.ordinal(), true);
-                visible.set(Buttons.IGNORE.ordinal(), true);
-                break;
-            case MARIE_CELESTE_POLICE:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.FLEE.ordinal(), true);
-                visible.set(Buttons.YIELD.ordinal(), true);
-                visible.set(Buttons.BRIBE.ordinal(), true);
-                break;
-            case PIRATE_ATTACK:
-            case POLICE_ATTACK:
-            case POLICE_SURRENDER:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.FLEE.ordinal(), true);
-                visible.set(Buttons.SURRENDER.ordinal(), true);
-                break;
-            case PIRATE_DISABLED:
-            case PIRATE_SURRENDER:
-            case TRADER_DISABLED:
-            case TRADER_SURRENDER:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.PLUNDER.ordinal(), true);
-                break;
-            case POLICE_INSPECT:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.FLEE.ordinal(), true);
-                visible.set(Buttons.SUBMIT.ordinal(), true);
-                visible.set(Buttons.BRIBE.ordinal(), true);
-                break;
-            case TRADER_BUY:
-            case TRADER_SELL:
-                visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.IGNORE.ordinal(), true);
-                visible.set(Buttons.TRADE.ordinal(), true);
-                break;
-                //TODO full rewrite. one event. only if >= 1000. Also for captain
-            case QUEST_ATTACK:
-                game.getQuestSystem().fireEvent(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, visible);
-                break;
-            case QUEST_IGNORE:
-                game.getQuestSystem().fireEvent(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, visible);
-                break;
+        if (encounter.getEncounterType() < 1000) {
+            switch (EncounterType.fromInt(encounter.getEncounterType())) {
+                case BOTTLE_GOOD:
+                case BOTTLE_OLD:
+                    visible.set(Buttons.DRINK.ordinal(), true);
+                    visible.set(Buttons.IGNORE.ordinal(), true);
+                    break;
+                case TRADER_ATTACK:
+                    visible.set(Buttons.ATTACK.ordinal(), true);
+                    visible.set(Buttons.FLEE.ordinal(), true);
+                    break;
+                case POLICE_DISABLED:
+                case POLICE_FLEE:
+                case POLICE_IGNORE:
+                case PIRATE_FLEE:
+                case PIRATE_IGNORE:
+                case TRADER_FLEE:
+                case TRADER_IGNORE:
+                    visible.set(Buttons.ATTACK.ordinal(), true);
+                    visible.set(Buttons.IGNORE.ordinal(), true);
+                    break;
+                case MARIE_CELESTE:
+                    visible.set(Buttons.BOARD.ordinal(), true);
+                    visible.set(Buttons.IGNORE.ordinal(), true);
+                    break;
+                case MARIE_CELESTE_POLICE:
+                    visible.set(Buttons.ATTACK.ordinal(), true);
+                    visible.set(Buttons.FLEE.ordinal(), true);
+                    visible.set(Buttons.YIELD.ordinal(), true);
+                    visible.set(Buttons.BRIBE.ordinal(), true);
+                    break;
+                case PIRATE_ATTACK:
+                case POLICE_ATTACK:
+                case POLICE_SURRENDER:
+                    visible.set(Buttons.ATTACK.ordinal(), true);
+                    visible.set(Buttons.FLEE.ordinal(), true);
+                    visible.set(Buttons.SURRENDER.ordinal(), true);
+                    break;
+                case PIRATE_DISABLED:
+                case PIRATE_SURRENDER:
+                case TRADER_DISABLED:
+                case TRADER_SURRENDER:
+                    visible.set(Buttons.ATTACK.ordinal(), true);
+                    visible.set(Buttons.PLUNDER.ordinal(), true);
+                    break;
+                case POLICE_INSPECT:
+                    visible.set(Buttons.ATTACK.ordinal(), true);
+                    visible.set(Buttons.FLEE.ordinal(), true);
+                    visible.set(Buttons.SUBMIT.ordinal(), true);
+                    visible.set(Buttons.BRIBE.ordinal(), true);
+                    break;
+                case TRADER_BUY:
+                case TRADER_SELL:
+                    visible.set(Buttons.ATTACK.ordinal(), true);
+                    visible.set(Buttons.IGNORE.ordinal(), true);
+                    visible.set(Buttons.TRADE.ordinal(), true);
+                    break;
+            }
+        } else {
+            //TODO full rewrite. one event. only if >= 1000. Also for captain
+            game.getQuestSystem().fireEvent(ENCOUNTER_SHOW_ACTION_BUTTONS, visible);
         }
 
         if (encounter.getEncounterContinueAttacking() || encounter.getEncounterContinueFleeing()) {

@@ -102,8 +102,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
-        getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
-        getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
+        getTransitionMap().put(ENCOUNTER_SHOW_ACTION_BUTTONS, this::encounterShowActionButtons);
         getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
         getTransitionMap().put(ENCOUNTER_IS_EXECUTE_ATTACK_GET_WEAPONS, this::encounterIsExecuteAttackGetWeapons);
         getTransitionMap().put(ENCOUNTER_IS_EXECUTE_ATTACK_SECONDARY_DAMAGE, this::encounterIsExecuteAttackSecondaryDamage);
@@ -393,13 +392,6 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private void encounterShowIgnoreActionButtons(Object object) {
-        List<Boolean> visible = (ArrayList<Boolean>) object;
-        visible.set(Buttons.ATTACK.ordinal(), true);
-        visible.set(Buttons.IGNORE.ordinal(), true);
-    }
-
     private void encounterGetExecuteActionFireShots(Object object) {
         if (getEncounter().getEncounterType() == scarabAttackEncounter) {
             getEncounter().setEncounterCmdrHit(getEncounter().isEncounterExecuteAttack(game.getOpponent(), getShip(), getEncounter().getEncounterCmdrFleeing()));
@@ -409,11 +401,17 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private void encounterShowAttackActionButtons(Object object) {
+    private void encounterShowActionButtons(Object object) {
         List<Boolean> visible = (ArrayList<Boolean>) object;
-        visible.set(Buttons.ATTACK.ordinal(), true);
-        visible.set(Buttons.FLEE.ordinal(), true);
-        visible.set(Buttons.SURRENDER.ordinal(), true);
+        if (getEncounter().getEncounterType() == scarabAttackEncounter) {
+            visible.set(Buttons.ATTACK.ordinal(), true);
+            visible.set(Buttons.FLEE.ordinal(), true);
+            visible.set(Buttons.SURRENDER.ordinal(), true);
+        }
+        if (getEncounter().getEncounterType() == scarabIgnoreEncounter) {
+            visible.set(Buttons.ATTACK.ordinal(), true);
+            visible.set(Buttons.IGNORE.ordinal(), true);
+        }
     }
 
     private void encounterIsExecuteAttackGetWeapons(Object object) {

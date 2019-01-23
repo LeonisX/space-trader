@@ -10,7 +10,6 @@ import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
-import spacetrader.guifacade.GuiFacade;
 
 import java.io.Serializable;
 import java.util.*;
@@ -94,8 +93,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
-        getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
-        getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
+        getTransitionMap().put(ENCOUNTER_SHOW_ACTION_BUTTONS, this::encounterShowActionButtons);
         getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
         getTransitionMap().put(ENCOUNTER_IS_DISABLEABLE, this::encounterIsDisableable);
         getTransitionMap().put(ENCOUNTER_ON_ENCOUNTER_WON, this::encounterOnEncounterWon);
@@ -313,13 +311,6 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private void encounterShowIgnoreActionButtons(Object object) {
-        List<Boolean> visible = (ArrayList<Boolean>) object;
-        visible.set(Buttons.ATTACK.ordinal(), true);
-        visible.set(Buttons.IGNORE.ordinal(), true);
-    }
-
     private void encounterGetExecuteActionFireShots(Object object) {
         if (getEncounter().getEncounterType() == spaceMonsterAttackEncounter) {
             getEncounter().setEncounterCmdrHit(getEncounter().isEncounterExecuteAttack(game.getOpponent(), getShip(), getEncounter().getEncounterCmdrFleeing()));
@@ -329,10 +320,16 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private void encounterShowAttackActionButtons(Object object) {
+    private void encounterShowActionButtons(Object object) {
         List<Boolean> visible = (ArrayList<Boolean>) object;
-        visible.set(Buttons.ATTACK.ordinal(), true);
-        visible.set(Buttons.FLEE.ordinal(), true);
+        if (getEncounter().getEncounterType() == spaceMonsterAttackEncounter) {
+            visible.set(Buttons.ATTACK.ordinal(), true);
+            visible.set(Buttons.FLEE.ordinal(), true);
+        }
+        if (getEncounter().getEncounterType() == spaceMonsterIgnoreEncounter) {
+            visible.set(Buttons.ATTACK.ordinal(), true);
+            visible.set(Buttons.IGNORE.ordinal(), true);
+        }
     }
 
     private void encounterIsDisableable(Object object) {

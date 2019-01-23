@@ -38,7 +38,6 @@ class CaptainQuest extends AbstractQuest {
     private volatile int questStatus = 0; // 0 = not delivered, 1-11 = on board, 12 = delivered
 
 
-
     //FAMOUS_CAPTAIN, // = 34,
 
 
@@ -49,7 +48,9 @@ class CaptainQuest extends AbstractQuest {
     private int famousCaptainAttackEncounter; // FAMOUS_CAPTAIN_ATTACK
     private int famousCaptainDisabledEncounter; // FAMOUS_CAPT_DISABLED
 
-    private int veryRareEncounter; // CAPTAIN_AHAB
+    private int captainAhabVeryRareEncounter; // CAPTAIN_AHAB
+    private int captainConradVeryRareEncounter; // CAPTAIN_CONRAD
+    private int captainHuieVeryRareEncounter; // CAPTAIN_HUIE
 
     public CaptainQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
@@ -67,7 +68,9 @@ class CaptainQuest extends AbstractQuest {
         //veryRareEncounters.add(VeryRareEncounter.CAPTAIN_AHAB);
         //veryRareEncounters.add(VeryRareEncounter.CAPTAIN_CONRAD);
         //veryRareEncounters.add(VeryRareEncounter.CAPTAIN_HUIE);
-        veryRareEncounter = registerNewVeryRareEncounter();
+        captainAhabVeryRareEncounter = registerNewVeryRareEncounter();
+        captainConradVeryRareEncounter = registerNewVeryRareEncounter();
+        captainHuieVeryRareEncounter = registerNewVeryRareEncounter();
 
         registerNews(News.values().length);
 
@@ -105,6 +108,7 @@ class CaptainQuest extends AbstractQuest {
         getTransitionMap().put(ON_DETERMINE_RANDOM_ENCOUNTER, this::onDetermineRandomEncounter);
         getTransitionMap().put(ON_DETERMINE_VERY_RARE_ENCOUNTER, this::onDetermineVeryRareEncounter);
         getTransitionMap().put(ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT, this::onBeforeEncounterGenerateOpponent);
+        getTransitionMap().put(ON_ENCOUNTER_GENERATE_OPPONENT, this::onGenerateOpponentShip);
         getTransitionMap().put(ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES, this::onGenerateOpponentShipPoliceTries);
 
         getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
@@ -112,6 +116,7 @@ class CaptainQuest extends AbstractQuest {
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
         getTransitionMap().put(ENCOUNTER_GET_ENCOUNTER_SHIP_TEXT, this::encounterGetEncounterShipText);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
+        getTransitionMap().put(ENCOUNTER_SHOW_ACTION_BUTTONS, this::encounterShowActionButtons);
         getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
 
         getTransitionMap().put(ENCOUNTER_UPDATE_ENCOUNTER_TYPE, this::encounterUpdateEncounterType);
@@ -280,22 +285,6 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
-
-/*    case CAPTAIN_AHAB:
-            case CAPTAIN_CONRAD:
-            case CAPTAIN_HUIE:
-            visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.IGNORE.ordinal(), true);
-                visible.set(Buttons.MEET.ordinal(), true);
-                break;
-            case FAMOUS_CAPTAIN_ATTACK:
-            visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.FLEE.ordinal(), true);
-                break;
-            case FAMOUS_CAPT_DISABLED:
-            visible.set(Buttons.ATTACK.ordinal(), true);
-                visible.set(Buttons.IGNORE.ordinal(), true);
-                break;*/
 /*
     CAPTAIN_AHAB, // = 2,
     CAPTAIN_CONRAD, // = 3,
@@ -412,6 +401,25 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
+    private void onGenerateOpponentShip(Object object) {
+        if (oppType == OpponentType.FAMOUS_CAPTAIN) {
+            setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
+
+            for (int i = 0; i < getShields().length; i++) {
+                addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
+            }
+
+            for (int i = 0; i < getWeapons().length; i++) {
+                addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+            }
+
+            addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
+            addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
+
+            getCrew()[0] = Game.getCurrentGame().getMercenaries().get(CrewMemberId.FAMOUS_CAPTAIN.castToInt());
+        }
+    }
+
     private void onGenerateOpponentShipPoliceTries(Object object) {
         if (wildOnBoard) {
             ((IntContainer) object).setValue(5);
@@ -496,21 +504,33 @@ class CaptainQuest extends AbstractQuest {
     }
 
     private void encounterGetEncounterImageIndex(Object object) {
-        if (opponentIsSpaceMonster()) { // spaceMonster.getBarCode() == getOpponent().getBarCode();
-            ((IntContainer) object).setValue(Consts.EncounterImgAlien);
+        IntContainer encounterImage = (IntContainer) object;
+        if (getEncounter().getEncounterType() == captainAhabVeryRareEncounter
+                || getEncounter().getEncounterType() == captainConradVeryRareEncounter
+                || getEncounter().getEncounterType() == captainHuieVeryRareEncounter) {
+            encounterImage.setValue(Consts.EncounterImgSpecial);
         }
+        if (getEncounter().getEncounterType() == famousCaptainAttackEncounter
+                || getEncounter().getEncounterType() == famousCaptainDisabledEncounter) {
+            // Nothing to do
+        }
+    }
 
-        //TODO
-        /*case CAPTAIN_AHAB:
-        case CAPTAIN_CONRAD:
-        case CAPTAIN_HUIE:
-        encounterImage.setValue(Consts.EncounterImgSpecial);
-        break;*/
-
-        //TODO nothing
-        /*case famousCaptainAttackEncounter
-            case famousCaptainDisabledEncounter*/
-                //
+    @SuppressWarnings("unchecked")
+    private void encounterShowActionButtons(Object object) {
+        List<Boolean> visible = (ArrayList<Boolean>) object;
+        if (getEncounter().getEncounterType() == captainAhabVeryRareEncounter
+                || getEncounter().getEncounterType() == captainConradVeryRareEncounter
+                || getEncounter().getEncounterType() == captainHuieVeryRareEncounter) {
+            visible.set(Buttons.ATTACK.ordinal(), true);
+            visible.set(Buttons.IGNORE.ordinal(), true);
+            visible.set(Buttons.MEET.ordinal(), true);
+        }
+        if (getEncounter().getEncounterType() == famousCaptainAttackEncounter
+                || getEncounter().getEncounterType() == famousCaptainDisabledEncounter) {
+            visible.set(Buttons.ATTACK.ordinal(), true);
+            visible.set(Buttons.IGNORE.ordinal(), true);
+        }
     }
 
     private void encounterGetExecuteActionFireShots(Object object) {
@@ -566,7 +586,7 @@ class CaptainQuest extends AbstractQuest {
 
         if (GuiFacade.alert(initialAlert) == DialogResult.YES) {
             // Remove the equipment we're trading.
-            commander.getShip().removeEquipment(equipType, equipSubType);
+            getShip().removeEquipment(equipType, equipSubType);
 
             // Add points to the appropriate skill - two points if
             // beginner-normal, one otherwise.
@@ -652,7 +672,7 @@ class CaptainQuest extends AbstractQuest {
         if (wildOnBoard) {
             log.fine("Escaped + Wild");
             showAlert(Alerts.WildArrested.getValue());
-            Game.getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
+            getCommander().setPoliceRecordScore(Game.getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
             Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
             failQuest();
         } else {
@@ -668,7 +688,7 @@ class CaptainQuest extends AbstractQuest {
     }
 
     private void removePassenger() {
-        Game.getCommander().getShip().fire(wild.getId());
+        getShip().fire(wild.getId());
         wildOnBoard = false;
     }
 
@@ -694,7 +714,7 @@ class CaptainQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        if (wildOnBoard && Game.isCurrentSystemIs(StarSystemId.Kravat)) {
+        if (wildOnBoard && isCurrentSystemIs(StarSystemId.Kravat)) {
             log.fine("" + getNewsIds().get(News.WildGotToKravat.ordinal()));
             Game.getNews().addEvent(getNewsIds().get(News.WildGotToKravat.ordinal()));
         } else {
@@ -765,7 +785,6 @@ class CaptainQuest extends AbstractQuest {
     }
 
 
-
     //TODO
 
     /*MeetCaptainAhab,
@@ -802,8 +821,6 @@ class CaptainQuest extends AbstractQuest {
     public static String AlertsMeetCaptainHuieTitle = "Meet Captain Huie";
     public static String AlertsMeetCaptainHuieMessage = "Captain Huie is in need of a military laser. She offers to exchange some bargaining training for your military laser. Do you wish to trade?";
     public static String AlertsMeetCaptainHuieAccept = "Yes, Trade Laser";
-
-
 
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
