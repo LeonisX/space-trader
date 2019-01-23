@@ -94,9 +94,7 @@ class CaptainQuest extends AbstractQuest {
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, this::onSpecialButtonClickedResolveIsConflict);
 
         getTransitionMap().put(ON_DETERMINE_VERY_RARE_ENCOUNTER, this::onDetermineVeryRareEncounter);
-        getTransitionMap().put(ON_BEFORE_ENCOUNTER_GENERATE_OPPONENT, this::onBeforeEncounterGenerateOpponent);
         getTransitionMap().put(ON_ENCOUNTER_GENERATE_OPPONENT, this::onGenerateOpponentShip);
-        getTransitionMap().put(ON_GENERATE_OPPONENT_SHIP_POLICE_TRIES, this::onGenerateOpponentShipPoliceTries);
 
         getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
@@ -291,13 +289,6 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
-    private void onBeforeEncounterGenerateOpponent(Object object) {
-        if (Game.getCurrentGame().getWarpSystem().getId() == StarSystemId.Kravat && wildOnBoard
-                && Functions.getRandom(10) < Game.getDifficulty().castToInt() + 1) {
-            ((CrewMember) object).setEngineer(Consts.MaxSkill);
-        }
-    }
-
     private void onGenerateOpponentShip(Object object) {
         Ship ship = (Ship) object;
         if (ship.getOpponentType() == famousCaptainOpponentType) {
@@ -320,46 +311,30 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
-    private void onGenerateOpponentShipPoliceTries(Object object) {
-        if (wildOnBoard) {
-            ((IntContainer) object).setValue(5);
-        }
-    }
-
     private void encounterVerifyAttack(Object object) {
-        if (getEncounter().getEncounterType() == scarabIgnoreEncounter) {
-            getEncounter().setEncounterType(scarabAttackEncounter);
-        }
+        if (getEncounter().getEncounterType() == captainAhabVeryRareEncounter
+                || getEncounter().getEncounterType() == captainConradVeryRareEncounter
+                || getEncounter().getEncounterType() == captainHuieVeryRareEncounter) {
+            if (showAlert(Alerts.EncounterAttackCaptain.getValue()) == DialogResult.YES) {
+                if (getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreVillain) {
+                    getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreVillain);
+                }
 
-        //TODO
+                getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreAttackTrader);
 
-        /*case CAPTAIN_AHAB:
-        case CAPTAIN_CONRAD:
-        case CAPTAIN_HUIE:
-        if (GuiFacade.alert(AlertType.EncounterAttackCaptain) == DialogResult.YES) {
-            if (commander.getPoliceRecordScore() > Consts.PoliceRecordScoreVillain) {
-                commander.setPoliceRecordScore(Consts.PoliceRecordScoreVillain);
+                if (getEncounter().getEncounterType() == captainAhabVeryRareEncounter) {
+                    Game.getNews().addEvent(getNewsIds().get(News.CaptAhabAttacked.ordinal()));
+                } else if (getEncounter().getEncounterType() == captainConradVeryRareEncounter) {
+                    Game.getNews().addEvent(getNewsIds().get(News.CaptConradAttacked.ordinal()));
+                } else if (getEncounter().getEncounterType() == captainHuieVeryRareEncounter) {
+                    Game.getNews().addEvent(getNewsIds().get(News.CaptHuieAttacked.ordinal()));
+                }
+
+                getEncounter().setEncounterType(famousCaptainAttackEncounter);
+            } else {
+                ((BooleanContainer) object).setValue(false);
             }
-
-            commander.setPoliceRecordScore(commander.getPoliceRecordScore() + Consts.ScoreAttackTrader);
-
-            switch (getEncounterType()) {
-                case CAPTAIN_AHAB:
-                    Game.getNews().addEvent(NewsEvent.CaptAhabAttacked);
-                    break;
-                case CAPTAIN_CONRAD:
-                    Game.getNews().addEvent(NewsEvent.CaptConradAttacked);
-                    break;
-                case CAPTAIN_HUIE:
-                    Game.getNews().addEvent(NewsEvent.CaptHuieAttacked);
-                    break;
-            }
-
-            setEncounterType(EncounterType.FAMOUS_CAPTAIN_ATTACK);
-        } else {
-            attack.setValue(false);
         }
-        break;*/
     }
 
     private void encounterGetIntroductoryText(Object object) {
@@ -373,7 +348,7 @@ class CaptainQuest extends AbstractQuest {
     }
 
     private void encounterGetIntroductoryAction(Object object) {
-        if (getEncounter().getEncounterType() == captainAhabVeryRareEncounter
+        if (getEncounter().getEncounterType() == captainAhabVeryRareEncounter //TODO common check
                 || getEncounter().getEncounterType() == captainConradVeryRareEncounter
                 || getEncounter().getEncounterType() == captainHuieVeryRareEncounter) {
             ((StringContainer) object).setValue(Encounters.TextFamousCaptain.getValue());
