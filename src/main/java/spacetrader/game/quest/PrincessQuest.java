@@ -116,6 +116,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
         getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
+        getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ATTACK_KEEP_SPECIAL_SHIP, this::encounterExecuteAttackKeepSpecialShip);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
         getTransitionMap().put(ENCOUNTER_ON_VERIFY_SURRENDER, this::encounterOnVerifySurrender);
@@ -490,6 +491,14 @@ class PrincessQuest extends AbstractQuest implements Serializable {
         visible.set(Buttons.IGNORE.ordinal(), true);
     }
 
+    private void encounterGetExecuteActionFireShots(Object object) {
+        if (getEncounter().getEncounterType() == scorpionAttackEncounter) {
+            getEncounter().setEncounterCmdrHit(getEncounter().isEncounterExecuteAttack(game.getOpponent(), getShip(), getEncounter().getEncounterCmdrFleeing()));
+            getEncounter().setEncounterOppHit(!getEncounter().getEncounterCmdrFleeing()
+                    && getEncounter().isEncounterExecuteAttack(getShip(), game.getOpponent(), false));
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private void encounterShowAttackActionButtons(Object object) {
         List<Boolean> visible = (ArrayList<Boolean>) object;
@@ -607,7 +616,7 @@ class PrincessQuest extends AbstractQuest implements Serializable {
                     result = News.Princess;
                 }
                 break;
-                //TODO try to catch these news in other systems
+            //TODO try to catch these news in other systems
             case STATUS_FLY_CENTAURI:
                 result = News.PrincessCentauri;
                 break;

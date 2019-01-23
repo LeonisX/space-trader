@@ -104,6 +104,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ATTACK_ACTION_BUTTONS, this::encounterShowAttackActionButtons);
         getTransitionMap().put(ENCOUNTER_SHOW_IGNORE_ACTION_BUTTONS, this::encounterShowIgnoreActionButtons);
+        getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
         getTransitionMap().put(ENCOUNTER_IS_EXECUTE_ATTACK_GET_WEAPONS, this::encounterIsExecuteAttackGetWeapons);
         getTransitionMap().put(ENCOUNTER_IS_EXECUTE_ATTACK_SECONDARY_DAMAGE, this::encounterIsExecuteAttackSecondaryDamage);
         getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
@@ -397,6 +398,14 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         List<Boolean> visible = (ArrayList<Boolean>) object;
         visible.set(Buttons.ATTACK.ordinal(), true);
         visible.set(Buttons.IGNORE.ordinal(), true);
+    }
+
+    private void encounterGetExecuteActionFireShots(Object object) {
+        if (getEncounter().getEncounterType() == scarabAttackEncounter) {
+            getEncounter().setEncounterCmdrHit(getEncounter().isEncounterExecuteAttack(game.getOpponent(), getShip(), getEncounter().getEncounterCmdrFleeing()));
+            getEncounter().setEncounterOppHit(!getEncounter().getEncounterCmdrFleeing()
+                    && getEncounter().isEncounterExecuteAttack(getShip(), game.getOpponent(), false));
+        }
     }
 
     @SuppressWarnings("unchecked")

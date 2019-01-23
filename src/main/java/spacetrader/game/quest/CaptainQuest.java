@@ -112,6 +112,8 @@ class CaptainQuest extends AbstractQuest {
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
         getTransitionMap().put(ENCOUNTER_GET_ENCOUNTER_SHIP_TEXT, this::encounterGetEncounterShipText);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
+        getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
+
         getTransitionMap().put(ENCOUNTER_UPDATE_ENCOUNTER_TYPE, this::encounterUpdateEncounterType);
         getTransitionMap().put(ENCOUNTER_MEET, this::encounterMeet);
         getTransitionMap().put(ENCOUNTER_ON_SURRENDER_IF_RAIDED, this::onSurrenderIfRaided);
@@ -511,11 +513,19 @@ class CaptainQuest extends AbstractQuest {
                 //
     }
 
+    private void encounterGetExecuteActionFireShots(Object object) {
+        if (getEncounter().getEncounterType() == famousCaptainAttackEncounter) {
+            getEncounter().setEncounterCmdrHit(getEncounter().isEncounterExecuteAttack(game.getOpponent(), getShip(), getEncounter().getEncounterCmdrFleeing()));
+            getEncounter().setEncounterOppHit(!getEncounter().getEncounterCmdrFleeing()
+                    && getEncounter().isEncounterExecuteAttack(getShip(), game.getOpponent(), false));
+        }
+    }
+
     private void encounterUpdateEncounterType(Object object) {
         if (getEncounter().getEncounterType() == famousCaptainAttackEncounter)
-        if (game.getOpponentDisabled()) {
-            getEncounter().setEncounterType(famousCaptainDisabledEncounter);
-        }
+            if (game.getOpponentDisabled()) {
+                getEncounter().setEncounterType(famousCaptainDisabledEncounter);
+            }
     }
 
 

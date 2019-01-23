@@ -60,6 +60,7 @@ public class Encounter implements Serializable {
     private boolean isDetermineNonRandomEncounter() {
         BooleanContainer showEncounter = new BooleanContainer(false);
 
+        //TODO very strange approach
         if (!showEncounter.getValue()) {
 
         }
@@ -316,31 +317,32 @@ public class Encounter implements Serializable {
         setEncounterOppFleeing(false);
 
         // Fire shots
-        //TODO fire event ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS
-        switch (getEncounterType()) {
-            case FAMOUS_CAPTAIN_ATTACK:
-            case MARIE_CELESTE_POLICE:
-            case PIRATE_ATTACK:
-            case POLICE_ATTACK:
-            case QUEST_ATTACK (+scorp):
-            case TRADER_ATTACK:
-                setEncounterCmdrHit(isEncounterExecuteAttack(game.getOpponent(), commander.getShip(), getEncounterCmdrFleeing()));
-                setEncounterOppHit(!getEncounterCmdrFleeing()
-                        && isEncounterExecuteAttack(commander.getShip(), game.getOpponent(), false));
-                break;
-            case PIRATE_FLEE:
-            case PIRATE_SURRENDER:
-            case POLICE_FLEE:
-            case TRADER_FLEE:
-            case TRADER_SURRENDER:
-                setEncounterOppHit(!getEncounterCmdrFleeing()
-                        && isEncounterExecuteAttack(commander.getShip(), game.getOpponent(), true));
-                setEncounterOppFleeing(true);
-                break;
-            default:
-                setEncounterOppHit(!getEncounterCmdrFleeing()
-                        && isEncounterExecuteAttack(commander.getShip(), game.getOpponent(), false));
-                break;
+        if (encounterType < 1000) {
+            switch (EncounterType.fromInt(encounterType)) {
+                case MARIE_CELESTE_POLICE:
+                case PIRATE_ATTACK:
+                case POLICE_ATTACK:
+                case TRADER_ATTACK:
+                    setEncounterCmdrHit(isEncounterExecuteAttack(game.getOpponent(), commander.getShip(), getEncounterCmdrFleeing()));
+                    setEncounterOppHit(!getEncounterCmdrFleeing()
+                            && isEncounterExecuteAttack(commander.getShip(), game.getOpponent(), false));
+                    break;
+                case PIRATE_FLEE:
+                case PIRATE_SURRENDER:
+                case POLICE_FLEE:
+                case TRADER_FLEE:
+                case TRADER_SURRENDER:
+                    setEncounterOppHit(!getEncounterCmdrFleeing()
+                            && isEncounterExecuteAttack(commander.getShip(), game.getOpponent(), true));
+                    setEncounterOppFleeing(true);
+                    break;
+                default:
+                    setEncounterOppHit(!getEncounterCmdrFleeing()
+                            && isEncounterExecuteAttack(commander.getShip(), game.getOpponent(), false));
+                    break;
+            }
+        } else {
+            game.getQuestSystem().fireEvent(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS);
         }
 
         // Determine whether someone gets destroyed
@@ -397,16 +399,16 @@ public class Encounter implements Serializable {
 
                 // Update the opponent fleeing flag.
                 //TODO fire event ENCOUNTER_GET_EXECUTE_ACTION_OPPONENT_FLEEING
-                switch (getEncounterType()) {
-                    case PIRATE_FLEE:
-                    case PIRATE_SURRENDER:
-                    case POLICE_FLEE:
-                    case TRADER_FLEE:
-                    case TRADER_SURRENDER:
-                        setEncounterOppFleeing(true);
-                        break;
-                    default:
-                        setEncounterOppFleeing(false);
+                setEncounterOppFleeing(false);
+                if (encounterType < 1000) {
+                    switch (EncounterType.fromInt(encounterType)) {
+                        case PIRATE_FLEE:
+                        case PIRATE_SURRENDER:
+                        case POLICE_FLEE:
+                        case TRADER_FLEE:
+                        case TRADER_SURRENDER:
+                            setEncounterOppFleeing(true);
+                    }
                 }
 
                 if (game.getOptions().isContinuousAttack()
@@ -425,7 +427,7 @@ public class Encounter implements Serializable {
         return result;
     }
 
-    private boolean isEncounterExecuteAttack(Ship attacker, Ship defender, boolean fleeing) {
+    public boolean isEncounterExecuteAttack(Ship attacker, Ship defender, boolean fleeing) {
         boolean hit = false;
 
         // On beginner level, if you flee, you will escape unharmed.
@@ -1260,7 +1262,7 @@ public class Encounter implements Serializable {
         return encounterOppHit;
     }
 
-    private void setEncounterOppHit(boolean encounterOppHit) {
+    public void setEncounterOppHit(boolean encounterOppHit) {
         this.encounterOppHit = encounterOppHit;
     }
 
@@ -1293,11 +1295,11 @@ public class Encounter implements Serializable {
         return encounterCmdrHit;
     }
 
-    private void setEncounterCmdrHit(boolean encounterCmdrHit) {
+    public void setEncounterCmdrHit(boolean encounterCmdrHit) {
         this.encounterCmdrHit = encounterCmdrHit;
     }
 
-    private boolean getEncounterCmdrFleeing() {
+    public boolean getEncounterCmdrFleeing() {
         return encounterCmdrFleeing;
     }
 
