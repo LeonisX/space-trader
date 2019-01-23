@@ -61,8 +61,8 @@ public class GameCheats implements Serializable {
                         game.getEncounter().initializeVeryRareEncounters();
                     } else {
                         StringBuilder textBuilder = new StringBuilder();
-                        for (VeryRareEncounter veryRareEncounter : game.getEncounter().getVeryRareEncounters()) {
-                            textBuilder.append(Strings.VeryRareEncounters[veryRareEncounter.castToInt()]).append(Strings.newline);
+                        for (int veryRareEncounter : game.getEncounter().getVeryRareEncounters()) {
+                            textBuilder.append(Strings.VeryRareEncounters[veryRareEncounter]).append(Strings.newline);
                         }
                         String text = textBuilder.toString().trim();
 
