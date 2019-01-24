@@ -16,6 +16,7 @@ enum Res {
     Alerts("Alerts", "Alert"),
     News("News", "News"),
     Encounters("Encounters", "Encounter"),
+    VeryRareEncounters("VeryRareEncounters", "VeryRareEncounter"),
     GameEndings("Game Endings", "GameEnding"),
     CrewNames("Crew Member Names", "CrewName"),
     SpecialCargo("Special Cargo Titles", "SpecialCargo"),
@@ -58,7 +59,7 @@ class I18n {
     static void dumpStrings(Res resource, Stream<SimpleValueEnum<String>> values) {
         System.out.println(String.format("\n# %s:", resource.getTitle()));
         values.forEach(pair -> {
-            if (pair.getValue() != null || !pair.getValue().isEmpty()) {
+            if (pair.getValue() != null && !pair.getValue().isEmpty()) {
                 System.out.println(getHead(resource.getPrefix(), pair.name()) + "=" + pair.getValue());
             }
         });

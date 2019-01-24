@@ -58,4 +58,6 @@ public interface Quest {
     String getShipName();
 
     void localize();
+
+    String getVeryRareEncounter(Integer id);
 }

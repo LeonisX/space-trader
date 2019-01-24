@@ -25,6 +25,7 @@ import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
 //TODO - wild, aeethibal
 //TODO one quest for one captain
+//TODO remove commented code
 class CaptainQuest extends AbstractQuest {
 
     //TODO
@@ -122,6 +123,17 @@ class CaptainQuest extends AbstractQuest {
     }
 
     @Override
+    public String getVeryRareEncounter(Integer id) {
+        if (getEncounter().getEncounterType() == captainAhabVeryRareEncounter) {
+            return VeryRareEncounters.CaptainAhab.getValue();
+        } else if (getEncounter().getEncounterType() == captainConradVeryRareEncounter) {
+            return VeryRareEncounters.CaptainConrad.getValue();
+        } else {
+            return VeryRareEncounters.CaptainHuie.getValue();
+        }
+    }
+
+    @Override
     public void registerListener() {
         getTransitionMap().keySet().forEach(this::registerOperation);
         log.fine("registered");
@@ -144,6 +156,7 @@ class CaptainQuest extends AbstractQuest {
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
         I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
+        I18n.dumpStrings(Res.VeryRareEncounters, Arrays.stream(Encounters.values()));
         I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
 
@@ -152,6 +165,7 @@ class CaptainQuest extends AbstractQuest {
         //I18n.localizePhases(Arrays.stream(QuestPhases.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
+        I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
@@ -526,12 +540,6 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
-    //TODO
-    /*VeryRareEncounters
-
-    "Captain Ahab", "Captain Conrad", "Captain Huie"*/
-
-
     enum Encounters implements SimpleValueEnum<String> {
         PretextCaptainAhab("the famous Captain Ahab in a ^1"),
         PretextCaptainConrad("the famous Captain Conrad in a ^1"),
@@ -542,6 +550,28 @@ class CaptainQuest extends AbstractQuest {
         private String value;
 
         Encounters(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
+    enum VeryRareEncounters implements SimpleValueEnum<String> {
+        CaptainAhab("Captain Ahab"),
+        CaptainConrad("Captain Conrad"),
+        CaptainHuie("Captain Huie");
+
+        private String value;
+
+        VeryRareEncounters(String value) {
             this.value = value;
         }
 

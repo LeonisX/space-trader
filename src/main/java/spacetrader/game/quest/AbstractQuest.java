@@ -148,6 +148,11 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return transitionMap.get(eventName);
     }
 
+    @Override
+    public String getVeryRareEncounter(Integer id) {
+        return null; // It is better to catch null pointer here
+    }
+
     void registerOperation(EventName eventName) {
         game.getQuestSystem().subscribe(eventName, this);
     }

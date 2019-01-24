@@ -397,7 +397,6 @@ public class Encounter implements Serializable {
                 encounterUpdateEncounterType(prevCmdrHull, prevOppHull);
 
                 // Update the opponent fleeing flag.
-                //TODO fire event ENCOUNTER_GET_EXECUTE_ACTION_OPPONENT_FLEEING
                 setEncounterOppFleeing(false);
                 if (encounterType < 1000) {
                     switch (EncounterType.fromInt(encounterType)) {

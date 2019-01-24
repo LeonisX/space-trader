@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
 
@@ -60,11 +61,9 @@ public class GameCheats implements Serializable {
                     if (words.getSecond().equals("Reset")) {
                         game.getEncounter().initializeVeryRareEncounters();
                     } else {
-                        StringBuilder textBuilder = new StringBuilder();
-                        for (int veryRareEncounter : game.getEncounter().getVeryRareEncounters()) {
-                            textBuilder.append(Strings.VeryRareEncounters[veryRareEncounter]).append(Strings.newline);
-                        }
-                        String text = textBuilder.toString().trim();
+                        String text = game.getEncounter().getVeryRareEncounters().stream().map(id ->
+                                (id < 1000) ? Strings.VeryRareEncounters[id] : game.getQuestSystem().getVeryRareEncounterById(id))
+                                .map(t -> t + Strings.newline).collect(Collectors.joining());
 
                         GuiFacade.alert(AlertType.Alert, Strings.CheatsVeryRareEncountersRemaining, text);
                     }

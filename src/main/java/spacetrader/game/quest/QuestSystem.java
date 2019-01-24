@@ -277,6 +277,10 @@ public class QuestSystem implements Serializable {
         return questVeryRareEncounters.keySet();
     }
 
+    public String getVeryRareEncounterById(Integer id) {
+        return questVeryRareEncounters.get(id).getVeryRareEncounter(id);
+    }
+
     //TODO test
     public void startTransaction() {
         log.fine(quests.keySet().toString());
