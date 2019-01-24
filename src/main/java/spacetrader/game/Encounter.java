@@ -1232,7 +1232,7 @@ public class Encounter implements Serializable {
             game.getQuestSystem().fireEvent(EventName.ENCOUNTER_GET_INTRODUCTORY_TEXT, encounterPretext);
         }
 
-        String internal = Functions.stringVars(encounterPretext.getValue(), game.getOpponent().getName().toLowerCase());
+        String internal = Functions.stringVars(Functions.getPlural(encounterPretext.getValue(), 2), game.getOpponent().getName().toLowerCase());
 
         return Functions.stringVars(Strings.EncounterText, new String[]{
                 Functions.plural(game.getClicks(), Strings.DistanceSubunit), game.getWarpSystem().getName(), internal});

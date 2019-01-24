@@ -103,7 +103,7 @@ public class Functions {
         return toParse;
     }
 
-    private static String getPlural(String singular, int index) {
+    public static String getPlural(String singular, int index) {
         return (index > 0) ? Optional.ofNullable(Strings.pluralMap.get(singular + index)).orElse(singular) : singular;
     }
 
