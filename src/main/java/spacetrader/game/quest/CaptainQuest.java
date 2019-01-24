@@ -53,11 +53,11 @@ class CaptainQuest extends AbstractQuest {
     public CaptainQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
-        initializePhases(QuestPhases.values(), new WildPhase(), new WildGetsOutPhase());
+        //initializePhases(QuestPhases.values(), new WildPhase(), new WildGetsOutPhase());
         initializeTransitionMap();
 
         //TODO
-        wild = registerNewSpecialCrewMember(7, 10, 2, 5, false);
+        //wild = registerNewSpecialCrewMember(7, 10, 2, 5, false);
 
         famousCaptainAttackEncounter = registerNewEncounter();
         famousCaptainDisabledEncounter = registerNewEncounter();
@@ -77,21 +77,21 @@ class CaptainQuest extends AbstractQuest {
         log.fine("started...");
     }
 
-    private void initializePhases(QuestPhases[] values, Phase... phases) {
+    /*private void initializePhases(QuestPhases[] values, Phase... phases) {
         for (int i = 0; i < phases.length; i++) {
             this.phases.put(values[i], phases[i]);
             phases[i].setQuest(this);
             phases[i].setPhaseEnum(values[i]);
         }
-    }
+    }*/
 
     @Override
     public void initializeTransitionMap() {
         super.initializeTransitionMap();
 
-        getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
+        /*getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
-        getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, this::onSpecialButtonClickedResolveIsConflict);
+        getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT, this::onSpecialButtonClickedResolveIsConflict);*/
 
         getTransitionMap().put(ON_DETERMINE_VERY_RARE_ENCOUNTER, this::onDetermineVeryRareEncounter);
         getTransitionMap().put(ON_ENCOUNTER_GENERATE_OPPONENT, this::onGenerateOpponentShip);
@@ -111,12 +111,14 @@ class CaptainQuest extends AbstractQuest {
 
     @Override
     public Collection<Phase> getPhases() {
-        return phases.values();
+        //return phases.values();
+        return Collections.emptyList();
     }
 
     @Override
     public Collection<QuestDialog> getQuestDialogs() {
-        return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
+        //return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
+        return Collections.emptyList();
     }
 
     @Override
@@ -138,7 +140,7 @@ class CaptainQuest extends AbstractQuest {
     @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());
-        I18n.dumpPhases(Arrays.stream(QuestPhases.values()));
+        //I18n.dumpPhases(Arrays.stream(QuestPhases.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
         I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
@@ -147,19 +149,19 @@ class CaptainQuest extends AbstractQuest {
 
     @Override
     public void localize() {
-        I18n.localizePhases(Arrays.stream(QuestPhases.values()));
+        //I18n.localizePhases(Arrays.stream(QuestPhases.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
         I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
 
-    private void onBeforeSpecialButtonShow(Object object) {
+    /*private void onBeforeSpecialButtonShow(Object object) {
         getPhases().forEach(phase -> showSpecialButtonIfCanBeExecuted(object, phase));
-    }
+    }*/
 
-    //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
-    class WildPhase extends Phase { //new SpecialEvent(SpecialEventType.Wild, 0, 1, false),
+
+    /*class WildPhase extends Phase {
         @Override
         public boolean canBeExecuted() {
             return getCommander().getPoliceRecordScore() < Consts.PoliceRecordScoreDubious
@@ -222,18 +224,9 @@ class CaptainQuest extends AbstractQuest {
         public String toString() {
             return "WildGetsOutPhase{} " + super.toString();
         }
-    }
+    }*/
 
-/*
-    CAPTAIN_AHAB, // = 2,
-    CAPTAIN_CONRAD, // = 3,
-    CAPTAIN_HUIE, // = 4,
-    FAMOUS_CAPTAIN_ATTACK, // = 7,
-    FAMOUS_CAPT_DISABLED, // = 8,
-     */
-
-
-    private void onSpecialButtonClicked(Object object) {
+    /*private void onSpecialButtonClicked(Object object) {
         Optional<QuestPhases> activePhase =
                 phases.entrySet().stream().filter(p -> p.getValue().canBeExecuted()).map(Map.Entry::getKey).findFirst();
         if (activePhase.isPresent()) {
@@ -241,19 +234,7 @@ class CaptainQuest extends AbstractQuest {
         } else {
             log.fine("skipped");
         }
-    }
-
-    // TODO repeat if < normal, otherwise fail
-    private void onSpecialButtonClickedResolveIsConflict(Object object) {
-        if (wildOnBoard) {
-            if (showCancelAlert(Alerts.WildWontStayAboardReactor.getValue(), getCommander().getCurrentSystem().getName()) == DialogResult.OK) {
-                showAlert(Alerts.WildLeavesShip.getValue(), getCommander().getCurrentSystem().getName());
-                failQuest();
-            } else {
-                ((BooleanContainer) object).setValue(true);
-            }
-        }
-    }
+    }*/
 
     // 2. Captain Ahab will trade your Reflective Shield for skill points in Piloting.
     // 3. Captain Conrad will trade your Military Laser for skill points in Engineering.
@@ -464,15 +445,8 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
-    private void failQuest() {
-        game.getQuestSystem().unSubscribeAll(getQuest());
-        questStatus = STATUS_WILD_NOT_STARTED;
-        setQuestState(QuestState.FAILED);
-        removePassenger();
-    }
-
     // Special Events
-    enum QuestPhases implements SimpleValueEnum<QuestDialog> {
+    /*enum QuestPhases implements SimpleValueEnum<QuestDialog> {
         Wild(new QuestDialog(DIALOG, "Jonathan Wild", "Laing to give him a berth?"));
 
         private QuestDialog value;
@@ -492,7 +466,7 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
-    private EnumMap<QuestPhases, Phase> phases = new EnumMap<>(QuestPhases.class);
+    private EnumMap<QuestPhases, Phase> phases = new EnumMap<>(QuestPhases.class);*/
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
 
@@ -602,10 +576,16 @@ class CaptainQuest extends AbstractQuest {
         }
     }
 
-    //TODO
     @Override
     public String toString() {
-        return "WildQuest{" +
+        return "CaptainQuest{" +
+                "captain=" + captain +
+                ", famousCaptainAttackEncounter=" + famousCaptainAttackEncounter +
+                ", famousCaptainDisabledEncounter=" + famousCaptainDisabledEncounter +
+                ", captainAhabVeryRareEncounter=" + captainAhabVeryRareEncounter +
+                ", captainConradVeryRareEncounter=" + captainConradVeryRareEncounter +
+                ", captainHuieVeryRareEncounter=" + captainHuieVeryRareEncounter +
+                ", famousCaptainOpponentType=" + famousCaptainOpponentType +
                 "} " + super.toString();
     }
 }
