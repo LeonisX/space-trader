@@ -107,8 +107,8 @@ public class QuestSystem implements Serializable {
         return encounterId;
     }
 
-    int registerNewVeryRareEncounter(AbstractQuest quest) {
-        int veryRareEncounterId = generateVeryRareEncounterIdCounter();
+    Integer registerNewVeryRareEncounter(AbstractQuest quest) {
+        Integer veryRareEncounterId = generateVeryRareEncounterIdCounter();
         questVeryRareEncounters.put(veryRareEncounterId, quest);
         return veryRareEncounterId;
     }
@@ -161,7 +161,7 @@ public class QuestSystem implements Serializable {
         return encounter.getAndIncrement();
     }
 
-    private int generateVeryRareEncounterIdCounter() {
+    private Integer generateVeryRareEncounterIdCounter() {
         return veryRareEncounter.getAndIncrement();
     }
 

@@ -19,6 +19,8 @@ public enum QuestName {
     EraseRecord,
     Dragonfly,
     Artifact,
-    Cargo
+    Cargo,
+    //Very Rare Encounters
+    Captain
 
 }

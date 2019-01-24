@@ -2,10 +2,8 @@ package spacetrader.game;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.ArtifactQuest;
 import spacetrader.game.quest.containers.*;
 import spacetrader.game.quest.enums.EventName;
-import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
@@ -21,6 +19,8 @@ import static spacetrader.game.quest.enums.EventName.*;
 
 public class Encounter implements Serializable {
 
+    static final long serialVersionUID = -535871984L;
+
     private Game game;
     private Commander commander;
 
@@ -33,7 +33,7 @@ public class Encounter implements Serializable {
     private int chanceOfVeryRareEncounter = 5; // Rare encounters not done yet.
     private List<Integer> veryRareEncounters = new ArrayList<>(); // Array of Very Options
 
-    private int veryRareEncounterId; // current ID, used right after its generation
+    private Integer veryRareEncounterId; // current ID, used right after its generation
 
     // The rest of the member variables are not saved between games.
     private boolean encounterContinueFleeing = false;
@@ -166,7 +166,13 @@ public class Encounter implements Serializable {
     }
 
     private boolean isDetermineRandomEncounter() {
-        RandomEncounterContainer opponents = new RandomEncounterContainer();
+        //TODO remove. only for tests
+        if (getVeryRareEncounters().size() > 0) {
+            return isDetermineVeryRareEncounter();
+        } else {
+            return false;
+        }
+        /*RandomEncounterContainer opponents = new RandomEncounterContainer();
 
         game.getQuestSystem().fireEvent(ON_DETERMINE_RANDOM_ENCOUNTER, opponents);
 
@@ -206,7 +212,7 @@ public class Encounter implements Serializable {
         } else if (commander.getDays() > 10 && Functions.getRandom(1000) < getChanceOfVeryRareEncounter()
                 && getVeryRareEncounters().size() > 0) {
             return isDetermineVeryRareEncounter();
-        } else return false;
+        } else return false;*/
     }
 
     private boolean isDetermineTraderEncounter() {
@@ -250,7 +256,7 @@ public class Encounter implements Serializable {
         // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which will invoke
         // IncreaseRandomSkill one or two times, depending on game difficulty.
         veryRareEncounterId = getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()));
-        if (veryRareEncounterId == MARIE_CELESTE.castToInt()) {
+        if (veryRareEncounterId.equals(MARIE_CELESTE.castToInt())) {
             // Marie Celeste cannot be at Acamar, Qonos, or Zalkon as it may
             // cause problems with the Space Monster, Scorpion, or Dragonfly
             if (game.getClicks() > 1 && commander.getCurrentSystemId() != StarSystemId.Acamar
@@ -266,12 +272,12 @@ public class Encounter implements Serializable {
                         .castToInt()] = Math.min(game.getOpponent().getCargoBays(), 5);
                 return true;
             }
-        } else if (veryRareEncounterId == BOTTLE_OLD.castToInt()) {
+        } else if (veryRareEncounterId.equals(BOTTLE_OLD.castToInt())) {
             getVeryRareEncounters().remove(BOTTLE_OLD.castToInt());
             setEncounterType(EncounterType.BOTTLE_OLD);
             game.generateOpponent(OpponentType.BOTTLE);
             return true;
-        } else if (veryRareEncounterId == BOTTLE_GOOD.castToInt()) {
+        } else if (veryRareEncounterId.equals(BOTTLE_GOOD.castToInt())) {
             getVeryRareEncounters().remove(BOTTLE_GOOD.castToInt());
             setEncounterType(EncounterType.BOTTLE_GOOD);
             game.generateOpponent(OpponentType.BOTTLE);

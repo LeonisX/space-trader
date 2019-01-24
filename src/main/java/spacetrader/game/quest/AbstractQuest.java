@@ -81,7 +81,7 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return game.getQuestSystem().registerNewEncounter(this);
     }
 
-    int registerNewVeryRareEncounter() {
+    Integer registerNewVeryRareEncounter() {
         return game.getQuestSystem().registerNewVeryRareEncounter(this);
     }
 

@@ -227,9 +227,11 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Very Rare Encounters - in cheats when read String[] VeryRareEncounters - add titles by ID.
-* Need method to get veryrareencounter name
-* VeryRareEncounters enum
+* Translate
+* Clear strings
+* Test all
+* Revert back isDetermineRandomEncounter()
+* Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
 
 ### News
 
@@ -248,6 +250,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Shipyard
 
+* Ship modification is free :(
 * Investigate - when new shipyard - can receive 600%
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
 * Update money status (StatusBar) after Shipyard
