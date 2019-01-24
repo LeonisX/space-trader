@@ -227,11 +227,103 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+## Captain Quest
+
+# Alerts:
+AlertEncounterAttackCaptainTitle=Really Attack?
+AlertEncounterAttackCaptainMessage=Famous Captains get famous by, among other things, destroying everyone who attacks them. Do you really want to attack?
+AlertEncounterAttackCaptainAccept=Really Attack
+AlertEncounterAttackCaptainCancel=OK, I Won't
+AlertMeetCaptainAhabTitle=Meet Captain Ahab
+AlertMeetCaptainAhabMessage=Captain Ahab is in need of a spare shield for an upcoming mission. He offers to trade you some piloting lessons for your reflective shield. Do you wish to trade?
+AlertMeetCaptainAhabAccept=Yes, Trade Shield
+AlertMeetCaptainConradTitle=Meet Captain Conrad
+AlertMeetCaptainConradMessage=Captain Conrad is in need of a military laser. She offers to trade you some engineering training for your military laser. Do you wish to trade?
+AlertMeetCaptainConradAccept=Yes, Trade Laser
+AlertMeetCaptainHuieTitle=Meet Captain Huie
+AlertMeetCaptainHuieMessage=Captain Huie is in need of a military laser. She offers to exchange some bargaining training for your military laser. Do you wish to trade?
+AlertMeetCaptainHuieAccept=Yes, Trade Laser
+AlertSpecialTrainingCompletedTitle=Training Completed
+AlertSpecialTrainingCompletedMessage=After a few hours of training with a top expert, you feel your abilities have improved significantly.
+
+# News:
+NewsCaptAhabAttacked=Thug Assaults Captain Ahab!
+NewsCaptAhabDestroyed=Destruction of Captain Ahab's Ship Causes Anger!
+NewsCaptConradAttacked=Captain Conrad Comes Under Attack By Criminal!
+NewsCaptConradDestroyed=Captain Conrad's Ship Destroyed by Villain!
+NewsCaptHuieAttacked=Famed Captain Huie Attacked by Brigand!
+NewsCaptHuieDestroyed=Citizens Mourn Destruction of Captain Huie's Ship!
+
+# Encounters:
+EncounterPretextCaptainAhab=the famous Captain Ahab in a ^1
+EncounterPretextCaptainConrad=the famous Captain Conrad in a ^1
+EncounterPretextCaptainHuie=the famous Captain Huie in a ^1
+EncounterShipCaptain=Captain
+EncounterTextFamousCaptain=The Captain requests a brief meeting with you.
+
+# VeryRareEncounters:
+VeryRareEncounterCaptainAhab=Captain Ahab
+VeryRareEncounterCaptainConrad=Captain Conrad
+VeryRareEncounterCaptainHuie=Captain Huie
+
+# Crew Member Names:
+CrewNameCaptain=Captain
+
+============================================================
+
+## Captain Quest
+
+# Alerts:
+AlertEncounterAttackCaptainTitle=Точно решили напасть?
+AlertEncounterAttackCaptainMessage=Прославленные капитаны известны, кроме всего прочего тем, что уничтожают всех, кто им угрожает. Вы действительно хотите атаковать?
+AlertEncounterAttackCaptainAccept=Точно, атаковать
+AlertEncounterAttackCaptainCancel=Хорошо, я не буду
+AlertMeetCaptainAhabTitle=Встреча с капитаном Ахабом
+AlertMeetCaptainAhabMessage=Капитану Ахабу, в его предстоящей миссии, понадобится запасной отражающий щит. Он готов предложить уроки пилотирования в обмен на ваш. Согласиться на такой обмен?
+AlertMeetCaptainAhabAccept=Да, обменять щит
+AlertMeetCaptainConradTitle=Встреча с капитаном Конрадом
+AlertMeetCaptainConradMessage=Капитану Конраду необходим военный лазер. За него она может обучить вас разным инженерным штучкам. Согласиться на такой обмен?
+AlertMeetCaptainConradAccept=Да, обменять лазер
+AlertMeetCaptainHuieTitle=Встреча с капитаном Хьюи
+AlertMeetCaptainHuieMessage=Капитану Хьюи нужен военный лазер. За него она может научить вас заключать выгодные торговые сделки. Согласиться на такой обмен?
+AlertMeetCaptainHuieAccept=Да, обменять лазер
+AlertSpecialTrainingCompletedTitle=Обучение завершено
+AlertSpecialTrainingCompletedMessage=После нескольких часов обучения с лучшим специалистом вы чувствуете, что способности значительно улучшились.
+
+# News:
+NewsCaptAhabAttacked=Головорезы совершили покушение на капитана Ахаба!
+NewsCaptAhabDestroyed=Уничтожение судна капитана Ахаба вызвало волну гнева!
+NewsCaptConradAttacked=Капитан Конрад была атакована преступником!
+NewsCaptConradDestroyed=Злодей уничтожил судно капитана Конрада!
+NewsCaptHuieAttacked=Прославленный капитан Хьюи была атакована бандитом!
+NewsCaptHuieDestroyed=Граждане скорбят после известия об уничтожении судна капитана Хьюи!
+
+# Encounters:
+EncounterPretextCaptainAhab=знаменитый Капитан Ахаб в корабле класса ^1 | знаменитого Капитана Ахаба в корабле класса ^1
+EncounterPretextCaptainConrad=знаменитый Капитан Конрад в корабле класса ^1 | знаменитого Капитана Конрада в корабле класса ^1
+EncounterPretextCaptainHuie=знаменитый Капитан Хьюи в корабле класса ^1 | знаменитого Капитана Хьюи в корабле класса ^1
+EncounterShipCaptain=Капитан | Капитана
+EncounterTextFamousCaptain=Капитан настаивает на непродолжительной стыковке с вами.
+
+# VeryRareEncounters:
+VeryRareEncounterCaptainAhab=Капитан Ахаб
+VeryRareEncounterCaptainConrad=Капитан Конрад
+VeryRareEncounterCaptainHuie=Капитан Хьюи
+
+# Crew Member Names:
+CrewNameCaptain=Капитан | Капитана
+
+
+
+
+
+
 * Translate
 * Clear strings
 * Test all
 * Revert back isDetermineRandomEncounter()
 * Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
+* When show news about destruction of Captain's ship?
 
 ### News
 
