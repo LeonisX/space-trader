@@ -137,7 +137,7 @@ class I18n {
     }
 
     private static String getHeadCancelValue(String prefix, String key, String value) {
-        return getHeadAccept(prefix, key) + "=" + value;
+        return getHeadCancel(prefix, key) + "=" + value;
     }
 
     private static String getHead(String prefix, String key, String tail) {
