@@ -42,7 +42,7 @@ public class QuestSystem implements Serializable {
     private volatile AtomicInteger shipSpecIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger gameEndTypeIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger encounter = new AtomicInteger(1000);
-    private volatile AtomicInteger veryRareEncounter = new AtomicInteger(1000);
+    private volatile AtomicInteger veryRareEncounter = new AtomicInteger(10000);
     private volatile AtomicInteger opponentTypeEncounter = new AtomicInteger(1000);
 
     private transient Set<String> questsBeforeTransaction = new HashSet<>();
