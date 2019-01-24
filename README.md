@@ -227,6 +227,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Very Rare Encounters - in cheats when read String[] VeryRareEncounters - add titles by ID.
+* Need method to get veryrareencounter name
+* VeryRareEncounters enum
+
 ### News
 
 * Clean from old events
