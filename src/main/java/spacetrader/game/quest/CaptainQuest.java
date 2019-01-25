@@ -204,7 +204,7 @@ class CaptainQuest extends AbstractQuest {
 
                 getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreAttackTrader);
 
-                if (Objects.equals(getEncounter().getEncounterType(), captainAhab)) {
+                if (getEncounter().getEncounterType().equals(captainAhab)) {
                     Game.getNews().addEvent(getNewsIds().get(News.CaptAhabAttacked.ordinal()));
                 } else if (getEncounter().getEncounterType().equals(captainConrad)) {
                     Game.getNews().addEvent(getNewsIds().get(News.CaptConradAttacked.ordinal()));
@@ -335,8 +335,17 @@ class CaptainQuest extends AbstractQuest {
             }
 
             // bump news flag from attacked to ship destroyed
-            Game.getNews().replaceLastAttackedEventWithDestroyedEvent();
+            replaceLastAttackedEventWithDestroyedEvent();
         }
+    }
+
+    private void replaceLastAttackedEventWithDestroyedEvent() {
+        List<Integer> newsEvents = Game.getNews().getNewsEvents();
+
+        int oldEvent = newsEvents.get(newsEvents.size() - 1);
+        int newEvent = oldEvent + 1;
+        newsEvents.remove(oldEvent);
+        newsEvents.add(newEvent);
     }
 
     private boolean isVeryRareEncounter() {
