@@ -1,7 +1,6 @@
 package spacetrader.game.quest;
 
 import spacetrader.game.Consts;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatWords;
@@ -271,7 +270,7 @@ public class ExperimentQuest extends AbstractQuest {
                 game.setFabricRipProbability(Consts.FabricRipInitialProbability);
                 getStarSystem(StarSystemId.Daled).setQuestSystem(true);
                 showAlert(Alerts.ExperimentPerformed.getValue());
-                Game.getNews().addEvent(getNewsIds().get(News.ExperimentPerformed.ordinal()));
+                addNewsByIndex(News.ExperimentPerformed.ordinal());
             }
         } else if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED  && game.getFabricRipProbability() > 0) {
             game.setFabricRipProbability(game.getFabricRipProbability() - ((IntContainer) object).getValue());
@@ -279,19 +278,19 @@ public class ExperimentQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.ExperimentFailed).isDesiredSystem()) {
             if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED) {
-                result = News.ExperimentFailed;
+                newsIndex = News.ExperimentFailed.ordinal();
             } else if (questStatus.get() > STATUS_EXPERIMENT_NOT_STARTED && questStatus.get() < STATUS_EXPERIMENT_PERFORMED) {
-                result = News.ExperimentStopped;
+                newsIndex = News.ExperimentStopped.ordinal();
             }
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

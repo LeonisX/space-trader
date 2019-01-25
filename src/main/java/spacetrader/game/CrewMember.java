@@ -114,7 +114,7 @@ public class CrewMember implements Serializable {
     public void tonicTweakRandomSkill() {
         int[] oldSkills = Arrays.copyOf(skills, skills.length);
 
-        if (Game.getDifficultyId() < Difficulty.HARD.castToInt()) {
+        if (Game.getCurrentGame().getDifficultyId() < Difficulty.HARD.castToInt()) {
             // add one to a random skill, subtract one from a random skill
             while (skills[0] == oldSkills[0] && skills[1] == oldSkills[1] && skills[2] == oldSkills[2]
                     && skills[3] == oldSkills[3]) {

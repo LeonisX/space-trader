@@ -6,6 +6,7 @@ import spacetrader.controls.WinformPane;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.Difficulty;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.game.quest.containers.ShipSpecContainer;
@@ -173,12 +174,16 @@ public abstract class AbstractQuest implements Quest, Serializable {
         this.specialCrewIds = specialCrewIds;
     }
 
-    public List<Integer> getNewsIds() {
+    List<Integer> getNewsIds() {
         return newsIds;
     }
 
-    public void setNewsIds(List<Integer> newsIds) {
-        this.newsIds = newsIds;
+    Integer getNewsIdByIndex(int index) {
+        return newsIds.get(index);
+    }
+
+    void addNewsByIndex(int index) {
+        getNews().addEvent(getNewsIdByIndex(index));
     }
 
     Commander getCommander() {
@@ -223,6 +228,17 @@ public abstract class AbstractQuest implements Quest, Serializable {
 
     Map<Integer, CrewMember> getMercenaries() {
         return game.getMercenaries();
+    }
+
+    Difficulty getDifficulty() {
+        return game.getDifficulty();
+    }
+
+    int getDifficultyId() {
+        return getDifficulty().castToInt();
+    }
+    News getNews() {
+        return game.getNews();
     }
 
     @Override
@@ -362,13 +378,12 @@ public abstract class AbstractQuest implements Quest, Serializable {
     @Override
     public String toString() {
         return "AbstractQuest{" +
-                "id=" + id +
+                "game=" + game +
+                ", id='" + id + '\'' +
                 ", repeatable=" + repeatable +
-                /*", cashToSpend=" + cashToSpend +*/
                 ", occurrence=" + occurrence +
-                //", phases=" + phases +
                 ", questState=" + questState +
-                //", specialCrewId=" + specialCrewId +
+                ", specialCrewIds=" + specialCrewIds +
                 ", newsIds=" + newsIds +
                 '}';
     }

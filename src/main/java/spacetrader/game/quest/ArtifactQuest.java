@@ -2,7 +2,6 @@ package spacetrader.game.quest;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
@@ -280,15 +279,10 @@ public class ArtifactQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
-
         if (phases.get(QuestPhases.ArtifactDelivery).isDesiredSystem()) {
-            result = News.ArtifactDelivery;
-        }
-
-        if (result != null) {
-            log.fine("" + result.ordinal());
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+            int newsIndex = News.ArtifactDelivery.ordinal();
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

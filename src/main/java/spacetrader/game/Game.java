@@ -1314,23 +1314,23 @@ public class Game implements Serializable {
         return commander.getShip();
     }
 
-    public static Difficulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return getCurrentGame().difficulty;
     }
 
-    public static int getDifficultyId() {
+    public int getDifficultyId() {
         return getDifficulty().castToInt();
     }
 
-    public static void setDifficulty(Difficulty difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         getCurrentGame().difficulty = difficulty;
     }
 
-    public static News getNews() {
+    public News getNews() {
         return getCurrentGame().news;
     }
 
-    public static void setNews(News news) {
+    public void setNews(News news) {
         getCurrentGame().news = news;
     }
 

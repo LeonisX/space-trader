@@ -58,7 +58,7 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         initializePhases(QuestPhases.values(), new ScarabPhase(), new ScarabDestroyedPhase(), new ScarabUpgradeHullPhase());
         initializeTransitionMap();
 
-        int d = Game.getDifficultyId();
+        int d = getDifficultyId();
         scarabCrew = registerNewSpecialCrewMember(5 + d, 6 + d, 1, 6 + d, false);
 
         scarabAttackEncounter = registerNewEncounter();
@@ -453,21 +453,21 @@ class ScarabQuest extends AbstractQuest implements Serializable {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.Scarab).isDesiredSystem() && questStatus <= STATUS_SCARAB_HUNTING) {
-            result = News.Scarab;
+            newsIndex = News.Scarab.ordinal();
         } else if (phases.get(QuestPhases.ScarabDestroyed).isDesiredSystem()) {
             if (questStatus == STATUS_SCARAB_HUNTING) {
-                result = News.ScarabHarass;
+                newsIndex = News.ScarabHarass.ordinal();
             } else if (questStatus >= STATUS_SCARAB_DESTROYED) {
-                result = News.ScarabDestroyed;
+                newsIndex = News.ScarabDestroyed.ordinal();
             }
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

@@ -1,6 +1,5 @@
 package spacetrader.game.quest;
 
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
@@ -250,24 +249,24 @@ public class JaporiQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.Japori).isDesiredSystem() && questStatus == STATUS_JAPORI_NOT_STARTED) {
-            result = News.Japori;
+            newsIndex = News.Japori.ordinal();
         } else if (isCurrentSystemIs(StarSystemId.Japori)) {
             switch (questStatus) {
                 case STATUS_JAPORI_NOT_STARTED:
-                    result = News.JaporiEpidemy;
+                    newsIndex = News.JaporiEpidemy.ordinal();
                     break;
                 case STATUS_JAPORI_IN_TRANSIT:
-                    result = News.JaporiDelivery;
+                    newsIndex = News.JaporiDelivery.ordinal();
                     break;
             }
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

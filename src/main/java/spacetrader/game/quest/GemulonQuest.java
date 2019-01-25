@@ -1,7 +1,6 @@
 package spacetrader.game.quest;
 
 import spacetrader.game.Consts;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatWords;
@@ -288,21 +287,21 @@ public class GemulonQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.Gemulon).isDesiredSystem() && questStatus.get() < STATUS_GEMULON_TOO_LATE) {
-            result = News.Gemulon;
+            newsIndex = News.Gemulon.ordinal();
         } else if (phases.get(QuestPhases.GemulonRescued).isDesiredSystem()) {
             if (questStatus.get() > STATUS_GEMULON_NOT_STARTED && questStatus.get() < STATUS_GEMULON_TOO_LATE) {
-                result = News.GemulonRescued;
+                newsIndex = News.GemulonRescued.ordinal();
             } else if (questStatus.get() == STATUS_GEMULON_TOO_LATE || getQuestState() == QuestState.FAILED) {
-                result = News.GemulonInvaded;
+                newsIndex = News.GemulonInvaded.ordinal();
             }
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

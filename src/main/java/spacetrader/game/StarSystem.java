@@ -53,8 +53,8 @@ public class StarSystem implements Serializable {
                 // Because of the enormous profits possible, there shouldn't be
                 // too many robots or narcotics available.
                 if (i >= TradeItemType.NARCOTICS.castToInt()) {
-                    tradeItems[i] = ((tradeItems[i] * (5 - Game.getDifficultyId())) /
-                            (6 - Game.getDifficultyId())) + 1;
+                    tradeItems[i] = ((tradeItems[i] * (5 - Game.getCurrentGame().getDifficultyId())) /
+                            (6 - Game.getCurrentGame().getDifficultyId())) + 1;
                 }
 
                 if (this.getSpecialResource() == Consts.TradeItems[i].getResourceLowPrice()) {

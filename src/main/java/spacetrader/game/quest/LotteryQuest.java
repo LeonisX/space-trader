@@ -127,7 +127,7 @@ class LotteryQuest extends AbstractQuest {
 
         @Override
         public boolean canBeExecuted() {
-            return isDesiredSystem() && (Game.getDifficultyId() < Difficulty.NORMAL.castToInt());
+            return isDesiredSystem() && (getDifficultyId() < Difficulty.NORMAL.castToInt());
         }
 
         @Override

@@ -96,7 +96,7 @@ public class News implements Serializable {
                 // And not-always-shown stories
                 if (starSystem.getSystemPressure() != SystemPressure.NONE
                         && Functions.getRandom2(100) <= Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10
-                        * (5 - Game.getDifficultyId())) {
+                        * (5 - Game.getCurrentGame().getDifficultyId())) {
                     int index = Functions.getRandom2(Strings.NewsPressureExternal.length);
                     String baseStr = Strings.NewsPressureExternal[index];
                     String pressure = Strings.NewsPressureExternalPressures[starSystem.getSystemPressure().castToInt()];

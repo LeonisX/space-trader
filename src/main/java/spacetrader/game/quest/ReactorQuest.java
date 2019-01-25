@@ -299,8 +299,8 @@ public class ReactorQuest extends AbstractQuest {
     private void encounterIsExecuteAttack(Object object) {
         if (isReactorOnBoard()) {
             IntContainer damage = (IntContainer) object;
-            damage.multipleBy((int) (1 + (Game.getDifficultyId() + 1)
-                    * (Game.getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0.25 : 0.33)));
+            damage.multipleBy((int) (1 + (game.getDifficultyId() + 1)
+                    * (game.getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0.25 : 0.33)));
         }
     }
 

@@ -1,10 +1,12 @@
 package spacetrader.game.quest;
 
 import spacetrader.game.Consts;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.*;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.EquipmentType;
+import spacetrader.game.enums.GadgetType;
+import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.enums.QuestState;
@@ -344,17 +346,17 @@ class SculptureQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.Sculpture).isDesiredSystem()) {
-            result = News.PricelessCollectorsItemWasStolen;
+            newsIndex = News.PricelessCollectorsItemWasStolen.ordinal();
         } else if (phases.get(QuestPhases.SculptureDelivered).isDesiredSystem()) {
-            result = News.SpaceCorpsFollowsSculptureCaptors;
+            newsIndex = News.SpaceCorpsFollowsSculptureCaptors.ordinal();
         }
 
-        if (result != null) {
-            log.fine("" + result.ordinal());
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

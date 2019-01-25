@@ -144,7 +144,7 @@ public class Encounter implements Serializable {
             } else if (!game.getInspected()
                     && (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreClean
                     || (commander.getPoliceRecordScore() < Consts.PoliceRecordScoreLawful && Functions
-                    .getRandom(12 - Game.getDifficultyId()) < 1) || (commander
+                    .getRandom(12 - game.getDifficultyId()) < 1) || (commander
                     .getPoliceRecordScore() >= Consts.PoliceRecordScoreLawful && Functions.getRandom(40) == 0))) {
                 // If you're reputation is dubious, the police will inspect you
                 // If your record is clean, the police will inspect you with a
@@ -179,7 +179,7 @@ public class Encounter implements Serializable {
         ArtifactQuest artifactQuest = (ArtifactQuest) game.getQuestSystem().getQuest(QuestName.Artifact);
 
         // Check if it is time for an encounter
-        int encounter = Functions.getRandom(44 - (2 * Game.getDifficultyId()));
+        int encounter = Functions.getRandom(44 - (2 * game.getDifficultyId()));
         int policeModifier = Math.max(1, 3 - PoliceRecord.getPoliceRecordFromScore().getType().castToInt());
 
         // encounters are half as likely if you're in a flea.
@@ -300,7 +300,7 @@ public class Encounter implements Serializable {
             if (encounterType == EncounterType.BOTTLE_GOOD.castToInt()) {
                 // two points if you're on beginner-normal, one otherwise
                 commander.increaseRandomSkill();
-                if (Game.getDifficultyId() <= Difficulty.NORMAL.castToInt()) {
+                if (game.getDifficultyId() <= Difficulty.NORMAL.castToInt()) {
                     commander.increaseRandomSkill();
                 }
                 GuiFacade.alert(AlertType.EncounterTonicConsumedGood);
@@ -382,9 +382,9 @@ public class Encounter implements Serializable {
 
             // Determine whether someone gets away.
             if (getEncounterCmdrFleeing()
-                    && (Game.getDifficulty() == Difficulty.BEGINNER || (Functions.getRandom(7) + commander
+                    && (game.getDifficulty() == Difficulty.BEGINNER || (Functions.getRandom(7) + commander
                     .getShip().getPilot() / 3) * 2 >= Functions.getRandom(game.getOpponent().getPilot())
-                    * (2 + Game.getDifficultyId()))) {
+                    * (2 + game.getDifficultyId()))) {
                 GuiFacade.alert((getEncounterCmdrHit() ? AlertType.EncounterEscapedHit : AlertType.EncounterEscaped));
                 escaped = true;
             } else if (getEncounterOppFleeing()
@@ -438,7 +438,7 @@ public class Encounter implements Serializable {
         // Otherwise, Fighterskill attacker is pitted against pilotskill defender; if defender
         // is fleeing the attacker has a free shot, but the chance to hit is smaller
         // JAF - if the opponent is disabled and attacker has targeting system, they WILL be hit.
-        if (!(Game.getDifficulty() == Difficulty.BEGINNER && defender.isCommandersShip() && fleeing)
+        if (!(game.getDifficulty() == Difficulty.BEGINNER && defender.isCommandersShip() && fleeing)
                 && (attacker.isCommandersShip() && game.getOpponentDisabled()
                 && attacker.hasGadget(GadgetType.TARGETING_SYSTEM) || Functions.getRandom(attacker.getFighter()
                 + defender.getSize().castToInt()) >= (fleeing ? 2 : 1)
@@ -492,7 +492,7 @@ public class Encounter implements Serializable {
                             // (3 on Easy, 4 on Beginner, 1 on Hard or Impossible). For opponents, it is always 2.
                             damage.setValue(Math.min(damage.getValue(), defender.getHullStrength()
                                     / (defender.isCommandersShip() ? Math.max(1, spacetrader.game.enums.Difficulty.IMPOSSIBLE
-                                    .castToInt() - Game.getDifficultyId()) : 2)));
+                                    .castToInt() - game.getDifficultyId()) : 2)));
 
                             game.getQuestSystem().fireEvent(ENCOUNTER_IS_EXECUTE_ATTACK_SECONDARY_DAMAGE, damage);
 
@@ -548,8 +548,8 @@ public class Encounter implements Serializable {
     private void encounterScoop() {
         // Chance 50% to pick something up on Normal level, 33% on Hard level, 25% on
         // Impossible level, and 100% on Easy or Beginner.
-        if ((Game.getDifficultyId() < Difficulty.NORMAL.castToInt()
-                || Functions.getRandom(Game.getDifficultyId()) == 0) && game.getOpponent().getFilledCargoBays() > 0) {
+        if ((game.getDifficultyId() < Difficulty.NORMAL.castToInt()
+                || Functions.getRandom(game.getDifficultyId()) == 0) && game.getOpponent().getFilledCargoBays() > 0) {
             // Changed this to actually pick a good that was in the opponent's cargo hold - JAF.
             int index = Functions.getRandom(game.getOpponent().getFilledCargoBays());
             int tradeItem = -1;
@@ -767,9 +767,9 @@ public class Encounter implements Serializable {
         } else if (commander.getShip().isDetectableIllegalCargoOrPassengers()
                 || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
             // Bribe depends on how easy it is to bribe the police and commander's current worth
-            int diffMod = 10 + 5 * (Difficulty.IMPOSSIBLE.castToInt() - Game.getDifficultyId());
+            int diffMod = 10 + 5 * (Difficulty.IMPOSSIBLE.castToInt() - game.getDifficultyId());
             int passMod = commander.getShip().isIllegalSpecialCargo()
-                    ? (Game.getDifficultyId() <= Difficulty.NORMAL.castToInt() ? 2 : 3)
+                    ? (game.getDifficultyId() <= Difficulty.NORMAL.castToInt() ? 2 : 3)
                     : 1;
 
             int bribe = Math.max(100, Math.min(10000, (int) Math.ceil((double) commander.getWorth()
@@ -804,7 +804,7 @@ public class Encounter implements Serializable {
                 int scoreMod = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.ScoreFleePolice
                         : Consts.ScoreAttackPolice;
                 int scoreMin = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.PoliceRecordScoreDubious
-                        - (Game.getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0 : 1)
+                        - (game.getDifficultyId() < Difficulty.NORMAL.castToInt() ? 0 : 1)
                         : Consts.PoliceRecordScoreCriminal;
 
                 setEncounterType(EncounterType.POLICE_ATTACK.castToInt());
@@ -832,7 +832,7 @@ public class Encounter implements Serializable {
                     int fine = (int) Math.max(100, Math.min(10000,
                             Math.ceil((double) commander.getWorth()
                                     / ((Difficulty.IMPOSSIBLE.castToInt()
-                                    - Game.getDifficultyId() + 2) * 10) / 50) * 50));
+                                    - game.getDifficultyId() + 2) * 10) / 50) * 50));
                     int cashPayment = Math.min(commander.getCash(), fine);
                     commander.setDebt(commander.getDebt() + (fine - cashPayment));
                     commander.setCash(commander.getCash() - cashPayment);

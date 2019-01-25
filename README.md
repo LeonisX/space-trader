@@ -173,7 +173,6 @@ CrewNameCaptain=Капитан | Капитана
 * Clean from old events
 * Try to simplify. May be keep only map: ID -> TTL?
 * Find start of the flight and clear news at the start of flight
-* Game - remove static methods
 * News: Time to live?
 * Check all news - when can - implement in phases
 

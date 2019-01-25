@@ -50,7 +50,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
         initializePhases(QuestPhases.values(), new SpaceMonsterPhase(), new SpaceMonsterKilledPhase());
         initializeTransitionMap();
 
-        int d = Game.getDifficultyId();
+        int d = getDifficultyId();
         spaceMonsterCrew = registerNewSpecialCrewMember(8 + d, 8 + d, 1, 1 + d, false);
 
         spaceMonsterAttackEncounter = registerNewEncounter();
@@ -356,19 +356,19 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (isCurrentSystemIs(StarSystemId.Acamar)) {
             if (questStatus == STATUS_SPACE_MONSTER_AT_ACAMAR) {
-                result = News.SpaceMonster;
+                newsIndex = News.SpaceMonster.ordinal();
             } else if (questStatus >= STATUS_SPACE_MONSTER_DESTROYED) {
-                result = News.SpaceMonsterKilled;
+                newsIndex = News.SpaceMonsterKilled.ordinal();
             }
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

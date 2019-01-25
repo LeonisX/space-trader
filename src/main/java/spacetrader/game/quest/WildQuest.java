@@ -3,7 +3,6 @@ package spacetrader.game.quest;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
@@ -309,13 +308,13 @@ class WildQuest extends AbstractQuest {
         if (wildOnBoard && game.getWarpSystem().getId() == StarSystemId.Kravat) {
             // if you're coming in to Kravat & you have Wild onboard, there'll be swarms o' cops.
             ((RandomEncounterContainer) object)
-                    .setPolice(Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - Game.getDifficultyId())));
+                    .setPolice(Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - getDifficultyId())));
         }
     }
 
     private void onBeforeEncounterGenerateOpponent(Object object) {
         if (game.getWarpSystem().getId() == StarSystemId.Kravat && wildOnBoard
-                && Functions.getRandom(10) < Game.getDifficulty().castToInt() + 1) {
+                && Functions.getRandom(10) < getDifficultyId() + 1) {
             ((CrewMember) object).setEngineer(Consts.MaxSkill);
         }
     }
@@ -374,7 +373,7 @@ class WildQuest extends AbstractQuest {
         if (wildOnBoard) {
             log.fine("Arrested + Wild");
             showAlert(Alerts.WildArrested.getValue());
-            Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
+            addNewsByIndex(News.WildArrested.ordinal());
             failQuest();
         } else {
             log.fine("Arrested w/o Wild");
@@ -387,7 +386,7 @@ class WildQuest extends AbstractQuest {
             log.fine("Escaped + Wild");
             showAlert(Alerts.WildArrested.getValue());
             getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
-            Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
+            addNewsByIndex(News.WildArrested.ordinal());
             failQuest();
         } else {
             log.fine("Escaped w/o Wild");
@@ -429,8 +428,8 @@ class WildQuest extends AbstractQuest {
 
     private void onNewsAddEventOnArrival(Object object) {
         if (wildOnBoard && isCurrentSystemIs(StarSystemId.Kravat)) {
-            log.fine("" + getNewsIds().get(News.WildGotToKravat.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.WildGotToKravat.ordinal()));
+            log.fine("" + getNewsIdByIndex(News.WildGotToKravat.ordinal()));
+            addNewsByIndex(News.WildGotToKravat.ordinal());
         } else {
             log.fine("skipped");
         }

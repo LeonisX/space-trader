@@ -93,7 +93,7 @@ public class GameController implements Serializable {
                 .formatNumber(game.getScore() % 10));
 
         HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.getScore(), game.getEndStatus(),
-                game.getCommander().getDays(), game.getCommander().getWorth(), Game.getDifficulty());
+                game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
         if (candidate.compareTo(IOUtils.getHighScores()[0]) > 0) {
             if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
