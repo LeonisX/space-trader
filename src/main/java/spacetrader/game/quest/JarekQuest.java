@@ -153,7 +153,7 @@ class JarekQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Devidia);
+        StarSystem starSystem = getStarSystem(StarSystemId.Devidia);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.JarekGetsOut).setStarSystemId(starSystem.getId());
     }

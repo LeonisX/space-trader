@@ -127,7 +127,7 @@ public class ExperimentQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Daled);
+        StarSystem starSystem = getStarSystem(StarSystemId.Daled);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.ExperimentStopped).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.ExperimentFailed).setStarSystemId(starSystem.getId());
@@ -144,7 +144,7 @@ public class ExperimentQuest extends AbstractQuest {
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
-            phases.get(QuestPhases.Experiment).setStarSystemId(Game.getStarSystem(systemId).getId());
+            phases.get(QuestPhases.Experiment).setStarSystemId(getStarSystem(systemId).getId());
         }
     }
 
@@ -269,7 +269,7 @@ public class ExperimentQuest extends AbstractQuest {
             questStatus.set(Math.min(questStatus.get() + ((IntContainer) object).getValue(), STATUS_EXPERIMENT_PERFORMED));
             if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED) {
                 game.setFabricRipProbability(Consts.FabricRipInitialProbability);
-                Game.getStarSystem(StarSystemId.Daled).setQuestSystem(true);
+                getStarSystem(StarSystemId.Daled).setQuestSystem(true);
                 showAlert(Alerts.ExperimentPerformed.getValue());
                 Game.getNews().addEvent(getNewsIds().get(News.ExperimentPerformed.ordinal()));
             }

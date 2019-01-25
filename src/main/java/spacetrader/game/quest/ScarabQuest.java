@@ -199,9 +199,9 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         log.fine("");
         // Assign a wormhole location endpoint for the Scarab.
         OptionalInt freeWormhole = Arrays.stream(game.getWormholes())
-                .filter(wormhole -> !Game.getStarSystem(wormhole).isQuestSystem()).findAny();
+                .filter(wormhole -> !getStarSystem(wormhole).isQuestSystem()).findAny();
         if (freeWormhole.isPresent()) {
-            StarSystem starSystem = Game.getStarSystem(freeWormhole.getAsInt());
+            StarSystem starSystem = getStarSystem(freeWormhole.getAsInt());
             starSystem.setQuestSystem(true);
             phases.get(QuestPhases.ScarabDestroyed).setStarSystemId(starSystem.getId());
             phases.get(QuestPhases.ScarabUpgradeHull).setStarSystemId(starSystem.getId());
@@ -324,12 +324,12 @@ class ScarabQuest extends AbstractQuest implements Serializable {
         } else if (questStatus == STATUS_SCARAB_DESTROYED) {
             if (!authoritiesNotified) {
                 String text = Functions.stringVars(QuestClues.ScarabNotify.getValue(),
-                        Game.getStarSystem(phases.get(QuestPhases.ScarabDestroyed).getStarSystemId()).getName());
+                        getStarSystem(phases.get(QuestPhases.ScarabDestroyed).getStarSystemId()).getName());
                 questStrings.add(text);
                 log.fine(text);
             } else {
                 String text = Functions.stringVars(QuestClues.ScarabHull.getValue(),
-                        Game.getStarSystem(phases.get(QuestPhases.ScarabUpgradeHull).getStarSystemId()).getName());
+                        getStarSystem(phases.get(QuestPhases.ScarabUpgradeHull).getStarSystemId()).getName());
                 questStrings.add(text);
                 log.fine(text);
             }

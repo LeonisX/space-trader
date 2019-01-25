@@ -203,21 +203,21 @@ class PrincessQuest extends AbstractQuest implements Serializable {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Galvon);
+        StarSystem starSystem = getStarSystem(StarSystemId.Galvon);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.Princess).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.PrincessReturned).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.PrincessQuantum).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Centauri);
+        starSystem = getStarSystem(StarSystemId.Centauri);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessCentauri).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Inthara);
+        starSystem = getStarSystem(StarSystemId.Inthara);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessInthara).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Qonos);
+        starSystem = getStarSystem(StarSystemId.Qonos);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessQonos).setStarSystemId(starSystem.getId());
     }

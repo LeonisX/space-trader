@@ -1166,11 +1166,11 @@ public class Game implements Serializable {
         return getCurrentSystemId().equals(starSystemId);
     }
 
-    public static StarSystem getStarSystem(StarSystemId starSystemId) {
+    public StarSystem getStarSystem(StarSystemId starSystemId) {
         return getStarSystem(starSystemId.castToInt());
     }
 
-    public static StarSystem getStarSystem(int starSystemId) {
+    public StarSystem getStarSystem(int starSystemId) {
         return Game.getCurrentGame().getUniverse()[starSystemId];
     }
 

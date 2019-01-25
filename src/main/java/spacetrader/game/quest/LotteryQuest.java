@@ -115,7 +115,7 @@ class LotteryQuest extends AbstractQuest {
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
         if (phases.get(QuestPhases.LotteryWinner).canBeExecuted() && (isQuestIsInactive() || isQuestIsActive())) {
-            String title = Functions.stringVars(QuestClues.LotteryWinner.getValue(), Game.getStarSystem(phases.get(QuestPhases.LotteryWinner).getStarSystemId()).getName());
+            String title = Functions.stringVars(QuestClues.LotteryWinner.getValue(), getStarSystem(phases.get(QuestPhases.LotteryWinner).getStarSystemId()).getName());
             ((ArrayList<String>) object).add(title);
             log.fine(title);
         } else {

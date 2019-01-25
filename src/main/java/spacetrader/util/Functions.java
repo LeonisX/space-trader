@@ -215,6 +215,6 @@ public class Functions {
         // int i = Array.IndexOf(wormholes, a);
         int i = Util.bruteSeek(wormholes, a);
 
-        return (i >= 0 ? (Game.getStarSystem(wormholes[(i + 1) % wormholes.length])) : null);
+        return (i >= 0 ? (Game.getCurrentGame().getStarSystem(wormholes[(i + 1) % wormholes.length])) : null);
     }
 }

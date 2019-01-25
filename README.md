@@ -163,11 +163,10 @@ VeryRareEncounterCaptainHuie=Капитан Хьюи
 CrewNameCaptain=Капитан | Капитана
 
 
-* Implement captain destruction
+* Test captain destruction
 * Test all
 * Revert back isDetermineRandomEncounter()
 * Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
-* When show news about destruction of Captain's ship?
 
 ### News
 

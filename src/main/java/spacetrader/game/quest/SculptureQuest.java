@@ -132,7 +132,7 @@ class SculptureQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Endor);
+        StarSystem starSystem = getStarSystem(StarSystemId.Endor);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.SculptureDelivered).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.SculptureHiddenBays).setStarSystemId(starSystem.getId());
@@ -149,7 +149,7 @@ class SculptureQuest extends AbstractQuest {
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
-            phases.get(QuestPhases.Sculpture).setStarSystemId(Game.getStarSystem(systemId).getId());
+            phases.get(QuestPhases.Sculpture).setStarSystemId(getStarSystem(systemId).getId());
         }
     }
 

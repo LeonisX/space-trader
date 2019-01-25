@@ -122,7 +122,7 @@ public class JaporiQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Japori);
+        StarSystem starSystem = getStarSystem(StarSystemId.Japori);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.JaporiDelivery).setStarSystemId(starSystem.getId());
     }
@@ -239,11 +239,11 @@ public class JaporiQuest extends AbstractQuest {
     private void onEscapeWithPod(Object object) {
         if (questStatus == STATUS_JAPORI_IN_TRANSIT) {
             log.fine("Escaped + Antidote");
-            showAlert(Alerts.AntidoteDestroyed.getValue(), Game.getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).getName());
+            showAlert(Alerts.AntidoteDestroyed.getValue(), getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).getName());
             // Second try
             questStatus = STATUS_JAPORI_NOT_STARTED;
             setQuestState(QuestState.INACTIVE);
-            Game.getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).setQuestSystem(true);
+            getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).setQuestSystem(true);
         } else {
             log.fine("Escaped w/o Antidote");
         }

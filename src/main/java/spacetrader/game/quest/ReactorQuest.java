@@ -136,7 +136,7 @@ public class ReactorQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Nix);
+        StarSystem starSystem = game.getStarSystem(StarSystemId.Nix);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.ReactorDelivered).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.ReactorLaser).setStarSystemId(starSystem.getId());
@@ -153,7 +153,7 @@ public class ReactorQuest extends AbstractQuest {
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
-            phases.get(QuestPhases.Reactor).setStarSystemId(Game.getStarSystem(systemId).getId());
+            phases.get(QuestPhases.Reactor).setStarSystemId(game.getStarSystem(systemId).getId());
         }
     }
 

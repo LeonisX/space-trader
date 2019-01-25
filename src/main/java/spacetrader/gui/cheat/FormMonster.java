@@ -336,12 +336,12 @@ public class FormMonster extends SpaceTraderForm {
 
     private Row createQuestRow(Phase phase, StarSystemId starSystemId) {
         int systemId = (null == starSystemId) ? StarSystemId.NA.castToInt() : starSystemId.castToInt();
-        String systemName = (systemId < 0) ? Strings.Unknown : Game.getStarSystem(systemId).getName();
+        String systemName = (systemId < 0) ? Strings.Unknown : game.getStarSystem(systemId).getName();
         return new Row(systemId, systemName, phase.getTitle(), Strings.QuestStates[phase.getQuest().getQuestState().ordinal()]);
     }
 
     private Row createShipyardRow(int systemId) {
-        StarSystem system = Game.getStarSystem(systemId);
+        StarSystem system = game.getStarSystem(systemId);
         return new Row(systemId, system.getName(), system.getShipyard().getName(),
                 Strings.ShipyardSkills[system.getShipyard().getSkill().castToInt()]);
     }

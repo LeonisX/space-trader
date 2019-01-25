@@ -135,7 +135,7 @@ public class CrewMember implements Serializable {
     }
 
     public StarSystem getCurrentSystem() {
-        return (currentSystemId == StarSystemId.NA) ? null : Game.getStarSystem(currentSystemId);
+        return (currentSystemId == StarSystemId.NA) ? null : Game.getCurrentGame().getStarSystem(currentSystemId);
     }
 
     public void setCurrentSystem(StarSystem value) {

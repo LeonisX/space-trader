@@ -209,6 +209,14 @@ public abstract class AbstractQuest implements Quest, Serializable {
         return getCurrentSystemId().equals(starSystemId);
     }
 
+    StarSystem getStarSystem(StarSystemId starSystemId) {
+        return getStarSystem(starSystemId.castToInt());
+    }
+
+    public StarSystem getStarSystem(int starSystemId) {
+        return getUniverse()[starSystemId];
+    }
+
     StarSystem[] getUniverse() {
         return game.getUniverse();
     }

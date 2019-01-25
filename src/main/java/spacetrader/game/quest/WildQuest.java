@@ -159,7 +159,7 @@ class WildQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Kravat);
+        StarSystem starSystem = getStarSystem(StarSystemId.Kravat);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.WildGetsOut).setStarSystemId(starSystem.getId());
     }
@@ -229,7 +229,7 @@ class WildQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #2");
             // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
-            zeethibal.setCurrentSystem(Game.getStarSystem(StarSystemId.Kravat));
+            zeethibal.setCurrentSystem(getStarSystem(StarSystemId.Kravat));
             int lowest1 = getCommander().nthLowestSkill(1);
             int lowest2 = getCommander().nthLowestSkill(2);
             for (int i = 0; i < zeethibal.getSkills().length; i++) {

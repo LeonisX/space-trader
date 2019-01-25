@@ -169,7 +169,7 @@ class SpaceMonsterQuest extends AbstractQuest implements Serializable {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Acamar);
+        StarSystem starSystem = getStarSystem(StarSystemId.Acamar);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.SpaceMonsterKilled).setStarSystemId(starSystem.getId());
     }

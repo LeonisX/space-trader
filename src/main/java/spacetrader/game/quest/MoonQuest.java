@@ -135,7 +135,7 @@ class MoonQuest extends AbstractQuest implements Serializable {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Utopia);
+        StarSystem starSystem = getStarSystem(StarSystemId.Utopia);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.MoonRetirement).setStarSystemId(starSystem.getId());
     }

@@ -179,19 +179,19 @@ class DragonflyQuest extends AbstractQuest implements Serializable {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Baratas);
+        StarSystem starSystem = getStarSystem(StarSystemId.Baratas);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyBaratas).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Melina);
+        starSystem = getStarSystem(StarSystemId.Melina);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyMelina).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Regulas);
+        starSystem = getStarSystem(StarSystemId.Regulas);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyRegulas).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Zalkon);
+        starSystem = getStarSystem(StarSystemId.Zalkon);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyDestroyed).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.DragonflyShield).setStarSystemId(starSystem.getId());
