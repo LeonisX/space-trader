@@ -23,9 +23,10 @@ public abstract class Phase implements Serializable {
     private int occurrence;
 
     public void confirmQuestPhase() {
-        Game.getCurrentGame().getCommander().setCash(Game.getCurrentGame().getCommander().getCash() - phase.getValue().getPrice());
-        Game.getCurrentGame().getCommander().getCurrentSystem().setQuestSystem(false);
-        Game.getCurrentGame().getQuestSystem().fireEvent(ON_AFTER_NEW_QUEST_STARTED);
+        Game game = Game.getCurrentGame();
+        game.getCommander().setCash(Game.getCurrentGame().getCommander().getCash() - phase.getValue().getPrice());
+        game.getCommander().getCurrentSystem().setQuestSystem(false);
+        game.getQuestSystem().fireEvent(ON_AFTER_NEW_QUEST_STARTED);
     }
 
     public String getTitle() {

@@ -514,7 +514,6 @@ public class FormEncounter extends SpaceTraderForm {
                     break;
             }
         } else {
-            //TODO full rewrite. one event. only if >= 1000. Also for captain
             game.getQuestSystem().fireEvent(ENCOUNTER_SHOW_ACTION_BUTTONS, visible);
         }
 

@@ -23,14 +23,13 @@ public class QuestSystem implements Serializable {
 
     static final long serialVersionUID = -1771570019223312592L;
 
-    private static final String QUEST_CLASS_TEMPLATE = QuestSystem.class.getName().replace("QuestSystem", "quests.%sQuest");
-
     private static final Logger log = Logger.getLogger(QuestSystem.class.getName());
+
+    private static final String QUEST_CLASS_TEMPLATE = QuestSystem.class.getName().replace("QuestSystem", "quests.%sQuest");
 
     private volatile Map<String, Quest> quests;
     private volatile Map<EventName, List<String>> eventListeners;
 
-    //TODO move to questId???
     private Map<Integer, Quest> questMercenaries = new HashMap<>();
     private Map<Integer, Quest> questNews = new HashMap<>();
     private Map<Integer, Quest> questShipSpecs = new HashMap<>();
@@ -43,7 +42,6 @@ public class QuestSystem implements Serializable {
     private volatile AtomicInteger encounterIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger shipSpecIdCounter = new AtomicInteger(1000);
     private volatile AtomicInteger gameEndTypeIdCounter = new AtomicInteger(1000);
-    private volatile AtomicInteger encounter = new AtomicInteger(1000);
     private volatile AtomicInteger veryRareEncounter = new AtomicInteger(10000);
     private volatile AtomicInteger opponentTypeEncounter = new AtomicInteger(1000);
 
@@ -104,7 +102,7 @@ public class QuestSystem implements Serializable {
     }
 
     public int registerNewEncounter(AbstractQuest quest) {
-        int encounterId = generateEncounterId();
+        int encounterId = generateEncounterIdCounter();
         questEncounters.put(encounterId, quest);
         return encounterId;
     }
@@ -146,11 +144,6 @@ public class QuestSystem implements Serializable {
         return newsIdCounter.getAndIncrement();
     }
 
-    //TODO ??? need to be used???
-    int generateEncounterId() {
-        return encounterIdCounter.getAndIncrement();
-    }
-
     private int generateShipSpecIdCounter() {
         return shipSpecIdCounter.getAndIncrement();
     }
@@ -160,7 +153,7 @@ public class QuestSystem implements Serializable {
     }
 
     private int generateEncounterIdCounter() {
-        return encounter.getAndIncrement();
+        return encounterIdCounter.getAndIncrement();
     }
 
     private Integer generateVeryRareEncounterIdCounter() {

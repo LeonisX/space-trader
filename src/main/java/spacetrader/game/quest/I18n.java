@@ -11,8 +11,6 @@ import spacetrader.util.Functions;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-
-
 public class I18n {
 
     transient private static Logger log = Logger.getLogger(I18n.class.getName());
