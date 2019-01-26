@@ -1,6 +1,6 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
-import spacetrader.game.Game;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.SimpleValueEnum;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-class SkillQuest extends AbstractQuest {
+public class SkillQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511510L;
 

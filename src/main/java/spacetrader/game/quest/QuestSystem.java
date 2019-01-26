@@ -7,6 +7,8 @@ import spacetrader.game.ShipSpec;
 import spacetrader.game.quest.containers.ShipSpecContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.QuestName;
+import spacetrader.game.quest.quests.AbstractQuest;
+import spacetrader.game.quest.quests.Quest;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -21,7 +23,7 @@ public class QuestSystem implements Serializable {
 
     static final long serialVersionUID = -1771570019223312592L;
 
-    private static final String QUEST_CLASS_TEMPLATE = QuestSystem.class.getName().replace("QuestSystem", "%sQuest");
+    private static final String QUEST_CLASS_TEMPLATE = QuestSystem.class.getName().replace("QuestSystem", "quests.%sQuest");
 
     private static final Logger log = Logger.getLogger(QuestSystem.class.getName());
 
@@ -78,42 +80,42 @@ public class QuestSystem implements Serializable {
         return questName.name() + "[" + id + "]";
     }
 
-    CrewMember registerNewSpecialCrewMember(CrewMember crewMember, Quest quest) {
+    public CrewMember registerNewSpecialCrewMember(CrewMember crewMember, Quest quest) {
         Game.getCurrentGame().getMercenaries().put(crewMember.getId(), crewMember);
         questMercenaries.put(crewMember.getId(), quest);
         return crewMember;
     }
 
-    void registerNews(int newsId, Quest quest) {
+    public void registerNews(int newsId, Quest quest) {
         questNews.put(newsId, quest);
     }
 
-    int registerNewShipSpec(ShipSpec shipSpec, AbstractQuest quest) {
+    public int registerNewShipSpec(ShipSpec shipSpec, AbstractQuest quest) {
         int shipSpecId = generateShipSpecIdCounter();
         Game.getCurrentGame().getShipSpecs().put(shipSpecId, shipSpec.withId(shipSpecId));
         questShipSpecs.put(shipSpecId, quest);
         return shipSpecId;
     }
 
-    int registerNewGameEndType(AbstractQuest quest) {
+    public int registerNewGameEndType(AbstractQuest quest) {
         int gameEndTypeId = generateGameEndTypeIdCounter();
         questGameEndTypes.put(gameEndTypeId, quest);
         return gameEndTypeId;
     }
 
-    int registerNewEncounter(AbstractQuest quest) {
+    public int registerNewEncounter(AbstractQuest quest) {
         int encounterId = generateEncounterId();
         questEncounters.put(encounterId, quest);
         return encounterId;
     }
 
-    Integer registerNewVeryRareEncounter(AbstractQuest quest) {
+    public Integer registerNewVeryRareEncounter(AbstractQuest quest) {
         Integer veryRareEncounterId = generateVeryRareEncounterIdCounter();
         questVeryRareEncounters.put(veryRareEncounterId, quest);
         return veryRareEncounterId;
     }
 
-    int registerNewOpponentType() {
+    public int registerNewOpponentType() {
         int opponentTypeId = generateOpponentTypeIdCounter();
         Game.getCurrentGame().getOpponentTypes().add(opponentTypeId);
         return opponentTypeId;
@@ -136,11 +138,11 @@ public class QuestSystem implements Serializable {
         return quests.get(getQuestId(questName, 0));
     }
 
-    int generateSpecialCrewId() {
+    public int generateSpecialCrewId() {
         return specialCrewIdCounter.getAndIncrement();
     }
 
-    int generateNewsId() {
+    public int generateNewsId() {
         return newsIdCounter.getAndIncrement();
     }
 
@@ -216,18 +218,18 @@ public class QuestSystem implements Serializable {
         quests.values().forEach(Quest::initializeTransitionMap);
     }
 
-    void subscribe(EventName eventName, Quest quest) {
+    public void subscribe(EventName eventName, Quest quest) {
         log.fine(eventName.toString() + "; " + quest.getClass().getName());
         getEventListeners().get(eventName).add(quest.getId());
     }
 
-    void unSubscribe(EventName eventName, Quest quest) {
+    public void unSubscribe(EventName eventName, Quest quest) {
         log.fine(eventName.toString() + "; " + quest.getClass().getName());
         //TODO need fix
         getEventListeners().get(eventName).removeIf(q -> q.getClass().equals(quest.getClass()));
     }
 
-    void unSubscribeAll(Quest quest) {
+    public void unSubscribeAll(Quest quest) {
         log.fine(quest.toString());
         getEventListeners().forEach((key, value) -> unSubscribe(key, quest));
     }

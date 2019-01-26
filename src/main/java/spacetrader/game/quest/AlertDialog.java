@@ -9,15 +9,15 @@ public class AlertDialog implements Serializable {
     private final String accept;
     private final String cancel;
 
-    AlertDialog(String title, String message) {
+    public AlertDialog(String title, String message) {
         this(title, message, null, null);
     }
 
-    AlertDialog(String title, String message, String accept) {
+    public AlertDialog(String title, String message, String accept) {
         this(title, message, accept, null);
     }
 
-    AlertDialog(String title, String message, String accept, String cancel) {
+    public AlertDialog(String title, String message, String accept, String cancel) {
         this.title = title;
         this.message = message;
         this.accept = accept;

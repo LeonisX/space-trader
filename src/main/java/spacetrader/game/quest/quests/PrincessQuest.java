@@ -1,14 +1,12 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.controls.Rectangle;
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.containers.*;
-import spacetrader.game.quest.enums.QuestName;
-import spacetrader.game.quest.enums.QuestState;
-import spacetrader.game.quest.enums.Repeatable;
-import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.game.quest.enums.*;
 import spacetrader.gui.FormAlert;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
@@ -22,7 +20,7 @@ import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-class PrincessQuest extends AbstractQuest implements Serializable {
+public class PrincessQuest extends AbstractQuest implements Serializable {
 
     static final long serialVersionUID = -4731305242511503L;
 

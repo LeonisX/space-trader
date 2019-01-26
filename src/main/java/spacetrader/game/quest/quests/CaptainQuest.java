@@ -1,4 +1,4 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
@@ -6,17 +6,20 @@ import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.Res;
 import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.game.quest.quests.AbstractQuest;
 
 import java.util.*;
 
 import static spacetrader.game.quest.enums.EventName.*;
 
-class CaptainQuest extends AbstractQuest {
+public class CaptainQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511600L;
 

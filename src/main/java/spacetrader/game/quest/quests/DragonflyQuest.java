@@ -1,14 +1,16 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.controls.Rectangle;
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.Res;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.guifacade.GuiFacade;
 
@@ -20,7 +22,7 @@ import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-class DragonflyQuest extends AbstractQuest implements Serializable {
+public class DragonflyQuest extends AbstractQuest implements Serializable {
 
     static final long serialVersionUID = -4731305242511516L;
 

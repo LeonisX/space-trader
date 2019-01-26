@@ -1,45 +1,56 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
-import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
+import spacetrader.game.CrewMember;
 import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.*;
-import spacetrader.game.quest.containers.BooleanContainer;
-import spacetrader.game.quest.containers.IntContainer;
-import spacetrader.game.quest.containers.SurrenderContainer;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.SkillType;
+import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.Res;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.guifacade.GuiFacade;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import static spacetrader.game.Strings.newline;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-public class ArtifactQuest extends AbstractQuest {
+public class JarekQuest extends AbstractQuest {
 
-    static final long serialVersionUID = -4731305242511518L;
+    static final long serialVersionUID = -4731305242511502L;
 
     // Constants
-    private static final int STATUS_ARTIFACT_NOT_STARTED = 0;
-    private static final int STATUS_ARTIFACT_ON_BOARD = 1;
-    private static final int STATUS_ARTIFACT_DONE = 2;
+    private static final int STATUS_NOT_STARTED = 0;
+    private static final int STATUS_JAREK_STARTED = 1;
+    private static final int STATUS_JAREK_IMPATIENT = 11;
+    private static final int STATUS_JAREK_DONE = 12;
 
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
-    private volatile int questStatus = 0; // 0 = not given yet, 1 = Artifact on board, 2 = Artifact no longer on board (either delivered or lost)
+    private volatile AtomicInteger questStatus = new AtomicInteger(0); // 0 = not delivered, 1-11 = on board, 12 = delivered
 
-    public ArtifactQuest(String id) {
+    private CrewMember jarek; // Jarek, Ambassador Jarek earns his keep now - JAF.
+    private boolean jarekOnBoard;
+
+    private UUID shipBarCode = UUID.randomUUID();
+
+    public JarekQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
-        initializePhases(QuestPhases.values(), new ArtifactPhase(), new ArtifactDeliveryPhase());
+        initializePhases(QuestPhases.values(), new JarekPhase(), new JarekGetsOutPhase());
         initializeTransitionMap();
+
+        jarek = registerNewSpecialCrewMember(3, 2, 10, 4, false);
 
         registerNews(News.values().length);
 
@@ -49,6 +60,7 @@ public class ArtifactQuest extends AbstractQuest {
 
         log.fine("started...");
     }
+
 
     private void initializePhases(QuestPhases[] values, Phase... phases) {
         for (int i = 0; i < phases.length; i++) {
@@ -64,6 +76,7 @@ public class ArtifactQuest extends AbstractQuest {
 
         getTransitionMap().put(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsManual);
         getTransitionMap().put(ON_ASSIGN_EVENTS_RANDOMLY, this::onAssignEventsRandomly);
+        getTransitionMap().put(ON_GENERATE_CREW_MEMBER_LIST, this::onGenerateCrewMemberList);
 
         getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
@@ -71,11 +84,9 @@ public class ArtifactQuest extends AbstractQuest {
         getTransitionMap().put(ON_DISPLAY_SPECIAL_CARGO, this::onDisplaySpecialCargo);
         getTransitionMap().put(ON_GET_QUESTS_STRINGS, this::onGetQuestsStrings);
 
-        getTransitionMap().put(ENCOUNTER_ON_VERIFY_SURRENDER, this::encounterOnVerifySurrender);
-        getTransitionMap().put(ENCOUNTER_ON_ROBBERY, this::encounterOnRobbery);
-        getTransitionMap().put(ENCOUNTER_GET_STEALABLE_CARGO, this::encounterGetStealableCargo);
-
+        getTransitionMap().put(ON_ARRESTED, this::onArrested);
         getTransitionMap().put(ON_ESCAPE_WITH_POD, this::onEscapeWithPod);
+        getTransitionMap().put(ON_INCREMENT_DAYS, this::onIncrementDays);
         getTransitionMap().put(ON_NEWS_ADD_EVENT_ON_ARRIVAL, this::onNewsAddEventOnArrival);
 
         getTransitionMap().put(IS_CONSIDER_STATUS_CHEAT, this::onIsConsiderCheat);
@@ -92,6 +103,17 @@ public class ArtifactQuest extends AbstractQuest {
         return phases.keySet().stream().map(QuestPhases::getValue).collect(Collectors.toList());
     }
 
+    private boolean isHagglingComputerOnBoard() {
+        return getShip().getBarCode() == shipBarCode && questStatus.get() == STATUS_JAREK_DONE;
+    }
+
+    @Override
+    public void affectSkills(int[] skills) {
+        if (isHagglingComputerOnBoard()) {
+            ++skills[SkillType.TRADER.castToInt()];
+        }
+    }
+
     @Override
     public void registerListener() {
         getTransitionMap().keySet().forEach(this::registerOperation);
@@ -99,14 +121,15 @@ public class ArtifactQuest extends AbstractQuest {
     }
 
     @Override
+    public String getCrewMemberName(int id) {
+        return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
+    }
+
+    @Override
     public String getNewsTitle(int newsId) {
         return News.values()[getNewsIds().indexOf(newsId)].getValue();
     }
 
-    public boolean isArtifactOnBoard() {
-        return questStatus == STATUS_ARTIFACT_ON_BOARD;
-    }
-    
     @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());
@@ -114,7 +137,7 @@ public class ArtifactQuest extends AbstractQuest {
         I18n.dumpStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
-        I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
+        I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
         I18n.dumpStrings(Res.SpecialCargo, Arrays.stream(SpecialCargo.values()));
         I18n.dumpStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
@@ -125,30 +148,25 @@ public class ArtifactQuest extends AbstractQuest {
         I18n.localizeStrings(Res.Quests, Arrays.stream(QuestClues.values()));
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
-        I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
+        I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
         I18n.localizeStrings(Res.SpecialCargo, Arrays.stream(SpecialCargo.values()));
         I18n.localizeStrings(Res.CheatTitles, Arrays.stream(CheatTitles.values()));
     }
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        BooleanContainer goodUniverse = (BooleanContainer) object;
-        // Find a Hi-Tech system without a special event for ArtifactDelivery.
-        if (goodUniverse.getValue()) {
-            Optional<StarSystem> freeHiTechSystem = Arrays.stream(getUniverse())
-                    .filter(universe -> !universe.isQuestSystem()
-                            && universe.getTechLevel() == TechLevel.HI_TECH).findAny();
-            if (freeHiTechSystem.isPresent()) {
-                freeHiTechSystem.get().setQuestSystem(true);
-                phases.get(QuestPhases.ArtifactDelivery).setStarSystemId(freeHiTechSystem.get().getId());
-            } else {
-                goodUniverse.setValue(false);
-            }
-        }
+        StarSystem starSystem = Game.getStarSystem(StarSystemId.Devidia);
+        starSystem.setQuestSystem(true);
+        phases.get(QuestPhases.JarekGetsOut).setStarSystemId(starSystem.getId());
     }
 
     private void onAssignEventsRandomly(Object object) {
-        phases.get(QuestPhases.Artifact).setStarSystemId(occupyFreeSystemWithEvent());
+        phases.get(QuestPhases.Jarek).setStarSystemId(occupyFreeSystemWithEvent());
+    }
+
+    private void onGenerateCrewMemberList(Object object) {
+        log.fine("");
+        getMercenaries().put(jarek.getId(), jarek);
     }
 
     private void onBeforeSpecialButtonShow(Object object) {
@@ -156,45 +174,53 @@ public class ArtifactQuest extends AbstractQuest {
     }
 
     //SpecialEvent(SpecialEventType type, int price, int occurrence, boolean messageOnly)
-    class ArtifactPhase extends Phase { //new SpecialEvent(SpecialEventType.Artifact, 0, 1, false),
+    class JarekPhase extends Phase { //new SpecialEvent(SpecialEventType.Jarek, 0, 1, false),
         @Override
         public boolean canBeExecuted() {
-            return isDesiredSystem() && questStatus == STATUS_ARTIFACT_NOT_STARTED
-                    && getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious;
+            return getCommander().getPoliceRecordScore() >= Consts.PoliceRecordScoreDubious
+                    && !jarekOnBoard && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #1");
-            questStatus = STATUS_ARTIFACT_ON_BOARD;
-            confirmQuestPhase();
-            setQuestState(QuestState.ACTIVE);
+            if (getShip().getFreeCrewQuartersCount() == 0) {
+                GuiFacade.alert(AlertType.SpecialNoQuarters);
+            } else {
+                GuiFacade.alert(AlertType.SpecialPassengerOnBoard, jarek.getName());
+                getShip().hire(jarek);
+                jarekOnBoard = true;
+                questStatus.set(STATUS_JAREK_STARTED);
+                setQuestState(QuestState.ACTIVE);
+                confirmQuestPhase();
+            }
         }
 
         @Override
         public String toString() {
-            return "ArtifactPhase{} " + super.toString();
+            return "JarekPhase{} " + super.toString();
         }
     }
 
-    class ArtifactDeliveryPhase extends Phase { //new SpecialEvent(SpecialEventType.ArtifactDelivery, -20000, 0, true),
+    class JarekGetsOutPhase extends Phase { //new SpecialEvent(SpecialEventType.JarekGetsOut, 0, 0, true),
         @Override
         public boolean canBeExecuted() {
-            return isArtifactOnBoard() && isDesiredSystem();
+            return jarekOnBoard && isDesiredSystem();
         }
 
         @Override
         public void successFlow() {
             log.fine("phase #2");
-            questStatus = STATUS_ARTIFACT_DONE;
-            confirmQuestPhase();
             setQuestState(QuestState.FINISHED);
+            questStatus.set(STATUS_JAREK_DONE);
+            removePassenger();
+            shipBarCode = getShip().getBarCode();
             game.getQuestSystem().unSubscribeAll(getQuest());
         }
 
         @Override
         public String toString() {
-            return "ArtifactDeliveryPhase{} " + super.toString();
+            return "JarekGetsOutPhase{} " + super.toString();
         }
     }
 
@@ -210,85 +236,88 @@ public class ArtifactQuest extends AbstractQuest {
 
     @SuppressWarnings("unchecked")
     private void onDisplaySpecialCargo(Object object) {
-        if (isArtifactOnBoard()) {
-            log.fine(SpecialCargo.Artifact.getValue());
-            ((List<String>) object).add(SpecialCargo.Artifact.getValue());
+        if (isHagglingComputerOnBoard()) {
+            log.fine(SpecialCargo.HagglingComputer.getValue());
+            ((ArrayList<String>) object).add(SpecialCargo.HagglingComputer.getValue());
         } else {
-            log.fine("Don't show " + SpecialCargo.Artifact.getValue());
+            log.fine("Don't show " + SpecialCargo.HagglingComputer.getValue());
         }
     }
 
     @SuppressWarnings("unchecked")
     private void onGetQuestsStrings(Object object) {
-        if (isArtifactOnBoard()) {
-            ((ArrayList<String>) object).add(QuestClues.Artifact.getValue());
+        if (jarekOnBoard) {
+            if (questStatus.get() == STATUS_JAREK_IMPATIENT) {
+                ((ArrayList<String>) object).add(QuestClues.JarekImpatient.getValue());
+                log.fine(QuestClues.JarekImpatient.getValue());
+            } else {
+                ((ArrayList<String>) object).add(QuestClues.Jarek.getValue());
+                log.fine(QuestClues.Jarek.getValue());
+            }
         } else {
             log.fine("skipped");
         }
     }
 
-    private void encounterOnVerifySurrender(Object object) {
-        SurrenderContainer surrenderContainer = (SurrenderContainer) object;
-        if (!surrenderContainer.isMatch() && getOpponent().getType() == ShipType.MANTIS) {
-            if (isArtifactOnBoard()) {
-                if (showYesNoAlert(Alerts.EncounterAliensSurrender.getValue()) == DialogResult.YES) {
-                    showAlert(Alerts.ArtifactRelinquished.getValue());
-                    questStatus = STATUS_ARTIFACT_NOT_STARTED;
-
-                    surrenderContainer.setResult(EncounterResult.NORMAL);
-                }
-            } else {
-                GuiFacade.alert(AlertType.EncounterSurrenderRefused);
-            }
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private void encounterOnRobbery(Object object) {
-        if (!isArtifactOnBoard()) {
-            return;
-        }
-
-        //TODO if too much stealable items - will be hidden cargo bays overflow
-        if (getShip().hasGadget(GadgetType.HIDDEN_CARGO_BAYS)) {
-            ((ArrayList<String>) object).add(Encounters.HideArtifact.getValue());
-        } else {
-            showAlert(Alerts.EncounterPiratesNotTakeArtifact.getValue());
-        }
-    }
-
-    private void encounterGetStealableCargo(Object object) {
-        if (isArtifactOnBoard()) {
-            ((IntContainer) object).dec();
-        }
-    }
-
-    private void onEscapeWithPod(Object object) {
-        if (isArtifactOnBoard()) {
-            log.fine("Lost Artifact");
-            showAlert(Alerts.ArtifactLost.getValue());
+    // TODO repeat if < normal, otherwise fail
+    private void onArrested(Object object) {
+        if (jarekOnBoard) {
+            log.fine("Arrested + Jarek");
+            showAlert(Alerts.JarekTakenHome.getValue());
             failQuest();
         } else {
-            log.fine("Escaped w/o Artifact");
+            log.fine("Arrested w/o Jarek");
+        }
+    }
+
+    // TODO repeat if < normal, otherwise fail
+    private void onEscapeWithPod(Object object) {
+        if (jarekOnBoard) {
+            log.fine("Escaped + Jarek");
+            showAlert(Alerts.JarekTakenHome.getValue());
+            failQuest();
+        } else {
+            log.fine("Escaped w/o Jarek");
         }
     }
 
     private void failQuest() {
         game.getQuestSystem().unSubscribeAll(getQuest());
-        questStatus = STATUS_ARTIFACT_DONE;
+        questStatus.set(STATUS_NOT_STARTED);
         setQuestState(QuestState.FAILED);
+        removePassenger();
+    }
+
+    private void removePassenger() {
+        getShip().fire(jarek.getId());
+        jarekOnBoard = false;
+    }
+
+    private void onIncrementDays(Object object) {
+        if (jarekOnBoard) {
+            log.fine(questStatus + "");
+            if (questStatus.get() == STATUS_JAREK_IMPATIENT / 2) {
+                showAlert(Alerts.SpecialPassengerConcernedJarek.getValue());
+            } else if (questStatus.get() == STATUS_JAREK_IMPATIENT - 1) {
+                showAlert(Alerts.SpecialPassengerImpatientJarek.getValue());
+                jarek.setPilot(0);
+                jarek.setFighter(0);
+                jarek.setTrader(0);
+                jarek.setEngineer(0);
+            }
+
+            if (questStatus.get() < STATUS_JAREK_IMPATIENT) {
+                questStatus.getAndIncrement();
+            }
+        } else {
+            log.fine("skipped");
+        }
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
-
-        if (phases.get(QuestPhases.ArtifactDelivery).isDesiredSystem()) {
-            result = News.ArtifactDelivery;
-        }
-
-        if (result != null) {
-            log.fine("" + result.ordinal());
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (jarekOnBoard && isCurrentSystemIs(StarSystemId.Devidia)) {
+            log.fine("" + getNewsIds().get(0));
+            Game.getNews().addEvent(getNewsIds().get(0));
         } else {
             log.fine("skipped");
         }
@@ -296,8 +325,8 @@ public class ArtifactQuest extends AbstractQuest {
 
     private void onIsConsiderCheat(Object object) {
         CheatWords cheatWords = (CheatWords) object;
-        if (cheatWords.getSecond().equals(CheatTitles.Artifact.name())) {
-            questStatus = Math.max(0, cheatWords.getNum2());
+        if (cheatWords.getSecond().equals(CheatTitles.Jarek.name())) {
+            questStatus.set(Math.max(0, cheatWords.getNum2()));
             cheatWords.setCheat(true);
             log.fine("consider cheat");
         } else {
@@ -308,12 +337,12 @@ public class ArtifactQuest extends AbstractQuest {
     @SuppressWarnings("unchecked")
     private void onIsConsiderDefaultCheat(Object object) {
         log.fine("");
-        ((Map<String, Integer>) object).put(CheatTitles.Artifact.getValue(), questStatus);
+        ((Map<String, Integer>) object).put(CheatTitles.Jarek.getValue(), questStatus.get());
     }
 
     enum QuestPhases implements SimpleValueEnum<QuestDialog> {
-        Artifact(new QuestDialog(DIALOG, "Alien Artifact", "This alien artifact should be delivered to professor Berger, who is currently traveling. You can probably find him at a hi-tech solar system. The alien race which produced this artifact seems keen on getting it back, however, and may hinder the carrier. Are you, for a price, willing to deliver it?")),
-        ArtifactDelivery(new QuestDialog(-20000, ALERT, "Artifact Delivery", "This is professor Berger. I thank you for delivering the alien artifact to me. I hope the aliens weren't too much of a nuisance. I have transferred 20000 credits to your account, which I assume compensates for your troubles."));
+        Jarek(new QuestDialog(DIALOG, "Ambassador Jarek", "A recent change in the political climate of this solar system has forced Ambassador Jarek to flee back to his home system, Devidia. Would you be willing to give him a lift?")),
+        JarekGetsOut(new QuestDialog(ALERT, "Jarek Gets Out", "Ambassador Jarek is very grateful to you for delivering him back to Devidia. As a reward, he gives you an experimental handheld haggling computer, which allows you to gain larger discounts when purchasing goods and equipment."));
 
         private QuestDialog value;
 
@@ -335,7 +364,8 @@ public class ArtifactQuest extends AbstractQuest {
     private EnumMap<QuestPhases, Phase> phases = new EnumMap<>(QuestPhases.class);
 
     enum QuestClues implements SimpleValueEnum<String> {
-        Artifact("Deliver the alien artifact to Professor Berger at some hi-tech system.");
+        Jarek("Take ambassador Jarek to Devidia."),
+        JarekImpatient("Take ambassador Jarek to Devidia." + newline + "Jarek is wondering why the journey is taking so long, and is no longer of much help in negotiating trades.");
 
         private String value;
 
@@ -355,10 +385,9 @@ public class ArtifactQuest extends AbstractQuest {
     }
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
-        ArtifactLost("Artifact Lost", "The alien artifact has been lost in the wreckage of your ship."),
-        EncounterAliensSurrender("Surrender", "If you surrender to the aliens, they will take the artifact. Are you sure you wish to do that?"),
-        ArtifactRelinquished("Artifact Relinquished", "The aliens take the artifact from you."),
-        EncounterPiratesNotTakeArtifact("Pirates left Artifact", "Pirates are very interested in an Alien Artifact. But since no one could say what it is, their leader forbade even to touch him so as not to pick up some unknown infection.");
+        SpecialPassengerConcernedJarek("Ship's Comm.", "Commander? Jarek here. Do you require any assistance in charting a course to Devidia?"),
+        SpecialPassengerImpatientJarek("Ship's Comm.", "Captain! This is the Ambassador speaking. We should have been there by now?!"),
+        JarekTakenHome("Jarek Taken Home", "The Space Corps decides to give ambassador Jarek a lift home to Devidia.");
 
         private AlertDialog value;
 
@@ -378,7 +407,7 @@ public class ArtifactQuest extends AbstractQuest {
     }
 
     enum News implements SimpleValueEnum<String> {
-        ArtifactDelivery("Scientist Adds Alien Artifact to Museum Collection.");
+        AmbassadorJarekReturnsFromCrisis("Ambassador Jarek Returns from Crisis.");
 
         private String value;
 
@@ -397,12 +426,12 @@ public class ArtifactQuest extends AbstractQuest {
         }
     }
 
-    enum Encounters implements SimpleValueEnum<String> {
-        HideArtifact("the Alien Artifact");
+    enum CrewNames implements SimpleValueEnum<String> {
+        Jarek("Jarek");
 
         private String value;
 
-        Encounters(String value) {
+        CrewNames(String value) {
             this.value = value;
         }
 
@@ -418,7 +447,7 @@ public class ArtifactQuest extends AbstractQuest {
     }
 
     enum SpecialCargo implements SimpleValueEnum<String> {
-        Artifact("An alien artifact.");
+        HagglingComputer("A haggling computer.");
         private String value;
 
         SpecialCargo(String value) {
@@ -437,7 +466,7 @@ public class ArtifactQuest extends AbstractQuest {
     }
 
     enum CheatTitles implements SimpleValueEnum<String> {
-        Artifact("Artifact");
+        Jarek("Jarek");
         private String value;
 
         CheatTitles(String value) {
@@ -457,8 +486,11 @@ public class ArtifactQuest extends AbstractQuest {
 
     @Override
     public String toString() {
-        return "ArtifactQuest{" +
+        return "JarekQuest{" +
                 "questStatus=" + questStatus +
+                ", jarek=" + jarek +
+                ", jarekOnBoard=" + jarekOnBoard +
+                ", shipBarCode=" + shipBarCode +
                 "} " + super.toString();
     }
 }

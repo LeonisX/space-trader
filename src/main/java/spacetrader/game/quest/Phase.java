@@ -4,6 +4,7 @@ import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.game.quest.quests.Quest;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,11 +44,11 @@ public abstract class Phase implements Serializable {
         this.occurrence = occurrence;
     }
 
-    boolean isDesiredSystem() {
+    public boolean isDesiredSystem() {
         return starSystemIds.stream().anyMatch(Game.getCurrentGame()::isCurrentSystemIs);
     }
 
-    boolean isDesiredSystem(StarSystem starSystem) {
+    public boolean isDesiredSystem(StarSystem starSystem) {
         return starSystemIds.stream().anyMatch(s -> s.equals(starSystem.getId()));
     }
 
@@ -59,7 +60,7 @@ public abstract class Phase implements Serializable {
         return starSystemIds.get(0);
     }
 
-    void setStarSystemId(StarSystemId starSystemId) {
+    public void setStarSystemId(StarSystemId starSystemId) {
         starSystemIds.add(starSystemId);
     }
 
@@ -71,7 +72,7 @@ public abstract class Phase implements Serializable {
         this.quest = quest;
     }
 
-    void setPhaseEnum(SimpleValueEnum<QuestDialog> phaseEnum) {
+    public void setPhaseEnum(SimpleValueEnum<QuestDialog> phaseEnum) {
         this.phase = phaseEnum;
     }
 

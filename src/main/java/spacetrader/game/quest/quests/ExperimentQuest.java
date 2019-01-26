@@ -1,4 +1,4 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.game.Consts;
 import spacetrader.game.Game;
@@ -6,10 +6,12 @@ import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.StarSystemId;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.Res;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.util.Functions;
 
@@ -20,7 +22,6 @@ import java.util.stream.Collectors;
 import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 
-//TODO -gemulon
 public class ExperimentQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511514L;
@@ -140,7 +141,7 @@ public class ExperimentQuest extends AbstractQuest {
         if (!goodUniverse.getValue()) {
             return;
         }
-        int systemId = game.isFindDistantSystem(StarSystemId.Gemulon);
+        int systemId = game.isFindDistantSystem(StarSystemId.Daled);
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {

@@ -1,16 +1,13 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.game.Commander;
-import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.TradeItemType;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.NewsContainer;
-import spacetrader.game.quest.enums.QuestName;
-import spacetrader.game.quest.enums.QuestState;
-import spacetrader.game.quest.enums.Repeatable;
-import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.game.quest.enums.*;
 import spacetrader.util.Functions;
 
 import java.awt.*;

@@ -10,15 +10,15 @@ public class QuestDialog extends AlertDialog implements Serializable {
     private final int price;
     private final int occurrence;
 
-    QuestDialog(MessageType messageType, String title, String message) {
+    public QuestDialog(MessageType messageType, String title, String message) {
         this(0, 1, messageType, title, message);
     }
 
-    QuestDialog(int price, MessageType messageType, String title, String message) {
+    public QuestDialog(int price, MessageType messageType, String title, String message) {
         this(price, 1, messageType, title, message);
     }
 
-    QuestDialog(int price, int occurrence, MessageType messageType, String title, String message) {
+    public QuestDialog(int price, int occurrence, MessageType messageType, String title, String message) {
         super(title, message);
         this.messageType = messageType;
         this.price = price;

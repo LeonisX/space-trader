@@ -1,6 +1,8 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.controls.Rectangle;
+import spacetrader.game.quest.Phase;
+import spacetrader.game.quest.QuestDialog;
 import spacetrader.game.quest.containers.ShipSpecContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.QuestState;

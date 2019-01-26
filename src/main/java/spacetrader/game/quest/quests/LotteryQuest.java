@@ -1,9 +1,11 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.game.Game;
 import spacetrader.game.enums.Difficulty;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
+import spacetrader.game.quest.enums.Res;
 import spacetrader.game.quest.enums.SimpleValueEnum;
 import spacetrader.util.Functions;
 
@@ -17,7 +19,7 @@ import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.Repeatable.ONE_TIME;
 
-class LotteryQuest extends AbstractQuest {
+public class LotteryQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511501L;
 

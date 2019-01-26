@@ -14,7 +14,7 @@ import spacetrader.game.Ship;
 import spacetrader.game.enums.Buttons;
 import spacetrader.game.enums.EncounterResult;
 import spacetrader.game.enums.EncounterType;
-import spacetrader.game.quest.TribblesQuest;
+import spacetrader.game.quest.quests.TribblesQuest;
 import spacetrader.game.quest.enums.QuestName;
 import spacetrader.guifacade.Facaded;
 import spacetrader.util.Functions;

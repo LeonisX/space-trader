@@ -1,4 +1,4 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.controls.Button;
 import spacetrader.controls.Rectangle;
@@ -8,6 +8,9 @@ import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
+import spacetrader.game.quest.AlertDialog;
+import spacetrader.game.quest.Phase;
+import spacetrader.game.quest.QuestDialog;
 import spacetrader.game.quest.containers.ShipSpecContainer;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.game.quest.enums.MessageType;

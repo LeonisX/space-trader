@@ -1,4 +1,4 @@
-package spacetrader.game.quest;
+package spacetrader.game.quest.quests;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
@@ -9,13 +9,11 @@ import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.enums.WeaponType;
+import spacetrader.game.quest.*;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.RandomEncounterContainer;
-import spacetrader.game.quest.enums.QuestName;
-import spacetrader.game.quest.enums.QuestState;
-import spacetrader.game.quest.enums.Repeatable;
-import spacetrader.game.quest.enums.SimpleValueEnum;
+import spacetrader.game.quest.enums.*;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
 
@@ -26,7 +24,7 @@ import static spacetrader.game.quest.enums.EventName.*;
 import static spacetrader.game.quest.enums.MessageType.ALERT;
 import static spacetrader.game.quest.enums.MessageType.DIALOG;
 
-class WildQuest extends AbstractQuest {
+public class WildQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511504L;
 
