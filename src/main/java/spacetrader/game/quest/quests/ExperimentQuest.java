@@ -1,7 +1,6 @@
 package spacetrader.game.quest.quests;
 
 import spacetrader.game.Consts;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatWords;
@@ -128,7 +127,7 @@ public class ExperimentQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Daled);
+        StarSystem starSystem = getStarSystem(StarSystemId.Daled);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.ExperimentStopped).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.ExperimentFailed).setStarSystemId(starSystem.getId());
@@ -145,7 +144,7 @@ public class ExperimentQuest extends AbstractQuest {
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
-            phases.get(QuestPhases.Experiment).setStarSystemId(Game.getStarSystem(systemId).getId());
+            phases.get(QuestPhases.Experiment).setStarSystemId(getStarSystem(systemId).getId());
         }
     }
 
@@ -270,9 +269,9 @@ public class ExperimentQuest extends AbstractQuest {
             questStatus.set(Math.min(questStatus.get() + ((IntContainer) object).getValue(), STATUS_EXPERIMENT_PERFORMED));
             if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED) {
                 game.setFabricRipProbability(Consts.FabricRipInitialProbability);
-                Game.getStarSystem(StarSystemId.Daled).setQuestSystem(true);
+                getStarSystem(StarSystemId.Daled).setQuestSystem(true);
                 showAlert(Alerts.ExperimentPerformed.getValue());
-                Game.getNews().addEvent(getNewsIds().get(News.ExperimentPerformed.ordinal()));
+                addNewsByIndex(News.ExperimentPerformed.ordinal());
             }
         } else if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED  && game.getFabricRipProbability() > 0) {
             game.setFabricRipProbability(game.getFabricRipProbability() - ((IntContainer) object).getValue());
@@ -280,19 +279,19 @@ public class ExperimentQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.ExperimentFailed).isDesiredSystem()) {
             if (questStatus.get() == STATUS_EXPERIMENT_PERFORMED) {
-                result = News.ExperimentFailed;
+                newsIndex = News.ExperimentFailed.ordinal();
             } else if (questStatus.get() > STATUS_EXPERIMENT_NOT_STARTED && questStatus.get() < STATUS_EXPERIMENT_PERFORMED) {
-                result = News.ExperimentStopped;
+                newsIndex = News.ExperimentStopped.ordinal();
             }
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

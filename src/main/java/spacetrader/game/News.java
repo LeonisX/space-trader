@@ -15,16 +15,13 @@ import static spacetrader.game.quest.enums.EventName.ON_NEWS_ADD_EVENT_FROM_NEAR
 
 public class News implements Serializable {
 
-    //TODO
-    //static final long serialVersionUID = 110L;
-    
-    private Game game;
+    static final long serialVersionUID = 42541307686008683L;
+
     private Commander commander;
 
     private ArrayList<Integer> newsEvents = new ArrayList<>(); // News for current system
 
     public News(Game game) {
-        this.game = game;
         this.commander = game.getCommander();
     }
 
@@ -34,17 +31,6 @@ public class News implements Serializable {
 
     public void addEvent(NewsEvent newsEvent) {
         newsEvents.add(newsEvent.castToInt());
-    }
-
-    public void replaceLastAttackedEventWithDestroyedEvent() {
-        int oldEvent = newsEvents.get(newsEvents.size() - 1);
-        int newEvent = oldEvent + 1;
-
-        //TODO need check????
-        if (newsEvents.indexOf(oldEvent) >= 0) {
-            newsEvents.remove(oldEvent);
-        }
-        newsEvents.add(newEvent);
     }
 
     void resetEvents() {
@@ -89,20 +75,15 @@ public class News implements Serializable {
         }
 
         // and now, finally, useful news (if any)
-        // base probability of a story showing up is (50 / MAXTECHLEVEL) * Current Tech Level
-        // This is then modified by adding 10% for every level of play less than impossible
         boolean realNews = false;
-        //TODO ???
-        int minProbability = Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10 * (5 - Game.getDifficultyId());
-
         NewsContainer newsContainer = new NewsContainer(news);
 
         for (StarSystem starSystem : Game.getCurrentGame().getUniverse()) {
             if (starSystem.destIsOk() && starSystem != curSys) {
-                // Special stories that always get shown: moon, millionaire, shipyard
 
                 newsContainer.setStarSystem(starSystem);
 
+                // Special stories that always get shown: moon, millionaire, shipyard
                 if (starSystem.getShipyardId() != ShipyardId.NA) {
                     newsContainer.getNews().add(Strings.NewsShipyard);
                 }
@@ -115,7 +96,7 @@ public class News implements Serializable {
                 // And not-always-shown stories
                 if (starSystem.getSystemPressure() != SystemPressure.NONE
                         && Functions.getRandom2(100) <= Consts.StoryProbability * curSys.getTechLevel().castToInt() + 10
-                        * (5 - Game.getDifficultyId())) {
+                        * (5 - Game.getCurrentGame().getDifficultyId())) {
                     int index = Functions.getRandom2(Strings.NewsPressureExternal.length);
                     String baseStr = Strings.NewsPressureExternal[index];
                     String pressure = Strings.NewsPressureExternalPressures[starSystem.getSystemPressure().castToInt()];
@@ -141,5 +122,9 @@ public class News implements Serializable {
         }
 
         return newsContainer.getNews().stream().map(s -> "\u02FE " + s).collect(Collectors.joining(Strings.newline));
+    }
+
+    public ArrayList<Integer> getNewsEvents() {
+        return newsEvents;
     }
 }

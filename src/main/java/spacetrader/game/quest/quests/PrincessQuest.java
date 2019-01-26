@@ -65,7 +65,7 @@ public class PrincessQuest extends AbstractQuest implements Serializable {
                 new PrincessQonosPhase(), new PrincessReturnedPhase(), new PrincessQuantumPhase());
         initializeTransitionMap();
 
-        int d = Game.getDifficultyId();
+        int d = getDifficultyId();
         princess = registerNewSpecialCrewMember(4, 3, 8, 9, false);
         scorpionCrew = registerNewSpecialCrewMember(8 + d, 8 + d, 1, 6 + d, false);
 
@@ -201,21 +201,21 @@ public class PrincessQuest extends AbstractQuest implements Serializable {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Galvon);
+        StarSystem starSystem = getStarSystem(StarSystemId.Galvon);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.Princess).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.PrincessReturned).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.PrincessQuantum).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Centauri);
+        starSystem = getStarSystem(StarSystemId.Centauri);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessCentauri).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Inthara);
+        starSystem = getStarSystem(StarSystemId.Inthara);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessInthara).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Qonos);
+        starSystem = getStarSystem(StarSystemId.Qonos);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.PrincessQonos).setStarSystemId(starSystem.getId());
     }
@@ -604,37 +604,37 @@ public class PrincessQuest extends AbstractQuest implements Serializable {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         switch (questStatus) {
             case STATUS_NOT_STARTED:
                 if (isCurrentSystemIs(StarSystemId.Galvon)) {
-                    result = News.Princess;
+                    newsIndex = News.Princess.ordinal();
                 }
                 break;
             //TODO try to catch these news in other systems
             case STATUS_FLY_CENTAURI:
-                result = News.PrincessCentauri;
+                newsIndex = News.PrincessCentauri.ordinal();
                 break;
             case STATUS_FLY_INTHARA:
-                result = News.PrincessInthara;
+                newsIndex = News.PrincessInthara.ordinal();
                 break;
             case STATUS_FLY_QONOS:
-                result = News.PrincessQonos;
+                newsIndex = News.PrincessQonos.ordinal();
                 break;
             case STATUS_PRINCESS_RESCUED:
-                result = News.PrincessRescued;
+                newsIndex = News.PrincessRescued.ordinal();
                 break;
             case STATUS_PRINCESS_RETURNED:
-                result = News.PrincessReturned;
+                newsIndex = News.PrincessReturned.ordinal();
                 break;
             default:
                 log.fine("skipped");
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         }
     }
 
@@ -655,7 +655,7 @@ public class PrincessQuest extends AbstractQuest implements Serializable {
         if (game.getEndStatus() == gameEndTypeId) {
             ScoreContainer score = (ScoreContainer) object;
             if (score.getEndStatus() == 1) {
-                score.setDaysMoon(Math.max(0, (Game.getDifficultyId() + 1) * 100 - getCommander().getDays()));
+                score.setDaysMoon(Math.max(0, (getDifficultyId() + 1) * 100 - getCommander().getDays()));
                 score.setModifier(100); //TODO 110????
             }
         }

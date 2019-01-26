@@ -44,7 +44,7 @@ public class PoliticalSystem {
 
     boolean ShipTypeLikely(ShipType shipType, int oppType) {
         boolean likely = false;
-        int diffMod = Math.max(0, Game.getDifficultyId() - Difficulty.NORMAL.castToInt());
+        int diffMod = Math.max(0, Game.getCurrentGame().getDifficultyId() - Difficulty.NORMAL.castToInt());
 
         if (oppType < 1000) {
             switch (OpponentType.fromInt(oppType)) {

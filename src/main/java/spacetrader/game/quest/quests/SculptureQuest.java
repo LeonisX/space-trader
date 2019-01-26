@@ -1,11 +1,12 @@
 package spacetrader.game.quest.quests;
 
 import spacetrader.game.Consts;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
-import spacetrader.game.enums.*;
-import spacetrader.game.quest.*;
+import spacetrader.game.enums.AlertType;
+import spacetrader.game.enums.EquipmentType;
+import spacetrader.game.enums.GadgetType;
+import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.enums.QuestState;
@@ -134,7 +135,7 @@ public class SculptureQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Endor);
+        StarSystem starSystem = getStarSystem(StarSystemId.Endor);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.SculptureDelivered).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.SculptureHiddenBays).setStarSystemId(starSystem.getId());
@@ -151,7 +152,7 @@ public class SculptureQuest extends AbstractQuest {
         if (systemId < 0) {
             goodUniverse.setValue(false);
         } else {
-            phases.get(QuestPhases.Sculpture).setStarSystemId(Game.getStarSystem(systemId).getId());
+            phases.get(QuestPhases.Sculpture).setStarSystemId(getStarSystem(systemId).getId());
         }
     }
 
@@ -346,17 +347,17 @@ public class SculptureQuest extends AbstractQuest {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.Sculpture).isDesiredSystem()) {
-            result = News.PricelessCollectorsItemWasStolen;
+            newsIndex = News.PricelessCollectorsItemWasStolen.ordinal();
         } else if (phases.get(QuestPhases.SculptureDelivered).isDesiredSystem()) {
-            result = News.SpaceCorpsFollowsSculptureCaptors;
+            newsIndex = News.SpaceCorpsFollowsSculptureCaptors.ordinal();
         }
 
-        if (result != null) {
-            log.fine("" + result.ordinal());
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

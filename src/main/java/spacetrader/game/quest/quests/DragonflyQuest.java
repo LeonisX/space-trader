@@ -61,7 +61,7 @@ public class DragonflyQuest extends AbstractQuest implements Serializable {
                 new DragonflyRegulasPhase(), new DragonflyDestroyedPhase(), new DragonflyShieldPhase());
         initializeTransitionMap();
 
-        int d = Game.getDifficultyId();
+        int d = getDifficultyId();
         dragonflyCrew = registerNewSpecialCrewMember(4 + d, 6 + d, 1, 6 + d, false);
 
         dragonflyAttackEncounter = registerNewEncounter();
@@ -181,19 +181,19 @@ public class DragonflyQuest extends AbstractQuest implements Serializable {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Baratas);
+        StarSystem starSystem = getStarSystem(StarSystemId.Baratas);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyBaratas).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Melina);
+        starSystem = getStarSystem(StarSystemId.Melina);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyMelina).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Regulas);
+        starSystem = getStarSystem(StarSystemId.Regulas);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyRegulas).setStarSystemId(starSystem.getId());
 
-        starSystem = Game.getStarSystem(StarSystemId.Zalkon);
+        starSystem = getStarSystem(StarSystemId.Zalkon);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.DragonflyDestroyed).setStarSystemId(starSystem.getId());
         phases.get(QuestPhases.DragonflyShield).setStarSystemId(starSystem.getId());
@@ -488,44 +488,44 @@ public class DragonflyQuest extends AbstractQuest implements Serializable {
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         switch (questStatus) {
             case STATUS_DRAGONFLY_NOT_STARTED:
                 if (phases.get(QuestPhases.Dragonfly).isDesiredSystem()) {
-                    result = News.Dragonfly;
+                    newsIndex = News.Dragonfly.ordinal();
                 }
                 break;
             case STATUS_DRAGONFLY_FLY_BARATAS:
                 if (phases.get(QuestPhases.DragonflyBaratas).isDesiredSystem()) {
-                    result = News.DragonflyBaratas;
+                    newsIndex = News.DragonflyBaratas.ordinal();
                 }
                 break;
             case STATUS_DRAGONFLY_FLY_MELINA:
                 if (phases.get(QuestPhases.DragonflyMelina).isDesiredSystem()) {
-                    result = News.DragonflyMelina;
+                    newsIndex = News.DragonflyMelina.ordinal();
                 }
                 break;
             case STATUS_DRAGONFLY_FLY_REGULAS:
                 if (phases.get(QuestPhases.DragonflyRegulas).isDesiredSystem()) {
-                    result = News.DragonflyRegulas;
+                    newsIndex = News.DragonflyRegulas.ordinal();
                 }
                 break;
             case STATUS_DRAGONFLY_FLY_ZALKON:
                 if (phases.get(QuestPhases.DragonflyDestroyed).isDesiredSystem()) {
                     if (!dragonflyDestroyed) {
-                        result = News.DragonflyZalkon;
+                        newsIndex = News.DragonflyZalkon.ordinal();
                     } else {
-                        result = News.DragonflyDestroyed;
+                        newsIndex = News.DragonflyDestroyed.ordinal();
                     }
                 }
             default:
                 log.fine("skipped");
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         }
     }
 

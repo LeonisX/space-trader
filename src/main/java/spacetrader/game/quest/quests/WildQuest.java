@@ -3,7 +3,6 @@ package spacetrader.game.quest.quests;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
@@ -157,7 +156,7 @@ public class WildQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Kravat);
+        StarSystem starSystem = getStarSystem(StarSystemId.Kravat);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.WildGetsOut).setStarSystemId(starSystem.getId());
     }
@@ -227,7 +226,7 @@ public class WildQuest extends AbstractQuest {
         public void successFlow() {
             log.fine("phase #2");
             // Zeethibal has a 10 in player's lowest score, an 8 in the next lowest score, and 5 elsewhere.
-            zeethibal.setCurrentSystem(Game.getStarSystem(StarSystemId.Kravat));
+            zeethibal.setCurrentSystem(getStarSystem(StarSystemId.Kravat));
             int lowest1 = getCommander().nthLowestSkill(1);
             int lowest2 = getCommander().nthLowestSkill(2);
             for (int i = 0; i < zeethibal.getSkills().length; i++) {
@@ -307,13 +306,13 @@ public class WildQuest extends AbstractQuest {
         if (wildOnBoard && game.getWarpSystem().getId() == StarSystemId.Kravat) {
             // if you're coming in to Kravat & you have Wild onboard, there'll be swarms o' cops.
             ((RandomEncounterContainer) object)
-                    .setPolice(Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - Game.getDifficultyId())));
+                    .setPolice(Functions.getRandom(100) < 100 / Math.max(2, Math.min(4, 5 - getDifficultyId())));
         }
     }
 
     private void onBeforeEncounterGenerateOpponent(Object object) {
         if (game.getWarpSystem().getId() == StarSystemId.Kravat && wildOnBoard
-                && Functions.getRandom(10) < Game.getDifficulty().castToInt() + 1) {
+                && Functions.getRandom(10) < getDifficultyId() + 1) {
             ((CrewMember) object).setEngineer(Consts.MaxSkill);
         }
     }
@@ -372,7 +371,7 @@ public class WildQuest extends AbstractQuest {
         if (wildOnBoard) {
             log.fine("Arrested + Wild");
             showAlert(Alerts.WildArrested.getValue());
-            Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
+            addNewsByIndex(News.WildArrested.ordinal());
             failQuest();
         } else {
             log.fine("Arrested w/o Wild");
@@ -385,7 +384,7 @@ public class WildQuest extends AbstractQuest {
             log.fine("Escaped + Wild");
             showAlert(Alerts.WildArrested.getValue());
             getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + SCORE_CAUGHT_WITH_WILD);
-            Game.getNews().addEvent(getNewsIds().get(News.WildArrested.ordinal()));
+            addNewsByIndex(News.WildArrested.ordinal());
             failQuest();
         } else {
             log.fine("Escaped w/o Wild");
@@ -427,8 +426,8 @@ public class WildQuest extends AbstractQuest {
 
     private void onNewsAddEventOnArrival(Object object) {
         if (wildOnBoard && isCurrentSystemIs(StarSystemId.Kravat)) {
-            log.fine("" + getNewsIds().get(News.WildGotToKravat.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(News.WildGotToKravat.ordinal()));
+            log.fine("" + getNewsIdByIndex(News.WildGotToKravat.ordinal()));
+            addNewsByIndex(News.WildGotToKravat.ordinal());
         } else {
             log.fine("skipped");
         }

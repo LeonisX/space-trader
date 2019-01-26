@@ -100,9 +100,9 @@ public class FormViewCommander extends SpaceTraderForm {
         difficultyButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getDifficultyId(), "Difficulty", "What is the difficulty of the game [0..4]?");
+                FormInput formInput = new FormInput(Game.getCurrentGame().getDifficultyId(), "Difficulty", "What is the difficulty of the game [0..4]?");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.setDifficulty(Difficulty.fromInt(formInput.getValue()));
+                    Game.getCurrentGame().setDifficulty(Difficulty.fromInt(formInput.getValue()));
                     initializeScreen();
                     Game.getCurrentGame().getController().getMainWindow().updateAll();
                 }
@@ -369,7 +369,7 @@ public class FormViewCommander extends SpaceTraderForm {
         Commander cmdr = Game.getCurrentGame().getCommander();
 
         nameLabelValue.setText(cmdr.getName());
-        difficultyLabelValue.setText(Strings.DifficultyLevels[Game.getDifficultyId()]);
+        difficultyLabelValue.setText(Strings.DifficultyLevels[Game.getCurrentGame().getDifficultyId()]);
         timeLabelValue.setText(Functions.plural(cmdr.getDays(), Strings.TimeUnit));
 
         pilotLabelValue.setText(cmdr.getPilot() + " (" + cmdr.getShip().getPilot() + ")");

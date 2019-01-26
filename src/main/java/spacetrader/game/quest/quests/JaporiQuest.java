@@ -1,6 +1,5 @@
 package spacetrader.game.quest.quests;
 
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
@@ -124,7 +123,7 @@ public class JaporiQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Japori);
+        StarSystem starSystem = getStarSystem(StarSystemId.Japori);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.JaporiDelivery).setStarSystemId(starSystem.getId());
     }
@@ -241,35 +240,35 @@ public class JaporiQuest extends AbstractQuest {
     private void onEscapeWithPod(Object object) {
         if (questStatus == STATUS_JAPORI_IN_TRANSIT) {
             log.fine("Escaped + Antidote");
-            showAlert(Alerts.AntidoteDestroyed.getValue(), Game.getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).getName());
+            showAlert(Alerts.AntidoteDestroyed.getValue(), getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).getName());
             // Second try
             questStatus = STATUS_JAPORI_NOT_STARTED;
             setQuestState(QuestState.INACTIVE);
-            Game.getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).setQuestSystem(true);
+            getStarSystem(phases.get(QuestPhases.Japori).getStarSystemId()).setQuestSystem(true);
         } else {
             log.fine("Escaped w/o Antidote");
         }
     }
 
     private void onNewsAddEventOnArrival(Object object) {
-        News result = null;
+        Integer newsIndex = null;
 
         if (phases.get(QuestPhases.Japori).isDesiredSystem() && questStatus == STATUS_JAPORI_NOT_STARTED) {
-            result = News.Japori;
+            newsIndex = News.Japori.ordinal();
         } else if (isCurrentSystemIs(StarSystemId.Japori)) {
             switch (questStatus) {
                 case STATUS_JAPORI_NOT_STARTED:
-                    result = News.JaporiEpidemy;
+                    newsIndex = News.JaporiEpidemy.ordinal();
                     break;
                 case STATUS_JAPORI_IN_TRANSIT:
-                    result = News.JaporiDelivery;
+                    newsIndex = News.JaporiDelivery.ordinal();
                     break;
             }
         }
 
-        if (result != null) {
-            log.fine("" + getNewsIds().get(result.ordinal()));
-            Game.getNews().addEvent(getNewsIds().get(result.ordinal()));
+        if (newsIndex != null) {
+            log.fine("" + getNewsIdByIndex(newsIndex));
+            addNewsByIndex(newsIndex);
         } else {
             log.fine("skipped");
         }

@@ -2,7 +2,6 @@ package spacetrader.game.quest.quests;
 
 import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
-import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.AlertType;
@@ -155,7 +154,7 @@ public class JarekQuest extends AbstractQuest {
 
     private void onAssignEventsManual(Object object) {
         log.fine("");
-        StarSystem starSystem = Game.getStarSystem(StarSystemId.Devidia);
+        StarSystem starSystem = getStarSystem(StarSystemId.Devidia);
         starSystem.setQuestSystem(true);
         phases.get(QuestPhases.JarekGetsOut).setStarSystemId(starSystem.getId());
     }
@@ -316,8 +315,8 @@ public class JarekQuest extends AbstractQuest {
 
     private void onNewsAddEventOnArrival(Object object) {
         if (jarekOnBoard && isCurrentSystemIs(StarSystemId.Devidia)) {
-            log.fine("" + getNewsIds().get(0));
-            Game.getNews().addEvent(getNewsIds().get(0));
+            log.fine("" + getNewsIdByIndex(0));
+            addNewsByIndex(0);
         } else {
             log.fine("skipped");
         }

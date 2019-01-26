@@ -3,7 +3,6 @@ package spacetrader.game.quest.quests;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
-import spacetrader.game.Game;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.*;
@@ -207,12 +206,12 @@ public class CaptainQuest extends AbstractQuest {
 
                 getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreAttackTrader);
 
-                if (Objects.equals(getEncounter().getEncounterType(), captainAhab)) {
-                    Game.getNews().addEvent(getNewsIds().get(News.CaptAhabAttacked.ordinal()));
+                if (getEncounter().getEncounterType().equals(captainAhab)) {
+                    addNewsByIndex(News.CaptAhabAttacked.ordinal());
                 } else if (getEncounter().getEncounterType().equals(captainConrad)) {
-                    Game.getNews().addEvent(getNewsIds().get(News.CaptConradAttacked.ordinal()));
+                    addNewsByIndex(News.CaptConradAttacked.ordinal());
                 } else if (getEncounter().getEncounterType().equals(captainHuie)) {
-                    Game.getNews().addEvent(getNewsIds().get(News.CaptHuieAttacked.ordinal()));
+                    addNewsByIndex(News.CaptHuieAttacked.ordinal());
                 }
 
                 getEncounter().setEncounterType(famousCaptainAttack);
@@ -323,7 +322,7 @@ public class CaptainQuest extends AbstractQuest {
         // Add points to the appropriate skill - two points if
         // beginner-normal, one otherwise.
         getCommander().getSkills()[skill] = Math.min(Consts.MaxSkill, getCommander().getSkills()[skill]
-                + (Game.getDifficultyId() <= Difficulty.NORMAL.castToInt() ? 2 : 1));
+                + (getDifficultyId() <= Difficulty.NORMAL.castToInt() ? 2 : 1));
 
         showAlert(Alerts.SpecialTrainingCompleted.getValue());
     }
@@ -338,8 +337,17 @@ public class CaptainQuest extends AbstractQuest {
             }
 
             // bump news flag from attacked to ship destroyed
-            Game.getNews().replaceLastAttackedEventWithDestroyedEvent();
+            replaceLastAttackedEventWithDestroyedEvent();
         }
+    }
+
+    private void replaceLastAttackedEventWithDestroyedEvent() {
+        List<Integer> newsEvents = getNews().getNewsEvents();
+
+        int oldEvent = newsEvents.get(newsEvents.size() - 1);
+        int newEvent = oldEvent + 1;
+        newsEvents.remove(oldEvent);
+        newsEvents.add(newEvent);
     }
 
     private boolean isVeryRareEncounter() {
