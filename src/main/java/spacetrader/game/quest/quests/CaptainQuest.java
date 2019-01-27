@@ -351,13 +351,12 @@ public class CaptainQuest extends AbstractQuest {
     }
 
     private boolean isVeryRareEncounter() {
-        return Objects.equals(getEncounter().getEncounterType(), captainAhab)
+        return getEncounter().getEncounterType().equals(captainAhab)
                 || getEncounter().getEncounterType().equals(captainConrad)
                 || getEncounter().getEncounterType().equals(captainHuie);
     }
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
-
         EncounterAttackCaptain("Really Attack?", "Famous Captains get famous by, among other things, destroying everyone who attacks them. Do you really want to attack?", "Really Attack", "OK, I Won't"),
         MeetCaptainAhab("Meet Captain Ahab", "Captain Ahab is in need of a spare shield for an upcoming mission. He offers to trade you some piloting lessons for your reflective shield. Do you wish to trade?", "Yes, Trade Shield"),
         MeetCaptainConrad("Meet Captain Conrad", "Captain Conrad is in need of a military laser. She offers to trade you some engineering training for your military laser. Do you wish to trade?", "Yes, Trade Laser"),

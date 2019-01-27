@@ -679,6 +679,7 @@ public class Encounter implements Serializable {
         return attack.getValue();
     }
 
+    // Reaction on Board button. Maria Celeste only
     public boolean isEncounterVerifyBoard() {
         BooleanContainer board = new BooleanContainer(false);
 
@@ -690,11 +691,11 @@ public class Encounter implements Serializable {
     public boolean isEncounterVerifyBribe() {
         boolean bribed = false;
 
-        BooleanContainer executed = new BooleanContainer(false);
+        BooleanContainer matched = new BooleanContainer(false);
 
-        game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_BRIBE, executed);
+        game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_BRIBE, matched);
 
-        if (executed.getValue()) {
+        if (matched.getValue()) {
             return bribed;
         } else if (game.getWarpSystem().getPoliticalSystem().getBribeLevel() <= 0) {
             GuiFacade.alert(AlertType.EncounterPoliceBribeCant);
@@ -725,17 +726,18 @@ public class Encounter implements Serializable {
     public boolean isEncounterVerifyFlee() {
         setEncounterCmdrFleeing(false);
 
-        BooleanContainer executed = new BooleanContainer(false);
-
-        game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_FLEE, executed);
 
         //TODO test and may be simplify
-        if (!executed.getValue() && (encounterType != EncounterType.POLICE_INSPECT.castToInt()
+        if (encounterType != EncounterType.POLICE_INSPECT.castToInt()
                 || commander.getShip().isDetectableIllegalCargoOrPassengers()
-                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES)) {
+                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
             setEncounterCmdrFleeing(true);
 
-            if (encounterType == EncounterType.POLICE_INSPECT.castToInt()) {
+            BooleanContainer matched = new BooleanContainer(false);
+
+            game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_FLEE, matched);
+
+            if (!matched.getValue() && encounterType == EncounterType.POLICE_INSPECT.castToInt()) {
                 int scoreMod = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.ScoreFleePolice
                         : Consts.ScoreAttackPolice;
                 int scoreMin = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.PoliceRecordScoreDubious
@@ -1215,7 +1217,7 @@ public class Encounter implements Serializable {
         return encounterCmdrFleeing;
     }
 
-    private void setEncounterCmdrFleeing(boolean encounterCmdrFleeing) {
+    public void setEncounterCmdrFleeing(boolean encounterCmdrFleeing) {
         this.encounterCmdrFleeing = encounterCmdrFleeing;
     }
 
