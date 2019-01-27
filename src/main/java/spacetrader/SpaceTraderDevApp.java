@@ -17,7 +17,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static spacetrader.game.enums.AlertType.EncounterDrinkContents;
+import static spacetrader.game.enums.AlertType.EncounterAttackNoLasers;
 
 public class SpaceTraderDevApp {
 
@@ -72,7 +72,7 @@ public class SpaceTraderDevApp {
         List<BaseComponent> components = Arrays.asList(
                 spaceTrader,
                 new FormAbout(),
-                FormAlert.makeDialog(EncounterDrinkContents, new String[]{}),
+                FormAlert.makeDialog(EncounterAttackNoLasers, new String[]{}),
                 new FormBuyFuel(),
                 new FormBuyRepairs(),
                 new FormCargoBuy(1, 1, CargoBuyOp.BUY_SYSTEM),

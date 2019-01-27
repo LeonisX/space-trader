@@ -1,5 +1,6 @@
 package spacetrader.game.quest.quests;
 
+import spacetrader.controls.Rectangle;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
 import spacetrader.game.Strings;
@@ -101,6 +102,19 @@ public class MarieCelesteQuest extends AbstractQuest {
     public String getCrewMemberName(int id) {
         return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
     }*/
+
+    //TODO need???
+    /*@Override
+    public Rectangle getShipImageOffset() {
+        return SHIP_IMAGE_OFFSET;
+    }*/
+
+    //TODO need???
+    /*@Override
+    public Integer getShipImageIndex() {
+        return SHIP_IMAGE_INDEX;
+    }*/
+
 
     @Override
     public void dumpAllStrings() {

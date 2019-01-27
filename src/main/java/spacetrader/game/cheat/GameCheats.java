@@ -61,8 +61,7 @@ public class GameCheats implements Serializable {
                         game.getEncounter().initializeVeryRareEncounters();
                     } else {
                         String text = game.getEncounter().getVeryRareEncounters().stream().map(id ->
-                                (id < 1000) ? Strings.VeryRareEncounters[id] : game.getQuestSystem().getVeryRareEncounterById(id))
-                                .map(t -> t + Strings.newline).collect(Collectors.joining());
+                                game.getQuestSystem().getVeryRareEncounterById(id)).map(t -> t + Strings.newline).collect(Collectors.joining());
 
                         GuiFacade.alert(AlertType.Alert, Strings.CheatsVeryRareEncountersRemaining, text);
                     }

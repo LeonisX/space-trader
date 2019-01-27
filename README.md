@@ -163,13 +163,15 @@ VeryRareEncounterCaptainHuie=Капитан Хьюи
 CrewNameCaptain=Капитан | Капитана
 
 
+* Test every very rare encounter separately
+
 * Test captain destruction
 * Test all
 * Revert back isDetermineRandomEncounter()
 * Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
 
 * EncounterPretextMariePolice - unused string. Need to implement
-* Ships shift by one ("Bottle")
+* Translate all
 
 
 ### News

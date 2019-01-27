@@ -1,10 +1,11 @@
 package spacetrader.game.quest.quests;
 
+import spacetrader.controls.Rectangle;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
 import spacetrader.game.CrewMember;
 import spacetrader.game.Ship;
-import spacetrader.game.Strings;
+import spacetrader.game.ShipSpec;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.AlertDialog;
 import spacetrader.game.quest.I18n;
@@ -22,7 +23,6 @@ import java.util.*;
 
 import static spacetrader.game.quest.enums.EventName.*;
 
-//TODO -captain
 public class BottleQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511602L;
@@ -31,8 +31,12 @@ public class BottleQuest extends AbstractQuest {
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
+    private static ShipSpec shipSpec = new ShipSpec(ShipType.QUEST, Size.SMALL,
+            0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0,
+            Activity.NA, Activity.NA, Activity.NA, TechLevel.UNAVAILABLE);
+
     //TODO need???
-    private CrewMember captain; // FAMOUS_CAPTAIN, // = 34,crew of famous captain ships
+    //private CrewMember captain; // FAMOUS_CAPTAIN, // = 34,crew of famous captain ships
 
     // Encounters
     private int bottleGoodEncounter; // BOTTLE_GOOD
@@ -42,8 +46,12 @@ public class BottleQuest extends AbstractQuest {
     private Integer bottleGood; // BOTTLE_OLD
     private Integer bottleOld; // BOTTLE_GOOD
 
-    //TODO need???
     private int bottle; // OpponentType
+
+    private int shipSpecId;
+
+    private static final Rectangle SHIP_IMAGE_OFFSET = new Rectangle(9, 0, 46, 0); // Bottle
+    private static final Integer SHIP_IMAGE_INDEX = 12;
 
     public BottleQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
@@ -69,20 +77,19 @@ public class BottleQuest extends AbstractQuest {
     @Override
     public void initializeTransitionMap() {
         super.initializeTransitionMap();
+        //getTransitionMap().put(ON_GENERATE_CREW_MEMBER_LIST, this::onGenerateCrewMemberList);
+        getTransitionMap().put(ON_AFTER_SHIP_SPECS_INITIALIZED, this::afterShipSpecInitialized);
+
         getTransitionMap().put(ON_DETERMINE_VERY_RARE_ENCOUNTER, this::onDetermineVeryRareEncounter);
         getTransitionMap().put(ON_ENCOUNTER_GENERATE_OPPONENT, this::onGenerateOpponentShip);
 
-        getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
-        getTransitionMap().put(ENCOUNTER_GET_ENCOUNTER_SHIP_TEXT, this::encounterGetEncounterShipText);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ACTION_BUTTONS, this::encounterShowActionButtons);
-        getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
+        getTransitionMap().put(ENCOUNTER_IS_DISABLEABLE, this::encounterIsDisableable);
 
-        getTransitionMap().put(ENCOUNTER_UPDATE_ENCOUNTER_TYPE, this::encounterUpdateEncounterType);
         getTransitionMap().put(ENCOUNTER_DRINK, this::encounterDrink);
-        getTransitionMap().put(ENCOUNTER_ON_ENCOUNTER_WON, this::encounterOnEncounterWon);
     }
 
     @Override
@@ -113,9 +120,19 @@ public class BottleQuest extends AbstractQuest {
     }
 
     //TODO need?????
-    @Override
+    /*@Override
     public String getCrewMemberName(int id) {
         return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
+    }*/
+
+    @Override
+    public Rectangle getShipImageOffset() {
+        return SHIP_IMAGE_OFFSET;
+    }
+
+    @Override
+    public Integer getShipImageIndex() {
+        return SHIP_IMAGE_INDEX;
     }
 
     @Override
@@ -124,7 +141,7 @@ public class BottleQuest extends AbstractQuest {
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.dumpStrings(Res.VeryRareEncounters, Arrays.stream(VeryRareEncounters.values()));
-        I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
+        //I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
 
     @Override
@@ -132,7 +149,7 @@ public class BottleQuest extends AbstractQuest {
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.VeryRareEncounters, Arrays.stream(VeryRareEncounters.values()));
-        I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
+        //I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
 
     // Very Rare Random Events:
@@ -159,199 +176,82 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
-    //TODO specs?????
+    //TODO need???
+    /*private void onGenerateCrewMemberList(Object object) {
+        log.fine("");
+        getMercenaries().put(dragonflyCrew.getId(), dragonflyCrew);
+    }*/
+
+    private void afterShipSpecInitialized(Object object) {
+        shipSpecId = registerNewShipSpec(shipSpec);
+    }
+
     private void onGenerateOpponentShip(Object object) {
         Ship ship = (Ship) object;
-        if (ship.getOpponentType() == bottle) {
-            ship.setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
-
-            for (int i = 0; i < ship.getShields().length; i++) {
-                ship.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-            }
-
-            for (int i = 0; i < ship.getWeapons().length; i++) {
-                ship.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-            }
-
-            ship.addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
-            ship.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
-
-            captain = registerNewSpecialCrewMember(10, 10, 10, 10, false);
-            ship.getCrew()[0] = captain;
-
+        if (ship.getOpponentType() == bottle && !ship.isInitialized()) {
+            ship.setId(shipSpecId); //TODO need???
+            ship.setValues(shipSpec);
             ship.setInitialized(true);
         }
     }
 
-    private void encounterVerifyAttack(Object object) {
-        if (isVeryRareEncounter()) {
-            if (showAlert(Alerts.EncounterAttackCaptain.getValue()) == DialogResult.YES) {
-                if (getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreVillain) {
-                    getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreVillain);
-                }
-
-                getCommander().setPoliceRecordScore(getCommander().getPoliceRecordScore() + Consts.ScoreAttackTrader);
-
-                if (getEncounter().getEncounterType().equals(captainAhab)) {
-                    addNewsByIndex(News.CaptAhabAttacked.ordinal());
-                } else if (getEncounter().getEncounterType().equals(captainConrad)) {
-                    addNewsByIndex(News.CaptConradAttacked.ordinal());
-                } else if (getEncounter().getEncounterType().equals(captainHuie)) {
-                    addNewsByIndex(News.CaptHuieAttacked.ordinal());
-                }
-
-                getEncounter().setEncounterType(famousCaptainAttack);
-            } else {
-                ((BooleanContainer) object).setValue(false);
-            }
-        }
-    }
-
     private void encounterGetIntroductoryText(Object object) {
-        if (getEncounter().getEncounterType().equals(captainAhab)) {
-            ((StringContainer) object).setValue(Encounters.PretextCaptainAhab.getValue());
-        } else if (getEncounter().getEncounterType().equals(captainConrad)) {
-            ((StringContainer) object).setValue(Encounters.PretextCaptainConrad.getValue());
-        } else if (getEncounter().getEncounterType().equals(captainHuie)) {
-            ((StringContainer) object).setValue(Encounters.PretextCaptainHuie.getValue());
+        if (getEncounter().getEncounterType().equals(bottleGoodEncounter)
+                || getEncounter().getEncounterType().equals(bottleOldEncounter)) {
+
+            ((StringContainer) object).setValue(Encounters.PretextBottle.getValue());
         }
-        //TODO
-        /*case BOTTLE_GOOD:
-        case BOTTLE_OLD:
-        encounterPretext.setValue(Strings.EncounterPretextBottle);
-        break;*/
     }
 
     private void encounterGetIntroductoryAction(Object object) {
-        if (isVeryRareEncounter()) {
-            ((StringContainer) object).setValue(Encounters.TextFamousCaptain.getValue());
-        }
-        //TODO
-        /*case BOTTLE_GOOD:
-        case BOTTLE_OLD:
-        text.setValue(Strings.EncounterTextBottle);
-        break;*/
-    }
+        if (getEncounter().getEncounterType().equals(bottleGoodEncounter)
+                || getEncounter().getEncounterType().equals(bottleOldEncounter)) {
 
-    private void encounterGetEncounterShipText(Object object) {
-        if (getEncounter().getEncounterType() == famousCaptainAttack
-                || getEncounter().getEncounterType() == famousCaptainDisabled) {
-            ((StringContainer) object).setValue(Encounters.ShipCaptain.getValue());
+            ((StringContainer) object).setValue(Encounters.TextBottle.getValue());
         }
     }
 
     private void encounterGetEncounterImageIndex(Object object) {
         IntContainer encounterImage = (IntContainer) object;
-        if (isVeryRareEncounter()) {
+        if (getEncounter().getEncounterType().equals(bottleGoodEncounter)
+                || getEncounter().getEncounterType().equals(bottleOldEncounter)) {
+
             encounterImage.setValue(Consts.EncounterImgSpecial);
         }
-        if (getEncounter().getEncounterType() == famousCaptainAttack
-                || getEncounter().getEncounterType() == famousCaptainDisabled) {
-            // Nothing to do
-        }
-        //TODO
-        /*case BOTTLE_GOOD:
-        case BOTTLE_OLD:
-        encounterImage.setValue(Consts.EncounterImgSpecial);
-        break;*/
     }
 
     @SuppressWarnings("unchecked")
     private void encounterShowActionButtons(Object object) {
-        List<Boolean> visible = (ArrayList<Boolean>) object;
-        if (isVeryRareEncounter()) {
-            visible.set(Buttons.ATTACK.ordinal(), true);
-            visible.set(Buttons.IGNORE.ordinal(), true);
-            visible.set(Buttons.MEET.ordinal(), true);
-        }
-        if (getEncounter().getEncounterType() == famousCaptainAttack
-                || getEncounter().getEncounterType() == famousCaptainDisabled) {
-            visible.set(Buttons.ATTACK.ordinal(), true);
-            visible.set(Buttons.IGNORE.ordinal(), true);
-        }
+        if (getEncounter().getEncounterType().equals(bottleGoodEncounter)
+                || getEncounter().getEncounterType().equals(bottleOldEncounter)) {
 
-        //TODO
-        /*case BOTTLE_GOOD:
-        case BOTTLE_OLD:
-        visible.set(Buttons.DRINK.ordinal(), true);
-        visible.set(Buttons.IGNORE.ordinal(), true);
-        break;*/
-    }
-
-    private void encounterGetExecuteActionFireShots(Object object) {
-        if (getEncounter().getEncounterType() == famousCaptainAttack) {
-            getEncounter().setEncounterCmdrHit(getEncounter().isEncounterExecuteAttack(game.getOpponent(), getShip(), getEncounter().getEncounterCmdrFleeing()));
-            getEncounter().setEncounterOppHit(!getEncounter().getEncounterCmdrFleeing()
-                    && getEncounter().isEncounterExecuteAttack(getShip(), game.getOpponent(), false));
+            List<Boolean> visible = (ArrayList<Boolean>) object;
+            visible.set(Buttons.DRINK.ordinal(), true);
+            visible.set(Buttons.IGNORE.ordinal(), true);
         }
     }
 
-    private void encounterUpdateEncounterType(Object object) {
-        if (getEncounter().getEncounterType() == famousCaptainAttack && game.getOpponentDisabled()) {
-            getEncounter().setEncounterType(famousCaptainDisabled);
+    private void encounterIsDisableable(Object object) {
+        if (shipSpec.getBarCode() == getOpponent().getBarCode()) {
+            ((BooleanContainer) object).setValue(false);
         }
     }
 
     private void encounterDrink(Object object) {
-        if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
-            if (encounterType == EncounterType.BOTTLE_GOOD.castToInt()) {
+        if (showYesNoAlert(Alerts.EncounterDrinkContents.getValue()) == DialogResult.YES) {
+            if (getEncounter().getEncounterType() == bottleGoodEncounter) {
                 // two points if you're on beginner-normal, one otherwise
-                commander.increaseRandomSkill();
+                getCommander().increaseRandomSkill();
                 if (game.getDifficultyId() <= Difficulty.NORMAL.castToInt()) {
-                    commander.increaseRandomSkill();
+                    getCommander().increaseRandomSkill();
                 }
-                GuiFacade.alert(AlertType.EncounterTonicConsumedGood);
+                showAlert(Alerts.EncounterTonicConsumedGood.getValue());
             } else {
-                commander.tonicTweakRandomSkill();
-                GuiFacade.alert(AlertType.EncounterTonicConsumedStrange);
+                getCommander().tonicTweakRandomSkill();
+                showAlert(Alerts.EncounterTonicConsumedStrange.getValue());
             }
         }
     }
-
-    private void encounterOnEncounterWon(Object object) {
-        if (getEncounter().getEncounterType() == famousCaptainAttack) { //FAMOUS_CAPTAIN_ATTACK
-            getCommander().setKillsTrader(getCommander().getKillsTrader() + 1);
-            if (getCommander().getReputationScore() < Consts.ReputationScoreDangerous) {
-                getCommander().setReputationScore(Consts.ReputationScoreDangerous);
-            } else {
-                getCommander().setReputationScore(getCommander().getReputationScore() + SCORE_KILL_CAPTAIN);
-            }
-
-            // bump news flag from attacked to ship destroyed
-            replaceLastAttackedEventWithDestroyedEvent();
-        }
-    }
-
-    private void replaceLastAttackedEventWithDestroyedEvent() {
-        List<Integer> newsEvents = getNews().getNewsEvents();
-
-        int oldEvent = newsEvents.get(newsEvents.size() - 1);
-        int newEvent = oldEvent + 1;
-        newsEvents.remove(oldEvent);
-        newsEvents.add(newEvent);
-    }
-
-    //TODO need???
-    private boolean isVeryRareEncounter() {
-        return Objects.equals(getEncounter().getEncounterType(), captainAhab)
-                || getEncounter().getEncounterType().equals(captainConrad)
-                || getEncounter().getEncounterType().equals(captainHuie);
-    }
-
-
-/*
-    EncounterDrinkContents,
-            case EncounterDrinkContents:
-            return new FormAlert(AlertsEncounterDrinkContentsTitle, AlertsEncounterDrinkContentsMessage,
-                                 AlertsEncounterDrinkContentsAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
-
-            case EncounterTonicConsumedGood:
-            return new FormAlert(AlertsEncounterTonicConsumedGoodTitle, AlertsEncounterTonicConsumedGoodMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterTonicConsumedStrange:
-            return new FormAlert(AlertsEncounterTonicConsumedStrangeTitle, AlertsEncounterTonicConsumedStrangeMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            */
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         EncounterDrinkContents("Drink Contents?", "You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The \"use-by\" date is illegible, but might still be good.  Would you like to drink it?", "Yes, Drink It"),
@@ -424,7 +324,7 @@ public class BottleQuest extends AbstractQuest {
     //TODO ship name - need????
     //"Bottle",
 
-    enum CrewNames implements SimpleValueEnum<String> {
+    /*enum CrewNames implements SimpleValueEnum<String> {
         Bottle("Bottle");
 
         private String value;
@@ -442,19 +342,17 @@ public class BottleQuest extends AbstractQuest {
         public void setValue(String value) {
             this.value = value;
         }
-    }
+    }*/
 
-    //TODO
     @Override
     public String toString() {
-        return "CaptainQuest{" +
-                "captain=" + captain +
-                ", famousCaptainAttack=" + famousCaptainAttack +
-                ", famousCaptainDisabled=" + famousCaptainDisabled +
-                ", captainAhab=" + captainAhab +
-                ", captainConrad=" + captainConrad +
-                ", captainHuie=" + captainHuie +
-                ", famousCaptainOpponentType=" + famousCaptain +
+        return "BottleQuest{" +
+                ", bottleGoodEncounter=" + bottleGoodEncounter +
+                ", bottleOldEncounter=" + bottleOldEncounter +
+                ", bottleGood=" + bottleGood +
+                ", bottleOld=" + bottleOld +
+                ", bottle=" + bottle +
+                ", shipSpecId=" + shipSpecId +
                 "} " + super.toString();
     }
 }

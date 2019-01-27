@@ -77,7 +77,7 @@ public class Graphics {
     }
 
     public static void paintShipImage(Ship ship, Graphics graphics, Color backgroundColor) {
-        Rectangle shipImageOffset =  (ship.getId() < 1000)
+        Rectangle shipImageOffset = (ship.getId() < 1000)
                 ? Consts.ShipImageOffsets[ship.getType().castToInt()]
                 : Game.getCurrentGame().getQuestSystem().getShipImageOffset(ship.getId());
 

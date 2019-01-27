@@ -201,8 +201,7 @@ public class Consts {
             new Rectangle(2, 0, 60, 0), // Termite
             new Rectangle(2, 0, 60, 0), // Wasp
             new Rectangle(15, 0, 34, 0), // Mantis
-            new Rectangle(9, 0, 46, 0), // Bottle
-            new Rectangle(2, 0, 60, 0)//, // Custom
+            new Rectangle(2, 0, 60, 0) // Custom
     };
 
     public static ShipSpec[] ShipSpecs = new ShipSpec[]{
@@ -230,8 +229,6 @@ public class Consts {
                     Activity.ABUNDANT, Activity.MODERATE, TechLevel.HI_TECH),
             // The ships below can't be bought (mostly)
             new ShipSpec(ShipType.MANTIS, Size.MEDIUM, 0, 3, 1, 3, 3, 1, 1, 300, 1, 500000, 0, Activity.NA, Activity.NA,
-                    Activity.NA, TechLevel.UNAVAILABLE),
-            new ShipSpec(ShipType.BOTTLE, Size.SMALL, 0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),
             new ShipSpec(ShipType.CUSTOM, Size.HUGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Activity.NA, Activity.NA,
                     Activity.NA, TechLevel.UNAVAILABLE),

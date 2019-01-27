@@ -59,9 +59,7 @@ public class Ship extends ShipSpec implements Serializable {
         this.opponentType = oppType;
         Game.getCurrentGame().getQuestSystem().fireEvent(ON_ENCOUNTER_GENERATE_OPPONENT, this);
 
-        if (oppType == OpponentType.BOTTLE.castToInt() && !initialized) {
-            setValues(ShipType.BOTTLE);
-        } else if (!initialized) {
+        if (!initialized) {
             int tries = (oppType == OpponentType.MANTIS.castToInt()) ? Game.getCurrentGame().getDifficultyId() + 1
                     : Math.max(1, Game.getCurrentGame().getCommander().getWorth() / 150000
                             + Game.getCurrentGame().getDifficultyId() - Difficulty.NORMAL.castToInt());
@@ -785,7 +783,7 @@ public class Ship extends ShipSpec implements Serializable {
         BooleanContainer notDisableable = new BooleanContainer(true);
         Game.getCurrentGame().getQuestSystem().fireEvent(ENCOUNTER_IS_DISABLEABLE, notDisableable);
 
-        return !isCommandersShip() && getType() != ShipType.BOTTLE && getType() != ShipType.MANTIS && notDisableable.getValue();
+        return !isCommandersShip() && getType() != ShipType.MANTIS && notDisableable.getValue();
     }
 
     public int getEngineer() {
