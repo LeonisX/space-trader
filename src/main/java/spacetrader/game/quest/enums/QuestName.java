@@ -21,6 +21,7 @@ public enum QuestName {
     Artifact,
     Cargo,
     //Very Rare Encounters
-    Captain
-
+    MarieCeleste,
+    Bottle, // 2 bottles
+    Captain // 3 captains
 }

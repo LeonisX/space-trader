@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static spacetrader.game.enums.VeryRareEncounter.*;
 import static spacetrader.game.quest.enums.EventName.*;
 
 public class Encounter implements Serializable {
@@ -62,22 +61,10 @@ public class Encounter implements Serializable {
     private boolean isDetermineNonRandomEncounter() {
         BooleanContainer showEncounter = new BooleanContainer(false);
 
-        //TODO very strange approach
-        if (!showEncounter.getValue()) {
-
-        }
-        // ah, just when you thought you were gonna get away with it...
-        else if (game.getClicks() == 1 && game.getJustLootedMarie()) {
-            game.generateOpponent(OpponentType.POLICE);
-            setEncounterType(EncounterType.MARIE_CELESTE_POLICE);
-            game.setJustLootedMarie(false);
-
-            showEncounter.setValue(true);
-        }
-
         game.getQuestSystem().fireEvent(EventName.ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, showEncounter);
 
         return showEncounter.getValue();
+
     }
 
     private boolean isDeterminePirateEncounter(boolean mantis) {
@@ -249,66 +236,17 @@ public class Encounter implements Serializable {
     }
 
     public boolean isDetermineVeryRareEncounter() {
-        // Very Rare Random Events:
-        // 1. Encounter the abandoned Marie Celeste, which you may loot.
-        // 5. Encounter an out-of-date bottle of Captain Marmoset's Skill Tonic.
-        // This will affect skills depending on game difficulty level.
-        // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which will invoke
-        // IncreaseRandomSkill one or two times, depending on game difficulty.
         veryRareEncounterId = getVeryRareEncounters().get(Functions.getRandom(getVeryRareEncounters().size()));
-        if (veryRareEncounterId.equals(MARIE_CELESTE.castToInt())) {
-            // Marie Celeste cannot be at Acamar, Qonos, or Zalkon as it may
-            // cause problems with the Space Monster, Scorpion, or Dragonfly
-            if (game.getClicks() > 1 && commander.getCurrentSystemId() != StarSystemId.Acamar
-                    && commander.getCurrentSystemId() != StarSystemId.Zalkon
-                    && commander.getCurrentSystemId() != StarSystemId.Qonos) {
-                getVeryRareEncounters().remove(MARIE_CELESTE.castToInt());
-                setEncounterType(EncounterType.MARIE_CELESTE);
-                game.generateOpponent(OpponentType.TRADER);
-                for (int i = 0; i < game.getOpponent().getCargo().length; i++) {
-                    game.getOpponent().getCargo()[i] = 0;
-                }
-                game.getOpponent().getCargo()[TradeItemType.NARCOTICS
-                        .castToInt()] = Math.min(game.getOpponent().getCargoBays(), 5);
-                return true;
-            }
-        } else if (veryRareEncounterId.equals(BOTTLE_OLD.castToInt())) {
-            getVeryRareEncounters().remove(BOTTLE_OLD.castToInt());
-            setEncounterType(EncounterType.BOTTLE_OLD);
-            game.generateOpponent(OpponentType.BOTTLE);
-            return true;
-        } else if (veryRareEncounterId.equals(BOTTLE_GOOD.castToInt())) {
-            getVeryRareEncounters().remove(BOTTLE_GOOD.castToInt());
-            setEncounterType(EncounterType.BOTTLE_GOOD);
-            game.generateOpponent(OpponentType.BOTTLE);
-            return true;
-        } else {
-            BooleanContainer happened = new BooleanContainer(false);
-            game.getQuestSystem().fireEvent(ON_DETERMINE_VERY_RARE_ENCOUNTER, happened);
-            return happened.getValue();
-        }
-        return false;
+        BooleanContainer happened = new BooleanContainer(false);
+
+        game.getQuestSystem().fireEvent(ON_DETERMINE_VERY_RARE_ENCOUNTER, happened);
+
+        return happened.getValue();
     }
 
     public void encounterBegin() {
         // Set up the encounter variables.
         setEncounterContinueFleeing(setEncounterContinueAttacking(game.setOpponentDisabled(false)));
-    }
-
-    public void encounterDrink() {
-        if (GuiFacade.alert(AlertType.EncounterDrinkContents) == DialogResult.YES) {
-            if (encounterType == EncounterType.BOTTLE_GOOD.castToInt()) {
-                // two points if you're on beginner-normal, one otherwise
-                commander.increaseRandomSkill();
-                if (game.getDifficultyId() <= Difficulty.NORMAL.castToInt()) {
-                    commander.increaseRandomSkill();
-                }
-                GuiFacade.alert(AlertType.EncounterTonicConsumedGood);
-            } else {
-                commander.tonicTweakRandomSkill();
-                GuiFacade.alert(AlertType.EncounterTonicConsumedStrange);
-            }
-        }
     }
 
     public EncounterResult getEncounterExecuteAction() {
@@ -324,7 +262,6 @@ public class Encounter implements Serializable {
         // Fire shots
         if (encounterType < 1000) {
             switch (EncounterType.fromInt(encounterType)) {
-                case MARIE_CELESTE_POLICE:
                 case PIRATE_ATTACK:
                 case POLICE_ATTACK:
                 case TRADER_ATTACK:
@@ -520,6 +457,10 @@ public class Encounter implements Serializable {
         game.getQuestSystem().fireEvent(ENCOUNTER_MEET);
     }
 
+    public void encounterDrink() {
+        game.getQuestSystem().fireEvent(ENCOUNTER_DRINK);
+    }
+
     public void encounterPlunder() {
         GuiFacade.performPlundering();
 
@@ -681,7 +622,6 @@ public class Encounter implements Serializable {
                             break;
                         }
 
-                    case MARIE_CELESTE_POLICE:
                     case POLICE_FLEE:
                     case POLICE_IGNORE:
                     case POLICE_SURRENDER:
@@ -740,28 +680,22 @@ public class Encounter implements Serializable {
     }
 
     public boolean isEncounterVerifyBoard() {
-        boolean board = false;
+        BooleanContainer board = new BooleanContainer(false);
 
-        if (GuiFacade.alert(AlertType.EncounterMarieCeleste) == DialogResult.YES) {
-            board = true;
+        game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_BOARD, board);
 
-            int narcs = commander.getShip().getCargo()[TradeItemType.NARCOTICS.castToInt()];
-
-            GuiFacade.performPlundering();
-
-            if (commander.getShip().getCargo()[TradeItemType.NARCOTICS.castToInt()] > narcs) {
-                game.setJustLootedMarie(true);
-            }
-        }
-
-        return board;
+        return board.getValue();
     }
 
     public boolean isEncounterVerifyBribe() {
         boolean bribed = false;
 
-        if (encounterType == EncounterType.MARIE_CELESTE_POLICE.castToInt()) {
-            GuiFacade.alert(AlertType.EncounterMarieCelesteNoBribe);
+        BooleanContainer executed = new BooleanContainer(false);
+
+        game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_BRIBE, executed);
+
+        if (executed.getValue()) {
+            return bribed;
         } else if (game.getWarpSystem().getPoliticalSystem().getBribeLevel() <= 0) {
             GuiFacade.alert(AlertType.EncounterPoliceBribeCant);
         } else if (commander.getShip().isDetectableIllegalCargoOrPassengers()
@@ -791,16 +725,17 @@ public class Encounter implements Serializable {
     public boolean isEncounterVerifyFlee() {
         setEncounterCmdrFleeing(false);
 
-        if (encounterType != EncounterType.POLICE_INSPECT.castToInt()
+        BooleanContainer executed = new BooleanContainer(false);
+
+        game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_FLEE, executed);
+
+        //TODO test and may be simplify
+        if (!executed.getValue() && (encounterType != EncounterType.POLICE_INSPECT.castToInt()
                 || commander.getShip().isDetectableIllegalCargoOrPassengers()
-                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES) {
+                || GuiFacade.alert(AlertType.EncounterPoliceNothingIllegal) == DialogResult.YES)) {
             setEncounterCmdrFleeing(true);
 
-            if (encounterType == EncounterType.MARIE_CELESTE_POLICE.castToInt()
-                    && GuiFacade.alert(AlertType.EncounterPostMarieFlee) == DialogResult.NO) {
-                setEncounterCmdrFleeing(false);
-            } else if (encounterType == EncounterType.POLICE_INSPECT.castToInt()
-                    || encounterType == EncounterType.MARIE_CELESTE_POLICE.castToInt()) {
+            if (encounterType == EncounterType.POLICE_INSPECT.castToInt()) {
                 int scoreMod = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.ScoreFleePolice
                         : Consts.ScoreAttackPolice;
                 int scoreMin = (encounterType == EncounterType.POLICE_INSPECT.castToInt()) ? Consts.PoliceRecordScoreDubious
@@ -995,9 +930,6 @@ public class Encounter implements Serializable {
 
     public void initializeVeryRareEncounters() {
         veryRareEncounters = new ArrayList<>(game.getQuestSystem().getVeryRareEncounters());
-        veryRareEncounters.add(MARIE_CELESTE.castToInt());
-        veryRareEncounters.add(BOTTLE_OLD.castToInt());
-        veryRareEncounters.add(BOTTLE_GOOD.castToInt());
     }
 
     public String getEncounterAction() {
@@ -1027,10 +959,6 @@ public class Encounter implements Serializable {
 
         if (encounterType < 1000) {
             switch (EncounterType.fromInt(encounterType)) {
-                case BOTTLE_GOOD:
-                case BOTTLE_OLD:
-                    text.setValue(Strings.EncounterTextBottle);
-                    break;
                 case PIRATE_ATTACK:
                 case POLICE_ATTACK:
                     text.setValue(Strings.EncounterTextOpponentAttack);
@@ -1040,12 +968,6 @@ public class Encounter implements Serializable {
                 case TRADER_IGNORE:
                     text.setValue(commander.getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
                             : Strings.EncounterTextOpponentIgnore);
-                    break;
-                case MARIE_CELESTE:
-                    text.setValue(Strings.EncounterTextMarieCeleste);
-                    break;
-                case MARIE_CELESTE_POLICE:
-                    text.setValue(Strings.EncounterTextPolicePostMarie);
                     break;
                 case PIRATE_FLEE:
                 case POLICE_FLEE:
@@ -1084,12 +1006,6 @@ public class Encounter implements Serializable {
 
         if (encounterType < 1000) {
             switch (EncounterType.fromInt(encounterType)) {
-                case BOTTLE_GOOD:
-                case BOTTLE_OLD:
-                case MARIE_CELESTE:
-                    encounterImage.setValue(Consts.EncounterImgSpecial);
-                    break;
-                case MARIE_CELESTE_POLICE:
                 case POLICE_ATTACK:
                 case POLICE_FLEE:
                 case POLICE_IGNORE:
@@ -1189,14 +1105,6 @@ public class Encounter implements Serializable {
 
         if (encounterType < 1000) {
             switch (EncounterType.fromInt(encounterType)) {
-                case BOTTLE_GOOD:
-                case BOTTLE_OLD:
-                    encounterPretext.setValue(Strings.EncounterPretextBottle);
-                    break;
-                case MARIE_CELESTE:
-                    encounterPretext.setValue(Strings.EncounterPretextMarie);
-                    break;
-                case MARIE_CELESTE_POLICE:
                 case POLICE_ATTACK:
                 case POLICE_FLEE:
                 case POLICE_IGNORE:

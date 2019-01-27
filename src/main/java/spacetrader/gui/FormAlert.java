@@ -234,9 +234,6 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterDisabledOpponent:
                 return new FormAlert(AlertsEncounterDisabledOpponentTitle, AlertsEncounterDisabledOpponentMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterDrinkContents:
-                return new FormAlert(AlertsEncounterDrinkContentsTitle, AlertsEncounterDrinkContentsMessage,
-                        AlertsEncounterDrinkContentsAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
             //TODO unused???
             case EncounterDumpAll:
                 //TODO credit(s)
@@ -259,12 +256,6 @@ public class FormAlert extends SpaceTraderForm {
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case EncounterLooting:
                 return new FormAlert(AlertsEncounterLootingTitle, AlertsEncounterLootingMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterMarieCeleste:
-                return new FormAlert(AlertsEncounterMarieCelesteTitle, AlertsEncounterMarieCelesteMessage,
-                        AlertsEncounterMarieCelesteAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
-            case EncounterMarieCelesteNoBribe:
-                return new FormAlert(AlertsEncounterMarieCelesteNoBribeTitle, AlertsEncounterMarieCelesteNoBribeMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case EncounterOpponentEscaped:
                 return new FormAlert(AlertsEncounterOpponentEscapedTitle, AlertsEncounterOpponentEscapedMessage, AlertsOk, DialogResult.OK,
@@ -299,12 +290,6 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterPoliceSurrender:
                 return new FormAlert(AlertsEncounterPoliceSurrenderTitle, AlertsEncounterPoliceSurrenderMessage,
                         AlertsYes, DialogResult.YES, AlertsNo, DialogResult.NO, args);
-            case EncounterPostMarie:
-                return new FormAlert(AlertsEncounterPostMarieTitle, AlertsEncounterPostMarieMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterPostMarieFlee:
-                return new FormAlert(AlertsEncounterPostMarieFleeTitle, AlertsEncounterPostMarieFleeMessage,
-                        AlertsEncounterPostMarieFleeAccept, DialogResult.YES, AlertsEncounterPostMarieFleeCancel, DialogResult.NO, args);
             case EncounterScoop:
                 return new FormAlert(AlertsEncounterScoopTitle, AlertsEncounterScoopMessage,
                         AlertsEncounterScoopAccept, DialogResult.YES, AlertsEncounterScoopCancel, DialogResult.NO, args);
@@ -317,12 +302,7 @@ public class FormAlert extends SpaceTraderForm {
             case EncounterSurrenderRefused:
                 return new FormAlert(AlertsEncounterSurrenderRefusedTitle, AlertsEncounterSurrenderRefusedMessage, AlertsOk, DialogResult.OK, null,
                         DialogResult.NONE, args);
-            case EncounterTonicConsumedGood:
-                return new FormAlert(AlertsEncounterTonicConsumedGoodTitle, AlertsEncounterTonicConsumedGoodMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            case EncounterTonicConsumedStrange:
-                return new FormAlert(AlertsEncounterTonicConsumedStrangeTitle, AlertsEncounterTonicConsumedStrangeMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+
             case EncounterTradeCompleted:
                 return new FormAlert(AlertsEncounterTradeCompletedTitle, AlertsEncounterTradeCompletedMessage,
                         AlertsOk, DialogResult.OK, null,

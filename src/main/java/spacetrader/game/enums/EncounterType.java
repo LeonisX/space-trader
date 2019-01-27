@@ -2,10 +2,6 @@ package spacetrader.game.enums;
 
 public enum EncounterType implements SpaceTraderEnum {
 
-    BOTTLE_GOOD, // = 0,
-    BOTTLE_OLD, // = 1,
-    MARIE_CELESTE, // = 9,
-    MARIE_CELESTE_POLICE, // = 10,
     PIRATE_ATTACK, // = 11,
     PIRATE_IGNORE, // = 12,
     PIRATE_FLEE, // = 13,

@@ -457,11 +457,6 @@ public class FormEncounter extends SpaceTraderForm {
 
         if (encounter.getEncounterType() < 1000) {
             switch (EncounterType.fromInt(encounter.getEncounterType())) {
-                case BOTTLE_GOOD:
-                case BOTTLE_OLD:
-                    visible.set(Buttons.DRINK.ordinal(), true);
-                    visible.set(Buttons.IGNORE.ordinal(), true);
-                    break;
                 case TRADER_ATTACK:
                     visible.set(Buttons.ATTACK.ordinal(), true);
                     visible.set(Buttons.FLEE.ordinal(), true);
@@ -475,16 +470,6 @@ public class FormEncounter extends SpaceTraderForm {
                 case TRADER_IGNORE:
                     visible.set(Buttons.ATTACK.ordinal(), true);
                     visible.set(Buttons.IGNORE.ordinal(), true);
-                    break;
-                case MARIE_CELESTE:
-                    visible.set(Buttons.BOARD.ordinal(), true);
-                    visible.set(Buttons.IGNORE.ordinal(), true);
-                    break;
-                case MARIE_CELESTE_POLICE:
-                    visible.set(Buttons.ATTACK.ordinal(), true);
-                    visible.set(Buttons.FLEE.ordinal(), true);
-                    visible.set(Buttons.YIELD.ordinal(), true);
-                    visible.set(Buttons.BRIBE.ordinal(), true);
                     break;
                 case PIRATE_ATTACK:
                 case POLICE_ATTACK:

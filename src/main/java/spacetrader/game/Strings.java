@@ -97,9 +97,6 @@ public class Strings {
     public static String AlertsEncounterBothDestroyedMessage = "You and your opponent have managed to destroy each other.";
     public static String AlertsEncounterDisabledOpponentTitle = "Opponent Disabled";
     public static String AlertsEncounterDisabledOpponentMessage = "You have disabled your opponent. Without life support they'll have to hibernate. You notify Space Corps, and they come and tow the ^1 to the planet, where the crew is revived and then arrested. ^2";
-    public static String AlertsEncounterDrinkContentsTitle = "Drink Contents?";
-    public static String AlertsEncounterDrinkContentsMessage = "You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The \"use-by\" date is illegible, but might still be good.  Would you like to drink it?";
-    public static String AlertsEncounterDrinkContentsAccept = "Yes, Drink It";
     public static String AlertsEncounterDumpAllTitle = "Dump All?";
     public static String AlertsEncounterDumpAllMessage = "You paid ^1 for these items. Are you sure you want to just dump them?";
     public static String AlertsEncounterDumpWarningTitle = "Space Littering";
@@ -112,11 +109,6 @@ public class Strings {
     public static String AlertsEncounterEscapePodActivatedMessage = "Just before the final demise of your ship, your escape pod gets activated and ejects you. After a few days, the Space Corps picks you up and drops you off at a nearby space port.";
     public static String AlertsEncounterLootingTitle = "Looting";
     public static String AlertsEncounterLootingMessage = "The pirates board your ship and transfer as much of your cargo to their own ship as their cargo bays can hold.";
-    public static String AlertsEncounterMarieCelesteTitle = "Engage Marie Celeste";
-    public static String AlertsEncounterMarieCelesteMessage = "The ship is empty: there is nothing in the ship's log, but the crew has vanished, leaving food on the tables and cargo in the holds. Do you wish to offload the cargo to your own holds? ";
-    public static String AlertsEncounterMarieCelesteAccept = "Yes, Take Cargo";
-    public static String AlertsEncounterMarieCelesteNoBribeTitle = "No Bribe";
-    public static String AlertsEncounterMarieCelesteNoBribeMessage = "We'd love to take your money, but Space Command already knows you've got illegal goods onboard.";
     public static String AlertsEncounterOpponentEscapedTitle = "Opponent Escaped";
     public static String AlertsEncounterOpponentEscapedMessage = "Your opponent has managed to escape.";
     public static String AlertsEncounterPiratesBountyTitle = "Bounty";
@@ -144,12 +136,6 @@ public class Strings {
     public static String AlertsEncounterPoliceSubmitAccept = "Yes, let them";
     public static String AlertsEncounterPoliceSurrenderTitle = "Surrender";
     public static String AlertsEncounterPoliceSurrenderMessage = "^1If you surrender, you will spend some time in prison and will have to pay a hefty fine. ^2Are you sure you want to do that?";
-    public static String AlertsEncounterPostMarieTitle = "Contraband Removed";
-    public static String AlertsEncounterPostMarieMessage = "The Customs Police confiscated all of your illegal cargo, but since you were cooperative, you avoided stronger fines or penalties.";
-    public static String AlertsEncounterPostMarieFleeTitle = "Criminal Act!";
-    public static String AlertsEncounterPostMarieFleeMessage = "Are you sure you want to do that? The Customs Police know you have engaged in criminal activity, and will report it!";
-    public static String AlertsEncounterPostMarieFleeAccept = "Yes, I still want to";
-    public static String AlertsEncounterPostMarieFleeCancel = "OK, I won't";
     public static String AlertsEncounterScoopTitle = "Scoop Canister";
     public static String AlertsEncounterScoopMessage = "A canister from the destroyed ship, labeled ^1, drifts within range of your scoops.";
     public static String AlertsEncounterScoopAccept = "Pick It Up";
@@ -162,10 +148,6 @@ public class Strings {
     public static String AlertsEncounterScoopNoScoopMessage = "You regret finding nothing in your holds that can be dumped, and let the canister go.";
     public static String AlertsEncounterSurrenderRefusedTitle = "To The Death!";
     public static String AlertsEncounterSurrenderRefusedMessage = "Surrender? Hah! We want your HEAD!";
-    public static String AlertsEncounterTonicConsumedGoodTitle = "Tonic Consumed";
-    public static String AlertsEncounterTonicConsumedGoodMessage = "Mmmmm. Captain Marmoset's Amazing Skill Tonic not only fills you with energy, but tastes like a fine single-malt." + Strings.newline;
-    public static String AlertsEncounterTonicConsumedStrangeTitle = "Tonic Consumed";
-    public static String AlertsEncounterTonicConsumedStrangeMessage = "While you don't know what it was supposed to taste like, you get the feeling that this dose of tonic was a bit off.";
     public static String AlertsEncounterTradeCompletedTitle = "Trade Completed";
     public static String AlertsEncounterTradeCompletedMessage = "Thanks for ^1 the ^2. It's been a pleasure doing business with you.";
     public static String AlertsEncounterYouLoseTitle = "You Lose";
@@ -353,10 +335,6 @@ public class Strings {
     public static String EncounterPoliceSurrenderCargo = "You have ^1 on board!";
     public static String EncounterPoliceSurrenderAction = "They will ^1. ";
     public static String EncounterPretextAlien = "an alien ^1";
-    public static String EncounterPretextBottle = "a floating ^1";
-    public static String EncounterPretextMarie = "a drifting ^1";
-    //TODO
-    public static String EncounterPretextMariePolice = "the Customs Police in a ^1";
     public static String EncounterPretextPirate = "a pirate ^1";
     public static String EncounterPretextPolice = "a police ^1";
     public static String EncounterPretextTrader = "a trader ^1";
@@ -367,14 +345,11 @@ public class Strings {
     public static String EncounterShipPolice = "police ship";
     public static String EncounterShipTrader = "trader ship";
     public static String EncounterText = "At ^1 from ^2 you encounter ^3.";
-    public static String EncounterTextBottle = "It appears to be a rare bottle of Captain Marmoset's Skill Tonic!";
-    public static String EncounterTextMarieCeleste = "The Marie Celeste appears to be completely abandoned.";
     public static String EncounterTextOpponentAttack = "Your opponent attacks.";
     public static String EncounterTextOpponentFlee = "Your opponent is fleeing.";
     public static String EncounterTextOpponentIgnore = "It ignores you.";
     public static String EncounterTextOpponentNoNotice = "It doesn't notice you.";
     public static String EncounterTextPoliceInspection = "The police summon you to submit to an inspection.";
-    public static String EncounterTextPolicePostMarie = "\"We know you removed illegal goods from the Marie Celeste. You must give them up at once!\"";
     public static String EncounterTextPoliceSurrender = "The police hail they want you to surrender.";
     public static String EncounterTextTrader = "You are hailed with an offer to trade goods.";
 
@@ -679,7 +654,7 @@ public class Strings {
     public static String[] ShieldNames = new String[]{"Energy Shield", "Reflective Shield", "Lightning Shield"};
 
     public static String[] ShipNames = new String[]{"Flea", "Gnat", "Firefly", "Mosquito", "Bumblebee", "Beetle",
-            "Hornet", "Grasshopper", "Termite", "Wasp", "Mantis", "Bottle", ShipNameCustomShip};
+            "Hornet", "Grasshopper", "Termite", "Wasp", "Mantis", ShipNameCustomShip};
 
     public static String[] ShipyardEngineers = new String[]{"Wedge", "Luke", "Lando", "Mara", "Obi-Wan"};
 
@@ -835,8 +810,6 @@ public class Strings {
 
     public static String[] TradeItemNames = new String[]{"Water", "Furs", "Food", "Ore", "Games", "Firearms",
             "Medicine", "Machines", "Narcotics", "Robots"};
-
-    public static String[] VeryRareEncounters = new String[]{"Marie Celeste", "Dated Tonic", "Good Tonic"};
 
     public static String[] WeaponNames = new String[]{"Pulse Laser", "Beam Laser", "Military Laser", "Morgan's Laser",
             "Photon Disruptor", "Quantum Disruptor"};

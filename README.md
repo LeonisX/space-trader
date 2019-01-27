@@ -168,6 +168,10 @@ CrewNameCaptain=Капитан | Капитана
 * Revert back isDetermineRandomEncounter()
 * Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
 
+* EncounterPretextMariePolice - unused string. Need to implement
+* Ships shift by one ("Bottle")
+
+
 ### News
 
 * Clean from old events

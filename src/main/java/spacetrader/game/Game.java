@@ -70,7 +70,6 @@ public class Game implements Serializable {
     private int[] priceCargoBuy = new int[10];
     private int[] priceCargoSell = new int[10]; // Status of Quests
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
-    private boolean justLootedMarie = false; // flag to indicate whether player looted Marie Celeste
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
 
     private GameOptions options = new GameOptions(true);
@@ -423,14 +422,6 @@ public class Game implements Serializable {
 
     public void setLitterWarning(boolean litterWarning) {
         this.litterWarning = litterWarning;
-    }
-
-    public boolean getJustLootedMarie() {
-        return justLootedMarie;
-    }
-
-    public void setJustLootedMarie(boolean justLootedMarie) {
-        this.justLootedMarie = justLootedMarie;
     }
 
     public boolean getInspected() {
@@ -1258,7 +1249,6 @@ public class Game implements Serializable {
                 autoSave == game.autoSave &&
                 targetWormhole == game.targetWormhole &&
                 fabricRipProbability == game.fabricRipProbability &&
-                justLootedMarie == game.justLootedMarie &&
                 canSuperWarp == game.canSuperWarp &&
                 Objects.equals(commander, game.commander) &&
                 Objects.equals(cheats, game.cheats) &&
@@ -1285,7 +1275,7 @@ public class Game implements Serializable {
                 opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
                 paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus, selectedSystemId,
                 warpSystemId, trackedSystemId, targetWormhole,
-                fabricRipProbability, justLootedMarie, canSuperWarp, options, parentWin);
+                fabricRipProbability, canSuperWarp, options, parentWin);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
         result = 31 * result + mercenaries.hashCode();

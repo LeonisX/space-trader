@@ -2,7 +2,6 @@ package spacetrader.game.cheat;
 
 import spacetrader.game.*;
 import spacetrader.game.enums.AlertType;
-import spacetrader.game.enums.VeryRareEncounter;
 import spacetrader.game.quest.enums.EventName;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;

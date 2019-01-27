@@ -42,6 +42,9 @@ public enum EventName {
     ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER,   // Princess, Space Monster. Starts a predefined encounter with Scorpion.
     ON_ENCOUNTER_GENERATE_OPPONENT,
     ENCOUNTER_VERIFY_ATTACK,                    // Princess (Scorpion). Check before starting the attack. You can not attack Scorpion, if there are no disruptors on board
+    ENCOUNTER_VERIFY_BOARD,
+    ENCOUNTER_VERIFY_BRIBE,
+    ENCOUNTER_VERIFY_FLEE,
     ENCOUNTER_GET_INTRODUCTORY_TEXT,            // Princess (Scorpion), Space Monster. Used to generate an introductory text of encounter
     ENCOUNTER_GET_INTRODUCTORY_ACTION,          //
     ENCOUNTER_GET_ENCOUNTER_SHIP_TEXT,          // Very rare encounters
@@ -82,5 +85,6 @@ public enum EventName {
     // Cheats
     IS_CONSIDER_CHEAT,                          // Tribbles. General cheats
     IS_CONSIDER_STATUS_CHEAT,                   // Jarek, Princess, ... Change the status of the quest (for example, Jarek questStatus)
-    ENCOUNTER_UPDATE_ENCOUNTER_TYPE, ENCOUNTER_MEET, ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, ENCOUNTER_GET_EXECUTE_ACTION_OPPONENT_FLEEING, IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
+    ENCOUNTER_UPDATE_ENCOUNTER_TYPE, ENCOUNTER_MEET, ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, ENCOUNTER_GET_EXECUTE_ACTION_OPPONENT_FLEEING,
+    ENCOUNTER_DRINK, IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
 }
