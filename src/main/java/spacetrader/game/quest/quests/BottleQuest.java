@@ -28,48 +28,40 @@ public class BottleQuest extends AbstractQuest {
     static final long serialVersionUID = -4731305242511602L;
 
     // Constants
-    private static final int SCORE_KILL_CAPTAIN = 100;
-
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
+    //TODO need???
     private CrewMember captain; // FAMOUS_CAPTAIN, // = 34,crew of famous captain ships
 
-    //TODO
-    BOTTLE_GOOD, // = 0,
-    BOTTLE_OLD, // = 1,
     // Encounters
-    private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK
-    private int famousCaptainDisabled; // FAMOUS_CAPT_DISABLED
+    private int bottleGoodEncounter; // BOTTLE_GOOD
+    private int bottleOldEncounter; // BOTTLE_OLD
 
-    BOTTLE_OLD, // = 4,
-    BOTTLE_GOOD; // = 5
     // Very Rare Encounters
-    private Integer captainAhab; // CAPTAIN_AHAB
-    private Integer captainConrad; // CAPTAIN_CONRAD
-    private Integer captainHuie; // CAPTAIN_HUIE
+    private Integer bottleGood; // BOTTLE_OLD
+    private Integer bottleOld; // BOTTLE_GOOD
 
-    private int famousCaptain; // OpponentType
+    //TODO need???
+    private int bottle; // OpponentType
 
     public BottleQuest(String id) {
         initialize(id, this, REPEATABLE, OCCURRENCE);
 
         initializeTransitionMap();
 
-        famousCaptainAttack = registerNewEncounter();
-        famousCaptainDisabled = registerNewEncounter();
+        bottleGoodEncounter = registerNewEncounter();
+        bottleOldEncounter = registerNewEncounter();
 
-        captainAhab = registerNewVeryRareEncounter();
-        captainConrad = registerNewVeryRareEncounter();
-        captainHuie = registerNewVeryRareEncounter();
+        bottleGood = registerNewVeryRareEncounter();
+        bottleOld = registerNewVeryRareEncounter();
 
-        famousCaptain = registerNewOpponentType();
-
-        registerNews(News.values().length);
+        bottle = registerNewOpponentType();
 
         registerListener();
 
-        localize();
+        //localize();
+        dumpAllStrings();
 
         log.fine("started...");
     }
@@ -105,14 +97,12 @@ public class BottleQuest extends AbstractQuest {
 
     @Override
     public String getVeryRareEncounter(Integer id) {
-        if (getEncounter().getEncounterType().equals(captainAhab)) {
-            return VeryRareEncounters.CaptainAhab.getValue();
-        } else if (getEncounter().getEncounterType().equals(captainConrad)) {
-            return VeryRareEncounters.CaptainConrad.getValue();
-        } else if (getEncounter().getEncounterType().equals(captainHuie)) {
-            return VeryRareEncounters.CaptainHuie.getValue();
+        if (getEncounter().getEncounterType().equals(bottleGood)) {
+            return VeryRareEncounters.GoodTonic.getValue();
+        } else if (getEncounter().getEncounterType().equals(bottleOld)) {
+            return VeryRareEncounters.DatedTonic.getValue();
         } else {
-            throw new IndexOutOfBoundsException("No such VeryRareEncounter with ID " + id + " in CaptainQuest");
+            throw new IndexOutOfBoundsException("No such VeryRareEncounter with ID " + id + " in BottleQuest");
         }
     }
 
@@ -122,21 +112,16 @@ public class BottleQuest extends AbstractQuest {
         log.fine("registered");
     }
 
+    //TODO need?????
     @Override
     public String getCrewMemberName(int id) {
         return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
     }
 
     @Override
-    public String getNewsTitle(int newsId) {
-        return News.values()[getNewsIds().indexOf(newsId)].getValue();
-    }
-
-    @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
-        I18n.dumpStrings(Res.News, Arrays.stream(News.values()));
         I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.dumpStrings(Res.VeryRareEncounters, Arrays.stream(VeryRareEncounters.values()));
         I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
@@ -145,64 +130,39 @@ public class BottleQuest extends AbstractQuest {
     @Override
     public void localize() {
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
-        I18n.localizeStrings(Res.News, Arrays.stream(News.values()));
         I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.VeryRareEncounters, Arrays.stream(VeryRareEncounters.values()));
         I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
 
-    // 2. Captain Ahab will trade your Reflective Shield for skill points in Piloting.
-    // 3. Captain Conrad will trade your Military Laser for skill points in Engineering.
-    // 4. Captain Huie will trade your Military Laser for points in Trading.
+    // Very Rare Random Events:
+    // 5. Encounter an out-of-date bottle of Captain Marmoset's Skill Tonic.
+    // This will affect skills depending on game difficulty level.
+    // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which will invoke
+    // IncreaseRandomSkill one or two times, depending on game difficulty.
     private void onDetermineVeryRareEncounter(Object object) {
         BooleanContainer happened = (BooleanContainer) object;
         if (happened.getValue()) {
             return;
         }
 
-        if (getEncounter().getVeryRareEncounterId() == captainAhab
-                && getShip().hasShield(ShieldType.REFLECTIVE) && getCommander().getPilot() < 10
-                && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-            getEncounter().getVeryRareEncounters().remove(captainAhab);
-            getEncounter().setEncounterType(captainAhab);
-            game.generateOpponent(famousCaptain);
+        if (getEncounter().getVeryRareEncounterId() == bottleOld) {
+            getEncounter().getVeryRareEncounters().remove(bottleOld);
+            getEncounter().setEncounterType(bottleOldEncounter);
+            game.generateOpponent(bottle);
             happened.setValue(true);
-        } else if (getEncounter().getVeryRareEncounterId() == captainConrad
-                && getShip().hasWeapon(WeaponType.MILITARY_LASER, true) && getCommander().getEngineer() < 10
-                && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-            getEncounter().getVeryRareEncounters().remove(captainConrad);
-            getEncounter().setEncounterType(captainConrad);
-            game.generateOpponent(famousCaptain);
-            happened.setValue(true);
-        } else if (getEncounter().getVeryRareEncounterId() == captainHuie
-                && getShip().hasWeapon(WeaponType.MILITARY_LASER, true) && getCommander().getTrader() < 10
-                && getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreCriminal) {
-            getEncounter().getVeryRareEncounters().remove(captainHuie);
-            getEncounter().setEncounterType(captainHuie);
-            game.generateOpponent(famousCaptain);
+        } else if (getEncounter().getVeryRareEncounterId() == bottleGood) {
+            getEncounter().getVeryRareEncounters().remove(bottleGood);
+            getEncounter().setEncounterType(bottleGoodEncounter);
+            game.generateOpponent(bottle);
             happened.setValue(true);
         }
-        //TODO
-        // Very Rare Random Events:
-        // 5. Encounter an out-of-date bottle of Captain Marmoset's Skill Tonic.
-        // This will affect skills depending on game difficulty level.
-        // 6. Encounter a good bottle of Captain Marmoset's Skill Tonic, which will invoke
-        // IncreaseRandomSkill one or two times, depending on game difficulty.
-    /*} else if (veryRareEncounterId.equals(BOTTLE_OLD.castToInt())) {
-        getVeryRareEncounters().remove(BOTTLE_OLD.castToInt());
-        setEncounterType(EncounterType.BOTTLE_OLD);
-        game.generateOpponent(OpponentType.BOTTLE);
-        return true;
-    } else if (veryRareEncounterId.equals(BOTTLE_GOOD.castToInt())) {
-        getVeryRareEncounters().remove(BOTTLE_GOOD.castToInt());
-        setEncounterType(EncounterType.BOTTLE_GOOD);
-        game.generateOpponent(OpponentType.BOTTLE);
-        return true;*/
     }
 
+    //TODO specs?????
     private void onGenerateOpponentShip(Object object) {
         Ship ship = (Ship) object;
-        if (ship.getOpponentType() == famousCaptain) {
+        if (ship.getOpponentType() == bottle) {
             ship.setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
             for (int i = 0; i < ship.getShields().length; i++) {
@@ -371,6 +331,7 @@ public class BottleQuest extends AbstractQuest {
         newsEvents.add(newEvent);
     }
 
+    //TODO need???
     private boolean isVeryRareEncounter() {
         return Objects.equals(getEncounter().getEncounterType(), captainAhab)
                 || getEncounter().getEncounterType().equals(captainConrad)
@@ -378,11 +339,11 @@ public class BottleQuest extends AbstractQuest {
     }
 
 
-
-
-
-/*    EncounterTonicConsumedGood,
-    EncounterTonicConsumedStrange,
+/*
+    EncounterDrinkContents,
+            case EncounterDrinkContents:
+            return new FormAlert(AlertsEncounterDrinkContentsTitle, AlertsEncounterDrinkContentsMessage,
+                                 AlertsEncounterDrinkContentsAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);
 
             case EncounterTonicConsumedGood:
             return new FormAlert(AlertsEncounterTonicConsumedGoodTitle, AlertsEncounterTonicConsumedGoodMessage,
@@ -392,23 +353,10 @@ public class BottleQuest extends AbstractQuest {
                                  AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             */
 
-    public static String AlertsEncounterDrinkContentsTitle = "Drink Contents?";
-    public static String AlertsEncounterDrinkContentsMessage = "You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The \"use-by\" date is illegible, but might still be good.  Would you like to drink it?";
-    public static String AlertsEncounterDrinkContentsAccept = "Yes, Drink It";
-
-    public static String AlertsEncounterTonicConsumedGoodTitle = "Tonic Consumed";
-    public static String AlertsEncounterTonicConsumedGoodMessage = "Mmmmm. Captain Marmoset's Amazing Skill Tonic not only fills you with energy, but tastes like a fine single-malt." + Strings.newline;
-    public static String AlertsEncounterTonicConsumedStrangeTitle = "Tonic Consumed";
-    public static String AlertsEncounterTonicConsumedStrangeMessage = "While you don't know what it was supposed to taste like, you get the feeling that this dose of tonic was a bit off.";
-
-
     enum Alerts implements SimpleValueEnum<AlertDialog> {
-
-        EncounterAttackCaptain("Really Attack?", "Famous Captains get famous by, among other things, destroying everyone who attacks them. Do you really want to attack?", "Really Attack", "OK, I Won't"),
-        MeetCaptainAhab("Meet Captain Ahab", "Captain Ahab is in need of a spare shield for an upcoming mission. He offers to trade you some piloting lessons for your reflective shield. Do you wish to trade?", "Yes, Trade Shield"),
-        MeetCaptainConrad("Meet Captain Conrad", "Captain Conrad is in need of a military laser. She offers to trade you some engineering training for your military laser. Do you wish to trade?", "Yes, Trade Laser"),
-        MeetCaptainHuie("Meet Captain Huie", "Captain Huie is in need of a military laser. She offers to exchange some bargaining training for your military laser. Do you wish to trade?", "Yes, Trade Laser"),
-        SpecialTrainingCompleted("Training Completed", "After a few hours of training with a top expert, you feel your abilities have improved significantly.");
+        EncounterDrinkContents("Drink Contents?", "You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The \"use-by\" date is illegible, but might still be good.  Would you like to drink it?", "Yes, Drink It"),
+        EncounterTonicConsumedGood("Tonic Consumed", "Mmmmm. Captain Marmoset's Amazing Skill Tonic not only fills you with energy, but tastes like a fine single-malt."),
+        EncounterTonicConsumedStrange("Tonic Consumed", "While you don't know what it was supposed to taste like, you get the feeling that this dose of tonic was a bit off.");
 
         private AlertDialog value;
 
@@ -418,10 +366,6 @@ public class BottleQuest extends AbstractQuest {
 
         Alerts(String title, String body, String accept) {
             this.value = new AlertDialog(title, body, accept);
-        }
-
-        Alerts(String title, String body, String accept, String cancel) {
-            this.value = new AlertDialog(title, body, accept, cancel);
         }
 
         @Override
@@ -435,46 +379,9 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
-    enum News implements SimpleValueEnum<String> {
-        CaptAhabAttacked("Thug Assaults Captain Ahab!"),
-        CaptAhabDestroyed("Destruction of Captain Ahab's Ship Causes Anger!"),
-        CaptConradAttacked("Captain Conrad Comes Under Attack By Criminal!"),
-        CaptConradDestroyed("Captain Conrad's Ship Destroyed by Villain!"),
-        CaptHuieAttacked("Famed Captain Huie Attacked by Brigand!"),
-        CaptHuieDestroyed("Citizens Mourn Destruction of Captain Huie's Ship!");
-
-        private String value;
-
-        News(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
-    /*EncounterDrinkContents,
-            case EncounterDrinkContents:
-            return new FormAlert(AlertsEncounterDrinkContentsTitle, AlertsEncounterDrinkContentsMessage,
-                                 AlertsEncounterDrinkContentsAccept, DialogResult.YES, AlertsNo, DialogResult.NO, args);*/
-
-    public static String EncounterPretextBottle = "a floating ^1";
-    public static String EncounterTextBottle = "It appears to be a rare bottle of Captain Marmoset's Skill Tonic!";
-
-
     enum Encounters implements SimpleValueEnum<String> {
-        PretextCaptainAhab("the famous Captain Ahab in a ^1"),
-        PretextCaptainConrad("the famous Captain Conrad in a ^1"),
-        PretextCaptainHuie("the famous Captain Huie in a ^1"),
-        ShipCaptain("Captain"),
-        TextFamousCaptain("The Captain requests a brief meeting with you.");
+        PretextBottle("a floating ^1"),
+        TextBottle("It appears to be a rare bottle of Captain Marmoset's Skill Tonic!");
 
         private String value;
 
@@ -493,12 +400,9 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
-    "Dated Tonic", "Good Tonic"
-
     enum VeryRareEncounters implements SimpleValueEnum<String> {
-        CaptainAhab("Captain Ahab"),
-        CaptainConrad("Captain Conrad"),
-        CaptainHuie("Captain Huie");
+        DatedTonic("Dated Tonic"),
+        GoodTonic("Good Tonic");
 
         private String value;
 
@@ -517,11 +421,11 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
-    //TODO ship name
-    "Bottle",
+    //TODO ship name - need????
+    //"Bottle",
 
     enum CrewNames implements SimpleValueEnum<String> {
-        Captain("Captain");
+        Bottle("Bottle");
 
         private String value;
 
@@ -540,6 +444,7 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
+    //TODO
     @Override
     public String toString() {
         return "CaptainQuest{" +

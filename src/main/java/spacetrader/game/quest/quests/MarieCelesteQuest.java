@@ -20,7 +20,6 @@ import java.util.*;
 
 import static spacetrader.game.quest.enums.EventName.*;
 
-//TODO -captain
 public class MarieCelesteQuest extends AbstractQuest {
 
     static final long serialVersionUID = -4731305242511601L;
@@ -221,15 +220,6 @@ public class MarieCelesteQuest extends AbstractQuest {
         }
     }
 
-
-/*
-
-            case EncounterPostMarie:
-            return new FormAlert(AlertsEncounterPostMarieTitle, AlertsEncounterPostMarieMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            */
-
-
     private void encounterGetIntroductoryText(Object object) {
         if (getEncounter().getEncounterType().equals(mariaCelesteStart)) {
             ((StringContainer) object).setValue(Encounters.PretextMarieCeleste.getValue());
@@ -311,6 +301,11 @@ public class MarieCelesteQuest extends AbstractQuest {
         }
     }
 
+    /*      case EncounterPostMarie:
+            return new FormAlert(AlertsEncounterPostMarieTitle, AlertsEncounterPostMarieMessage,
+                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
+            */
+
     enum Encounters implements SimpleValueEnum<String> {
         PretextMarieCeleste("a drifting ^1"),
         //TODO need to enhance code now this string is unused
@@ -356,37 +351,13 @@ public class MarieCelesteQuest extends AbstractQuest {
 
     }
 
-    /*enum CrewNames implements SimpleValueEnum<String> {
-        Captain("Captain");
-
-        private String value;
-
-        CrewNames(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }*/
-
-    //TODO
     @Override
     public String toString() {
-        return "CaptainQuest{" +
-                "captain=" + captain +
-                ", famousCaptainAttack=" + famousCaptainAttack +
-                ", famousCaptainDisabled=" + famousCaptainDisabled +
-                ", captainAhab=" + captainAhab +
-                ", captainConrad=" + captainConrad +
-                ", captainHuie=" + captainHuie +
-                ", famousCaptainOpponentType=" + famousCaptain +
+        return "MarieCelesteQuest{" +
+                "mariaCelesteStart=" + mariaCelesteStart +
+                ", mariaCelestePolice=" + mariaCelestePolice +
+                ", mariaCeleste=" + mariaCeleste +
+                ", justLootedMarie=" + justLootedMarie +
                 "} " + super.toString();
     }
 }
