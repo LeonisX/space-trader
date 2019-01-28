@@ -79,6 +79,9 @@ public class GameCheats implements Serializable {
                         controller.autoSaveOnArrival();
                     }
                     break;
+                case GigaGaia:
+                    game.getCommander().initializeGigaGaia();
+                    break;
                 case Ice: {
                     switch (SomeStringsForCheatSwitch.find(words.getSecond())) {
                         case Pirate:

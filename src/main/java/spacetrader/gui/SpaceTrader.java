@@ -66,6 +66,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
     private SubMenu cheatsSubMenu = new SubMenu();
     private MenuItem formMonsterMenuItem = new MenuItem();
     private MenuItem formShipyardMenuItem = new MenuItem();
+    private MenuItem formGigaGaiaMenuItem = new MenuItem();
     private MenuItem formTestMenuItem = new MenuItem();
     private MenuItem formAlertTestMenuItem = new MenuItem();
 
@@ -342,7 +343,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
         });
 
 
-        cheatsSubMenu.addAll(formMonsterMenuItem, formShipyardMenuItem, separator(),
+        cheatsSubMenu.addAll(formMonsterMenuItem, formShipyardMenuItem, formGigaGaiaMenuItem, separator(),
                 formTestMenuItem, formAlertTestMenuItem);
 
         cheatsSubMenu.setText("Cheats");
@@ -364,6 +365,16 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
                 new FormShipyard(0).showDialog();
             }
         });
+
+        formGigaGaiaMenuItem.setEnabled(false);
+        formGigaGaiaMenuItem.setText("Giga Gaia");
+        formGigaGaiaMenuItem.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                commander.initializeGigaGaia();
+            }
+        });
+
 
         //formTestMenuItem.setEnabled(false);
         formTestMenuItem.setText("Forms test");
@@ -439,6 +450,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
 
         formMonsterMenuItem.setEnabled(enabled);
         formShipyardMenuItem.setEnabled(enabled);
+        formGigaGaiaMenuItem.setEnabled(enabled);
 
         systemPanel.update();
     }

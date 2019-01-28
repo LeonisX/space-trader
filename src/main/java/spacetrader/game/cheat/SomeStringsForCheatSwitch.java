@@ -17,6 +17,7 @@ public enum SomeStringsForCheatSwitch {
     Pirate,
     Police,
     Trader,
+    GigaGaia, // Leonis
     Indemnity,
     IOU,
     Iron,

@@ -167,6 +167,21 @@ public class Commander extends CrewMember implements Serializable {
         return false;
     }
 
+    public void initializeGigaGaia() {
+        ship = new Ship(new ShipSpec(ShipType.CUSTOM, Size.HUGE, 64, 5, 5, 5, 5, 20, 5, 300, 20, 500000, 0,
+                Activity.NA, Activity.NA, Activity.NA, TechLevel.UNAVAILABLE));
+        ship.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        ship.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        ship.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
+        ship.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
+        ship.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
+        ship.addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
+        ship.addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
+        ship.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
+        ship.addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
+        ship.addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
+    }
+
     public int getCashToSpend() {
         return cash - (Game.getCurrentGame().getOptions().isReserveMoney() ? getCurrentCosts() : 0);
     }
