@@ -28,6 +28,7 @@ public enum SomeStringsForCheatSwitch {
     PlanB,
     Posse,
     RapSheet,
+    Rareware, // Leonis
     Rarity,
     Scratch,
     Skin,

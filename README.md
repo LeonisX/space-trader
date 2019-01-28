@@ -263,7 +263,6 @@ VeryRareEncounterGoodTonic=Хороший Тоник
 * Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
 
 * EncounterPretextMariePolice - unused string. Need to implement
-* Rareware cheat - first all rare quests, next as usual.
 
 
 ### News

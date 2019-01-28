@@ -129,10 +129,11 @@ public class Game implements Serializable {
 
         cheats = new GameCheats();
         if (name.length() == 0) {
-            // TODO: JAF - DEBUG
+            // TODO: JAF, Leonis - DEBUG
             commander.setCash(2000000);
             cheats.setCheatMode(true);
             encounter.setEasyEncounters(true);
+            encounter.setRareEncountersFirst(true);
             setCanSuperWarp(true);
         }
 
