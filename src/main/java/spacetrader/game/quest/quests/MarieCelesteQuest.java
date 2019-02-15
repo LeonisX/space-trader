@@ -65,6 +65,7 @@ public class MarieCelesteQuest extends AbstractQuest {
         getTransitionMap().put(ENCOUNTER_VERIFY_BOARD, this::encounterVerifyBoard);
         getTransitionMap().put(ENCOUNTER_VERIFY_BRIBE, this::encounterVerifyBribe);
         getTransitionMap().put(ENCOUNTER_VERIFY_FLEE, this::encounterVerifyFlee);
+        getTransitionMap().put(ENCOUNTER_VERIFY_YIELD, this::encounterVerifyYield);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
@@ -213,11 +214,17 @@ public class MarieCelesteQuest extends AbstractQuest {
         }
     }
 
+    private void encounterVerifyYield(Object object) {
+        if (getEncounter().getEncounterType() == mariaCelestePolice) {
+            showAlert(Alerts.EncounterPostMarie.getValue());
+        }
+    }
+
     private void encounterGetIntroductoryText(Object object) {
         if (getEncounter().getEncounterType().equals(mariaCelesteStart)) {
             ((StringContainer) object).setValue(Encounters.PretextMarieCeleste.getValue());
         } else if (getEncounter().getEncounterType().equals(mariaCelestePolice)) {
-            ((StringContainer) object).setValue(Strings.EncounterPretextPolice);
+            ((StringContainer) object).setValue(Encounters.PretextMariePolice.getValue());
         }
     }
 
@@ -293,11 +300,6 @@ public class MarieCelesteQuest extends AbstractQuest {
             this.value = value;
         }
     }
-
-    /*      case EncounterPostMarie:
-            return new FormAlert(AlertsEncounterPostMarieTitle, AlertsEncounterPostMarieMessage,
-                                 AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
-            */
 
     enum Encounters implements SimpleValueEnum<String> {
         PretextMarieCeleste("a drifting ^1"),

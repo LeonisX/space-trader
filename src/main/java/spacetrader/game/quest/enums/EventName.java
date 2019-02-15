@@ -86,5 +86,5 @@ public enum EventName {
     IS_CONSIDER_CHEAT,                          // Tribbles. General cheats
     IS_CONSIDER_STATUS_CHEAT,                   // Jarek, Princess, ... Change the status of the quest (for example, Jarek questStatus)
     ENCOUNTER_UPDATE_ENCOUNTER_TYPE, ENCOUNTER_MEET, ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, ENCOUNTER_GET_EXECUTE_ACTION_OPPONENT_FLEEING,
-    ENCOUNTER_DRINK, IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
+    ENCOUNTER_DRINK, ENCOUNTER_VERIFY_YIELD, IS_CONSIDER_STATUS_DEFAULT_CHEAT            // Jarek, Princess, ... See the status of all quests
 }

@@ -851,6 +851,8 @@ public class Encounter implements Serializable {
 
                 commander.getShip().removeIllegalGoods();
 
+                game.getQuestSystem().fireEvent(ENCOUNTER_VERIFY_YIELD);
+
                 result = EncounterResult.NORMAL;
             }
         }

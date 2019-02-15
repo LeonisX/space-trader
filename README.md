@@ -76,29 +76,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-## Marie Celeste Quest
-
-# Alerts:
-AlertEncounterMarieCelesteTitle=Engage Marie Celeste
-AlertEncounterMarieCelesteMessage=The ship is empty: there is nothing in the ship's log, but the crew has vanished, leaving food on the tables and cargo in the holds. Do you wish to offload the cargo to your own holds?
-AlertEncounterMarieCelesteAccept=Yes, Take Cargo
-AlertEncounterMarieCelesteNoBribeTitle=No Bribe
-AlertEncounterMarieCelesteNoBribeMessage=We'd love to take your money, but Space Command already knows you've got illegal goods onboard.
-AlertEncounterPostMarieTitle=Contraband Removed
-AlertEncounterPostMarieMessage=The Customs Police confiscated all of your illegal cargo, but since you were cooperative, you avoided stronger fines or penalties.
-AlertEncounterPostMarieFleeTitle=Criminal Act!
-AlertEncounterPostMarieFleeMessage=Are you sure you want to do that? The Customs Police know you have engaged in criminal activity, and will report it!
-AlertEncounterPostMarieFleeAccept=Yes, I still want to
-AlertEncounterPostMarieFleeCancel=OK, I won't
-
-# Encounters:
-EncounterPretextMarieCeleste=a drifting ^1
-EncounterPretextMariePolice=the Customs Police in a ^1
-EncounterTextMarieCeleste=The Marie Celeste appears to be completely abandoned.
-EncounterTextPolicePostMarie="We know you removed illegal goods from the Marie Celeste. You must give them up at once!"
-
-============================================================
-
 ## Captain Quest
 
 # Alerts:
