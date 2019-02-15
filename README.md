@@ -76,17 +76,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-## Captain Quest
-
-# News:
-NewsCaptAhabDestroyed=Destruction of Captain Ahab's Ship Causes Anger!
-NewsCaptConradDestroyed=Captain Conrad's Ship Destroyed by Villain!
-NewsCaptHuieDestroyed=Citizens Mourn Destruction of Captain Huie's Ship!
-
-# Crew Member Names:
-CrewNameCaptain=Captain
-
-
 ## Bottle Quest
 
 # Alerts:
@@ -232,7 +221,7 @@ VeryRareEncounterMarieCeleste=Мария Селеста
 * EncounterPretextMariePolice - unused string. Need to implement
 * Translate all
 
-* Encounter doesn't finish after captain's destruction
+* After captain's destruction no more captains :(
 * Very strange bug when hire 2 mercenaries at once
 * Ship in shipyard is free
 

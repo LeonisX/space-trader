@@ -488,35 +488,6 @@ public class Encounter implements Serializable {
         commander.setReputationScore(commander.getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
     }
 
-    private void encounterScoop() {
-        // Chance 50% to pick something up on Normal level, 33% on Hard level, 25% on
-        // Impossible level, and 100% on Easy or Beginner.
-        if ((game.getDifficultyId() < Difficulty.NORMAL.castToInt()
-                || Functions.getRandom(game.getDifficultyId()) == 0) && game.getOpponent().getFilledCargoBays() > 0) {
-            // Changed this to actually pick a good that was in the opponent's cargo hold - JAF.
-            int index = Functions.getRandom(game.getOpponent().getFilledCargoBays());
-            int tradeItem = -1;
-            for (int sum = 0; sum <= index; sum += game.getOpponent().getCargo()[++tradeItem]) {
-            }
-
-            if (GuiFacade.alert(AlertType.EncounterScoop, Consts.TradeItems[tradeItem].getName()) == DialogResult.YES) {
-                boolean jettisoned = false;
-
-                if (commander.getShip().getFreeCargoBays() == 0
-                        && GuiFacade.alert(AlertType.EncounterScoopNoRoom) == DialogResult.YES) {
-                    GuiFacade.performJettison();
-                    jettisoned = true;
-                }
-
-                if (commander.getShip().getFreeCargoBays() > 0) {
-                    commander.getShip().getCargo()[tradeItem]++;
-                } else if (jettisoned) {
-                    GuiFacade.alert(AlertType.EncounterScoopNoScoop);
-                }
-            }
-        }
-    }
-
     public void encounterTrade() {
         boolean buy = (encounterType == EncounterType.TRADER_BUY.castToInt());
         int item = (buy ? commander.getShip() : game.getOpponent()).getRandomTradeableItem();
@@ -930,6 +901,35 @@ public class Encounter implements Serializable {
         }
 
         commander.setReputationScore(commander.getReputationScore() + (game.getOpponent().getType().castToInt() / 2 + 1));
+    }
+
+    private void encounterScoop() {
+        // Chance 50% to pick something up on Normal level, 33% on Hard level, 25% on
+        // Impossible level, and 100% on Easy or Beginner.
+        if ((game.getDifficultyId() < Difficulty.NORMAL.castToInt()
+                || Functions.getRandom(game.getDifficultyId()) == 0) && game.getOpponent().getFilledCargoBays() > 0) {
+            // Changed this to actually pick a good that was in the opponent's cargo hold - JAF.
+            int index = Functions.getRandom(game.getOpponent().getFilledCargoBays());
+            int tradeItem = -1;
+            for (int sum = 0; sum <= index; sum += game.getOpponent().getCargo()[++tradeItem]) {
+            }
+
+            if (GuiFacade.alert(AlertType.EncounterScoop, Consts.TradeItems[tradeItem].getName()) == DialogResult.YES) {
+                boolean jettisoned = false;
+
+                if (commander.getShip().getFreeCargoBays() == 0
+                        && GuiFacade.alert(AlertType.EncounterScoopNoRoom) == DialogResult.YES) {
+                    GuiFacade.performJettison();
+                    jettisoned = true;
+                }
+
+                if (commander.getShip().getFreeCargoBays() > 0) {
+                    commander.getShip().getCargo()[tradeItem]++;
+                } else if (jettisoned) {
+                    GuiFacade.alert(AlertType.EncounterScoopNoScoop);
+                }
+            }
+        }
     }
 
     public void initializeVeryRareEncounters() {
