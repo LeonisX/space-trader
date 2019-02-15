@@ -65,8 +65,7 @@ public class BottleQuest extends AbstractQuest {
 
         registerListener();
 
-        //localize();
-        dumpAllStrings();
+        localize();
 
         log.fine("started...");
     }
@@ -142,7 +141,7 @@ public class BottleQuest extends AbstractQuest {
         I18n.dumpAlerts(Arrays.stream(Alerts.values()));
         I18n.dumpStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.dumpStrings(Res.VeryRareEncounters, Arrays.stream(VeryRareEncounters.values()));
-        //I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
+        I18n.dumpStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
 
     @Override
@@ -150,7 +149,7 @@ public class BottleQuest extends AbstractQuest {
         I18n.localizeAlerts(Arrays.stream(Alerts.values()));
         I18n.localizeStrings(Res.Encounters, Arrays.stream(Encounters.values()));
         I18n.localizeStrings(Res.VeryRareEncounters, Arrays.stream(VeryRareEncounters.values()));
-        //I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
+        I18n.localizeStrings(Res.CrewNames, Arrays.stream(CrewNames.values()));
     }
 
     // Very Rare Random Events:

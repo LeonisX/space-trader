@@ -118,6 +118,53 @@ VeryRareEncounterCaptainHuie=Captain Huie
 # Crew Member Names:
 CrewNameCaptain=Captain
 
+
+## Bottle Quest
+
+# Alerts:
+AlertEncounterDrinkContentsTitle=Drink Contents?
+AlertEncounterDrinkContentsMessage=You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The "use-by" date is illegible, but might still be good.  Would you like to drink it?
+AlertEncounterDrinkContentsAccept=Yes, Drink It
+AlertEncounterTonicConsumedGoodTitle=Tonic Consumed
+AlertEncounterTonicConsumedGoodMessage=Mmmmm. Captain Marmoset's Amazing Skill Tonic not only fills you with energy, but tastes like a fine single-malt.
+AlertEncounterTonicConsumedStrangeTitle=Tonic Consumed
+AlertEncounterTonicConsumedStrangeMessage=While you don't know what it was supposed to taste like, you get the feeling that this dose of tonic was a bit off.
+
+# Encounters:
+EncounterPretextBottle=a floating ^1
+EncounterTextBottle=It appears to be a rare bottle of Captain Marmoset's Skill Tonic!
+
+# VeryRareEncounters:
+VeryRareEncounterDatedTonic=Dated Tonic
+VeryRareEncounterGoodTonic=Good Tonic
+
+# Crew Member Names:
+CrewNameBottle=Bottle
+
+
+## Marie Celeste Quest
+
+# Alerts:
+AlertEncounterMarieCelesteTitle=Engage Marie Celeste
+AlertEncounterMarieCelesteMessage=The ship is empty: there is nothing in the ship's log, but the crew has vanished, leaving food on the tables and cargo in the holds. Do you wish to offload the cargo to your own holds?
+AlertEncounterMarieCelesteAccept=Yes, Take Cargo
+AlertEncounterMarieCelesteNoBribeTitle=No Bribe
+AlertEncounterMarieCelesteNoBribeMessage=We'd love to take your money, but Space Command already knows you've got illegal goods onboard.
+AlertEncounterPostMarieTitle=Contraband Removed
+AlertEncounterPostMarieMessage=The Customs Police confiscated all of your illegal cargo, but since you were cooperative, you avoided stronger fines or penalties.
+AlertEncounterPostMarieFleeTitle=Criminal Act!
+AlertEncounterPostMarieFleeMessage=Are you sure you want to do that? The Customs Police know you have engaged in criminal activity, and will report it!
+AlertEncounterPostMarieFleeAccept=Yes, I still want to
+AlertEncounterPostMarieFleeCancel=OK, I won't
+
+# Encounters:
+EncounterPretextMarieCeleste=a drifting ^1
+EncounterPretextMariePolice=the Customs Police in a ^1
+EncounterTextMarieCeleste=The Marie Celeste appears to be completely abandoned.
+EncounterTextPolicePostMarie="We know you removed illegal goods from the Marie Celeste. You must give them up at once!"
+
+# VeryRareEncounters:
+VeryRareEncounterMarieCeleste=Marie Celeste
 ============================================================
 
 ## Captain Quest
@@ -161,6 +208,57 @@ VeryRareEncounterCaptainHuie=Капитан Хьюи
 
 # Crew Member Names:
 CrewNameCaptain=Капитан | Капитана
+
+
+
+## Bottle Quest
+
+# Alerts:
+AlertEncounterDrinkContentsTitle=Выпить содержимое?
+AlertEncounterDrinkContentsMessage=Вы столкнулись с чрезвычайно редкой бутылкой Удивительного Тоника Умений капитана Мармоше! Срок годности прочитать не удаётся, но он всё равно может быть хорошим. Хотите выпить его?
+AlertEncounterDrinkContentsAccept=Да, выпить это
+AlertEncounterTonicConsumedGoodTitle=Тоник был выпит
+AlertEncounterTonicConsumedGoodMessage=Ммммм. Удивительный Тоник Умений капитана Мармоше не только полон энергии, но и на вкус напоминает односолодовый виски.
+AlertEncounterTonicConsumedStrangeTitle=Тоник был выпит
+AlertEncounterTonicConsumedStrangeMessage=Поскольку вы не знаете, каким этот тоник должен быть на вкус, у вас возникает ощущение, что он немного просрочен.
+
+# Encounters:
+EncounterPretextBottle=летящая бутылка | летящую бутылку
+EncounterTextBottle=Похоже, что это редчайшая бутылка Тоника Умений из коллекции Капитана Мармоше!
+
+# VeryRareEncounters:
+VeryRareEncounterDatedTonic=Просроченный Тоник
+VeryRareEncounterGoodTonic=Хороший Тоник
+
+# Crew Member Names:
+CrewNameBottle=Бутылка | Бутылку
+
+
+## Marie Celeste Quest
+
+# Alerts:
+AlertEncounterMarieCelesteTitle=Взойти на борт Марии Селесты
+AlertEncounterMarieCelesteMessage=Корабль пуст. В судовом журнале нет никаких отметок, а экипаж исчез, оставив нетронутой еду на столах и груз в трюмах. Хотите перегрузить товары к себе на борт?
+AlertEncounterMarieCelesteAccept=Да, забрать груз
+AlertEncounterMarieCelesteNoBribeTitle=Не удаётся подкупить
+AlertEncounterMarieCelesteNoBribeMessage=Мы бы взяли деньги, но космическое командование уже знает о том, что у вас на борту находятся запрещённые товары.
+AlertEncounterPostMarieTitle=Контрабанда конфискована
+AlertEncounterPostMarieMessage=Таможенная полиция конфисковала все запрещённые товары, но поскольку вы сотрудничали, то избежали большого штрафа.
+AlertEncounterPostMarieFleeTitle=Это уголовный поступок!
+AlertEncounterPostMarieFleeMessage=Вы уверены, что хотите так поступить? Таможенная полиция знает, что вы вовлечены в преступную деятельность, и сообщит об этом!
+AlertEncounterPostMarieFleeAccept=Да, я всё ещё хочу
+AlertEncounterPostMarieFleeCancel=Хорошо, я не буду
+
+# Encounters:
+EncounterPretextMarieCeleste=дрейфующее судно класса ^1
+EncounterPretextMariePolice=таможенная полиция в корабле класса ^1 | таможенную полицию в корабле класса ^1
+EncounterTextMarieCeleste=Мария Селеста, похоже, полностью заброшена.
+EncounterTextPolicePostMarie="Нам известно, что вы забрали с Марии Селесты запрещённые товары. Вы должны сейчас же их отдать!"
+
+# VeryRareEncounters:
+VeryRareEncounterMarieCeleste=Мария Селеста
+
+
 
 
 * Test every very rare encounter separately
