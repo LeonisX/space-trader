@@ -76,25 +76,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-## Bottle Quest
-
-# Alerts:
-AlertEncounterDrinkContentsTitle=Drink Contents?
-AlertEncounterDrinkContentsMessage=You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The "use-by" date is illegible, but might still be good.  Would you like to drink it?
-AlertEncounterDrinkContentsAccept=Yes, Drink It
-AlertEncounterTonicConsumedGoodTitle=Tonic Consumed
-AlertEncounterTonicConsumedGoodMessage=Mmmmm. Captain Marmoset's Amazing Skill Tonic not only fills you with energy, but tastes like a fine single-malt.
-AlertEncounterTonicConsumedStrangeTitle=Tonic Consumed
-AlertEncounterTonicConsumedStrangeMessage=While you don't know what it was supposed to taste like, you get the feeling that this dose of tonic was a bit off.
-
-# Encounters:
-EncounterPretextBottle=a floating ^1
-EncounterTextBottle=It appears to be a rare bottle of Captain Marmoset's Skill Tonic!
-
-# Crew Member Names:
-CrewNameBottle=Bottle
-
-
 ## Marie Celeste Quest
 
 # Alerts:
@@ -221,8 +202,7 @@ VeryRareEncounterMarieCeleste=Мария Селеста
 * EncounterPretextMariePolice - unused string. Need to implement
 * Translate all
 
-* After captain's destruction no more captains :(
-* Very strange bug when hire 2 mercenaries at once
+* Very strange bug when hire 2 mercenaries at once; Always "Mercenary for Hire" button
 * Ship in shipyard is free
 
 

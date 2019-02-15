@@ -93,11 +93,11 @@ public class CaptainQuest extends AbstractQuest {
 
     @Override
     public String getVeryRareEncounter(Integer id) {
-        if (getEncounter().getEncounterType().equals(captainAhab)) {
+        if (id.equals(captainAhab)) {
             return VeryRareEncounters.CaptainAhab.getValue();
-        } else if (getEncounter().getEncounterType().equals(captainConrad)) {
+        } else if (id.equals(captainConrad)) {
             return VeryRareEncounters.CaptainConrad.getValue();
-        } else if (getEncounter().getEncounterType().equals(captainHuie)) {
+        } else if (id.equals(captainHuie)) {
             return VeryRareEncounters.CaptainHuie.getValue();
         } else {
             throw new IndexOutOfBoundsException("No such VeryRareEncounter with ID " + id + " in CaptainQuest");
