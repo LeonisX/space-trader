@@ -169,15 +169,12 @@ VeryRareEncounterMarieCeleste=Мария Селеста
 
 
 
+* CHeck if Captain is disabled
+* Study the influence of each encounter
 
 * Test every very rare encounter separately
 
 * Test all
-* Revert back isDetermineRandomEncounter()
-* Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
-
-* EncounterPretextMariePolice - unused string. Need to implement
-* Translate all
 
 * Very strange bug when hire 2 mercenaries at once; Always "Mercenary for Hire" button
 * Ship in shipyard is free
