@@ -78,42 +78,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Captain Quest
 
-# Alerts:
-AlertEncounterAttackCaptainTitle=Really Attack?
-AlertEncounterAttackCaptainMessage=Famous Captains get famous by, among other things, destroying everyone who attacks them. Do you really want to attack?
-AlertEncounterAttackCaptainAccept=Really Attack
-AlertEncounterAttackCaptainCancel=OK, I Won't
-AlertMeetCaptainAhabTitle=Meet Captain Ahab
-AlertMeetCaptainAhabMessage=Captain Ahab is in need of a spare shield for an upcoming mission. He offers to trade you some piloting lessons for your reflective shield. Do you wish to trade?
-AlertMeetCaptainAhabAccept=Yes, Trade Shield
-AlertMeetCaptainConradTitle=Meet Captain Conrad
-AlertMeetCaptainConradMessage=Captain Conrad is in need of a military laser. She offers to trade you some engineering training for your military laser. Do you wish to trade?
-AlertMeetCaptainConradAccept=Yes, Trade Laser
-AlertMeetCaptainHuieTitle=Meet Captain Huie
-AlertMeetCaptainHuieMessage=Captain Huie is in need of a military laser. She offers to exchange some bargaining training for your military laser. Do you wish to trade?
-AlertMeetCaptainHuieAccept=Yes, Trade Laser
-AlertSpecialTrainingCompletedTitle=Training Completed
-AlertSpecialTrainingCompletedMessage=After a few hours of training with a top expert, you feel your abilities have improved significantly.
-
 # News:
-NewsCaptAhabAttacked=Thug Assaults Captain Ahab!
 NewsCaptAhabDestroyed=Destruction of Captain Ahab's Ship Causes Anger!
-NewsCaptConradAttacked=Captain Conrad Comes Under Attack By Criminal!
 NewsCaptConradDestroyed=Captain Conrad's Ship Destroyed by Villain!
-NewsCaptHuieAttacked=Famed Captain Huie Attacked by Brigand!
 NewsCaptHuieDestroyed=Citizens Mourn Destruction of Captain Huie's Ship!
-
-# Encounters:
-EncounterPretextCaptainAhab=the famous Captain Ahab in a ^1
-EncounterPretextCaptainConrad=the famous Captain Conrad in a ^1
-EncounterPretextCaptainHuie=the famous Captain Huie in a ^1
-EncounterShipCaptain=Captain
-EncounterTextFamousCaptain=The Captain requests a brief meeting with you.
-
-# VeryRareEncounters:
-VeryRareEncounterCaptainAhab=Captain Ahab
-VeryRareEncounterCaptainConrad=Captain Conrad
-VeryRareEncounterCaptainHuie=Captain Huie
 
 # Crew Member Names:
 CrewNameCaptain=Captain
@@ -133,10 +101,6 @@ AlertEncounterTonicConsumedStrangeMessage=While you don't know what it was suppo
 # Encounters:
 EncounterPretextBottle=a floating ^1
 EncounterTextBottle=It appears to be a rare bottle of Captain Marmoset's Skill Tonic!
-
-# VeryRareEncounters:
-VeryRareEncounterDatedTonic=Dated Tonic
-VeryRareEncounterGoodTonic=Good Tonic
 
 # Crew Member Names:
 CrewNameBottle=Bottle
@@ -163,8 +127,6 @@ EncounterPretextMariePolice=the Customs Police in a ^1
 EncounterTextMarieCeleste=The Marie Celeste appears to be completely abandoned.
 EncounterTextPolicePostMarie="We know you removed illegal goods from the Marie Celeste. You must give them up at once!"
 
-# VeryRareEncounters:
-VeryRareEncounterMarieCeleste=Marie Celeste
 ============================================================
 
 ## Captain Quest
@@ -263,13 +225,16 @@ VeryRareEncounterMarieCeleste=Мария Селеста
 
 * Test every very rare encounter separately
 
-* Test captain destruction
 * Test all
 * Revert back isDetermineRandomEncounter()
 * Revert back Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin)
 
 * EncounterPretextMariePolice - unused string. Need to implement
 * Translate all
+
+* Encounter doesn't finish after captain's destruction
+* Very strange bug when hire 2 mercenaries at once
+* Ship in shipyard is free
 
 
 ### News

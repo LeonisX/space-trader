@@ -84,7 +84,7 @@ public class MarieCelesteQuest extends AbstractQuest {
 
     @Override
     public String getVeryRareEncounter(Integer id) {
-        if (getEncounter().getEncounterType().equals(mariaCeleste)) {
+        if (id.equals(mariaCeleste)) {
             return VeryRareEncounters.MarieCeleste.getValue();
         } else {
             throw new IndexOutOfBoundsException("No such VeryRareEncounter with ID " + id + " in MarieCelesteQuest");
@@ -341,7 +341,6 @@ public class MarieCelesteQuest extends AbstractQuest {
         public void setValue(String value) {
             this.value = value;
         }
-
     }
 
     @Override

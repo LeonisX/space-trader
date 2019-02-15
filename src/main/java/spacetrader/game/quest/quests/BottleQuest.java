@@ -100,9 +100,9 @@ public class BottleQuest extends AbstractQuest {
 
     @Override
     public String getVeryRareEncounter(Integer id) {
-        if (getEncounter().getEncounterType().equals(bottleGood)) {
+        if (id.equals(bottleGood)) {
             return VeryRareEncounters.GoodTonic.getValue();
-        } else if (getEncounter().getEncounterType().equals(bottleOld)) {
+        } else if (id.equals(bottleOld)) {
             return VeryRareEncounters.DatedTonic.getValue();
         } else {
             throw new IndexOutOfBoundsException("No such VeryRareEncounter with ID " + id + " in BottleQuest");
