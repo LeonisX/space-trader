@@ -28,8 +28,6 @@ public class CaptainQuest extends AbstractQuest {
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
 
-    private CrewMember captain; // FAMOUS_CAPTAIN, // = 34,crew of famous captain ships
-
     // Encounters
     private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK
     private int famousCaptainDisabled; // FAMOUS_CAPT_DISABLED
@@ -190,8 +188,7 @@ public class CaptainQuest extends AbstractQuest {
             ship.addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
             ship.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-            captain = registerNewSpecialCrewMember(10, 10, 10, 10, false);
-            ship.getCrew()[0] = captain;
+            ship.getCrew()[0] = registerNewSpecialCrewMember(10, 10, 10, 10, false);
 
             ship.setInitialized(true);
         }
@@ -482,7 +479,6 @@ public class CaptainQuest extends AbstractQuest {
     @Override
     public String toString() {
         return "CaptainQuest{" +
-                "captain=" + captain +
                 ", famousCaptainAttack=" + famousCaptainAttack +
                 ", famousCaptainDisabled=" + famousCaptainDisabled +
                 ", captainAhab=" + captainAhab +

@@ -98,24 +98,6 @@ public class MarieCelesteQuest extends AbstractQuest {
         log.fine("registered");
     }
 
-    /*@Override
-    public String getCrewMemberName(int id) {
-        return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
-    }*/
-
-    //TODO need???
-    /*@Override
-    public Rectangle getShipImageOffset() {
-        return SHIP_IMAGE_OFFSET;
-    }*/
-
-    //TODO need???
-    /*@Override
-    public Integer getShipImageIndex() {
-        return SHIP_IMAGE_INDEX;
-    }*/
-
-
     @Override
     public void dumpAllStrings() {
         I18n.echoQuestName(this.getClass());

@@ -32,11 +32,8 @@ public class BottleQuest extends AbstractQuest {
     private static final int OCCURRENCE = 1;
 
     private static ShipSpec shipSpec = new ShipSpec(ShipType.QUEST, Size.SMALL,
-            0, 0, 0, 0, 0, 1, 1, 10, 1, 100, 0,
+            0, 0, 0, 0, 1, 1, 1, 10, 1, 100, 0,
             Activity.NA, Activity.NA, Activity.NA, TechLevel.UNAVAILABLE);
-
-    //TODO need???
-    //private CrewMember captain; // FAMOUS_CAPTAIN, // = 34,crew of famous captain ships
 
     // Encounters
     private int bottleGoodEncounter; // BOTTLE_GOOD
@@ -119,11 +116,10 @@ public class BottleQuest extends AbstractQuest {
         log.fine("registered");
     }
 
-    //TODO need?????
-    /*@Override
+    @Override
     public String getCrewMemberName(int id) {
         return CrewNames.values()[getSpecialCrewIds().indexOf(id)].getValue();
-    }*/
+    }
 
     @Override
     public Rectangle getShipImageOffset() {
@@ -133,6 +129,11 @@ public class BottleQuest extends AbstractQuest {
     @Override
     public Integer getShipImageIndex() {
         return SHIP_IMAGE_INDEX;
+    }
+
+    @Override
+    public String getShipName() {
+        return CrewNames.Bottle.getValue();
     }
 
     @Override
@@ -176,12 +177,6 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
-    //TODO need???
-    /*private void onGenerateCrewMemberList(Object object) {
-        log.fine("");
-        getMercenaries().put(dragonflyCrew.getId(), dragonflyCrew);
-    }*/
-
     private void afterShipSpecInitialized(Object object) {
         shipSpecId = registerNewShipSpec(shipSpec);
     }
@@ -191,6 +186,7 @@ public class BottleQuest extends AbstractQuest {
         if (ship.getOpponentType() == bottle && !ship.isInitialized()) {
             ship.setId(shipSpecId); //TODO need???
             ship.setValues(shipSpec);
+            ship.getCrew()[0] = registerNewSpecialCrewMember(10, 10, 10, 10, false);
             ship.setInitialized(true);
         }
     }
@@ -321,10 +317,7 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
-    //TODO ship name - need????
-    //"Bottle",
-
-    /*enum CrewNames implements SimpleValueEnum<String> {
+    enum CrewNames implements SimpleValueEnum<String> {
         Bottle("Bottle");
 
         private String value;
@@ -342,7 +335,7 @@ public class BottleQuest extends AbstractQuest {
         public void setValue(String value) {
             this.value = value;
         }
-    }*/
+    }
 
     @Override
     public String toString() {
