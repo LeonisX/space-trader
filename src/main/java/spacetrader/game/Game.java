@@ -104,15 +104,6 @@ public class Game implements Serializable {
 
         initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer, false, StarSystemId.NA));
 
-        //TODO remove
-        commander.setShip(new Ship(ShipType.WASP));
-        commander.getShip().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        commander.getShip().addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
-        commander.getShip().addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-        commander.getShip().addEquipment(Consts.Shields[ShieldType.REFLECTIVE.castToInt()]);
-        commander.getShip().addEquipment(Consts.Gadgets[GadgetType.AUTO_REPAIR_SYSTEM.castToInt()]);
-        commander.getShip().addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
-
         generateCrewMemberList();
 
         shipSpecs = Arrays.stream(Consts.ShipSpecs).map(e -> e.withId(e.getType().castToInt())).collect(Collectors.toMap(ShipSpec::getId, e -> e));
@@ -129,10 +120,11 @@ public class Game implements Serializable {
 
         cheats = new GameCheats();
         if (name.length() == 0) {
-            // TODO: JAF - DEBUG
+            // TODO: JAF, Leonis - DEBUG
             commander.setCash(2000000);
             cheats.setCheatMode(true);
             encounter.setEasyEncounters(true);
+            encounter.setRareEncountersFirst(true);
             setCanSuperWarp(true);
         }
 

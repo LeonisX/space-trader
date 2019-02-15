@@ -6,6 +6,7 @@ import spacetrader.controls.Label;
 import spacetrader.controls.Panel;
 import spacetrader.controls.enums.*;
 import spacetrader.game.*;
+import spacetrader.game.enums.ShipType;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
@@ -396,7 +397,7 @@ public class FormShipList extends SpaceTraderForm {
     }
 
     private void info(int id) {
-        ShipSpec spec = Consts.ShipSpecs[id];
+        ShipSpec spec = (id == ShipType.CUSTOM.castToInt()) ? game.getShip() : Consts.ShipSpecs[id];
 
         shipPictureBox.setImage(spec.getImage());
         nameLabelValue.setText(spec.getName());

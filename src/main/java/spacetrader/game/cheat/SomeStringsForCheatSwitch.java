@@ -17,6 +17,7 @@ public enum SomeStringsForCheatSwitch {
     Pirate,
     Police,
     Trader,
+    GigaGaia, // Leonis
     Indemnity,
     IOU,
     Iron,
@@ -28,6 +29,7 @@ public enum SomeStringsForCheatSwitch {
     PlanB,
     Posse,
     RapSheet,
+    Rareware, // Leonis
     Rarity,
     Scratch,
     Skin,

@@ -4,6 +4,8 @@ import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.enums.*;
 import spacetrader.game.quest.containers.*;
 import spacetrader.game.quest.enums.EventName;
+import spacetrader.game.quest.enums.QuestName;
+import spacetrader.game.quest.quests.ArtifactQuest;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
@@ -33,6 +35,8 @@ public class Encounter implements Serializable {
     private List<Integer> veryRareEncounters = new ArrayList<>(); // Array of Very Options
 
     private Integer veryRareEncounterId; // current ID, used right after its generation
+
+    private boolean rareEncountersFirst = false;
 
     // The rest of the member variables are not saved between games.
     private boolean encounterContinueFleeing = false;
@@ -153,13 +157,11 @@ public class Encounter implements Serializable {
     }
 
     private boolean isDetermineRandomEncounter() {
-        //TODO remove. only for tests
-        if (getVeryRareEncounters().size() > 0) {
+        if (rareEncountersFirst && getVeryRareEncounters().size() > 0) {
             return isDetermineVeryRareEncounter();
-        } else {
-            return false;
         }
-        /*RandomEncounterContainer opponents = new RandomEncounterContainer();
+
+        RandomEncounterContainer opponents = new RandomEncounterContainer();
 
         game.getQuestSystem().fireEvent(ON_DETERMINE_RANDOM_ENCOUNTER, opponents);
 
@@ -199,7 +201,7 @@ public class Encounter implements Serializable {
         } else if (commander.getDays() > 10 && Functions.getRandom(1000) < getChanceOfVeryRareEncounter()
                 && getVeryRareEncounters().size() > 0) {
             return isDetermineVeryRareEncounter();
-        } else return false;*/
+        } else return false;
     }
 
     private boolean isDetermineTraderEncounter() {
@@ -1241,14 +1243,22 @@ public class Encounter implements Serializable {
         return veryRareEncounterId;
     }
 
-    //TODO
+    public boolean isRareEncountersFirst() {
+        return rareEncountersFirst;
+    }
+
+    public void setRareEncountersFirst(boolean rareEncountersFirst) {
+        this.rareEncountersFirst = rareEncountersFirst;
+    }
+
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Encounter)) return false;
-        Encounter encounter = (Encounter) object;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Encounter encounter = (Encounter) o;
         return easyEncounters == encounter.easyEncounters &&
                 chanceOfVeryRareEncounter == encounter.chanceOfVeryRareEncounter &&
+                rareEncountersFirst == encounter.rareEncountersFirst &&
                 encounterContinueFleeing == encounter.encounterContinueFleeing &&
                 encounterContinueAttacking == encounter.encounterContinueAttacking &&
                 encounterCmdrFleeing == encounter.encounterCmdrFleeing &&
@@ -1258,12 +1268,12 @@ public class Encounter implements Serializable {
                 encounterOppHit == encounter.encounterOppHit &&
                 Objects.equals(encounterType, encounter.encounterType) &&
                 Objects.equals(encounters, encounter.encounters) &&
-                Objects.equals(veryRareEncounters, encounter.veryRareEncounters);
+                Objects.equals(veryRareEncounters, encounter.veryRareEncounters) &&
+                Objects.equals(veryRareEncounterId, encounter.veryRareEncounterId);
     }
 
-    //TODO
     @Override
     public int hashCode() {
-        return Objects.hash(easyEncounters, encounterType, encounters, chanceOfVeryRareEncounter, veryRareEncounters, encounterContinueFleeing, encounterContinueAttacking, encounterCmdrFleeing, encounterCmdrHit, encounterOppFleeingPrev, encounterOppFleeing, encounterOppHit);
+        return Objects.hash(easyEncounters, encounterType, encounters, chanceOfVeryRareEncounter, veryRareEncounters, veryRareEncounterId, rareEncountersFirst, encounterContinueFleeing, encounterContinueAttacking, encounterCmdrFleeing, encounterCmdrHit, encounterOppFleeingPrev, encounterOppFleeing, encounterOppHit);
     }
 }

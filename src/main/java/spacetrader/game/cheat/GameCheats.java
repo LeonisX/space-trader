@@ -79,6 +79,9 @@ public class GameCheats implements Serializable {
                         controller.autoSaveOnArrival();
                     }
                     break;
+                case GigaGaia:
+                    game.getCommander().initializeGigaGaia();
+                    break;
                 case Ice: {
                     switch (SomeStringsForCheatSwitch.find(words.getSecond())) {
                         case Pirate:
@@ -142,6 +145,9 @@ public class GameCheats implements Serializable {
                     break;
                 case RapSheet:
                     game.getCommander().setPoliceRecordScore(words.getNum1());
+                    break;
+                case Rareware:
+                    game.getEncounter().setRareEncountersFirst(!game.getEncounter().isRareEncountersFirst());
                     break;
                 case Rarity:
                     game.getEncounter().setChanceOfVeryRareEncounter(Math.max(0, Math.min(1000, words.getNum1())));
