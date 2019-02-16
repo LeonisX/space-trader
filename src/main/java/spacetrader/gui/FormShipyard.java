@@ -900,8 +900,8 @@ public class FormShipyard extends SpaceTraderForm {
 
     private void constructButtonClick() {
         if (constructButtonEnabled()) {
-            if (Game.getCurrentGame().getCommander().isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox
-                    .getText())) {
+            if (Game.getCurrentGame().getCommander()
+                    .isTradeShip(shipyard.getShipSpec(), shipyard.getTotalCost(), shipNameTextBox.getText())) {
                 Strings.ShipNames[ShipType.CUSTOM.castToInt()] = shipNameTextBox.getText();
 
                 // Replace the current custom images with the new ones.
@@ -912,6 +912,7 @@ public class FormShipyard extends SpaceTraderForm {
                 }
 
                 GuiFacade.alert(AlertType.ShipDesignThanks, this, shipyard.getName());
+                Game.getCurrentGame().getParentWindow().updateAll();
                 close();
             }
         }

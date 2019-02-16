@@ -76,8 +76,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Ship in shipyard is free
-
 * SpaceMonsterQuest 298: Unrealized code. Need custom encounterTypes (see private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK)
 
 ### News
@@ -96,10 +94,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Shipyard
 
-* Ship modification is free :(
 * Investigate - when new shipyard - can receive 600%
 * Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
-* Update money status (StatusBar) after Shipyard
 * Instead of the custom ship name sometimes see "Bottle"
 
 ### Monster.com
