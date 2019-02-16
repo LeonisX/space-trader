@@ -76,8 +76,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* SpaceMonsterQuest 298: Unrealized code. Need custom encounterTypes (see private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK)
-
 ### News
 
 * Clean from old events

@@ -93,7 +93,6 @@ public class SpaceMonsterQuest extends AbstractQuest implements Serializable {
         getTransitionMap().put(ENCOUNTER_DETERMINE_NON_RANDOM_ENCOUNTER, this::encounterDetermineNonRandomEncounter);
         getTransitionMap().put(ENCOUNTER_VERIFY_ATTACK, this::encounterVerifyAttack);
         getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_TEXT, this::encounterGetIntroductoryText);
-        getTransitionMap().put(ENCOUNTER_GET_INTRODUCTORY_ACTION, this::encounterGetIntroductoryAction);
         getTransitionMap().put(ENCOUNTER_GET_IMAGE_INDEX, this::encounterGetEncounterImageIndex);
         getTransitionMap().put(ENCOUNTER_SHOW_ACTION_BUTTONS, this::encounterShowActionButtons);
         getTransitionMap().put(ENCOUNTER_GET_EXECUTE_ACTION_FIRE_SHOTS, this::encounterGetExecuteActionFireShots);
@@ -291,20 +290,6 @@ public class SpaceMonsterQuest extends AbstractQuest implements Serializable {
     private void encounterGetIntroductoryText(Object object) {
         if (opponentIsSpaceMonster()) {
             ((StringContainer) object).setValue(Encounters.PretextSpaceMonster.getValue());
-        }
-    }
-
-    //TODO WHAT IS IT????
-    private void encounterGetIntroductoryAction(Object object) {
-        if (opponentIsSpaceMonster()) {
-            //TODO custom encounterType
-            /*case QUEST_ATTACK:
-                ((StringContainer) object).setValue(Strings.EncounterTextOpponentAttack);
-                break;
-            case QUEST_IGNORE:
-                ((StringContainer) object).setValue(getCommander().getShip().isCloaked() ? Strings.EncounterTextOpponentNoNotice
-                        : Strings.EncounterTextOpponentIgnore);
-                break;*/
         }
     }
 
