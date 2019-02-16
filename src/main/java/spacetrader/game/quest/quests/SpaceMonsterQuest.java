@@ -294,6 +294,7 @@ public class SpaceMonsterQuest extends AbstractQuest implements Serializable {
         }
     }
 
+    //TODO WHAT IS IT????
     private void encounterGetIntroductoryAction(Object object) {
         if (opponentIsSpaceMonster()) {
             //TODO custom encounterType

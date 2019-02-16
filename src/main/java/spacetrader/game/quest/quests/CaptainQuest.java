@@ -196,7 +196,7 @@ public class CaptainQuest extends AbstractQuest {
 
     private void encounterVerifyAttack(Object object) {
         if (isVeryRareEncounter()) {
-            if (showAlert(Alerts.EncounterAttackCaptain.getValue()) == DialogResult.YES) {
+            if (showYesNoAlert(Alerts.EncounterAttackCaptain.getValue()) == DialogResult.YES) {
                 if (getCommander().getPoliceRecordScore() > Consts.PoliceRecordScoreVillain) {
                     getCommander().setPoliceRecordScore(Consts.PoliceRecordScoreVillain);
                 }

@@ -169,7 +169,7 @@ VeryRareEncounterMarieCeleste=Мария Селеста
 
 
 
-* CHeck if Captain is disabled
+* Check if Captain is disabled
 * Study the influence of each encounter
 
 * Test every very rare encounter separately
@@ -178,6 +178,8 @@ VeryRareEncounterMarieCeleste=Мария Селеста
 
 * Very strange bug when hire 2 mercenaries at once; Always "Mercenary for Hire" button
 * Ship in shipyard is free
+
+* SpaceMonsterQuest 298: Unrealized code. Need custom encounterTypes (see private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK)
 
 
 ### News
