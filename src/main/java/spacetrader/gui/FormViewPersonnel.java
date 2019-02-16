@@ -214,11 +214,11 @@ public class FormViewPersonnel extends SpaceTraderForm {
         CrewMember[] crewMembers = game.getShip().getCrew();
 
         crewListBox.getItems().clear();
-        for (int i = 1; i < crewMembers.length; i++) {
-            if (crewMembers[i] == null) {
+        for (CrewMember crewMember : crewMembers) {
+            if (crewMember == null) {
                 crewListBox.getItems().addElement(Strings.PersonnelVacancy);
             } else {
-                crewListBox.getItems().addElement(crewMembers[i]);
+                crewListBox.getItems().addElement(crewMember);
             }
         }
 

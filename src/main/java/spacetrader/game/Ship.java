@@ -998,11 +998,7 @@ public class Ship extends ShipSpec implements Serializable {
 
     //For test purposes
 
-    public CrewMember[] getCrewMembers() {
-        return crewMembers;
-    }
-
-    public void setCrewMembers(CrewMember[] crewMembers) {
+    public void setCrew(CrewMember[] crewMembers) {
         this.crewMembers = crewMembers;
     }
 

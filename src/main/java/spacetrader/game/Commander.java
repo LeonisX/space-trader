@@ -36,6 +36,7 @@ public class Commander extends CrewMember implements Serializable {
     public Commander(CrewMember baseCrewMember) {
         super(baseCrewMember);
         // Start off with a crew of only the commander and a Pulse Laser.
+        setMercenary(false);
         getShip().getCrew()[0] = this;
         getShip().addEquipment(Consts.Weapons[WeaponType.PULSE_LASER.castToInt()]);
     }
@@ -168,6 +169,7 @@ public class Commander extends CrewMember implements Serializable {
     }
 
     public void initializeGigaGaia() {
+        CrewMember[] crewMembers = ship.getCrew();
         ship = new Ship(new ShipSpec(ShipType.CUSTOM, Size.HUGE, 64, 5, 5, 5, 5, 20, 5, 300, 20, 500000, 0,
                 Activity.NA, Activity.NA, Activity.NA, TechLevel.UNAVAILABLE));
         ship.addEquipment(Consts.Weapons[WeaponType.MILITARY_LASER.castToInt()]);
@@ -180,6 +182,9 @@ public class Commander extends CrewMember implements Serializable {
         ship.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
         ship.addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
         ship.addEquipment(Consts.Gadgets[GadgetType.FUEL_COMPACTOR.castToInt()]);
+        for (int i = 0; i < crewMembers.length; i++) {
+            ship.getCrew()[i] = crewMembers[i];
+        }
     }
 
     public int getCashToSpend() {

@@ -74,8 +74,8 @@ public class FormsTest extends SpaceTraderForm {
             game.getShip().getCargo()[1] = 12;
             game.getCommander().setCash(65535);
             game.getShip().setCrewQuarters(5);
-            game.getShip().setCrewMembers(new CrewMember[5]);
-            game.getShip().getCrewMembers()[0] = Game.getCurrentGame().getMercenaries().get(0);
+            game.getShip().setCrew(new CrewMember[5]);
+            game.getShip().getCrew()[0] = Game.getCurrentGame().getMercenaries().get(0);
             game.getShip().setFuelTanks(24);
             game.getShip().setFuel(10);
             game.getShip().setHullStrength(100);

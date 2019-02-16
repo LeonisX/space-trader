@@ -4,7 +4,10 @@ import spacetrader.game.enums.*;
 import spacetrader.util.Functions;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class StarSystem implements Serializable {
 
@@ -116,16 +119,12 @@ public class StarSystem implements Serializable {
 
     public List<CrewMember> getMercenariesForHire() {
         Commander cmdr = Game.getCurrentGame().getCommander();
-        Collection<CrewMember> mercs = Game.getCurrentGame().getMercenaries().values();
-        List<CrewMember> forHire = new ArrayList<>();
 
-        for (CrewMember merc: mercs) {
-            if (merc.getCurrentSystem() == cmdr.getCurrentSystem() && !cmdr.getShip().hasCrew(merc.getId())) {
-                forHire.add(merc);
-            }
-        }
-
-        return forHire;
+        return Game.getCurrentGame().getMercenaries().values().stream().filter(merc ->
+                merc.isMercenary()
+                        && merc.getCurrentSystem() == cmdr.getCurrentSystem()
+                        && !cmdr.getShip().hasCrew(merc.getId())
+        ).collect(Collectors.toList());
     }
 
     public String getName() {

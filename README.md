@@ -76,7 +76,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Very strange bug when hire 2 mercenaries at once; Always "Mercenary for Hire" button
 * Ship in shipyard is free
 
 * SpaceMonsterQuest 298: Unrealized code. Need custom encounterTypes (see private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK)
@@ -150,20 +149,18 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Many dialogs don't allow to close them from [x]
 * FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
 * FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,
-* When fire mercenary - he disappears forever
 * 2 latest bugs from https://sourceforge.net/p/spacetraderwin/bugs/
 * Commander status, Find system - truncated window sometimes
 * What to do with ending title?? It's too long :(
 * What to do with cheats status title?? It's too long :(
 * Commander status - Всеобщий любимец (70) under button
-* Bug - when 5 gadget slots - cant install 5 extra hidden bays. When decrease to 4 - can.
+* Bug - when 5 gadget slots - can't install 5 extra hidden bays. When decrease to 4 - can.
 * After disabling can fully destroy without encounter ending
 * Morgan's Laser - sell price 0 cr.
 * Ability to ignore encounter by press "x"
 * Strange - when start new game - see few visited systems
 * Very strange - after arrival see, that I visited other systems. Or arrive in other system
 * Bug? Don't hide wormhole route after arrive
-* Ship name (FormViewShip) - Bottle :(
 * Autosize doesn't works in FormViewQuests (ArtifactQuest))
 
 ## Regressions:
