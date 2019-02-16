@@ -76,13 +76,12 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Check if Captain is disabled
-
 * Very strange bug when hire 2 mercenaries at once; Always "Mercenary for Hire" button
 * Ship in shipyard is free
 
 * SpaceMonsterQuest 298: Unrealized code. Need custom encounterTypes (see private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK)
 
+* Exception in thread "AWT-EventQueue-0" java.lang.ArrayIndexOutOfBoundsException: 12 after Captain's destruction
 
 ### News
 

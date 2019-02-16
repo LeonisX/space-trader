@@ -2,17 +2,18 @@ package spacetrader.game.quest.quests;
 
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
-import spacetrader.game.CrewMember;
 import spacetrader.game.Ship;
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.*;
+import spacetrader.game.quest.AlertDialog;
+import spacetrader.game.quest.I18n;
+import spacetrader.game.quest.Phase;
+import spacetrader.game.quest.QuestDialog;
 import spacetrader.game.quest.containers.BooleanContainer;
 import spacetrader.game.quest.containers.IntContainer;
 import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.Res;
 import spacetrader.game.quest.enums.SimpleValueEnum;
-import spacetrader.game.quest.quests.AbstractQuest;
 
 import java.util.*;
 
@@ -27,6 +28,8 @@ public class CaptainQuest extends AbstractQuest {
 
     private static final Repeatable REPEATABLE = Repeatable.ONE_TIME;
     private static final int OCCURRENCE = 1;
+
+    private Ship captain;
 
     // Encounters
     private int famousCaptainAttack; // FAMOUS_CAPTAIN_ATTACK
@@ -78,6 +81,7 @@ public class CaptainQuest extends AbstractQuest {
 
         getTransitionMap().put(ENCOUNTER_UPDATE_ENCOUNTER_TYPE, this::encounterUpdateEncounterType);
         getTransitionMap().put(ENCOUNTER_MEET, this::encounterMeet);
+        getTransitionMap().put(ENCOUNTER_EXECUTE_ACTION_OPPONENT_DISABLED, this::encounterExecuteActionOpponentDisabled);
         getTransitionMap().put(ENCOUNTER_ON_ENCOUNTER_WON, this::encounterOnEncounterWon);
     }
 
@@ -174,6 +178,7 @@ public class CaptainQuest extends AbstractQuest {
 
     private void onGenerateOpponentShip(Object object) {
         Ship ship = (Ship) object;
+        captain = ship;
         if (ship.getOpponentType() == famousCaptain) {
             ship.setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
@@ -188,7 +193,7 @@ public class CaptainQuest extends AbstractQuest {
             ship.addEquipment(Consts.Gadgets[GadgetType.NAVIGATING_SYSTEM.castToInt()]);
             ship.addEquipment(Consts.Gadgets[GadgetType.TARGETING_SYSTEM.castToInt()]);
 
-            ship.getCrew()[0] = registerNewSpecialCrewMember(10, 10, 10, 10, false);
+            ship.getCrew()[0] = registerNewSpecialCrewMember(1, 1, 1, 1, false);
 
             ship.setInitialized(true);
         }
@@ -324,6 +329,19 @@ public class CaptainQuest extends AbstractQuest {
         showAlert(Alerts.SpecialTrainingCompleted.getValue());
     }
 
+    private void encounterExecuteActionOpponentDisabled(Object object) {
+        if (getOpponent().getBarCode() == captain.getBarCode()) {
+            if (getEncounter().getVeryRareEncounterId() == captainAhab) {
+                showAlert(Alerts.EncounterCaptainDisabled.getValue(), VeryRareEncounters.CaptainAhab.getValue());
+            } else if (getEncounter().getVeryRareEncounterId() == captainConrad) {
+                showAlert(Alerts.EncounterCaptainDisabled.getValue(), VeryRareEncounters.CaptainConrad.getValue());
+            } else if (getEncounter().getVeryRareEncounterId() == captainHuie) {
+                showAlert(Alerts.EncounterCaptainDisabled.getValue(), VeryRareEncounters.CaptainHuie.getValue());
+            }
+            ((BooleanContainer) object).setValue(true);
+        }
+    }
+
     private void encounterOnEncounterWon(Object object) {
         if (getEncounter().getEncounterType() == famousCaptainAttack) { //FAMOUS_CAPTAIN_ATTACK
             getCommander().setKillsTrader(getCommander().getKillsTrader() + 1);
@@ -355,6 +373,7 @@ public class CaptainQuest extends AbstractQuest {
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         EncounterAttackCaptain("Really Attack?", "Famous Captains get famous by, among other things, destroying everyone who attacks them. Do you really want to attack?", "Really Attack", "OK, I Won't"),
+        EncounterCaptainDisabled("^1 Disabled", "You have disabled your opponent. Without life support he'll have to hibernate. It is not yet known how soon the Space Corps will find the drifting vessel. In any case, your reputation after this act catastrophically suffered."),
         MeetCaptainAhab("Meet Captain Ahab", "Captain Ahab is in need of a spare shield for an upcoming mission. He offers to trade you some piloting lessons for your reflective shield. Do you wish to trade?", "Yes, Trade Shield"),
         MeetCaptainConrad("Meet Captain Conrad", "Captain Conrad is in need of a military laser. She offers to trade you some engineering training for your military laser. Do you wish to trade?", "Yes, Trade Laser"),
         MeetCaptainHuie("Meet Captain Huie", "Captain Huie is in need of a military laser. She offers to exchange some bargaining training for your military laser. Do you wish to trade?", "Yes, Trade Laser"),
