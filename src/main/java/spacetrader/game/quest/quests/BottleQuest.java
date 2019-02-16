@@ -3,7 +3,6 @@ package spacetrader.game.quest.quests;
 import spacetrader.controls.Rectangle;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.game.Consts;
-import spacetrader.game.CrewMember;
 import spacetrader.game.Ship;
 import spacetrader.game.ShipSpec;
 import spacetrader.game.enums.*;
@@ -17,7 +16,6 @@ import spacetrader.game.quest.containers.StringContainer;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.Res;
 import spacetrader.game.quest.enums.SimpleValueEnum;
-import spacetrader.guifacade.GuiFacade;
 
 import java.util.*;
 
@@ -183,8 +181,8 @@ public class BottleQuest extends AbstractQuest {
     private void onGenerateOpponentShip(Object object) {
         Ship ship = (Ship) object;
         if (ship.getOpponentType() == bottle && !ship.isInitialized()) {
-            ship.setId(shipSpecId);
             ship.setValues(shipSpec);
+            ship.setId(shipSpecId);
             ship.getCrew()[0] = registerNewSpecialCrewMember(10, 10, 10, 10, false);
             ship.setInitialized(true);
         }
