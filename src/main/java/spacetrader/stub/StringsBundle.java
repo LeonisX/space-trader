@@ -28,4 +28,9 @@ public class StringsBundle extends HashMap<String, String> {
         return this.get(String.join(".", keys) + ".title");
     }
 
+    public String getMessage(String... keys) {
+        //System.out.println("getTitle: " + key);
+        return this.get(String.join(".", keys) + ".message");
+    }
+
 }
