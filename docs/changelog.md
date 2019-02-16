@@ -7,7 +7,7 @@ by Stavila Leonid aka Leonis
 
 All Very Rare Encounters in Quest System:
 
-* Captain Ahah (with possibility to disable)
+* Captain Ahab (with possibility to disable)
 * Captain Conrad
 * Captain Huie
 * Dated Tonic
