@@ -3,6 +3,33 @@ by Stavila Leonid aka Leonis
 
 [The history of commits](https://github.com/LeonisX/space-trader/commits/master)
 
+16.02.2019 v.3.51.225
+
+All Very Rare Encounters in Quest System:
+
+* Captain Ahah (with possibility to disable)
+* Captain Conrad
+* Captain Huie
+* Dated Tonic
+* Good Tonic
+* Marie Celeste
+
+Changelog:
+
+* GigaGaia cheat
+* Rareware cheat
+* Get rid of several static methods in Game class
+* Reorganize docs
+* Refactor ENCOUNTER_SHOW_ACTION_BUTTONS
+
+Bug fixes:
+
+* Fix bug with mercenaries list
+* Fix "free" ships in Shipyard
+* Fix Events cheat
+* Repair encounter
+* Repair cheats
+
 20.01.2019 v.3.43.178
 
 New quests in Quest System:

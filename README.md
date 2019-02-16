@@ -180,3 +180,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Site
 * ~~FAQ, description~~
 * New interesting quests
+
+## For me
+
+git log --pretty=format:%s

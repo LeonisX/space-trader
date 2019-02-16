@@ -303,7 +303,6 @@ public class MarieCelesteQuest extends AbstractQuest {
 
     enum Encounters implements SimpleValueEnum<String> {
         PretextMarieCeleste("a drifting ^1"),
-        //TODO need to enhance code now this string is unused
         PretextMariePolice("the Customs Police in a ^1"),
         TextMarieCeleste("The Marie Celeste appears to be completely abandoned."),
         TextPolicePostMarie("\"We know you removed illegal goods from the Marie Celeste. You must give them up at once!\"");
