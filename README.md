@@ -108,7 +108,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ### Translate
 
 * ~~Translate all quests~~
-* FormInput, FormViewCommander translate
 * FormMonsterMenuItem, CheatsMenu -> Strings, languages
 * FileDialogs - hide translation logs
 * FormTests, FormAlertTests - refactor, translate

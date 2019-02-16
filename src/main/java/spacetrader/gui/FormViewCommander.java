@@ -10,6 +10,8 @@ import spacetrader.gui.cheat.FormInput;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
 
+import static spacetrader.game.GlobalAssets.getStrings;
+
 public class FormViewCommander extends SpaceTraderForm {
 
     private Button closeButton = new Button();
@@ -53,6 +55,10 @@ public class FormViewCommander extends SpaceTraderForm {
     private Button debtButton = new Button();
     private Button reputationButton = new Button();
     private Button policeRecordButton = new Button();
+    private Button engineerButton = new Button();
+    private Button traderButton = new Button();
+    private Button fighterButton = new Button();
+    private Button pilotButton = new Button();
 
     public FormViewCommander() {
         initializeComponent();
@@ -64,13 +70,16 @@ public class FormViewCommander extends SpaceTraderForm {
 
         setName("formViewCommander");
         setText("Commander Status");
-        setClientSize(235, 310);
+        setClientSize(260, 310);
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
         setMaximizeBox(false);
         setMinimizeBox(false);
         setShowInTaskbar(false);
         setCancelButton(closeButton);
+        
+        Game game = Game.getCurrentGame();
+        Commander commander = game.getCommander();
 
         nameLabel.setAutoSize(true);
         nameLabel.setFont(FontCollection.bold825);
@@ -94,17 +103,17 @@ public class FormViewCommander extends SpaceTraderForm {
         //difficultyLabelValue.setSize(58, 13);
         //difficultyLabelValue.setText("Impossible");
 
-        difficultyButton.setLocation(205, 23);
+        difficultyButton.setLocation(230, 23);
         difficultyButton.setSize(16, 16);
         difficultyButton.setText("");
         difficultyButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCurrentGame().getDifficultyId(), "Difficulty", "What is the difficulty of the game [0..4]?");
+                FormInput formInput = getFormInputDialog(commander.getPoliceRecordScore(), "difficulty");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCurrentGame().setDifficulty(Difficulty.fromInt(formInput.getValue()));
+                    game.setDifficulty(Difficulty.fromInt(formInput.getValue()));
                     initializeScreen();
-                    Game.getCurrentGame().getController().getMainWindow().updateAll();
+                    game.getController().getMainWindow().updateAll();
                 }
             }
         });
@@ -121,36 +130,38 @@ public class FormViewCommander extends SpaceTraderForm {
         //timeLabelValue.setText("88,888 days");
 
         addDayButton.setAutoWidth(true);
-        addDayButton.setLocation(120, 38);
+        addDayButton.setLocation(130, 38);
         addDayButton.setSize(22, 18);
         addDayButton.setText("+1");
         addDayButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 addDayButtonClick(1);
-                Game.getCurrentGame().getController().getMainWindow().updateAll();
+                game.getController().getMainWindow().updateAll();
             }
         });
 
         addNineDaysButton.setAutoWidth(true);
-        addNineDaysButton.setLocation(150, 38);
+        addNineDaysButton.setLocation(160, 38);
         addNineDaysButton.setSize(22, 18);
         addNineDaysButton.setText("+9");
         addNineDaysButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
                 addDayButtonClick(9);
-                Game.getCurrentGame().getController().getMainWindow().updateAll();
+                game.getController().getMainWindow().updateAll();
             }
         });
 
         skillsPanel.setLocation(8, 64);
-        skillsPanel.setSize(220, 60);
+        skillsPanel.setSize(245, 60);
         skillsPanel.setTabStop(false);
         skillsPanel.setText("Skills");
 
-        skillsPanel.getControls().addAll(pilotLabel, pilotLabelValue, traderLabel, traderLabelValue,
-                fighterLabel, fighterLabelValue, engineerLabel, engineerLabelValue);
+        skillsPanel.getControls().addAll(pilotLabel, pilotLabelValue, pilotButton,
+                traderLabel, traderLabelValue, traderButton,
+                fighterLabel, fighterLabelValue, fighterButton,
+                engineerLabel, engineerLabelValue, engineerButton);
 
         pilotLabel.setAutoSize(true);
         pilotLabel.setFont(FontCollection.bold825);
@@ -163,6 +174,21 @@ public class FormViewCommander extends SpaceTraderForm {
         //pilotLabelValue.setSize(40, 13);
         //pilotLabelValue.setText("88 (88)");
 
+        pilotButton.setLocation(104, 19);
+        pilotButton.setSize(16, 16);
+        pilotButton.setText("");
+        pilotButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                FormInput formInput = getFormInputDialog(commander.getPilot(), "pilot");
+                if (formInput.showDialog() == DialogResult.OK) {
+                    commander.setPilot(formInput.getValue());
+                    initializeScreen();
+                    game.getController().getMainWindow().updateAll();
+                }
+            }
+        });
+
         traderLabel.setAutoSize(true);
         traderLabel.setFont(FontCollection.bold825);
         traderLabel.setLocation(10, 37);
@@ -174,30 +200,75 @@ public class FormViewCommander extends SpaceTraderForm {
         //traderLabelValue.setSize(40, 13);
         //traderLabelValue.setText("88 (88)");
 
+        traderButton.setLocation(104, 35);
+        traderButton.setSize(16, 16);
+        traderButton.setText("");
+        traderButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                FormInput formInput = getFormInputDialog(commander.getTrader(), "trader");
+                if (formInput.showDialog() == DialogResult.OK) {
+                    commander.setTrader(formInput.getValue());
+                    initializeScreen();
+                    game.getController().getMainWindow().updateAll();
+                }
+            }
+        });
+
         fighterLabel.setAutoSize(true);
         fighterLabel.setFont(FontCollection.bold825);
-        fighterLabel.setLocation(113, 21);
+        fighterLabel.setLocation(123, 21);
         //fighterLabel.setSize(44, 16);
         fighterLabel.setText("Fighter:");
 
         fighterLabelValue.setAutoSize(true);
-        fighterLabelValue.setLocation(176, 20);
+        fighterLabelValue.setLocation(186, 20);
         //fighterLabelValue.setSize(40, 13);
         //fighterLabelValue.setText("88 (88)");
 
+        fighterButton.setLocation(220, 19);
+        fighterButton.setSize(16, 16);
+        fighterButton.setText("");
+        fighterButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                FormInput formInput = getFormInputDialog(commander.getFighter(), "fighter");
+                if (formInput.showDialog() == DialogResult.OK) {
+                    commander.setFighter(formInput.getValue());
+                    initializeScreen();
+                    game.getController().getMainWindow().updateAll();
+                }
+            }
+        });
+
         engineerLabel.setAutoSize(true);
         engineerLabel.setFont(FontCollection.bold825);
-        engineerLabel.setLocation(113, 37);
+        engineerLabel.setLocation(123, 37);
         //engineerLabel.setSize(55, 16);
         engineerLabel.setText("Engineer:");
 
         engineerLabelValue.setAutoSize(true);
-        engineerLabelValue.setLocation(176, 36);
+        engineerLabelValue.setLocation(186, 36);
         //engineerLabelValue.setSize(40, 13);
         //engineerLabelValue.setText("88 (88)");
 
+        engineerButton.setLocation(220, 35);
+        engineerButton.setSize(16, 16);
+        engineerButton.setText("");
+        engineerButton.setClick(new EventHandler<Object, EventArgs>() {
+            @Override
+            public void handle(Object sender, EventArgs e) {
+                FormInput formInput = getFormInputDialog(commander.getEngineer(), "engineer");
+                if (formInput.showDialog() == DialogResult.OK) {
+                    commander.setEngineer(formInput.getValue());
+                    initializeScreen();
+                    game.getController().getMainWindow().updateAll();
+                }
+            }
+        });
+
         financesPanel.setLocation(8, 128);
-        financesPanel.setSize(220, 77);
+        financesPanel.setSize(245, 77);
         financesPanel.setTabStop(false);
         financesPanel.setText("Finances");
 
@@ -215,17 +286,17 @@ public class FormViewCommander extends SpaceTraderForm {
         //cashLabelValue.setSize(70, 13);
         //cashLabelValue.setText("8,888,888 cr.");
 
-        cashButton.setLocation(195, 20);
+        cashButton.setLocation(220, 20);
         cashButton.setSize(16, 16);
         cashButton.setText("");
         cashButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getCash(), "Cash", "How much cash does the commander has?");
+                FormInput formInput = getFormInputDialog(commander.getPoliceRecordScore(), "cash");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCurrentGame().getCommander().setCash(formInput.getValue());
+                    commander.setCash(formInput.getValue());
                     initializeScreen();
-                    Game.getCurrentGame().getController().getMainWindow().updateAll();
+                    game.getController().getMainWindow().updateAll();
                 }
             }
         });
@@ -241,17 +312,17 @@ public class FormViewCommander extends SpaceTraderForm {
         //debtLabelValue.setSize(70, 13);
         //debtLabelValue.setText("8,888,888 cr.");
 
-        debtButton.setLocation(195, 36);
+        debtButton.setLocation(220, 36);
         debtButton.setSize(16, 16);
         debtButton.setText("");
         debtButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getDebt(), "Debt", "What is the debt of the commander?");
+                FormInput formInput = getFormInputDialog(commander.getPoliceRecordScore(), "debt");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCurrentGame().getCommander().setDebt(formInput.getValue());
+                    commander.setDebt(formInput.getValue());
                     initializeScreen();
-                    Game.getCurrentGame().getController().getMainWindow().updateAll();
+                    game.getController().getMainWindow().updateAll();
                 }
             }
         });
@@ -268,7 +339,7 @@ public class FormViewCommander extends SpaceTraderForm {
         //netWorthLabelValue.setText("8,888,888 cr.");
 
         notorietyPanel.setLocation(8, 210);
-        notorietyPanel.setSize(220, 92);
+        notorietyPanel.setSize(245, 92);
         notorietyPanel.setTabStop(false);
         notorietyPanel.setText("Notoriety");
 
@@ -298,17 +369,17 @@ public class FormViewCommander extends SpaceTraderForm {
         //reputationLabelValue.setSize(88, 13);
         //reputationLabelValue.setText("Mostly Harmless");
 
-        reputationButton.setLocation(195, 35);
+        reputationButton.setLocation(220, 35);
         reputationButton.setSize(16, 16);
         reputationButton.setText("");
         reputationButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getReputationScore(), "Reputation", "What is the reputation of the commander [0..1500]?");
+                FormInput formInput = getFormInputDialog(commander.getPoliceRecordScore(), "reputation");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCurrentGame().getCommander().setReputationScore(formInput.getValue());
+                    commander.setReputationScore(formInput.getValue());
                     initializeScreen();
-                    Game.getCurrentGame().getController().getMainWindow().updateAll();
+                    game.getController().getMainWindow().updateAll();
                 }
             }
         });
@@ -324,17 +395,17 @@ public class FormViewCommander extends SpaceTraderForm {
         //policeLabelValue.setSize(63, 13);
         //policeLabelValue.setText("Psychopath");
 
-        policeRecordButton.setLocation(195, 51);
+        policeRecordButton.setLocation(220, 51);
         policeRecordButton.setSize(16, 16);
         policeRecordButton.setText("");
         policeRecordButton.setClick(new EventHandler<Object, EventArgs>() {
             @Override
             public void handle(Object sender, EventArgs e) {
-                FormInput formInput = new FormInput(Game.getCurrentGame().getCommander().getPoliceRecordScore(), "Police Record", "What is the police record of the commander [-100..75]?");
+                FormInput formInput = getFormInputDialog(commander.getPoliceRecordScore(), "policeRecord");
                 if (formInput.showDialog() == DialogResult.OK) {
-                    Game.getCurrentGame().getCommander().setPoliceRecordScore(formInput.getValue());
+                    commander.setPoliceRecordScore(formInput.getValue());
                     initializeScreen();
-                    Game.getCurrentGame().getController().getMainWindow().updateAll();
+                    game.getController().getMainWindow().updateAll();
                 }
             }
         });
@@ -366,26 +437,27 @@ public class FormViewCommander extends SpaceTraderForm {
     }
 
     private void initializeScreen() {
-        Commander cmdr = Game.getCurrentGame().getCommander();
+        Game game = Game.getCurrentGame();
+        Commander commander = game.getCommander();
 
-        nameLabelValue.setText(cmdr.getName());
-        difficultyLabelValue.setText(Strings.DifficultyLevels[Game.getCurrentGame().getDifficultyId()]);
-        timeLabelValue.setText(Functions.plural(cmdr.getDays(), Strings.TimeUnit));
+        nameLabelValue.setText(commander.getName());
+        difficultyLabelValue.setText(Strings.DifficultyLevels[game.getDifficultyId()]);
+        timeLabelValue.setText(Functions.plural(commander.getDays(), Strings.TimeUnit));
 
-        pilotLabelValue.setText(cmdr.getPilot() + " (" + cmdr.getShip().getPilot() + ")");
-        fighterLabelValue.setText(cmdr.getFighter() + " (" + cmdr.getShip().getFighter() + ")");
-        traderLabelValue.setText(cmdr.getTrader() + " (" + cmdr.getShip().getTrader() + ")");
-        engineerLabelValue.setText(cmdr.getEngineer() + " (" + cmdr.getShip().getEngineer() + ")");
+        pilotLabelValue.setText(commander.getPilot() + " (" + commander.getShip().getPilot() + ")");
+        fighterLabelValue.setText(commander.getFighter() + " (" + commander.getShip().getFighter() + ")");
+        traderLabelValue.setText(commander.getTrader() + " (" + commander.getShip().getTrader() + ")");
+        engineerLabelValue.setText(commander.getEngineer() + " (" + commander.getShip().getEngineer() + ")");
 
-        cashLabelValue.setText(Functions.formatMoney(cmdr.getCash()));
-        debtLabelValue.setText(Functions.formatMoney(cmdr.getDebt()));
-        netWorthLabelValue.setText(Functions.formatMoney(cmdr.getWorth()));
+        cashLabelValue.setText(Functions.formatMoney(commander.getCash()));
+        debtLabelValue.setText(Functions.formatMoney(commander.getDebt()));
+        netWorthLabelValue.setText(Functions.formatMoney(commander.getWorth()));
 
-        killsLabelValue.setText(Functions.formatNumber(cmdr.getKillsPirate() + cmdr.getKillsPolice() + cmdr.getKillsTrader()));
+        killsLabelValue.setText(Functions.formatNumber(commander.getKillsPirate() + commander.getKillsPolice() + commander.getKillsTrader()));
         policeLabelValue.setText(PoliceRecord.getPoliceRecordFromScore().getName());
         reputationLabelValue.setText(Reputation.getReputationFromScore().getName());
 
-        int score = cmdr.getPoliceRecordScore();
+        int score = commander.getPoliceRecordScore();
         if (score <= Consts.PoliceRecordScoreCrook) {
             bountyTitleLabelValue.setVisible(true);
             bountyTitleLabelValue.setText(Strings.CommanderBountyOffered);
@@ -401,7 +473,7 @@ public class FormViewCommander extends SpaceTraderForm {
             bountyLabelValue.setVisible(false);
         }
 
-        boolean visible = GlobalAssets.isDebug() || Game.getCurrentGame().getCheats().isCheatMode();
+        boolean visible = GlobalAssets.isDebug() || game.getCheats().isCheatMode();
         cashButton.setVisible(visible);
         debtButton.setVisible(visible);
         reputationButton.setVisible(visible);
@@ -411,5 +483,11 @@ public class FormViewCommander extends SpaceTraderForm {
     private void addDayButtonClick(int daysCount) {
         Game.getCurrentGame().incDays(daysCount);
         initializeScreen();
+    }
+
+    private FormInput getFormInputDialog(int value, String propertyName) {
+        String title = String.format("formInput.%s", propertyName);
+        String message = String.format("formInput.%s", propertyName);
+        return new FormInput(value, getStrings().getTitle(title), getStrings().getMessage(message));
     }
 }
