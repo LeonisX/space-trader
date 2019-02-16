@@ -110,63 +110,8 @@ EncounterPretextCaptainHuie=знаменитый Капитан Хьюи в ко
 EncounterShipCaptain=Капитан | Капитана
 EncounterTextFamousCaptain=Капитан настаивает на непродолжительной стыковке с вами.
 
-# VeryRareEncounters:
-VeryRareEncounterCaptainAhab=Капитан Ахаб
-VeryRareEncounterCaptainConrad=Капитан Конрад
-VeryRareEncounterCaptainHuie=Капитан Хьюи
-
 # Crew Member Names:
 CrewNameCaptain=Капитан | Капитана
-
-
-
-## Bottle Quest
-
-# Alerts:
-AlertEncounterDrinkContentsTitle=Выпить содержимое?
-AlertEncounterDrinkContentsMessage=Вы столкнулись с чрезвычайно редкой бутылкой Удивительного Тоника Умений капитана Мармоше! Срок годности прочитать не удаётся, но он всё равно может быть хорошим. Хотите выпить его?
-AlertEncounterDrinkContentsAccept=Да, выпить это
-AlertEncounterTonicConsumedGoodTitle=Тоник был выпит
-AlertEncounterTonicConsumedGoodMessage=Ммммм. Удивительный Тоник Умений капитана Мармоше не только полон энергии, но и на вкус напоминает односолодовый виски.
-AlertEncounterTonicConsumedStrangeTitle=Тоник был выпит
-AlertEncounterTonicConsumedStrangeMessage=Поскольку вы не знаете, каким этот тоник должен быть на вкус, у вас возникает ощущение, что он немного просрочен.
-
-# Encounters:
-EncounterPretextBottle=летящая бутылка | летящую бутылку
-EncounterTextBottle=Похоже, что это редчайшая бутылка Тоника Умений из коллекции Капитана Мармоше!
-
-# VeryRareEncounters:
-VeryRareEncounterDatedTonic=Просроченный Тоник
-VeryRareEncounterGoodTonic=Хороший Тоник
-
-# Crew Member Names:
-CrewNameBottle=Бутылка | Бутылку
-
-
-## Marie Celeste Quest
-
-# Alerts:
-AlertEncounterMarieCelesteTitle=Взойти на борт Марии Селесты
-AlertEncounterMarieCelesteMessage=Корабль пуст. В судовом журнале нет никаких отметок, а экипаж исчез, оставив нетронутой еду на столах и груз в трюмах. Хотите перегрузить товары к себе на борт?
-AlertEncounterMarieCelesteAccept=Да, забрать груз
-AlertEncounterMarieCelesteNoBribeTitle=Не удаётся подкупить
-AlertEncounterMarieCelesteNoBribeMessage=Мы бы взяли деньги, но космическое командование уже знает о том, что у вас на борту находятся запрещённые товары.
-AlertEncounterPostMarieTitle=Контрабанда конфискована
-AlertEncounterPostMarieMessage=Таможенная полиция конфисковала все запрещённые товары, но поскольку вы сотрудничали, то избежали большого штрафа.
-AlertEncounterPostMarieFleeTitle=Это уголовный поступок!
-AlertEncounterPostMarieFleeMessage=Вы уверены, что хотите так поступить? Таможенная полиция знает, что вы вовлечены в преступную деятельность, и сообщит об этом!
-AlertEncounterPostMarieFleeAccept=Да, я всё ещё хочу
-AlertEncounterPostMarieFleeCancel=Хорошо, я не буду
-
-# Encounters:
-EncounterPretextMarieCeleste=дрейфующее судно класса ^1
-EncounterPretextMariePolice=таможенная полиция в корабле класса ^1 | таможенную полицию в корабле класса ^1
-EncounterTextMarieCeleste=Мария Селеста, похоже, полностью заброшена.
-EncounterTextPolicePostMarie="Нам известно, что вы забрали с Марии Селесты запрещённые товары. Вы должны сейчас же их отдать!"
-
-# VeryRareEncounters:
-VeryRareEncounterMarieCeleste=Мария Селеста
-
 
 
 * Check if Captain is disabled

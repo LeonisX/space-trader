@@ -60,10 +60,10 @@ public class CrewMember implements Serializable {
         skills = baseCrewMember.getSkills();
     }
 
-    private void changeRandomSkill(int amount) {
+    public void changeRandomSkill(int amount) {
         ArrayList<Integer> skillIdList = new ArrayList<>();
         for (int i = 0; i < skills.length; i++) {
-            if (skills[i] + amount > 0 && skills[i] + amount < Consts.MaxSkill) {
+            if (skills[i] + amount >= 0 && skills[i] + amount < Consts.MaxSkill) {
                 skillIdList.add(i);
             }
         }
@@ -106,27 +106,6 @@ public class CrewMember implements Serializable {
         }
 
         return skillIds[n - 1];
-    }
-
-    // *************************************************************************
-    // Randomly tweak the skills.
-    // *************************************************************************
-    public void tonicTweakRandomSkill() {
-        int[] oldSkills = Arrays.copyOf(skills, skills.length);
-
-        if (Game.getCurrentGame().getDifficultyId() < Difficulty.HARD.castToInt()) {
-            // add one to a random skill, subtract one from a random skill
-            while (skills[0] == oldSkills[0] && skills[1] == oldSkills[1] && skills[2] == oldSkills[2]
-                    && skills[3] == oldSkills[3]) {
-                changeRandomSkill(1);
-                changeRandomSkill(-1);
-            }
-        } else {
-            // add one to two random skills, subtract three from one random skill
-            changeRandomSkill(1);
-            changeRandomSkill(1);
-            changeRandomSkill(-3);
-        }
     }
 
     public @Override

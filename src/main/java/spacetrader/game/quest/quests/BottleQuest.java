@@ -183,7 +183,7 @@ public class BottleQuest extends AbstractQuest {
     private void onGenerateOpponentShip(Object object) {
         Ship ship = (Ship) object;
         if (ship.getOpponentType() == bottle && !ship.isInitialized()) {
-            ship.setId(shipSpecId); //TODO need???
+            ship.setId(shipSpecId);
             ship.setValues(shipSpec);
             ship.getCrew()[0] = registerNewSpecialCrewMember(10, 10, 10, 10, false);
             ship.setInitialized(true);
@@ -242,11 +242,35 @@ public class BottleQuest extends AbstractQuest {
                 }
                 showAlert(Alerts.EncounterTonicConsumedGood.getValue());
             } else {
-                getCommander().tonicTweakRandomSkill();
+                tonicTweakRandomSkill();
                 showAlert(Alerts.EncounterTonicConsumedStrange.getValue());
             }
         }
     }
+
+
+    // *************************************************************************
+    // Randomly tweak the skills.
+    // *************************************************************************
+    public void tonicTweakRandomSkill() {
+        int[] skills = getCommander().getSkills();
+        int[] oldSkills = Arrays.copyOf(skills, skills.length);
+
+        if (getDifficultyId() < Difficulty.HARD.castToInt()) {
+            // add one to a random skill, subtract one from a random skill
+            while (skills[0] == oldSkills[0] && skills[1] == oldSkills[1] && skills[2] == oldSkills[2]
+                    && skills[3] == oldSkills[3]) {
+                getCommander().changeRandomSkill(1);
+                getCommander().changeRandomSkill(-1);
+            }
+        } else {
+            // add one to two random skills, subtract three from one random skill
+            getCommander().changeRandomSkill(1);
+            getCommander().changeRandomSkill(1);
+            getCommander().changeRandomSkill(-3);
+        }
+    }
+
 
     enum Alerts implements SimpleValueEnum<AlertDialog> {
         EncounterDrinkContents("Drink Contents?", "You have come across an extremely rare bottle of Captain Marmoset's Amazing Skill Tonic! The \"use-by\" date is illegible, but might still be good.  Would you like to drink it?", "Yes, Drink It"),
