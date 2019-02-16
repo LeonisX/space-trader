@@ -248,11 +248,10 @@ public class BottleQuest extends AbstractQuest {
         }
     }
 
-
     // *************************************************************************
     // Randomly tweak the skills.
     // *************************************************************************
-    public void tonicTweakRandomSkill() {
+    private void tonicTweakRandomSkill() {
         int[] skills = getCommander().getSkills();
         int[] oldSkills = Arrays.copyOf(skills, skills.length);
 

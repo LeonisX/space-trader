@@ -341,8 +341,8 @@ public class CaptainQuest extends AbstractQuest {
     private void replaceLastAttackedEventWithDestroyedEvent() {
         List<Integer> newsEvents = getNews().getNewsEvents();
 
-        int oldEvent = newsEvents.get(newsEvents.size() - 1);
-        int newEvent = oldEvent + 1;
+        Integer oldEvent = newsEvents.get(newsEvents.size() - 1);
+        Integer newEvent = oldEvent + 1;
         newsEvents.remove(oldEvent);
         newsEvents.add(newEvent);
     }
