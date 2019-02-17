@@ -16,6 +16,18 @@ dependencies {
     testCompile 'org.spockframework:spock-core:1.2-groovy-2.5'
 }
 
+compileJava.doFirst {
+    new File("$projectDir/src/main/resources/version.properties").withWriter { w ->
+        Properties p = new Properties()
+        p['version'] = project.version.toString()
+        p.store w, null
+    }
+
+    delete fileTree("$projectDir/build/libs") {
+        include '*.jar'
+    }
+}
+
 jar {
     manifest {
         attributes(
@@ -24,35 +36,26 @@ jar {
     }
 }
 
-task release(dependsOn: jar) {
-    doLast {
-        new File("$buildDir/resources/main/version.properties").withWriter { w ->
-            Properties p = new Properties()
-            p['version'] = project.version.toString()
-            p.store w, null
-        }
-
-        def jarFileName = "space-trader-${version}.jar"
-        def batFileName = "space-trader.bat"
-
-        new File("$projectDir/${batFileName}").text = "java -jar ${jarFileName}"
-
-        delete fileTree(projectDir) {
-            include '*.jar'
-        }
-
-        println "chmod 755 add ${batFileName}".execute().text
-
-        copy {
-            from "build/libs"
-            into projectDir
-        }
-
-        println "git add ${batFileName}".execute().text
-        println "git add ${jarFileName}".execute().text
-    }
-}
-
 jar.doLast {
-    release.execute()
+    def gameName = "space-trader"
+    def jarFileName = "$gameName-${version}.jar"
+    def batFileName = "${gameName}.bat"
+
+    new File("$projectDir/${batFileName}").text = "java -jar ${jarFileName}"
+
+    def firstLetter = version.toString()[0]
+
+    delete fileTree(projectDir) {
+        include "$gameName-$firstLetter*.jar"
+    }
+
+    println "chmod 755 add ${batFileName}".execute().text
+
+    copy {
+        from "build/libs"
+        into projectDir
+    }
+
+    println "git add ${batFileName}".execute().text
+    println "git add ${jarFileName}".execute().text
 }
