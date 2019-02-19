@@ -76,6 +76,22 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* FileDialogs - hide translation logs
+* Fix bug in FormViewBank
+* Fix bug in FormGetLoan/FormPayBackLoan
+* Fix bug in FormBuyFuel/FormBuyRepair
+* Fix bug in FormAlertsTest
+* Translate titles of FormBuyFuel/FormBuyRepair dialogs
+
+//TODO add to lang files
+
+formBuyFuel.title=Buy Fuel
+formBuyRepair.title=Hull Repair
+
+formBuyFuel.title=Купить топливо
+formBuyRepair.title=Ремонт корпуса
+
+
 ### News
 
 * Clean from old events
@@ -108,8 +124,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ### Translate
 
 * ~~Translate all quests~~
-* FormMonsterMenuItem, CheatsMenu -> Strings, languages
-* FileDialogs - hide translation logs
 * FormTests, FormAlertTests - refactor, translate
 * На растоянии 1 клик от системы...
 * В течении 2 дня остановить эксперимент доктора...
@@ -150,7 +164,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Bug - when 5 gadget slots - can't install 5 extra hidden bays. When decrease to 4 - can.
 * After disabling can fully destroy without encounter ending
 * Morgan's Laser - sell price 0 cr.
-* Ability to ignore encounter by press "x"
 * Strange - when start new game - see few visited systems
 * Very strange - after arrival see, that I visited other systems. Or arrive in other system
 * Bug? Don't hide wormhole route after arrive
