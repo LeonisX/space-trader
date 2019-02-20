@@ -76,21 +76,13 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Fix bug with RareWare cheat
 * FileDialogs - hide translation logs
 * Fix bug in FormViewBank
 * Fix bug in FormGetLoan/FormPayBackLoan
 * Fix bug in FormBuyFuel/FormBuyRepair
 * Fix bug in FormAlertsTest
-* Translate titles of FormBuyFuel/FormBuyRepair dialogs
-
-//TODO add to lang files
-
-formBuyFuel.title=Buy Fuel
-formBuyRepair.title=Hull Repair
-
-formBuyFuel.title=Купить топливо
-formBuyRepair.title=Ремонт корпуса
-
+* Shipyard: fix minimal values for hull strength and fuel tanks
 
 ### News
 
@@ -105,12 +97,6 @@ formBuyRepair.title=Ремонт корпуса
 * More flexible news. Many quests, for example Experiment - news appear prior action
 * Increase difficulty, depends on game difficulty (days to delivery)
 * DragonflyQuest: when disabled - don't show news about explosion. Need to check on windows version - if can disable
-
-### Shipyard
-
-* Investigate - when new shipyard - can receive 600%
-* Correlian - hull strength - 200 minimum, no max (JAF). Cargo bays - no limit. Need to test
-* Instead of the custom ship name sometimes see "Bottle"
 
 ### Monster.com
 
