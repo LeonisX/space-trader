@@ -129,6 +129,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Feature requests
 
+* Remove Util class
 * Show in Cargo planet names (target)
 * Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
 * On sell, plunder, jettison - show goods with bold
