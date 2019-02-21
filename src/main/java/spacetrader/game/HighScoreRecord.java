@@ -27,16 +27,16 @@ public class HighScoreRecord implements Serializable, Comparable<HighScoreRecord
     public int compareTo(HighScoreRecord value) {
         if (value == null) {
             return 1;
-        } else if (value.getScore() < getScore()) {
-            return 1;
         } else if (value.getScore() > getScore()) {
-            return -1;
-        } else if (value.getWorth() < getWorth()) {
             return 1;
+        } else if (value.getScore() < getScore()) {
+            return -1;
         } else if (value.getWorth() > getWorth()) {
+            return 1;
+        } else if (value.getWorth() < getWorth()) {
             return -1;
         } else {
-            return Integer.compare(getDays(), value.getDays());
+            return Integer.compare(value.getDays(), getDays());
         }
     }
 

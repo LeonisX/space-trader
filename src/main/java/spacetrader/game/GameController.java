@@ -7,9 +7,11 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.util.Functions;
 import spacetrader.util.IOUtils;
-import spacetrader.util.Util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static spacetrader.game.quest.enums.EventName.ON_BEFORE_GAME_END;
 import static spacetrader.game.quest.enums.EventName.ON_GAME_END_ALERT;
@@ -56,16 +58,7 @@ public class GameController implements Serializable {
 
     //TODO ???
     public void clearHighScores() {
-        HighScoreRecord[] highScores = new HighScoreRecord[3];
-        IOUtils.writeObjectToFile(Consts.HighScoreFile, highScores);
-    }
-
-    private void addHighScore(HighScoreRecord highScore) {
-        HighScoreRecord[] highScores = IOUtils.getHighScores();
-        highScores[0] = highScore;
-        Util.sort(highScores);
-
-        IOUtils.writeObjectToFile(Consts.HighScoreFile, highScores);
+        IOUtils.writeObjectToFile(Consts.HighScoreFile, new ArrayList<HighScoreRecord>());
     }
 
     public void gameEnd() {
@@ -89,17 +82,18 @@ public class GameController implements Serializable {
             game.getQuestSystem().fireEvent(ON_GAME_END_ALERT);
         }
 
-        GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10), Functions
-                .formatNumber(game.getScore() % 10));
+        GuiFacade.alert(AlertType.GameEndScore, Functions.formatNumber(game.getScore() / 10),
+                Functions.formatNumber(game.getScore() % 10));
 
         HighScoreRecord candidate = new HighScoreRecord(game.getCommander().getName(), game.getScore(), game.getEndStatus(),
                 game.getCommander().getDays(), game.getCommander().getWorth(), game.getDifficulty());
-        if (candidate.compareTo(IOUtils.getHighScores()[0]) > 0) {
+        List<HighScoreRecord> highScores = addHighScore(IOUtils.getHighScores(), candidate);
+        if (highScores.contains(candidate)) {
             if (game.getCheats().isCheatMode()) {
                 GuiFacade.alert(AlertType.GameEndHighScoreCheat);
             } else {
-                addHighScore(candidate);
                 GuiFacade.alert(AlertType.GameEndHighScoreAchieved);
+                IOUtils.writeObjectToFile(Consts.HighScoreFile, highScores);
             }
         } else {
             GuiFacade.alert(AlertType.GameEndHighScoreMissed);
@@ -108,6 +102,11 @@ public class GameController implements Serializable {
         Game.setCurrentGame(null);
         mainWindow.setGame(null);
         mainWindow.updateAll();
+    }
+
+    private List<HighScoreRecord> addHighScore(List<HighScoreRecord> highScores, HighScoreRecord highScore) {
+        highScores.add(highScore);
+        return highScores.stream().sorted().limit(3).collect(Collectors.toList());
     }
 
     public static GameController loadGame(String fileName, MainWindow mainWindow) {

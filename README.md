@@ -76,6 +76,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Genitive (At 5 clicks from Lave you encounter a pirate hornet) На растоянии 1 клик от системы...
 * Fix bug with RareWare cheat
 * FileDialogs - hide translation logs
 * Fix bug in FormViewBank
@@ -83,6 +84,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Fix bug in FormBuyFuel/FormBuyRepair
 * Fix bug in FormAlertsTest
 * Shipyard: fix minimal values for hull strength and fuel tanks
+* Monster.Com: on second click - reverse order
 
 ### News
 
@@ -100,32 +102,16 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Monster.com
 
-* Monster.com - rename cheat, form name (not MonsterCom)
 * MonsterCom: Show only current phase of quest. CheckBox for full view (only for cheat/debug)
-* MonsterCom - second click - order reverse
 * Quest panel with scrolling
 * Panel - Quest Persons: all persons from quests; Show planet. If onboard - onboard
-* All quests - to land passengers on the planets?
+* All quests - to land passengers on the planets? Zeethibal
 
 ### Translate
 
-* ~~Translate all quests~~
 * FormTests, FormAlertTests - refactor, translate
-* На растоянии 1 клик от системы...
 * В течении 2 дня остановить эксперимент доктора...
 * Update english-russian.xls
-
-### Other
-
-* Different image sizes, font sizes (config)
-* Installers: http://www.jrsoftware.org/isdl.php
-* Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
-* Full Russian description, FAQ
-* Dig about Star Trader for C16
-
-### Minor tasks
-
-* Need to update font sizes. Dump all too.
 
 ## Feature requests
 
@@ -156,6 +142,18 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Bug? Don't hide wormhole route after arrive
 * Autosize doesn't works in FormViewQuests (ArtifactQuest))
 
+### Other
+
+* Different image sizes, font sizes (config)
+* Installers: http://www.jrsoftware.org/isdl.php
+* Installers: https://github.com/nebula-plugins/gradle-ospackage-plugin
+* Full Russian description, FAQ
+* Dig about Star Trader for C16
+
+### Minor tasks
+
+* Need to update font sizes. Dump all too.
+
 ## Regressions:
 
 * Bold font for labels on main screen, formEncounter. Source: new `tahomabd.ttf`
@@ -168,7 +166,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * passenger modules
 * courier quests
 * more very rare encounters
-* Bug - after prison - Ziyal onboard, can finish quest
 
 ## Far perspectives
 

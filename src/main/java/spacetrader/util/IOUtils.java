@@ -7,6 +7,7 @@ import spacetrader.gui.SpaceTrader;
 import spacetrader.guifacade.GuiFacade;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.prefs.Preferences;
@@ -43,10 +44,11 @@ public class IOUtils {
     }
 
 
-    public static HighScoreRecord[] getHighScores() {
+    @SuppressWarnings("unchecked")
+    public static List<HighScoreRecord> getHighScores() {
         return readObjectFromFile(Consts.HighScoreFile, true)
-                .map(o -> (HighScoreRecord[]) o)
-                .orElse(new HighScoreRecord[3]);
+                .map(o -> (List<HighScoreRecord>) o)
+                .orElse(new ArrayList<>());
     }
 
     public static boolean writeObjectToFile(String fileName, Object object) {
