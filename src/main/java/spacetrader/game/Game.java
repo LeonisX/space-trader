@@ -14,7 +14,6 @@ import spacetrader.guifacade.GuiFacade;
 import spacetrader.guifacade.MainWindow;
 import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
-import spacetrader.util.Util;
 
 import java.io.Serializable;
 import java.util.*;
@@ -772,7 +771,7 @@ public class Game implements Serializable {
                 getStarSystem(j).setX(x);
                 getStarSystem(j).setY(y);
 
-                int w = Util.bruteSeek(getWormholes(), i);
+                int w = Functions.bruteSeek(getWormholes(), i);
                 if (w >= 0) {
                     getWormholes()[w] = j;
                 }
@@ -937,7 +936,7 @@ public class Game implements Serializable {
         int[] dest = getDestinations();
 
         if (dest.length > 0) {
-            int index = spacetrader.util.Util.bruteSeek(dest, getWarpSystemId().castToInt());
+            int index = Functions.bruteSeek(dest, getWarpSystemId().castToInt());
 
             if (index < 0) {
                 index = forward ? 0 : dest.length - 1;
@@ -1206,7 +1205,7 @@ public class Game implements Serializable {
         this.targetWormhole = targetWormhole;
 
         if (targetWormhole) {
-            int wormIndex = Util.bruteSeek(getWormholes(), getSelectedSystemId().castToInt());
+            int wormIndex = Functions.bruteSeek(getWormholes(), getSelectedSystemId().castToInt());
             warpSystemId = StarSystemId.fromInt(getWormholes()[(wormIndex + 1) % getWormholes().length]);
         }
     }

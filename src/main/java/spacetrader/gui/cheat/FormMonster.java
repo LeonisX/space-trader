@@ -9,25 +9,27 @@ import spacetrader.game.Game;
 import spacetrader.game.StarSystem;
 import spacetrader.game.Strings;
 import spacetrader.game.cheat.CheatCode;
-import spacetrader.game.cheat.SomeStringsForCheatSwitch;
 import spacetrader.game.enums.ShipyardId;
 import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.quest.Phase;
 import spacetrader.gui.FontCollection;
 import spacetrader.gui.SpaceTraderForm;
-import spacetrader.stub.ArrayList;
 import spacetrader.util.Functions;
 import spacetrader.util.ReflectionUtils;
-import spacetrader.util.Util;
 
 import java.awt.*;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import static spacetrader.gui.cheat.FormMonster.Letters.*;
 
 @CheatCode
 public class FormMonster extends SpaceTraderForm {
+
+    enum Letters {
+        S, D, F, I, N, P, T, E
+    }
 
     private static final String THREE_SPACES = "   ";
     private static final String FIVE_SPACES = "     ";
@@ -59,9 +61,9 @@ public class FormMonster extends SpaceTraderForm {
     private LinkLabel shipyardsDescrLabel = new LinkLabel();
     private LinkLabel shipyardsFeatureLabel = new LinkLabel();
 
-    private Integer[] mercIds; //TODO object
-    private List<Row> questSystems = new ArrayList<>();
-    private List<Row> shipyardSystems = new ArrayList<>();
+    private MercenariesRows mercenaries;
+    private Rows questSystems;
+    private Rows shipyardSystems;
 
     private FontMetrics metrics;
 
@@ -105,7 +107,7 @@ public class FormMonster extends SpaceTraderForm {
         questsSystemLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "S");
+                questSystems.sort(S);
             }
         });
 
@@ -117,7 +119,7 @@ public class FormMonster extends SpaceTraderForm {
         questsDescrLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "D");
+                questSystems.sort(D);
             }
         });
 
@@ -128,7 +130,7 @@ public class FormMonster extends SpaceTraderForm {
         questsFeatureLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "F");
+                questSystems.sort(F);
             }
         });
 
@@ -136,61 +138,61 @@ public class FormMonster extends SpaceTraderForm {
         questsPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
         //questsPanel.controls.addAll(questPanelSystemsLabel, questsPanelDescrLabel);
         questsPanel.setLocation(8, 44);
-        questsPanel.setSize(322, 450);
+        questsPanel.setSize(322, 505);
 
         metrics = questsPanel.asSwingObject().getFontMetrics(questsPanel.asSwingObject().getFont());
 
         shipyardsLabel.setAutoSize(true);
         shipyardsLabel.setControlBinding(ControlBinding.CENTER);
         shipyardsLabel.setFont(FontCollection.bold10);
-        shipyardsLabel.setLocation(170, 506);
+        shipyardsLabel.setLocation(170, 561);
         //shipyardsLabel.setSize(68, 19);
         shipyardsLabel.setText("Shipyards");
 
         shipyardsSystemLabel.setAutoSize(true);
         shipyardsSystemLabel.setFont(FontCollection.bold825);
-        shipyardsSystemLabel.setLocation(23, 526);
+        shipyardsSystemLabel.setLocation(23, 581);
         //shipyardsSystemLabel.setSize(43, 16);
         shipyardsSystemLabel.setText("System");
         shipyardsSystemLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "S");
+                shipyardSystems.sort(S);
             }
         });
 
         shipyardsDescrLabel.setAutoSize(true);
         shipyardsDescrLabel.setFont(FontCollection.bold825);
-        shipyardsDescrLabel.setLocation(60, 526);
+        shipyardsDescrLabel.setLocation(60, 581);
         //shipyardsDescrLabel.setSize(63, 16);
         shipyardsDescrLabel.setText("Description");
         shipyardsDescrLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "D");
+                shipyardSystems.sort(D);
             }
         });
 
         shipyardsFeatureLabel.setAutoSize(true);
         shipyardsFeatureLabel.setFont(FontCollection.bold825);
-        shipyardsFeatureLabel.setLocation(190, 526);
+        shipyardsFeatureLabel.setLocation(190, 581);
         shipyardsFeatureLabel.setText("Specialization");
         shipyardsFeatureLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "F");
+                shipyardSystems.sort(F);
             }
         });
 
-        shipyardHorizontalLine.setLocation(4, 542);
+        shipyardHorizontalLine.setLocation(4, 597);
         shipyardHorizontalLine.setWidth(330);
 
         shipyardsPanel.setBorderStyle(BorderStyle.FIXED_SINGLE);
-        shipyardsPanel.setLocation(8, 546);
+        shipyardsPanel.setLocation(8, 601);
         shipyardsPanel.setSize(322, 93);
 
         verticalLine.setLocation(334, 8);
-        verticalLine.setHeight(640);
+        verticalLine.setHeight(680);
 
         mercenariesLabel.setAutoSize(true);
         mercenariesLabel.setControlBinding(ControlBinding.CENTER);
@@ -207,7 +209,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesIdLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "I");
+                mercenaries.sort(I);
             }
         });
 
@@ -219,7 +221,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesNameLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "N");
+                mercenaries.sort(N);
             }
         });
 
@@ -231,7 +233,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillPilotLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "P");
+                mercenaries.sort(P);
             }
         });
 
@@ -243,7 +245,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillFighterLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "F");
+                mercenaries.sort(F);
             }
         });
 
@@ -255,7 +257,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillTraderLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "T");
+                mercenaries.sort(T);
             }
         });
 
@@ -267,7 +269,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSkillEngineerLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "E");
+                mercenaries.sort(E);
             }
         });
 
@@ -279,7 +281,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesSystemLabel.setLinkClicked(new SimpleEventHandler<Object>() {
             @Override
             public void handle(Object sender) {
-                sortLinkClicked(sender, "S");
+                mercenaries.sort(S);
             }
         });
 
@@ -305,33 +307,30 @@ public class FormMonster extends SpaceTraderForm {
         ReflectionUtils.loadControlsData(this);
     }
 
-    private String currentSystemDisplay(CrewMember merc) {
-        return (null == merc.getCurrentSystem() ? Strings.Unknown
-                : (game.getShip().hasCrew(merc.getId()) ? Functions.stringVars(Strings.MercOnBoard, merc
-                .getCurrentSystem().getName()) : merc.getCurrentSystem().getName()));
-    }
-
     private void populateIdArrays() {
         // Populate the mercenary ids array.
-        mercIds = game.getMercenaries().values().stream()
-                .filter(CrewMember::isMercenary).map(CrewMember::getId).toArray(Integer[]::new);
+        mercenaries = new MercenariesRows(game.getMercenaries().values().stream()
+                .filter(CrewMember::isMercenary).collect(toList())
+        );
 
         // Populate the quest and shipyard system ids arrays.
-        questSystems.addAll(game.getQuestSystem().getPhasesStream()
+        questSystems = new Rows(game.getQuestSystem().getPhasesStream()
                 .flatMap(p -> p.getStarSystemIds().stream().map(s -> (null == s)
                                 ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown, p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])
                                 : createQuestRow(p, s))
-                ).collect(toList()));
-        for (StarSystem system : game.getUniverse()) {
-            if (system.getShipyardId() != ShipyardId.NA) {
-                shipyardSystems.add(createShipyardRow(system.getId().castToInt()));
-            }
-        }
+                ).collect(toList())
+        );
+
+        shipyardSystems = new Rows(Arrays.stream(game.getUniverse())
+                .filter(s -> s.getShipyardId() != ShipyardId.NA)
+                .map(s -> createShipyardRow(s.getId().castToInt())).collect(toList())
+        );
+
 
         // Sort the arrays.
-        sortMercenaries("N"); // Sort mercenaries by name.
-        sortRows(questSystems, "S"); // Sort quests by system name.
-        sortRows(shipyardSystems, "S"); // Sort shipyards by system name.
+        mercenaries.sort(N); // Sort mercenaries by name.
+        questSystems.sort(S); // Sort quests by system name.
+        shipyardSystems.sort(S); // Sort shipyards by system name.
     }
 
     private Row createQuestRow(Phase phase, StarSystemId starSystemId) {
@@ -344,74 +343,6 @@ public class FormMonster extends SpaceTraderForm {
         StarSystem system = game.getStarSystem(systemId);
         return new Row(systemId, system.getName(), system.getShipyard().getName(),
                 Strings.ShipyardSkills[system.getShipyard().getSkill().castToInt()]);
-    }
-
-    private void sortMercenaries(String sortBy) {
-        for (int i = 0; i < mercIds.length - 1; i++) {
-            for (int j = 0; j < mercIds.length - i - 1; j++) {
-                if (compare(mercIds[j], mercIds[j + 1], sortBy) > 0) {
-                    int temp = mercIds[j];
-                    mercIds[j] = mercIds[j + 1];
-                    mercIds[j + 1] = temp;
-                }
-            }
-        }
-    }
-
-    private int compare(int a, int b, String sortBy) {
-        int compareVal;
-
-        CrewMember crewMemberA = game.getMercenaries().get(a);
-        CrewMember crewMemberB = game.getMercenaries().get(b);
-
-        boolean strCompare = false;
-        Object valA = null;
-        Object valB = null;
-
-        switch (SomeStringsForCheatSwitch.valueOf(sortBy)) {
-            case I: // Id
-                valA = crewMemberA.getId();
-                valB = crewMemberB.getId();
-                break;
-            case N: // Name
-                valA = crewMemberA.getName();
-                valB = crewMemberB.getName();
-                strCompare = true;
-                break;
-            case P: // Pilot
-                valA = crewMemberA.getPilot();
-                valB = crewMemberB.getPilot();
-                break;
-            case F: // Fighter
-                valA = crewMemberA.getFighter();
-                valB = crewMemberB.getFighter();
-                break;
-            case T: // Trader
-                valA = crewMemberA.getTrader();
-                valB = crewMemberB.getTrader();
-                break;
-            case E: // Engineer
-                valA = crewMemberA.getEngineer();
-                valB = crewMemberB.getEngineer();
-                break;
-            case S: // System
-                valA = currentSystemDisplay(crewMemberA);
-                valB = currentSystemDisplay(crewMemberB);
-                strCompare = true;
-        }
-
-        if (strCompare) {
-            compareVal = Util.compareTo((String) valA, (String) valB);
-        } else {
-            compareVal = Util.compareTo((Integer) valA, (Integer) valB);
-        }
-
-        // Secondary sort by Name
-        if (compareVal == 0 && !sortBy.equals("N")) {
-            compareVal = crewMemberA.getName().compareTo(crewMemberB.getName());
-        }
-
-        return compareVal;
     }
 
     private void updateAll() {
@@ -432,9 +363,7 @@ public class FormMonster extends SpaceTraderForm {
         mercenariesPanel.removeAll();
         mercenariesPanel.addAll(idsPanel, namesPanel, pPanel, fPanel, tPanel, ePanel, systemPanel);
 
-        for (Integer mercId : mercIds) {
-            CrewMember merc = game.getMercenaries().get(mercId);
-
+        for (CrewMember merc : mercenaries.getCrew()) {
             Label label = new Label(THREE_SPACES + merc.getId()).withAutoSize(true);
             idsPanel.asJPanel().add(label.asSwingObject());
 
@@ -456,6 +385,12 @@ public class FormMonster extends SpaceTraderForm {
             label = optionalLinkLabel((merc.getCurrentSystem() != null) && !game.getShip().hasCrew(merc.getId()), currentSystemDisplay(merc));
             systemPanel.asJPanel().add(label.asSwingObject());
         }
+    }
+
+    private static String currentSystemDisplay(CrewMember merc) {
+        return (null == merc.getCurrentSystem() ? Strings.Unknown
+                : (Game.getCurrentGame().getShip().hasCrew(merc.getId()) ? Functions.stringVars(Strings.MercOnBoard, merc
+                .getCurrentSystem().getName()) : merc.getCurrentSystem().getName()));
     }
 
     private Label optionalLinkLabel(boolean condition, String systemName) {
@@ -483,7 +418,7 @@ public class FormMonster extends SpaceTraderForm {
 
         dummyPanel.asJPanel().add(new Label(THREE_SPACES).asSwingObject());
 
-        for (Row questSystem : questSystems) {
+        for (Row questSystem : questSystems.getRows()) {
             Label label = optionalLinkLabel(questSystem.getSystemId() != StarSystemId.NA.castToInt(), questSystem.getSystem());
             systemPanel.asJPanel().add(label.asSwingObject());
 
@@ -507,7 +442,7 @@ public class FormMonster extends SpaceTraderForm {
 
         dummyPanel.asJPanel().add(new Label(THREE_SPACES).asSwingObject());
 
-        for (Row shipyardSystem : shipyardSystems) {
+        for (Row shipyardSystem : shipyardSystems.getRows()) {
             LinkLabel linkLabel = new LinkLabel(shipyardSystem.getSystem()).withAutoSize(true);
             linkLabel.setLinkClicked(new SimpleEventHandler<Object>() {
                 @Override
@@ -539,31 +474,101 @@ public class FormMonster extends SpaceTraderForm {
         close();
     }
 
-    private void sortLinkClicked(Object sender, String sortBy) {
-        switch (((LinkLabel) sender).getName().trim().substring(0, 1).toUpperCase()) {
-            case "M":
-                sortMercenaries(sortBy);
-                break;
-            case "Q":
-                sortRows(questSystems, sortBy);
-                break;
-            case "S":
-                sortRows(shipyardSystems, sortBy);
+    private class Rows extends HashMap<Letters, Boolean> {
+
+        private List<Row> rows;
+
+        Rows(List<Row> rows) {
+            this.rows = rows;
         }
-        updateAll();
+
+        void sort(Letters sortBy) {
+            rows.sort(getComparator(sortBy));
+            updateAll();
+        }
+
+        Comparator<? super Row> getComparator(Letters sortBy) {
+            Comparator<? super Row> comparator = null;
+            switch (sortBy) {
+                case S:
+                    comparator = Comparator.comparing(Row::getSystem);
+                    break;
+                case D:
+                    comparator = Comparator.comparing(Row::getDescription);
+                    break;
+                case F:
+                    comparator = Comparator.comparing(Row::getFeature);
+                    break;
+            }
+            if (getDirection(sortBy)) {
+                comparator = Collections.reverseOrder(comparator);
+            }
+            return comparator;
+        }
+
+        private Boolean getDirection(Letters sortBy) {
+            Boolean result = (null == get(sortBy)) ? false : get(sortBy);
+            put(sortBy, !result);
+            return result;
+        }
+
+        List<Row> getRows() {
+            return rows;
+        }
     }
 
-    private void sortRows(List<Row> systems, String sortBy) {
-        switch (sortBy) {
-            case "S":
-                systems.sort(Comparator.comparing(Row::getSystem));
-                break;
-            case "D":
-                systems.sort(Comparator.comparing(Row::getDescription));
-                break;
-            case "F":
-                systems.sort(Comparator.comparing(Row::getFeature));
-                break;
+    private class MercenariesRows extends HashMap<Letters, Boolean> {
+
+        private List<CrewMember> crew;
+
+        MercenariesRows(List<CrewMember> crew) {
+            this.crew = crew;
+        }
+
+        void sort(Letters sortBy) {
+            crew.sort(getComparator(sortBy));
+            updateAll();
+        }
+
+        Comparator<? super CrewMember> getComparator(Letters sortBy) {
+            Comparator<? super CrewMember> comparator = null;
+            switch (sortBy) {
+                case I:
+                    comparator = Comparator.comparing(CrewMember::getId);
+                    break;
+                case N:
+                    comparator = Comparator.comparing(CrewMember::getName);
+                    break;
+                case P:
+                    comparator = Comparator.comparing(CrewMember::getPilot);
+                    break;
+                case F:
+                    comparator = Comparator.comparing(CrewMember::getFighter);
+                    break;
+                case T:
+                    comparator = Comparator.comparing(CrewMember::getTrader);
+                    break;
+                case E:
+                    comparator = Comparator.comparing(CrewMember::getEngineer);
+                    break;
+                case S:
+                    comparator = Comparator.comparing(FormMonster::currentSystemDisplay);
+                    break;
+            }
+            if (getDirection(sortBy)) {
+                comparator = Collections.reverseOrder(comparator);
+            }
+            return comparator;
+        }
+
+        private Boolean getDirection(Letters sortBy) {
+            Boolean result = (null == get(sortBy)) ? false : get(sortBy);
+            put(sortBy, !result);
+            return result;
+        }
+
+        List<CrewMember> getCrew() {
+            return crew;
         }
     }
 }

@@ -53,15 +53,6 @@ public enum SomeStringsForCheatSwitch {
     //Varmints,
     Yellow,
     Cheetah,
-    I,
-    N,
-    P,
-    F,
-    T,
-    E,
-    S,
-    Q,
-    M,
 
     __void__;
 

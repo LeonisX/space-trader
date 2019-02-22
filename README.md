@@ -84,7 +84,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Fix bug in FormBuyFuel/FormBuyRepair
 * Fix bug in FormAlertsTest
 * Shipyard: fix minimal values for hull strength and fuel tanks
-* Monster.Com: on second click - reverse order
 
 ### News
 

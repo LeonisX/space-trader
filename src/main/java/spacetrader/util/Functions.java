@@ -203,7 +203,7 @@ public class Functions {
     // *************************************************************************
     public static boolean wormholeExists(int a, int b) {
         int[] wormholes = Game.getCurrentGame().getWormholes();
-        int i = Util.bruteSeek(wormholes, a);
+        int i = bruteSeek(wormholes, a);
         // int i = Array.IndexOf(wormholes, a);
 
         return (i >= 0 && (b < 0 || wormholes[(i + 1) % wormholes.length] == b));
@@ -213,8 +213,18 @@ public class Functions {
     public static StarSystem wormholeTarget(int a) {
         int[] wormholes = Game.getCurrentGame().getWormholes();
         // int i = Array.IndexOf(wormholes, a);
-        int i = Util.bruteSeek(wormholes, a);
+        int i = bruteSeek(wormholes, a);
 
         return (i >= 0 ? (Game.getCurrentGame().getStarSystem(wormholes[(i + 1) % wormholes.length])) : null);
+    }
+
+
+    public static int bruteSeek(int[] array, int a) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == a) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

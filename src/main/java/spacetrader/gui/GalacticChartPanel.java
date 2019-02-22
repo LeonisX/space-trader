@@ -18,7 +18,6 @@ import spacetrader.game.enums.StarSystemId;
 import spacetrader.game.exceptions.GameEndException;
 import spacetrader.guifacade.GuiFacade;
 import spacetrader.util.Functions;
-import spacetrader.util.Util;
 
 import java.awt.*;
 
@@ -166,7 +165,7 @@ public class GalacticChartPanel extends Panel {
 
             int index = game.getSelectedSystemId().castToInt();
             if (game.isTargetWormhole()) {
-                int dest = wormholes[(Util.bruteSeek(wormholes, index) + 1) % wormholes.length];
+                int dest = wormholes[(Functions.bruteSeek(wormholes, index) + 1) % wormholes.length];
                 StarSystem destSys = universe[dest];
                 e.getGraphics().drawLine(DEFAULT_PEN, targetSys.getX() + OFF_X_WORM + OFF_X, targetSys.getY() + OFF_Y,
                         destSys.getX() + OFF_X, destSys.getY() + OFF_Y);
