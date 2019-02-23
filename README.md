@@ -76,7 +76,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Genitive (At 5 clicks from Lave you encounter a pirate hornet) На растоянии 1 клик от системы...
 * Fix bug with RareWare cheat
 * FileDialogs - hide translation logs
 * Fix bug in FormViewBank
