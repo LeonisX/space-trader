@@ -76,6 +76,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Save last search phase in Find form
 * Fix bug with RareWare cheat
 * FileDialogs - hide translation logs
 * Fix bug in FormViewBank
@@ -83,6 +84,22 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Fix bug in FormBuyFuel/FormBuyRepair
 * Fix bug in FormAlertsTest
 * Shipyard: fix minimal values for hull strength and fuel tanks
+* Checked: when finish game - see > 100% percents. It's for cheats only.
+
+### TODO
+
+* Morgan's Laser - sell price == 0 cr.
+
+Finished: Equipment - getBuyPrice
+
+//TODO
+
+Stings, languages:
+
+NotForSale=Not for sale
+NotForSale=Не продаётся
+
+FormEquipment:440 - use NotForSale if price == 0
 
 ### News
 
@@ -107,23 +124,20 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Translate
 
+* Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
 * FormTests, FormAlertTests - refactor, translate
-* В течении 2 дня остановить эксперимент доктора...
 * Update english-russian.xls
 
 ## Feature requests
 
-* Remove Util class
 * Show in Cargo planet names (target)
-* Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
 * On sell, plunder, jettison - show goods with bold
 * Sell - add goods to planet
-* Save last search phase in Find form
 * Buy/Sell equipment - CheckBox, which offers all equipment in debug/cheat modes
 
 ## Known bugs:
 
-* When finish game - see > 100% percents, but in HighScores all OK.
+* When sell one from 3 lasers - can't point to second
 * Many dialogs don't allow to close them from [x]
 * FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
 * FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,
@@ -131,10 +145,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Commander status, Find system - truncated window sometimes
 * What to do with ending title?? It's too long :(
 * What to do with cheats status title?? It's too long :(
-* Commander status - Всеобщий любимец (70) under button
-* Bug - when 5 gadget slots - can't install 5 extra hidden bays. When decrease to 4 - can.
 * After disabling can fully destroy without encounter ending
-* Morgan's Laser - sell price 0 cr.
 * Strange - when start new game - see few visited systems
 * Very strange - after arrival see, that I visited other systems. Or arrive in other system
 * Bug? Don't hide wormhole route after arrive

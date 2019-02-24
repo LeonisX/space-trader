@@ -257,7 +257,7 @@ public class ExperimentQuest extends AbstractQuest {
             } else {
                 questStrings.add(Functions.stringVars(
                         QuestClues.ExperimentInformDays.getValue(),
-                        Functions.plural(STATUS_EXPERIMENT_DATE - questStatus.get(), Strings.TimeUnit)));
+                        Functions.plural(STATUS_EXPERIMENT_DATE - questStatus.get(), Strings.TimeUnitGen)));
             }
         } else {
             log.fine("skipped");

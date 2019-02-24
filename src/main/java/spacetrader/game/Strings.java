@@ -269,6 +269,9 @@ public class Strings {
     public static String MoneyUnit = "credit";
     public static String TimeUnit = "day";
 
+    //Genitive (for English, the meaning does not change)
+    public static String TimeUnitGen = "day";
+
     public static String BankInsuranceButtonBuy = "Buy Insurance";
     public static String BankInsuranceButtonStop = "Stop Insurance";
     public static String BankLoanStatementBorrow = "You can borrow up to ^1.";
