@@ -437,12 +437,16 @@ public class FormEquipment extends SpaceTraderForm {
             descriptionLabel
                     .setText(Strings.EquipmentDescriptions[selectedEquipment.getEquipmentType().castToInt()][selectedEquipment
                             .getSubType().castToInt()]);
-            buyPriceLabelValue.setText(Functions.formatMoney(selectedEquipment.getPrice()));
+
+            String buyPrice = (selectedEquipment.getBuyPrice() == 0)
+                    ? Strings.EquipmentNotForSale
+                    : Functions.formatMoney(selectedEquipment.getBuyPrice());
+            buyPriceLabelValue.setText(buyPrice);
             sellPriceLabelValue.setText(Functions.formatMoney(selectedEquipment.getSellPrice()));
             powerLabelValue.setText(power);
             chargeLabelValue.setText(charge);
             equipmentPictureBox.setImage(selectedEquipment.getImage());
-            buyButton.setVisible(!sellSideSelected && (selectedEquipment.getPrice() > 0));
+            buyButton.setVisible(!sellSideSelected && (selectedEquipment.getBuyPrice() > 0));
             sellButton.setVisible(sellSideSelected);
         }
     }
@@ -477,7 +481,7 @@ public class FormEquipment extends SpaceTraderForm {
 
     private void updateBuy() {
         for (Equipment equipmentToBuy : equipBuy) {
-            if (equipmentToBuy.getPrice() > 0) {
+            if (equipmentToBuy.getBuyPrice() > 0) {
                 switch (equipmentToBuy.getEquipmentType()) {
                     case WEAPON:
                         buyWeaponsListBox.getItems().addElement(equipmentToBuy);

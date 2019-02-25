@@ -29,7 +29,6 @@ public abstract class Equipment implements Serializable, Cloneable {
         this.chance = chance;
     }
 
-    //TODO was Clone. This implements Object.clone. Need to test
     public abstract Equipment clone();
 
     @Override
@@ -72,6 +71,10 @@ public abstract class Equipment implements Serializable, Cloneable {
     }
 
     public int getPrice() {
+        return price;
+    }
+
+    public int getBuyPrice() {
         Commander cmdr = Game.getCurrentGame().getCommander();
 
         if (cmdr != null && cmdr.getCurrentSystem().getTechLevel().castToInt() >= getMinimumTechLevel().castToInt()) {

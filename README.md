@@ -86,20 +86,10 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Shipyard: fix minimal values for hull strength and fuel tanks
 * Checked: when finish game - see > 100% percents. It's for cheats only.
 
-### TODO
+###TODO
 
-* Morgan's Laser - sell price == 0 cr.
-
-Finished: Equipment - getBuyPrice
-
-//TODO
-
-Stings, languages:
-
-NotForSale=Not for sale
-NotForSale=Не продаётся
-
-FormEquipment:440 - use NotForSale if price == 0
+* When sell one from 3 lasers - can't point to second
+Need to add barcode to Equipment
 
 ### News
 
@@ -137,7 +127,6 @@ FormEquipment:440 - use NotForSale if price == 0
 
 ## Known bugs:
 
-* When sell one from 3 lasers - can't point to second
 * Many dialogs don't allow to close them from [x]
 * FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
 * FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,

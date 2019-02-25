@@ -359,6 +359,7 @@ public class Strings {
     public static String EquipmentFreeSlot = "FREE SLOT";
     public static String EquipmentNoneForSale = "None for sale";
     public static String EquipmentNoSlots = "No slots";
+    public static String EquipmentNotForSale = "not for sale";
 
     public static String FileFormatBad = "The file is not a Space Trader for Java 8 file, or is the wrong version or has been corrupted.";
     public static String FileFutureVersion = "The version of the file is greater than the current version. You should upgrade to the latest version of Space Trader for Windows.";
