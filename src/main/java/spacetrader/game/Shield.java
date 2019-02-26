@@ -73,10 +73,11 @@ public class Shield extends Equipment implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Shield)) return false;
-        Shield shield = (Shield) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Shield)) return false;
+        if (!super.equals(object)) return false;
+        Shield shield = (Shield) object;
         return power == shield.power &&
                 charge == shield.charge &&
                 type == shield.type;
@@ -84,6 +85,6 @@ public class Shield extends Equipment implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, power, charge);
+        return Objects.hash(super.hashCode(), type, power, charge);
     }
 }

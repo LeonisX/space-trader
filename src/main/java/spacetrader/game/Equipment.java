@@ -8,21 +8,24 @@ import spacetrader.guifacade.GuiEngine;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 public abstract class Equipment implements Serializable, Cloneable {
 
     static final long serialVersionUID = 13L;
 
+    private UUID barcode;
     private EquipmentType equipType;
     private int price;
     private TechLevel minTech;
     private int chance;
 
     public Equipment() {
-        // need for tests
+        barcode = UUID.randomUUID();
     }
 
     public Equipment(EquipmentType equipType, int price, TechLevel minTechLevel, int chance) {
+        this();
         this.equipType = equipType;
         this.price = price;
         this.minTech = minTechLevel;
@@ -122,19 +125,28 @@ public abstract class Equipment implements Serializable, Cloneable {
         this.chance = chance;
     }
 
+    public UUID getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(UUID barcode) {
+        this.barcode = barcode;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Equipment)) return false;
-        Equipment equipment = (Equipment) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Equipment)) return false;
+        Equipment equipment = (Equipment) object;
         return price == equipment.price &&
                 chance == equipment.chance &&
+                Objects.equals(barcode, equipment.barcode) &&
                 equipType == equipment.equipType &&
                 minTech == equipment.minTech;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(equipType, price, minTech, chance);
+        return Objects.hash(barcode, equipType, price, minTech, chance);
     }
 }

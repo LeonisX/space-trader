@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class ShipTemplate  implements Serializable, Comparable<ShipTemplate> {
 
     private String name;
-    private Size size = Size.TINY;
+    private Size size;
     private int imageIndex = ShipType.CUSTOM.castToInt();
     private int cargoBays = 0;
     private int weaponSlots = 0;
