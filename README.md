@@ -23,6 +23,8 @@ Some of the features of Space Trader are:
 
 ## Useful links
 
+Discussion of the game and its development in [Gitter](https://gitter.im/LeonisX/space-trader).
+
 Game manuals: [English](docs/manual_en.md) | [Russian](docs/manual_ru.md)
 
 [Changelog](docs/changelog.md)
