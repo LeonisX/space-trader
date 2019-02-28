@@ -1,9 +1,6 @@
 package spacetrader.gui;
 
-import spacetrader.controls.Button;
-import spacetrader.controls.CheckBox;
-import spacetrader.controls.Label;
-import spacetrader.controls.TextBox;
+import spacetrader.controls.*;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
@@ -18,11 +15,11 @@ public class FormFind extends SpaceTraderForm {
     private TextBox systemTextBox = new TextBox();
     private CheckBox trackSystemCheckBox = new CheckBox();
 
-    public FormFind() {
-        initializeComponent();
+    public FormFind(String previousSearchPhrase) {
+        initializeComponent(previousSearchPhrase);
     }
 
-    private void initializeComponent() {
+    private void initializeComponent(String previousSearchPhrase) {
         ReflectionUtils.setAllComponentNames(this);
 
         setName("formFind");
@@ -42,6 +39,7 @@ public class FormFind extends SpaceTraderForm {
 
         systemTextBox.setLocation(8, 24);
         systemTextBox.setSize(180, 20);
+        systemTextBox.setText(previousSearchPhrase);
         systemTextBox.setTabIndex(1);
 
         trackSystemCheckBox.setLocation(5, 48);
@@ -75,5 +73,9 @@ public class FormFind extends SpaceTraderForm {
 
     boolean isTrackSystem() {
         return trackSystemCheckBox.isChecked();
+    }
+
+    String getSearchPhrase() {
+        return systemTextBox.getText();
     }
 }

@@ -216,8 +216,9 @@ public class GalacticChartPanel extends Panel {
     }
 
     private void findButtonClick() {
-        FormFind form = new FormFind();
+        FormFind form = new FormFind(game.getPreviousSearchPhrase());
         if (form.showDialog(mainWindow) == DialogResult.OK) {
+            game.setPreviousSearchPhrase(form.getSearchPhrase());
             String[] words = form.getSystemName().split(" ");
 
             boolean tryToFind = cheats.isConsiderCheat(words, controller);

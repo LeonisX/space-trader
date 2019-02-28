@@ -71,6 +71,8 @@ public class Game implements Serializable {
     private int fabricRipProbability = 0; // if Experiment = 12, this is the probability of being warped to a random planet.
     private boolean canSuperWarp = false; // Do you have the Portable Singularity on board?
 
+    private String previousSearchPhrase = "";
+
     private GameOptions options = new GameOptions(true);
 
     // The rest of the member variables are not saved between games.
@@ -1223,12 +1225,11 @@ public class Game implements Serializable {
         return getOptions().isShowTrackedRange();
     }
 
-    //TODO add all quests
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Game)) return false;
-        Game game = (Game) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Game)) return false;
+        Game game = (Game) object;
         return opponentDisabled == game.opponentDisabled &&
                 chanceOfTradeInOrbit == game.chanceOfTradeInOrbit &&
                 clicks == game.clicks &&
@@ -1238,38 +1239,42 @@ public class Game implements Serializable {
                 paidForNewspaper == game.paidForNewspaper &&
                 litterWarning == game.litterWarning &&
                 autoSave == game.autoSave &&
+                endStatus == game.endStatus &&
                 targetWormhole == game.targetWormhole &&
                 fabricRipProbability == game.fabricRipProbability &&
                 canSuperWarp == game.canSuperWarp &&
+                Objects.equals(questSystem, game.questSystem) &&
                 Objects.equals(commander, game.commander) &&
                 Objects.equals(cheats, game.cheats) &&
                 Arrays.equals(universe, game.universe) &&
                 Arrays.equals(wormholes, game.wormholes) &&
-                mercenaries.equals(game.mercenaries) &&
+                Objects.equals(mercenaries, game.mercenaries) &&
                 Objects.equals(opponent, game.opponent) &&
                 Objects.equals(news, game.news) &&
                 difficulty == game.difficulty &&
-                endStatus == game.endStatus &&
+                Objects.equals(encounter, game.encounter) &&
+                Objects.equals(shipSpecs, game.shipSpecs) &&
+                Objects.equals(opponentTypes, game.opponentTypes) &&
                 selectedSystemId == game.selectedSystemId &&
                 warpSystemId == game.warpSystemId &&
                 trackedSystemId == game.trackedSystemId &&
                 Arrays.equals(priceCargoBuy, game.priceCargoBuy) &&
                 Arrays.equals(priceCargoSell, game.priceCargoSell) &&
+                Objects.equals(previousSearchPhrase, game.previousSearchPhrase) &&
                 Objects.equals(options, game.options) &&
-                Objects.equals(parentWin, game.parentWin);
+                Objects.equals(parentWin, game.parentWin) &&
+                Objects.equals(gameController, game.gameController);
     }
 
-    //TODO add all quests
     @Override
     public int hashCode() {
-        int result = Objects.hash(commander, cheats, opponent,
-                opponentDisabled, chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole,
-                paidForNewspaper, litterWarning, news, difficulty, autoSave, endStatus, selectedSystemId,
-                warpSystemId, trackedSystemId, targetWormhole,
-                fabricRipProbability, canSuperWarp, options, parentWin);
+        int result = Objects.hash(questSystem, commander, cheats, mercenaries, opponent, opponentDisabled,
+                chanceOfTradeInOrbit, clicks, raided, inspected, arrivedViaWormhole, paidForNewspaper,
+                litterWarning, news, difficulty, autoSave, endStatus, encounter, shipSpecs, opponentTypes,
+                selectedSystemId, warpSystemId, trackedSystemId, targetWormhole, fabricRipProbability,
+                canSuperWarp, previousSearchPhrase, options, parentWin, gameController);
         result = 31 * result + Arrays.hashCode(universe);
         result = 31 * result + Arrays.hashCode(wormholes);
-        result = 31 * result + mercenaries.hashCode();
         result = 31 * result + Arrays.hashCode(priceCargoBuy);
         result = 31 * result + Arrays.hashCode(priceCargoSell);
         return result;
@@ -1333,5 +1338,13 @@ public class Game implements Serializable {
 
     public void setOpponentTypes(List<Integer> opponentTypes) {
         this.opponentTypes = opponentTypes;
+    }
+
+    public String getPreviousSearchPhrase() {
+        return previousSearchPhrase;
+    }
+
+    public void setPreviousSearchPhrase(String previousSearchPhrase) {
+        this.previousSearchPhrase = previousSearchPhrase;
     }
 }

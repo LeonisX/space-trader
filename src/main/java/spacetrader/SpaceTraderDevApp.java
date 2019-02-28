@@ -80,7 +80,7 @@ public class SpaceTraderDevApp {
                 new FormCosts(),
                 new FormEncounter(),
                 new FormEquipment(),
-                new FormFind(),
+                new FormFind(""),
                 new FormGetLoan(25000),
                 new FormJettison(),
                 new FormMonster(),
