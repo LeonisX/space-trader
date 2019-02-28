@@ -13,6 +13,9 @@ import spacetrader.util.Functions;
 import spacetrader.util.IOUtils;
 import spacetrader.util.ReflectionUtils;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 public class FormViewHighScores extends SpaceTraderForm {
 
     private Button closeButton = new Button();
@@ -36,24 +39,25 @@ public class FormViewHighScores extends SpaceTraderForm {
         Label[] lblScore = new Label[]{scoreLabelValue1, scoreLabelValue2, scoreLabelValue3};
         Label[] lblStatus = new Label[]{statusLabelValue1, statusLabelValue2, statusLabelValue3};
 
-        HighScoreRecord[] highScores = IOUtils.getHighScores();
-        for (int i = highScores.length - 1; i >= 0 && highScores[i] != null; i--) {
-            lblName[2 - i].setText(highScores[i].getName());
-            lblScore[2 - i].setText(Functions.formatNumber(highScores[i].getScore() / 10) + "." + highScores[i].getScore() % 10 + "%");
-            String gameCompletion = highScores[i].getType() < 1000
-                    ? Strings.GameCompletionTypes[highScores[i].getType()]
-                    : getGameCompletionText(highScores[i].getType());
-            lblStatus[2 - i].setText(Functions.stringVars(Strings.HighScoreStatus, new String[]
+        List<HighScoreRecord> highScores = IOUtils.getHighScores();
+        IntStream.range(0, highScores.size()).forEach(i -> {
+            HighScoreRecord highScore = highScores.get(i);
+            lblName[i].setText(highScore.getName());
+            lblScore[i].setText(Functions.formatNumber(highScore.getScore() / 10) + "." + highScore.getScore() % 10 + "%");
+            String gameCompletion = highScore.getType() < 1000
+                    ? Strings.GameCompletionTypes[highScore.getType()]
+                    : getGameCompletionText(highScore.getType());
+            lblStatus[i].setText(Functions.stringVars(Strings.HighScoreStatus, new String[]
                     {
                             gameCompletion,
-                            Integer.toString(highScores[i].getDays()),
-                            Functions.plural(highScores[i].getWorth(), Strings.MoneyUnit),
-                            Strings.DifficultyLevels[highScores[i].getDifficulty().castToInt()].toLowerCase()
+                            Integer.toString(highScore.getDays()),
+                            Functions.plural(highScore.getWorth(), Strings.MoneyUnit),
+                            Strings.DifficultyLevels[highScore.getDifficulty().castToInt()].toLowerCase()
                     }));
 
-            lblScore[2 - i].setVisible(true);
-            lblStatus[2 - i].setVisible(true);
-        }
+            lblScore[i].setVisible(true);
+            lblStatus[i].setVisible(true);
+        });
     }
 
     private String getGameCompletionText(int type) {
