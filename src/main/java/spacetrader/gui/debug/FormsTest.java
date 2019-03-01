@@ -255,7 +255,7 @@ public class FormsTest extends SpaceTraderForm {
         formFindButton.setText("FormFind");
         formFindButton.setClick(new EventHandler<Object, EventArgs>() {
             public void handle(Object sender, EventArgs e) {
-                new FormFind().showDialog();
+                new FormFind("").showDialog();
             }
         });
 

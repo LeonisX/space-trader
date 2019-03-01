@@ -78,6 +78,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* Rewrite CargoBuyStatement. Can't translate to Russian
 * Fix bug with RareWare cheat
 * FileDialogs - hide translation logs
 * Fix bug in FormViewBank
@@ -110,7 +111,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ### Translate
 
-* Rewrite CargoBuyStatement, CargoSellStatement. Can't translate to Russian
+* Rewrite CargoSellStatement. Can't translate to Russian
 * FormTests, FormAlertTests - refactor, translate
 * Update english-russian.xls
 
@@ -123,6 +124,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Known bugs:
 
+* After disabling can repeat attacks w/o killing
+* Don't generate traders at all???
 * Many dialogs don't allow to close them from [x]
 * FormShipyard: Trying to set unknown background: color at 0x0: 0 0 0 0 (Color.BLACK)
 * FormJettison - incorrect flow when try to dump all - first message about littering, second must be: EncounterDumpAll, AlertsEncounterDumpAllMessage,

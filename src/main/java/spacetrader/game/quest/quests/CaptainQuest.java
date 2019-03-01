@@ -178,8 +178,8 @@ public class CaptainQuest extends AbstractQuest {
 
     private void onGenerateOpponentShip(Object object) {
         Ship ship = (Ship) object;
-        captain = ship;
         if (ship.getOpponentType() == famousCaptain) {
+            captain = ship;
             ship.setValues(Consts.ShipSpecs[Consts.MaxShip].getType());
 
             for (int i = 0; i < ship.getShields().length; i++) {

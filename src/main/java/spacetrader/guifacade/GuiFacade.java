@@ -30,7 +30,7 @@ public class GuiFacade {
     /**
      * Asks the user for how many items to sell.
      *
-     * @return amount selected by the user to buy; 0 if clicked cancel.
+     * @return amount selected by the user to sell; 0 if clicked cancel.
      */
     public static int queryAmountRelease(int item, CargoSellOp op, int maxAmount, int price) {
         FormCargoSell form = new FormCargoSell(item, maxAmount, op, price);

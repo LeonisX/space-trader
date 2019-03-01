@@ -534,6 +534,7 @@ public class Game implements Serializable {
                 items[tradeItem] -= qty;
                 commander.setCash(commander.getCash() - totalPrice);
                 commander.getPriceCargo()[tradeItem] += totalPrice;
+                parentWin.updateAll();
             }
         }
     }
