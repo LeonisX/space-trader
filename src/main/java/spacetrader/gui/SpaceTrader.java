@@ -372,6 +372,7 @@ public class SpaceTrader extends WinformWindow implements MainWindow {
             @Override
             public void handle(Object sender, EventArgs e) {
                 commander.initializeGigaGaia();
+                updateAll();
             }
         });
 

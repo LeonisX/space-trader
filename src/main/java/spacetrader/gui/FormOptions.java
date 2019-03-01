@@ -371,7 +371,6 @@ public class FormOptions extends SpaceTraderForm {
             getOptions().setContinuousAttackFleeing(attackFleeingCheckBox.isChecked());
             getOptions().setDisableOpponents(disableOpponentsCheckBox.isChecked());
 
-            System.out.println(emptyNumericUpDown.getValue());
             emptyLabelValue.setText(getEmptyLabelValue());
         }
     }

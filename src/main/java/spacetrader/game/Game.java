@@ -81,12 +81,15 @@ public class Game implements Serializable {
     private GameController gameController;
 
     private Game() {
-        // need for tests
+        game = this;
     }
 
-    public Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer,
-                MainWindow parentWin) {
-        game = this;
+    // ==============================================================
+    // Initialization
+    // ==============================================================
+
+    public Game(String name, Difficulty difficulty, int pilot, int fighter, int trader, int engineer, MainWindow parentWin) {
+        this();
         this.parentWin = parentWin;
         this.difficulty = difficulty;
 
@@ -95,25 +98,13 @@ public class Game implements Serializable {
         questSystem = new QuestSystem();
         questSystem.initializeQuestsHolder();
 
-        // Keep Generating a new universe until isSpecialEventsInPlace and isShipyardsInPlace return true,
-        // indicating all special events and shipyards were placed.
-        do {
-            questSystem.rollbackTransaction();
-            questSystem.startTransaction();
-            generateUniverse();
-        } while (!(isSpecialEventsInPlace() && isShipyardsInPlace()));
+        generateUniverse();
 
         initializeCommander(name, new CrewMember(CrewMemberId.COMMANDER, pilot, fighter, trader, engineer, false, StarSystemId.NA));
 
         generateCrewMemberList();
 
-        shipSpecs = Arrays.stream(Consts.ShipSpecs).map(e -> e.withId(e.getType().castToInt())).collect(Collectors.toMap(ShipSpec::getId, e -> e));
-        shipSpecs.remove(ShipType.QUEST.castToInt());
-        questSystem.fireEvent(ON_AFTER_SHIP_SPECS_INITIALIZED);
-
-        opponent = new Ship(ShipType.GNAT);
-        // Here we create all quest ships
-        questSystem.fireEvent(ON_CREATE_SHIP);
+        generateShips();
 
         calculatePrices(commander.getCurrentSystem());
 
@@ -134,13 +125,211 @@ public class Game implements Serializable {
         questSystem.fireEvent(EventName.ON_AFTER_GAME_INITIALIZE);
     }
 
-    public static Game getCurrentGame() {
-        return game;
+    private void generateUniverse() {
+        // Keep Generating a new universe until isSpecialEventsInPlace and isShipyardsInPlace return true,
+        // indicating all special events and shipyards were placed.
+        do {
+            questSystem.rollbackTransaction();
+            questSystem.startTransaction();
+            doGenerateUniverse();
+        } while (!(isSpecialEventsInPlace() && isShipyardsInPlace()));
     }
 
-    public static void setCurrentGame(Game value) {
-        game = value;
+    private void doGenerateUniverse() {
+        universe = new StarSystem[Strings.SystemNames.length];
+
+        for (int i = 0; i < getUniverse().length; i++) {
+            StarSystemId id = (StarSystemId.fromInt(i));
+            SystemPressure pressure = SystemPressure.NONE;
+            SpecialResource specRes = SpecialResource.NOTHING;
+            Size size = Size.fromInt(Functions.getRandom(Size.HUGE.castToInt() + 1));
+            PoliticalSystem polSys = Consts.PoliticalSystems[Functions.getRandom(Consts.PoliticalSystems.length)];
+            TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.getMinimumTechLevel().castToInt(),
+                    polSys.getMaximumTechLevel().castToInt() + 1));
+
+            if (Functions.getRandom(100) < 15)
+                pressure = SystemPressure.fromInt(Functions.getRandom(SystemPressure.WAR.castToInt(),
+                        SystemPressure.EMPLOYMENT.castToInt() + 1));
+            if (Functions.getRandom(5) >= 3)
+                specRes = SpecialResource.fromInt(Functions.getRandom(SpecialResource.MINERAL_RICH.castToInt(),
+                        SpecialResource.WARLIKE.castToInt() + 1));
+
+            int x = 0;
+            int y = 0;
+
+            if (i < getWormholes().length) {
+                // Place the first systems somewhere in the center.
+                x = ((Consts.GalaxyWidth * (1 + 2 * (i % 3))) / 6)
+                        - Functions.getRandom(-Consts.CloseDistance + 1, Consts.CloseDistance);
+                y = ((Consts.GalaxyHeight * (i < 3 ? 1 : 3)) / 4)
+                        - Functions.getRandom(-Consts.CloseDistance + 1, Consts.CloseDistance);
+                getWormholes()[i] = i;
+            } else {
+                boolean ok = false;
+                while (!ok) {
+                    x = Functions.getRandom(1, Consts.GalaxyWidth);
+                    y = Functions.getRandom(1, Consts.GalaxyHeight);
+
+                    boolean closeFound = false;
+                    boolean tooClose = false;
+                    for (int j = 0; j < i && !tooClose; j++) {
+                        // Minimum distance between any two systems not to be accepted.
+                        if (Functions.distance(getStarSystem(j), x, y) < Consts.MinDistance) {
+                            tooClose = true;
+                        }
+
+                        // There should be at least one system which is close enough.
+                        if (Functions.distance(getStarSystem(j), x, y) < Consts.CloseDistance) {
+                            closeFound = true;
+                        }
+                    }
+                    ok = (closeFound && !tooClose);
+                }
+            }
+
+            getUniverse()[i] = new StarSystem(id, x, y, size, tech, polSys.getType(), pressure, specRes);
+        }
+
+        // Randomize the system locations a bit more, otherwise the systems with the first
+        // names in the alphabet are all in the center.
+        for (int i = 0; i < getUniverse().length; i++) {
+            int j = Functions.getRandom(getUniverse().length);
+            if (!Functions.wormholeExists(j, -1)) {
+                int x = getStarSystem(i).getX();
+                int y = getStarSystem(i).getY();
+                getStarSystem(i).setX(getStarSystem(j).getX());
+                getStarSystem(i).setY(getStarSystem(j).getY());
+                getStarSystem(j).setX(x);
+                getStarSystem(j).setY(y);
+
+                int w = Functions.bruteSeek(getWormholes(), i);
+                if (w >= 0) {
+                    getWormholes()[w] = j;
+                }
+            }
+        }
+
+        // Randomize wormhole order
+        for (int i = 0; i < getWormholes().length; i++) {
+            int j = Functions.getRandom(getWormholes().length);
+            int w = getWormholes()[i];
+            getWormholes()[i] = getWormholes()[j];
+            getWormholes()[j] = w;
+        }
+
+        questSystem.fireEvent(EventName.ON_AFTER_GENERATE_UNIVERSE);
     }
+
+    private boolean isSpecialEventsInPlace() {
+        BooleanContainer goodUniverse = new BooleanContainer(true);
+
+        questSystem.fireEvent(EventName.ON_ASSIGN_SYSTEM_EVENTS_MANUAL, goodUniverse);
+
+        if (goodUniverse.getValue()) {
+            questSystem.fireEvent(EventName.ON_ASSIGN_SYSTEM_CLOSEST_EVENTS_RANDOMLY, goodUniverse);
+        }
+
+        if (goodUniverse.getValue()) {
+            questSystem.fireEvent(EventName.ON_ASSIGN_SYSTEM_EVENTS_RANDOMLY);
+        }
+
+        return goodUniverse.getValue();
+    }
+
+    private boolean isShipyardsInPlace() {
+        boolean goodUniverse = true;
+
+        ArrayList<Integer> systemIdList = new ArrayList<>();
+        for (int system = 0; system < getUniverse().length; system++) {
+            if (getStarSystem(system).getTechLevel() == TechLevel.HI_TECH) {
+                systemIdList.add(system);
+            }
+        }
+
+        if (systemIdList.size() < Consts.Shipyards.length) {
+            goodUniverse = false;
+        } else {
+            // Assign the shipyards to High-Tech systems.
+            for (int shipyard = 0; shipyard < Consts.Shipyards.length; shipyard++) {
+                getStarSystem(systemIdList.get(Functions.getRandom(systemIdList.size())))
+                        .setShipyardId(ShipyardId.fromInt(shipyard));
+            }
+        }
+        return goodUniverse;
+    }
+
+    private void initializeCommander(String name, CrewMember commanderCrewMember) {
+        commander = new Commander(commanderCrewMember);
+        mercenaries.put(commander.getId(), commander);
+        Strings.CrewMemberNames[commander.getId()] = name;
+
+        while (commander.getCurrentSystem() == null) {
+            StarSystem system = getStarSystem(Functions.getRandom(getUniverse().length));
+            if (!system.isQuestSystem()
+                    && system.getTechLevel().castToInt() > TechLevel.PRE_AGRICULTURAL.castToInt()
+                    && system.getTechLevel().castToInt() < TechLevel.HI_TECH.castToInt()) {
+                // Make sure at least three other systems can be reached
+                int close = 0;
+                for (int i = 0; i < getUniverse().length && close < 3; i++) {
+                    if (i != system.getId().castToInt()
+                            && Functions.distance(getStarSystem(i), system) <= commander.getShip().getFuelTanks()) {
+                        close++;
+                    }
+                }
+
+                if (close >= 3) {
+                    commander.setCurrentSystem(system);
+                }
+            }
+        }
+
+        commander.getCurrentSystem().setVisited(true);
+    }
+
+    private void generateCrewMemberList() {
+        List<Integer> usedSystems = Arrays.stream(getUniverse()).map(s -> 0).collect(toList());
+
+        // Dummy pilots for opponents.
+        mercenaries.put(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5, false, StarSystemId.NA));
+
+        questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST, usedSystems);
+
+        // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
+        for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, QUEST
+            if (!mercenaries.containsKey(i)) { // Create CrewMember if it doesn't exist.
+                StarSystemId id;
+                boolean ok = false;
+
+                do {
+                    id = StarSystemId.fromInt(Functions.getRandom(getUniverse().length));
+                    if (usedSystems.get(id.castToInt()) < 3) {
+                        usedSystems.set(id.castToInt(), usedSystems.get(id.castToInt()) + 1);
+                        ok = true;
+                    }
+                } while (!ok);
+
+                mercenaries.put(i, new CrewMember(CrewMemberId.fromInt(i), Functions.randomSkill(),
+                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), true, id)
+                );
+            }
+        }
+    }
+
+    private void generateShips() {
+        shipSpecs = Arrays.stream(Consts.ShipSpecs)
+                .map(e -> e.withId(e.getType().castToInt())).collect(Collectors.toMap(ShipSpec::getId, e -> e));
+        shipSpecs.remove(ShipType.QUEST.castToInt());
+
+        questSystem.fireEvent(ON_AFTER_SHIP_SPECS_INITIALIZED);
+
+        opponent = new Ship(ShipType.GNAT);
+        // Here we create all quest ships
+        questSystem.fireEvent(ON_AFTER_CREATE_SHIP);
+    }
+
+    // TODO ==============================================================
+    // TODO reorganize
+    // TODO ==============================================================
 
     private void arrested() {
         int term = Math.max(30, -commander.getPoliceRecordScore());
@@ -221,8 +410,6 @@ public class Game implements Serializable {
 
         updatePressuresAndQuantitiesOnArrival();
 
-        checkEasterEggOnArrival();
-
         calculatePrices(commander.getCurrentSystem());
 
         questSystem.fireEvent(ON_NEWS_ADD_EVENT_ON_ARRIVAL);
@@ -238,27 +425,6 @@ public class Game implements Serializable {
             GuiFacade.alert(AlertType.DebtWarning);
         } else if (commander.getDebt() > 0 && getOptions().isRemindLoans() && commander.getDays() % 5 == 0) {
             GuiFacade.alert(AlertType.DebtReminder, Functions.plural(commander.getDebt(), Strings.MoneyUnit));
-        }
-    }
-
-    private void checkEasterEggOnArrival() {
-        /* This Easter Egg gives the commander a Lighting Shield */
-        if (commander.getCurrentSystem().getId() == StarSystemId.Og) {
-            if (commander.getShip().getFreeShieldSlots() <= 0) {
-                return;
-            }
-            for (int i = 0; i < commander.getShip().getCargo().length; i++) {
-                if (commander.getShip().getCargo()[i] != 1) {
-                    return;
-                }
-            }
-
-            GuiFacade.alert(AlertType.Egg);
-            commander.getShip().addEquipment(Consts.Shields[ShieldType.LIGHTNING.castToInt()]);
-            for (int i = 0; i < commander.getShip().getCargo().length; i++) {
-                commander.getShip().getCargo()[i] = 0;
-                commander.getPriceCargo()[i] = 0;
-            }
         }
     }
 
@@ -661,36 +827,6 @@ public class Game implements Serializable {
         createFlea();
     }
 
-    private void generateCrewMemberList() {
-        List<Integer> usedSystems = Arrays.stream(getUniverse()).map(s -> 0).collect(toList());
-        int d = getDifficultyId();
-
-        // Dummy pilots for opponents.
-        mercenaries.put(CrewMemberId.OPPONENT.castToInt(), new CrewMember(CrewMemberId.OPPONENT, 5, 5, 5, 5, false, StarSystemId.NA));
-
-        questSystem.fireEvent(EventName.ON_GENERATE_CREW_MEMBER_LIST, usedSystems);
-
-        // JAF - Changing this to allow multiple mercenaries in each system, but no more than three.
-        for (int i = 1; i < CrewMemberId.values().length - 2; i++) { // minus NA, QUEST
-            if (!mercenaries.containsKey(i)) { // Create CrewMember if it doesn't exist.
-                StarSystemId id;
-                boolean ok = false;
-
-                do {
-                    id = StarSystemId.fromInt(Functions.getRandom(getUniverse().length));
-                    if (usedSystems.get(id.castToInt()) < 3) {
-                        usedSystems.set(id.castToInt(), usedSystems.get(id.castToInt()) + 1);
-                        ok = true;
-                    }
-                } while (!ok);
-
-                mercenaries.put(i, new CrewMember(CrewMemberId.fromInt(i), Functions.randomSkill(),
-                        Functions.randomSkill(), Functions.randomSkill(), Functions.randomSkill(), true, id)
-                );
-            }
-        }
-    }
-
     public void generateOpponent(OpponentType oppType) {
         setOpponent(new Ship(oppType));
     }
@@ -699,96 +835,7 @@ public class Game implements Serializable {
         setOpponent(new Ship(oppType));
     }
 
-    private void generateUniverse() {
-        universe = new StarSystem[Strings.SystemNames.length];
 
-        for (int i = 0; i < getUniverse().length; i++) {
-            StarSystemId id = (StarSystemId.fromInt(i));
-            SystemPressure pressure = SystemPressure.NONE;
-            SpecialResource specRes = SpecialResource.NOTHING;
-            Size size = Size.fromInt(Functions.getRandom(Size.HUGE.castToInt() + 1));
-            PoliticalSystem polSys = Consts.PoliticalSystems[Functions.getRandom(Consts.PoliticalSystems.length)];
-            TechLevel tech = TechLevel.fromInt(Functions.getRandom(polSys.getMinimumTechLevel().castToInt(), polSys
-                    .getMaximumTechLevel().castToInt() + 1));
-
-            //TODO in quest
-            // Galvon must be a Monarchy.
-            if (id == StarSystemId.Galvon) {
-                size = Size.LARGE;
-                polSys = Consts.PoliticalSystems[PoliticalSystemType.MONARCHY.castToInt()];
-                tech = TechLevel.HI_TECH;
-            }
-
-            if (Functions.getRandom(100) < 15)
-                pressure = SystemPressure.fromInt(Functions.getRandom(SystemPressure.WAR.castToInt(),
-                        SystemPressure.EMPLOYMENT.castToInt() + 1));
-            if (Functions.getRandom(5) >= 3)
-                specRes = SpecialResource.fromInt(Functions.getRandom(SpecialResource.MINERAL_RICH.castToInt(),
-                        SpecialResource.WARLIKE.castToInt() + 1));
-
-            int x = 0;
-            int y = 0;
-
-            if (i < getWormholes().length) {
-                // Place the first systems somewhere in the center.
-                x = ((Consts.GalaxyWidth * (1 + 2 * (i % 3))) / 6)
-                        - Functions.getRandom(-Consts.CloseDistance + 1, Consts.CloseDistance);
-                y = ((Consts.GalaxyHeight * (i < 3 ? 1 : 3)) / 4)
-                        - Functions.getRandom(-Consts.CloseDistance + 1, Consts.CloseDistance);
-                getWormholes()[i] = i;
-            } else {
-                boolean ok = false;
-                while (!ok) {
-                    x = Functions.getRandom(1, Consts.GalaxyWidth);
-                    y = Functions.getRandom(1, Consts.GalaxyHeight);
-
-                    boolean closeFound = false;
-                    boolean tooClose = false;
-                    for (int j = 0; j < i && !tooClose; j++) {
-                        // Minimum distance between any two systems not to be accepted.
-                        if (Functions.distance(getStarSystem(j), x, y) < Consts.MinDistance) {
-                            tooClose = true;
-                        }
-
-                        // There should be at least one system which is close enough.
-                        if (Functions.distance(getStarSystem(j), x, y) < Consts.CloseDistance) {
-                            closeFound = true;
-                        }
-                    }
-                    ok = (closeFound && !tooClose);
-                }
-            }
-
-            getUniverse()[i] = new StarSystem(id, x, y, size, tech, polSys.getType(), pressure, specRes);
-        }
-
-        // Randomize the system locations a bit more, otherwise the systems with the first
-        // names in the alphabet are all in the center.
-        for (int i = 0; i < getUniverse().length; i++) {
-            int j = Functions.getRandom(getUniverse().length);
-            if (!Functions.wormholeExists(j, -1)) {
-                int x = getStarSystem(i).getX();
-                int y = getStarSystem(i).getY();
-                getStarSystem(i).setX(getStarSystem(j).getX());
-                getStarSystem(i).setY(getStarSystem(j).getY());
-                getStarSystem(j).setX(x);
-                getStarSystem(j).setY(y);
-
-                int w = Functions.bruteSeek(getWormholes(), i);
-                if (w >= 0) {
-                    getWormholes()[w] = j;
-                }
-            }
-        }
-
-        // Randomize wormhole order
-        for (int i = 0; i < getWormholes().length; i++) {
-            int j = Functions.getRandom(getWormholes().length);
-            int w = getWormholes()[i];
-            getWormholes()[i] = getWormholes()[j];
-            getWormholes()[j] = w;
-        }
-    }
 
     public void incDays(int num) {
         commander.setDays(commander.getDays() + num);
@@ -815,77 +862,11 @@ public class Game implements Serializable {
         questSystem.fireEvent(EventName.ON_INCREMENT_DAYS, numContainer);
     }
 
-    private void initializeCommander(String name, CrewMember commanderCrewMember) {
-        commander = new Commander(commanderCrewMember);
-        mercenaries.put(commander.getId(), commander);
-        Strings.CrewMemberNames[commander.getId()] = name;
-
-        while (commander.getCurrentSystem() == null) {
-            StarSystem system = getStarSystem(Functions.getRandom(getUniverse().length));
-            if (!system.isQuestSystem()
-                    && system.getTechLevel().castToInt() > TechLevel.PRE_AGRICULTURAL.castToInt()
-                    && system.getTechLevel().castToInt() < TechLevel.HI_TECH.castToInt()) {
-                // Make sure at least three other systems can be reached
-                int close = 0;
-                for (int i = 0; i < getUniverse().length && close < 3; i++) {
-                    if (i != system.getId().castToInt()
-                            && Functions.distance(getStarSystem(i), system) <= commander.getShip().getFuelTanks()) {
-                        close++;
-                    }
-                }
-
-                if (close >= 3) {
-                    commander.setCurrentSystem(system);
-                }
-            }
-        }
-
-        commander.getCurrentSystem().setVisited(true);
-    }
-
     private void normalDeparture(int fuel) {
         commander.setCash(commander.getCash() - (getMercenaryCosts() + getInsuranceCosts() + getWormholeCosts()));
         commander.getShip().setFuel(commander.getShip().getFuel() - fuel);
         commander.payInterest();
         incDays(1);
-    }
-
-    private boolean isShipyardsInPlace() {
-        boolean goodUniverse = true;
-
-        ArrayList<Integer> systemIdList = new ArrayList<>();
-        for (int system = 0; system < getUniverse().length; system++) {
-            if (getStarSystem(system).getTechLevel() == TechLevel.HI_TECH) {
-                systemIdList.add(system);
-            }
-        }
-
-        if (systemIdList.size() < Consts.Shipyards.length) {
-            goodUniverse = false;
-        } else {
-            // Assign the shipyards to High-Tech systems.
-            for (int shipyard = 0; shipyard < Consts.Shipyards.length; shipyard++) {
-                getStarSystem(systemIdList.get(Functions.getRandom(systemIdList.size())))
-                        .setShipyardId(ShipyardId.fromInt(shipyard));
-            }
-        }
-        return goodUniverse;
-    }
-
-    private boolean isSpecialEventsInPlace() {
-        BooleanContainer goodUniverse = new BooleanContainer(true);
-
-        questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_MANUAL, goodUniverse);
-
-        if (goodUniverse.getValue()) {
-            questSystem.fireEvent(EventName.ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY, goodUniverse);
-        }
-
-        if (goodUniverse.getValue()) {
-            questSystem.fireEvent(EventName.ON_ASSIGN_EVENTS_RANDOMLY);
-        }
-
-        return goodUniverse.getValue();
     }
 
     public int isFindDistantSystem(StarSystemId baseSystem) {
@@ -1156,7 +1137,7 @@ public class Game implements Serializable {
     }
 
     public StarSystem getStarSystem(int starSystemId) {
-        return Game.getCurrentGame().getUniverse()[starSystemId];
+        return game.getUniverse()[starSystemId];
     }
 
     public StarSystem getSelectedSystem() {
@@ -1281,6 +1262,14 @@ public class Game implements Serializable {
         return result;
     }
 
+    public static Game getCurrentGame() {
+        return game;
+    }
+
+    public static void setCurrentGame(Game value) {
+        game = value;
+    }
+
     public void setController(GameController gameController) {
         this.gameController = gameController;
     }
@@ -1302,7 +1291,7 @@ public class Game implements Serializable {
     }
 
     public Difficulty getDifficulty() {
-        return getCurrentGame().difficulty;
+        return difficulty;
     }
 
     public int getDifficultyId() {
@@ -1310,15 +1299,15 @@ public class Game implements Serializable {
     }
 
     public void setDifficulty(Difficulty difficulty) {
-        getCurrentGame().difficulty = difficulty;
+        this.difficulty = difficulty;
     }
 
     public News getNews() {
-        return getCurrentGame().news;
+        return news;
     }
 
     public void setNews(News news) {
-        getCurrentGame().news = news;
+        this.news = news;
     }
 
     public Map<Integer, ShipSpec> getShipSpecs() {

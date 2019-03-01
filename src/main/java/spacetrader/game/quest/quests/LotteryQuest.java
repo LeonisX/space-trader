@@ -1,8 +1,9 @@
 package spacetrader.game.quest.quests;
 
-import spacetrader.game.Game;
 import spacetrader.game.enums.Difficulty;
-import spacetrader.game.quest.*;
+import spacetrader.game.quest.I18n;
+import spacetrader.game.quest.Phase;
+import spacetrader.game.quest.QuestDialog;
 import spacetrader.game.quest.enums.QuestState;
 import spacetrader.game.quest.enums.Repeatable;
 import spacetrader.game.quest.enums.Res;

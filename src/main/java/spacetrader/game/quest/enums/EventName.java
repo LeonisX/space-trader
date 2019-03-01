@@ -2,31 +2,35 @@ package spacetrader.game.quest.enums;
 
 public enum EventName {
 
-    // Initialization
-    ON_ASSIGN_EVENTS_MANUAL,                    // Jarek, Princess, .... Manual assigns an event to a specific system.
-    ON_ASSIGN_CLOSEST_EVENTS_RANDOMLY,          // Sculpture, Reactor. Assign an event at a distance of no more than 70 parsec
-    ON_ASSIGN_EVENTS_RANDOMLY,                  // Jarek, Space Monster. Randomly assigns an event to a specific system. For example - start of event
-    ON_GENERATE_CREW_MEMBER_LIST,               // Jarek, Princess, ... Adds quest characters to the game.
-    ON_AFTER_SHIP_SPECS_INITIALIZED,            // Princess (Scorpion), Space Monster. Supplements the list of ship specs. Including quest.
-    ON_CREATE_SHIP,                             // Princess (Scorpion), Space Monster. Unique quest ships are created at the beginning of the game.
-    ON_AFTER_GAME_INITIALIZE,                   // Lottery. Right after full game initialization. Add current system ID to quest
+    // Initialization (Game Constructor)
+    // Create QuestSystem
+    ON_AFTER_GENERATE_UNIVERSE,                 // Princess.    Galvon must be a Monarchy.
+    ON_ASSIGN_SYSTEM_EVENTS_MANUAL,             // Very Common. Manual assigns an event to a specific system.
+    ON_ASSIGN_SYSTEM_CLOSEST_EVENTS_RANDOMLY,   // Common.      Assign an event at a distance of no more than 70 parsec
+    ON_ASSIGN_SYSTEM_EVENTS_RANDOMLY,           // Very Common. Randomly assigns an event to a specific system. For example - start of event
+    ON_GENERATE_CREW_MEMBER_LIST,               // Common.      Adds quest characters to the game.
+    ON_AFTER_SHIP_SPECS_INITIALIZED,            // Common.      Supplements the list of ship specs. Including quest.
+    ON_AFTER_CREATE_SHIP,                       // Common.      Unique quest ships are created at the beginning of the game.
+    ON_AFTER_GAME_INITIALIZE,                   // Lottery.     Right after full game initialization. Add current system ID to quest
 
-    // Main flow (very common)
-    ON_BEFORE_SPECIAL_BUTTON_SHOW,              // Very Common. Before show Special button on System Info Panel
-    ON_SPECIAL_BUTTON_CLICKED,                  // Very Common. On Special button clicked
-    ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT,      // Wild. Resolve potential conflict with other quests
-    ON_AFTER_NEW_QUEST_STARTED,                 // Wild. React on new quests (sculpture)
+    // Main Flow. Special Button
+    ON_BEFORE_SPECIAL_BUTTON_SHOW,              // All.         Before show Special button on System Info Panel
+    ON_SPECIAL_BUTTON_CLICKED,                  // All.         On Special button clicked
+    ON_SPECIAL_BUTTON_CLICKED_IS_CONFLICT,      // Wild.        Resolve potential conflict with other quests
+    ON_AFTER_NEW_QUEST_STARTED,                 // Wild.        React on new quests (sculpture)
 
-    // Status windows
-    ON_DISPLAY_SPECIAL_CARGO,                   // Jarek, Sculpture, Reactor. Display special cargo in FormViewShip
-    ON_GET_QUESTS_STRINGS,                      // Any. Display quests in FormViewQuests
-    ON_FORM_SHIP_LIST_SHOW,                     // Tribbles. Show warning when showing FormShipList
-    ON_GET_BASE_WORTH,                          // Tribbles. Reduce the cost of the ship under certain conditions
-    ON_GET_FILLED_CARGO_BAYS,                   // Reactor. Some goods take place in cargo bays
-    ON_DISPLAY_SHIP_EQUIPMENT,                  // Scarab. Show hardened hull
-    ON_GET_WORTH,                               // Moon - add Moon price to Commander worth
+    // Status Windows
+    ON_GET_QUESTS_STRINGS,                      // Any.         FormViewQuests. Display quests.
+    ON_DISPLAY_SPECIAL_CARGO,                   // Common.      FormViewShip. Display special cargo (Sculpture, Reactor, Tribbles, ...)
+    ON_DISPLAY_SHIP_EQUIPMENT,                  // Scarab.      FormViewShip. Show hardened hull
+    ON_FORM_SHIP_LIST_SHOW,                     // Tribbles.    FormShipList. Show warning if Tribbles on board.
 
+    //Ship cargo and worth
     IS_TRADE_SHIP,                              // Reactor. Before you sell / exchange ship
+    ON_GET_BASE_WORTH,                          // Tribbles.    FormViewBank, Insurance, Escape With Pod, Arrested. Reduce the cost of the ship under certain conditions
+    ON_GET_WORTH,                               // Moon.        Add Moon price to Commander worth. Common use.
+    ON_GET_FILLED_CARGO_BAYS,                   // Reactor, Japori. Some goods take place in cargo bays
+
 
     ON_BEFORE_WARP,                             // Wild. It is possible to cancel the warp
     IS_TRAVEL,                                  // Experiment.

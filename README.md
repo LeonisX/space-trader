@@ -78,6 +78,8 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
+* EasterEgg Quest
+* Customize Galvon star system in PrincessQuest (game, princessquest)
 * Rewrite CargoBuyStatement. Can't translate to Russian
 * Fix bug with RareWare cheat
 * FileDialogs - hide translation logs
@@ -87,6 +89,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * Fix bug in FormAlertsTest
 * Shipyard: fix minimal values for hull strength and fuel tanks
 * Checked: when finish game - see > 100% percents. It's for cheats only.
+* Simplify FormMonster code
 
 ### News
 
