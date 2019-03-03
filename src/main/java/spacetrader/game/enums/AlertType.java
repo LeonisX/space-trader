@@ -30,7 +30,6 @@ public enum AlertType implements SpaceTraderEnum {
     DebtTooLargeLoan,
     DebtTooLargeTrade,
     DebtWarning,
-    Egg,
     EncounterArrested,
     EncounterAttackNoDisruptors,
     EncounterAttackNoLasers,

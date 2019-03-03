@@ -207,9 +207,6 @@ public class FormAlert extends SpaceTraderForm {
             case DebtWarning:
                 return new FormAlert(AlertsDebtWarningTitle, AlertsDebtWarningMessage, AlertsOk,
                         DialogResult.OK, null, DialogResult.NONE, args);
-            case Egg:
-                return new FormAlert(AlertsEggTitle, AlertsEggMessage,
-                        AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);
             case EncounterArrested:
                 return new FormAlert(AlertsEncounterArrestedTitle, AlertsEncounterArrestedMessage,
                         AlertsOk, DialogResult.OK, null, DialogResult.NONE, args);

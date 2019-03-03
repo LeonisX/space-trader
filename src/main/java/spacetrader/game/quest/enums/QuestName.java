@@ -20,6 +20,7 @@ public enum QuestName {
     Dragonfly,
     Artifact,
     Cargo,
+    EasterEgg,
     //Very Rare Encounters
     MarieCeleste,
     Bottle, // 2 bottles

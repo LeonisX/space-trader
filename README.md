@@ -78,7 +78,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* EasterEgg Quest
 * Customize Galvon star system in PrincessQuest (game, princessquest)
 * Rewrite CargoBuyStatement. Can't translate to Russian
 * Fix bug with RareWare cheat
