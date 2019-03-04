@@ -39,7 +39,7 @@ public class FormCargoSell extends SpaceTraderForm {
         setText(stringVars(Strings.CargoTitle, capitalize(Strings.CargoSellOps[op.castToInt()]), Consts.TradeItems[item].getName()));
         questionLabel.setText(stringVars(Strings.CargoSellQuestion, Strings.CargoSellOps[op.castToInt()].toLowerCase()));
         paidLabelValue.setText(stringVars(op == CargoSellOp.SELL_TRADER ? Strings.CargoSellPaidTrader
-                        : Strings.CargoSellPaid, formatMoney(cost), plural(maxAmount, Strings.CargoUnit)));
+                        : Strings.CargoSellPaid, formatMoney(cost), plural(maxAmount, Strings.ContainerUnit)));
         profitLabelValue.setText(stringVars(Strings.CargoSellProfitPerUnit,
                 price >= cost ? Strings.CargoProfit : Strings.CargoLoss, formatMoney(price >= cost ? price - cost : cost - price)));
 
@@ -47,12 +47,12 @@ public class FormCargoSell extends SpaceTraderForm {
         switch (op) {
             case DUMP:
                 statementLabelValue.setText(stringVars(Strings.CargoSellStatementDump,
-                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), plural(12, Strings.CargoUnit)));
+                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), plural(maxAmount, Strings.ContainerUnitGen)));
                 profitLabelValue.setText(stringVars(Strings.CargoSellDumpCost, formatMoney(-price)));
                 break;
             case JETTISON:
                 statementLabelValue.setText(stringVars(Strings.CargoSellStatementDump,
-                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), plural(12, Strings.CargoUnit)));
+                        Strings.CargoSellOps[op.castToInt()].toLowerCase(), plural(maxAmount, Strings.ContainerUnitGen)));
                 break;
             case SELL_SYSTEM:
                 statementLabelValue.setText(stringVars(Strings.CargoSellStatement, formatNumber(maxAmount), formatMoney(price)));
@@ -110,7 +110,7 @@ public class FormCargoSell extends SpaceTraderForm {
         okButton.setTabIndex(2);
         okButton.setText("Ok");
         
-        allButton.setDialogResult(DialogResult.OK);
+        //allButton.setDialogResult(DialogResult.OK);
         allButton.setAutoWidth(true);
         allButton.setControlBinding(ControlBinding.CENTER);
         allButton.setLocation(132, 81);
@@ -121,6 +121,8 @@ public class FormCargoSell extends SpaceTraderForm {
             @Override
             public void handle(Object sender, EventArgs e) {
                 numericUpDown.setValue(numericUpDown.getMaximum());
+                FormCargoSell.this.setResult(DialogResult.OK);
+                FormCargoSell.this.close();
             }
         });
         

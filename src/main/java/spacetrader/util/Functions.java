@@ -85,6 +85,10 @@ public class Functions {
         return stringVars(toParse, new String[]{var1, var2});
     }
 
+    public static String stringVars(String toParse, String var1, String var2, String var3) {
+        return stringVars(toParse, new String[]{var1, var2, var3});
+    }
+
     public static String stringVars(String toParse, String[] vars) {
         return stringVars(toParse, Arrays.asList(vars));
     }

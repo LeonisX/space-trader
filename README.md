@@ -79,7 +79,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 ## TODO
 
 * Customize Galvon star system in PrincessQuest (game, princessquest)
-* Rewrite CargoBuyStatement. Can't translate to Russian
+
 * Fix bug with RareWare cheat
 * FileDialogs - hide translation logs
 * Fix bug in FormViewBank
@@ -119,6 +119,9 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## Feature requests
 
+* QuestSystem: hidden phases (hidden from Monster.com, isHidden, default = false)
+* EasterEgg quest: Og: The story of an experienced trader about how he started. Tip (10 containers). Hidden phase
+* EasterEgg quest: Manually attach to Og
 * Show in Cargo planet names (target)
 * On sell, plunder, jettison - show goods with bold
 * Sell - add goods to planet

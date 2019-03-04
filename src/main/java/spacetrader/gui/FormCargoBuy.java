@@ -35,8 +35,9 @@ public class FormCargoBuy extends SpaceTraderForm {
 
         switch (op) {
             case BUY_SYSTEM:
+                // At ^1 each, you can buy up to ^2 ^3.
                 statementLabelValue.setText(stringVars(Strings.CargoBuyStatement,
-                        formatMoney(game.getPriceCargoBuy()[item]), formatNumber(maxAmount)));
+                        formatMoney(game.getPriceCargoBuy()[item]), Functions.plural(maxAmount, Strings.ContainerUnit)));
 
                 //TODO scale
                 setHeight(okButton.getTop() + okButton.getHeight() + 34);
@@ -48,10 +49,10 @@ public class FormCargoBuy extends SpaceTraderForm {
                 }
                 statementLabelValue.setText(stringVars(Strings.CargoBuyStatementTrader, Consts.TradeItems[item].getName(),
                         formatMoney(game.getPriceCargoBuy()[item])));
-                availableLabelValue.setText(stringVars(Strings.CargoBuyAvailable, Functions.plural(game.getOpponent()
-                        .getCargo()[item], Strings.CargoUnit)));
-                affordLabelValue.setText(stringVars(Strings.CargoBuyAfford, Functions.plural(afford,
-                        Strings.CargoUnit)));
+                availableLabelValue.setText(stringVars(Strings.CargoBuyAvailable,
+                        Functions.plural(game.getOpponent().getCargo()[item], Strings.CargoUnit)));
+                affordLabelValue.setText(stringVars(Strings.CargoBuyAfford,
+                        Functions.plural(afford, Strings.CargoUnit)));
 
                 availableLabelValue.setVisible(true);
                 affordLabelValue.setVisible(true);
@@ -64,8 +65,9 @@ public class FormCargoBuy extends SpaceTraderForm {
 
                 break;
             case PLUNDER:
-                statementLabelValue.setText(stringVars(Strings.CargoBuyStatementSteal, formatNumber(game
-                        .getOpponent().getCargo()[item])));
+                int count = game.getOpponent().getCargo()[item];
+                // Your victim has ^1 of these goods.
+                statementLabelValue.setText(stringVars(Strings.CargoBuyStatementSteal, Functions.plural(count, Strings.ContainerUnit)));
                 //TODO scale
                 setHeight(okButton.getTop() + okButton.getHeight() + 34);
                 break;
@@ -125,7 +127,7 @@ public class FormCargoBuy extends SpaceTraderForm {
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
-        allButton.setDialogResult(DialogResult.OK);
+        //allButton.setDialogResult(DialogResult.OK);
         allButton.setAutoWidth(true);
         allButton.setControlBinding(ControlBinding.CENTER);
         allButton.setLocation(144, 54);
@@ -136,6 +138,8 @@ public class FormCargoBuy extends SpaceTraderForm {
             @Override
             public void handle(Object sender, EventArgs e) {
                 numericUpDown.setValue(numericUpDown.getMaximum());
+                FormCargoBuy.this.setResult(DialogResult.OK);
+                FormCargoBuy.this.close();
             }
         });
 
