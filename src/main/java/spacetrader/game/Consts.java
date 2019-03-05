@@ -131,7 +131,7 @@ public class Consts {
             new PoliceRecord(PoliceRecordType.HERO, PoliceRecordScoreHero)
     };
 
-    static PoliticalSystem[] PoliticalSystems = new PoliticalSystem[]{
+    public static PoliticalSystem[] PoliticalSystems = new PoliticalSystem[]{
             new PoliticalSystem(PoliticalSystemType.ANARCHY, 0, Activity.ABSENT, Activity.SWARMS, Activity.MINIMAL,
                     TechLevel.PRE_AGRICULTURAL, TechLevel.INDUSTRIAL, 7, true, true, TradeItemType.FOOD),
             new PoliticalSystem(PoliticalSystemType.CAPITALIST, 2, Activity.SOME, Activity.FEW, Activity.SWARMS,

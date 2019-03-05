@@ -4,7 +4,10 @@ import spacetrader.controls.Rectangle;
 import spacetrader.game.*;
 import spacetrader.game.cheat.CheatWords;
 import spacetrader.game.enums.*;
-import spacetrader.game.quest.*;
+import spacetrader.game.quest.AlertDialog;
+import spacetrader.game.quest.I18n;
+import spacetrader.game.quest.Phase;
+import spacetrader.game.quest.QuestDialog;
 import spacetrader.game.quest.containers.*;
 import spacetrader.game.quest.enums.*;
 import spacetrader.gui.FormAlert;
@@ -97,10 +100,11 @@ public class PrincessQuest extends AbstractQuest implements Serializable {
     public void initializeTransitionMap() {
         super.initializeTransitionMap();
 
-        getTransitionMap().put(ON_ASSIGN_EVENTS_MANUAL, this::onAssignEventsManual);
+        getTransitionMap().put(ON_AFTER_GENERATE_UNIVERSE, this::onAfterGenerateUniverse);
+        getTransitionMap().put(ON_ASSIGN_SYSTEM_EVENTS_MANUAL, this::onAssignEventsManual);
         getTransitionMap().put(ON_GENERATE_CREW_MEMBER_LIST, this::onGenerateCrewMemberList);
         getTransitionMap().put(ON_AFTER_SHIP_SPECS_INITIALIZED, this::afterShipSpecInitialized);
-        getTransitionMap().put(ON_CREATE_SHIP, this::onCreateShip);
+        getTransitionMap().put(ON_AFTER_CREATE_SHIP, this::onCreateShip);
 
         getTransitionMap().put(ON_BEFORE_SPECIAL_BUTTON_SHOW, this::onBeforeSpecialButtonShow);
         getTransitionMap().put(ON_SPECIAL_BUTTON_CLICKED, this::onSpecialButtonClicked);
@@ -197,6 +201,15 @@ public class PrincessQuest extends AbstractQuest implements Serializable {
     @Override
     public String getNewsTitle(int newsId) {
         return News.values()[getNewsIds().indexOf(newsId)].getValue();
+    }
+
+    private void onAfterGenerateUniverse(Object object) {
+        // Galvon must be a Monarchy.
+        log.fine("");
+        StarSystem starSystem = getStarSystem(StarSystemId.Galvon);
+        starSystem.setSize(Size.LARGE);
+        starSystem.setPoliticalSystemType(PoliticalSystemType.MONARCHY);
+        starSystem.setTechLevel(TechLevel.HI_TECH);
     }
 
     private void onAssignEventsManual(Object object) {

@@ -12,6 +12,7 @@ public class Strings {
         put("parsec2", "parsecs");
         put("credit2", "credits");
         put("day2", "days");
+        put("container2", "containers");
     }};
 
     //TODO test FormMonster, ...
@@ -79,8 +80,6 @@ public class Strings {
     public static String AlertsDebtTooLargeTradeMessage = "Your debt is too large.  Nobody will trade with you.";
     public static String AlertsDebtWarningTitle = "Warning: Large Debt";
     public static String AlertsDebtWarningMessage = "Your debt is getting too large. Reduce it quickly or your ship will be put on a chain!";
-    public static String AlertsEggTitle = "Egg";
-    public static String AlertsEggMessage = "Congratulations! An eccentric Easter Bunny decides to exchange your trade goods for a special present!";
     public static String AlertsEncounterArrestedTitle = "Arrested";
     public static String AlertsEncounterArrestedMessage = "You are arrested and taken to the space station, where you are brought before a court of law.";
     public static String AlertsEncounterAttackNoDisruptorsTitle = "No Disabling Weapons";
@@ -264,12 +263,14 @@ public class Strings {
     //Units
     public static String CargoBay="Cargo Bay";
     public static String CargoUnit = "unit";
+    public static String ContainerUnit = "container";
     public static String DistanceUnit = "parsec";
     public static String DistanceSubunit = "click";
     public static String MoneyUnit = "credit";
     public static String TimeUnit = "day";
 
     //Genitive (for English, the meaning does not change)
+    public static String ContainerUnitGen = "container";
     public static String TimeUnitGen = "day";
 
     public static String BankInsuranceButtonBuy = "Buy Insurance";

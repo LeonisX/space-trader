@@ -159,6 +159,10 @@ public class StarSystem implements Serializable {
         return size;
     }
 
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
     public boolean isQuestSystem() {
         return questSystem;
     }
