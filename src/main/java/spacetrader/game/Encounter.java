@@ -157,8 +157,8 @@ public class Encounter implements Serializable {
     }
 
     private boolean isDetermineRandomEncounter() {
-        if (rareEncountersFirst && getVeryRareEncounters().size() > 0) {
-            return isDetermineVeryRareEncounter();
+        if (rareEncountersFirst && getVeryRareEncounters().size() > 0 && isDetermineVeryRareEncounter()) {
+            return true;
         }
 
         RandomEncounterContainer opponents = new RandomEncounterContainer();
