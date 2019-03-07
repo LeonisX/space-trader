@@ -78,7 +78,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* FileDialogs - hide translation logs
 * Fix bug in FormViewBank
 * Fix bug in FormGetLoan/FormPayBackLoan
 * Fix bug in FormBuyFuel/FormBuyRepair

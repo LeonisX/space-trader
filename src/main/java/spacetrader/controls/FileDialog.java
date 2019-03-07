@@ -33,7 +33,6 @@ public class FileDialog extends BaseComponent {
     }
 
     public DialogResult showDialog(WinformPane owner) {
-        ReflectionUtils.dumpControlsStrings(chooser, getName());
         ReflectionUtils.loadControlsData(this);
         ReflectionUtils.loadControlsStrings(chooser, getName(), GlobalAssets.getStrings());
 
