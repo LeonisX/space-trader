@@ -190,6 +190,7 @@ public class FormViewBank extends SpaceTraderForm {
         // Loan Info
         currentDebtLabelValue.setText(Functions.formatMoney(commander.getDebt()));
         maxLoanLabelValue.setText(Functions.formatMoney(maxLoan));
+        payBackButton.setLeft(getLoanButton.getLeft() + getLoanButton.getWidth() + 5);
         payBackButton.setVisible(commander.getDebt() > 0);
 
         // Insurance Info
