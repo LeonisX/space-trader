@@ -71,7 +71,7 @@ public class FormPayBackLoan extends SpaceTraderForm {
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
-        maxButton.setDialogResult(DialogResult.OK);
+        //maxButton.setDialogResult(DialogResult.OK);
         maxButton.setAutoWidth(true);
         maxButton.setControlBinding(ControlBinding.CENTER);
         maxButton.setLocation(109, 52);
