@@ -55,7 +55,7 @@ class DockPanel extends Panel {
 
         fuelUpButton.setAutoWidth(true);
         fuelUpButton.setControlBinding(ControlBinding.RIGHT);
-        fuelUpButton.setLocation(202, 23);
+        fuelUpButton.setLocation(205, 23);
         fuelUpButton.setSize(36, 22);
         fuelUpButton.setTabIndex(4);
         fuelUpButton.setText("Fuel");
@@ -80,7 +80,7 @@ class DockPanel extends Panel {
 
         repairButton.setAutoWidth(true);
         repairButton.setControlBinding(ControlBinding.RIGHT);
-        repairButton.setLocation(190, 61);
+        repairButton.setLocation(193, 57);
         repairButton.setSize(48, 22);
         repairButton.setTabIndex(5);
         repairButton.setText("Repair");

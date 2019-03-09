@@ -1,9 +1,6 @@
 package spacetrader.gui;
 
-import spacetrader.controls.Button;
-import spacetrader.controls.Label;
-import spacetrader.controls.NumericUpDown;
-import spacetrader.controls.WinformForm;
+import spacetrader.controls.*;
 import spacetrader.controls.enums.ControlBinding;
 import spacetrader.controls.enums.DialogResult;
 import spacetrader.controls.enums.FormBorderStyle;
@@ -36,7 +33,7 @@ public class FormBuyRepairs extends WinformForm {
         setText("Hull Repair");
         setFormBorderStyle(FormBorderStyle.FIXED_DIALOG);
         setStartPosition(FormStartPosition.CENTER_PARENT);
-        setClientSize(296, 80);
+        setClientSize(305, 80);
         setShowInTaskbar(false);
         setAcceptButton(okButton);
         setCancelButton(nothingButton);
@@ -47,33 +44,40 @@ public class FormBuyRepairs extends WinformForm {
         //questionLabel.setTabIndex(3);
         questionLabel.setText("How much do you want to spend on repairs?");
 
-        numericUpDown.setLocation(240, 11);
+        numericUpDown.setLocation(238, 11);
         //numericUpDown.setMaximum(999);
         numericUpDown.setMinimum(1);
-        numericUpDown.setSize(44, 20);
+        numericUpDown.setSize(58, 20);
         numericUpDown.setTabIndex(1);
         //numericUpDown.setValue(888);
 
         okButton.setDialogResult(DialogResult.OK);
         okButton.setAutoWidth(true);
         okButton.setControlBinding(ControlBinding.LEFT);
-        okButton.setLocation(69, 40);
+        okButton.setLocation(75, 40);
         okButton.setSize(41, 22);
         okButton.setTabIndex(2);
         okButton.setText("Ok");
 
-        maxButton.setDialogResult(DialogResult.OK);
+        //maxButton.setDialogResult(DialogResult.OK);
         maxButton.setAutoWidth(true);
         maxButton.setControlBinding(ControlBinding.CENTER);
-        maxButton.setLocation(117, 40);
+        maxButton.setLocation(122, 40);
         maxButton.setSize(41, 22);
         maxButton.setTabIndex(3);
         maxButton.setText("Max");
+        maxButton.setClick(new EventHandler<Object, EventArgs>() {
+            public void handle(Object sender, EventArgs e) {
+                numericUpDown.setValue(numericUpDown.getMaximum());
+                FormBuyRepairs.this.setResult(DialogResult.OK);
+                FormBuyRepairs.this.close();
+            }
+        });
 
         nothingButton.setDialogResult(DialogResult.CANCEL);
         nothingButton.setAutoWidth(true);
         nothingButton.setControlBinding(ControlBinding.RIGHT);
-        nothingButton.setLocation(173, 40);
+        nothingButton.setLocation(178, 40);
         nothingButton.setSize(53, 22);
         nothingButton.setTabIndex(4);
         nothingButton.setText("Nothing");
