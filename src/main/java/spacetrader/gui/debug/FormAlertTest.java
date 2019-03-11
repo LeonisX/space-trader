@@ -36,7 +36,7 @@ public class FormAlertTest extends SpaceTraderForm {
     public FormAlertTest() {
         initializeComponent();
 
-        AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.ArrivalIFFuel.ordinal());
+        AlertType[] alerts = Arrays.copyOfRange(AlertType.values(), AlertType.Alert.ordinal(), AlertType.TravelUneventfulTrip.ordinal());
         for (AlertType type : alerts) {
             selAlertType.getItems().addElement(type);
         }
@@ -209,8 +209,8 @@ public class FormAlertTest extends SpaceTraderForm {
     }
 
     private void btnTestAlert_Click() {
-        GuiFacade.alert(AlertType.Alert, "Result", ("The result was " +
-                GuiFacade.alert(((AlertType) selAlertType.getSelectedItem()), txtValue1.getText(), txtValue2.getText(), txtValue3.getText()).toString()));
+        DialogResult result = GuiFacade.alert(((AlertType) selAlertType.getSelectedItem()), txtValue1.getText(), txtValue2.getText(), txtValue3.getText());
+        GuiFacade.alert(AlertType.Alert, "Result", ("The result was " + ((result == null) ? "null" : result.toString())));
     }
 
     private void btnTestSpecialEvent_Click() {
