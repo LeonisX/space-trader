@@ -315,10 +315,7 @@ public class FormMonster extends SpaceTraderForm {
 
         // Populate the quest and shipyard system ids arrays.
         questSystems = new Rows(game.getQuestSystem().getPhasesStream()
-                .flatMap(p -> p.getStarSystemIds().stream().map(s -> (null == s)
-                                ? new Row(StarSystemId.NA.castToInt(), Strings.Unknown, p.getTitle(), Strings.QuestStates[p.getQuest().getQuestState().ordinal()])
-                                : createQuestRow(p, s))
-                ).collect(toList())
+                .flatMap(p -> p.getStarSystemIds().stream().map(s -> createQuestRow(p, s))).collect(toList())
         );
 
         shipyardSystems = new Rows(Arrays.stream(game.getUniverse())
