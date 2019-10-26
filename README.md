@@ -78,7 +78,6 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 ## TODO
 
-* Shipyard: fix minimal values for hull strength and fuel tanks
 * Checked: when finish game - see > 100% percents. It's for cheats only.
 
 TODO: document the effect of difficulty on gameplay

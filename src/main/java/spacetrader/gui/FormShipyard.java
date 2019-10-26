@@ -811,8 +811,8 @@ public class FormShipyard extends SpaceTraderForm {
     }
 
     private void updateAllocation() {
-        boolean fuelMinimum = (fuelTanksNum.getValue() == fuelTanksNum.getMinimum());
-        boolean hullMinimum = (hullStrengthNum.getValue() == hullStrengthNum.getMinimum());
+        boolean fuelMinimum = (fuelTanksNum.getValue() <= fuelTanksNum.getMinimum());
+        boolean hullMinimum = (hullStrengthNum.getValue() <= hullStrengthNum.getMinimum());
 
         fuelTanksNum.setMinimum(shipyard.getBaseFuel());
         fuelTanksNum.setIncrement(shipyard.getPerUnitFuel());
