@@ -218,4 +218,4 @@ Space Trader (Космический Торговец) написан на Java 
 * Любые пожелания и рекомендации приветствуются.
 * Приятной игры
 
-[Changelog](chandelog.md)
+[Changelog](changelog.md)
