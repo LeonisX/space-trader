@@ -83,6 +83,7 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 * TODO: complete documentation from: https://www.spronck.net/spacetrader/SpaceTrader.html
 * TODO: document the effect of difficulty on gameplay
 * TODO: document all quest events
+* TODO: investigate: https://gamefaqs.gamespot.com/palmos/917550-space-trader/faqs/23321
 
 ### News
 
