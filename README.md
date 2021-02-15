@@ -80,8 +80,9 @@ If you have `wine` installed, then you can safely run `space-trader.bat`.
 
 * Checked: when finish game - see > 100% percents. It's for cheats only.
 
-TODO: document the effect of difficulty on gameplay
-TODO: document all quest events
+* TODO: complete documentation from: https://www.spronck.net/spacetrader/SpaceTrader.html
+* TODO: document the effect of difficulty on gameplay
+* TODO: document all quest events
 
 ### News
 
